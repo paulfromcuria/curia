@@ -1,13 +1,25 @@
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
+import { useSession } from '../../lib/state/session';
 import { color, font } from '../../theme';
 
 /**
  * The home tab shell — exactly 3 tabs (Hard rule 9): Map, List, Moments.
  * Profile/Saved/Notifications/Subscription are pushed screens reached via
  * the avatar emblem, never added here. See CLAUDE.md "Navigation shell".
+ *
+ * Guard duplicates `src/app/index.tsx`'s redirect chain so a deep link or
+ * back-navigation straight into (tabs) can't skip auth/onboarding/the
+ * subscription gate (Hard rule 4: completing onboarding alone must never
+ * grant access to Map/List).
  */
 export default function TabsLayout() {
+  const { isAuthenticated, onboardingComplete, isSubscribed } = useSession();
+
+  if (!isAuthenticated) return <Redirect href="/(auth)/login" />;
+  if (!onboardingComplete) return <Redirect href="/onboarding" />;
+  if (!isSubscribed) return <Redirect href="/subscription" />;
+
   return (
     <Tabs
       screenOptions={{

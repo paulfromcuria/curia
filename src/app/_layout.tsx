@@ -3,6 +3,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
 import { useCuriaFonts } from '../hooks/use-curia-fonts';
+import { SessionProvider } from '../lib/state/session';
 import { color } from '../theme';
 
 /**
@@ -27,17 +28,20 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: color.base }}>
-      <StatusBar style="light" />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: color.base },
-        }}
-      >
-        <Stack.Screen name="(auth)" />
-        <Stack.Screen name="onboarding" />
-        <Stack.Screen name="(tabs)" />
-      </Stack>
+      <SessionProvider>
+        <StatusBar style="light" />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: color.base },
+          }}
+        >
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="onboarding" />
+          <Stack.Screen name="subscription" />
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+      </SessionProvider>
     </GestureHandlerRootView>
   );
 }
