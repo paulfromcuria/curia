@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState, type ReactNode } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Card, Kicker, Tag } from '../components/curia';
@@ -28,10 +28,33 @@ import type {
  * instead routes to the subscription gate first (Hard rule 4: completing
  * onboarding alone must never grant Map/List access) — see
  * src/app/subscription.tsx and src/app/index.tsx's redirect chain.
+ *
+ * Second, minimal addition (M7, curia-profile): Profile's "edit preferences"
+ * entry points need to land on a specific step (e.g. "Edit Do preferences"
+ * vs. "Edit You details") rather than always starting at Do. This screen
+ * already supports jumping straight to any step once every category has its
+ * 3-tile minimum (`reachable` below allows any tab once `allOk`) — the only
+ * gap was always initializing `step` to 'Do'. Reading an optional `?step=`
+ * query param closes that gap without touching the gating/continue logic,
+ * which stays curia-onboarding's surface. NOTE: the prototype also has a
+ * real "editing" mode (headline becomes "Edit your ... preferences.", the
+ * Continue button becomes "SAVE CHANGES" and returns straight to Profile
+ * instead of advancing to the next step/subscription) — that's a genuine
+ * behavior change beyond a step jump, so it's intentionally left out here
+ * per this agent's brief to keep the addition minimal; flagging it back for
+ * curia-onboarding/the orchestrator to pick up. Practical effect today:
+ * editing an already-subscribed member's preferences and clicking through
+ * to "You" → "Enter Curia" lands on /subscription, which shows the
+ * membership-management view (not a paywall) since they're already
+ * subscribed — a minor rough edge, not a broken gate.
  */
 
 type Step = TileCategory | 'You';
 const STEPS: Step[] = ['Do', 'Drink', 'Eat', 'You'];
+
+function isStep(value: string | undefined): value is Step {
+  return value === 'Do' || value === 'Drink' || value === 'Eat' || value === 'You';
+}
 
 const HEADLINES: Record<Step, string> = {
   Do: 'How do you like to spend the hours in between?',
@@ -99,7 +122,8 @@ const REL_OPTS: { label: string; value: RelationshipStatus }[] = [
 export default function Onboarding() {
   const router = useRouter();
   const session = useSession();
-  const [step, setStep] = useState<Step>('Do');
+  const { step: requestedStep } = useLocalSearchParams<{ step?: string }>();
+  const [step, setStep] = useState<Step>(isStep(requestedStep) ? requestedStep : 'Do');
   const [openTileId, setOpenTileId] = useState<string | null>(null);
 
   const stepIndex = STEPS.indexOf(step);
