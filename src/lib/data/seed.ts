@@ -31,6 +31,13 @@ export const DISTRICTS: District[] = districtsRaw.districts.map((d) => ({
   base: d.base,
   kind: d.kind as District['kind'],
   accentColor: d.accentColor,
+  // The prototype's DAY_MULT/BAND_MULT tables are global, not per-district —
+  // applied identically here so src/lib/scoring/rank-venues.ts's
+  // scoreDayOfWeek signal (previously a no-op against real seed data, see M3
+  // report) has real values to read. bandMultiplier is keyed by district
+  // kind since BAND_MULT itself varies by city/county.
+  dayMultiplier: districtsRaw.dayMultiplier,
+  bandMultiplier: districtsRaw.bandMultiplier[d.kind as 'city' | 'county'],
 }));
 
 export const DISTRICT_GROUPS: DistrictGroup[] = districtsRaw.districtGroups.map((g) => ({

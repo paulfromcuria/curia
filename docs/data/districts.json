@@ -25,5 +25,20 @@
   "metroWholeSetLabel": {
     "manchester": "Central Manchester",
     "cheshire": "The Cheshire Set"
+  },
+  "_dayMultiplierSource": "The prototype's DAY_MULT table is global (not per-district) — applied identically to every district by src/lib/data/seed.ts. Keys are full lowercase day names to match src/lib/scoring/rank-venues.ts's resolveContext() day format.",
+  "dayMultiplier": {
+    "monday": 0.78,
+    "tuesday": 0.82,
+    "wednesday": 0.88,
+    "thursday": 0.96,
+    "friday": 1.16,
+    "saturday": 1.22,
+    "sunday": 0.86
+  },
+  "_bandMultiplierSource": "The prototype's BAND_MULT table, keyed by District.kind ('city' vs 'county') — not yet consumed by the scoring engine (only dayMultiplier is wired up so far); kept here so a future signal can use it without re-extracting from Curia.dc.html.",
+  "bandMultiplier": {
+    "city": { "morning": 0.34, "afternoon": 0.6, "evening": 1, "late": 1.12 },
+    "county": { "morning": 0.56, "afternoon": 0.96, "evening": 0.9, "late": 0.42 }
   }
 }
