@@ -165,9 +165,14 @@ export interface Journey {
   id: string;
   momentType: MomentType;
   title: string;
+  /** Real editorial copy from the design source, shown italic under the hero on Journey detail. */
+  blurb?: string;
+  /** Real "DISTRICT · N STOPS · N HOURS" line from the design source, shown as the hero kicker. */
+  meta?: string;
   stops: JourneyStop[];
   /** Derived: the set of districts this journey's stops touch — not stored,
-   * computed from stop venues' districtIds. */
+   * computed from stop venues' districtIds. See src/lib/data/seed.ts's
+   * journeyDistricts() helper. */
 }
 
 export interface SavedCollection {

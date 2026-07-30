@@ -8,7 +8,7 @@
 import districtsRaw from '../../../docs/data/districts.json';
 import venuesRaw from '../../../docs/data/venues.json';
 import tilesRaw from '../../../docs/data/tiles.json';
-import type { City, District, DistrictGroup, Journey, Moment, MomentType, Tile, TileCategory, Venue } from '../../types/models';
+import type { City, District, DistrictGroup, Journey, JourneyStop, Moment, MomentType, Tile, TileCategory, Venue } from '../../types/models';
 
 const MOMENT_TYPE_BY_TITLE: Record<string, MomentType> = {
   'Best for Date Night': 'date-night',
@@ -32,6 +32,7 @@ export const DISTRICTS: District[] = districtsRaw.districts.map((d) => ({
   base: d.base,
   kind: d.kind as District['kind'],
   accentColor: d.accentColor,
+  editorialDescription: d.editorialDescription,
   // The prototype's DAY_MULT/BAND_MULT tables are global, not per-district —
   // applied identically here so src/lib/scoring/rank-venues.ts's
   // scoreDayOfWeek signal (previously a no-op against real seed data, see M3
@@ -93,12 +94,53 @@ export const MOMENTS: Moment[] = venuesRaw.moments.map((m) => ({
   venueIds: m.picks.map(slugify).filter((id) => VENUES.some((v) => v.id === id)),
 }));
 
+/**
+ * Real ordered stops (venue ids, order, walk-time-to-next), transcribed from
+ * the design source's own JOURNEYS constant (Curia.dc.html) — see
+ * docs/data/venues.json's `_source` note for exactly what's transcribed vs.
+ * newly filled in. `momentType` previously always resolved to 'date-night'
+ * for every journey (a placeholder bug: it searched for any moment titled
+ * with "date" regardless of which journey was being mapped) — each journey
+ * now carries its own real `moment` slug in the JSON instead.
+ */
 export const JOURNEYS: Journey[] = venuesRaw.journeys.map((j) => ({
   id: slugify(j.title),
-  momentType: MOMENTS.find((m) => m.title.toLowerCase().includes('date'))?.type ?? 'date-night',
+  momentType: j.moment as MomentType,
   title: j.title,
-  stops: [],
+  blurb: j.blurb,
+  meta: j.meta,
+  stops: j.stops
+    .map((s, i): JourneyStop => ({
+      venueId: slugify(s.venue),
+      order: i + 1,
+      walkTimeToNextMinutes: (s as { walkToNextMinutes?: number }).walkToNextMinutes,
+    }))
+    .filter((s) => VENUES.some((v) => v.id === s.venueId)),
 }));
+
+/** The set of districts a journey's stops touch (CLAUDE.md: a Journey "can
+ * span multiple districts — a Journey's displayed location is the set of
+ * districts its stops touch"). Derived, not stored. */
+export function journeyDistricts(journey: Journey): District[] {
+  const districtIds = new Set(
+    journey.stops
+      .map((s) => VENUES.find((v) => v.id === s.venueId)?.districtId)
+      .filter((id): id is string => !!id)
+  );
+  return DISTRICTS.filter((d) => districtIds.has(d.id));
+}
+
+/** Journeys with at least one stop in the given district. */
+export function journeysByDistrict(districtId: string): Journey[] {
+  return JOURNEYS.filter((j) => journeyDistricts(j).some((d) => d.id === districtId));
+}
+
+/** Moments with at least one pick in the given district. */
+export function momentsByDistrict(districtId: string): Moment[] {
+  return MOMENTS.filter((m) =>
+    m.venueIds.some((id) => VENUES.find((v) => v.id === id)?.districtId === districtId)
+  );
+}
 
 /**
  * Onboarding tile catalog (Do/Drink/Eat), transcribed from the Claude Design
