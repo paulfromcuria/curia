@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useMemo, useState, type ReactNo
 import type {
   DietaryRequirement,
   ReligiousObservance,
+  SavedCollection,
   SpendLevel,
   SubscriptionStatus,
   TileCategory,
@@ -59,6 +60,39 @@ const DEFAULT_YOU: YouProfile = {
   religiousObservance: [],
 };
 
+/**
+ * Which-in-app notifications a member has switched on. Sourced from the
+ * prototype's own `NOTIFS`/`notif` state (Curia.dc.html) — real copy and
+ * real default values ("table" and "journey" and "editorial" on by default,
+ * "district" off), not invented. There is no push/email provider wired up
+ * yet (a genuine credential gap — flag it, don't guess at one per
+ * .claude/agents/curia-profile.md) — these toggles are a real user
+ * preference in the meantime, just with nothing generating real
+ * notifications to send against them yet.
+ */
+export interface NotificationPrefs {
+  table: boolean;
+  journey: boolean;
+  district: boolean;
+  editorial: boolean;
+}
+
+const DEFAULT_NOTIFICATION_PREFS: NotificationPrefs = {
+  table: true,
+  journey: true,
+  district: false,
+  editorial: true,
+};
+
+/** Every member starts with one default, un-deletable "Saved" collection
+ * (matching the prototype's implicit single saved-places list) — user-named
+ * additional collections are created via `createCollection`. */
+export const DEFAULT_SAVED_COLLECTION_ID = 'default';
+
+function defaultSavedCollections(userId: string): SavedCollection[] {
+  return [{ id: DEFAULT_SAVED_COLLECTION_ID, userId, name: 'Saved', venueIds: [] }];
+}
+
 interface SessionState {
   user: SessionUser | null;
   onboardingComplete: boolean;
@@ -76,6 +110,28 @@ interface SessionState {
    * prototype's own initial radius value.
    */
   radiusMiles: number;
+  /**
+   * Shared saved-venue-collections layer (M7, curia-profile). Lives here —
+   * not as screen-local state — for the same reason radiusMiles does: so
+   * every screen that can save a venue (Map, List, venue detail) reads and
+   * writes the one shared model instead of drifting apart. CLAUDE.md's
+   * `SavedCollection` shape: a venue can belong to multiple named
+   * collections. NOTE: as of M7, Map/List still have their own *local*,
+   * unpersisted per-screen save-star toggles (src/app/(tabs)/list.tsx's
+   * `savedVenueIds` state, and map.tsx's own) — they are not yet wired to
+   * this shared store. That rewiring is flagged as follow-up work for
+   * curia-map/curia-list, not done here, per this agent's brief not to
+   * silently rewire another subagent's screens.
+   */
+  savedCollections: SavedCollection[];
+  /** Saved whole-Journey bookmarks (CLAUDE.md `SavedJourney`). Nothing in
+   * the app currently offers a "save this journey" affordance yet — journey
+   * detail (src/app/journey/[id].tsx) is still curia-moments-journeys'
+   * placeholder — so this will read empty until that screen wires in
+   * `toggleSavedJourney`. The state/actions exist now so that wiring is a
+   * one-line addition there, not a second data-layer decision. */
+  savedJourneyIds: string[];
+  notificationPrefs: NotificationPrefs;
 }
 
 const DEFAULT_RADIUS_MILES = 0.9;
@@ -91,6 +147,9 @@ const INITIAL_STATE: SessionState = {
   you: DEFAULT_YOU,
   subscriptionStatus: 'none',
   radiusMiles: DEFAULT_RADIUS_MILES,
+  savedCollections: defaultSavedCollections(''),
+  savedJourneyIds: [],
+  notificationPrefs: DEFAULT_NOTIFICATION_PREFS,
 };
 
 /** Exported so shared, non-screen-owned modules (e.g.
@@ -121,6 +180,16 @@ export interface SessionContextValue extends SessionState {
   startTrial: () => void;
   cancelMembership: () => void;
   setRadiusMiles: (miles: number) => void;
+  /** True if venueId appears in any saved collection. */
+  isVenueSaved: (venueId: string) => boolean;
+  /** Toggles venueId in/out of a collection (defaults to the "Saved" default collection). */
+  toggleSavedVenue: (venueId: string, collectionId?: string) => void;
+  /** Creates a new empty named collection and returns its id. */
+  createCollection: (name: string) => string;
+  removeVenueFromCollection: (collectionId: string, venueId: string) => void;
+  isJourneySaved: (journeyId: string) => boolean;
+  toggleSavedJourney: (journeyId: string) => void;
+  toggleNotificationPref: (key: keyof NotificationPrefs) => void;
 }
 
 const SessionContext = createContext<SessionContextValue | null>(null);
@@ -255,6 +324,70 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, radiusMiles: miles }));
   }, []);
 
+  const isVenueSaved = useCallback(
+    (venueId: string) => state.savedCollections.some((c) => c.venueIds.includes(venueId)),
+    [state.savedCollections]
+  );
+
+  const toggleSavedVenue = useCallback(
+    (venueId: string, collectionId: string = DEFAULT_SAVED_COLLECTION_ID) => {
+      setState((s) => ({
+        ...s,
+        savedCollections: s.savedCollections.map((c) => {
+          if (c.id !== collectionId) return c;
+          const has = c.venueIds.includes(venueId);
+          return {
+            ...c,
+            venueIds: has ? c.venueIds.filter((id) => id !== venueId) : [...c.venueIds, venueId],
+          };
+        }),
+      }));
+    },
+    []
+  );
+
+  const createCollection = useCallback((name: string) => {
+    const id = `collection-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    setState((s) => ({
+      ...s,
+      savedCollections: [...s.savedCollections, { id, userId: s.user?.id ?? '', name, venueIds: [] }],
+    }));
+    return id;
+  }, []);
+
+  const removeVenueFromCollection = useCallback((collectionId: string, venueId: string) => {
+    setState((s) => ({
+      ...s,
+      savedCollections: s.savedCollections.map((c) =>
+        c.id === collectionId ? { ...c, venueIds: c.venueIds.filter((id) => id !== venueId) } : c
+      ),
+    }));
+  }, []);
+
+  const isJourneySaved = useCallback(
+    (journeyId: string) => state.savedJourneyIds.includes(journeyId),
+    [state.savedJourneyIds]
+  );
+
+  const toggleSavedJourney = useCallback((journeyId: string) => {
+    setState((s) => {
+      const has = s.savedJourneyIds.includes(journeyId);
+      return {
+        ...s,
+        savedJourneyIds: has
+          ? s.savedJourneyIds.filter((id) => id !== journeyId)
+          : [...s.savedJourneyIds, journeyId],
+      };
+    });
+  }, []);
+
+  const toggleNotificationPref = useCallback((key: keyof NotificationPrefs) => {
+    setState((s) => ({
+      ...s,
+      notificationPrefs: { ...s.notificationPrefs, [key]: !s.notificationPrefs[key] },
+    }));
+  }, []);
+
   const value = useMemo<SessionContextValue>(
     () => ({
       ...state,
@@ -278,6 +411,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       startTrial,
       cancelMembership,
       setRadiusMiles,
+      isVenueSaved,
+      toggleSavedVenue,
+      createCollection,
+      removeVenueFromCollection,
+      isJourneySaved,
+      toggleSavedJourney,
+      toggleNotificationPref,
     }),
     [
       state,
@@ -299,6 +439,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       startTrial,
       cancelMembership,
       setRadiusMiles,
+      isVenueSaved,
+      toggleSavedVenue,
+      createCollection,
+      removeVenueFromCollection,
+      isJourneySaved,
+      toggleSavedJourney,
+      toggleNotificationPref,
     ]
   );
 
