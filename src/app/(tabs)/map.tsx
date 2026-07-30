@@ -1,18 +1,22 @@
 import { useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Card, ContextStrip, EmblemButton, Kicker } from '../../components/curia';
-import { placeholderRankedVenues } from '../../lib/scoring/placeholder-rank';
-import { VENUES } from '../../lib/data/seed';
+import { rankVenues } from '../../lib/scoring/rank-venues';
+import { DEMO_MATCHMAKING_INPUT } from '../../lib/scoring/demo-input';
+import { DISTRICTS, VENUES } from '../../lib/data/seed';
 import { color, font, spacing } from '../../theme';
 
 /**
  * Placeholder Map screen — the real abstract line/dot map render, context
  * strip modal, mood sheet, and district zoom/grouping are `curia-map`'s M5
  * work. This proves the shared ranked-result-set + shell wiring end to end.
+ * Ranking now runs through the real M3 engine (`rankVenues`) — see
+ * src/lib/scoring/rank-venues.ts. Calls the exact same function with the
+ * exact same input as list.tsx (Hard rule 5).
  */
 export default function Map() {
   const router = useRouter();
-  const ranked = placeholderRankedVenues().slice(0, 5);
+  const ranked = rankVenues(DEMO_MATCHMAKING_INPUT, VENUES, DISTRICTS).ranked.slice(0, 5);
 
   return (
     <View style={styles.container}>

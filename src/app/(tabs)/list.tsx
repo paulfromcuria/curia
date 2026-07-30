@@ -1,20 +1,23 @@
 import { useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Card, EmblemButton, Kicker } from '../../components/curia';
-import { placeholderRankedVenues } from '../../lib/scoring/placeholder-rank';
-import { VENUES } from '../../lib/data/seed';
+import { rankVenues } from '../../lib/scoring/rank-venues';
+import { DEMO_MATCHMAKING_INPUT } from '../../lib/scoring/demo-input';
+import { DISTRICTS, VENUES } from '../../lib/data/seed';
 import { color, font, spacing } from '../../theme';
 
 /**
  * Placeholder List screen — the search-radius control and full row layout
  * (photo, rank badge, score) are `curia-list`'s M5 work. Deliberately calls
- * the exact same `placeholderRankedVenues()` as Map so the two can never
- * silently diverge (Hard rule 5) — this is the thing to preserve when the
- * real engine replaces the placeholder.
+ * the exact same `rankVenues` (M3's real engine, see
+ * src/lib/scoring/rank-venues.ts) with the exact same
+ * `DEMO_MATCHMAKING_INPUT` as Map so the two can never silently diverge
+ * (Hard rule 5) — this is the thing to preserve when M5 wires up real radius
+ * controls and mood sheets.
  */
 export default function List() {
   const router = useRouter();
-  const ranked = placeholderRankedVenues();
+  const ranked = rankVenues(DEMO_MATCHMAKING_INPUT, VENUES, DISTRICTS).ranked;
 
   return (
     <View style={styles.container}>
