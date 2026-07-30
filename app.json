@@ -10,11 +10,13 @@
     "backgroundColor": "#0B0A09",
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.paulfromcuria.curia",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Curia uses your location to center the map and rank venues near you."
       }
     },
     "android": {
+      "package": "com.paulfromcuria.curia",
       "adaptiveIcon": {
         "backgroundColor": "#0B0A09",
         "foregroundImage": "./assets/android-icon-foreground.png",
