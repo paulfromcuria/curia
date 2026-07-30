@@ -126,6 +126,10 @@ Editorial, confident, quietly luxurious — like a guide written by someone with
 - **Whether onboarding "review"/vetting is a real manual step or removed entirely** — background docs disagree with each other; the prototype shows no vetting UI, but that doesn't confirm the backend behavior.
 - **Mapbox and Stripe API keys** — genuine credential gaps, not guessable. Flag to the user when map-rendering or subscription-billing work actually starts; everything up to that point can be built against mock/local data.
 
+## Known implementation gaps (not product ambiguity — just unfinished wiring, tracked so no one re-discovers them from scratch)
+- **Map and List share `radiusMiles` (`session.radiusMiles`) but not `context` (day/time) or the mood quick-filter.** Each screen still owns those two independently, so CLAUDE.md's "share one radius and one context" promise is only half-implemented today. Found and left open by the M9 QA pass — needs a decision on whether context/mood belong in shared session state too (the same pattern used for radius) before it's built, since unlike radius this wasn't a bug so much as M5 explicitly deferring it.
+- **Turn-by-turn walking directions and real ride-hailing (Uber or otherwise) are mocked.** Distance/ETA and fare-tier math are real (`src/lib/travel/trip.ts`), but there's no real routing or ride-hailing provider account/API key — same category of gap as Mapbox/Stripe above.
+
 ## How to work in this repo
 - Keep commits small and scoped to one feature/fix at a time.
 - Never commit real API keys — use `.env`, reference `process.env.*`.
