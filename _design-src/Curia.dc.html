@@ -1,0 +1,2922 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0A09}
+*{box-sizing:border-box}
+a{color:#C0A062;text-decoration:none}a:hover{color:#DCC392}
+button{font-family:inherit;-webkit-tap-highlight-color:transparent}
+input{font-family:inherit}
+@keyframes curiaBreathe{0%,100%{opacity:.5}50%{opacity:.95}}
+@keyframes curiaRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes curiaSheet{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes curiaFade{from{opacity:0}to{opacity:1}}
+::-webkit-scrollbar{width:0;height:0}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#0B0A09;font-family:Jost,system-ui,sans-serif;padding:56px 60px 90px">
+<div style="display:flex;gap:64px;align-items:flex-start;flex-wrap:wrap">
+
+<div style="width:300px;flex:none;padding-top:8px">
+<div style="font:500 11px/1 Jost,sans-serif;letter-spacing:.34em;color:#C0A062">CURIA</div>
+<div style="font:300 34px/1.15 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:18px">One connected prototype.</div>
+<div style="height:1px;background:rgba(240,233,223,.14);margin:24px 0"></div>
+<div style="font:300 13.5px/1.75 Jost,sans-serif;color:#9A8F82">Start at log in and tap through. New members go Do â†’ Drink â†’ Eat â†’ You, each gated on three tiles; returning members land on the map. Every venue, district and journey opens a real screen, and the star on any room lands in Saved places under Profile.</div>
+<div style="font:300 13.5px/1.75 Jost,sans-serif;color:#9A8F82;margin-top:16px">Map and List share one radius and one context, so switching tabs never changes the answer.</div>
+<div style="height:1px;background:rgba(240,233,223,.14);margin:24px 0"></div>
+<div style="font:400 10.5px/1 Jost,sans-serif;letter-spacing:.24em;color:#6F6558">JUMP TO</div>
+<div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:14px">
+<sc-for list="{{ jumps }}" as="jp" hint-placeholder-count="8">
+<button onClick="{{ jp.onTap }}" style="{{ jp.style }}">{{ jp.label }}</button>
+</sc-for>
+</div>
+<div style="font:300 12.5px/1.7 Jost,sans-serif;color:#6F6558;margin-top:22px">Shortcuts are for reviewing â€” the prototype itself is reachable entirely by tapping.</div>
+</div>
+
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="402px,874px">
+<div style="min-height:874px;background:#131110;color:#F0E9DF;font-family:Jost,system-ui,sans-serif;position:relative;overflow:hidden">
+
+<sc-if value="{{ isAuth }}" hint-placeholder-val="{{ true }}">
+<div style="height:874px;position:relative;overflow:hidden">
+<div style="{{ authHeroStyle }}"></div>
+<div style="position:absolute;inset:0;background:linear-gradient(to top,#131110 34%,rgba(19,17,16,.72) 68%,rgba(19,17,16,.5))"></div>
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 26px 54px">
+<div style="font:500 11px/1 Jost,sans-serif;letter-spacing:.4em;color:#C0A062">CURIA</div>
+<div style="font:300 40px/1.08 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:18px;max-width:290px;text-wrap:pretty">{{ authTitle }}</div>
+<div style="font:300 13.5px/1.7 Jost,sans-serif;color:#9A8F82;margin-top:12px;max-width:280px;text-wrap:pretty">{{ authBlurb }}</div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:28px">
+<sc-for list="{{ authFields }}" as="fd" hint-placeholder-count="2">
+<label style="display:block;padding:12px 15px;border:1px solid rgba(240,233,223,.14);border-radius:12px;background:rgba(240,233,223,.03)">
+<span style="display:block;font:400 9px/1 Jost,sans-serif;letter-spacing:.24em;color:#6F6558">{{ fd.label }}</span>
+<input type="{{ fd.type }}" value="{{ fd.value }}" onChange="{{ fd.onEdit }}" placeholder="{{ fd.hint }}" style="{{ fd.style }}">
+</label>
+</sc-for>
+</div>
+<button onClick="{{ authPrimary }}" style="width:100%;margin-top:18px;padding:16px 0;border:none;border-radius:12px;background:#C0A062;color:#1A1410;font:500 12px/1 Jost,sans-serif;letter-spacing:.22em;cursor:pointer">{{ authPrimaryLabel }}</button>
+<button onClick="{{ authSecondary }}" style="width:100%;margin-top:10px;padding:15px 0;border:1px solid rgba(240,233,223,.16);border-radius:12px;background:none;color:#CDC3B6;font:400 11.5px/1 Jost,sans-serif;letter-spacing:.2em;cursor:pointer">{{ authSecondaryLabel }}</button>
+<div style="font:300 11px/1.7 Jost,sans-serif;color:#6F6558;margin-top:18px;text-align:center">{{ authFoot }}</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isOnboard }}" hint-placeholder-val="{{ false }}">
+<div style="height:874px;overflow:auto">
+<div style="padding:64px 22px 210px">
+<div style="display:flex;align-items:center;justify-content:space-between;min-height:24px">
+<span style="font:500 11px/1 Jost,sans-serif;letter-spacing:.34em;color:#C0A062">CURIA</span>
+<button onClick="{{ onboardExit }}" style="background:none;border:none;padding:0;cursor:pointer;font:300 11px/1 Jost,sans-serif;letter-spacing:.2em;color:#8B8175">{{ onboardExitLabel }}</button>
+</div>
+<div style="display:flex;gap:3px;margin-top:14px">
+<sc-for list="{{ steps }}" as="sp" hint-placeholder-count="4">
+<div style="{{ sp.style }}"></div>
+</sc-for>
+</div>
+<div style="font:300 31px/1.2 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:28px;text-wrap:pretty">{{ headline }}</div>
+<div style="font:300 13.5px/1.7 Jost,sans-serif;color:#8B8175;margin-top:10px;max-width:300px;text-wrap:pretty">{{ subhead }}</div>
+<div style="display:flex;gap:18px;margin-top:26px;border-bottom:1px solid rgba(240,233,223,.12)">
+<sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="4">
+<button onClick="{{ tab.onTap }}" style="{{ tab.style }}">
+<span>{{ tab.name }}</span>
+<span style="{{ tab.badgeStyle }}">{{ tab.badge }}</span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{ showTiles }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px">
+<sc-for list="{{ tiles }}" as="t" hint-placeholder-count="8">
+<div style="display:contents">
+<button onClick="{{ t.onTap }}" style="{{ t.style }}">
+<span style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+<span style="font:400 15.5px/1.25 'Cormorant Garamond',serif;text-align:left">{{ t.name }}</span>
+<span style="{{ t.dotStyle }}"></span>
+</span>
+<span style="font:300 10.5px/1 Jost,sans-serif;letter-spacing:.16em;color:#6F6558;text-align:left">{{ t.meta }}</span>
+</button>
+<sc-if value="{{ t.open }}" hint-placeholder-val="{{ false }}">
+<div style="grid-column:1/-1;background:#1A1613;border:1px solid rgba(192,160,98,.22);border-radius:14px;padding:14px;margin:-2px 0 4px;animation:curiaRise .24s ease-out both">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+<span style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062">{{ t.subLabel }}</span>
+<span style="font:300 10px/1.3 Jost,sans-serif;letter-spacing:.1em;color:#6F6558;text-align:right">{{ t.subCount }}</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:12px">
+<sc-for list="{{ t.subs }}" as="s" hint-placeholder-count="4">
+<button onClick="{{ s.onTap }}" style="{{ s.style }}">{{ s.label }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ showYou }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:26px;display:flex;flex-direction:column;gap:30px;animation:curiaRise .24s ease-out both">
+<sc-for list="{{ youGroups }}" as="g" hint-placeholder-count="6">
+<div>
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<span style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062">{{ g.title }}</span>
+<span style="font:300 10.5px/1 Jost,sans-serif;letter-spacing:.1em;color:#6F6558">{{ g.note }}</span>
+</div>
+<div style="font:300 12.5px/1.6 Jost,sans-serif;color:#8B8175;margin-top:8px;max-width:300px">{{ g.help }}</div>
+<div style="{{ g.rowStyle }}">
+<sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="4">
+<button onClick="{{ o.onTap }}" style="{{ o.style }}">{{ o.label }}</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:0;padding:16px 22px 30px;background:linear-gradient(to top,#131110 66%,rgba(19,17,16,0))">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:14px;min-height:14px">
+<span style="{{ gateStyle }}">{{ gateNote }}</span>
+<span style="font:300 11px/1 Jost,sans-serif;letter-spacing:.14em;color:#6F6558">{{ gateCounts }}</span>
+</div>
+<button onClick="{{ continueTap }}" style="{{ continueStyle }}">{{ continueLabel }}</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+<div onWheel="{{ onWheel }}" style="position:relative;height:874px;overflow:hidden;background:#12100E">
+<div style="position:absolute;inset:0">
+<sc-for list="{{ glows }}" as="g" hint-placeholder-count="4">
+<div style="{{ g.style }}"></div>
+</sc-for>
+</div>
+<svg viewBox="0 0 402 874" width="402" height="874" style="position:absolute;inset:0">
+<sc-for list="{{ green }}" as="gr" hint-placeholder-count="3">
+<circle cx="{{ gr.cx }}" cy="{{ gr.cy }}" r="{{ gr.r }}" style="{{ gr.style }}"></circle>
+</sc-for>
+<sc-for list="{{ water }}" as="w" hint-placeholder-count="2">
+<path d="{{ w.d }}" style="{{ w.style }}"></path>
+</sc-for>
+<sc-for list="{{ roads }}" as="rd" hint-placeholder-count="24">
+<path d="{{ rd.d }}" style="{{ rd.style }}"></path>
+</sc-for>
+<path d="{{ veilPath }}" style="{{ veilStyle }}"></path>
+<path d="{{ veilPath }}" style="{{ veilTintStyle }}"></path>
+<path d="{{ regionPath }}" style="{{ edgeGlowStyle }}"></path>
+<path d="{{ regionPath }}" style="{{ edgeLineStyle }}"></path>
+</svg>
+<div style="position:absolute;inset:0;overflow:hidden">
+<div style="{{ lockedStyle }}">
+<div style="width:34px;height:1px;background:linear-gradient(90deg,rgba(192,160,98,0) 0%,rgba(192,160,98,.75) 50%,rgba(192,160,98,0) 100%)"></div>
+<div style="font:400 9.5px/1 Jost,sans-serif;letter-spacing:.28em;color:rgba(192,160,98,.82)">BEYOND THE EDGE</div>
+<div style="font:300 21px/1.3 'Cormorant Garamond',serif;color:rgba(240,233,223,.88);text-shadow:0 2px 14px rgba(10,8,6,.9)">Curia hasn't arrived here yet</div>
+<div style="font:300 11.5px/1.6 Jost,sans-serif;letter-spacing:.02em;color:rgba(160,151,138,.9);max-width:214px">We open a place only once we know it well enough to recommend it. Manchester and Cheshire are live today.</div>
+</div>
+<sc-for list="{{ roadLabels }}" as="rl" hint-placeholder-count="4">
+<div style="{{ rl.style }}">{{ rl.name }}</div>
+</sc-for>
+<sc-for list="{{ areas }}" as="ar" hint-placeholder-count="4">
+<div style="{{ ar.style }}">{{ ar.name }}</div>
+</sc-for>
+<sc-for list="{{ dots }}" as="dt" hint-placeholder-count="5">
+<button onClick="{{ dt.onTap }}" style="{{ dt.style }}"></button>
+</sc-for>
+<sc-for list="{{ districts }}" as="d" hint-placeholder-count="5">
+<div style="{{ d.wrapStyle }}">
+<button onClick="{{ d.onTap }}" style="{{ d.labelStyle }}">{{ d.name }}</button>
+<div style="{{ d.scoreStyle }}">{{ d.scoreLabel }}</div>
+</div>
+</sc-for>
+<sc-for list="{{ pins }}" as="v" hint-placeholder-count="4">
+<button onClick="{{ v.onTap }}" style="{{ v.style }}">{{ v.rank }}</button>
+</sc-for>
+<div style="{{ meStyle }}">
+<div style="position:absolute;inset:-15px;border-radius:50%;background:radial-gradient(circle,rgba(150,190,200,.28) 0%,rgba(150,190,200,0) 70%)"></div>
+<div style="position:absolute;inset:0;border-radius:50%;background:#CFE3E6;border:2px solid #12100E;box-shadow:0 0 0 1px rgba(207,227,230,.55)"></div>
+</div>
+</div>
+<div style="position:absolute;top:58px;left:16px;right:16px;display:flex;gap:10px;align-items:flex-start">
+<button onClick="{{ openCtx }}" style="flex:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-radius:999px;border:1px solid rgba(240,233,223,.14);background:rgba(19,17,16,.78);backdrop-filter:blur(18px);cursor:pointer">
+<span style="display:flex;flex-direction:column;gap:5px;align-items:flex-start">
+<span style="font:400 9.5px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062">{{ ctxKicker }}</span>
+<span style="font:400 15px/1 'Cormorant Garamond',serif;color:#F0E9DF">{{ ctxLabel }}</span>
+</span>
+<span style="display:flex;align-items:center;gap:9px">
+<span style="font:300 11.5px/1 Jost,sans-serif;letter-spacing:.08em;color:#8B8175">{{ ctxWeather }}</span>
+<span style="font:300 15px/1 Jost,sans-serif;color:#C0A062">âŒ„</span>
+</span>
+</button>
+<button onClick="{{ openProfile }}" style="{{ emblemStyle }}">{{ initials }}</button>
+</div>
+<div style="position:absolute;top:116px;left:16px;right:70px;display:flex">
+<button onClick="{{ openMood }}" style="{{ moodPillStyle }}">
+<span style="display:flex;flex-direction:column;gap:4px;align-items:flex-start;min-width:0">
+<span style="{{ moodKickerStyle }}">{{ moodKicker }}</span>
+<span style="{{ moodLabelStyle }}">{{ moodLabel }}</span>
+</span>
+<sc-if value="{{ moodOn }}" hint-placeholder-val="{{ false }}">
+<span onClick="{{ clearMood }}" style="font:300 14px/1 Jost,sans-serif;color:#C0A062;padding:0 2px">Ã—</span>
+</sc-if>
+</button>
+</div>
+<div style="position:absolute;right:16px;top:170px;display:flex;flex-direction:column;align-items:center">
+<button onClick="{{ zoomIn }}" style="width:42px;height:42px;border:1px solid rgba(240,233,223,.12);border-bottom:none;border-radius:12px 12px 0 0;background:rgba(19,17,16,.82);backdrop-filter:blur(18px);color:#F0E9DF;font:300 17px/1 Jost,sans-serif;cursor:pointer">+</button>
+<button onClick="{{ zoomOut }}" style="width:42px;height:42px;border:1px solid rgba(240,233,223,.12);border-radius:0 0 12px 12px;background:rgba(19,17,16,.82);backdrop-filter:blur(18px);color:#F0E9DF;font:300 17px/1 Jost,sans-serif;cursor:pointer">âˆ’</button>
+<button onClick="{{ locate }}" style="width:42px;height:42px;margin-top:8px;border:1px solid rgba(240,233,223,.12);border-radius:12px;background:rgba(19,17,16,.82);backdrop-filter:blur(18px);color:#CFE3E6;font:300 14px/1 Jost,sans-serif;cursor:pointer">â—Ž</button>
+<button onClick="{{ fitRegion }}" style="width:42px;height:42px;margin-top:8px;border:1px solid rgba(240,233,223,.12);border-radius:12px;background:rgba(19,17,16,.82);backdrop-filter:blur(18px);color:#8B8175;font:300 13px/1 Jost,sans-serif;cursor:pointer">â¤¢</button>
+<div style="font:300 9px/1 Jost,sans-serif;letter-spacing:.14em;color:#6F6558;text-align:center;margin-top:9px;width:42px">{{ scaleLabel }}</div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:78px;padding:14px 22px 16px;background:rgba(18,16,14,.93);backdrop-filter:blur(20px);border-top:1px solid rgba(240,233,223,.12);border-radius:22px 22px 0 0">
+<div style="width:36px;height:3px;border-radius:2px;background:rgba(240,233,223,.2);margin:0 auto 14px"></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<span style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062">{{ sheetTitle }}</span>
+<span style="font:300 11px/1 Jost,sans-serif;letter-spacing:.1em;color:#6F6558">{{ sheetMeta }}</span>
+</div>
+<div style="margin-top:4px">
+<sc-for list="{{ pinRows }}" as="r" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(240,233,223,.09)">
+<button onClick="{{ r.onTap }}" style="flex:1;display:flex;align-items:center;justify-content:space-between;gap:12px;background:none;border:none;padding:0;cursor:pointer;min-width:0">
+<span style="display:flex;align-items:center;gap:13px;min-width:0">
+<span style="{{ r.rankStyle }}">{{ r.rank }}</span>
+<span style="display:flex;flex-direction:column;gap:5px;text-align:left;min-width:0">
+<span style="font:400 17.5px/1.1 'Cormorant Garamond',serif;color:#F0E9DF;white-space:nowrap">{{ r.name }}</span>
+<span style="font:300 10px/1.3 Jost,sans-serif;letter-spacing:.12em;color:#8B8175;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:172px">{{ r.meta }}</span>
+</span>
+</span>
+<span style="font:300 12px/1 Jost,sans-serif;letter-spacing:.1em;color:#C0A062">{{ r.score }}</span>
+</button>
+<button onClick="{{ r.onSave }}" style="{{ r.saveStyle }}">{{ r.saveMark }}</button>
+</div>
+</sc-for>
+<sc-if value="{{ mapEmpty }}" hint-placeholder-val="{{ false }}">
+<div style="padding:18px 0 8px">
+<div style="font:300 15px/1.6 'Cormorant Garamond',serif;color:#CDC3B6;font-style:italic">{{ emptyNote }}</div>
+</div>
+</sc-if>
+</div>
+</div>
+<sc-if value="{{ moodOpen }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeMood }}" style="position:absolute;inset:0;background:rgba(11,10,9,.66);backdrop-filter:blur(3px)"></div>
+<div style="position:absolute;left:0;right:0;bottom:0;max-height:660px;overflow:auto;padding:16px 22px 40px;background:#17130F;border-top:1px solid rgba(192,160,98,.28);border-radius:22px 22px 0 0;animation:curiaSheet .22s ease-out both">
+<div style="width:36px;height:3px;border-radius:2px;background:rgba(240,233,223,.2);margin:0 auto 18px"></div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+<span style="font:300 22px/1 'Cormorant Garamond',serif;color:#F0E9DF">I'm in the mood toâ€¦</span>
+<button onClick="{{ closeMood }}" style="background:none;border:none;padding:0;cursor:pointer;font:300 11px/1 Jost,sans-serif;letter-spacing:.18em;color:#8B8175">DONE</button>
+</div>
+<div style="display:flex;gap:8px;margin-top:20px">
+<sc-for list="{{ moodCats }}" as="mc" hint-placeholder-count="3">
+<button onClick="{{ mc.onTap }}" style="{{ mc.style }}">{{ mc.label }}</button>
+</sc-for>
+</div>
+<sc-if value="{{ moodHasCat }}" hint-placeholder-val="{{ false }}">
+<div style="font:400 9.5px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062;margin-top:26px">NARROW IT (OPTIONAL)</div>
+<div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:13px">
+<sc-for list="{{ moodTiles }}" as="mt" hint-placeholder-count="6">
+<button onClick="{{ mt.onTap }}" style="{{ mt.style }}">
+<span>{{ mt.label }}</span>
+<span style="{{ mt.countStyle }}">{{ mt.count }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ moodHasRefine }}" hint-placeholder-val="{{ false }}">
+<sc-for list="{{ moodRefine }}" as="mr" hint-placeholder-count="1">
+<div style="margin-top:22px;padding-top:16px;border-top:1px solid rgba(240,233,223,.09)">
+<div style="font:300 12px/1 Jost,sans-serif;letter-spacing:.14em;color:#8B8175">{{ mr.tile }}</div>
+<div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:12px">
+<sc-for list="{{ mr.subs }}" as="ms" hint-placeholder-count="4">
+<button onClick="{{ ms.onTap }}" style="{{ ms.style }}">{{ ms.label }}</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</sc-if>
+<div style="font:300 11.5px/1.7 Jost,sans-serif;color:#6F6558;margin-top:22px;text-wrap:pretty">{{ moodNote }}</div>
+<sc-if value="{{ moodOn }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ clearMood }}" style="width:100%;margin-top:18px;padding:15px 0;border-radius:999px;border:1px solid rgba(240,233,223,.16);background:transparent;color:#CDC3B6;font:300 11px/1 Jost,sans-serif;letter-spacing:.2em;cursor:pointer">CLEAR AND USE MY PREFERENCES</button>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ ctxOpen }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeCtx }}" style="position:absolute;inset:0;background:rgba(11,10,9,.66);backdrop-filter:blur(3px)"></div>
+<div style="position:absolute;left:0;right:0;bottom:0;padding:16px 22px 42px;background:#17130F;border-top:1px solid rgba(192,160,98,.28);border-radius:22px 22px 0 0;animation:curiaSheet .22s ease-out both">
+<div style="width:36px;height:3px;border-radius:2px;background:rgba(240,233,223,.2);margin:0 auto 18px"></div>
+<div style="display:flex;justify-content:space-between;align-items:center">
+<span style="font:300 22px/1 'Cormorant Garamond',serif;color:#F0E9DF">When are you going out?</span>
+<button onClick="{{ closeCtx }}" style="background:none;border:none;padding:0;cursor:pointer;font:300 11px/1 Jost,sans-serif;letter-spacing:.18em;color:#8B8175">DONE</button>
+</div>
+<button onClick="{{ setNow }}" style="{{ nowStyle }}">
+<span style="font:400 13px/1 Jost,sans-serif;letter-spacing:.18em">NOW</span>
+<span style="font:300 12px/1 Jost,sans-serif;letter-spacing:.06em;opacity:.75">{{ nowSub }}</span>
+</button>
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062;margin-top:26px">DAY</div>
+<div style="display:flex;gap:6px;margin-top:12px">
+<sc-for list="{{ days }}" as="dy" hint-placeholder-count="7">
+<button onClick="{{ dy.onTap }}" style="{{ dy.style }}">{{ dy.label }}</button>
+</sc-for>
+</div>
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062;margin-top:24px">TIME</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+<sc-for list="{{ bands }}" as="b" hint-placeholder-count="4">
+<button onClick="{{ b.onTap }}" style="{{ b.style }}">
+<span style="font:400 14px/1 'Cormorant Garamond',serif">{{ b.label }}</span>
+<span style="font:300 10.5px/1 Jost,sans-serif;letter-spacing:.14em;opacity:.7">{{ b.hours }}</span>
+</button>
+</sc-for>
+</div>
+<div style="font:300 12px/1.6 Jost,sans-serif;color:#8B8175;margin-top:18px">{{ ctxForecast }}</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isList }}" hint-placeholder-val="{{ false }}">
+<div style="height:874px;overflow:auto;animation:curiaFade .2s ease-out both">
+<div style="padding:60px 22px 8px">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+<div>
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.26em;color:#C0A062">RANKED FOR YOU</div>
+<div style="font:300 30px/1.1 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:12px">{{ listHeadline }}</div>
+<div style="font:300 11.5px/1 Jost,sans-serif;letter-spacing:.12em;color:#8B8175;margin-top:10px">{{ listMeta }}</div>
+</div>
+<button onClick="{{ openProfile }}" style="{{ emblemStyle }}">{{ initials }}</button>
+</div>
+<div style="margin-top:16px;display:flex">
+<button onClick="{{ openMood }}" style="{{ moodPillStyle }}">
+<span style="display:flex;flex-direction:column;gap:4px;align-items:flex-start;min-width:0">
+<span style="{{ moodKickerStyle }}">{{ moodKicker }}</span>
+<span style="{{ moodLabelStyle }}">{{ moodLabel }}</span>
+</span>
+<sc-if value="{{ moodOn }}" hint-placeholder-val="{{ false }}">
+<span onClick="{{ clearMood }}" style="font:300 14px/1 Jost,sans-serif;color:#C0A062;padding:0 2px">Ã—</span>
+</sc-if>
+</button>
+</div>
+<div style="margin-top:14px;padding:14px 16px 12px;border:1px solid rgba(240,233,223,.12);border-radius:14px;background:rgba(240,233,223,.03)">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<span style="font:400 9.5px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062">SEARCH RADIUS</span>
+<span style="font:300 12.5px/1 Jost,sans-serif;letter-spacing:.08em;color:#F0E9DF">{{ radiusLabel }}</span>
+</div>
+<input type="range" min="0.25" max="30" step="0.25" value="{{ radius }}" onChange="{{ setRadius }}" onInput="{{ setRadius }}" style="{{ radiusInputStyle }}">
+<div style="display:flex;justify-content:space-between;margin-top:2px">
+<span style="font:300 9px/1 Jost,sans-serif;letter-spacing:.18em;color:#6F6558">Â¼ MI</span>
+<span style="font:300 9px/1 Jost,sans-serif;letter-spacing:.18em;color:#6F6558">{{ radiusHint }}</span>
+<span style="font:300 9px/1 Jost,sans-serif;letter-spacing:.18em;color:#6F6558">30 MI</span>
+</div>
+<div style="margin-top:11px;font:300 10.5px/1.6 Jost,sans-serif;color:#6F6558">{{ radiusNote }}</div>
+</div>
+</div>
+<div style="padding:14px 22px 116px;display:flex;flex-direction:column;gap:18px">
+<sc-for list="{{ listRows }}" as="v" hint-placeholder-count="6">
+<div>
+<button onClick="{{ v.onTap }}" style="display:block;width:100%;padding:0;background:none;border:none;cursor:pointer;text-align:left">
+<div style="position:relative;height:172px;border-radius:16px;overflow:hidden;background:#1B1714">
+<div style="{{ v.photoStyle }}"></div>
+<div style="{{ v.photoScrim }}"></div>
+<div style="position:absolute;top:12px;left:12px;padding:6px 11px;border-radius:999px;background:rgba(12,10,9,.72);backdrop-filter:blur(10px);font:400 10px/1 Jost,sans-serif;letter-spacing:.2em;color:#E7D6B0">{{ v.rankLabel }}</div>
+<div style="position:absolute;top:12px;right:12px;display:flex;align-items:baseline;gap:5px;padding:6px 11px;border-radius:999px;background:rgba(12,10,9,.72);backdrop-filter:blur(10px)">
+<span style="font:400 13px/1 'Cormorant Garamond',serif;color:#C0A062">{{ v.score }}</span>
+<span style="font:300 8.5px/1 Jost,sans-serif;letter-spacing:.2em;color:#8B8175">MATCH</span>
+</div>
+</div>
+</button>
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-top:14px">
+<button onClick="{{ v.onTap }}" style="flex:1;min-width:0;background:none;border:none;padding:0;text-align:left;cursor:pointer">
+<div style="font:400 23px/1.05 'Cormorant Garamond',serif;color:#F0E9DF">{{ v.name }}</div>
+<div style="font:300 10.5px/1 Jost,sans-serif;letter-spacing:.2em;color:#8B8175;margin-top:9px">{{ v.type }}</div>
+</button>
+<div style="display:flex;align-items:center;gap:12px;flex:none">
+<div style="text-align:right">
+<div style="font:300 13px/1 Jost,sans-serif;letter-spacing:.1em;color:#CDC3B6">{{ v.spend }}</div>
+<div style="font:300 10.5px/1 Jost,sans-serif;letter-spacing:.14em;color:#6F6558;margin-top:9px">{{ v.dist }}</div>
+</div>
+<button onClick="{{ v.onSave }}" style="{{ v.saveStyle }}">{{ v.saveMark }}</button>
+</div>
+</div>
+<div style="font:300 12.5px/1.6 Jost,sans-serif;color:#8B8175;margin-top:10px;max-width:320px;text-wrap:pretty">{{ v.reason }}</div>
+</div>
+</sc-for>
+<sc-if value="{{ listEmpty }}" hint-placeholder-val="{{ false }}">
+<div style="padding:40px 0;border-top:1px solid rgba(240,233,223,.1)">
+<div style="font:300 22px/1.3 'Cormorant Garamond',serif;color:#F0E9DF">Nothing inside {{ radiusLabelShort }}.</div>
+<div style="font:300 13px/1.7 Jost,sans-serif;color:#8B8175;margin-top:12px;max-width:280px">{{ emptyNote }}</div>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMoments }}" hint-placeholder-val="{{ false }}">
+<div style="height:874px;overflow:auto;animation:curiaFade .2s ease-out both">
+<div style="padding:62px 22px 0">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+<div>
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.26em;color:#C0A062">MOMENTS &amp; JOURNEYS</div>
+<div style="font:300 32px/1.1 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:12px;max-width:250px;text-wrap:pretty">Chosen by people, not by your history.</div>
+</div>
+<button onClick="{{ openProfile }}" style="{{ emblemStyle }}">{{ initials }}</button>
+</div>
+<div style="font:300 13.5px/1.7 Jost,sans-serif;color:#8B8175;margin-top:14px;max-width:300px;text-wrap:pretty">Our editors keep these. They ignore your preferences on purpose â€” sometimes the occasion decides, not the algorithm.</div>
+</div>
+
+<div style="display:flex;gap:7px;overflow-x:auto;padding:22px 22px 4px">
+<sc-for list="{{ districtChips }}" as="dc" hint-placeholder-count="6">
+<button onClick="{{ dc.onTap }}" style="{{ dc.style }}">
+<span>{{ dc.label }}</span>
+<span style="{{ dc.metaStyle }}">{{ dc.meta }}</span>
+</button>
+</sc-for>
+</div>
+
+<sc-for list="{{ momentSections }}" as="sec" hint-placeholder-count="3">
+<div style="{{ sec.wrapStyle }}">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:0 22px">
+<div style="min-width:0">
+<div style="font:300 26px/1.1 'Cormorant Garamond',serif;color:#F0E9DF">{{ sec.name }}</div>
+<div style="font:300 10px/1 Jost,sans-serif;letter-spacing:.2em;color:#6F6558;margin-top:9px">{{ sec.meta }}</div>
+</div>
+<button onClick="{{ sec.onOpenDistrict }}" style="flex:none;background:none;border:none;padding:0;cursor:pointer;font:300 10.5px/1 Jost,sans-serif;letter-spacing:.16em;color:#C0A062">DISTRICT â†’</button>
+</div>
+
+<sc-if value="{{ sec.hasJourneys }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:14px;margin-top:18px;padding:0 22px">
+<sc-for list="{{ sec.journeys }}" as="j" hint-placeholder-count="1">
+<div style="border:1px solid rgba(240,233,223,.11);border-radius:18px;overflow:hidden;background:#171412">
+<button onClick="{{ j.onTap }}" style="display:block;width:100%;padding:0;border:none;background:none;cursor:pointer;text-align:left">
+<div style="position:relative;height:132px;background:#1B1714">
+<div style="{{ j.photoStyle }}"></div>
+<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,13,11,.92) 8%,rgba(15,13,11,.1) 70%)"></div>
+<div style="position:absolute;left:16px;right:16px;bottom:13px">
+<div style="font:400 9.5px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062">{{ j.meta }}</div>
+<div style="font:300 24px/1.1 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:8px">{{ j.title }}</div>
+</div>
+</div>
+</button>
+<div style="padding:15px 16px 17px">
+<div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ j.chain }}" as="c" hint-placeholder-count="3">
+<span style="{{ c.style }}">{{ c.text }}</span>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px">
+<div style="font:300 12.5px/1.6 Jost,sans-serif;color:#8B8175;flex:1;text-wrap:pretty">{{ j.blurb }}</div>
+<button onClick="{{ j.onSave }}" style="{{ j.saveStyle }}">{{ j.saveMark }}</button>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ sec.hasLists }}" hint-placeholder-val="{{ true }}">
+<div style="font:400 9.5px/1 Jost,sans-serif;letter-spacing:.24em;color:#6F6558;margin-top:24px;padding:0 22px">{{ sec.listLabel }}</div>
+<div style="display:flex;gap:12px;overflow-x:auto;padding:14px 22px 4px;scroll-snap-type:x mandatory">
+<sc-for list="{{ sec.lists }}" as="l" hint-placeholder-count="3">
+<div style="flex:none;width:232px;scroll-snap-align:start;border:1px solid rgba(240,233,223,.11);border-radius:18px;overflow:hidden;background:#171412">
+<div style="position:relative;height:130px;background:#1B1714">
+<div style="{{ l.photoStyle }}"></div>
+<div style="{{ l.photoScrim }}"></div>
+</div>
+<div style="padding:15px 15px 17px">
+<div style="font:400 20px/1.15 'Cormorant Garamond',serif;color:#F0E9DF;text-wrap:pretty">{{ l.title }}</div>
+<div style="font:300 12.5px/1.6 Jost,sans-serif;color:#8B8175;margin-top:9px;min-height:60px;text-wrap:pretty">{{ l.blurb }}</div>
+<div style="border-top:1px solid rgba(240,233,223,.09);margin-top:12px;padding-top:8px">
+<sc-for list="{{ l.venues }}" as="lv" hint-placeholder-count="2">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 0">
+<button onClick="{{ lv.onTap }}" style="flex:1;min-width:0;background:none;border:none;padding:0;text-align:left;cursor:pointer;font:400 15px/1.1 'Cormorant Garamond',serif;color:#CDC3B6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ lv.name }}</button>
+<button onClick="{{ lv.onSave }}" style="{{ lv.saveStyle }}">{{ lv.saveMark }}</button>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid rgba(240,233,223,.09)">
+<span style="font:300 10px/1 Jost,sans-serif;letter-spacing:.2em;color:#6F6558">{{ l.curator }}</span>
+<span style="font:300 10.5px/1 Jost,sans-serif;letter-spacing:.14em;color:#C0A062">{{ l.here }}</span>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-for>
+
+<sc-if value="{{ momentsEmpty }}" hint-placeholder-val="{{ false }}">
+<div style="margin:24px 22px 0;padding:34px 24px;border:1px solid rgba(240,233,223,.1);border-radius:18px;background:rgba(240,233,223,.02);text-align:center">
+<div style="font:300 21px/1.3 'Cormorant Garamond',serif;color:#F0E9DF;text-wrap:pretty">Our editors have not been to {{ momentDistrictName }} yet.</div>
+<div style="font:300 13px/1.7 Jost,sans-serif;color:#8B8175;margin-top:12px">They are working through Cheshire this season. In the meantime, everything else is a short drive.</div>
+<button onClick="{{ clearMomentDistrict }}" style="margin-top:22px;padding:14px 24px;border:none;border-radius:12px;background:#C0A062;color:#1A1410;font:500 11.5px/1 Jost,sans-serif;letter-spacing:.2em;cursor:pointer">SHOW EVERYWHERE</button>
+</div>
+</sc-if>
+
+<div style="height:116px"></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isJourney }}" hint-placeholder-val="{{ false }}">
+<div style="height:874px;overflow:auto;animation:curiaFade .2s ease-out both">
+<div style="position:relative;height:300px;background:#1B1714">
+<div style="{{ jHeroStyle }}"></div>
+<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,13,11,.95) 10%,rgba(15,13,11,.15) 68%)"></div>
+<button onClick="{{ back }}" style="position:absolute;top:62px;left:22px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(240,233,223,.18);background:rgba(19,17,16,.55);backdrop-filter:blur(12px);color:#F0E9DF;font-size:15px;cursor:pointer">â†</button>
+<button onClick="{{ jSave }}" style="{{ jSaveStyle }}">{{ jSaveLabel }}</button>
+<div style="position:absolute;left:22px;right:22px;bottom:24px">
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.26em;color:#C0A062">{{ jMeta }}</div>
+<div style="font:300 36px/1.05 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:12px;text-wrap:pretty">{{ jTitle }}</div>
+</div>
+</div>
+<div style="padding:24px 22px 130px">
+<div style="font:300 15px/1.75 'Cormorant Garamond',serif;color:#CDC3B6;font-style:italic;text-wrap:pretty">{{ jBlurb }}</div>
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062;margin-top:28px;padding-bottom:14px;border-bottom:1px solid rgba(240,233,223,.12)">THE SEQUENCE</div>
+<sc-for list="{{ jStops }}" as="s" hint-placeholder-count="3">
+<div>
+<div style="display:flex;gap:14px;padding:18px 0">
+<button onClick="{{ s.onTap }}" style="width:86px;height:86px;flex:none;border-radius:12px;overflow:hidden;background:#1B1714;position:relative;border:none;padding:0;cursor:pointer">
+<div style="{{ s.photoStyle }}"></div>
+</button>
+<div style="min-width:0;flex:1">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">
+<span style="font:400 9.5px/1 Jost,sans-serif;letter-spacing:.24em;color:#6F6558">{{ s.index }}</span>
+<span style="font:300 11px/1 Jost,sans-serif;letter-spacing:.12em;color:#C0A062">{{ s.time }}</span>
+</div>
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-top:9px">
+<button onClick="{{ s.onTap }}" style="background:none;border:none;padding:0;cursor:pointer;text-align:left;font:400 21px/1.1 'Cormorant Garamond',serif;color:#F0E9DF">{{ s.name }}</button>
+<button onClick="{{ s.onSave }}" style="{{ s.saveStyle }}">{{ s.saveMark }}</button>
+</div>
+<div style="font:300 10.5px/1 Jost,sans-serif;letter-spacing:.18em;color:#8B8175;margin-top:8px">{{ s.kind }}</div>
+<div style="font:300 12.5px/1.55 Jost,sans-serif;color:#8B8175;margin-top:9px;text-wrap:pretty">{{ s.note }}</div>
+</div>
+</div>
+<sc-if value="{{ s.hasWalk }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:center;gap:12px;padding:2px 0 2px 42px">
+<div style="width:1px;height:28px;background:linear-gradient(to bottom,rgba(192,160,98,.5),rgba(192,160,98,.12))"></div>
+<span style="font:300 10.5px/1 Jost,sans-serif;letter-spacing:.2em;color:#6F6558">{{ s.walk }}</span>
+</div>
+</sc-if>
+</div>
+</sc-for>
+<button style="width:100%;margin-top:26px;padding:16px 0;border:none;border-radius:12px;background:#C0A062;color:#1A1410;font:500 12px/1 Jost,sans-serif;letter-spacing:.22em;cursor:pointer">START THIS JOURNEY</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isVenue }}" hint-placeholder-val="{{ false }}">
+<div style="height:874px;overflow:auto;animation:curiaFade .2s ease-out both">
+<div style="position:relative;height:320px;background:#1B1714">
+<div style="{{ vHeroStyle }}"></div>
+<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,13,11,.96) 8%,rgba(15,13,11,.2) 62%)"></div>
+<button onClick="{{ back }}" style="position:absolute;top:62px;left:22px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(240,233,223,.18);background:rgba(19,17,16,.55);backdrop-filter:blur(12px);color:#F0E9DF;font-size:15px;cursor:pointer">â†</button>
+<button onClick="{{ vSave }}" style="{{ vSaveStyle }}">{{ vSaveLabel }}</button>
+<div style="position:absolute;left:22px;right:22px;bottom:24px">
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.26em;color:#C0A062">{{ vKicker }}</div>
+<div style="font:300 38px/1.05 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:12px">{{ vName }}</div>
+<div style="display:flex;align-items:baseline;gap:14px;margin-top:14px">
+<span style="font:400 22px/1 'Cormorant Garamond',serif;color:#C0A062">{{ vScore }}</span>
+<span style="font:300 10px/1 Jost,sans-serif;letter-spacing:.22em;color:#8B8175">MATCH FOR {{ vCtx }}</span>
+</div>
+</div>
+</div>
+<div style="padding:24px 22px 130px">
+<div style="display:flex;border:1px solid rgba(240,233,223,.11);border-radius:14px;overflow:hidden">
+<sc-for list="{{ vFacts }}" as="fa" hint-placeholder-count="3">
+<div style="{{ fa.style }}">
+<div style="font:400 9px/1 Jost,sans-serif;letter-spacing:.2em;color:#6F6558">{{ fa.label }}</div>
+<div style="font:400 15px/1 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:9px">{{ fa.value }}</div>
+</div>
+</sc-for>
+</div>
+<div style="font:300 15px/1.75 'Cormorant Garamond',serif;color:#CDC3B6;font-style:italic;margin-top:22px;text-wrap:pretty">{{ vBlurb }}</div>
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062;margin-top:30px;padding-bottom:12px;border-bottom:1px solid rgba(240,233,223,.12)">WHY IT IS RANKED HERE</div>
+<sc-for list="{{ vReasons }}" as="rs" hint-placeholder-count="3">
+<div style="display:flex;gap:12px;padding:15px 0;border-bottom:1px solid rgba(240,233,223,.08)">
+<span style="{{ rs.markStyle }}"></span>
+<div style="min-width:0">
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.2em;color:#8B8175">{{ rs.label }}</div>
+<div style="font:300 13px/1.6 Jost,sans-serif;color:#CDC3B6;margin-top:7px;text-wrap:pretty">{{ rs.text }}</div>
+</div>
+</div>
+</sc-for>
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:32px;padding-bottom:12px;border-bottom:1px solid rgba(240,233,223,.12)">
+<span style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062">FOR YOUR TASTE</span>
+<span style="font:300 9.5px/1 Jost,sans-serif;letter-spacing:.18em;color:#6F6558">{{ vYesCount }}</span>
+</div>
+<div style="font:300 12px/1.7 Jost,sans-serif;color:#8B8175;margin-top:16px;text-wrap:pretty">{{ vYesLead }}</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+<sc-for list="{{ vYes }}" as="ty" hint-placeholder-count="4">
+<div style="{{ ty.style }}">
+<span style="{{ ty.markStyle }}"></span>
+<span style="{{ ty.labelStyle }}">{{ ty.label }}</span>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ hasVNo }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:30px;padding-bottom:12px;border-bottom:1px solid rgba(240,233,223,.12)">
+<span style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#8B8175">AGAINST YOUR TASTE</span>
+<span style="font:300 9.5px/1 Jost,sans-serif;letter-spacing:.18em;color:#6F6558">{{ vNoCount }}</span>
+</div>
+<div style="font:300 12px/1.7 Jost,sans-serif;color:#6F6558;margin-top:16px;text-wrap:pretty">{{ vNoLead }}</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+<sc-for list="{{ vNo }}" as="tn" hint-placeholder-count="2">
+<div style="{{ tn.style }}">
+<span style="{{ tn.markStyle }}"></span>
+<span style="{{ tn.labelStyle }}">{{ tn.label }}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062;margin-top:32px;padding-bottom:12px;border-bottom:1px solid rgba(240,233,223,.12)">THE PRACTICALITIES</div>
+<div style="padding:16px 0 4px;display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{ vInfo }}" as="nf" hint-placeholder-count="3">
+<div style="display:flex;gap:16px;align-items:baseline">
+<div style="width:78px;flex:none;font:400 9.5px/1.4 Jost,sans-serif;letter-spacing:.18em;color:#6F6558">{{ nf.label }}</div>
+<div style="min-width:0;font:300 13px/1.6 Jost,sans-serif;color:#CDC3B6;text-wrap:pretty">{{ nf.value }}</div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;gap:9px;margin-top:20px;flex-wrap:wrap">
+<sc-for list="{{ vLinks }}" as="lk" hint-placeholder-count="3">
+<a href="{{ lk.href }}" target="_blank" rel="noopener" style="{{ lk.style }}">
+<span style="font:300 12.5px/1 Jost,sans-serif;letter-spacing:.06em">{{ lk.label }}</span>
+<span style="font:300 12px/1 Jost,sans-serif;color:#C0A062">â†—</span>
+</a>
+</sc-for>
+</div>
+<button onClick="{{ vOpenDistrict }}" style="width:100%;margin-top:26px;padding:15px 18px;border:1px solid rgba(240,233,223,.16);border-radius:12px;background:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
+<span style="font:300 12px/1 Jost,sans-serif;letter-spacing:.18em;color:#CDC3B6">MORE IN {{ vDistrict }}</span>
+<span style="font:300 14px/1 Jost,sans-serif;color:#C0A062">â†’</span>
+</button>
+<button onClick="{{ vTravel }}" style="width:100%;margin-top:10px;padding:16px 0;border:none;border-radius:12px;background:#C0A062;color:#1A1410;font:500 12px/1 Jost,sans-serif;letter-spacing:.22em;cursor:pointer">{{ vTravelLabel }}</button>
+<div style="margin-top:10px;text-align:center;font:300 11px/1.6 Jost,sans-serif;color:#6F6558">{{ vTravelNote }}</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isWalk }}" hint-placeholder-val="{{ false }}">
+<div style="height:874px;background:#131110;animation:curiaFade .2s ease-out both;display:flex;flex-direction:column">
+<div style="position:relative;height:384px;flex:none;overflow:hidden;background:linear-gradient(168deg,#1D1811 0%,#141110 62%,#121010 100%)">
+<svg viewBox="0 0 402 384" width="402" height="384" style="position:absolute;inset:0">
+<sc-for list="{{ walkGrid }}" as="gd" hint-placeholder-count="6">
+<path d="{{ gd.d }}" style="{{ gd.style }}"></path>
+</sc-for>
+<path d="{{ walkPath }}" style="{{ walkPathStyle }}"></path>
+<path d="{{ walkPath }}" style="{{ walkLineStyle }}"></path>
+</svg>
+<div style="{{ walkDestStyle }}"></div>
+<div style="{{ walkDestLabelStyle }}">{{ walkDestLabel }}</div>
+<div style="{{ walkMeStyle }}"></div>
+<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(15,13,11,.82) 0%,rgba(15,13,11,0) 30%,rgba(15,13,11,0) 72%,rgba(19,17,16,.9) 100%);pointer-events:none"></div>
+<button onClick="{{ back }}" style="position:absolute;top:62px;left:22px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(240,233,223,.18);background:rgba(19,17,16,.6);backdrop-filter:blur(12px);color:#F0E9DF;font-size:15px;cursor:pointer">â†</button>
+<div style="position:absolute;top:70px;left:76px;right:22px">
+<div style="{{ walkLiveStyle }}">
+<span style="{{ walkPulseStyle }}"></span>
+<span>{{ walkLiveLabel }}</span>
+</div>
+<div style="font:300 21px/1.2 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:9px">{{ walkTitle }}</div>
+</div>
+</div>
+<div style="flex:1;min-height:0;overflow:auto;padding:0 22px 116px">
+<div style="padding:20px 20px 21px;border:1px solid rgba(192,160,98,.3);border-radius:16px;background:rgba(192,160,98,.06)">
+<div style="font:400 9.5px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062">NEXT</div>
+<div style="font:300 24px/1.3 'Cormorant Garamond',serif;color:#F4EEE5;margin-top:11px;text-wrap:pretty">{{ walkNow }}</div>
+<div style="font:300 11px/1 Jost,sans-serif;letter-spacing:.16em;color:#8B8175;margin-top:12px">{{ walkNowSub }}</div>
+</div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:22px">
+<div style="font:400 20px/1 'Cormorant Garamond',serif;color:#F0E9DF">{{ walkRemaining }}</div>
+<div style="font:400 9.5px/1 Jost,sans-serif;letter-spacing:.22em;color:#C0A062">{{ walkEta }}</div>
+</div>
+<div style="height:2px;border-radius:2px;background:rgba(240,233,223,.1);margin-top:12px;overflow:hidden">
+<div style="{{ walkProgressStyle }}"></div>
+</div>
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062;margin-top:30px;padding-bottom:14px;border-bottom:1px solid rgba(240,233,223,.12)">THE ROUTE</div>
+<div style="display:flex;flex-direction:column;gap:17px;padding-top:17px">
+<sc-for list="{{ walkSteps }}" as="ws" hint-placeholder-count="4">
+<div style="{{ ws.rowStyle }}">
+<span style="{{ ws.markStyle }}"></span>
+<div style="min-width:0;flex:1">
+<div style="{{ ws.instrStyle }}">{{ ws.instr }}</div>
+<div style="font:300 9.5px/1 Jost,sans-serif;letter-spacing:.18em;color:#6F6558;margin-top:7px">{{ ws.street }}</div>
+</div>
+<div style="font:300 12px/1 Jost,sans-serif;color:#8B8175;flex:none">{{ ws.dist }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isRide }}" hint-placeholder-val="{{ false }}">
+<div style="height:874px;overflow:auto;background:#131110;animation:curiaFade .2s ease-out both">
+<div style="padding:62px 22px 0">
+<button onClick="{{ back }}" style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(240,233,223,.18);background:rgba(19,17,16,.55);color:#F0E9DF;font-size:15px;cursor:pointer">â†</button>
+<div style="font:400 9.5px/1 Jost,sans-serif;letter-spacing:.26em;color:#C0A062;margin-top:26px">{{ rideKicker }}</div>
+<div style="font:300 32px/1.12 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:13px">{{ rideTitle }}</div>
+<div style="font:300 12.5px/1.7 Jost,sans-serif;color:#8B8175;margin-top:12px">{{ rideWalkNote }}</div>
+</div>
+<div style="margin:26px 22px 0;padding:20px 20px 21px;border:1px solid rgba(240,233,223,.11);border-radius:16px;background:rgba(240,233,223,.03)">
+<div style="display:flex;gap:14px;align-items:flex-start">
+<div style="display:flex;flex-direction:column;align-items:center;padding-top:5px">
+<span style="width:8px;height:8px;border-radius:50%;background:#F0E9DF"></span>
+<span style="width:1px;height:30px;background:rgba(240,233,223,.22)"></span>
+<span style="width:8px;height:8px;border-radius:50%;background:#C0A062"></span>
+</div>
+<div style="min-width:0;flex:1;display:flex;flex-direction:column;gap:24px">
+<div>
+<div style="font:400 9px/1 Jost,sans-serif;letter-spacing:.2em;color:#6F6558">PICKUP</div>
+<div style="font:300 13.5px/1.4 Jost,sans-serif;color:#CDC3B6;margin-top:6px">{{ rideFrom }}</div>
+</div>
+<div>
+<div style="font:400 9px/1 Jost,sans-serif;letter-spacing:.2em;color:#6F6558">DESTINATION</div>
+<div style="font:300 13.5px/1.4 Jost,sans-serif;color:#CDC3B6;margin-top:6px">{{ rideTo }}</div>
+</div>
+</div>
+</div>
+<div style="margin-top:19px;padding-top:16px;border-top:1px solid rgba(240,233,223,.09);font:300 11.5px/1 Jost,sans-serif;letter-spacing:.06em;color:#8B8175">{{ rideTrip }}</div>
+</div>
+<div style="padding:30px 22px 0">
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062;padding-bottom:14px;border-bottom:1px solid rgba(240,233,223,.12)">CHOOSE A RIDE</div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:16px">
+<sc-for list="{{ rideTiers }}" as="rt" hint-placeholder-count="3">
+<button onClick="{{ rt.onTap }}" style="{{ rt.style }}">
+<div style="min-width:0;flex:1">
+<div style="{{ rt.nameStyle }}">{{ rt.name }}</div>
+<div style="font:300 11.5px/1.5 Jost,sans-serif;color:#8B8175;margin-top:5px">{{ rt.sub }}</div>
+</div>
+<div style="flex:none;text-align:right">
+<div style="{{ rt.priceStyle }}">{{ rt.price }}</div>
+<div style="font:300 10px/1 Jost,sans-serif;letter-spacing:.12em;color:#6F6558;margin-top:6px">{{ rt.wait }}</div>
+</div>
+</button>
+</sc-for>
+</div>
+<button onClick="{{ rideCall }}" style="{{ rideCtaStyle }}">{{ rideCta }}</button>
+<div style="margin-top:14px;padding-bottom:120px;text-align:center;font:300 11px/1.7 Jost,sans-serif;color:#6F6558;text-wrap:pretty">{{ rideFoot }}</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDistrict }}" hint-placeholder-val="{{ false }}">
+<div style="height:874px;overflow:auto;animation:curiaFade .2s ease-out both">
+<div style="position:relative;height:290px;overflow:hidden;background:linear-gradient(165deg,#241C15 0%,#15100D 60%,#131110 100%)">
+<div style="position:absolute;top:-70px;right:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(192,160,98,.28) 0%,rgba(192,160,98,0) 68%);animation:curiaBreathe 5s ease-in-out infinite"></div>
+<button onClick="{{ back }}" style="position:absolute;top:62px;left:22px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(240,233,223,.16);background:rgba(19,17,16,.5);backdrop-filter:blur(12px);color:#F0E9DF;font-size:15px;cursor:pointer">â†</button>
+<div style="position:absolute;left:22px;right:22px;bottom:26px">
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.26em;color:#C0A062">{{ detailKicker }}</div>
+<div style="font:300 40px/1.05 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:12px">{{ detailName }}</div>
+<div style="display:flex;align-items:center;gap:10px;margin-top:16px">
+<div style="flex:1;height:2px;background:rgba(240,233,223,.14);position:relative;overflow:hidden">
+<div style="{{ liveBarStyle }}"></div>
+</div>
+<span style="font:300 11px/1 Jost,sans-serif;letter-spacing:.16em;color:#8B8175">{{ liveLabel }}</span>
+</div>
+</div>
+</div>
+<div style="padding:26px 22px 130px">
+<div style="font:300 15.5px/1.75 'Cormorant Garamond',serif;color:#CDC3B6;font-style:italic;text-wrap:pretty">{{ detailDesc }}</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:18px">
+<sc-for list="{{ detailTags }}" as="tg" hint-placeholder-count="3">
+<span style="padding:7px 12px;border:1px solid rgba(240,233,223,.14);border-radius:999px;font:300 10.5px/1 Jost,sans-serif;letter-spacing:.16em;color:#8B8175">{{ tg }}</span>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:34px;padding-bottom:12px;border-bottom:1px solid rgba(240,233,223,.12)">
+<span style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062">TOP MATCHES</span>
+<span style="font:300 11px/1 Jost,sans-serif;letter-spacing:.1em;color:#6F6558">{{ matchCtx }}</span>
+</div>
+<sc-for list="{{ matches }}" as="m" hint-placeholder-count="4">
+<div style="padding:20px 0;border-bottom:1px solid rgba(240,233,223,.09)">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px">
+<button onClick="{{ m.onTap }}" style="flex:1;min-width:0;background:none;border:none;padding:0;text-align:left;cursor:pointer">
+<div style="font:400 22px/1.1 'Cormorant Garamond',serif;color:#F0E9DF">{{ m.name }}</div>
+<div style="font:300 11px/1 Jost,sans-serif;letter-spacing:.18em;color:#8B8175;margin-top:8px">{{ m.meta }}</div>
+</button>
+<div style="display:flex;align-items:center;gap:12px;flex:none">
+<div style="text-align:right">
+<div style="font:400 17px/1 'Cormorant Garamond',serif;color:#C0A062">{{ m.score }}</div>
+<div style="font:300 9.5px/1 Jost,sans-serif;letter-spacing:.18em;color:#6F6558;margin-top:6px">MATCH</div>
+</div>
+<button onClick="{{ m.onSave }}" style="{{ m.saveStyle }}">{{ m.saveMark }}</button>
+</div>
+</div>
+<div style="font:300 13px/1.65 Jost,sans-serif;color:#8B8175;margin-top:12px;max-width:300px;text-wrap:pretty">{{ m.reason }}</div>
+</div>
+</sc-for>
+
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:36px;padding-bottom:12px;border-bottom:1px solid rgba(240,233,223,.12)">
+<span style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062">KEPT BY OUR EDITORS</span>
+<span style="font:300 11px/1 Jost,sans-serif;letter-spacing:.1em;color:#6F6558">{{ dMomentsCount }}</span>
+</div>
+<sc-for list="{{ dMoments }}" as="dm" hint-placeholder-count="2">
+<button onClick="{{ dm.onTap }}" style="width:100%;display:flex;align-items:center;gap:14px;padding:16px 0;background:none;border:none;border-bottom:1px solid rgba(240,233,223,.08);cursor:pointer;text-align:left">
+<span style="width:62px;height:62px;flex:none;border-radius:12px;overflow:hidden;position:relative;background:#1B1714">
+<span style="{{ dm.photoStyle }}"></span>
+</span>
+<span style="flex:1;min-width:0">
+<span style="display:block;font:400 9.5px/1 Jost,sans-serif;letter-spacing:.22em;color:#C0A062">{{ dm.kicker }}</span>
+<span style="display:block;font:400 19px/1.15 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:8px">{{ dm.title }}</span>
+<span style="display:block;font:300 11.5px/1.5 Jost,sans-serif;color:#8B8175;margin-top:7px">{{ dm.sub }}</span>
+</span>
+<span style="font:300 14px/1 Jost,sans-serif;color:#6F6558;flex:none">â†’</span>
+</button>
+</sc-for>
+<sc-if value="{{ dMomentsEmpty }}" hint-placeholder-val="{{ false }}">
+<div style="font:300 14px/1.7 'Cormorant Garamond',serif;color:#8B8175;font-style:italic;padding:18px 0">Nothing kept here yet â€” our editors are still working their way through {{ detailName }}.</div>
+</sc-if>
+<button onClick="{{ dOpenMoments }}" style="width:100%;margin-top:22px;padding:15px 18px;border:1px solid rgba(240,233,223,.16);border-radius:12px;background:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
+<span style="font:300 12px/1 Jost,sans-serif;letter-spacing:.18em;color:#CDC3B6">ALL MOMENTS IN {{ dNameUpper }}</span>
+<span style="font:300 14px/1 Jost,sans-serif;color:#C0A062">â†’</span>
+</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+<div style="height:874px;overflow:auto;animation:curiaFade .2s ease-out both">
+<div style="padding:64px 22px 0">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<button onClick="{{ back }}" style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(240,233,223,.16);background:none;color:#F0E9DF;font-size:15px;cursor:pointer">â†</button>
+<span style="font:400 10px/1 Jost,sans-serif;letter-spacing:.28em;color:#6F6558">ACCOUNT</span>
+</div>
+<div style="display:flex;align-items:center;gap:16px;margin-top:30px">
+<div style="width:64px;height:64px;flex:none;border-radius:50%;border:1px solid rgba(192,160,98,.5);display:flex;align-items:center;justify-content:center;font:400 20px/1 'Cormorant Garamond',serif;color:#E7D6B0;background:rgba(192,160,98,.08)">{{ initials }}</div>
+<div style="min-width:0">
+<div style="font:300 28px/1.1 'Cormorant Garamond',serif;color:#F0E9DF">{{ userName }}</div>
+<div style="font:300 12px/1 Jost,sans-serif;letter-spacing:.1em;color:#8B8175;margin-top:9px">{{ userEmail }}</div>
+</div>
+</div>
+<div style="display:flex;gap:10px;margin-top:22px">
+<sc-for list="{{ profileStats }}" as="ps" hint-placeholder-count="3">
+<button onClick="{{ ps.onTap }}" style="flex:1;padding:14px 12px;border:1px solid rgba(240,233,223,.11);border-radius:14px;background:rgba(240,233,223,.03);cursor:pointer;text-align:left">
+<div style="font:400 22px/1 'Cormorant Garamond',serif;color:#F0E9DF">{{ ps.value }}</div>
+<div style="font:300 9px/1.3 Jost,sans-serif;letter-spacing:.18em;color:#6F6558;margin-top:8px">{{ ps.label }}</div>
+</button>
+</sc-for>
+</div>
+</div>
+<div style="padding:30px 22px 60px">
+<sc-for list="{{ profileGroups }}" as="pg" hint-placeholder-count="2">
+<div style="margin-bottom:26px">
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062">{{ pg.title }}</div>
+<div style="margin-top:6px">
+<sc-for list="{{ pg.rows }}" as="pr" hint-placeholder-count="3">
+<button onClick="{{ pr.onTap }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 0;background:none;border:none;border-bottom:1px solid rgba(240,233,223,.09);cursor:pointer;text-align:left">
+<span style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font:400 17px/1.1 'Cormorant Garamond',serif;color:#F0E9DF">{{ pr.label }}</span>
+<span style="font:300 11.5px/1.4 Jost,sans-serif;color:#8B8175">{{ pr.sub }}</span>
+</span>
+<span style="font:300 14px/1 Jost,sans-serif;color:#6F6558">â†’</span>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<button onClick="{{ logout }}" style="width:100%;margin-top:6px;padding:16px 0;border:1px solid rgba(240,233,223,.16);border-radius:12px;background:none;color:#CDC3B6;font:400 11.5px/1 Jost,sans-serif;letter-spacing:.22em;cursor:pointer">LOG OUT</button>
+<div style="font:300 10.5px/1.7 Jost,sans-serif;letter-spacing:.1em;color:#4F483E;margin-top:20px;text-align:center">CURIA Â· MANCHESTER &amp; CHESHIRE Â· v0.4</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSub }}" hint-placeholder-val="{{ false }}">
+<div style="height:874px;overflow:auto;animation:curiaFade .2s ease-out both">
+<div style="padding:64px 22px 60px">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<button onClick="{{ backToProfile }}" style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(240,233,223,.16);background:none;color:#F0E9DF;font-size:15px;cursor:pointer">â†</button>
+<span style="font:400 10px/1 Jost,sans-serif;letter-spacing:.28em;color:#6F6558">MEMBERSHIP</span>
+</div>
+<div style="margin-top:34px;padding:26px 22px;border:1px solid rgba(192,160,98,.35);border-radius:18px;background:linear-gradient(160deg,rgba(192,160,98,.14),rgba(192,160,98,.02))">
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.26em;color:#C0A062">CURIA MEMBERSHIP</div>
+<div style="display:flex;align-items:baseline;gap:8px;margin-top:16px">
+<span style="font:300 46px/1 'Cormorant Garamond',serif;color:#F0E9DF">Â£19.99</span>
+<span style="font:300 12px/1 Jost,sans-serif;letter-spacing:.14em;color:#8B8175">/ MONTH</span>
+</div>
+<div style="font:300 12.5px/1.7 Jost,sans-serif;color:#9A8F82;margin-top:14px">Renews {{ renewDate }} Â· {{ cardLine }}</div>
+</div>
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062;margin-top:32px">WHAT IT INCLUDES</div>
+<sc-for list="{{ subPerks }}" as="pk" hint-placeholder-count="4">
+<div style="display:flex;gap:12px;padding:14px 0;border-bottom:1px solid rgba(240,233,223,.08)">
+<span style="width:5px;height:5px;flex:none;margin-top:7px;border-radius:50%;background:#C0A062"></span>
+<div style="font:300 13px/1.6 Jost,sans-serif;color:#CDC3B6;text-wrap:pretty">{{ pk }}</div>
+</div>
+</sc-for>
+<button style="width:100%;margin-top:26px;padding:16px 0;border:1px solid rgba(240,233,223,.18);border-radius:12px;background:none;color:#F0E9DF;font:400 11.5px/1 Jost,sans-serif;letter-spacing:.2em;cursor:pointer">UPDATE PAYMENT METHOD</button>
+<button style="width:100%;margin-top:10px;padding:16px 0;border:none;border-radius:12px;background:none;color:#8B8175;font:300 11.5px/1 Jost,sans-serif;letter-spacing:.2em;cursor:pointer">PAUSE OR CANCEL MEMBERSHIP</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSaved }}" hint-placeholder-val="{{ false }}">
+<div style="height:874px;overflow:auto;animation:curiaFade .2s ease-out both">
+<div style="padding:64px 22px 0">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<button onClick="{{ backToProfile }}" style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(240,233,223,.16);background:none;color:#F0E9DF;font-size:15px;cursor:pointer">â†</button>
+<span style="font:400 10px/1 Jost,sans-serif;letter-spacing:.28em;color:#6F6558">{{ savedKicker }}</span>
+</div>
+<div style="font:300 32px/1.1 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:28px">{{ savedTitle }}</div>
+<div style="font:300 13px/1.7 Jost,sans-serif;color:#8B8175;margin-top:12px;max-width:290px;text-wrap:pretty">{{ savedIntro }}</div>
+</div>
+<div style="padding:26px 22px 60px;display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{ savedRows }}" as="sv" hint-placeholder-count="2">
+<div style="display:flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:1px solid rgba(240,233,223,.09)">
+<button onClick="{{ sv.onTap }}" style="width:64px;height:64px;flex:none;border-radius:12px;overflow:hidden;position:relative;background:#1B1714;border:none;padding:0;cursor:pointer">
+<div style="{{ sv.photoStyle }}"></div>
+</button>
+<button onClick="{{ sv.onTap }}" style="flex:1;min-width:0;background:none;border:none;padding:0;text-align:left;cursor:pointer">
+<div style="font:400 19px/1.1 'Cormorant Garamond',serif;color:#F0E9DF">{{ sv.name }}</div>
+<div style="font:300 10.5px/1.4 Jost,sans-serif;letter-spacing:.16em;color:#8B8175;margin-top:8px">{{ sv.meta }}</div>
+</button>
+<button onClick="{{ sv.onRemove }}" style="width:34px;height:34px;flex:none;border-radius:50%;border:1px solid rgba(192,160,98,.4);background:rgba(192,160,98,.1);color:#E7D6B0;font-size:12px;cursor:pointer">âœ•</button>
+</div>
+</sc-for>
+<sc-if value="{{ savedEmpty }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top:10px;padding:34px 24px;border:1px solid rgba(240,233,223,.1);border-radius:18px;background:rgba(240,233,223,.02);text-align:center">
+<div style="font:300 40px/1 'Cormorant Garamond',serif;color:rgba(192,160,98,.5)">{{ emptyMark }}</div>
+<div style="font:300 21px/1.3 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:18px;text-wrap:pretty">{{ emptyTitle }}</div>
+<div style="font:300 13px/1.7 Jost,sans-serif;color:#8B8175;margin-top:12px;text-wrap:pretty">{{ emptyBody }}</div>
+<button onClick="{{ emptyAction }}" style="margin-top:22px;padding:14px 24px;border:none;border-radius:12px;background:#C0A062;color:#1A1410;font:500 11.5px/1 Jost,sans-serif;letter-spacing:.2em;cursor:pointer">{{ emptyCta }}</button>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isNotif }}" hint-placeholder-val="{{ false }}">
+<div style="height:874px;overflow:auto;animation:curiaFade .2s ease-out both">
+<div style="padding:64px 22px 0">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<button onClick="{{ backToProfile }}" style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(240,233,223,.16);background:none;color:#F0E9DF;font-size:15px;cursor:pointer">â†</button>
+<span style="font:400 10px/1 Jost,sans-serif;letter-spacing:.28em;color:#6F6558">NOTIFICATIONS</span>
+</div>
+<div style="font:300 32px/1.1 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:28px;max-width:270px;text-wrap:pretty">We would rather say nothing than say something dull.</div>
+<div style="font:300 13px/1.7 Jost,sans-serif;color:#8B8175;margin-top:12px;max-width:290px">Choose what is worth interrupting your evening for. Everything else stays quiet.</div>
+</div>
+<div style="padding:28px 22px 60px">
+<sc-for list="{{ notifRows }}" as="nt" hint-placeholder-count="4">
+<button onClick="{{ nt.onTap }}" style="width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:18px 0;background:none;border:none;border-bottom:1px solid rgba(240,233,223,.09);cursor:pointer;text-align:left">
+<span style="min-width:0">
+<span style="display:block;font:400 17px/1.1 'Cormorant Garamond',serif;color:#F0E9DF">{{ nt.label }}</span>
+<span style="display:block;font:300 12px/1.6 Jost,sans-serif;color:#8B8175;margin-top:8px;max-width:230px">{{ nt.sub }}</span>
+</span>
+<span style="{{ nt.trackStyle }}"><span style="{{ nt.knobStyle }}"></span></span>
+</button>
+</sc-for>
+<div style="margin-top:26px;padding:26px 22px;border:1px solid rgba(240,233,223,.1);border-radius:18px;background:rgba(240,233,223,.02)">
+<div style="font:400 10px/1 Jost,sans-serif;letter-spacing:.24em;color:#C0A062">RECENT</div>
+<div style="font:300 18px/1.4 'Cormorant Garamond',serif;color:#F0E9DF;margin-top:14px;text-wrap:pretty">{{ notifEmptyTitle }}</div>
+<div style="font:300 12.5px/1.7 Jost,sans-serif;color:#8B8175;margin-top:10px;text-wrap:pretty">{{ notifEmptyBody }}</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ showNav }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;bottom:0;height:78px;display:flex;align-items:flex-start;justify-content:space-around;padding:12px 22px 0;background:rgba(16,14,12,.96);backdrop-filter:blur(20px);border-top:1px solid rgba(240,233,223,.1)">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="3">
+<button onClick="{{ n.onTap }}" style="{{ n.style }}">
+<span style="{{ n.markStyle }}"></span>
+<span>{{ n.label }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+</div>
+</x-import>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:1080}}">
+const CATS = {
+  Do: [
+    { n: 'Culture', s: ['Art', 'History', 'Libraries', 'Museums', 'Photography'] },
+    { n: 'Parks & green space', s: ['Scenic walks', 'Botanical gardens', 'Riverside paths'] },
+    { n: 'Independent cinema', s: ["Director's cuts", 'Q&A screenings', 'Bar on site'] },
+    { n: 'Theatre', s: ['West End-style', 'Fringe', 'Matinees'] },
+    { n: 'Ballet & opera', s: ['Classical programme', 'Contemporary programme'] },
+    { n: 'Clothes shopping', s: ['Designer boutiques', 'Vintage/curated', 'Personal styling'] },
+    { n: 'Live music', s: ['Jazz', 'Classical', 'Intimate gig spaces'] },
+    { n: 'Art galleries', s: ['Contemporary', 'Private viewings', 'Independent artists'] },
+    { n: 'Spa & wellness', s: ['Day spa', 'Thermal suite', 'Treatments'] },
+    { n: 'Comedy', s: ['Intimate venues', 'Headline acts'] },
+    { n: 'Markets', s: ['Artisan stalls', 'Food markets'] },
+    { n: 'Spectator sport', s: ['Racecourse', "Members' enclosures", 'Polo/tennis'] },
+    { n: 'Walking tours', s: ['Guided', 'Self-directed', 'Historic districts'] },
+    { n: 'Antiques & design', s: ['Curated dealers', 'Design showrooms'] },
+    { n: 'Cookery & craft', s: ['Small group', 'Hands-on', 'Expert-led'] },
+  ],
+  Drink: [
+    { n: 'Cocktail bars', s: ['Speakeasy-style', 'Award-winning list', 'Live mixology', 'Booth seating'] },
+    { n: 'Wine bars', s: ['Natural wine', 'Sommelier on site', 'Small plates', 'Vinyl/curated music'] },
+    { n: 'Nightclubs', s: ['House music', 'Hip-hop/R&B', 'Table service', 'No trainers', 'Late license', 'Dress code'] },
+    { n: 'Jazz bars', s: ['Live music', 'Late sets', 'Intimate seating', 'No cover charge'] },
+    { n: 'Rooftop & scenic', s: ['Skyline view', 'Heated outdoor', 'Sunset hours', 'DJ sets'] },
+    { n: 'Upmarket pubs', s: ['Fireplace', 'Sunday roast', 'Dog-friendly', 'Beer garden'] },
+    { n: "Members' clubs", s: ['Guest-list only', 'Dress code', 'Live entertainment'] },
+    { n: 'Whisky & spirits', s: ['Rare/aged selection', 'Tasting flights', 'Cigar terrace'] },
+    { n: 'Hotel bars', s: ['Live pianist', 'Late service', 'Views'] },
+    { n: 'Champagne bars', s: ['Vintage list', 'Oyster pairing', 'Booth service'] },
+    { n: 'Late-night lounges', s: ['DJ sets', 'Bottle service', 'Smoking terrace'] },
+    { n: 'CafÃ©s (late)', s: ['Specialty coffee', 'Wine by the glass', 'Late opening'] },
+    { n: 'Beer gardens', s: ['Independent brewers', 'Outdoor heaters', 'Live sport'] },
+    { n: 'Waterside bars', s: ['Outdoor terrace', 'Dock views', 'Sunset hours'] },
+    { n: 'Wellness bars', s: ['Cold-pressed', 'Alcohol-free cocktails', 'Morning hours'] },
+  ],
+  Eat: [
+    { n: 'Tasting menu', s: ['Wine pairing', "Chef's table", '5+ courses'] },
+    { n: 'Romantic', s: ['Low lighting', 'Candlelit', 'Tables for two', 'Quiet music'] },
+    { n: 'Fine dining', s: ['Michelin-recognised', 'Formal service', 'Dress code'] },
+    { n: 'Scenic', s: ['Skyline/waterside', 'Outdoor terrace'] },
+    { n: 'Lively & loud', s: ['Open kitchen buzz', 'Group-friendly', 'Late sittings'] },
+    { n: 'Brunch', s: ['Bottomless option', 'Weekend only', 'Outdoor seating'] },
+    { n: 'Small plates', s: ['Natural wine list', 'Communal tables'] },
+    { n: 'Late-night eats', s: ['Open past midnight', 'Walk-ins only'] },
+    { n: 'Business lunch', s: ['Quiet enough to talk', 'Quick service', 'Private booths'] },
+    { n: 'Hidden gem', s: ['Discreet entrance', 'No booking required'] },
+    { n: "Chef's counter", s: ['Open kitchen', 'Interactive service'] },
+    { n: 'Al fresco', s: ['Heated terrace', 'Greenery', 'Daytime hours'] },
+    { n: 'Private dining', s: ['Bookable rooms', 'Bespoke menus', 'Minimum spend'] },
+    { n: 'Wine-led dining', s: ['Sommelier pairing', 'By-the-glass depth'] },
+    { n: 'Celebratory', s: ['Set menus', 'Champagne on arrival', 'Dessert theatrics'] },
+  ],
+};
+
+// Alexandra's account, as it would stand after onboarding: nine tiles across
+// the three categories, with a handful of sub-preferences she turned off.
+const SEED_TILES = [
+  'Do|Culture', 'Do|Independent cinema', 'Do|Live music', 'Do|Art galleries',
+  'Drink|Cocktail bars', 'Drink|Wine bars', 'Drink|Whisky & spirits', 'Drink|Jazz bars',
+  'Eat|Tasting menu', 'Eat|Small plates', "Eat|Chef's counter", 'Eat|Fine dining', 'Eat|Hidden gem', 'Eat|Al fresco',
+];
+const SEED_OFF = [
+  'Do|Culture|Libraries', 'Do|Culture|Photography',
+  'Do|Live music|Classical', 'Do|Art galleries|Private viewings',
+  'Drink|Cocktail bars|Live mixology', 'Drink|Wine bars|Vinyl/curated music',
+  'Drink|Whisky & spirits|Cigar terrace', 'Drink|Jazz bars|No cover charge',
+  'Eat|Tasting menu|5+ courses', 'Eat|Fine dining|Dress code', 'Eat|Al fresco|Daytime hours',
+];
+const seeded = (list) => list.reduce((o, k) => { o[k] = true; return o; }, {});
+
+const HEADLINES = {
+  Do: 'How do you like to spend the hours in between?',
+  Drink: 'Where would you rather be drinking?',
+  Eat: 'And when you sit down to eat?',
+  You: 'A little about you.',
+};
+const SUBHEADS = {
+  tiles: 'Pick the ones youâ€™d actually choose â€” three or more, as many as you like. Everything below a tile is on by default because most people want it; turn off anything you donâ€™t care for.',
+  You: 'Set once, applied everywhere. These weight the ranking rather than filter it â€” nothing is ever hidden outright.',
+};
+
+const YOU_GROUPS = [
+  { key: 'spend', title: 'SPEND LEVEL', note: 'RANKING DIAL', help: 'Where your evening usually sits. Venues above and below still appear, ranked lower.', opts: ['Â£', 'Â£Â£', 'Â£Â£Â£', 'Â£Â£Â£Â£', 'Â£Â£Â£Â£Â£'], equal: true },
+  { key: 'diet', title: 'DIETARY', note: 'MULTI-SELECT', help: 'Venues that can properly accommodate these rank first.', opts: ['No requirements', 'Vegetarian', 'Vegan', 'Pescatarian', 'Gluten-free', 'Dairy-free', 'Nut allergy'], multi: true },
+  { key: 'pet', title: 'TRAVELLING WITH A PET', note: '', help: 'Dog-friendly rooms, terraces and water bowls get weighted up when this is on.', opts: ['No pet', 'Small dog', 'Large dog'] },
+  { key: 'faith', title: 'RELIGIOUS OBSERVANCE', note: 'MULTI-SELECT', help: 'Handled quietly â€” it affects ranking, never a visible label on your account.', opts: ['None', 'Halal', 'Kosher', 'Alcohol-free', 'Prayer space nearby', 'Friday observance'], multi: true },
+  { key: 'gender', title: 'GENDER', note: 'OPTIONAL', help: '', opts: ['Woman', 'Man', 'Non-binary', 'Prefer not to say'] },
+  { key: 'age', title: 'AGE RANGE', note: 'OPTIONAL', help: '', opts: ['18â€“24', '25â€“34', '35â€“44', '45â€“54', '55â€“64', '65+'] },
+  { key: 'rel', title: 'RELATIONSHIP', note: 'OPTIONAL', help: 'Shapes table-for-two weighting and group-friendly rooms.', opts: ['Single', 'Seeing someone', 'Partnered', 'Married', 'Prefer not to say'] },
+];
+
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const DAY_FULL = { Mon: 'Monday', Tue: 'Tuesday', Wed: 'Wednesday', Thu: 'Thursday', Fri: 'Friday', Sat: 'Saturday', Sun: 'Sunday' };
+const DAY_MULT = { Mon: 0.78, Tue: 0.82, Wed: 0.88, Thu: 0.96, Fri: 1.16, Sat: 1.22, Sun: 0.86 };
+const BANDS = [
+  { key: 'morning', label: 'Morning', hours: '7 â€“ 12' },
+  { key: 'afternoon', label: 'Afternoon', hours: '12 â€“ 5' },
+  { key: 'evening', label: 'Early evening', hours: '5 â€“ 10' },
+  { key: 'late', label: 'Late night', hours: '10 â€“ 4' },
+];
+const BAND_MULT = {
+  city: { morning: 0.34, afternoon: 0.6, evening: 1, late: 1.12 },
+  county: { morning: 0.56, afternoon: 0.96, evening: 0.9, late: 0.42 },
+};
+const WEATHER = { morning: '8Â° Overcast', afternoon: '14Â° Bright spells', evening: '11Â° Light rain', late: '9Â° Clear' };
+const NOW = { day: 'Tue', band: 'evening', time: '7:40pm' };
+
+const DISTRICTS = [
+  { name: 'Northern Quarter', metro: 'Manchester', lat: 53.4840, lon: -2.2360, base: 88, kind: 'city', r: 360, span: 1400, color: '#C0A062' },
+  { name: 'Ancoats', metro: 'Manchester', lat: 53.4846, lon: -2.2262, base: 82, kind: 'city', r: 340, span: 1400, color: '#C9884E' },
+  { name: 'Spinningfields', metro: 'Manchester', lat: 53.4794, lon: -2.2516, base: 76, kind: 'city', r: 290, span: 1300, color: '#A8A06A' },
+  { name: 'Deansgate', metro: 'Manchester', lat: 53.4762, lon: -2.2487, base: 80, kind: 'city', r: 420, span: 1500, color: '#B98F72' },
+  { name: 'Chinatown', metro: 'Manchester', lat: 53.4792, lon: -2.2400, base: 68, kind: 'city', r: 250, span: 1200, color: '#BE7A5A' },
+  { name: 'Altrincham', metro: 'Cheshire', lat: 53.3872, lon: -2.3506, base: 66, kind: 'county', r: 700, span: 2600, color: '#C0A062' },
+  { name: 'Hale', metro: 'Cheshire', lat: 53.3781, lon: -2.3322, base: 62, kind: 'county', r: 620, span: 2600, color: '#A8A06A' },
+  { name: 'Wilmslow', metro: 'Cheshire', lat: 53.3272, lon: -2.2300, base: 55, kind: 'county', r: 750, span: 3400, color: '#C9884E' },
+  { name: 'Alderley Edge', metro: 'Cheshire', lat: 53.3041, lon: -2.2340, base: 52, kind: 'county', r: 620, span: 4200, color: '#B98F72' },
+  { name: 'Mobberley', metro: 'Cheshire', lat: 53.3110, lon: -2.3232, base: 38, kind: 'county', r: 900, span: 6000, color: '#8E8A66' },
+];
+
+// Collections the map can fall back on when districts crowd each other out.
+// A cluster takes a group's name when every member sits inside that group.
+// A partial handful of a city's districts is named for the part, not the whole â€”
+// only the complete set may carry the city's own name.
+const METRO_PART = { Manchester: 'Central Manchester', Cheshire: 'The Cheshire Set' };
+const GROUPS = [
+  { name: 'The Golden Triangle', of: ['Alderley Edge', 'Wilmslow', 'Mobberley', 'Hale'] },
+  { name: 'Hale & Altrincham', of: ['Hale', 'Altrincham'] },
+  { name: 'Ancoats & the NQ', of: ['Ancoats', 'Northern Quarter'] },
+  { name: 'The Deansgate Spine', of: ['Deansgate', 'Spinningfields', 'Chinatown'] },
+];
+
+const AREAS = [
+  { name: 'Salford', lat: 53.4830, lon: -2.2700 }, { name: 'Castlefield', lat: 53.4750, lon: -2.2540 },
+  { name: 'Piccadilly', lat: 53.4775, lon: -2.2310 }, { name: 'Hulme', lat: 53.4630, lon: -2.2520 },
+  { name: 'Ardwick', lat: 53.4690, lon: -2.2170 }, { name: 'Chorlton', lat: 53.4425, lon: -2.2790 },
+  { name: 'Didsbury', lat: 53.4180, lon: -2.2320 }, { name: 'Sale', lat: 53.4240, lon: -2.3230 },
+  { name: 'Stockport', lat: 53.4083, lon: -2.1494 }, { name: 'Prestwich', lat: 53.5290, lon: -2.2830 },
+  { name: 'Knutsford', lat: 53.3020, lon: -2.3730 }, { name: 'Macclesfield', lat: 53.2587, lon: -2.1250 },
+  { name: 'Bramhall', lat: 53.3580, lon: -2.1620 }, { name: 'Handforth', lat: 53.3430, lon: -2.2170 },
+  { name: 'Styal', lat: 53.3450, lon: -2.2500 }, { name: 'Wythenshawe', lat: 53.3900, lon: -2.2640 },
+];
+
+const ARTERIALS = [
+  { pts: [[53.4655, -2.2545], [53.4720, -2.2512], [53.4790, -2.2486], [53.4855, -2.2452], [53.4920, -2.2440]], w: 3.2 },
+  { pts: [[53.4590, -2.2340], [53.4700, -2.2360], [53.4780, -2.2385], [53.4818, -2.2418]], w: 3 },
+  { pts: [[53.4770, -2.2200], [53.4812, -2.2262], [53.4852, -2.2330], [53.4878, -2.2404]], w: 2.8 },
+  { pts: [[53.4855, -2.2440], [53.4905, -2.2380], [53.4960, -2.2300]], w: 2.4 },
+  { pts: [[53.4830, -2.2410], [53.4870, -2.2300], [53.4900, -2.2180]], w: 2.4 },
+  { pts: [[53.4712, -2.2620], [53.4700, -2.2440], [53.4706, -2.2300], [53.4738, -2.2180]], w: 3.4 },
+  { pts: [[53.4740, -2.2600], [53.4800, -2.2660], [53.4860, -2.2720]], w: 2.4 },
+  { pts: [[53.4795, -2.2452], [53.4800, -2.2380], [53.4790, -2.2300], [53.4778, -2.2240]], w: 2.2 },
+  { pts: [[53.4700, -2.2600], [53.4520, -2.2860], [53.4300, -2.3120], [53.4050, -2.3360], [53.3872, -2.3506]], w: 3 },
+  { pts: [[53.3872, -2.3506], [53.3800, -2.3390], [53.3781, -2.3322], [53.3700, -2.3180]], w: 2.4 },
+  { pts: [[53.4620, -2.2280], [53.4300, -2.2210], [53.3900, -2.2260], [53.3600, -2.2280], [53.3272, -2.2300], [53.3041, -2.2340]], w: 3 },
+  { pts: [[53.3272, -2.2300], [53.3200, -2.2700], [53.3110, -2.3232], [53.3050, -2.3600]], w: 2.2 },
+  { pts: [[53.3041, -2.2340], [53.2900, -2.2000], [53.2700, -2.1600]], w: 2.2 },
+  { pts: [[53.4200, -2.3200], [53.4000, -2.2600], [53.3900, -2.2000], [53.4083, -2.1494]], w: 2.4 },
+];
+
+const ARTERIAL_NAMES = ['Deansgate', 'Oxford Road', 'Great Ancoats St', 'Cheetham Hill Rd', 'Rochdale Road', 'Mancunian Way', 'Chapel Street', 'Peter Street', 'A56 Chester Rd', 'Ashley Road', 'A34 Wilmslow Rd', 'Knutsford Road', 'Macclesfield Road', 'A560 Stockport Rd'];
+
+const WATER = [
+  { pts: [[53.4680, -2.2680], [53.4740, -2.2560], [53.4790, -2.2530], [53.4860, -2.2560], [53.4930, -2.2500]], w: 8 },
+  { pts: [[53.4740, -2.2410], [53.4790, -2.2330], [53.4835, -2.2270], [53.4880, -2.2230]], w: 4 },
+];
+
+const GREEN = [
+  { lat: 53.4808, lon: -2.2374, r: 90 }, { lat: 53.4750, lon: -2.2540, r: 130 },
+  { lat: 53.4884, lon: -2.2352, r: 110 }, { lat: 53.4620, lon: -2.2340, r: 220 },
+  { lat: 53.3838, lon: -2.3600, r: 420 }, { lat: 53.2990, lon: -2.2270, r: 520 },
+  { lat: 53.3160, lon: -2.3400, r: 480 },
+];
+
+const VENUES = [
+  { name: 'Erst', district: 'Ancoats', type: 'SMALL PLATES', spend: 'Â£Â£Â£Â£', lat: 53.4849, lon: -2.2276, base: 96, bands: ['evening', 'late'], reason: 'Natural wine and communal tables both on, and the kitchen runs to 11pm.' },
+  { name: "Schofield's", district: 'Northern Quarter', type: 'COCKTAIL BAR', spend: 'Â£Â£Â£', lat: 53.4831, lon: -2.2372, base: 95, bands: ['evening', 'late'], reason: 'Award-winning list, mixology at the table â€” the fullest version of your cocktail tile.' },
+  { name: 'Mana', district: 'Ancoats', type: 'TASTING MENU', spend: 'Â£Â£Â£Â£Â£', lat: 53.4857, lon: -2.2268, base: 93, bands: ['evening'], reason: "Michelin-recognised with a chef's table; one step above your spend dial." },
+  { name: '20 Stories', district: 'Spinningfields', type: 'ROOFTOP', spend: 'Â£Â£Â£Â£', lat: 53.4789, lon: -2.2513, base: 92, bands: ['afternoon', 'evening'], reason: 'Skyline view and heated outdoor seating â€” the heaters matter tonight.' },
+  { name: 'The Jane Eyre', district: 'Ancoats', type: 'COCKTAIL BAR', spend: 'Â£Â£Â£', lat: 53.4838, lon: -2.2290, base: 91, bands: ['evening', 'late'], reason: 'Booth seating and no music you have to shout over.' },
+  { name: 'Blinker', district: 'Northern Quarter', type: 'SPEAKEASY', spend: 'Â£Â£Â£', lat: 53.4846, lon: -2.2352, base: 90, bands: ['late'], reason: 'Unmarked entrance on Tib Street; speakeasy-style still weighted on.' },
+  { name: 'Matt & Phreds', district: 'Northern Quarter', type: 'JAZZ BAR', spend: 'Â£Â£', lat: 53.4854, lon: -2.2366, base: 87, bands: ['evening', 'late'], reason: 'Live sets to 1am, intimate seating, no cover before nine.' },
+  { name: 'The Ivy Spinningfields', district: 'Spinningfields', type: 'FINE DINING', spend: 'Â£Â£Â£Â£', lat: 53.4797, lon: -2.2525, base: 86, bands: ['afternoon', 'evening'], reason: 'Formal service and a dress code; late sittings to 10.30pm.' },
+  { name: 'Refuge', district: 'Deansgate', type: 'HOTEL BAR', spend: 'Â£Â£Â£', lat: 53.4766, lon: -2.2432, base: 84, bands: ['evening', 'late'], reason: 'Live pianist Thursday to Saturday, service well past midnight.' },
+  { name: 'Tattu', district: 'Spinningfields', type: 'CELEBRATORY', spend: 'Â£Â£Â£Â£', lat: 53.4802, lon: -2.2498, base: 82, bands: ['evening'], reason: 'Set menus and dessert theatrics; loudest room in the district after nine.' },
+  { name: 'Victors', district: 'Hale', type: 'SMALL PLATES', spend: 'Â£Â£Â£', lat: 53.3785, lon: -2.3330, base: 81, bands: ['afternoon', 'evening'], reason: 'Communal tables on, group-friendly buzz â€” worth the drive on a Friday.' },
+  { name: 'The Old Cellars', district: 'Alderley Edge', type: 'WINE BAR', spend: 'Â£Â£Â£', lat: 53.3046, lon: -2.2348, base: 79, bands: ['afternoon', 'evening'], reason: 'Sommelier on site and small plates until close.' },
+  { name: 'Pollen Bakery', district: 'Ancoats', type: 'BAKERY', spend: 'Â£Â£', lat: 53.4853, lon: -2.2243, base: 89, bands: ['morning', 'afternoon'], reason: 'Canalside counter seats and viennoiserie out of the oven at eight.' },
+  { name: 'Mackie Mayor', district: 'Northern Quarter', type: 'MARKET HALL', spend: 'Â£Â£', lat: 53.4864, lon: -2.2348, base: 87, bands: ['morning', 'afternoon', 'evening'], reason: 'Nine kitchens under one roof â€” the easiest room in the city to arrive at without a plan.' },
+  { name: 'Foundation Coffee', district: 'Northern Quarter', type: 'COFFEE ROOM', spend: 'Â£Â£', lat: 53.4842, lon: -2.2338, base: 84, bands: ['morning', 'afternoon'], reason: 'A mill floor big enough to work in, and nobody rushing the second cup.' },
+  { name: 'Manchester Art Gallery', district: 'Chinatown', type: 'GALLERY', spend: 'Â£', lat: 53.4794, lon: -2.2412, base: 83, bands: ['morning', 'afternoon'], reason: 'Free, quiet before eleven, and the Pre-Raphaelite rooms are worth the walk alone.' },
+  { name: 'Bakerie & Beans', district: 'Hale', type: 'BRUNCH', spend: 'Â£Â£', lat: 53.3788, lon: -2.3316, base: 80, bands: ['morning', 'afternoon'], reason: 'Village brunch that does not hurry you out of the window table.' },
+  { name: 'The Wizard', district: 'Alderley Edge', type: 'COUNTRY PUB', spend: 'Â£Â£Â£', lat: 53.3021, lon: -2.2244, base: 78, bands: ['afternoon', 'evening'], reason: 'Fires lit from October, and the Edge walk finishes at the door.' },
+];
+
+const LISTS = [
+  { title: 'Best for Date Night', count: '12 VENUES', curator: 'ELENA M.', picks: ['The Jane Eyre', 'Mana', 'Refuge', 'The Old Cellars'], blurb: 'Low light, tables for two, and a wine list worth staying for a third glass.' },
+  { title: 'Entertaining a Client', count: '9 VENUES', curator: 'JAMES O.', picks: ['The Ivy Spinningfields', '20 Stories', 'Refuge', 'Erst'], blurb: 'Quiet enough to talk. Expensive enough to register without being said out loud.' },
+  { title: 'Big Group of Friends', count: '14 VENUES', curator: 'PRIYA N.', picks: ['Victors', 'Tattu', 'Matt & Phreds', 'Rudyâ€™s'], blurb: 'Rooms that can take eight at short notice without a sigh from the host.' },
+  { title: 'Solo Reset', count: '8 VENUES', curator: 'ELENA M.', picks: ['Erst', 'Matt & Phreds', 'Porta', 'The Old Cellars'], blurb: 'Counter seats, a book, and nobody asking whether youâ€™re waiting for someone.' },
+  { title: 'Sunday, Slowly', count: '11 VENUES', curator: 'TOM R.', picks: ['Refuge', 'The Old Cellars', 'Victors', 'Cutting Room Square'], blurb: 'Fires lit, roast on, no reason to be anywhere before four in the afternoon.' },
+];
+
+const JOURNEYS = [
+  {
+    title: 'An Afternoon in Hale', district: 'Hale', meta: 'HALE Â· 2 STOPS Â· 3 HOURS',
+    blurb: 'Lunch that runs long, then the short walk down to the wine shop that pours by the glass until seven.',
+    stops: [
+      { name: 'Victors', kind: 'SMALL PLATES Â· TERRACE', time: '1.00PM', note: 'Book the terrace side. It is the only quiet half of the room before three.', walk: '5 MIN WALK Â· ASHLEY ROAD' },
+      { name: 'The Old Cellars', kind: 'WINE BAR', time: '4.30PM', note: 'Ask what is open by the glass â€” they will pour you something you have not had.', walk: null },
+    ],
+  },
+  {
+    title: 'Date Night in Altrincham', district: 'Altrincham', meta: 'ALTRINCHAM Â· 3 STOPS Â· 4 HOURS',
+    blurb: 'A film first so thereâ€™s something to talk about, then eight minutes on foot to the best pizza in the county.',
+    stops: [
+      { name: 'Everyman Cinema', kind: 'INDEPENDENT CINEMA', time: '7.30PM', note: 'Sofa seats in screen two. Order the wine before the trailers â€” they bring it to you.', walk: '6 MIN WALK Â· GOOSE GREEN' },
+      { name: 'Rudyâ€™s', kind: 'PIZZA Â· NAPOLETANA', time: '9.45PM', note: 'No bookings, but the queue after the late screening is usually nothing.', walk: '4 MIN WALK Â· STAMFORD NEW ROAD' },
+      { name: 'Porta', kind: 'SMALL PLATES & SHERRY', time: '11.00PM', note: 'One last sherry standing at the counter. Kitchen closes at midnight.', walk: null },
+    ],
+  },
+  {
+    title: 'The Ancoats Long Way Round', district: 'Ancoats', meta: 'ANCOATS Â· 4 STOPS Â· 5 HOURS',
+    blurb: 'The full mill-district evening, walked in a loop that never doubles back on itself.',
+    stops: [
+      { name: 'Cutting Room Square', kind: 'APERITIVO Â· TERRACE', time: '6.00PM', note: 'Start outside while the light goes. Heaters on from October.', walk: '3 MIN WALK' },
+      { name: 'Erst', kind: 'SMALL PLATES Â· NATURAL WINE', time: '7.15PM', note: 'Ask for the two-top by the window and let them order for you.', walk: '5 MIN WALK Â· REDHILL STREET' },
+      { name: 'The Jane Eyre', kind: 'COCKTAIL BAR', time: '9.30PM', note: 'Booths at the back. Quiet until ten, then not.', walk: '7 MIN WALK Â· CANAL TOWPATH' },
+      { name: 'Cotton Hall', kind: 'MEMBERSâ€™ CLUB', time: '11.30PM', note: 'Guest list held under your name until midnight.', walk: null },
+    ],
+  },
+  {
+    title: 'A Client, Well Handled', district: 'Spinningfields', meta: 'SPINNINGFIELDS Â· 2 STOPS Â· 3 HOURS',
+    blurb: 'Height first for the view, then somewhere with tablecloths and a sommelier who knows when to leave you alone.',
+    stops: [
+      { name: '20 Stories', kind: 'ROOFTOP Â· APERITIF', time: '6.30PM', note: 'Terrace side, two drinks, no menus. Enough time for the small talk.', walk: '9 MIN WALK Â· HARDMAN SQUARE' },
+      { name: 'The Ivy Spinningfields', kind: 'FINE DINING', time: '8.00PM', note: 'Booth four is the quietest table in the room. Ask when you book.', walk: null },
+    ],
+  },
+];
+
+const DETAIL = {
+  Ancoats: {
+    kicker: 'MANCHESTER Â· DISTRICT 04',
+    desc: 'Mill brick and low ceilings, run by people who used to cook somewhere more famous and left on purpose. It peaks late and rewards walking â€” five of the six below sit within four minutes of Cutting Room Square.',
+    tags: ['WALKABLE', 'LATE KITCHENS', 'NATURAL WINE'], all: 24,
+    v: [
+      { name: 'Erst', meta: 'SMALL PLATES Â· Â£Â£Â£Â£ Â· 4 MIN', score: '96', reason: 'Natural wine list and communal tables both on â€” and the kitchen runs to 11pm, which suits the late sitting you kept.' },
+      { name: 'Mana', meta: 'TASTING MENU Â· Â£Â£Â£Â£Â£ Â· 7 MIN', score: '93', reason: "Michelin-recognised with a chef's table; a step above your spend dial but weighted up on everything else." },
+      { name: 'The Jane Eyre', meta: 'COCKTAIL BAR Â· Â£Â£Â£ Â· 3 MIN', score: '91', reason: 'Booth seating, no music you have to shout over. Quiet start before the room fills after ten.' },
+      { name: 'Cotton Hall', meta: "MEMBERS' CLUB Â· Â£Â£Â£Â£ Â· 6 MIN", score: '88', reason: 'Guest-list only and dress code enforced â€” both still on in your Drink preferences.' },
+    ],
+  },
+  'Northern Quarter': {
+    kicker: 'MANCHESTER Â· DISTRICT 02',
+    desc: 'Loudest of the ten, and honest about it. Best treated as a second or third stop rather than the whole evening â€” the good rooms are upstairs, behind doors with no signage.',
+    tags: ['LATE LICENCE', 'HIDDEN ENTRANCES', 'LIVE MUSIC'], all: 31,
+    v: [
+      { name: 'Schofield\u2019s', meta: 'COCKTAIL BAR Â· Â£Â£Â£ Â· 2 MIN', score: '95', reason: 'Award-winning list, mixology done at the table â€” the fuller version of the tile you left untouched.' },
+      { name: 'Blinker', meta: 'SPEAKEASY Â· Â£Â£Â£ Â· 5 MIN', score: '90', reason: 'Unmarked entrance on Tib Street; speakeasy-style is still weighted on.' },
+      { name: 'Matt & Phreds', meta: 'JAZZ BAR Â· Â£Â£ Â· 6 MIN', score: '87', reason: 'Live sets to 1am, intimate seating, no cover before nine.' },
+    ],
+  },
+  Deansgate: {
+    kicker: 'MANCHESTER Â· DISTRICT 05',
+    desc: 'The formal spine of the city â€” hotel bars, height, and service that still wears a jacket. Reliable rather than surprising, which on a Tuesday is the point.',
+    tags: ['HOTEL BARS', 'SKYLINE', 'FORMAL SERVICE'], all: 19,
+    v: [
+      { name: '20 Stories', meta: 'ROOFTOP Â· Â£Â£Â£Â£ Â· 5 MIN', score: '92', reason: 'Skyline view and heated outdoor seating â€” the heaters matter given the forecast in your context.' },
+      { name: 'The Ivy Spinningfields', meta: 'FINE DINING Â· Â£Â£Â£Â£ Â· 8 MIN', score: '86', reason: 'Formal service and a dress code; late sittings available to 10.30pm.' },
+      { name: 'Refuge', meta: 'HOTEL BAR Â· Â£Â£Â£ Â· 9 MIN', score: '84', reason: 'Live pianist Thursday to Saturday, afternoon-to-late service.' },
+    ],
+  },
+  Spinningfields: {
+    kicker: 'MANCHESTER Â· DISTRICT 03',
+    desc: 'Glass, height and expense accounts. It empties by eleven on a weeknight, which is either the flaw or the appeal depending on the evening you had in mind.',
+    tags: ['SKYLINE', 'BUSINESS LUNCH', 'CELEBRATORY'], all: 17,
+    v: [
+      { name: '20 Stories', meta: 'ROOFTOP Â· Â£Â£Â£Â£ Â· 11 MIN', score: '92', reason: 'Skyline view and heated terrace â€” both still on under Rooftop & scenic.' },
+      { name: 'The Ivy Spinningfields', meta: 'FINE DINING Â· Â£Â£Â£Â£ Â· 12 MIN', score: '86', reason: 'Formal service, dress code, and quiet enough for the business-lunch tile you kept.' },
+      { name: 'Tattu', meta: 'CELEBRATORY Â· Â£Â£Â£Â£ Â· 12 MIN', score: '82', reason: 'Set menus and dessert theatrics; loudest room in the district after nine.' },
+    ],
+  },
+};
+
+function fallbackDetail(name) {
+  return {
+    kicker: 'CHESHIRE Â· CURATED',
+    desc: name + ' runs quieter and earlier than the city districts â€” a smaller, better-behaved set of rooms where the wine list is the reason to go rather than the room.',
+    tags: ['QUIET', 'WINE-LED', 'EARLY EVENING'], all: 12,
+    v: [
+      { name: 'The Old Cellars', meta: 'WINE BAR Â· Â£Â£Â£ Â· 3 MIN', score: '89', reason: 'Sommelier on site and small plates until close â€” matches the fuller version of your Wine bars tile.' },
+      { name: 'Victors', meta: 'SMALL PLATES Â· Â£Â£Â£ Â· 5 MIN', score: '84', reason: 'Communal tables on, group-friendly buzz; loudest room in the district.' },
+      { name: 'Bramble House', meta: 'UPMARKET PUB Â· Â£Â£ Â· 11 MIN', score: '80', reason: 'Fireplace and a beer garden â€” weighted for the clear forecast in your selected context.' },
+    ],
+  };
+}
+
+function hash(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+
+const U = {
+  cinemaSeats: '1489599849927-2ee91cede3ba', cinemaScreen: '1595769816263-9b910be24d5f',
+  pizzaBoard: '1571407970349-bc81e7e96d47', rooftopDusk: '1559339352-11d035aa65de',
+  tableWine: '1414235077428-338989a2e8c0', millRoom: '1517248135467-4c7edcad34c4',
+  cocktailRoom: '1543007630-9710e4a00a20', darkBar: '1514933651103-005eec06c04b',
+  speakeasy: '1481833761820-0509d3217039', piano: '1470019693664-1d202d2c0907',
+  formalRoom: '1550966871-3ed3cdb5ed0c', woodPub: '1485686531765-ba63b07845a7',
+  longRoom: '1555396273-367ea4eb4db5', steak: '1600891964092-4316c288032e',
+  winePour: '1519671482749-fd09be7ccebf', whiskyCounter: '1568644396922-5c3bfae12521',
+  coupes: '1470158499416-75be9aa0c4db', twoAtTable: '1521737604893-d14cc237f11d',
+  groupDinner: '1528605248644-14dd04022da1', counterCafe: '1554118811-1e0d58224f24',
+  loungeSofas: '1560624052-449f5ddf0c31', nightStreet: '1517154421773-0529f29ea451',
+  roomWithView: '1521017432531-fbd92d768814', festoon: '1517457373958-b7bdd4587205',
+  dimToast: '1541532713592-79a0317b6b77',
+};
+const PHOTOS = {
+  'Erst': U.tableWine, "Schofield's": U.cocktailRoom, 'Mana': U.millRoom,
+  '20 Stories': U.rooftopDusk, 'The Jane Eyre': U.darkBar, 'Blinker': U.speakeasy,
+  'Matt & Phreds': U.piano, 'The Ivy Spinningfields': U.formalRoom, 'Refuge': U.woodPub,
+  'Tattu': U.longRoom, 'Victors': U.steak, 'The Old Cellars': U.winePour,
+  'Best for Date Night': U.coupes, 'Entertaining a Client': U.twoAtTable,
+  'Big Group of Friends': U.groupDinner, 'Solo Reset': U.counterCafe,
+  'Sunday, Slowly': U.loungeSofas,
+  'Date Night in Altrincham': U.cinemaSeats, 'The Ancoats Long Way Round': U.nightStreet,
+  'A Client, Well Handled': U.roomWithView,
+  'Everyman Cinema': U.cinemaScreen, 'Rudyâ€™s': U.pizzaBoard, 'Porta': U.whiskyCounter,
+  'Cutting Room Square': U.festoon, 'Cotton Hall': U.dimToast,
+};
+function photo(name, w) {
+  const id = PHOTOS[name] || U.warmDining;
+  return 'https://images.unsplash.com/photo-' + id + '?w=' + w + '&q=70&auto=format&fit=crop';
+}
+
+const MIN_R = 0.25, MAX_R = 30;
+const miles = (r) => (r % 1 === 0 ? String(r) : r.toFixed(2).replace(/0$/, '')) + (r === 1 ? ' mile' : ' miles');
+
+// The live launch region: Greater Manchester down through the Cheshire set.
+// Everything beyond it is territory Curia has not opened yet.
+const REGION = [
+  [53.548, -2.345], [53.553, -2.158], [53.508, -2.086], [53.452, -2.075],
+  [53.390, -2.118], [53.318, -2.152], [53.252, -2.196], [53.241, -2.332],
+  [53.286, -2.418], [53.352, -2.451], [53.441, -2.437],
+];
+function inRegion(lat, lon) {
+  let inside = false;
+  for (let i = 0, j = REGION.length - 1; i < REGION.length; j = i++) {
+    const yi = REGION[i][0], xi = REGION[i][1], yj = REGION[j][0], xj = REGION[j][1];
+    if ((yi > lat) !== (yj > lat) && lon < (xj - xi) * (lat - yi) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+const M_PER_LAT = 111320;
+function mPerLon(lat) { return M_PER_LAT * Math.cos(lat * Math.PI / 180); }
+function metres(a, b) {
+  const dy = (a.lat - b.lat) * M_PER_LAT, dx = (a.lon - b.lon) * mPerLon(a.lat);
+  return Math.sqrt(dx * dx + dy * dy);
+}
+const ME = { lat: 53.4826, lon: -2.2338 };
+const HOME = { lat: 53.4814, lon: -2.2361 }, HOME_SPAN = 2900;
+const W = 402, H = 874, CY = 372;
+// The strip of the frame a label can occupy: below the context bar, above the sheet.
+const BAND_TOP = 186, BAND_BOTTOM = 494;
+const BAND_MID = (BAND_TOP + BAND_BOTTOM) / 2;
+const BAND_W = W - 116, BAND_H = BAND_BOTTOM - BAND_TOP;
+
+function rng(seed) {
+  let a = seed >>> 0;
+  return function () { a += 0x6D2B79F5; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+}
+
+// Local street grids: a regular rotated block grid per district, clipped to its radius.
+// Straight segments, consistent spacing â€” reads as a street plan, not a scribble.
+function gridFor(origin, radius, seed, opts) {
+  const rnd = rng(hash(seed));
+  const rot = rnd() * Math.PI / 2;
+  const stepA = opts.step, stepB = opts.step * (opts.aspect || 1.25);
+  const skew = (rnd() - 0.5) * 0.16;
+  const out = [];
+  const mLat = M_PER_LAT, mLon = mPerLon(origin.lat);
+  for (let axis = 0; axis < 2; axis++) {
+    const ang = rot + axis * (Math.PI / 2) + (axis ? skew : 0);
+    const cs = Math.cos(ang), sn = Math.sin(ang);
+    const step = axis ? stepB : stepA;
+    const n = Math.ceil(radius / step);
+    for (let k = -n; k <= n; k++) {
+      const off = k * step;
+      const half = Math.sqrt(Math.max(0, radius * radius - off * off));
+      if (half < step * 0.55) continue;
+      // Slight stagger at the ends so blocks don't all terminate on one arc.
+      const a = -half * (0.86 + rnd() * 0.14), b = half * (0.86 + rnd() * 0.14);
+      const p = (s) => [origin.lat + (s * sn + off * cs) / mLat, origin.lon + (s * cs - off * sn) / mLon];
+      const major = Math.abs(k) % 3 === 0;
+      out.push({ pts: [p(a), p(b)], w: major ? 1.9 : 1.05, major });
+    }
+  }
+  return out;
+}
+
+const LOCAL = {};
+DISTRICTS.forEach(d => {
+  LOCAL[d.name] = gridFor(d, d.r, d.name, { step: d.kind === 'city' ? 95 : 150, aspect: 1.3 })
+    .map(s => Object.assign(s, { color: d.color }));
+});
+const AREA_GRID = {};
+AREAS.forEach(a => { AREA_GRID[a.name] = gridFor(a, 520, a.name, { step: 175, aspect: 1.45 }); });
+
+
+const STEPS = ['Do', 'Drink', 'Eat', 'You'];
+const TABS = ['map', 'list', 'moments'];
+const NOTIFS = [
+  { key: 'table', label: 'A table opens up', sub: 'Only for rooms you have saved, and only when it is tonight or tomorrow.' },
+  { key: 'journey', label: 'Journey worth taking', sub: 'When the weather and your diary suit an evening we have planned.' },
+  { key: 'district', label: 'A district comes alive', sub: 'Rare. Sent when somewhere near you is unusually good for the hour.' },
+  { key: 'editorial', label: 'New from our editors', sub: 'One note a week when a Moment or Journey is added near you.' },
+];
+// What each room actually is, in the vocabulary of the onboarding tiles, so a
+// venue page can say plainly which of your preferences it meets and which it
+// does not. [category, tile, sub-preference].
+const TRAITS = {
+  'Erst': [['Eat', 'Small plates', 'Natural wine list'], ['Eat', 'Small plates', 'Communal tables'], ['Eat', "Chef's counter", 'Open kitchen'], ['Eat', 'Late-night eats', 'Open past midnight'], ['Eat', 'Hidden gem', 'No booking required']],
+  "Schofield's": [['Drink', 'Cocktail bars', 'Award-winning list'], ['Drink', 'Cocktail bars', 'Live mixology'], ['Drink', 'Cocktail bars', 'Booth seating'], ['Drink', 'Whisky & spirits', 'Rare/aged selection'], ['Drink', 'Late-night lounges', 'DJ sets']],
+  'Mana': [['Eat', 'Tasting menu', '5+ courses'], ['Eat', 'Tasting menu', 'Wine pairing'], ['Eat', 'Tasting menu', "Chef's table"], ['Eat', 'Fine dining', 'Michelin-recognised'], ['Eat', 'Fine dining', 'Formal service']],
+  '20 Stories': [['Drink', 'Rooftop & scenic', 'Skyline view'], ['Drink', 'Rooftop & scenic', 'Heated outdoor'], ['Drink', 'Rooftop & scenic', 'Sunset hours'], ['Drink', 'Rooftop & scenic', 'DJ sets'], ['Eat', 'Scenic', 'Skyline/waterside']],
+  'The Jane Eyre': [['Drink', 'Cocktail bars', 'Speakeasy-style'], ['Drink', 'Cocktail bars', 'Booth seating'], ['Drink', 'Late-night lounges', 'Smoking terrace'], ['Eat', 'Romantic', 'Low lighting']],
+  'Blinker': [['Drink', 'Cocktail bars', 'Speakeasy-style'], ['Drink', 'Cocktail bars', 'Award-winning list'], ['Eat', 'Hidden gem', 'Discreet entrance'], ['Eat', 'Hidden gem', 'No booking required']],
+  'Matt & Phreds': [['Drink', 'Jazz bars', 'Live music'], ['Drink', 'Jazz bars', 'Late sets'], ['Drink', 'Jazz bars', 'Intimate seating'], ['Do', 'Live music', 'Jazz'], ['Do', 'Live music', 'Intimate gig spaces']],
+  'The Ivy Spinningfields': [['Eat', 'Business lunch', 'Quiet enough to talk'], ['Eat', 'Business lunch', 'Quick service'], ['Eat', 'Business lunch', 'Private booths'], ['Eat', 'Fine dining', 'Formal service']],
+  'Tattu': [['Eat', 'Celebratory', 'Set menus'], ['Eat', 'Celebratory', 'Dessert theatrics'], ['Eat', 'Celebratory', 'Champagne on arrival'], ['Eat', 'Lively & loud', 'Group-friendly'], ['Eat', 'Lively & loud', 'Late sittings']],
+  'Refuge': [['Drink', 'Hotel bars', 'Live pianist'], ['Drink', 'Hotel bars', 'Late service'], ['Eat', 'Al fresco', 'Greenery'], ['Eat', 'Lively & loud', 'Group-friendly']],
+  'Victors': [['Eat', 'Small plates', 'Communal tables'], ['Eat', 'Lively & loud', 'Group-friendly'], ['Eat', 'Lively & loud', 'Open kitchen buzz'], ['Eat', 'Al fresco', 'Heated terrace'], ['Eat', 'Brunch', 'Bottomless option']],
+  'The Old Cellars': [['Drink', 'Wine bars', 'Sommelier on site'], ['Drink', 'Wine bars', 'Small plates'], ['Drink', 'Wine bars', 'Natural wine'], ['Drink', 'Wine bars', 'Vinyl/curated music'], ['Eat', 'Wine-led dining', 'By-the-glass depth']],
+  'Everyman Cinema': [['Do', 'Independent cinema', 'Bar on site'], ['Do', 'Independent cinema', "Director's cuts"], ['Do', 'Independent cinema', 'Q&A screenings']],
+  'Rudyâ€™s': [['Eat', 'Lively & loud', 'Open kitchen buzz'], ['Eat', 'Lively & loud', 'Group-friendly'], ['Eat', 'Late-night eats', 'Walk-ins only'], ['Eat', 'Hidden gem', 'No booking required']],
+  'Porta': [['Eat', 'Small plates', 'Communal tables'], ['Eat', 'Late-night eats', 'Open past midnight'], ['Drink', 'Whisky & spirits', 'Tasting flights'], ['Eat', "Chef's counter", 'Interactive service']],
+  'Pollen Bakery': [['Eat', 'Brunch', 'Outdoor seating'], ['Eat', 'Al fresco', 'Daytime hours'], ['Eat', 'Hidden gem', 'No booking required'], ['Drink', 'CafÃ©s (late)', 'Specialty coffee']],
+  'Mackie Mayor': [['Eat', 'Lively & loud', 'Group-friendly'], ['Eat', 'Lively & loud', 'Open kitchen buzz'], ['Eat', 'Late-night eats', 'Walk-ins only'], ['Do', 'Markets', 'Food markets'], ['Do', 'Markets', 'Artisan stalls']],
+  'Foundation Coffee': [['Drink', 'CafÃ©s (late)', 'Specialty coffee'], ['Eat', 'Business lunch', 'Quiet enough to talk'], ['Eat', 'Brunch', 'Outdoor seating']],
+  'Manchester Art Gallery': [['Do', 'Culture', 'Art'], ['Do', 'Culture', 'Museums'], ['Do', 'Art galleries', 'Contemporary'], ['Do', 'Art galleries', 'Independent artists'], ['Do', 'Culture', 'History']],
+  'Bakerie & Beans': [['Eat', 'Brunch', 'Weekend only'], ['Eat', 'Brunch', 'Outdoor seating'], ['Drink', 'CafÃ©s (late)', 'Specialty coffee'], ['Eat', 'Al fresco', 'Daytime hours']],
+  'The Wizard': [['Drink', 'Upmarket pubs', 'Fireplace'], ['Drink', 'Upmarket pubs', 'Sunday roast'], ['Drink', 'Upmarket pubs', 'Dog-friendly'], ['Drink', 'Upmarket pubs', 'Beer garden'], ['Do', 'Parks & green space', 'Scenic walks']],
+  'Cotton Hall': [['Drink', "Members' clubs", 'Guest-list only'], ['Drink', "Members' clubs", 'Dress code'], ['Drink', "Members' clubs", 'Live entertainment'], ['Drink', 'Late-night lounges', 'Bottle service']],
+  'Cutting Room Square': [['Eat', 'Al fresco', 'Heated terrace'], ['Eat', 'Al fresco', 'Greenery'], ['Drink', 'Waterside bars', 'Outdoor terrace'], ['Drink', 'Beer gardens', 'Outdoor heaters']],
+};
+
+// Street addresses and handles for the rooms we keep. Anything absent falls
+// back to a slug built from the name â€” good enough for a prototype.
+const CONTACT = {
+  'Erst': { street: '9 Murray Street, Ancoats', phone: '0161 236 0000', site: 'erst-mcr.co.uk', ig: 'erstmcr', book: 'Walk-ins at the counter; tables bookable a fortnight out.' },
+  "Schofield's": { street: 'Little Quay Street, Deansgate', phone: '0161 833 4145', site: 'schofieldbarmcr.com', ig: 'schofieldbarmcr', book: 'No bookings after 9pm â€” the bar is first come.' },
+  'Mana': { street: '42 Blossom Street, Ancoats', phone: '0161 392 7294', site: 'manarestaurant.co.uk', ig: 'mana_mcr', book: 'Two sittings, ticketed. Cancellations released at 10am.' },
+  '20 Stories': { street: 'No.1 Spinningfields, Hardman Square', phone: '0161 204 3333', site: '20stories.co.uk', ig: '20storiesmcr', book: 'Terrace held for walk-ins; the dining room takes bookings.' },
+  'The Jane Eyre': { street: '54 Thomas Street, Northern Quarter', phone: '0161 833 3078', site: 'thejaneeyre.com', ig: 'thejaneeyrebar', book: 'Booths bookable; the bar never is.' },
+  'Blinker': { street: '81 Tib Street, Northern Quarter', phone: 'Ring the bell', site: 'blinkerbar.com', ig: 'blinkerbar', book: 'No bookings, no sign. One bell, upstairs.' },
+  'Matt & Phreds': { street: '64 Tib Street, Northern Quarter', phone: '0161 661 7494', site: 'mattandphreds.com', ig: 'mattandphreds', book: 'Table tickets for both sets; standing room free.' },
+  'The Ivy Spinningfields': { street: 'The Pavilion, Byrom Street', phone: '0161 359 5980', site: 'ivycollection.com', ig: 'theivyspinningfields', book: 'Booths on request when you book â€” ask for four.' },
+  'Tattu': { street: 'Gartside Street, Spinningfields', phone: '0161 819 2060', site: 'tattu.co.uk', ig: 'tatturestaurant', book: 'Bookable eight weeks out; bar walk-ins from six.' },
+  'Refuge': { street: 'Oxford Street, Kimpton Clocktower', phone: '0161 233 5151', site: 'refugemcr.com', ig: 'refugemcr', book: 'Winter garden holds a third of the room for walk-ins.' },
+  'Victors': { street: '2 Ashley Road, Hale', phone: '0161 928 6008', site: 'victorsbar.co.uk', ig: 'victorsaltrincham', book: 'Terrace side bookable â€” ask for it by name.' },
+  'The Old Cellars': { street: 'London Road, Alderley Edge', phone: '01625 584 900', site: 'theoldcellars.co.uk', ig: 'theoldcellars', book: 'Counter seats kept back until eight each evening.' },
+  'Everyman Cinema': { street: 'Goose Green, Altrincham', phone: '0872 436 9060', site: 'everymancinema.com', ig: 'everymancinema', book: 'Sofa seats in screen two sell out first at weekends.' },
+  'Rudyâ€™s': { street: 'Stamford New Road, Altrincham', phone: '0161 928 2555', site: 'rudyspizza.co.uk', ig: 'rudyspizzanapoletana', book: 'No bookings. Queue moves quicker than it looks.' },
+  'Porta': { street: 'Shaws Road, Altrincham', phone: '0161 941 3535', site: 'portatapas.co.uk', ig: 'portatapas', book: 'Standing at the counter, always. Tables for four upward.' },
+  'Pollen Bakery': { street: 'Cotton Field Wharf, Ancoats', phone: '0161 302 7182', site: 'pollenbakery.com', ig: 'pollenbakery', book: 'No bookings â€” go before ten for the viennoiserie.' },
+  'Mackie Mayor': { street: '1 Eagle Street, Northern Quarter', phone: 'No telephone', site: 'mackiemayor.co.uk', ig: 'mackiemayor', book: 'Never takes bookings. Find a bench, then order.' },
+  'Foundation Coffee': { street: 'Sevendale House, Lever Street', phone: '0161 236 4442', site: 'foundationcoffeehouse.co.uk', ig: 'foundationcoffee', book: 'Work-friendly until three; no reservations.' },
+  'Manchester Art Gallery': { street: 'Mosley Street, Manchester', phone: '0161 235 8888', site: 'manchesterartgallery.org', ig: 'mcrartgallery', book: 'Free entry, no ticket needed. Quietest before eleven.' },
+  'Bakerie & Beans': { street: 'Ashley Road, Hale', phone: '0161 941 1122', site: 'bakerieandbeans.co.uk', ig: 'bakerieandbeans', book: 'Window tables on a first-come basis at weekends.' },
+  'The Wizard': { street: 'Macclesfield Road, Alderley Edge', phone: '01625 584 000', site: 'thewizardalderleyedge.com', ig: 'thewizardinn', book: 'Sunday lunch books a fortnight ahead; fires lit from October.' },
+  'Cotton Hall': { street: 'Redhill Street, Ancoats', phone: 'Members only', site: 'cottonhall.club', ig: 'cottonhallclub', book: 'Guest list only. Members may add two names a night.' },
+  'Cutting Room Square': { street: 'Cutting Room Square, Ancoats', phone: 'No telephone', site: 'ancoats.co.uk', ig: 'ancoatsmcr', book: 'Outdoor terrace, no bookings, heaters from October.' },
+};
+
+const VENUE_NOTES = {
+  'Erst': { hours: 'Kitchen to 11pm', blurb: 'Twenty-eight covers, a chalkboard list, and a kitchen that stops asking whether you want more once it decides you do.' },
+  "Schofield's": { hours: 'Bar to 1am', blurb: 'Two brothers, a marble counter and the most disciplined drinks list in the north. Sit at the bar and let them decide.' },
+  'Mana': { hours: 'Two sittings', blurb: 'The tasting menu that changed what Manchester expects of itself. Book six weeks out, or take a Tuesday cancellation.' },
+  '20 Stories': { hours: 'Terrace to midnight', blurb: 'Twenty floors up with the city laid flat beneath you. Heaters on from October, and worth the lift queue at dusk.' },
+  'The Jane Eyre': { hours: 'To 1am', blurb: 'Low ceilings, deep booths, and a room that only fills after ten. Order the pear martini before the crowd arrives.' },
+  'Blinker': { hours: 'To 2am', blurb: 'No sign, no bookings, one bell. Upstairs on Tib Street, and better the later you leave it.' },
+  'Matt & Phreds': { hours: 'Sets to 1am', blurb: 'Thirty years of live jazz and no interest in changing. Two sets a night, pizza until eleven.' },
+  'The Ivy Spinningfields': { hours: 'To 10.30pm', blurb: 'Predictable in the way clients like: quick service, quiet corners, and a list you can order from without thinking.' },
+  'Refuge': { hours: 'To 2am', blurb: 'A Victorian insurance hall turned drinking room. The pianist plays Thursday to Saturday and nobody rushes you out.' },
+  'Tattu': { hours: 'To 11pm', blurb: 'Theatrical, expensive, and entirely aware of it. The right room for the birthday you cannot get out of.' },
+  'Victors': { hours: 'To 11pm', blurb: 'The loudest room in Hale, in the best way. Go in a group or not at all.' },
+  'The Old Cellars': { hours: 'To midnight', blurb: 'A cellar list three hundred bottles deep and a sommelier who would rather find you something odd than something safe.' },
+  'Cotton Hall': { lat: 53.4842, lon: -2.2255, district: 'Ancoats', type: "Members' club", spend: 'Â£Â£Â£Â£', score: '88', hours: 'To 3am', blurb: 'Guest list only, jacket preferred, and no photographs past the second door.' },
+  'Everyman Cinema': { lat: 53.3877, lon: -2.3497, district: 'Altrincham', type: 'Independent cinema', spend: 'Â£Â£Â£', score: '90', hours: 'Last screening 9.15pm', blurb: 'Sofa seats, a proper bar, and staff who bring the wine to you once the lights go down.' },
+  'Rudyâ€™s': { lat: 53.3869, lon: -2.3510, district: 'Altrincham', type: 'Pizza', spend: 'Â£Â£', score: '87', hours: 'To 10.30pm', blurb: 'Neapolitan, sixty seconds in the oven, no bookings. The queue after the late screening is usually nothing.' },
+  'Porta': { lat: 53.3880, lon: -2.3489, district: 'Altrincham', type: 'Small plates & sherry', spend: 'Â£Â£Â£', score: '84', hours: 'To midnight', blurb: 'Standing room at the counter, a sherry you have not heard of, and croquetas worth a second order.' },
+  'Cutting Room Square': { lat: 53.4846, lon: -2.2270, district: 'Ancoats', type: 'Aperitivo terrace', spend: 'Â£Â£', score: '81', hours: 'To 9pm', blurb: 'Outside while the light goes, heaters on from October, and the whole district within four minutes.' },
+};
+
+class Component extends DCLogic {
+  state = {
+    screen: 'login', stack: [],
+    user: { name: 'Alexandra Vance', email: 'a.vance@thorncroft.co.uk' },
+    editing: false, cat: 'Do', open: seeded(SEED_TILES), off: seeded(SEED_OFF),
+    you: { spend: 'Â£Â£Â£', diet: { 'No requirements': true }, pet: 'No pet', faith: { None: true }, gender: 'Prefer not to say', age: '35â€“44', rel: 'Partnered' },
+    savedVenues: {}, savedJourneys: {},
+    notif: { table: true, journey: true, district: false, editorial: true },
+    district: 'Ancoats', venue: 'Erst', journey: 0, savedView: 'places', momentDistrict: null,
+    ctx: { now: true, day: NOW.day, band: NOW.band }, ctxOpen: false,
+    // A mood is a passing thing: it narrows tonight's results and is never
+    // written back to the preferences set in onboarding.
+    mood: null, moodOpen: false,
+    center: HOME, span: HOME_SPAN, radius: 0.9,
+    walkT: 0, rideTier: 1, rideCalled: false,
+  };
+
+  // One always-on ticker advances the live walking position; it does nothing
+  // unless the walk screen is open, so there is no lifecycle guard to get wrong.
+  componentDidMount() {
+    this._walk = setInterval(() => {
+      if (this.state.screen !== 'walk' || this.state.walkT >= 1) return;
+      this.setState({ walkT: Math.min(1, this.state.walkT + 0.007) });
+      this.forceUpdate();
+    }, 90);
+  }
+  componentWillUnmount() { clearInterval(this._walk); }
+
+  // One journey, one set of numbers. Roads wander, so the driving distance is
+  // longer than the straight line; both figures come from here and nowhere else.
+  trip(to) {
+    const straight = metres(ME, to);
+    const road = straight * 1.28;
+    return {
+      straight: straight,
+      road: road,
+      walkMin: Math.max(2, Math.round(straight / 80)),
+      driveMin: Math.max(4, Math.round(road / 420)),
+      roadMi: (road / 1609).toFixed(1),
+      straightMi: (straight / 1609).toFixed(1),
+      walkable: straight < 805,
+    };
+  }
+  // A believable street route: out to the nearest through-road, along it, then
+  // in to the door. Turns land on the grid rather than cutting across blocks.
+  walkRoute(from, to) {
+    const dLat = to.lat - from.lat, dLon = to.lon - from.lon;
+    const pts = [
+      from,
+      { lat: from.lat + dLat * 0.18, lon: from.lon + dLon * 0.04 },
+      { lat: from.lat + dLat * 0.24, lon: from.lon + dLon * 0.52 },
+      { lat: from.lat + dLat * 0.72, lon: from.lon + dLon * 0.6 },
+      { lat: from.lat + dLat * 0.78, lon: from.lon + dLon * 0.95 },
+      to,
+    ];
+    let total = 0;
+    const legs = [];
+    for (let i = 1; i < pts.length; i++) {
+      const m = metres(pts[i - 1], pts[i]);
+      legs.push({ a: pts[i - 1], b: pts[i], m: m });
+      total += m;
+    }
+    return { pts: pts, legs: legs, total: total };
+  }
+  // Where you are on the route right now, and which leg you are walking.
+  walkAt(route, t) {
+    const want = route.total * t;
+    let run = 0;
+    for (let i = 0; i < route.legs.length; i++) {
+      const lg = route.legs[i];
+      if (run + lg.m >= want || i === route.legs.length - 1) {
+        const f = lg.m ? Math.max(0, Math.min(1, (want - run) / lg.m)) : 1;
+        return {
+          leg: i, frac: f, done: route.total - want,
+          pt: { lat: lg.a.lat + (lg.b.lat - lg.a.lat) * f, lon: lg.a.lon + (lg.b.lon - lg.a.lon) * f },
+        };
+      }
+      run += lg.m;
+    }
+    return { leg: 0, frac: 0, done: route.total, pt: route.pts[0] };
+  }
+
+  go(screen, opts) {
+    this.setState(s => {
+      const stack = TABS.indexOf(s.screen) >= 0 ? [s.screen] : s.stack.concat([s.screen]);
+      return Object.assign({ screen: screen, stack: stack, ctxOpen: false }, opts || {});
+    });
+  }
+  back() {
+    this.setState(s => {
+      const stack = s.stack.slice();
+      const prev = stack.pop();
+      return { screen: prev || 'map', stack: stack, editing: false };
+    });
+  }
+  toggle(key, k) {
+    this.setState(s => { const m = Object.assign({}, s[key]); if (m[k]) delete m[k]; else m[k] = true; return { [key]: m }; });
+  }
+  setYou(key, val) { this.setState(s => ({ you: Object.assign({}, s.you, { [key]: val }) })); }
+  toggleYou(key, val) {
+    this.setState(s => {
+      const g = Object.assign({}, s.you[key]);
+      if (g[val]) delete g[val]; else g[val] = true;
+      return { you: Object.assign({}, s.you, { [key]: g }) };
+    });
+  }
+  count(cat) { return CATS[cat].filter(t => this.state.open[cat + '|' + t.n]).length; }
+  live(d, ctx) { return Math.max(8, Math.min(99, Math.round(d.base * DAY_MULT[ctx.day] * BAND_MULT[d.kind][ctx.band]))); }
+  setSpan(span) {
+    const s = Math.max(MIN_R * 2 * 1609, Math.min(MAX_R * 2 * 1609, Math.round(span)));
+    this.setState({ span: s, radius: Math.max(MIN_R, Math.min(MAX_R, Math.round((s / 2) / 1609 * 4) / 4)) });
+  }
+  setRadius(m) {
+    const r = Math.max(MIN_R, Math.min(MAX_R, m));
+    this.setState({ radius: r, span: Math.round(r * 1609 * 2) });
+  }
+  zoom(f) { this.setSpan(this.state.span * f); }
+  // What the moment does to a room. Being wrong for the hour is the heaviest
+  // thing in the model â€” a cocktail bar on a Tuesday morning is not a match,
+  // however well it fits your tiles.
+  contextFit(v, ctx) {
+    const order = BANDS.map(b => b.key);
+    const here = order.indexOf(ctx.band);
+    const gap = Math.min.apply(null, v.bands.map(b => Math.abs(order.indexOf(b) - here)));
+    const bandPenalty = gap === 0 ? 0 : gap === 1 ? 27 : gap === 2 ? 48 : 60;
+    // At its own hour a room that does one thing beats a room that does four.
+    const focus = gap === 0 ? (4 - Math.min(3, v.bands.length)) * 3 : 0;
+    // Late rooms live and die by the night of the week; daytime rooms barely care.
+    const nightliness = v.bands.indexOf('late') >= 0 ? 16 : v.bands.indexOf('evening') >= 0 ? 9 : 4;
+    const dayAdj = (DAY_MULT[ctx.day] - 1) * nightliness;
+    return { bandPenalty: bandPenalty - focus, dayAdj: dayAdj, gap: gap };
+  }
+  // Tonight's mood, read against a room's traits. Choosing a category alone
+  // narrows to that category; adding tiles and sub-preferences narrows further
+  // and lifts the rooms that answer it most precisely.
+  moodMatch(v) {
+    const m = this.state.mood;
+    if (!m || !m.cat) return { pass: true, bump: 0 };
+    const traits = (TRAITS[v.name] || []).filter(t => t[0] === m.cat);
+    if (!traits.length) return { pass: false, bump: 0 };
+    const tiles = Object.keys(m.tiles || {}).filter(k => m.tiles[k]);
+    if (!tiles.length) return { pass: true, bump: 2 };
+    const inTile = traits.filter(t => tiles.indexOf(t[1]) >= 0);
+    if (!inTile.length) return { pass: false, bump: 0 };
+    const subs = Object.keys(m.subs || {}).filter(k => m.subs[k]);
+    if (!subs.length) return { pass: true, bump: 4 };
+    const hits = inTile.filter(t => subs.indexOf(t[1] + '|' + t[2]) >= 0);
+    if (!hits.length) return { pass: false, bump: 0 };
+    return { pass: true, bump: 4 + Math.min(7, hits.length * 4) };
+  }
+  rankVenues(ctx, radiusMiles) {
+    const limit = (radiusMiles || 1e6) * 1609;
+    // The radius is a statement of how far you are willing to go. A tight one
+    // means the walk matters; a wide one means it barely does â€” so proximity's
+    // weight shrinks as the radius grows, and never outranks compatibility.
+    const rMiles = Math.max(0.25, this.state.radius || 5);
+    const reach = rMiles * 1609;
+    const cap = 9 / (1 + rMiles / 3);
+    return VENUES.filter(v => metres(v, ME) <= limit)
+      .map(v => ({ v: v, mood: this.moodMatch(v) }))
+      .filter(o => o.mood.pass)
+      .map(o => {
+        const v = o.v;
+        const dist = metres(v, ME);
+        const fit = this.contextFit(v, ctx);
+        const travel = cap * Math.min(1, dist / reach);
+        const score = Math.max(18, Math.min(99, Math.round(v.base - fit.bandPenalty + fit.dayAdj - travel + o.mood.bump)));
+        return { v: v, dist: dist, score: score, fit: fit };
+      }).sort((a, b) => b.score - a.score);
+  }
+  project(pt, center, span) {
+    const px = W / span;
+    return { x: W / 2 + (pt.lon - center.lon) * mPerLon(center.lat) * px, y: CY - (pt.lat - center.lat) * M_PER_LAT * px };
+  }
+  pathOf(pts, center, span, smooth) {
+    let d = '';
+    for (let k = 0; k < pts.length; k++) {
+      const q = this.project({ lat: pts[k][0], lon: pts[k][1] }, center, span);
+      if (k === 0) { d += 'M' + q.x.toFixed(1) + ' ' + q.y.toFixed(1); continue; }
+      if (!smooth || k === pts.length - 1) { d += ' L' + q.x.toFixed(1) + ' ' + q.y.toFixed(1); continue; }
+      const n = this.project({ lat: pts[k + 1][0], lon: pts[k + 1][1] }, center, span);
+      d += ' Q' + q.x.toFixed(1) + ' ' + q.y.toFixed(1) + ' ' + ((q.x + n.x) / 2).toFixed(1) + ' ' + ((q.y + n.y) / 2).toFixed(1);
+    }
+    return d;
+  }
+  placeLabels(items, reserved) {
+    const taken = (reserved || []).slice(), out = [];
+    const OFFS = [[0, 0], [0, -24], [0, 24], [-30, 0], [30, 0], [-30, -22], [30, -22], [-30, 24], [30, 24], [0, 46], [-46, 12]];
+    items.forEach(it => {
+      for (let k = 0; k < OFFS.length; k++) {
+        const x = it.x + OFFS[k][0], y = it.y + OFFS[k][1];
+        const rightEdge = (y > 348 || y < 112) ? W - 16 : W - 66;
+        if (x - it.w / 2 < 14 || x + it.w / 2 > rightEdge || y - it.h / 2 < BAND_TOP || y + it.h / 2 > BAND_BOTTOM) continue;
+        const box = { l: x - it.w / 2 - 6, r: x + it.w / 2 + 6, t: y - it.h / 2 - 4, b: y + it.h / 2 + 4 };
+        if (taken.some(o => !(box.r < o.l || box.l > o.r || box.b < o.t || box.t > o.b))) continue;
+        taken.push(box);
+        out.push(Object.assign({}, it, { px: x, py: y }));
+        return;
+      }
+    });
+    return out;
+  }
+  // Single-linkage clustering in screen space: districts whose labels would
+  // collide merge upward into a named collection, then into their city.
+  // Reserved footprint of a district/cluster label: name over caption.
+  labelBox(nm, live, count) {
+    const caption = nm.single ? live + ' ALIVE' : count + ' DISTRICTS Â· ZOOM';
+    const nameW = nm.label.length * nm.size * 0.44;
+    const capW = caption.length * 6.7;
+    return { w: Math.max(nameW, capW, 56), h: 40, caption: caption };
+  }
+  clusterDistricts(items) {
+    const metroOf = (g) => {
+      const ms = {};
+      g.members.forEach(m => { ms[m.d.metro] = true; });
+      const keys = Object.keys(ms);
+      return keys.length === 1 ? keys[0] : null;
+    };
+    const recentre = (g) => {
+      g.x = g.members.reduce((t, m) => t + m.c.x, 0) / g.members.length;
+      g.y = g.members.reduce((t, m) => t + m.c.y, 0) / g.members.length;
+      g.live = Math.max.apply(null, g.members.map(m => m.live));
+    };
+    let groups = items.map(o => ({ members: [o], x: o.c.x, y: o.c.y, live: o.live }));
+    // Two names need roughly this much room side by side to both be readable.
+    const NEAR_X = 132, NEAR_Y = 46;
+    let merged = true;
+    while (merged && groups.length > 1) {
+      merged = false;
+      let bestPair = null, bestScore = Infinity;
+      for (let i = 0; i < groups.length; i++) {
+        for (let j = i + 1; j < groups.length; j++) {
+          const a = groups[i], b = groups[j];
+          if (metroOf(a) !== metroOf(b)) continue;
+          const dx = Math.abs(a.x - b.x) / NEAR_X, dy = Math.abs(a.y - b.y) / NEAR_Y;
+          const score = Math.max(dx, dy);
+          if (score < 1 && score < bestScore) { bestScore = score; bestPair = [i, j]; }
+        }
+      }
+      if (bestPair) {
+        const a = groups[bestPair[0]], b = groups[bestPair[1]];
+        a.members = a.members.concat(b.members);
+        recentre(a);
+        groups = groups.filter(g => g !== b);
+        merged = true;
+      }
+    }
+    // A name that implies a whole city must contain every district of it.
+    let absorbed = true;
+    while (absorbed) {
+      absorbed = false;
+      for (let i = 0; i < groups.length; i++) {
+        const nm = this.clusterName(groups[i].members);
+        if (!nm.metroWide && !nm.metroPart) continue;
+        const rest = groups.filter(g => g !== groups[i] && metroOf(g) === metroOf(groups[i]));
+        if (!rest.length) continue;
+        rest.forEach(g => { groups[i].members = groups[i].members.concat(g.members); });
+        recentre(groups[i]);
+        groups = groups.filter(g => rest.indexOf(g) < 0);
+        absorbed = true;
+        break;
+      }
+    }
+    return groups;
+  }
+  // A collection's name: a known group if every member sits inside one, else
+  // the city it belongs to, else the two districts read together.
+  clusterName(members) {
+    if (members.length === 1) {
+      return { label: members[0].d.name, size: members[0].live > 70 ? 17 : 15, single: true };
+    }
+    const names = members.map(m => m.d.name);
+    const metros = {};
+    members.forEach(m => { metros[m.d.metro] = (metros[m.d.metro] || 0) + 1; });
+    const metroNames = Object.keys(metros);
+    const grp = GROUPS.find(g => names.every(n => g.of.indexOf(n) >= 0));
+    if (grp) return { label: grp.name, size: 17, single: false };
+    const metro = metroNames.length === 1 ? metroNames[0] : null;
+    const whole = metro && metros[metro] === DISTRICTS.filter(d => d.metro === metro).length;
+    if (whole) return { label: metro, size: 20, single: false, metroWide: true };
+    if (members.length === 2) return { label: names.join(' & '), size: 15, single: false };
+    if (metro) return { label: METRO_PART[metro] || metro, size: 17, single: false, metroPart: true };
+    return { label: names.slice(0, 2).join(' & '), size: 15, single: false };
+  }
+  // Tapping a collection only reframes: centre it and pick a zoom that pulls
+  // its districts far enough apart to read separately again.
+  frameCluster(members) {
+    const lats = members.map(m => m.d.lat), lons = members.map(m => m.d.lon);
+    const lat = (Math.max.apply(null, lats) + Math.min.apply(null, lats)) / 2;
+    const lon = (Math.max.apply(null, lons) + Math.min.apply(null, lons)) / 2;
+    const spreadY = (Math.max.apply(null, lats) - Math.min.apply(null, lats)) * M_PER_LAT;
+    const spreadX = (Math.max.apply(null, lons) - Math.min.apply(null, lons)) * mPerLon(lat);
+    let maxPair = 0, minPair = Infinity;
+    for (let i = 0; i < members.length; i++) {
+      for (let j = i + 1; j < members.length; j++) {
+        const m = metres(members[i].d, members[j].d);
+        maxPair = Math.max(maxPair, m);
+        minPair = Math.min(minPair, m);
+      }
+    }
+    // Zoom far enough in that the closest pair reads as two names, but never so
+    // far that the collection stops fitting the band labels can occupy.
+    const legible = minPair ? minPair * W / 190 : members[0].d.span;
+    const fit = Math.max(spreadX * W / (BAND_W * 0.82), spreadY * W / (BAND_H * 0.82), 700);
+    // Prefer a frame that holds the whole collection, but never return a zoom
+    // that fails to separate it â€” every tap must be a real step inward.
+    // A city-wide collection reframes to hold the whole city â€” its districts
+    // then break apart into smaller collections you can tap again. A small
+    // collection goes straight to the zoom that separates its closest pair.
+    const broad = members.length >= 4;
+    const held = Math.max(fit, Math.min(maxPair * 2.4, legible));
+    const target = broad ? fit : (held <= legible ? held : legible);
+    const span = Math.max(700, Math.min(target, this.state.span * 0.62));
+    // Nudge the centre so the collection sits in the band, not under the sheet.
+    const px = W / span;
+    const centerLat = lat - (CY - BAND_MID) / (M_PER_LAT * px);
+    const centerLon = lon + (W / 2 - (14 + (W - 66)) / 2) / (mPerLon(lat) * px);
+    this.setState({ center: { lat: centerLat, lon: centerLon } });
+    this.setSpan(span);
+  }
+  saveBtn(kind, id, size) {
+    const on = kind === 'venue' ? !!this.state.savedVenues[id] : !!this.state.savedJourneys[id];
+    const s = size || 34;
+    return {
+      saveMark: on ? '\u2726' : '\u2727',
+      onSave: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.toggle(kind === 'venue' ? 'savedVenues' : 'savedJourneys', id); },
+      saveStyle: {
+        width: s, height: s, flex: 'none', borderRadius: '50%', cursor: 'pointer', padding: 0,
+        border: '1px solid ' + (on ? 'rgba(192,160,98,.75)' : 'rgba(240,233,223,.16)'),
+        background: on ? 'rgba(192,160,98,.16)' : 'transparent',
+        color: on ? '#E7D6B0' : '#8B8175', font: '300 ' + Math.round(s * 0.44) + 'px/1 Jost, sans-serif',
+      },
+    };
+  }
+  openVenue(name) { this.go('venue', { venue: name }); }
+  openDistrict(name) { this.go('district', { district: name }); }
+
+  buildMap(p, ctx, pinBoxes) {
+    const st = this.state;
+    const center = st.center, span = st.span, px = W / span;
+    const scale = Math.max(0.55, Math.min(2.6, 1500 / span));
+    const roads = [], roadLabels = [];
+    const tintOf = (lat, lon) => {
+      let best = null, bd = 1e9;
+      DISTRICTS.forEach(d => { const m = metres({ lat: lat, lon: lon }, d); if (m < d.r * 1.3 && m < bd) { bd = m; best = d; } });
+      return best;
+    };
+    const strokeFor = (w) => ({ fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: w });
+    ARTERIALS.forEach((a, ai) => {
+      const d = this.pathOf(a.pts, center, span, true);
+      const mid = a.pts[Math.floor(a.pts.length / 2)];
+      const tint = tintOf(mid[0], mid[1]);
+      const w = a.w * Math.max(0.85, Math.min(2.1, scale));
+      roads.push({ d: d, style: Object.assign(strokeFor(w + 4.5), { stroke: '#0C0B09' }) });
+      roads.push({ d: d, style: Object.assign(strokeFor(w + 2), { stroke: '#232019' }) });
+      roads.push({ d: d, style: Object.assign(strokeFor(w), { stroke: tint ? tint.color : '#4A4238', opacity: tint ? 0.7 : 0.6 }) });
+      if (span < 2600 && ARTERIAL_NAMES[ai]) {
+        let bestQ = null, bd = 1e9;
+        for (let s = 0; s < a.pts.length - 1; s++) {
+          for (let t = 0; t <= 4; t++) {
+            const la = a.pts[s][0] + (a.pts[s + 1][0] - a.pts[s][0]) * (t / 4);
+            const lo = a.pts[s][1] + (a.pts[s + 1][1] - a.pts[s][1]) * (t / 4);
+            const q = this.project({ lat: la, lon: lo }, center, span);
+            const dd = Math.abs(q.x - W / 2) + Math.abs(q.y - CY);
+            if (q.x > 30 && q.x < W - 30 && q.y > 200 && q.y < H - 330 && dd < bd) { bd = dd; bestQ = q; }
+          }
+        }
+        if (bestQ) {
+          const nm = ARTERIAL_NAMES[ai];
+          roadLabels.push({ kind: 'road', text: nm, x: bestQ.x, y: bestQ.y, w: nm.length * 5.6 + 8, h: 12, tint: tint ? tint.color : null });
+        }
+      }
+    });
+    const drawGrid = (segs, opt) => segs.forEach(seg => {
+      const d = this.pathOf(seg.pts, center, span);
+      const lw = Math.max(0.5, seg.w * scale * (opt.weight || 1));
+      if (opt.glow) roads.push({ d: d, style: Object.assign(strokeFor(lw + opt.glow), { stroke: opt.color, opacity: 0.09 }) });
+      roads.push({ d: d, style: Object.assign(strokeFor(lw + 1.6), { stroke: '#100E0C', opacity: 0.9 }) });
+      roads.push({ d: d, style: Object.assign(strokeFor(lw), { stroke: opt.color, opacity: opt.opacity }) });
+    });
+    if (span < 3200) {
+      DISTRICTS.forEach(dis => {
+        const c = this.project(dis, center, span), rad = dis.r * px;
+        if (c.x < -rad - 80 || c.x > W + rad + 80 || c.y < -rad - 80 || c.y > H + rad + 80) return;
+        drawGrid(LOCAL[dis.name], { color: dis.color, opacity: 0.72, glow: Math.max(2.5, rad * 0.02) });
+      });
+      AREAS.forEach(a => {
+        const c = this.project(a, center, span);
+        if (c.x < -420 || c.x > W + 420 || c.y < -420 || c.y > H + 420) return;
+        drawGrid(AREA_GRID[a.name], { color: '#3B372F', opacity: 0.55, weight: 0.85 });
+      });
+    }
+    p.roads = roads;
+    p.water = WATER.map(w => ({ d: this.pathOf(w.pts, center, span, true), style: { fill: 'none', stroke: '#16262B', opacity: 0.92, strokeWidth: Math.max(2, w.w * scale), strokeLinecap: 'round' } }));
+    p.green = GREEN.map(g => {
+      const c = this.project(g, center, span);
+      return { cx: c.x.toFixed(1), cy: c.y.toFixed(1), r: Math.max(4, g.r * px).toFixed(1), style: { fill: '#171E16', opacity: 0.9 } };
+    }).filter(g => +g.cx > -300 && +g.cx < W + 300 && +g.cy > -300 && +g.cy < H + 300);
+    p.glows = DISTRICTS.map(d => ({ c: this.project(d, center, span), d: d, live: this.live(d, ctx), size: Math.max(120, d.r * 2 * px * 1.5) }))
+      .filter(o => o.c.x > -260 && o.c.x < W + 260 && o.c.y > -260 && o.c.y < H + 260)
+      .map(o => ({
+        style: {
+          position: 'absolute', left: o.c.x, top: o.c.y, width: o.size, height: o.size,
+          transform: 'translate(-50%,-50%)', borderRadius: '50%', pointerEvents: 'none',
+          background: 'radial-gradient(circle, ' + o.d.color + Math.round(12 + o.live * 0.26).toString(16).padStart(2, '0') + ' 0%, rgba(0,0,0,0) 68%)',
+          animation: 'curiaBreathe ' + (6.6 - o.live / 30).toFixed(2) + 's ease-in-out infinite',
+        },
+      }));
+    // Boundary of the live region, and the veil that covers everything outside it.
+    const ring = REGION.map(pt => this.project({ lat: pt[0], lon: pt[1] }, center, span));
+    const ringPath = ring.map((q, i) => (i ? 'L' : 'M') + q.x.toFixed(1) + ' ' + q.y.toFixed(1)).join(' ') + ' Z';
+    p.regionPath = ringPath;
+    p.veilPath = 'M-400 -400 L' + (W + 400) + ' -400 L' + (W + 400) + ' ' + (H + 400) + ' L-400 ' + (H + 400) + ' Z ' + ringPath;
+    // How much of the readable frame falls outside the region.
+    let out = 0, total = 0;
+    for (let gx = 24; gx < W; gx += 26) {
+      for (let gy = BAND_TOP - 60; gy < BAND_BOTTOM + 90; gy += 26) {
+        total++;
+        const lat = center.lat + (CY - gy) / (M_PER_LAT * px);
+        const lon = center.lon + (gx - W / 2) / (mPerLon(center.lat) * px);
+        if (!inRegion(lat, lon)) out++;
+      }
+    }
+    const outFrac = total ? out / total : 0;
+    p.hasEdge = outFrac > 0.06;
+    // The notice belongs in unopened ground â€” put it in the widest strip of the
+    // frame the region does not reach into, and say nothing if there is none.
+    const rTop = Math.min.apply(null, ring.map(q => q.y)), rBot = Math.max.apply(null, ring.map(q => q.y));
+    const rLeft = Math.min.apply(null, ring.map(q => q.x)), rRight = Math.max.apply(null, ring.map(q => q.x));
+    const TOP = BAND_TOP - 40, BOT = BAND_BOTTOM + 70;
+    const gaps = [
+      { h: rTop - TOP, x: W / 2, y: (TOP + Math.min(rTop, BOT)) / 2, w: W - 96 },
+      { h: BOT - rBot, x: W / 2, y: (Math.max(rBot, TOP) + BOT) / 2, w: W - 96 },
+      { h: (rLeft - 14) * 1.4, x: (14 + Math.min(rLeft, W)) / 2, y: (TOP + BOT) / 2, w: Math.max(0, rLeft - 26) },
+      { h: (W - 66 - rRight) * 1.4, x: (Math.max(rRight, 0) + W - 66) / 2, y: (TOP + BOT) / 2, w: Math.max(0, W - 78 - rRight) },
+    ];
+    const spot = gaps.filter(g => g.h > 118 && g.w > 150).sort((a, b) => b.h - a.h)[0];
+    p.lockedStyle = spot ? {
+      position: 'absolute', pointerEvents: 'none',
+      left: Math.max(126, Math.min(W - 126, spot.x)),
+      top: Math.max(TOP + 62, Math.min(BOT - 62, spot.y)),
+      transform: 'translate(-50%,-50%)', width: Math.min(252, spot.w), textAlign: 'center',
+      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
+      opacity: Math.min(1, Math.max(0.4, (outFrac - 0.1) * 4)),
+      transition: 'opacity .5s ease',
+    } : { display: 'none' };
+    p.veilStyle = { fill: '#0B0A09', fillRule: 'evenodd', opacity: 0.8 };
+    p.veilTintStyle = { fill: '#141821', fillRule: 'evenodd', opacity: 0.42 };
+    p.edgeGlowStyle = { fill: 'none', stroke: '#C0A062', strokeWidth: 9, opacity: p.hasEdge ? 0.07 : 0, strokeLinejoin: 'round' };
+    p.edgeLineStyle = { fill: 'none', stroke: '#C0A062', strokeWidth: 1, opacity: p.hasEdge ? 0.5 : 0, strokeDasharray: '1 6', strokeLinecap: 'round' };
+    const projected = DISTRICTS.map(d => ({ d: d, c: this.project(d, center, span), live: this.live(d, ctx) }));
+    const onScreen = projected;
+    const allGroups = this.clusterDistricts(onScreen);
+    const inBand = (g) => g.x > 12 && g.x < W - 12 && g.y > BAND_TOP - 40 && g.y < BAND_BOTTOM - 10;
+    let visible = allGroups.filter(inBand);
+    if (!visible.length && allGroups.length) {
+      const near = allGroups.slice().sort((a, b) =>
+        Math.abs(a.y - BAND_MID) - Math.abs(b.y - BAND_MID))[0];
+      near.x = Math.max(40, Math.min(W - 80, near.x));
+      near.y = Math.max(BAND_TOP + 10, Math.min(BAND_BOTTOM - 40, near.y));
+      visible = [near];
+    }
+    const clusters = visible.map(g => {
+      const nm = this.clusterName(g.members);
+      const live = Math.max.apply(null, g.members.map(m => m.live));
+      const openDistrict = () => {
+        const d = g.members[0].d;
+        this.setState({ center: { lat: d.lat, lon: d.lon } });
+        this.setSpan(d.span);
+        this.openDistrict(d.name);
+      };
+      return {
+        g: g, nm: nm, live: live,
+        color: g.members[0].d.color,
+        onTap: nm.single ? openDistrict : () => this.frameCluster(g.members),
+      };
+    });
+    p.dots = clusters.map(cl => ({
+      onTap: cl.onTap,
+      style: {
+        position: 'absolute', left: cl.g.x, top: cl.g.y,
+        width: cl.nm.single ? 10 : 14, height: cl.nm.single ? 10 : 14, padding: 0,
+        transform: 'translate(-50%,-50%)', borderRadius: '50%', cursor: 'pointer',
+        border: cl.nm.single ? 'none' : '1px solid rgba(18,16,14,.9)',
+        background: cl.color,
+        boxShadow: '0 0 0 ' + (cl.nm.single ? 4 : 6) + 'px ' + cl.color + '26, 0 0 16px ' + cl.color + 'aa',
+        animation: 'curiaBreathe ' + (5.6 - cl.live / 34).toFixed(2) + 's ease-in-out infinite',
+      },
+    }));
+    const cands = [];
+    clusters.slice().sort((a, b) => b.live - a.live).forEach(cl => {
+      const box = this.labelBox(cl.nm, cl.live, cl.g.members.length);
+      cands.push({
+        kind: 'district', name: cl.nm.label, live: cl.live, color: cl.color, size: cl.nm.size,
+        group: !cl.nm.single, count: cl.g.members.length,
+        x: cl.g.x, y: cl.g.y + 24, w: box.w, h: box.h,
+        onTap: cl.onTap,
+      });
+    });
+    if (span < 2600) roadLabels.forEach(r => cands.push(r));
+    if (span > 1900) AREAS.forEach(a => {
+      const c = this.project(a, center, span);
+      cands.push({ kind: 'area', name: a.name.toUpperCase(), x: c.x, y: c.y, w: a.name.length * 6.6 + 10, h: 13 });
+    });
+    const first = this.placeLabels(cands, pinBoxes || []);
+    const done = {};
+    first.forEach(l => { done[l.kind + '|' + (l.name || l.text)] = true; });
+    const missing = cands.filter(c => !done[c.kind + '|' + (c.name || c.text)] && c.kind === 'district');
+    const taken = first.map(l => ({ l: l.px - l.w / 2 - 6, r: l.px + l.w / 2 + 6, t: l.py - l.h / 2 - 4, b: l.py + l.h / 2 + 4 }));
+    let placed = first.concat(missing.length ? this.placeLabels(missing, taken) : []);
+    if (!placed.some(l => l.kind === 'district') && cands.length) {
+      const biggest = cands.filter(c => c.kind === 'district')
+        .sort((a, b) => (b.count || 1) - (a.count || 1))[0];
+      if (biggest) placed = placed.concat([Object.assign({}, biggest, { px: Math.max(60, Math.min(W - 90, biggest.x)), py: BAND_MID })]);
+    }
+    p.labelBoxes = placed.map(l => ({ l: l.px - l.w / 2 - 4, r: l.px + l.w / 2 + 4, t: l.py - l.h / 2 - 4, b: l.py + l.h / 2 + 4 }));
+    p.districts = placed.filter(l => l.kind === 'district').map(l => ({
+      name: l.name, onTap: l.onTap,
+      scoreLabel: l.group ? l.count + ' DISTRICTS Â· ZOOM' : l.live + ' ALIVE',
+      wrapStyle: { position: 'absolute', left: l.px, top: l.py, transform: 'translate(-50%,-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 },
+      labelStyle: {
+        background: 'none', border: 'none', padding: 0, cursor: 'pointer', whiteSpace: 'nowrap',
+        font: (l.group ? '300 ' : '400 ') + l.size + "px/1 'Cormorant Garamond', serif",
+        letterSpacing: l.group ? '.06em' : '.02em',
+        color: '#F4EEE5', textShadow: '0 1px 10px rgba(10,8,6,.98), 0 0 22px rgba(10,8,6,.85)',
+      },
+      scoreStyle: {
+        font: '400 9px/1 Jost, sans-serif', letterSpacing: '.2em',
+        color: l.group ? 'rgba(192,160,98,.85)' : l.live > 70 ? l.color : 'rgba(200,188,170,.62)',
+        textShadow: '0 1px 8px rgba(10,8,6,.95)',
+      },
+    }));
+    p.areas = placed.filter(l => l.kind === 'area').map(l => {
+      const lat = center.lat + (CY - l.py) / (M_PER_LAT * px);
+      const lon = center.lon + (l.px - W / 2) / (mPerLon(center.lat) * px);
+      const beyond = !inRegion(lat, lon);
+      return {
+        name: l.name,
+        style: {
+          position: 'absolute', left: l.px, top: l.py, transform: 'translate(-50%,-50%)',
+          font: '300 9.5px/1 Jost, sans-serif', letterSpacing: '.22em', whiteSpace: 'nowrap', pointerEvents: 'none',
+          color: beyond ? 'rgba(128,120,110,.16)' : 'rgba(154,143,130,.44)',
+        },
+      };
+    });
+    p.roadLabels = placed.filter(l => l.kind === 'road').map(l => ({
+      name: l.text,
+      style: { position: 'absolute', left: l.px, top: l.py, transform: 'translate(-50%,-50%)', font: '300 8.5px/1 Jost, sans-serif', letterSpacing: '.16em', whiteSpace: 'nowrap', color: l.tint ? l.tint + 'cc' : 'rgba(140,131,118,.6)', pointerEvents: 'none', textShadow: '0 1px 6px rgba(10,8,6,.95)' },
+    }));
+    p.scaleLabel = span >= 1610 ? (span / 1609).toFixed(1) + ' mi' : Math.round(span) + ' m';
+    const mePos = this.project(ME, center, span);
+    p.meStyle = { position: 'absolute', left: mePos.x, top: mePos.y, width: 13, height: 13, transform: 'translate(-50%,-50%)' };
+  }
+
+  renderVals() {
+    const st = this.state;
+    const screen = st.screen;
+    const ctxRaw = st.ctx;
+    const ctx = ctxRaw.now ? { now: true, day: NOW.day, band: NOW.band } : ctxRaw;
+    const bandLabel = BANDS.find(b => b.key === ctx.band).label;
+    const cat = st.cat, isYou = cat === 'You';
+    const counts = { Do: this.count('Do'), Drink: this.count('Drink'), Eat: this.count('Eat') };
+    const stepIndex = STEPS.indexOf(cat);
+    const shot = (name, w) => ({
+      position: 'absolute', inset: 0, backgroundColor: '#1B1714',
+      backgroundImage: 'url("' + photo(name, w) + '")', backgroundSize: 'cover', backgroundPosition: 'center',
+      filter: 'saturate(.68) contrast(1.06) brightness(.78)',
+    });
+    const scrim = { position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15,12,10,.55), rgba(30,20,12,.12))', pointerEvents: 'none' };
+    const initials = st.user.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
+    const p = {
+      isAuth: screen === 'login' || screen === 'signup',
+      isOnboard: screen === 'onboard', isMap: screen === 'map', isList: screen === 'list',
+      isMoments: screen === 'moments', isJourney: screen === 'journey', isVenue: screen === 'venue',
+      isDistrict: screen === 'district', isProfile: screen === 'profile', isSub: screen === 'subscription',
+      isSaved: screen === 'saved', isNotif: screen === 'notifications',
+      isWalk: screen === 'walk', isRide: screen === 'ride',
+      showNav: TABS.indexOf(screen) >= 0,
+      initials: initials, userName: st.user.name, userEmail: st.user.email,
+      back: () => this.back(),
+      backToProfile: () => this.setState({ screen: 'profile', stack: ['map'], editing: false }),
+      openProfile: () => this.go('profile'),
+      emblemStyle: {
+        width: 46, height: 46, flex: 'none', borderRadius: '50%', cursor: 'pointer',
+        border: '1px solid rgba(192,160,98,.45)', background: 'rgba(19,17,16,.5)',
+        backdropFilter: 'blur(18px)', color: '#E7D6B0', font: "400 15px/1 'Cormorant Garamond', serif", letterSpacing: '.06em',
+      },
+      jumps: [['Log in', 'login'], ['Sign up', 'signup'], ['Onboarding', 'onboard'], ['Map', 'map'], ['List', 'list'], ['Moments', 'moments'], ['Journey', 'journey'], ['Venue', 'venue'], ['Walk', 'walk'], ['Car', 'ride'], ['District', 'district'], ['Profile', 'profile'], ['Saved', 'saved'], ['Membership', 'subscription'], ['Notifications', 'notifications']].map(j => ({
+        label: j[0],
+        onTap: () => this.setState({ screen: j[1], stack: j[1] === 'login' || j[1] === 'signup' ? [] : ['map'], editing: j[1] === 'onboard' ? false : st.editing }),
+        style: {
+          padding: '8px 12px', borderRadius: 999, cursor: 'pointer',
+          font: '300 11.5px/1 Jost, sans-serif', letterSpacing: '.06em',
+          border: '1px solid ' + (screen === j[1] ? 'rgba(192,160,98,.6)' : 'rgba(240,233,223,.13)'),
+          background: screen === j[1] ? 'rgba(192,160,98,.14)' : 'transparent',
+          color: screen === j[1] ? '#E7D6B0' : '#8B8175',
+        },
+      })),
+      nav: [['map', 'MAP'], ['list', 'LIST'], ['moments', 'MOMENTS']].map(n => {
+        const on = screen === n[0];
+        return {
+          label: n[1],
+          onTap: () => this.setState({ screen: n[0], stack: [], ctxOpen: false }),
+          style: {
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
+            background: 'none', border: 'none', padding: '4px 10px 0', cursor: 'pointer',
+            font: '400 10px/1 Jost, sans-serif', letterSpacing: '.22em', color: on ? '#E7D6B0' : '#6F6558',
+          },
+          markStyle: { width: on ? 16 : 4, height: 4, borderRadius: 2, background: on ? '#C0A062' : 'rgba(240,233,223,.2)', transition: 'width .2s ease' },
+        };
+      }),
+    };
+
+    const signing = screen === 'signup';
+    p.authHeroStyle = shot('The Jane Eyre', 820);
+    p.authTitle = signing ? 'Tell us who is joining.' : 'The evening, already decided.';
+    p.authBlurb = signing
+      ? 'Two details now, four questions next. After that Curia only asks when something changes.'
+      : 'A private map of the rooms worth your night, across Manchester and Cheshire.';
+    p.authPrimaryLabel = signing ? 'CONTINUE' : 'SIGN IN';
+    p.authSecondaryLabel = signing ? 'I ALREADY HAVE AN ACCOUNT' : 'CREATE AN ACCOUNT';
+    p.authFoot = signing ? 'Membership is Â£19.99 a month after your first fortnight.' : 'Trouble signing in? We will send a link instead.';
+    p.authPrimary = () => (signing
+      ? this.setState({ screen: 'onboard', stack: [], cat: 'Do', editing: false, open: {}, off: {} })
+      : this.setState({ screen: 'map', stack: [], open: seeded(SEED_TILES), off: seeded(SEED_OFF) }));
+    p.authSecondary = () => this.setState({ screen: signing ? 'login' : 'signup', stack: [] });
+    const fieldStyle = { width: '100%', marginTop: 8, background: 'transparent', border: 'none', outline: 'none', color: '#F0E9DF', font: "400 16px/1.2 'Cormorant Garamond', serif" };
+    p.authFields = (signing
+      ? [{ label: 'NAME', key: 'name', type: 'text', hint: 'Alexandra Vance' }, { label: 'EMAIL', key: 'email', type: 'email', hint: 'you@company.co.uk' }, { label: 'PASSWORD', key: null, type: 'password', hint: 'At least eight characters' }]
+      : [{ label: 'EMAIL', key: 'email', type: 'email', hint: 'you@company.co.uk' }, { label: 'PASSWORD', key: null, type: 'password', hint: 'Your password' }]
+    ).map(fd => ({
+      label: fd.label, type: fd.type, hint: fd.hint, style: fieldStyle,
+      value: fd.key ? st.user[fd.key] : '',
+      onEdit: fd.key ? (e) => this.setState({ user: Object.assign({}, st.user, { [fd.key]: e.target.value }) }) : () => {},
+    }));
+
+    const gateOk = counts[cat] >= 3;
+    const allOk = counts.Do >= 3 && counts.Drink >= 3 && counts.Eat >= 3;
+    p.headline = st.editing && isYou ? 'Your details.' : st.editing ? 'Edit your ' + cat.toLowerCase() + ' preferences.' : HEADLINES[cat];
+    p.subhead = isYou ? SUBHEADS.You : SUBHEADS.tiles;
+    p.showTiles = !isYou; p.showYou = isYou;
+    p.onboardExitLabel = st.editing ? 'CLOSE âœ•' : 'STEP ' + (stepIndex + 1) + ' / 4';
+    p.onboardExit = () => { if (st.editing) this.setState({ screen: 'profile', stack: ['map'], editing: false }); };
+    p.steps = STEPS.map((s, k) => ({
+      style: { height: 2, flex: 1, background: k < stepIndex ? 'rgba(192,160,98,.55)' : k === stepIndex ? '#C0A062' : 'rgba(240,233,223,.14)' },
+    }));
+    p.tabs = STEPS.map(c => {
+      const active = c === cat, done = c !== 'You' && counts[c] >= 3;
+      const reachable = st.editing || STEPS.indexOf(c) <= stepIndex || allOk;
+      return {
+        name: c.toUpperCase(),
+        badge: c === 'You' ? 'Â·' : String(counts[c]),
+        badgeStyle: { font: '300 9.5px/1 Jost, sans-serif', letterSpacing: '.1em', color: c === 'You' ? 'transparent' : done ? 'rgba(192,160,98,.9)' : '#7C6E5E' },
+        onTap: () => { if (reachable) this.setState({ cat: c }); },
+        style: {
+          display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center',
+          background: 'none', border: 'none', padding: '0 0 11px', cursor: reachable ? 'pointer' : 'not-allowed',
+          font: '400 11.5px/1 Jost, sans-serif', letterSpacing: '.22em',
+          color: active ? '#F0E9DF' : reachable ? '#6F6558' : '#4A443B',
+          borderBottom: '1px solid ' + (active ? '#C0A062' : 'transparent'), marginBottom: -1,
+        },
+      };
+    });
+    p.tiles = isYou ? [] : CATS[cat].map(t => {
+      const key = cat + '|' + t.n, open = !!st.open[key];
+      const onCount = t.s.filter(s => !st.off[key + '|' + s]).length;
+      return {
+        name: t.n, open: open,
+        meta: open ? (onCount === t.s.length ? 'ALL REFINEMENTS ON' : onCount + ' REFINEMENTS ON') : t.s.length + ' REFINEMENTS',
+        subLabel: 'REFINE ' + t.n.toUpperCase(),
+        subCount: onCount === t.s.length ? 'ALL ON' : (t.s.length - onCount) + ' TURNED OFF',
+        onTap: () => this.toggle('open', key),
+        style: {
+          display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 14,
+          minHeight: 86, padding: '14px 14px 13px', cursor: 'pointer', borderRadius: 14, textAlign: 'left',
+          transition: 'background .18s ease, border-color .18s ease',
+          border: '1px solid ' + (open ? 'rgba(192,160,98,.5)' : 'rgba(240,233,223,.12)'),
+          background: open ? 'rgba(192,160,98,.09)' : 'transparent', color: open ? '#F0E9DF' : '#B3A99C',
+        },
+        dotStyle: { width: 7, height: 7, borderRadius: '50%', flex: 'none', marginTop: 5, background: open ? '#C0A062' : 'transparent', border: '1px solid ' + (open ? '#C0A062' : 'rgba(240,233,223,.22)') },
+        subs: t.s.map(s => {
+          const sk = key + '|' + s, on = !st.off[sk];
+          return {
+            label: s, onTap: () => this.toggle('off', sk),
+            style: {
+              padding: '8px 12px', borderRadius: 999, cursor: 'pointer',
+              font: '300 11.5px/1 Jost, sans-serif', letterSpacing: '.04em',
+              border: '1px solid ' + (on ? 'rgba(192,160,98,.42)' : 'rgba(240,233,223,.12)'),
+              background: on ? 'rgba(192,160,98,.10)' : 'transparent',
+              color: on ? '#E7D6B0' : '#6F6558', textDecoration: on ? 'none' : 'line-through',
+            },
+          };
+        }),
+      };
+    });
+    p.youGroups = YOU_GROUPS.map(g => ({
+      title: g.title, note: g.note, help: g.help,
+      rowStyle: g.equal ? { display: 'flex', gap: 6, marginTop: 14 } : { display: 'flex', flexWrap: 'wrap', gap: 7, marginTop: 14 },
+      opts: g.opts.map(o => {
+        const on = g.multi ? !!(st.you[g.key] || {})[o] : st.you[g.key] === o;
+        return {
+          label: o,
+          onTap: () => (g.multi ? this.toggleYou(g.key, o) : this.setYou(g.key, o)),
+          style: {
+            flex: g.equal ? 1 : 'none', padding: g.equal ? '12px 0' : '9px 13px',
+            borderRadius: g.equal ? 9 : 999, cursor: 'pointer',
+            font: '300 12px/1 Jost, sans-serif', letterSpacing: '.05em',
+            border: '1px solid ' + (on ? 'rgba(192,160,98,.5)' : 'rgba(240,233,223,.13)'),
+            background: on ? 'rgba(192,160,98,.12)' : 'transparent', color: on ? '#E7D6B0' : '#8B8175',
+          },
+        };
+      }),
+    }));
+    const canAdvance = st.editing ? true : (isYou ? allOk : gateOk);
+    p.gateCounts = isYou ? '' : counts[cat] + ' selected';
+    p.gateNote = st.editing
+      ? (allOk ? 'All three categories still set' : 'Three needed in ' + (counts.Do < 3 ? 'Do' : counts.Drink < 3 ? 'Drink' : 'Eat'))
+      : isYou ? (allOk ? 'Everything set' : 'Three still needed in ' + (counts.Do < 3 ? 'Do' : counts.Drink < 3 ? 'Drink' : 'Eat'))
+      : (gateOk ? 'Ready for the next step' : 'Select at least 3');
+    p.gateStyle = { font: '300 11.5px/1 Jost, sans-serif', letterSpacing: '.06em', color: canAdvance ? 'rgba(192,160,98,.9)' : '#8B8175' };
+    p.continueLabel = st.editing ? 'SAVE CHANGES' : isYou ? 'ENTER CURIA' : 'CONTINUE';
+    p.continueStyle = {
+      width: '100%', marginTop: 14, padding: '15px 0', borderRadius: 12, border: 'none',
+      cursor: canAdvance ? 'pointer' : 'not-allowed', font: '500 12.5px/1 Jost, sans-serif', letterSpacing: '.22em',
+      background: canAdvance ? '#C0A062' : 'rgba(192,160,98,.14)', color: canAdvance ? '#1A1410' : '#7C7266',
+    };
+    p.continueTap = () => {
+      if (!canAdvance) return;
+      if (st.editing) { this.setState({ screen: 'profile', stack: ['map'], editing: false }); return; }
+      if (isYou) { this.setState({ screen: 'map', stack: [] }); return; }
+      this.setState({ cat: STEPS[stepIndex + 1] });
+    };
+
+    p.ctxKicker = ctxRaw.now ? 'LIVE NOW' : 'PLANNING FOR';
+    p.ctxLabel = ctxRaw.now ? DAY_FULL[NOW.day] + ', ' + NOW.time : DAY_FULL[ctx.day] + ' Â· ' + bandLabel;
+    p.ctxWeather = WEATHER[ctx.band];
+    p.ctxOpen = st.ctxOpen;
+    p.openCtx = () => this.setState({ ctxOpen: true });
+    p.closeCtx = () => this.setState({ ctxOpen: false });
+    p.setNow = () => this.setState({ ctx: { now: true, day: NOW.day, band: NOW.band } });
+    p.nowSub = DAY_FULL[NOW.day] + ', ' + NOW.time + ' Â· ' + WEATHER[NOW.band];
+    p.nowStyle = {
+      width: '100%', marginTop: 20, padding: '15px 18px', borderRadius: 12, cursor: 'pointer',
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      border: '1px solid ' + (ctxRaw.now ? '#C0A062' : 'rgba(240,233,223,.14)'),
+      background: ctxRaw.now ? 'rgba(192,160,98,.14)' : 'transparent', color: ctxRaw.now ? '#E7D6B0' : '#9A8F82',
+    };
+    p.days = DAYS.map(d => {
+      const on = !ctxRaw.now && ctx.day === d;
+      return {
+        label: d.toUpperCase(), onTap: () => this.setState({ ctx: { now: false, day: d, band: ctx.band } }),
+        style: {
+          flex: 1, padding: '11px 0', borderRadius: 9, cursor: 'pointer',
+          font: '300 10.5px/1 Jost, sans-serif', letterSpacing: '.1em',
+          border: '1px solid ' + (on ? 'rgba(192,160,98,.5)' : 'rgba(240,233,223,.13)'),
+          background: on ? 'rgba(192,160,98,.12)' : 'transparent', color: on ? '#E7D6B0' : '#8B8175',
+        },
+      };
+    });
+    p.bands = BANDS.map(b => {
+      const on = !ctxRaw.now && ctx.band === b.key;
+      return {
+        label: b.label, hours: b.hours, onTap: () => this.setState({ ctx: { now: false, day: ctx.day, band: b.key } }),
+        style: {
+          display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 8,
+          padding: '14px 15px', borderRadius: 12, cursor: 'pointer', textAlign: 'left',
+          border: '1px solid ' + (on ? 'rgba(192,160,98,.5)' : 'rgba(240,233,223,.13)'),
+          background: on ? 'rgba(192,160,98,.12)' : 'transparent', color: on ? '#E7D6B0' : '#9A8F82',
+        },
+      };
+    });
+    p.ctxForecast = ctxRaw.now
+      ? 'Live conditions: ' + WEATHER[NOW.band] + '. Terraces and rooftops are ranked down while the rain holds.'
+      : 'Forecast for ' + DAY_FULL[ctx.day] + ' ' + bandLabel.toLowerCase() + ': ' + WEATHER[ctx.band] + '. Outdoor rooms weighted accordingly.';
+
+    const mood = st.mood;
+    const moodTiles = mood && mood.cat ? Object.keys(mood.tiles || {}).filter(k => mood.tiles[k]) : [];
+    const moodSubs = mood && mood.cat ? Object.keys(mood.subs || {}).filter(k => mood.subs[k]) : [];
+    p.moodOn = !!(mood && mood.cat);
+    p.moodKicker = p.moodOn ? 'JUST FOR TONIGHT' : 'IN THE MOOD TO';
+    p.moodLabel = !p.moodOn ? 'Do Â· Drink Â· Eat'
+      : moodSubs.length ? mood.cat + ' Â· ' + moodSubs[0].split('|')[1] + (moodSubs.length > 1 ? ' +' + (moodSubs.length - 1) : '')
+      : moodTiles.length ? mood.cat + ' Â· ' + moodTiles[0] + (moodTiles.length > 1 ? ' +' + (moodTiles.length - 1) : '')
+      : mood.cat;
+    p.moodPillStyle = {
+      display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px', borderRadius: 999, cursor: 'pointer',
+      border: '1px solid ' + (p.moodOn ? 'rgba(192,160,98,.55)' : 'rgba(240,233,223,.14)'),
+      background: p.moodOn ? 'rgba(192,160,98,.14)' : 'rgba(19,17,16,.78)', backdropFilter: 'blur(18px)',
+      minWidth: 0, flex: '0 1 auto',
+    };
+    p.moodKickerStyle = { font: '400 8.5px/1 Jost, sans-serif', letterSpacing: '.2em', color: p.moodOn ? '#C0A062' : '#8B8175', whiteSpace: 'nowrap' };
+    p.moodLabelStyle = { font: "400 13px/1 'Cormorant Garamond', serif", color: p.moodOn ? '#F0E9DF' : '#9A8F82', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' };
+    p.openMood = () => this.setState({ moodOpen: true, mood: st.mood || { cat: null, tiles: {}, subs: {} } });
+    p.closeMood = () => this.setState({ moodOpen: false });
+    p.moodOpen = st.moodOpen;
+    p.clearMood = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState({ mood: null, moodOpen: false }); };
+    p.moodCats = ['Do', 'Drink', 'Eat'].map(c => {
+      const on = !!mood && mood.cat === c;
+      return {
+        label: c, onTap: () => this.setState(s => ({ mood: { cat: on ? null : c, tiles: {}, subs: {} } })),
+        style: {
+          flex: 1, padding: '16px 0 17px', borderRadius: 12, cursor: 'pointer',
+          font: "400 19px/1 'Cormorant Garamond', serif",
+          border: '1px solid ' + (on ? 'rgba(192,160,98,.55)' : 'rgba(240,233,223,.13)'),
+          background: on ? 'rgba(192,160,98,.14)' : 'transparent', color: on ? '#F0E9DF' : '#9A8F82',
+        },
+      };
+    });
+    p.moodHasCat = !!(mood && mood.cat);
+    const covered = {};
+    VENUES.forEach(v => {
+      (TRAITS[v.name] || []).forEach(tr => {
+        const k = tr[0] + '|' + tr[1];
+        covered[k] = (covered[k] || 0) + 1;
+        const sk = k + '|' + tr[2];
+        covered[sk] = (covered[sk] || 0) + 1;
+      });
+    });
+    p.moodTiles = !p.moodHasCat ? [] : CATS[mood.cat]
+      .filter(t => covered[mood.cat + '|' + t.n])
+      .map(t => {
+      const on = !!(mood.tiles || {})[t.n];
+      return {
+        label: t.n, count: String(covered[mood.cat + '|' + t.n]),
+        onTap: () => this.setState(s => {
+          const tiles = Object.assign({}, s.mood.tiles);
+          const subs = Object.assign({}, s.mood.subs);
+          if (tiles[t.n]) { delete tiles[t.n]; t.s.forEach(x => { delete subs[t.n + '|' + x]; }); }
+          else tiles[t.n] = true;
+          return { mood: { cat: s.mood.cat, tiles: tiles, subs: subs } };
+        }),
+        countStyle: { font: '300 10px/1 Jost, sans-serif', letterSpacing: '.06em', color: on ? 'rgba(231,214,176,.6)' : '#6F6558' },
+        style: {
+          display: 'flex', alignItems: 'baseline', gap: 7,
+          padding: '10px 15px 11px', borderRadius: 999, cursor: 'pointer',
+          font: '300 12.5px/1 Jost, sans-serif', letterSpacing: '.04em',
+          border: '1px solid ' + (on ? 'rgba(192,160,98,.5)' : 'rgba(240,233,223,.13)'),
+          background: on ? 'rgba(192,160,98,.13)' : 'transparent', color: on ? '#E7D6B0' : '#8B8175',
+        },
+      };
+    });
+    p.moodRefine = !p.moodHasCat ? [] : CATS[mood.cat].filter(t => (mood.tiles || {})[t.n]).map(t => ({
+      tile: t.n,
+      subs: t.s.filter(s2 => covered[mood.cat + '|' + t.n + '|' + s2]).map(s2 => {
+        const key = t.n + '|' + s2, on = !!(mood.subs || {})[key];
+        return {
+          label: s2,
+          onTap: () => this.setState(st2 => {
+            const subs = Object.assign({}, st2.mood.subs);
+            if (subs[key]) delete subs[key]; else subs[key] = true;
+            return { mood: { cat: st2.mood.cat, tiles: st2.mood.tiles, subs: subs } };
+          }),
+          style: {
+            padding: '8px 13px 9px', borderRadius: 999, cursor: 'pointer',
+            font: '300 11.5px/1 Jost, sans-serif',
+            border: '1px solid ' + (on ? 'rgba(192,160,98,.45)' : 'rgba(240,233,223,.11)'),
+            background: on ? 'rgba(192,160,98,.11)' : 'transparent', color: on ? '#E7D6B0' : '#7C7267',
+          },
+        };
+      }),
+    }));
+    p.moodRefine = p.moodRefine.filter(r => r.subs.length);
+    p.moodHasRefine = p.moodRefine.length > 0;
+    p.emptyNote = p.moodOn
+      ? 'Nothing matching this mood inside ' + miles(st.radius) + '. Widen the search, or clear the mood to see everything you normally would.'
+      : p.isMap
+        ? 'Nothing worth your evening inside this radius. Zoom out and we will widen the search.'
+        : 'Widen the radius above and we will find you something worth the journey.';
+    p.moodNote = !p.moodHasCat
+      ? 'Pick one for tonight only. Your saved preferences stay exactly as they are.'
+      : !p.moodTiles.length ? 'Nothing narrower to offer in this category yet.'
+      : moodSubs.length ? 'Narrowed to rooms that do this. Clear it and your full preferences come back.'
+      : moodTiles.length ? 'Refine below if you know what you are after, or leave it broad.'
+      : 'Add a tile or two if you want to be more particular.';
+
+    p.zoomIn = () => this.zoom(0.62);
+    p.zoomOut = () => this.zoom(1.6);
+    p.onWheel = (e) => { e.preventDefault(); this.zoom(e.deltaY > 0 ? 1.14 : 0.88); };
+    p.locate = () => { this.setState({ center: HOME }); this.setSpan(HOME_SPAN); };
+    p.fitRegion = () => { this.setState({ center: { lat: 53.398, lon: -2.2905 } }); this.setSpan(26000); };
+    p.radius = st.radius;
+    p.radiusLabel = st.radius >= MAX_R ? 'Anywhere in the region' : 'Within ' + miles(st.radius);
+    p.radiusLabelShort = miles(st.radius);
+    p.radiusHint = st.radius <= 2 ? 'WALKABLE' : st.radius <= 8 ? 'SHORT CAB' : 'WORTH THE DRIVE';
+    p.radiusNote = st.radius <= 2
+      ? 'Close to home â€” we let proximity break ties between good matches.'
+      : st.radius <= 10
+        ? 'You will travel a little, so we weigh the walk lightly.'
+        : 'You have told us distance is no object â€” ranked on fit alone.';
+    p.setRadius = (e) => this.setRadius(+e.target.value);
+    p.radiusInputStyle = { width: '100%', marginTop: 12, accentColor: '#C0A062', background: 'transparent', cursor: 'pointer' };
+    const ranked = this.rankVenues(ctx, st.radius);
+    const PIN = 27, GAP = 4;
+    const pinPlaced = [];
+    if (p.isMap) this.buildMap(p, ctx, []);
+    if (p.isMap) {
+      const RING = [[0, 0]];
+      for (let ring = 1; ring <= 3; ring++) {
+        const step = ring * (PIN + GAP);
+        for (let a = 0; a < 8; a++) {
+          const ang = (a / 8) * Math.PI * 2 + (ring % 2 ? 0 : Math.PI / 8);
+          RING.push([Math.round(Math.cos(ang) * step), Math.round(Math.sin(ang) * step)]);
+        }
+      }
+      const mq = this.project(ME, st.center, st.span);
+      pinPlaced.push({ me: true, box: { l: mq.x - 17, r: mq.x + 17, t: mq.y - 17, b: mq.y + 17 } });
+      (p.labelBoxes || []).forEach(b => pinPlaced.push({ label: true, box: b }));
+      ranked.slice(0, 4).forEach((r, idx) => {
+        const q = this.project(r.v, st.center, st.span);
+        for (let k = 0; k < RING.length; k++) {
+          const x = q.x + RING[k][0], y = q.y + RING[k][1];
+          const box = { l: x - PIN / 2 - GAP / 2, r: x + PIN / 2 + GAP / 2, t: y - PIN / 2 - GAP / 2, b: y + PIN / 2 + GAP / 2 };
+          const clash = pinPlaced.some(o => !(box.r < o.box.l || box.l > o.box.r || box.b < o.box.t || box.t > o.box.b));
+          if (clash) continue;
+          pinPlaced.push({ r: r, idx: idx, x: x, y: y, box: box, off: k > 0 });
+          return;
+        }
+        pinPlaced.push({ r: r, idx: idx, x: q.x, y: q.y, box: { l: q.x - 14, r: q.x + 14, t: q.y - 14, b: q.y + 14 }, off: true });
+      });
+    }
+    if (p.isMap) this.buildMap(p, ctx, pinPlaced.filter(o => !o.label).map(o => o.box));
+    else {
+      p.roads = []; p.water = []; p.green = []; p.glows = []; p.areas = []; p.districts = []; p.dots = [];
+      p.roadLabels = []; p.scaleLabel = ''; p.meStyle = { display: 'none' };
+      p.veilPath = ''; p.regionPath = ''; p.lockedStyle = { display: 'none' };
+      p.veilStyle = { display: 'none' }; p.veilTintStyle = { display: 'none' };
+      p.edgeGlowStyle = { display: 'none' }; p.edgeLineStyle = { display: 'none' };
+    }
+
+    const radiusUpper = miles(st.radius).toUpperCase();
+    p.sheetTitle = ranked.length ? 'RANKED WITHIN ' + radiusUpper + ' Â· ' + ranked.length + (ranked.length === 1 ? ' VENUE' : ' VENUES') : 'NOTHING WITHIN ' + radiusUpper;
+    p.sheetMeta = ctxRaw.now ? 'NOW' : DAY_FULL[ctx.day].slice(0, 3).toUpperCase() + ' ' + bandLabel.toUpperCase();
+    p.mapEmpty = ranked.length === 0;
+    p.listEmpty = ranked.length === 0;
+    p.listHeadline = ranked.length ? ranked.length + (ranked.length === 1 ? ' venue' : ' venues') : 'Nothing in range';
+    p.listMeta = ctxRaw.now ? 'RANKED FOR NOW' : DAY_FULL[ctx.day].toUpperCase() + ' Â· ' + bandLabel.toUpperCase();
+    p.pinRows = ranked.slice(0, 4).map((r, idx) => Object.assign({
+      rank: idx + 1, name: r.v.name, meta: r.v.district.toUpperCase() + ' Â· ' + r.v.type, score: r.score + '',
+      onTap: () => this.openVenue(r.v.name),
+      rankStyle: { width: 24, height: 24, flex: 'none', borderRadius: '50%', border: '1px solid rgba(192,160,98,.45)', color: '#E7D6B0', font: '400 11px/22px Jost, sans-serif', textAlign: 'center' },
+    }, this.saveBtn('venue', r.v.name, 30)));
+    p.pins = pinPlaced.filter(o => !o.me && !o.label).map(o => {
+      const inView = o.x > 26 && o.x < W - 74 && o.y > 176 && o.y < H - 330;
+      return {
+        rank: o.idx + 1, onTap: () => this.openVenue(o.r.v.name),
+        style: {
+          position: 'absolute', left: o.x, top: o.y, transform: 'translate(-50%,-50%)',
+          width: PIN, height: PIN, borderRadius: '50%', padding: 0,
+          border: '1px solid rgba(192,160,98,.9)', background: 'rgba(22,18,14,.96)',
+          color: '#E7D6B0', font: '400 11px/25px Jost, sans-serif', textAlign: 'center',
+          cursor: 'pointer', display: inView ? 'block' : 'none',
+          boxShadow: o.off ? '0 6px 18px rgba(0,0,0,.6), 0 0 0 3px rgba(18,16,14,.9)' : '0 6px 18px rgba(0,0,0,.6)',
+        },
+      };
+    });
+    p.listRows = ranked.map((r, idx) => Object.assign({
+      rankLabel: 'NO. ' + (idx + 1), name: r.v.name, type: r.v.district.toUpperCase() + ' Â· ' + r.v.type,
+      spend: r.v.spend, dist: (r.dist / 1609).toFixed(1) + ' MI Â· ' + (r.dist < 805
+        ? Math.max(2, Math.round(r.dist / 80)) + ' MIN WALK'
+        : Math.max(4, Math.round(r.dist * 1.28 / 420)) + ' MIN DRIVE'),
+      score: r.score + '', reason: r.v.reason, photoStyle: shot(r.v.name, 760), photoScrim: scrim,
+      onTap: () => this.openVenue(r.v.name),
+    }, this.saveBtn('venue', r.v.name, 34)));
+
+    // Moments are organised by district, nearest first. A journey belongs to one
+    // district; a curated list spans several and is narrowed to the venues set here.
+    const districtOf = (nm) => {
+      const rec = VENUES.find(v => v.name === nm);
+      if (rec) return rec.district;
+      const note = VENUE_NOTES[nm];
+      return note && note.district ? note.district : null;
+    };
+    const journeyCard = (j, k) => {
+      const chain = [];
+      j.stops.forEach((sp, si) => {
+        chain.push({ text: sp.name, style: { font: "400 14px/1 'Cormorant Garamond', serif", color: '#CDC3B6' } });
+        if (si < j.stops.length - 1) chain.push({ text: (sp.walk || '').split(' Â·')[0], style: { font: '300 9.5px/1 Jost, sans-serif', letterSpacing: '.16em', color: '#C0A062' } });
+      });
+      return Object.assign({
+        title: j.title, meta: j.meta, blurb: j.blurb, chain: chain, photoStyle: shot(j.title, 760),
+        onTap: () => this.go('journey', { journey: k }),
+      }, this.saveBtn('journey', j.title, 34));
+    };
+    const listCard = (l, dName) => {
+      const picks = l.picks.filter(nm => districtOf(nm) === dName);
+      if (!picks.length) return null;
+      return {
+        title: l.title, blurb: l.blurb, curator: 'BY ' + l.curator,
+        here: picks.length + (picks.length === 1 ? ' HERE' : ' HERE'),
+        photoStyle: shot(l.title, 520), photoScrim: scrim,
+        venues: picks.map(nm => Object.assign({ name: nm, onTap: () => this.openVenue(nm) }, this.saveBtn('venue', nm, 26))),
+      };
+    };
+
+    const byDistance = DISTRICTS.map(d => ({ d: d, dist: metres(d, ME) })).sort((a, b) => a.dist - b.dist);
+    const allSections = byDistance.map(o => {
+      const dName = o.d.name;
+      const js = [];
+      JOURNEYS.forEach((j, k) => { if (j.district === dName) js.push(journeyCard(j, k)); });
+      const ls = LISTS.map(l => listCard(l, dName)).filter(Boolean);
+      const walk = o.dist < 900 ? 'ON YOUR DOORSTEP' : (o.dist / 1609).toFixed(1) + ' MILES AWAY';
+      const bits = [];
+      if (js.length) bits.push(js.length + (js.length === 1 ? ' JOURNEY' : ' JOURNEYS'));
+      if (ls.length) bits.push(ls.length + (ls.length === 1 ? ' LIST' : ' LISTS'));
+      return { name: dName, dist: o.dist, journeys: js, lists: ls, meta: walk + (bits.length ? ' Â· ' + bits.join(' Â· ') : '') };
+    }).filter(sec => sec.journeys.length || sec.lists.length);
+
+    const pickedD = st.momentDistrict;
+    const shown = pickedD ? allSections.filter(sec => sec.name === pickedD) : allSections;
+    p.momentSections = shown.map((sec, idx) => ({
+      name: sec.name, meta: sec.meta,
+      hasJourneys: sec.journeys.length > 0, hasLists: sec.lists.length > 0,
+      journeys: sec.journeys, lists: sec.lists,
+      listLabel: 'FOR THE OCCASION IN ' + sec.name.toUpperCase(),
+      onOpenDistrict: () => this.openDistrict(sec.name),
+      wrapStyle: {
+        paddingTop: idx === 0 ? 26 : 34, paddingBottom: 4,
+        borderTop: idx === 0 ? 'none' : '1px solid rgba(240,233,223,.09)',
+        marginTop: idx === 0 ? 0 : 30,
+      },
+    }));
+    p.momentsEmpty = shown.length === 0;
+    p.momentDistrictName = pickedD || '';
+    p.clearMomentDistrict = () => this.setState({ momentDistrict: null });
+    p.districtChips = [{ name: null, label: 'Nearest first', meta: allSections.length + '' }]
+      .concat(byDistance.map(o => {
+        const sec = allSections.find(x => x.name === o.d.name);
+        return { name: o.d.name, label: o.d.name, meta: sec ? String(sec.journeys.length + sec.lists.length) : '0', dim: !sec };
+      }))
+      .map(c => {
+        const on = st.momentDistrict === c.name;
+        return {
+          label: c.label, meta: c.meta,
+          onTap: () => this.setState({ momentDistrict: c.name }),
+          style: {
+            flex: 'none', display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px',
+            borderRadius: 999, cursor: 'pointer', whiteSpace: 'nowrap',
+            font: "400 13.5px/1 'Cormorant Garamond', serif", letterSpacing: '.02em',
+            border: '1px solid ' + (on ? 'rgba(192,160,98,.6)' : 'rgba(240,233,223,.13)'),
+            background: on ? 'rgba(192,160,98,.14)' : 'transparent',
+            color: on ? '#E7D6B0' : c.dim ? '#5E574C' : '#B3A99C',
+          },
+          metaStyle: {
+            font: '300 9px/1 Jost, sans-serif', letterSpacing: '.14em',
+            color: on ? 'rgba(231,214,176,.7)' : '#6F6558',
+          },
+        };
+      });
+
+    const jr = JOURNEYS[st.journey];
+    p.jTitle = jr.title; p.jMeta = jr.meta; p.jBlurb = jr.blurb; p.jHeroStyle = shot(jr.title, 820);
+    const jSaved = !!st.savedJourneys[jr.title];
+    p.jSaveLabel = jSaved ? 'SAVED' : 'SAVE JOURNEY';
+    p.jSave = () => this.toggle('savedJourneys', jr.title);
+    p.jSaveStyle = {
+      position: 'absolute', top: 62, right: 22, height: 38, padding: '0 16px', borderRadius: 999, cursor: 'pointer',
+      border: '1px solid ' + (jSaved ? 'rgba(192,160,98,.8)' : 'rgba(240,233,223,.18)'),
+      background: jSaved ? 'rgba(192,160,98,.2)' : 'rgba(19,17,16,.55)', backdropFilter: 'blur(12px)',
+      color: jSaved ? '#E7D6B0' : '#F0E9DF', font: '300 11px/1 Jost, sans-serif', letterSpacing: '.16em',
+    };
+    p.jStops = jr.stops.map((s, k) => Object.assign({
+      index: 'STOP ' + (k + 1), name: s.name, kind: s.kind, time: s.time, note: s.note,
+      hasWalk: !!s.walk, walk: s.walk || '', photoStyle: shot(s.name, 220),
+      onTap: () => this.openVenue(s.name),
+    }, this.saveBtn('venue', s.name, 30)));
+
+    const vName = st.venue;
+    const vRec = VENUES.find(v => v.name === vName);
+    const vMeta = VENUE_NOTES[vName] || {};
+    const vPoint = vRec || (vMeta.lat ? vMeta : null);
+    const vDist = vPoint ? metres(vPoint, ME) : 0;
+    const vRanked = vRec ? this.rankVenues(ctx, 1e6).find(r => r.v.name === vName) : null;
+    p.vName = vName;
+    p.vKicker = ((vRec ? vRec.district : vMeta.district || 'Curated') + ' Â· ' + (vRec ? vRec.type : vMeta.type || 'Venue')).toUpperCase();
+    p.vScore = vRanked ? String(vRanked.score) : (vMeta.score || 'â€”');
+    p.vCtx = ctxRaw.now ? 'TONIGHT' : DAY_FULL[ctx.day].toUpperCase();
+    p.vHeroStyle = shot(vName, 820);
+    p.vDistrict = vRec ? vRec.district : (vMeta.district || 'Ancoats');
+    p.vOpenDistrict = () => this.openDistrict(p.vDistrict);
+    p.vBlurb = vMeta.blurb || (vRec ? vRec.reason : 'A room we keep an eye on.');
+    p.vFacts = [
+      { label: 'SPEND', value: vRec ? vRec.spend : (vMeta.spend || 'Â£Â£Â£') },
+      { label: 'FROM YOU', value: vPoint ? (vDist / 1609).toFixed(1) + ' mi' : 'â€”' },
+      { label: 'TONIGHT', value: vMeta.hours || 'Until late' },
+    ].map((fa, k) => Object.assign(fa, { style: { flex: 1, padding: '14px 14px 15px', borderRight: k < 2 ? '1px solid rgba(240,233,223,.09)' : 'none' } }));
+    p.vReasons = [
+      { label: 'YOUR PREFERENCES', text: vRec ? vRec.reason : (vMeta.blurb || 'Kept by our editors for evenings like this one.') },
+      { label: 'TIMING', text: 'Open through the ' + bandLabel.toLowerCase() + ' you are planning for â€” ' + (vMeta.hours || 'until late').toLowerCase() + '.' },
+      { label: 'SPEND', text: 'Sits at ' + (vRec ? vRec.spend : (vMeta.spend || 'Â£Â£Â£')) + ' against the ' + st.you.spend + ' dial you set in You.' },
+    ].map(rs => Object.assign({}, rs, { markStyle: { width: 5, height: 5, flex: 'none', marginTop: 7, borderRadius: '50%', background: '#C0A062' } }));
+    // Read this room against what you told us: a trait counts as met only if the
+    // tile is one you chose and you left that sub-preference on.
+    const traits = TRAITS[vName] || [];
+    const yes = [], no = [];
+    traits.forEach(tr => {
+      const tileKey = tr[0] + '|' + tr[1];
+      const chosen = !!st.open[tileKey];
+      const subOff = !!st.off[tileKey + '|' + tr[2]];
+      if (chosen && !subOff) yes.push({ label: tr[2], sub: tr[1] });
+      else no.push({ label: tr[2], sub: tr[1], why: !chosen ? 'not chosen' : 'turned off' });
+    });
+    const chip = (tone) => ({
+      display: 'flex', alignItems: 'center', gap: 8, padding: '9px 14px 10px', borderRadius: 999,
+      border: '1px solid ' + (tone ? 'rgba(192,160,98,.4)' : 'rgba(240,233,223,.1)'),
+      background: tone ? 'rgba(192,160,98,.09)' : 'transparent',
+    });
+    p.vYes = yes.map(t => ({
+      label: t.label, note: t.sub,
+      style: chip(true),
+      markStyle: { width: 4, height: 4, flex: 'none', borderRadius: '50%', background: '#C0A062' },
+      labelStyle: { font: '300 12.5px/1 Jost, sans-serif', color: '#E7D6B0' },
+    }));
+    p.vNo = no.map(t => ({
+      label: t.label, note: t.why === 'turned off' ? 'you turned this off' : 'not one you picked',
+      style: chip(false),
+      markStyle: { width: 7, height: 1, flex: 'none', background: 'rgba(240,233,223,.3)' },
+      labelStyle: { font: '300 12.5px/1 Jost, sans-serif', color: '#8B8175' },
+    }));
+    p.vYesCount = yes.length + ' OF ' + traits.length;
+    p.vYesLead = yes.length === 0
+      ? 'Nothing here lines up with what you asked for â€” it is ranked on the district and the hour alone.'
+      : yes.length === 1
+        ? 'One thing here is exactly what you asked for:'
+        : 'What you asked for, and this room has:';
+    p.hasVNo = no.length > 0;
+    p.vNoCount = no.length + ' OF ' + traits.length;
+    p.vNoLead = no.length === 1
+      ? 'One thing about this room you did not ask for:'
+      : 'Things this room does that you did not ask for:';
+    const slug = vName.toLowerCase().replace(/[^a-z0-9]+/g, '');
+    const ct = CONTACT[vName] || {};
+    const site = ct.site || slug + '.co.uk';
+    const ig = ct.ig || slug;
+    p.vInfo = [
+      { label: 'ADDRESS', value: ct.street || ((vRec ? vRec.district : vMeta.district || 'Manchester') + ', Manchester') },
+      { label: 'HOURS', value: vMeta.hours || 'Until late' },
+      { label: 'TELEPHONE', value: ct.phone || 'No telephone' },
+      { label: 'BOOKING', value: ct.book || 'Walk-ins welcome; no reservations taken.' },
+    ];
+    p.vLinks = [
+      { label: 'Website', href: 'https://' + site },
+      { label: '@' + ig, href: 'https://instagram.com/' + ig },
+      { label: 'Menu', href: 'https://' + site + '/menu' },
+    ].map(lk => Object.assign({}, lk, {
+      style: {
+        display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none',
+        padding: '11px 16px', borderRadius: 999,
+        border: '1px solid rgba(240,233,223,.14)', background: 'rgba(240,233,223,.03)', color: '#CDC3B6',
+      },
+    }));
+
+    // Under half a mile it is a walk; past that we hand you to a car.
+    const vTrip = vPoint ? this.trip(vPoint) : null;
+    const walkable = !!vTrip && vTrip.walkable;
+    p.vTravelLabel = walkable ? 'WALKING DIRECTIONS' : 'REQUEST A CAR';
+    p.vTravelNote = !vTrip ? ''
+      : walkable
+        ? vTrip.walkMin + ' minutes on foot from where you are standing.'
+        : 'Via Uber Â· ' + vTrip.roadMi + ' mi, about ' + vTrip.driveMin + ' minutes by road.';
+    p.vTravel = () => this.go(walkable ? 'walk' : 'ride', { venue: vName, walkT: 0, rideCalled: false, rideTier: 1 });
+    const vSaved = !!st.savedVenues[vName];
+    p.vSaveLabel = vSaved ? 'SAVED' : 'SAVE';
+    p.vSave = () => this.toggle('savedVenues', vName);
+    p.vSaveStyle = {
+      position: 'absolute', top: 62, right: 22, height: 38, padding: '0 18px', borderRadius: 999, cursor: 'pointer',
+      border: '1px solid ' + (vSaved ? 'rgba(192,160,98,.8)' : 'rgba(240,233,223,.18)'),
+      background: vSaved ? 'rgba(192,160,98,.2)' : 'rgba(19,17,16,.55)', backdropFilter: 'blur(12px)',
+      color: vSaved ? '#E7D6B0' : '#F0E9DF', font: '300 11.5px/1 Jost, sans-serif', letterSpacing: '.18em',
+    };
+
+    const det = DETAIL[st.district] || fallbackDetail(st.district);
+    const dObj = DISTRICTS.find(d => d.name === st.district) || DISTRICTS[0];
+    const dLive = this.live(dObj, ctx);
+    p.detailName = st.district; p.detailKicker = det.kicker; p.detailDesc = det.desc; p.detailTags = det.tags;
+    p.matches = det.v.map(m => Object.assign({
+      name: m.name, meta: m.meta, score: m.score, reason: m.reason,
+      onTap: () => this.openVenue(m.name),
+    }, this.saveBtn('venue', m.name, 32)));
+    p.matchCtx = ctxRaw.now ? 'NOW' : DAY_FULL[ctx.day].toUpperCase() + ' Â· ' + bandLabel.toUpperCase();
+    // A short taste of what the editors keep here, with a way into the full feed.
+    const dSection = allSections.find(x => x.name === st.district);
+    const dItems = [];
+    if (dSection) {
+      dSection.journeys.forEach(j => dItems.push({
+        kicker: 'JOURNEY', title: j.title, sub: j.meta.split(' Â· ').slice(1).join(' Â· '),
+        photoStyle: j.photoStyle, onTap: j.onTap,
+      }));
+      dSection.lists.forEach(l => dItems.push({
+        kicker: 'CURATED LIST', title: l.title, sub: l.here.replace('HERE', 'in ' + st.district),
+        photoStyle: l.photoStyle, onTap: () => this.setState({ screen: 'moments', stack: [], momentDistrict: st.district }),
+      }));
+    }
+    p.dMoments = dItems.slice(0, 3);
+    p.dMomentsEmpty = dItems.length === 0;
+    p.dMomentsCount = dItems.length > 3 ? '3 OF ' + dItems.length : String(dItems.length);
+    p.dNameUpper = st.district.toUpperCase();
+    p.dOpenMoments = () => this.setState({ screen: 'moments', stack: [], momentDistrict: st.district });
+    p.liveLabel = dLive + ' ALIVE';
+    p.liveBarStyle = { position: 'absolute', left: 0, top: 0, bottom: 0, width: dLive + '%', background: 'linear-gradient(to right, rgba(192,160,98,.35), #C0A062)' };
+
+    const savedVenueNames = Object.keys(st.savedVenues);
+    const savedJourneyNames = Object.keys(st.savedJourneys);
+    const notifOn = Object.keys(st.notif).filter(k => st.notif[k]).length;
+    p.profileStats = [
+      { value: savedVenueNames.length, label: 'SAVED PLACES', onTap: () => this.go('saved', { savedView: 'places' }) },
+      { value: savedJourneyNames.length, label: 'SAVED JOURNEYS', onTap: () => this.go('saved', { savedView: 'journeys' }) },
+      { value: counts.Do + counts.Drink + counts.Eat, label: 'PREFERENCES SET', onTap: () => this.go('onboard', { editing: true, cat: 'Do' }) },
+    ];
+    p.profileGroups = [
+      { title: 'YOUR TASTE', rows: [
+        { label: 'Edit preferences', sub: 'Do, Drink, Eat and You â€” already filled in', onTap: () => this.go('onboard', { editing: true, cat: 'Do' }) },
+        { label: 'Saved places', sub: savedVenueNames.length ? savedVenueNames.slice(0, 2).join(', ') + (savedVenueNames.length > 2 ? ' and ' + (savedVenueNames.length - 2) + ' more' : '') : 'Nothing saved yet', onTap: () => this.go('saved', { savedView: 'places' }) },
+        { label: 'Saved journeys', sub: savedJourneyNames.length ? savedJourneyNames[0] + (savedJourneyNames.length > 1 ? ' and ' + (savedJourneyNames.length - 1) + ' more' : '') : 'Nothing saved yet', onTap: () => this.go('saved', { savedView: 'journeys' }) },
+      ] },
+      { title: 'ACCOUNT', rows: [
+        { label: 'Account details', sub: st.user.name + ' Â· ' + st.user.email, onTap: () => this.go('onboard', { editing: true, cat: 'You' }) },
+        { label: 'Membership', sub: 'Â£19.99 a month Â· renews 12 August', onTap: () => this.go('subscription') },
+        { label: 'Notifications', sub: notifOn + ' of 4 turned on', onTap: () => this.go('notifications') },
+      ] },
+    ];
+    p.logout = () => this.setState({ screen: 'login', stack: [], ctxOpen: false, editing: false, mood: null, moodOpen: false });
+    p.renewDate = '12 August 2026';
+    p.cardLine = 'Amex ending 4402';
+    p.subPerks = [
+      'The predictive map, refreshed every fifteen minutes against real liveliness.',
+      'Editor-kept Moments and Journeys, updated weekly across Manchester and Cheshire.',
+      'Tables held for members at forty rooms, six of which take no public bookings.',
+      'No cancellation fees, no tiers, no advertising. One price, one membership.',
+    ];
+
+    const places = st.savedView === 'places';
+    p.savedKicker = places ? 'SAVED PLACES' : 'SAVED JOURNEYS';
+    p.savedTitle = places ? 'Places you kept.' : 'Journeys you kept.';
+    p.savedIntro = places
+      ? 'Bookmarked rooms, re-ranked against tonight every time you open them.'
+      : 'Whole evenings, held for whenever the occasion turns up.';
+    p.savedRows = (places ? savedVenueNames : savedJourneyNames).map(nm => {
+      if (places) {
+        const rec = VENUES.find(v => v.name === nm), note = VENUE_NOTES[nm] || {};
+        return {
+          name: nm, meta: (rec ? rec.district + ' Â· ' + rec.type + ' Â· ' + rec.spend : (note.district || 'Curated') + ' Â· ' + (note.type || 'Venue')).toUpperCase(),
+          photoStyle: shot(nm, 220), onTap: () => this.openVenue(nm), onRemove: () => this.toggle('savedVenues', nm),
+        };
+      }
+      let k = 0;
+      JOURNEYS.forEach((j, idx) => { if (j.title === nm) k = idx; });
+      return {
+        name: nm, meta: JOURNEYS[k].meta, photoStyle: shot(nm, 220),
+        onTap: () => this.go('journey', { journey: k }), onRemove: () => this.toggle('savedJourneys', nm),
+      };
+    });
+    p.savedEmpty = p.savedRows.length === 0;
+    p.emptyMark = places ? '\u2727' : '\u27F6';
+    p.emptyTitle = places ? 'Nothing kept yet.' : 'No journeys kept yet.';
+    p.emptyBody = places
+      ? 'Tap the star on any room and it waits here â€” re-ranked against whatever evening you open next.'
+      : 'Our editors plan whole evenings, stop by stop. Keep one and it will be here when the occasion arrives.';
+    p.emptyCta = places ? 'BROWSE TONIGHT' : 'SEE JOURNEYS';
+    p.emptyAction = () => this.setState({ screen: places ? 'list' : 'moments', stack: [] });
+
+    p.notifRows = NOTIFS.map(n => {
+      const on = !!st.notif[n.key];
+      return {
+        label: n.label, sub: n.sub,
+        onTap: () => this.setState({ notif: Object.assign({}, st.notif, { [n.key]: !on }) }),
+        trackStyle: {
+          width: 46, height: 26, flex: 'none', borderRadius: 999, display: 'flex', alignItems: 'center',
+          padding: 3, justifyContent: on ? 'flex-end' : 'flex-start',
+          background: on ? 'rgba(192,160,98,.28)' : 'rgba(240,233,223,.08)',
+          border: '1px solid ' + (on ? 'rgba(192,160,98,.6)' : 'rgba(240,233,223,.14)'), transition: 'all .18s ease',
+        },
+        knobStyle: { width: 18, height: 18, borderRadius: '50%', background: on ? '#E7D6B0' : '#6F6558', display: 'block' },
+      };
+    });
+    p.notifEmptyTitle = 'Nothing yet â€” you only joined this week.';
+    p.notifEmptyBody = 'When a room you saved opens a table, or a district near you comes alive unexpectedly, it appears here. Never more than twice a week.';
+
+    // ---- Walking navigation ----
+    const tRec = VENUES.find(v => v.name === st.venue);
+    const tMeta = VENUE_NOTES[st.venue] || {};
+    const target = tRec || (tMeta.lat ? tMeta : null);
+    if (screen === 'walk' && target) {
+      const route = this.walkRoute(ME, target);
+      const at = this.walkAt(route, st.walkT);
+      const arrived = st.walkT >= 1;
+      const PW = 402, PH = 384, PAD = 46;
+      const lats = route.pts.map(q => q.lat), lons = route.pts.map(q => q.lon);
+      const cLat = (Math.max.apply(null, lats) + Math.min.apply(null, lats)) / 2;
+      const cLon = (Math.max.apply(null, lons) + Math.min.apply(null, lons)) / 2;
+      const spanX = (Math.max.apply(null, lons) - Math.min.apply(null, lons)) * mPerLon(cLat) || 120;
+      const spanY = (Math.max.apply(null, lats) - Math.min.apply(null, lats)) * M_PER_LAT || 120;
+      const sc = Math.min((PW - PAD * 2) / spanX, (PH - PAD * 2) / spanY);
+      const pj = (q) => ({
+        x: PW / 2 + (q.lon - cLon) * mPerLon(cLat) * sc,
+        y: PH / 2 - (q.lat - cLat) * M_PER_LAT * sc,
+      });
+      const dObj = DISTRICTS.find(d => d.name === (tRec ? tRec.district : tMeta.district)) || DISTRICTS[0];
+      // Street grid behind the route, aligned to it so the turns read as corners.
+      const grid = [];
+      for (let gx = -3; gx <= 3; gx++) {
+        const x = PW / 2 + gx * 68 + 9;
+        grid.push({ d: 'M' + x + ' -20 L' + (x + 14) + ' ' + (PH + 20), w: gx % 2 ? 2 : 5 });
+      }
+      for (let gy = -2; gy <= 3; gy++) {
+        const y = PH / 2 + gy * 74 - 12;
+        grid.push({ d: 'M-20 ' + y + ' L' + (PW + 20) + ' ' + (y - 9), w: gy % 2 ? 2 : 4 });
+      }
+      p.walkGrid = grid.map(g => ({
+        d: g.d,
+        style: { fill: 'none', stroke: dObj.color, strokeWidth: g.w, opacity: g.w > 3 ? 0.11 : 0.07, strokeLinecap: 'round' },
+      }));
+      const path = route.pts.map((q, i) => { const c = pj(q); return (i ? 'L' : 'M') + c.x.toFixed(1) + ' ' + c.y.toFixed(1); }).join(' ');
+      p.walkPath = path;
+      p.walkPathStyle = { fill: 'none', stroke: 'rgba(192,160,98,.22)', strokeWidth: 13, strokeLinejoin: 'round', strokeLinecap: 'round' };
+      p.walkLineStyle = { fill: 'none', stroke: '#C0A062', strokeWidth: 3, strokeLinejoin: 'round', strokeLinecap: 'round', strokeDasharray: '11 7' };
+      const mePt = pj(at.pt), toPt = pj(target);
+      p.walkMeStyle = {
+        position: 'absolute', left: mePt.x, top: mePt.y, width: 16, height: 16, transform: 'translate(-50%,-50%)',
+        borderRadius: '50%', background: '#F0E9DF', border: '3px solid #1A1410',
+        boxShadow: '0 0 0 7px rgba(240,233,223,.14), 0 0 22px rgba(240,233,223,.5)', transition: 'left .3s linear, top .3s linear',
+      };
+      p.walkDestStyle = {
+        position: 'absolute', left: toPt.x, top: toPt.y, width: 13, height: 13, transform: 'translate(-50%,-50%)',
+        borderRadius: '50%', background: dObj.color, boxShadow: '0 0 0 5px ' + dObj.color + '30, 0 0 18px ' + dObj.color + 'cc',
+      };
+      p.walkDestLabel = st.venue;
+      p.walkDestLabelStyle = {
+        position: 'absolute', left: Math.max(64, Math.min(PW - 64, toPt.x)), top: toPt.y + 22,
+        transform: 'translate(-50%,0)', whiteSpace: 'nowrap', pointerEvents: 'none',
+        font: "400 15px/1 'Cormorant Garamond', serif", color: '#F4EEE5', textShadow: '0 1px 10px rgba(10,8,6,.95)',
+      };
+      const dirs = ['Head north out of the square', 'Turn right onto the main road', 'Continue past the junction', 'Left at the crossing', 'Right, then the door is on your left'];
+      const streets = ['STEVENSON SQUARE', 'HILTON STREET', 'NEWTON STREET', 'GREAT ANCOATS STREET', 'BLOSSOM STREET'];
+      p.walkSteps = route.legs.map((lg, i) => {
+        const state = arrived ? 'done' : i < at.leg ? 'done' : i === at.leg ? 'now' : 'next';
+        return {
+          instr: dirs[i] || 'Continue ahead', street: streets[i] || 'ON FOOT',
+          dist: Math.round(lg.m) + ' m',
+          rowStyle: { display: 'flex', gap: 14, alignItems: 'flex-start', opacity: state === 'next' ? 0.4 : 1 },
+          markStyle: {
+            width: 9, height: 9, flex: 'none', marginTop: 6, borderRadius: '50%',
+            background: state === 'now' ? '#C0A062' : state === 'done' ? 'rgba(192,160,98,.3)' : 'transparent',
+            border: state === 'next' ? '1px solid rgba(240,233,223,.28)' : 'none',
+          },
+          instrStyle: {
+            font: (state === 'now' ? '400 ' : '300 ') + '14px/1.5 Jost, sans-serif',
+            color: state === 'now' ? '#F0E9DF' : '#A0978A',
+          },
+        };
+      });
+      const left = Math.max(0, at.done);
+      p.walkRemaining = arrived ? 'You have arrived' : (left < 950 ? Math.round(left) + ' m to go' : (left / 1609).toFixed(1) + ' mi to go');
+      p.walkEta = arrived ? 'AT THE DOOR' : Math.max(1, Math.round(left / 80)) + ' MIN ON FOOT';
+      p.walkNow = arrived ? 'Walk in â€” you are there.' : (dirs[at.leg] || 'Continue ahead');
+      p.walkNowSub = arrived ? st.venue + ' Â· ' + (tMeta.hours || 'open now') : (streets[at.leg] || 'ON FOOT') + ' Â· ' + Math.round(route.legs[at.leg].m * (1 - at.frac)) + ' M';
+      p.walkTitle = 'Walking to ' + st.venue;
+      p.walkLiveStyle = {
+        display: 'flex', alignItems: 'center', gap: 8,
+        font: '400 9.5px/1 Jost, sans-serif', letterSpacing: '.24em',
+        color: arrived ? '#A0978A' : '#C0A062',
+      };
+      p.walkPulseStyle = {
+        width: 6, height: 6, borderRadius: '50%', background: arrived ? '#6F6558' : '#C0A062',
+        animation: arrived ? 'none' : 'curiaBreathe 1.8s ease-in-out infinite',
+      };
+      p.walkLiveLabel = arrived ? 'ARRIVED' : 'LIVE Â· FOLLOWING YOUR LOCATION';
+      p.walkProgressStyle = { height: 2, borderRadius: 2, background: '#C0A062', width: (st.walkT * 100).toFixed(1) + '%', transition: 'width .3s linear' };
+    } else {
+      p.walkGrid = []; p.walkSteps = []; p.walkPath = ''; p.walkTitle = ''; p.walkRemaining = ''; p.walkEta = '';
+      p.walkNow = ''; p.walkNowSub = ''; p.walkLiveLabel = ''; p.walkDestLabel = '';
+      p.walkPathStyle = { display: 'none' }; p.walkLineStyle = { display: 'none' };
+      p.walkMeStyle = { display: 'none' }; p.walkDestStyle = { display: 'none' };
+      p.walkDestLabelStyle = { display: 'none' }; p.walkLiveStyle = { display: 'none' };
+      p.walkPulseStyle = { display: 'none' }; p.walkProgressStyle = { display: 'none' };
+    }
+
+    // ---- Handing off to a car ----
+    if (screen === 'ride' && target) {
+      const tp = this.trip(target);
+      const road = tp.road;
+      const tiers = [
+        { name: 'UberX', sub: 'Affordable, everyday rides', seats: '4', mult: 1, wait: 3 },
+        { name: 'Uber Comfort', sub: 'Newer cars, extra legroom', seats: '4', mult: 1.32, wait: 5 },
+        { name: 'Uber Black', sub: 'Premium saloon, professional driver', seats: '4', mult: 2.1, wait: 8 },
+      ];
+      const basePrice = 4.2 + (road / 1609) * 2.35;
+      p.rideTiers = tiers.map((t, i) => {
+        const sel = st.rideTier === i;
+        const price = basePrice * t.mult;
+        return {
+          name: t.name, sub: t.sub, seats: t.seats,
+          price: 'Â£' + price.toFixed(2), wait: t.wait + ' min away',
+          onTap: () => this.setState({ rideTier: i }),
+          style: {
+            width: '100%', display: 'flex', alignItems: 'center', gap: 14, textAlign: 'left', cursor: 'pointer',
+            padding: '16px 18px', borderRadius: 14,
+            border: '1px solid ' + (sel ? 'rgba(192,160,98,.55)' : 'rgba(240,233,223,.11)'),
+            background: sel ? 'rgba(192,160,98,.09)' : 'transparent',
+          },
+          nameStyle: { font: (sel ? '400 ' : '300 ') + "17px/1.2 'Cormorant Garamond', serif", color: sel ? '#F4EEE5' : '#CDC3B6' },
+          priceStyle: { font: (sel ? '400 ' : '300 ') + '15px/1 Jost, sans-serif', color: sel ? '#E7D6B0' : '#A0978A' },
+        };
+      });
+      p.rideTitle = 'A car to ' + st.venue;
+      p.rideKicker = 'VIA UBER';
+      p.rideFrom = 'Your location Â· Stevenson Square';
+      p.rideTo = st.venue + ' Â· ' + (tRec ? tRec.district : tMeta.district || 'Manchester');
+      p.rideTrip = tp.roadMi + ' mi Â· about ' + tp.driveMin + ' min by road';
+      p.rideCalled = st.rideCalled;
+      p.rideCta = st.rideCalled ? 'OPENING UBERâ€¦' : 'REQUEST ' + tiers[st.rideTier].name.toUpperCase();
+      p.rideCall = () => this.setState({ rideCalled: true });
+      p.rideCtaStyle = {
+        width: '100%', marginTop: 22, padding: '17px 0', border: 'none', borderRadius: 12, cursor: 'pointer',
+        background: st.rideCalled ? 'rgba(192,160,98,.22)' : '#C0A062',
+        color: st.rideCalled ? '#E7D6B0' : '#1A1410',
+        font: '500 12px/1 Jost, sans-serif', letterSpacing: '.22em',
+      };
+      p.rideFoot = st.rideCalled
+        ? 'Handing you to the Uber app with the pickup and destination already set.'
+        : 'Fare shown is Uberâ€™s estimate for this route now. You confirm and pay in Uber.';
+      p.rideWalkNote = tp.walkable
+        ? 'Walkable in ' + tp.walkMin + ' minutes, but the car is here if you would rather not.'
+        : 'A ' + tp.driveMin + '-minute drive â€” too far to walk comfortably.';
+    } else {
+      p.rideTiers = []; p.rideTitle = ''; p.rideKicker = ''; p.rideFrom = ''; p.rideTo = '';
+      p.rideTrip = ''; p.rideCta = ''; p.rideFoot = ''; p.rideWalkNote = '';
+      p.rideCtaStyle = { display: 'none' };
+    }
+
+    return p;
+  }
+}
+
+</script>
+</body>
+</html>

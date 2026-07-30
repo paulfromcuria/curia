@@ -1,0 +1,30 @@
+{
+  "_source": "Transcribed from the Claude Design handoff bundle's VENUES constant in Curia.dc.html (fetched 2026-07-30) — real illustrative seed venues, not chains, matching Hard rule 1. `reason` strings are the actual brand-voice match-reason copy from the prototype; use as the register/quality bar for new copy, not verbatim filler.",
+  "venues": [
+    { "name": "Erst", "district": "ancoats", "type": "SMALL PLATES", "spend": "££££", "lat": 53.4849, "lon": -2.2276, "base": 96, "bands": ["evening", "late"], "reason": "Natural wine and communal tables both on, and the kitchen runs to 11pm." },
+    { "name": "Schofield's", "district": "northern-quarter", "type": "COCKTAIL BAR", "spend": "£££", "lat": 53.4831, "lon": -2.2372, "base": 95, "bands": ["evening", "late"], "reason": "Award-winning list, mixology at the table — the fullest version of your cocktail tile." },
+    { "name": "Mana", "district": "ancoats", "type": "TASTING MENU", "spend": "£££££", "lat": 53.4857, "lon": -2.2268, "base": 93, "bands": ["evening"], "reason": "Michelin-recognised with a chef's table; one step above your spend dial." },
+    { "name": "20 Stories", "district": "spinningfields", "type": "ROOFTOP", "spend": "££££", "lat": 53.4789, "lon": -2.2513, "base": 92, "bands": ["afternoon", "evening"], "reason": "Skyline view and heated outdoor seating — the heaters matter tonight." },
+    { "name": "The Jane Eyre", "district": "ancoats", "type": "COCKTAIL BAR", "spend": "£££", "lat": 53.4838, "lon": -2.2290, "base": 91, "bands": ["evening", "late"], "reason": "Booth seating and no music you have to shout over." },
+    { "name": "Blinker", "district": "northern-quarter", "type": "SPEAKEASY", "spend": "£££", "lat": 53.4846, "lon": -2.2352, "base": 90, "bands": ["late"], "reason": "Unmarked entrance on Tib Street; speakeasy-style still weighted on." },
+    { "name": "Matt & Phreds", "district": "northern-quarter", "type": "JAZZ BAR", "spend": "££", "lat": 53.4854, "lon": -2.2366, "base": 87, "bands": ["evening", "late"], "reason": "Live sets to 1am, intimate seating, no cover before nine." },
+    { "name": "The Ivy Spinningfields", "district": "spinningfields", "type": "FINE DINING", "spend": "££££", "lat": 53.4797, "lon": -2.2525, "base": 86, "bands": ["afternoon", "evening"], "reason": "Formal service and a dress code; late sittings to 10.30pm." },
+    { "name": "Refuge", "district": "deansgate", "type": "HOTEL BAR", "spend": "£££", "lat": 53.4766, "lon": -2.2432, "base": 84, "bands": ["evening", "late"], "reason": "Live pianist Thursday to Saturday, service well past midnight." },
+    { "name": "Tattu", "district": "spinningfields", "type": "CELEBRATORY", "spend": "££££", "lat": 53.4802, "lon": -2.2498, "base": 82, "bands": ["evening"], "reason": "Set menus and dessert theatrics; loudest room in the district after nine." },
+    { "name": "Victors", "district": "hale", "type": "SMALL PLATES", "spend": "£££", "lat": 53.3785, "lon": -2.3330, "base": 81, "bands": ["afternoon", "evening"], "reason": "Communal tables on, group-friendly buzz — worth the drive on a Friday." },
+    { "name": "Pollen Bakery", "district": "ancoats", "type": "BAKERY", "spend": "££", "lat": 53.4853, "lon": -2.2243, "base": 89, "bands": ["morning", "afternoon"], "reason": "Canalside counter seats and viennoiserie out of the oven at eight." },
+    { "name": "Mackie Mayor", "district": "northern-quarter", "type": "MARKET HALL", "spend": "££", "lat": 53.4864, "lon": -2.2348, "base": 87, "bands": ["morning", "afternoon", "evening"], "reason": "Nine kitchens under one roof — the easiest room in the city to arrive at without a plan." },
+    { "name": "Foundation Coffee", "district": "northern-quarter", "type": "COFFEE ROOM", "spend": "££", "lat": 53.4842, "lon": -2.2338, "base": 84, "bands": ["morning", "afternoon"], "reason": "A mill floor big enough to work in, and nobody rushing the second cup." },
+    { "name": "The Wizard", "district": "alderley-edge", "type": "COUNTRY PUB", "spend": "£££", "lat": 53.3021, "lon": -2.2244, "base": 78, "bands": ["afternoon", "evening"], "reason": "Fires lit from October, and the Edge walk finishes at the door." }
+  ],
+  "moments": [
+    { "title": "Best for Date Night", "curator": "ELENA M.", "picks": ["The Jane Eyre", "Mana", "Refuge", "The Old Cellars"], "blurb": "Low light, tables for two, and a wine list worth staying for a third glass." },
+    { "title": "Entertaining a Client", "curator": "JAMES O.", "picks": ["The Ivy Spinningfields", "20 Stories", "Refuge", "Erst"], "blurb": "Quiet enough to talk. Expensive enough to register without being said out loud." },
+    { "title": "Big Group of Friends", "curator": "PRIYA N.", "picks": ["Victors", "Tattu", "Matt & Phreds", "Rudy's"], "blurb": "Rooms that can take eight at short notice without a sigh from the host." },
+    { "title": "Solo Reset", "curator": "ELENA M.", "picks": ["Erst", "Matt & Phreds", "Porta", "The Old Cellars"], "blurb": "Counter seats, a book, and nobody asking whether you're waiting for someone." }
+  ],
+  "journeys": [
+    { "title": "Date Night in Altrincham", "district": "altrincham", "meta": "ALTRINCHAM · 3 STOPS · 4 HOURS" },
+    { "title": "A Client, Well Handled", "district": "spinningfields", "meta": "SPINNINGFIELDS · 2 STOPS · 3 HOURS" }
+  ]
+}

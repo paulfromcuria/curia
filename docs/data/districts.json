@@ -1,0 +1,29 @@
+{
+  "_source": "Transcribed from the Claude Design handoff bundle's DISTRICTS/GROUPS constants in Curia.dc.html (fetched 2026-07-30). lat/lon/base/r/span are the prototype's own map-projection values, kept as-is so the real map behaviour can be ported rather than re-derived.",
+  "metros": [
+    { "id": "manchester", "name": "Manchester" },
+    { "id": "cheshire", "name": "Cheshire" }
+  ],
+  "districts": [
+    { "id": "northern-quarter", "name": "Northern Quarter", "metro": "manchester", "lat": 53.4840, "lon": -2.2360, "base": 88, "kind": "city", "accentColor": "#C0A062" },
+    { "id": "ancoats", "name": "Ancoats", "metro": "manchester", "lat": 53.4846, "lon": -2.2262, "base": 82, "kind": "city", "accentColor": "#C9884E" },
+    { "id": "spinningfields", "name": "Spinningfields", "metro": "manchester", "lat": 53.4794, "lon": -2.2516, "base": 76, "kind": "city", "accentColor": "#A8A06A" },
+    { "id": "deansgate", "name": "Deansgate", "metro": "manchester", "lat": 53.4762, "lon": -2.2487, "base": 80, "kind": "city", "accentColor": "#B98F72" },
+    { "id": "chinatown", "name": "Chinatown", "metro": "manchester", "lat": 53.4792, "lon": -2.2400, "base": 68, "kind": "city", "accentColor": "#BE7A5A" },
+    { "id": "altrincham", "name": "Altrincham", "metro": "cheshire", "lat": 53.3872, "lon": -2.3506, "base": 66, "kind": "county", "accentColor": "#C0A062" },
+    { "id": "hale", "name": "Hale", "metro": "cheshire", "lat": 53.3781, "lon": -2.3322, "base": 62, "kind": "county", "accentColor": "#A8A06A" },
+    { "id": "wilmslow", "name": "Wilmslow", "metro": "cheshire", "lat": 53.3272, "lon": -2.2300, "base": 55, "kind": "county", "accentColor": "#C9884E" },
+    { "id": "alderley-edge", "name": "Alderley Edge", "metro": "cheshire", "lat": 53.3041, "lon": -2.2340, "base": 52, "kind": "county", "accentColor": "#B98F72" },
+    { "id": "mobberley", "name": "Mobberley", "metro": "cheshire", "lat": 53.3110, "lon": -2.3232, "base": 38, "kind": "county", "accentColor": "#8E8A66" }
+  ],
+  "districtGroups": [
+    { "name": "The Golden Triangle", "of": ["alderley-edge", "wilmslow", "mobberley", "hale"] },
+    { "name": "Hale & Altrincham", "of": ["hale", "altrincham"] },
+    { "name": "Ancoats & the NQ", "of": ["ancoats", "northern-quarter"] },
+    { "name": "The Deansgate Spine", "of": ["deansgate", "spinningfields", "chinatown"] }
+  ],
+  "metroWholeSetLabel": {
+    "manchester": "Central Manchester",
+    "cheshire": "The Cheshire Set"
+  }
+}
