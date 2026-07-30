@@ -7,7 +7,8 @@
  */
 import districtsRaw from '../../../docs/data/districts.json';
 import venuesRaw from '../../../docs/data/venues.json';
-import type { City, District, DistrictGroup, Journey, Moment, MomentType, Venue } from '../../types/models';
+import tilesRaw from '../../../docs/data/tiles.json';
+import type { City, District, DistrictGroup, Journey, Moment, MomentType, Tile, TileCategory, Venue } from '../../types/models';
 
 const MOMENT_TYPE_BY_TITLE: Record<string, MomentType> = {
   'Best for Date Night': 'date-night',
@@ -98,6 +99,26 @@ export const JOURNEYS: Journey[] = venuesRaw.journeys.map((j) => ({
   title: j.title,
   stops: [],
 }));
+
+/**
+ * Onboarding tile catalog (Do/Drink/Eat), transcribed from the Claude Design
+ * handoff bundle's `CATS` constant — see docs/data/tiles.json. Tile ids are
+ * derived as `category|name` so they're stable and human-readable in
+ * UserPreference.selectedTileIds.
+ */
+export const TILES: Tile[] = (Object.entries(tilesRaw.categories) as [TileCategory, { name: string; subPreferences: string[] }[]][])
+  .flatMap(([category, tiles]) =>
+    tiles.map((t) => ({
+      id: `${category}|${t.name}`,
+      category,
+      name: t.name,
+      subPreferences: t.subPreferences,
+    }))
+  );
+
+export function tilesByCategory(category: TileCategory): Tile[] {
+  return TILES.filter((t) => t.category === category);
+}
 
 export function venuesByDistrict(districtId: string): Venue[] {
   return VENUES.filter((v) => v.districtId === districtId);
