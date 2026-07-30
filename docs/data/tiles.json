@@ -1,0 +1,56 @@
+{
+  "_source": "Transcribed from the Claude Design handoff bundle's CATS constant in Curia.dc.html (fetched 2026-07-30) — the real onboarding tile catalog for Do/Drink/Eat, 15 tiles per category. Sub-preferences (`subPreferences`) default ON per CLAUDE.md Hard rule 2; this file lists the possible set only, not any user's on/off state. One entry ('Cafés (late)') has had the source file's mangled UTF-8 encoding (rendered as 'CafÃ©s') corrected back to a plain é.",
+  "categories": {
+    "Do": [
+      { "name": "Culture", "subPreferences": ["Art", "History", "Libraries", "Museums", "Photography"] },
+      { "name": "Parks & green space", "subPreferences": ["Scenic walks", "Botanical gardens", "Riverside paths"] },
+      { "name": "Independent cinema", "subPreferences": ["Director's cuts", "Q&A screenings", "Bar on site"] },
+      { "name": "Theatre", "subPreferences": ["West End-style", "Fringe", "Matinees"] },
+      { "name": "Ballet & opera", "subPreferences": ["Classical programme", "Contemporary programme"] },
+      { "name": "Clothes shopping", "subPreferences": ["Designer boutiques", "Vintage/curated", "Personal styling"] },
+      { "name": "Live music", "subPreferences": ["Jazz", "Classical", "Intimate gig spaces"] },
+      { "name": "Art galleries", "subPreferences": ["Contemporary", "Private viewings", "Independent artists"] },
+      { "name": "Spa & wellness", "subPreferences": ["Day spa", "Thermal suite", "Treatments"] },
+      { "name": "Comedy", "subPreferences": ["Intimate venues", "Headline acts"] },
+      { "name": "Markets", "subPreferences": ["Artisan stalls", "Food markets"] },
+      { "name": "Spectator sport", "subPreferences": ["Racecourse", "Members' enclosures", "Polo/tennis"] },
+      { "name": "Walking tours", "subPreferences": ["Guided", "Self-directed", "Historic districts"] },
+      { "name": "Antiques & design", "subPreferences": ["Curated dealers", "Design showrooms"] },
+      { "name": "Cookery & craft", "subPreferences": ["Small group", "Hands-on", "Expert-led"] }
+    ],
+    "Drink": [
+      { "name": "Cocktail bars", "subPreferences": ["Speakeasy-style", "Award-winning list", "Live mixology", "Booth seating"] },
+      { "name": "Wine bars", "subPreferences": ["Natural wine", "Sommelier on site", "Small plates", "Vinyl/curated music"] },
+      { "name": "Nightclubs", "subPreferences": ["House music", "Hip-hop/R&B", "Table service", "No trainers", "Late license", "Dress code"] },
+      { "name": "Jazz bars", "subPreferences": ["Live music", "Late sets", "Intimate seating", "No cover charge"] },
+      { "name": "Rooftop & scenic", "subPreferences": ["Skyline view", "Heated outdoor", "Sunset hours", "DJ sets"] },
+      { "name": "Upmarket pubs", "subPreferences": ["Fireplace", "Sunday roast", "Dog-friendly", "Beer garden"] },
+      { "name": "Members' clubs", "subPreferences": ["Guest-list only", "Dress code", "Live entertainment"] },
+      { "name": "Whisky & spirits", "subPreferences": ["Rare/aged selection", "Tasting flights", "Cigar terrace"] },
+      { "name": "Hotel bars", "subPreferences": ["Live pianist", "Late service", "Views"] },
+      { "name": "Champagne bars", "subPreferences": ["Vintage list", "Oyster pairing", "Booth service"] },
+      { "name": "Late-night lounges", "subPreferences": ["DJ sets", "Bottle service", "Smoking terrace"] },
+      { "name": "Cafés (late)", "subPreferences": ["Specialty coffee", "Wine by the glass", "Late opening"] },
+      { "name": "Beer gardens", "subPreferences": ["Independent brewers", "Outdoor heaters", "Live sport"] },
+      { "name": "Waterside bars", "subPreferences": ["Outdoor terrace", "Dock views", "Sunset hours"] },
+      { "name": "Wellness bars", "subPreferences": ["Cold-pressed", "Alcohol-free cocktails", "Morning hours"] }
+    ],
+    "Eat": [
+      { "name": "Tasting menu", "subPreferences": ["Wine pairing", "Chef's table", "5+ courses"] },
+      { "name": "Romantic", "subPreferences": ["Low lighting", "Candlelit", "Tables for two", "Quiet music"] },
+      { "name": "Fine dining", "subPreferences": ["Michelin-recognised", "Formal service", "Dress code"] },
+      { "name": "Scenic", "subPreferences": ["Skyline/waterside", "Outdoor terrace"] },
+      { "name": "Lively & loud", "subPreferences": ["Open kitchen buzz", "Group-friendly", "Late sittings"] },
+      { "name": "Brunch", "subPreferences": ["Bottomless option", "Weekend only", "Outdoor seating"] },
+      { "name": "Small plates", "subPreferences": ["Natural wine list", "Communal tables"] },
+      { "name": "Late-night eats", "subPreferences": ["Open past midnight", "Walk-ins only"] },
+      { "name": "Business lunch", "subPreferences": ["Quiet enough to talk", "Quick service", "Private booths"] },
+      { "name": "Hidden gem", "subPreferences": ["Discreet entrance", "No booking required"] },
+      { "name": "Chef's counter", "subPreferences": ["Open kitchen", "Interactive service"] },
+      { "name": "Al fresco", "subPreferences": ["Heated terrace", "Greenery", "Daytime hours"] },
+      { "name": "Private dining", "subPreferences": ["Bookable rooms", "Bespoke menus", "Minimum spend"] },
+      { "name": "Wine-led dining", "subPreferences": ["Sommelier pairing", "By-the-glass depth"] },
+      { "name": "Celebratory", "subPreferences": ["Set menus", "Champagne on arrival", "Dessert theatrics"] }
+    ]
+  }
+}
