@@ -15,25 +15,26 @@
  *   (CLAUDE.md "Still genuinely open": Mapbox API key is a genuine
  *   credential gap) — flagged, not guessed. Callers may pass a real
  *   `location` override once one exists.
- * - `radiusMiles` / `context` / `moodFilter` are per-view, in-session state
- *   (the prototype's own language: an "active in-session quick filter"),
- *   not part of the persisted session — the caller (Map today) owns that
- *   local state and passes it in as overrides rather than this module
- *   inventing a second, competing place for it to live.
+ * - `radiusMiles` now defaults to the shared `session.radiusMiles`
+ *   (src/lib/state/session.tsx) rather than a fixed per-caller constant —
+ *   both M5 builds (Map and List) independently flagged that a fixed Map
+ *   default alongside List's own local slider state let the two tabs show
+ *   different radii for the same session, contradicting Hard rule 5 ("Map
+ *   and List share one radius and one context, so switching tabs never
+ *   changes the answer"). Callers may still override it (e.g. a future
+ *   one-off preview), but map.tsx/list.tsx should both read/write
+ *   `session.radiusMiles`, not their own copy.
+ * - `context` / `moodFilter` remain per-view, in-session state, not part of
+ *   the persisted session — each screen owns its own local state for these
+ *   and passes them in as overrides.
  *
- * Known gap flagged, not silently patched here: the real onboarding tile
- * catalog (src/lib/data/seed.ts `TILES`) ids tiles as `${category}|${name}`
- * (e.g. "Drink|Cocktail bars"). `rank-venues.ts`'s `scoreTileMatch` /
- * `passesMoodFilter` compare selected tile ids against
- * `slugifyType(venue.type)` (e.g. "cocktail-bar") — see that module's own
- * `slugifyType` doc comment, which anticipated exactly this. The two id
- * conventions don't line up (plural tile names, compound names like
- * "Rooftop & scenic" vs. single-word venue types), so passing real
- * onboarding `selectedTileIds` straight through means tile-match scores 0
- * for every venue rather than being a neutral no-op. This is a cross-cutting
- * M3/M4 gap this module doesn't own the fix for (rank-venues.ts is
- * `curia-matchmaking`'s); flagged in the M5 report rather than patched
- * ad hoc here.
+ * Resolved gap (previously flagged here): the real onboarding tile catalog
+ * (src/lib/data/seed.ts `TILES`) ids tiles as `${category}|${name}` (e.g.
+ * "Drink|Cocktail bars"), which didn't line up with `rank-venues.ts`'s
+ * `slugifyType(venue.type)`-based matching. Fixed in
+ * `src/lib/scoring/tile-catalog-map.ts` (`tileIdToVenueTypeSlugs`), which
+ * `scoreTileMatch`/`passesMoodFilter` now go through — real onboarding
+ * `selectedTileIds` pass through unchanged here and resolve correctly.
  */
 import type { SessionContextValue } from '../state/session';
 import type { MatchContext, MatchmakingInput } from '../../types/matchmaking';

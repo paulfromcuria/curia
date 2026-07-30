@@ -129,8 +129,12 @@ export default function Map() {
     return { category: mood.category, tileIds, subPreferences: [] as string[] };
   }, [mood]);
 
+  // radiusMiles comes from shared session state (src/lib/state/session.tsx),
+  // not a fixed constant, so it can never drift from whatever List's slider
+  // is set to (Hard rule 5) — closes the gap this screen's own build
+  // originally flagged.
   const matchInput = useMemo(
-    () => buildMatchmakingInputFromSession(session, { context, moodFilter }),
+    () => buildMatchmakingInputFromSession(session, { context, moodFilter, radiusMiles: session.radiusMiles }),
     [session, context, moodFilter]
   );
 

@@ -56,8 +56,8 @@ const DEMO_LOCATION = { lat: 53.4814, lon: -2.2361 };
 const MIN_RADIUS = 0.25;
 const MAX_RADIUS = 30;
 const RADIUS_STEP = 0.25;
-/** The prototype's own initial radius (Curia.dc.html `state = { radius: 0.9, ... }`). */
-const DEFAULT_RADIUS_MILES = 0.9;
+// Default initial radius (0.9mi, the prototype's own `state.radius`) now
+// lives in src/lib/state/session.tsx, since it's shared with Map.
 
 function clampRadius(value: number): number {
   const clamped = Math.min(MAX_RADIUS, Math.max(MIN_RADIUS, value));
@@ -184,7 +184,11 @@ export default function List() {
   const router = useRouter();
   const session = useSession();
 
-  const [radiusMiles, setRadiusMiles] = useState(DEFAULT_RADIUS_MILES);
+  // Shared with Map via session state, not local — Hard rule 5 ("Map and
+  // List share one radius and one context, so switching tabs never changes
+  // the answer"). Was local component state; both M5 builds flagged this
+  // gap, closed by lifting it into src/lib/state/session.tsx.
+  const { radiusMiles, setRadiusMiles } = session;
   const [moodOpen, setMoodOpen] = useState(false);
   const [moodCategory, setMoodCategory] = useState<TileCategory | null>(null);
   const [moodSlugs, setMoodSlugs] = useState<string[]>([]);

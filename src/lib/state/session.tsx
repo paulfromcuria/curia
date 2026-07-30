@@ -65,7 +65,20 @@ interface SessionState {
   preferences: Record<TileCategory, UserPreference>;
   you: YouProfile;
   subscriptionStatus: SubscriptionStatus;
+  /**
+   * Search radius in miles, shared between Map and List. Lives here (not as
+   * separate per-screen state) so the two tabs can never drift apart on it —
+   * Hard rule 5 / the prototype's own description: "Map and List share one
+   * radius and one context, so switching tabs never changes the answer."
+   * Both M5 builds independently flagged that this wasn't wired up yet
+   * (List had its own local slider state, Map used a fixed constant);
+   * closing that gap here rather than in either screen. 0.9mi matches the
+   * prototype's own initial radius value.
+   */
+  radiusMiles: number;
 }
+
+const DEFAULT_RADIUS_MILES = 0.9;
 
 const INITIAL_STATE: SessionState = {
   user: null,
@@ -77,6 +90,7 @@ const INITIAL_STATE: SessionState = {
   },
   you: DEFAULT_YOU,
   subscriptionStatus: 'none',
+  radiusMiles: DEFAULT_RADIUS_MILES,
 };
 
 /** Exported so shared, non-screen-owned modules (e.g.
@@ -106,6 +120,7 @@ export interface SessionContextValue extends SessionState {
   completeOnboarding: () => void;
   startTrial: () => void;
   cancelMembership: () => void;
+  setRadiusMiles: (miles: number) => void;
 }
 
 const SessionContext = createContext<SessionContextValue | null>(null);
@@ -236,6 +251,10 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, subscriptionStatus: 'none' }));
   }, []);
 
+  const setRadiusMiles = useCallback((miles: number) => {
+    setState((s) => ({ ...s, radiusMiles: miles }));
+  }, []);
+
   const value = useMemo<SessionContextValue>(
     () => ({
       ...state,
@@ -258,6 +277,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       completeOnboarding,
       startTrial,
       cancelMembership,
+      setRadiusMiles,
     }),
     [
       state,
@@ -278,6 +298,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       completeOnboarding,
       startTrial,
       cancelMembership,
+      setRadiusMiles,
     ]
   );
 
