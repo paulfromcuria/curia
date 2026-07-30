@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Curia",
-    "slug": "curia",
+    "slug": "paulfromcuria",
     "scheme": "curia",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +22,10 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -46,6 +49,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "root": "./src/app"
+      },
+      "eas": {
+        "projectId": "654d6d1f-cdd7-4df1-921f-6bc6a99716c2"
+      }
+    },
+    "owner": "paulfromcurias-team"
   }
 }
