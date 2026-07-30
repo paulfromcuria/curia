@@ -184,20 +184,10 @@ export default function List() {
   // List share one radius and one context, so switching tabs never changes
   // the answer"). Was local component state; both M5 builds flagged this
   // gap, closed by lifting it into src/lib/state/session.tsx.
-  const { radiusMiles, setRadiusMiles } = session;
+  const { radiusMiles, setRadiusMiles, isVenueSaved, toggleSavedVenue } = session;
   const [moodOpen, setMoodOpen] = useState(false);
   const [moodCategory, setMoodCategory] = useState<TileCategory | null>(null);
   const [moodSlugs, setMoodSlugs] = useState<string[]>([]);
-  const [savedVenueIds, setSavedVenueIds] = useState<Set<string>>(new Set());
-
-  const toggleSaved = useCallback((venueId: string) => {
-    setSavedVenueIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(venueId)) next.delete(venueId);
-      else next.add(venueId);
-      return next;
-    });
-  }, []);
 
   const clearMood = useCallback(() => {
     setMoodCategory(null);
@@ -320,7 +310,7 @@ export default function List() {
             if (!venue) return null;
             const district = DISTRICT_BY_ID.get(venue.districtId);
             const distanceMiles = haversineMiles(DEMO_LOCATION, venue);
-            const saved = savedVenueIds.has(venue.id);
+            const saved = isVenueSaved(venue.id);
             return (
               <View key={venue.id} style={styles.row}>
                 <Pressable onPress={() => router.push(`/venue/${venue.id}`)}>
@@ -349,7 +339,7 @@ export default function List() {
                       <Text style={styles.dist}>{formatDistance(distanceMiles)}</Text>
                     </View>
                     <Pressable
-                      onPress={() => toggleSaved(venue.id)}
+                      onPress={() => toggleSavedVenue(venue.id)}
                       hitSlop={8}
                       style={[styles.saveButton, saved && styles.saveButtonOn]}
                       accessibilityRole="button"

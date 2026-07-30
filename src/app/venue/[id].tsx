@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Kicker } from '../../components/curia';
@@ -29,8 +29,10 @@ const BAND_LABEL: Record<string, string> = {
  * user-facing match score/reason, not one of the internal-only fields Hard
  * rule 8 bans (tier/sourceConfidence/notes/raw scores) — see CLAUDE.md.
  *
- * Save is local component state only — there's no SavedCollection wired up
- * yet (curia-profile's M7 work), same as Map/List's own save stars.
+ * Save uses the shared `session.toggleSavedVenue`/`isVenueSaved`
+ * (src/lib/state/session.tsx, M7) — an M9 QA pass found this had shipped
+ * with its own local `useState` instead, disconnected from the same Saved
+ * screen Map/List's save stars also weren't wired to; fixed here.
  *
  * The travel CTA mirrors the design source's own `vTravel` logic: under
  * half a mile it sends you to Walk, otherwise to Ride (src/lib/travel/trip.ts
@@ -40,9 +42,9 @@ export default function VenueDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const session = useSession();
-  const [saved, setSaved] = useState(false);
 
   const venue = VENUES.find((v) => v.id === id);
+  const saved = venue ? session.isVenueSaved(venue.id) : false;
   const district = venue ? DISTRICTS.find((d) => d.id === venue.districtId) : undefined;
 
   const matchInput = useMemo(
@@ -79,7 +81,10 @@ export default function VenueDetail() {
         <Pressable onPress={() => router.back()} style={styles.backButton}>
           <Text style={styles.backButtonText}>←</Text>
         </Pressable>
-        <Pressable onPress={() => setSaved((s) => !s)} style={[styles.saveButton, saved && styles.saveButtonOn]}>
+        <Pressable
+          onPress={() => venue && session.toggleSavedVenue(venue.id)}
+          style={[styles.saveButton, saved && styles.saveButtonOn]}
+        >
           <Text style={[styles.saveButtonText, saved && styles.saveButtonTextOn]}>
             {saved ? 'SAVED' : 'SAVE'}
           </Text>
