@@ -21,6 +21,11 @@ import type {
   MatchmakingResult,
   RankedVenue,
 } from '../../types/matchmaking';
+// Explicit `.ts` extension (matching rank-venues.test.mts's own import of this
+// file) so `node --test`'s native ESM loader can resolve this at runtime —
+// see that test file's header comment for why plain extensionless relative
+// imports don't work under Node's loader even though tsc/Metro accept them.
+import { tileIdToVenueTypeSlugs } from './tile-catalog-map.ts';
 
 const EARTH_RADIUS_MILES = 3958.8;
 
@@ -96,8 +101,9 @@ export function passesMoodFilter(
   moodFilter: MatchmakingInput['moodFilter']
 ): boolean {
   if (!moodFilter) return true;
-  if (moodFilter.tileIds.length > 0 && !moodFilter.tileIds.includes(slugifyType(venue.type))) {
-    return false;
+  if (moodFilter.tileIds.length > 0) {
+    const matchingSlugs = new Set(moodFilter.tileIds.flatMap(tileIdToVenueTypeSlugs));
+    if (!matchingSlugs.has(slugifyType(venue.type))) return false;
   }
   if (
     moodFilter.subPreferences.length > 0 &&
@@ -128,11 +134,18 @@ export function scoreBaseQuality(venue: Venue): number {
   return clamp(venue.base / 100, 0, 1);
 }
 
-/** 1 if any selected tile matches this venue's type, else a neutral 0.5 with no selection at all. */
+/**
+ * 1 if any selected tile matches this venue's type, else a neutral 0.5 with
+ * no selection at all. Selected ids may be real onboarding Tile catalog ids
+ * (`"Drink|Cocktail bars"`) or bare type-slugs (`"cocktail-bar"`, this
+ * project's demo-input/test convention) — `tileIdToVenueTypeSlugs` resolves
+ * either form to the venue-type-slug space this function compares in.
+ */
 export function scoreTileMatch(venue: Venue, preferences: MatchmakingInput['preferences']): number {
-  const selected = new Set(preferences.flatMap((p) => p.selectedTileIds));
-  if (selected.size === 0) return 0.5;
-  return selected.has(slugifyType(venue.type)) ? 1 : 0;
+  const selectedIds = preferences.flatMap((p) => p.selectedTileIds);
+  if (selectedIds.length === 0) return 0.5;
+  const matchingSlugs = new Set(selectedIds.flatMap(tileIdToVenueTypeSlugs));
+  return matchingSlugs.has(slugifyType(venue.type)) ? 1 : 0;
 }
 
 /**

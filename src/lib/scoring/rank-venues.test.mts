@@ -211,6 +211,12 @@ test('mood filter: tileIds narrow the pool to matching venue types', () => {
   assert.equal(passesMoodFilter(venue({ type: 'COUNTRY PUB' }), moodFilter), false);
 });
 
+test('mood filter: also accepts real Tile catalog ids, not just bare type-slugs', () => {
+  const moodFilter = { category: 'Drink', tileIds: ['Drink|Upmarket pubs'], subPreferences: [] };
+  assert.equal(passesMoodFilter(venue({ type: 'COUNTRY PUB' }), moodFilter), true);
+  assert.equal(passesMoodFilter(schofields, moodFilter), false);
+});
+
 test('mood filter: subPreferences narrow the pool to matching tags even within an allowed tile', () => {
   const moodFilter = { category: 'Drink', tileIds: ['cocktail-bar'], subPreferences: ['speakeasy-style'] };
   const tagged = venue({ type: 'COCKTAIL BAR', subPreferenceTags: ['speakeasy-style'] });
@@ -255,6 +261,20 @@ test('tile match: scores 0 when the venue type is not among any selected tile', 
     { category: 'Eat', selectedTileIds: ['tasting-menu'], subPreferenceState: {} },
   ];
   assert.equal(scoreTileMatch(schofields, prefs), 0);
+});
+
+test('tile match: resolves a real onboarding Tile catalog id ("category|name"), not just a bare type-slug', () => {
+  const prefs: MatchmakingInput['preferences'] = [
+    { category: 'Drink', selectedTileIds: ['Drink|Cocktail bars'], subPreferenceState: {} },
+  ];
+  assert.equal(scoreTileMatch(schofields, prefs), 1);
+  // Speakeasy is one of "Cocktail bars"'s matched venue types too.
+  assert.equal(scoreTileMatch(venue({ type: 'SPEAKEASY' }), prefs), 1);
+  // A tile with no corresponding venue type in today's seed data matches nothing.
+  const noVenueYet: MatchmakingInput['preferences'] = [
+    { category: 'Do', selectedTileIds: ['Do|Theatre'], subPreferenceState: {} },
+  ];
+  assert.equal(scoreTileMatch(schofields, noVenueYet), 0);
 });
 
 test('sub-preference match: a tag left at its default ON counts as wanted', () => {

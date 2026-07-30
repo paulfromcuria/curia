@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+# per-agent worktree checkouts (Claude Code subagent isolation)
+.claude/worktrees/
+
 # Expo
 .expo/
 dist/
