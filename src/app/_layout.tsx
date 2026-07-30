@@ -1,8 +1,10 @@
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
 import { View } from 'react-native';
 import { useCuriaFonts } from '../hooks/use-curia-fonts';
+import { configureMapbox } from '../lib/map/mapbox-config';
 import { SessionProvider } from '../lib/state/session';
 import { color } from '../theme';
 
@@ -21,6 +23,10 @@ import { color } from '../theme';
  */
 export default function RootLayout() {
   const [fontsLoaded] = useCuriaFonts();
+
+  useEffect(() => {
+    configureMapbox();
+  }, []);
 
   if (!fontsLoaded) {
     return <View style={{ flex: 1, backgroundColor: color.base }} />;
