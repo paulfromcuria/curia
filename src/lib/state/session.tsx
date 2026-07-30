@@ -79,7 +79,11 @@ const INITIAL_STATE: SessionState = {
   subscriptionStatus: 'none',
 };
 
-interface SessionContextValue extends SessionState {
+/** Exported so shared, non-screen-owned modules (e.g.
+ * src/lib/scoring/session-input.ts, which builds a real MatchmakingInput out
+ * of live session state for Map/List) can type against the real session
+ * shape instead of redeclaring an ad hoc lookalike. */
+export interface SessionContextValue extends SessionState {
   isAuthenticated: boolean;
   /** True once the subscription gate has been cleared (Hard rule 4: this is
    * distinct from `onboardingComplete` — completing onboarding alone must
