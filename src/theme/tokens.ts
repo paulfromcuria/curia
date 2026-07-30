@@ -42,6 +42,14 @@ export const color = {
   textSecondary: '#8B8175',
   textSecondaryAlt: '#9A8F82',
   textTertiary: '#6F6558',
+  /** Unreachable/disabled state, dimmer than textTertiary (e.g. an onboarding
+   * step not yet reachable) — verbatim from the prototype's own onboarding
+   * tab logic; omitted from CLAUDE.md's original palette table extraction,
+   * added here once found (M9 QA pass), not invented. */
+  textDisabled: '#4A443B',
+  /** Inactive tile-count badge tone, distinct from textTertiary — same
+   * provenance as textDisabled above. */
+  textBadgeInactive: '#7C6E5E',
 
   // Neutral / borders
   borderNeutral: '#CDC3B6',
@@ -67,7 +75,7 @@ export const districtAccent: Record<string, string> = {
   chinatown: '#BE7A5A',
   altrincham: '#C0A062',
   hale: '#A8A06A',
-  wilmslow: '#C9884E',
+  wilmslow: '#BE7A5A',
   'alderley-edge': '#B98F72',
   mobberley: '#8E8A66',
 };

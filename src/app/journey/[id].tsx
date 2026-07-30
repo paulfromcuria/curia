@@ -1,9 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Kicker } from '../../components/curia';
 import { JOURNEYS, VENUES, journeyDistricts } from '../../lib/data/seed';
 import { DEMO_LOCATION } from '../../lib/scoring/session-input';
+import { useSession } from '../../lib/state/session';
 import { estimateTrip } from '../../lib/travel/trip';
 import { color, font, radius, spacing } from '../../theme';
 import type { JourneyStop, Venue } from '../../types/models';
@@ -22,13 +23,20 @@ interface ResolvedStop {
  * JOURNEYS constant but `JourneyStop` (src/types/models.ts) only carries
  * venue id / order / walk-time-to-next per CLAUDE.md's data model, so this
  * screen doesn't invent a schedule on top of what the model actually holds.
+ *
+ * "Save journey" uses the shared `session.toggleSavedJourney`/
+ * `isJourneySaved` (src/lib/state/session.tsx, M7) rather than local state —
+ * an M9 QA pass found this button was still using its own `useState`
+ * despite the shared session actions already existing, so a journey saved
+ * here never actually showed up on the Saved screen.
  */
 export default function JourneyDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const [saved, setSaved] = useState(false);
+  const session = useSession();
 
   const journey = JOURNEYS.find((j) => j.id === id);
+  const saved = journey ? session.isJourneySaved(journey.id) : false;
 
   const stops = useMemo<ResolvedStop[]>(() => {
     if (!journey) return [];
@@ -66,7 +74,10 @@ export default function JourneyDetail() {
         <Pressable onPress={() => router.back()} style={styles.backButton}>
           <Text style={styles.backButtonText}>←</Text>
         </Pressable>
-        <Pressable onPress={() => setSaved((s) => !s)} style={[styles.saveButton, saved && styles.saveButtonOn]}>
+        <Pressable
+          onPress={() => session.toggleSavedJourney(journey.id)}
+          style={[styles.saveButton, saved && styles.saveButtonOn]}
+        >
           <Text style={[styles.saveButtonText, saved && styles.saveButtonTextOn]}>
             {saved ? 'SAVED' : 'SAVE JOURNEY'}
           </Text>

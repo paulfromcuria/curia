@@ -53,6 +53,8 @@ Fetched and read directly (not transcribed from a moodboard) on 2026-07-30. The 
 | Text (secondary) | `#8B8175` | Meta lines, subtitles, secondary labels |
 | Text (secondary, sibling) | `#9A8F82` | Close sibling to secondary, used interchangeably in places |
 | Text (tertiary/dimmest) | `#6F6558` | Dimmest labels/hints (slider endpoints, smallest captions, inactive nav) |
+| Text (disabled) | `#4A443B` | Unreachable/disabled state, dimmer than tertiary (e.g. an onboarding step not yet reachable) — found during M9 QA, omitted from the original extraction, not invented |
+| Text (badge, inactive) | `#7C6E5E` | Inactive count-badge tone, distinct from tertiary — same provenance as above |
 | Border/neutral readable | `#CDC3B6` | Dividers needing a solid tone, secondary readable text (e.g. spend level "££££") |
 | Hairline divider | `rgba(240,233,223,.09–.14)` | Thin separators — cream at low opacity, not a solid border color |
 | Weather/signal (cool note) | `#CFE3E6` | Reserved for the weather glyph and "me" location-pin fill — the one pale, cool note in an otherwise warm palette. Never use decoratively |

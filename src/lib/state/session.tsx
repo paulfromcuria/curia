@@ -124,12 +124,11 @@ interface SessionState {
    * silently rewire another subagent's screens.
    */
   savedCollections: SavedCollection[];
-  /** Saved whole-Journey bookmarks (CLAUDE.md `SavedJourney`). Nothing in
-   * the app currently offers a "save this journey" affordance yet — journey
-   * detail (src/app/journey/[id].tsx) is still curia-moments-journeys'
-   * placeholder — so this will read empty until that screen wires in
-   * `toggleSavedJourney`. The state/actions exist now so that wiring is a
-   * one-line addition there, not a second data-layer decision. */
+  /** Saved whole-Journey bookmarks (CLAUDE.md `SavedJourney`). Journey
+   * detail's "SAVE JOURNEY" button (src/app/journey/[id].tsx) reads/writes
+   * this via `isJourneySaved`/`toggleSavedJourney` — an M9 QA pass found it
+   * had shipped with its own local `useState` instead, which has since been
+   * fixed to use these actions. */
   savedJourneyIds: string[];
   notificationPrefs: NotificationPrefs;
 }

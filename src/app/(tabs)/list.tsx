@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Card, EmblemButton, Kicker } from '../../components/curia';
 import { rankVenues, haversineMiles, slugifyType } from '../../lib/scoring/rank-venues';
+import { buildMatchmakingInputFromSession, DEMO_LOCATION } from '../../lib/scoring/session-input';
 import { DISTRICTS, VENUES, tilesByCategory } from '../../lib/data/seed';
 import { useSession } from '../../lib/state/session';
 import { color, font, radius, spacing } from '../../theme';
@@ -36,15 +37,10 @@ import type { MatchmakingInput } from '../../types/matchmaking';
 // that doesn't exist yet.
 // ---------------------------------------------------------------------------
 
-/**
- * Fixed demo location — Northern Quarter, Manchester, identical to the
- * prototype's own `HOME` constant (Curia.dc.html) and to the value
- * src/lib/scoring/demo-input.ts previously hardcoded. There is no
- * geolocation permission flow or Mapbox integration anywhere in this app yet
- * (CLAUDE.md: real credential gap) — this stays a fixed point until that
- * lands.
- */
-const DEMO_LOCATION = { lat: 53.4814, lon: -2.2361 };
+// Fixed demo location (no geolocation/Mapbox key yet — a real credential
+// gap per CLAUDE.md) now comes from src/lib/scoring/session-input.ts's
+// DEMO_LOCATION, the one place Map/List/venue/district detail all read it
+// from, rather than this screen's own copy.
 
 /**
  * Save/star toggle here is local component state only — there is no
@@ -245,31 +241,26 @@ export default function List() {
         ? 'Refine below if you know what you are after, or leave it broad.'
         : 'Add a tile or two if you want to be more particular.';
 
-  const preferences = useMemo(() => Object.values(session.preferences), [session.preferences]);
-
   const moodFilter = useMemo<MatchmakingInput['moodFilter']>(() => {
     if (!moodCategory) return undefined;
     return { category: moodCategory, tileIds: moodSlugs, subPreferences: [] };
   }, [moodCategory, moodSlugs]);
 
+  // Built via the same helper Map uses (src/lib/scoring/session-input.ts),
+  // not a hand-rolled copy — an M9 QA pass found this screen's own
+  // hand-built input used a slightly different DEMO_LOCATION than Map's
+  // (~0.2mi apart), which could let a venue near the radius boundary pass
+  // the hard filter on one tab and fail it on the other for the same
+  // nominal radius. Sharing the one builder closes that for good, the same
+  // way session.radiusMiles closed the earlier radius-drift gap.
+  //
+  // "now" is still the only context this screen can offer — a real shared
+  // day/time picker lives on the ContextStrip (Map's surface) and isn't
+  // wired into a cross-tab session store yet (Hard rule 5 gap, flagged in
+  // the M5/M9 reports rather than duplicated here).
   const matchmakingInput = useMemo<MatchmakingInput>(
-    () => ({
-      preferences,
-      you: {
-        spendLevel: session.you.spendLevel,
-        dietary: session.you.dietary,
-        pet: session.you.pet,
-      },
-      location: DEMO_LOCATION,
-      radiusMiles,
-      // "now" is the only context this screen can offer — a real shared
-      // day/time picker lives on the ContextStrip (Map's surface) and isn't
-      // wired into a cross-tab session store yet (Hard rule 5 gap, flagged
-      // in the M5 report rather than duplicated here).
-      context: { now: true },
-      moodFilter,
-    }),
-    [preferences, session.you.spendLevel, session.you.dietary, session.you.pet, radiusMiles, moodFilter]
+    () => buildMatchmakingInputFromSession(session, { radiusMiles, moodFilter }),
+    [session, radiusMiles, moodFilter]
   );
 
   const result = useMemo(() => rankVenues(matchmakingInput, VENUES, DISTRICTS), [matchmakingInput]);

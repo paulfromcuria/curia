@@ -444,7 +444,7 @@ const styles = StyleSheet.create({
     color: color.textPrimary,
   },
   tabLabelUnreachable: {
-    color: '#4A443B',
+    color: color.textDisabled,
   },
   tabLabelUnderline: {
     textDecorationLine: 'underline',
@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
     fontFamily: font.sans,
     fontSize: 9.5,
     letterSpacing: 1,
-    color: '#7C6E5E',
+    color: color.textBadgeInactive,
   },
   tabBadgeDone: {
     color: 'rgba(192,160,98,.9)',
