@@ -1,4 +1,5 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import * as Location from 'expo-location';
 import type {
   DietaryRequirement,
   ReligiousObservance,
@@ -9,6 +10,10 @@ import type {
   UserPreference,
   YouProfile,
 } from '../../types/models';
+import type { MatchContext } from '../../types/matchmaking';
+import { resolveContext } from '../scoring/rank-venues';
+import { DEMO_LOCATION } from '../scoring/session-input';
+import { fetchWeather } from '../weather/forecast';
 
 /**
  * In-memory session/auth/onboarding/subscription state for the app.
@@ -84,6 +89,18 @@ const DEFAULT_NOTIFICATION_PREFS: NotificationPrefs = {
   editorial: true,
 };
 
+/**
+ * The active in-session "mood" quick filter ("I'm in the mood to...").
+ * `null` = no mood active. A category with an empty `tileIds` means "this
+ * category, unnarrowed" — matching both Map's and List's prior local
+ * behavior where picking a category alone (no tile narrowing) is still a
+ * valid, active mood.
+ */
+export interface MoodSelection {
+  category: TileCategory;
+  tileIds: string[];
+}
+
 /** Every member starts with one default, un-deletable "Saved" collection
  * (matching the prototype's implicit single saved-places list) — user-named
  * additional collections are created via `createCollection`. */
@@ -110,6 +127,95 @@ interface SessionState {
    * prototype's own initial radius value.
    */
   radiusMiles: number;
+  /**
+   * Day/time context ("Now" or an explicit day+band), shared between Map and
+   * List for the same reason `radiusMiles` is — CLAUDE.md's "Known
+   * implementation gaps": Map owned this locally, List didn't track it at
+   * all (always implicitly "now"), so switching tabs could silently change
+   * the answer, contradicting Hard rule 5 and the prototype's own promise
+   * ("Map and List share one radius and one context..."). Only Map's
+   * context-strip sheet writes to this (List has no day/time picker UI of
+   * its own, per curia-list's brief), but List reads it so results and
+   * copy ("RANKED FOR NOW" vs. a specific day/band) stay in sync.
+   *
+   * "Now" resolution stays passive/live (resolveContext() in
+   * src/lib/scoring/rank-venues.ts reads the real clock fresh on every
+   * call) rather than ticking on a timer — confirmed with the user: the
+   * design source's own `NOW` is a hardcoded static value with no
+   * clock-driven update logic anywhere, so it doesn't settle the question
+   * either way, and passive recompute-on-render matches today's shipped
+   * behavior without adding speculative polling.
+   */
+  context: MatchContext;
+  /**
+   * Active in-session "mood" quick filter, shared between Map and List for
+   * the same reason as `context` above — both screens had their own local
+   * mood state (Map: `{category, tiles: Record<string, boolean>}`, List:
+   * separate `moodCategory`/`moodSlugs` state) that could disagree with each
+   * other. `null` = no mood active.
+   */
+  mood: MoodSelection | null;
+  /**
+   * Real device location, once resolved (see the geolocation effect in
+   * `SessionProvider` below). `null` until permission is granted and a fix
+   * comes back — every consumer (session-input.ts's
+   * `buildMatchmakingInputFromSession`, Map's "me" pin/recenter) must fall
+   * back to `DEMO_LOCATION` while this is null, never assume it's set.
+   * Shared here rather than per-screen so Map, List, venue detail, and
+   * district guide all rank/measure distance from the same point — the
+   * same reasoning as `radiusMiles`/`context`/`mood` (Hard rule 5's "one
+   * radius and one context" extends naturally to "one location").
+   */
+  location: { lat: number; lon: number } | null;
+  /**
+   * The point matchmaking measures distance/radius from for ranking
+   * purposes — defaults to real device location but follows wherever the
+   * user has panned Map's camera to, the same way a real map app's "search
+   * this area" behavior works (2026-08, at explicit user request: "if user
+   * moves map and zooms into manchester, they should see the best matches
+   * based on where they have navigated to" — whereas a plain zoom, with no
+   * pan, should keep ranking against their real location, just with a
+   * different radius).
+   *
+   * Deliberately a SEPARATE field from `location` above, not a replacement
+   * for it: `location` stays the ground truth for real physical distance
+   * (walk/ride ETAs in venue detail, src/lib/travel/trip.ts) and must never
+   * silently change just because the user panned an exploratory map away
+   * from where they actually are. `searchOrigin` is the "what am I
+   * browsing" point; `location` is the "where am I" point.
+   *
+   * Always set (never null, unlike `location`) — starts at DEMO_LOCATION
+   * before geolocation resolves, is set to the same point `location`
+   * resolves to (see the geolocation effect below), and after that is kept
+   * live by Map's onCameraChanged on every camera settle. No special-casing
+   * is needed to tell "zoom" apart from "pan": zooming via the +/- buttons
+   * or a pinch doesn't move the camera's center, so it naturally stays
+   * wherever it already was (real location, until the user actually pans
+   * away from it) — the camera's current center simply *is* the search
+   * origin, whatever put it there, including the locate-me button flying
+   * back to real location.
+   *
+   * Shared here rather than Map-local state for the same Hard-rule-5 reason
+   * as radiusMiles/context/mood/location: List has no map of its own but
+   * must reflect the same ranked set, so it reads whatever Map's camera
+   * last settled on instead of always ranking from real location.
+   */
+  searchOrigin: { lat: number; lon: number };
+  /**
+   * Real forecast weather for the currently-resolved context (day + band)
+   * and location, e.g. "11° Light rain" (2026-08, at explicit user
+   * request: "lets pull in real weather data using an API. when a user
+   * changes their context...the predicted weather should be pulled in
+   * too" — replaces the static `WEATHER_BY_BAND` mock that previously
+   * lived directly in map.tsx/map.web.tsx). `null` until the fetch effect
+   * below resolves, or if it fails (network error, offline, date beyond
+   * Open-Meteo's forecast window) — every consumer must fall back to the
+   * old static per-band mock while this is null, same null-means-fallback
+   * pattern as `location`/DEMO_LOCATION. Lives here rather than per-screen
+   * so Map and List would show the same weather if List ever surfaces it
+   * too — the same Hard-rule-5 reasoning as `context`/`location`.
+   */
+  weather: string | null;
   /**
    * Shared saved-venue-collections layer (M7, curia-profile). Lives here —
    * not as screen-local state — for the same reason radiusMiles does: so
@@ -146,6 +252,11 @@ const INITIAL_STATE: SessionState = {
   you: DEFAULT_YOU,
   subscriptionStatus: 'none',
   radiusMiles: DEFAULT_RADIUS_MILES,
+  context: { now: true },
+  mood: null,
+  location: null,
+  searchOrigin: DEMO_LOCATION,
+  weather: null,
   savedCollections: defaultSavedCollections(''),
   savedJourneyIds: [],
   notificationPrefs: DEFAULT_NOTIFICATION_PREFS,
@@ -179,6 +290,16 @@ export interface SessionContextValue extends SessionState {
   startTrial: () => void;
   cancelMembership: () => void;
   setRadiusMiles: (miles: number) => void;
+  setContext: (context: MatchContext) => void;
+  setLocation: (location: { lat: number; lon: number } | null) => void;
+  setSearchOrigin: (origin: { lat: number; lon: number }) => void;
+  setWeather: (weather: string | null) => void;
+  /** Selecting the already-active category clears the mood entirely
+   * (toggle-off); selecting a new/different category resets tileIds to []. */
+  setMoodCategory: (category: TileCategory) => void;
+  /** No-op if no mood category is currently active. */
+  toggleMoodTile: (tileId: string) => void;
+  clearMood: () => void;
   /** True if venueId appears in any saved collection. */
   isVenueSaved: (venueId: string) => boolean;
   /** Toggles venueId in/out of a collection (defaults to the "Saved" default collection). */
@@ -323,6 +444,103 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, radiusMiles: miles }));
   }, []);
 
+  const setContext = useCallback((context: MatchContext) => {
+    setState((s) => ({ ...s, context }));
+  }, []);
+
+  const setLocation = useCallback((location: { lat: number; lon: number } | null) => {
+    setState((s) => ({ ...s, location }));
+  }, []);
+
+  const setSearchOrigin = useCallback((origin: { lat: number; lon: number }) => {
+    setState((s) => ({ ...s, searchOrigin: origin }));
+  }, []);
+
+  const setWeather = useCallback((weather: string | null) => {
+    setState((s) => ({ ...s, weather }));
+  }, []);
+
+  // Real device geolocation (2026-08, at explicit user request — previously
+  // a genuine credential gap per CLAUDE.md, blocked on the same Mapbox
+  // account now unblocked). expo-location supports web via the browser
+  // Geolocation API as well as native, so this one effect covers every
+  // platform without a separate branch. Silent no-op on denial/error/
+  // unavailability — `location` simply stays null and every consumer
+  // already falls back to DEMO_LOCATION, so there's no error UI to show for
+  // "the map centers on Manchester instead of you," which isn't a failure
+  // state worth interrupting the user over.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted' || cancelled) return;
+        const pos = await Location.getCurrentPositionAsync({});
+        if (!cancelled) {
+          const resolved = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+          // Seeds searchOrigin to the same point — Map's auto-fly-to-location
+          // effect will also settle the camera here and re-set it via
+          // onCameraChanged, but setting it directly here too means List (or
+          // any screen that mounts before Map ever does) isn't stuck on
+          // DEMO_LOCATION in the meantime.
+          setState((s) => ({ ...s, location: resolved, searchOrigin: resolved }));
+        }
+      } catch {
+        // Permission denied, no provider, timeout, etc. — stay on DEMO_LOCATION.
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Real forecast weather (2026-08, at explicit user request: "lets pull in
+  // real weather data using an API. when a user changes their context...the
+  // predicted weather should be pulled in too"). Refetches whenever the
+  // resolved day/band or the effective location changes — the same
+  // "share it, don't fork it" reasoning as the geolocation effect above,
+  // except this one re-runs on more than mount because the whole point is
+  // reacting to the user picking a different day/band in the context-strip
+  // sheet. Deliberately keyed off `resolveContext(state.context)`'s
+  // *resolved* day/band (a plain string pair), not `state.context` itself
+  // (an object) — `context: {now: true}` never changes reference on its
+  // own, and re-resolving it here is how "Now" would eventually pick up a
+  // real day/band change without adding a polling timer (consistent with
+  // the passive/live "Now" decision documented on `context` above).
+  useEffect(() => {
+    let cancelled = false;
+    const { day, band } = resolveContext(state.context);
+    const location = state.location ?? DEMO_LOCATION;
+    (async () => {
+      const result = await fetchWeather(location, day, band);
+      if (!cancelled) setState((s) => ({ ...s, weather: result }));
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.context, state.location]);
+
+  const setMoodCategory = useCallback((category: TileCategory) => {
+    setState((s) => ({
+      ...s,
+      mood: s.mood?.category === category ? null : { category, tileIds: [] },
+    }));
+  }, []);
+
+  const toggleMoodTile = useCallback((tileId: string) => {
+    setState((s) => {
+      if (!s.mood) return s;
+      const has = s.mood.tileIds.includes(tileId);
+      const tileIds = has ? s.mood.tileIds.filter((id) => id !== tileId) : [...s.mood.tileIds, tileId];
+      return { ...s, mood: { ...s.mood, tileIds } };
+    });
+  }, []);
+
+  const clearMood = useCallback(() => {
+    setState((s) => ({ ...s, mood: null }));
+  }, []);
+
   const isVenueSaved = useCallback(
     (venueId: string) => state.savedCollections.some((c) => c.venueIds.includes(venueId)),
     [state.savedCollections]
@@ -410,6 +628,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       startTrial,
       cancelMembership,
       setRadiusMiles,
+      setContext,
+      setLocation,
+      setSearchOrigin,
+      setWeather,
+      setMoodCategory,
+      toggleMoodTile,
+      clearMood,
       isVenueSaved,
       toggleSavedVenue,
       createCollection,
@@ -438,6 +663,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       startTrial,
       cancelMembership,
       setRadiusMiles,
+      setContext,
+      setLocation,
+      setSearchOrigin,
+      setWeather,
+      setMoodCategory,
+      toggleMoodTile,
+      clearMood,
       isVenueSaved,
       toggleSavedVenue,
       createCollection,

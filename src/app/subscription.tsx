@@ -83,7 +83,7 @@ export default function Subscription() {
         'The full curated venue database — no chains, ever.',
         'Predictive ranking tuned to your tiles, spend and the moment.',
         'Moments and journeys curated by Curia’s editors.',
-        'Saved places and collections across Manchester and Cheshire.',
+        'Saved places and collections across Manchester, Cheshire, and Los Angeles.',
       ].map((perk) => (
         <View key={perk} style={styles.perkRow}>
           <View style={styles.perkDot} />

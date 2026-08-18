@@ -25,7 +25,7 @@ import type {
 // file) so `node --test`'s native ESM loader can resolve this at runtime —
 // see that test file's header comment for why plain extensionless relative
 // imports don't work under Node's loader even though tsc/Metro accept them.
-import { tileIdToVenueTypeSlugs } from './tile-catalog-map.ts';
+import { CATEGORY_BY_VENUE_TYPE, tileIdToVenueTypeSlugs } from './tile-catalog-map.ts';
 
 const EARTH_RADIUS_MILES = 3958.8;
 
@@ -95,12 +95,26 @@ export function passesPetFilter(venue: Venue, travelingWithPet: PetPreference): 
   return venue.petFriendly;
 }
 
-/** Active "mood" quick filter narrows the candidate pool before ranking runs. */
+/**
+ * Active "mood" quick filter narrows the candidate pool before ranking runs.
+ *
+ * `moodFilter.category` is a real, always-set restriction, not just context
+ * for `tileIds` — picking a mood category with no specific tiles narrowed
+ * (e.g. just "Do") is a valid, intentionally "unnarrowed" selection
+ * (session.tsx's MoodSelection doc comment: "a category with an empty
+ * tileIds means 'this category, unnarrowed'"), and must still exclude the
+ * other two categories. This used to only check `tileIds`/`subPreferences`
+ * (both empty in the category-only case), so a category-only mood filter
+ * silently filtered nothing at all — found 2026-08 via a real user report
+ * (filtered to "Do", still saw a rooftop bar, a fine-dining restaurant, and
+ * a bakery at the top of the list).
+ */
 export function passesMoodFilter(
   venue: Venue,
   moodFilter: MatchmakingInput['moodFilter']
 ): boolean {
   if (!moodFilter) return true;
+  if (CATEGORY_BY_VENUE_TYPE[venue.type] !== moodFilter.category) return false;
   if (moodFilter.tileIds.length > 0) {
     const matchingSlugs = new Set(moodFilter.tileIds.flatMap(tileIdToVenueTypeSlugs));
     if (!matchingSlugs.has(slugifyType(venue.type))) return false;

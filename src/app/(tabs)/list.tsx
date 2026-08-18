@@ -12,13 +12,25 @@ import {
   type GestureResponderEvent,
 } from 'react-native';
 import { Card, EmblemButton, Kicker } from '../../components/curia';
-import { rankVenues, haversineMiles, slugifyType } from '../../lib/scoring/rank-venues';
-import { buildMatchmakingInputFromSession, DEMO_LOCATION } from '../../lib/scoring/session-input';
+import { rankVenues, haversineMiles, resolveContext, slugifyType } from '../../lib/scoring/rank-venues';
+import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
 import { DISTRICTS, VENUES, tilesByCategory } from '../../lib/data/seed';
+import { MAX_RADIUS_MILES, MIN_RADIUS_MILES, clampRadiusMiles } from '../../lib/map/geo';
 import { useSession } from '../../lib/state/session';
 import { color, font, radius, spacing } from '../../theme';
 import type { TileCategory } from '../../types/models';
 import type { MatchmakingInput } from '../../types/matchmaking';
+
+const BAND_LABEL: Record<string, string> = {
+  morning: 'Morning',
+  afternoon: 'Afternoon',
+  evening: 'Early evening',
+  late: 'Late night',
+};
+
+function capitalize(value: string): string {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
 
 /**
  * Real List screen (M5). Renders the shared M3 `rankVenues` engine (see
@@ -37,10 +49,10 @@ import type { MatchmakingInput } from '../../types/matchmaking';
 // that doesn't exist yet.
 // ---------------------------------------------------------------------------
 
-// Fixed demo location (no geolocation/Mapbox key yet — a real credential
-// gap per CLAUDE.md) now comes from src/lib/scoring/session-input.ts's
-// DEMO_LOCATION, the one place Map/List/venue/district detail all read it
-// from, rather than this screen's own copy.
+// Location is real now (session.searchOrigin, itself backed by real device
+// geolocation via session.location — see session.tsx). DEMO_LOCATION
+// (src/lib/scoring/session-input.ts) survives only as the fallback of last
+// resort before either has resolved, not the everyday value it used to be.
 
 /**
  * Save/star toggle here is local component state only — there is no
@@ -49,14 +61,15 @@ import type { MatchmakingInput } from '../../types/matchmaking';
  * screen does not persist anywhere and resets on navigation away.
  */
 
-const MIN_RADIUS = 0.25;
-const MAX_RADIUS = 30;
+// Radius bounds (MIN_RADIUS_MILES/MAX_RADIUS_MILES) now live in
+// src/lib/map/geo.ts, shared with Map's zoom-driven radius sync (2026-08) so
+// the two screens can never disagree on the range.
 const RADIUS_STEP = 0.25;
 // Default initial radius (0.9mi, the prototype's own `state.radius`) now
 // lives in src/lib/state/session.tsx, since it's shared with Map.
 
 function clampRadius(value: number): number {
-  const clamped = Math.min(MAX_RADIUS, Math.max(MIN_RADIUS, value));
+  const clamped = Math.min(MAX_RADIUS_MILES, Math.max(MIN_RADIUS_MILES, value));
   return Math.round(clamped / RADIUS_STEP) * RADIUS_STEP;
 }
 
@@ -67,7 +80,7 @@ function formatMiles(value: number): string {
 }
 
 function radiusLabelFor(value: number): string {
-  return value >= MAX_RADIUS ? 'Anywhere in the region' : `Within ${formatMiles(value)}`;
+  return value >= MAX_RADIUS_MILES ? 'Anywhere in the region' : `Within ${formatMiles(value)}`;
 }
 
 function radiusHintFor(value: number): string {
@@ -130,7 +143,7 @@ function RadiusSlider({ value, onChange }: { value: number; onChange: (value: nu
   const valueFromPageX = useCallback(
     (pageX: number) => {
       const ratio = Math.min(1, Math.max(0, (pageX - layout.pageX) / layout.width));
-      return clampRadius(MIN_RADIUS + ratio * (MAX_RADIUS - MIN_RADIUS));
+      return clampRadius(MIN_RADIUS_MILES + ratio * (MAX_RADIUS_MILES - MIN_RADIUS_MILES));
     },
     [layout]
   );
@@ -146,7 +159,7 @@ function RadiusSlider({ value, onChange }: { value: number; onChange: (value: nu
     [onChange, valueFromPageX]
   );
 
-  const ratio = (value - MIN_RADIUS) / (MAX_RADIUS - MIN_RADIUS);
+  const ratio = (value - MIN_RADIUS_MILES) / (MAX_RADIUS_MILES - MIN_RADIUS_MILES);
 
   const onAccessibilityAction = useCallback(
     (event: AccessibilityActionEvent) => {
@@ -165,7 +178,7 @@ function RadiusSlider({ value, onChange }: { value: number; onChange: (value: nu
       accessible
       accessibilityRole="adjustable"
       accessibilityLabel="Search radius"
-      accessibilityValue={{ min: MIN_RADIUS, max: MAX_RADIUS, now: value, text: formatMiles(value) }}
+      accessibilityValue={{ min: MIN_RADIUS_MILES, max: MAX_RADIUS_MILES, now: value, text: formatMiles(value) }}
       accessibilityActions={[{ name: 'increment' }, { name: 'decrement' }]}
       onAccessibilityAction={onAccessibilityAction}
     >
@@ -182,29 +195,32 @@ export default function List() {
 
   // Shared with Map via session state, not local — Hard rule 5 ("Map and
   // List share one radius and one context, so switching tabs never changes
-  // the answer"). Was local component state; both M5 builds flagged this
-  // gap, closed by lifting it into src/lib/state/session.tsx.
-  const { radiusMiles, setRadiusMiles, isVenueSaved, toggleSavedVenue } = session;
+  // the answer"). radiusMiles, context, and mood all lived as separate
+  // per-screen state at various points; all three now come from
+  // src/lib/state/session.tsx so List and Map can never drift apart.
+  const { radiusMiles, setRadiusMiles, context, mood, isVenueSaved, toggleSavedVenue } = session;
   const [moodOpen, setMoodOpen] = useState(false);
-  const [moodCategory, setMoodCategory] = useState<TileCategory | null>(null);
-  const [moodSlugs, setMoodSlugs] = useState<string[]>([]);
 
   const clearMood = useCallback(() => {
-    setMoodCategory(null);
-    setMoodSlugs([]);
-  }, []);
+    session.clearMood();
+  }, [session]);
 
-  const selectMoodCategory = useCallback((category: TileCategory) => {
-    setMoodCategory((current) => (current === category ? null : category));
-    setMoodSlugs([]);
-  }, []);
+  const selectMoodCategory = useCallback(
+    (category: TileCategory) => {
+      session.setMoodCategory(category);
+    },
+    [session]
+  );
 
-  const toggleMoodTile = useCallback((slug: string) => {
-    setMoodSlugs((current) =>
-      current.includes(slug) ? current.filter((s) => s !== slug) : [...current, slug]
-    );
-  }, []);
+  const toggleMoodTile = useCallback(
+    (slug: string) => {
+      session.toggleMoodTile(slug);
+    },
+    [session]
+  );
 
+  const moodCategory = mood?.category ?? null;
+  const moodSlugs = mood?.tileIds ?? [];
   const moodOn = moodCategory !== null;
   const moodCoveredTiles = useMemo(
     () => (moodCategory ? coveredTiles(moodCategory) : []),
@@ -244,13 +260,21 @@ export default function List() {
   // nominal radius. Sharing the one builder closes that for good, the same
   // way session.radiusMiles closed the earlier radius-drift gap.
   //
-  // "now" is still the only context this screen can offer — a real shared
-  // day/time picker lives on the ContextStrip (Map's surface) and isn't
-  // wired into a cross-tab session store yet (Hard rule 5 gap, flagged in
-  // the M5/M9 reports rather than duplicated here).
+  // context now comes from shared session state too (see session.tsx) —
+  // List has no day/time picker UI of its own (that stays Map's surface,
+  // per curia-list's brief), but reads whatever Map last set so a manual
+  // "planning for Friday evening" selection on Map still applies here
+  // instead of silently reverting to "now".
+  //
+  // location is session.searchOrigin, not session.location (2026-08, at
+  // explicit user request) — List has no map of its own to pan, but must
+  // rank against the same origin Map currently does (Hard rule 5): if the
+  // user panned Map to Manchester, List should show Manchester's best
+  // matches too, not silently fall back to real location. See session.tsx's
+  // searchOrigin doc comment.
   const matchmakingInput = useMemo<MatchmakingInput>(
-    () => buildMatchmakingInputFromSession(session, { radiusMiles, moodFilter }),
-    [session, radiusMiles, moodFilter]
+    () => buildMatchmakingInputFromSession(session, { radiusMiles, context, moodFilter, location: session.searchOrigin }),
+    [session, radiusMiles, context, moodFilter]
   );
 
   const result = useMemo(() => rankVenues(matchmakingInput, VENUES, DISTRICTS), [matchmakingInput]);
@@ -259,6 +283,13 @@ export default function List() {
     ? `${result.ranked.length} ${result.ranked.length === 1 ? 'venue' : 'venues'}`
     : 'Nothing in range';
 
+  // Mirrors the prototype's own `listMeta` (Curia.dc.html): "RANKED FOR NOW"
+  // when context.now, otherwise the specific day/band being planned for.
+  const resolvedContext = resolveContext(context);
+  const listMeta = context.now
+    ? 'RANKED FOR NOW'
+    : `${capitalize(resolvedContext.day)} · ${BAND_LABEL[resolvedContext.band]}`.toUpperCase();
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
@@ -266,7 +297,7 @@ export default function List() {
           <View style={styles.headerText}>
             <Kicker>Ranked for you</Kicker>
             <Text style={styles.headline}>{listHeadline}</Text>
-            <Text style={styles.meta}>RANKED FOR NOW</Text>
+            <Text style={styles.meta}>{listMeta}</Text>
           </View>
           <EmblemButton initials="AV" onPress={() => router.push('/profile')} />
         </View>
@@ -309,7 +340,12 @@ export default function List() {
             const venue = VENUES.find((v) => v.id === r.venueId);
             if (!venue) return null;
             const district = DISTRICT_BY_ID.get(venue.districtId);
-            const distanceMiles = haversineMiles(DEMO_LOCATION, venue);
+            // session.searchOrigin, not the fixed DEMO_LOCATION constant —
+            // the displayed distance must agree with whatever point the
+            // radius hard filter above actually measured from (2026-08),
+            // or a venue could show "0.3 miles away" while you're browsing
+            // an area nowhere near it.
+            const distanceMiles = haversineMiles(session.searchOrigin, venue);
             const saved = isVenueSaved(venue.id);
             return (
               <View key={venue.id} style={styles.row}>

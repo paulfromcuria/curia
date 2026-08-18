@@ -47,6 +47,12 @@
         {
           "RNMapboxMapsImpl": "mapbox"
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Curia uses your location to center the map and rank venues near you."
+        }
       ]
     ],
     "experiments": {

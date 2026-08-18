@@ -1,18 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'expo-router';
 import type { LayoutChangeEvent } from 'react-native';
-import { Animated, Easing, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import Mapbox, {
-  Camera,
-  CircleLayer,
-  FillLayer,
-  LineLayer,
-  MapView,
-  MarkerView,
-  ShapeSource,
-  SymbolLayer,
-  type MapState,
-} from '@rnmapbox/maps';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import mapboxgl from 'mapbox-gl';
 import { Button, Card, ContextStrip, EmblemButton, Kicker } from '../../components/curia';
 import { rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
@@ -43,37 +33,140 @@ import { moodTileOptionsForCategory } from '../../lib/map/mood-tiles';
 import { useSession } from '../../lib/state/session';
 import { fetchWeather } from '../../lib/weather/forecast';
 import { color, font, radius, spacing } from '../../theme';
-import type { DayTimeBand, TileCategory } from '../../types/models';
+import type { DayTimeBand, TileCategory, Venue } from '../../types/models';
 
 /**
- * Real Map screen. Renders the M3 scoring engine's actual output
- * (`rankVenues`) against a real `MatchmakingInput` built from live onboarding
- * state (`useSession()`, via `buildMatchmakingInputFromSession` — see
- * src/lib/scoring/session-input.ts).
+ * Web counterpart to (tabs)/map.tsx. @rnmapbox/maps is native-only (see
+ * src/lib/map/mapbox-config.web.ts), so the web build renders the real
+ * basemap with mapbox-gl (the JS SDK) directly instead — same Mapbox
+ * account/token, same dark style, hand-built markers instead of
+ * MarkerView/PointAnnotation since mapbox-gl has its own Marker API. All the
+ * business logic (ranking, mood/context, Hard rule 6 tap behaviour, the
+ * BEYOND THE EDGE card) is identical to the native screen — see that file's
+ * doc comment for what changed and why.
  *
- * Map rendering: a real Mapbox `MapView` (2026-08, at explicit user request —
- * previously a credential gap per CLAUDE.md "Still genuinely open", now
- * unblocked with a real access token in .env). Replaces the earlier abstract
- * SVG line-and-dot render entirely — see src/lib/map/geo.ts's doc comment.
- * District/group label logic, Hard rule 6 tap behaviour, the ranked-venue
- * pins, and the BEYOND THE EDGE card all carry over unchanged; only *how*
- * they're drawn changed (real MarkerViews anchored to real coordinates,
- * instead of hand-projected pixels on a canvas). One deliberate drop: the
- * abstract map's decorative "glow" circles and dashed me-to-label connector
- * lines don't have a real-map equivalent worth building (a real basemap
- * already reads as visually rich on its own) — not replaced, not an
- * oversight.
- *
- * Device location: real (`session.location`, src/lib/state/session.tsx's
- * geolocation effect), falling back to the fixed `DEMO_LOCATION` demo point
- * while permission/fix is pending or denied — see that module's doc comment.
- * Weather: real (`session.weather`, src/lib/state/session.tsx's forecast
- * effect, backed by Open-Meteo — see src/lib/weather/forecast.ts), fetched
- * live for whatever day/band the context sheet resolves to. This band-keyed
- * table is now only the fallback shown while that fetch is pending or if it
- * fails (offline, date beyond Open-Meteo's forecast window).
+ * Markers are built with plain DOM elements (mapbox-gl's Marker takes an
+ * HTMLElement, not a React node) styled from the same theme tokens the
+ * native screen's StyleSheet uses, so the two stay visually aligned without
+ * a shared component (StyleSheet/Pressable can't cross into a raw DOM
+ * marker element).
  */
 
+const MAPBOX_GL_VERSION = '3.4.1';
+const MAPBOX_CSS_URL = `https://api.mapbox.com/mapbox-gl-js/v${MAPBOX_GL_VERSION}/mapbox-gl.css`;
+const DARK_STYLE_URL = 'mapbox://styles/mapbox/dark-v11';
+
+/**
+ * The zoomed-in street glow restyles the basemap's own real road data.
+ * `composite`/`road` are the well-documented Mapbox Streets v8 source
+ * id/source-layer name every core style (including dark-v11) uses — the
+ * same assumption map.tsx makes, but here it doesn't have to stay just an
+ * assumption: `resolveRoadSourceLayer` below inspects the actually-loaded
+ * style for a real road layer and uses whatever it finds, falling back to
+ * these only if that inspection fails. */
+const ROAD_SOURCE_ID_FALLBACK = 'composite';
+const ROAD_SOURCE_LAYER_FALLBACK = 'road';
+
+function resolveRoadSourceLayer(map: mapboxgl.Map): { source: string; sourceLayer: string } {
+  try {
+    const layers = (map.getStyle()?.layers ?? []) as Array<{ source?: string; 'source-layer'?: string }>;
+    const roadLayer = layers.find((l) => l['source-layer'] === ROAD_SOURCE_LAYER_FALLBACK);
+    if (roadLayer?.source && roadLayer['source-layer']) {
+      return { source: roadLayer.source, sourceLayer: roadLayer['source-layer'] };
+    }
+  } catch {
+    // Fall through to the documented default.
+  }
+  return { source: ROAD_SOURCE_ID_FALLBACK, sourceLayer: ROAD_SOURCE_LAYER_FALLBACK };
+}
+
+/**
+ * Mapbox's own basemap place-name labels (neighbourhood/settlement tier —
+ * "Beverly Hills," "The Flats," etc.) and POI labels visually clash with
+ * our own district labels and venue pins (2026-08, at explicit user
+ * report: "district names and the map names... fighting against each
+ * other and overlapping"). Curia's own labels already carry more (real
+ * liveliness, accent colour, tap-to-navigate) than Mapbox's generic ones,
+ * so this hides the basemap's competing layers rather than fighting for
+ * space with them. Street name labels stay — those add realism without
+ * competing with district identity. Starts from the well-documented,
+ * stable Mapbox Streets v8 layer ids every core style uses, then also
+ * pattern-matches any other symbol layer whose id looks like a
+ * settlement/POI label, in case dark-v11's exact ids ever drift — same
+ * "verify against the loaded style, don't just trust the convention"
+ * approach as resolveRoadSourceLayer above. */
+const COMPETING_LABEL_LAYER_IDS = [
+  'settlement-major-label',
+  'settlement-minor-label',
+  'settlement-subdivision-label',
+  'poi-label',
+];
+
+function hideCompetingMapLabels(map: mapboxgl.Map) {
+  try {
+    const layers = map.getStyle()?.layers ?? [];
+    const idsToHide = new Set(COMPETING_LABEL_LAYER_IDS);
+    layers.forEach((l) => {
+      if (l.type !== 'symbol') return;
+      const looksLikeCompetingLabel = /settlement|poi/i.test(l.id) && /label/i.test(l.id);
+      if (idsToHide.has(l.id) || looksLikeCompetingLabel) {
+        map.setLayoutProperty(l.id, 'visibility', 'none');
+      }
+    });
+  } catch {
+    // Best-effort — worst case Mapbox's own place labels stay visible.
+  }
+}
+
+function ensureMapboxCss() {
+  if (typeof document === 'undefined') return;
+  if (document.querySelector(`link[data-curia-mapbox-css]`)) return;
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = MAPBOX_CSS_URL;
+  link.setAttribute('data-curia-mapbox-css', 'true');
+  document.head.appendChild(link);
+}
+
+/**
+ * `mapboxgl.Marker` requires its element to be `position: absolute` (that's
+ * how it applies the transform that puts a marker at its real map
+ * coordinate) — normally supplied by mapbox-gl.css's own
+ * `.mapboxgl-marker { position: absolute; top: 0; left: 0; }` rule. Found
+ * via a real user report (2026-08): the CDN stylesheet link loading is not
+ * reliable enough to depend on for this — when it's slow/blocked, markers
+ * render in normal document flow instead of absolutely positioned, throwing
+ * every marker (venue pins, district labels, the location dot) wildly off
+ * from its real coordinate. `!important` here guarantees this rule wins
+ * over both the CDN stylesheet (whether or not it loads) and any inline
+ * style either mapbox-gl-js or this file's own buildXElement() functions
+ * set on the marker root — positioning must never depend on network
+ * conditions to a third-party CDN. */
+function ensureMarkerPositioningFallback() {
+  if (typeof document === 'undefined') return;
+  if (document.querySelector('style[data-curia-marker-fix]')) return;
+  const style = document.createElement('style');
+  style.setAttribute('data-curia-marker-fix', 'true');
+  style.textContent = `.mapboxgl-marker { position: absolute !important; top: 0 !important; left: 0 !important; }`;
+  document.head.appendChild(style);
+}
+
+/** Keyframes for the real-location marker's live pulse (2026-08, at
+ * explicit user request) — injected once, reused by every buildMeElement()
+ * call, since mapbox-gl markers are plain DOM (no access to RN's Animated
+ * or a shared stylesheet). Mirrors map.tsx's PulsingLocationDot. */
+function ensurePulseKeyframes() {
+  if (typeof document === 'undefined') return;
+  if (document.querySelector('style[data-curia-pulse]')) return;
+  const style = document.createElement('style');
+  style.setAttribute('data-curia-pulse', 'true');
+  style.textContent = `@keyframes curia-me-pulse { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(2.8); opacity: 0; } }`;
+  document.head.appendChild(style);
+}
+
+// Real weather now comes from session.weather (Open-Meteo, via
+// src/lib/weather/forecast.ts) — this band-keyed table is only the fallback
+// shown while that fetch is pending or if it fails. Mirrors map.tsx.
 const WEATHER_BY_BAND: Record<DayTimeBand, string> = {
   morning: '8° Overcast',
   afternoon: '14° Bright spells',
@@ -100,92 +193,65 @@ const WEEK_DAYS: { key: string; label: string }[] = [
 
 const CATEGORIES: TileCategory[] = ['Do', 'Drink', 'Eat'];
 
-/** Dark style, one rung newer than the enum @rnmapbox/maps ships
- * (`Mapbox.StyleURL.Dark` = dark-v10) — passed as a plain style URL string
- * since `styleURL` accepts any string, not just the enum's members. */
-const DARK_STYLE_URL = 'mapbox://styles/mapbox/dark-v11';
-
-/**
- * The zoomed-in street glow restyles the *basemap's own* real road data
- * rather than drawing synthetic lines, so the glow actually sits on real
- * streets instead of floating disconnected from them. `composite`/`road`
- * are the source id/source-layer name every core Mapbox style (including
- * dark-v11) uses for its Mapbox Streets v8 road data — a well-documented,
- * stable public schema, but one this file can't verify live against a
- * running map (no way to introspect the loaded style from this API
- * surface the way map.web.tsx can via `map.getStyle()`). If this ever
- * turns out wrong, the failure mode is purely cosmetic — those specific
- * layers just render nothing, nothing else on the map breaks.
- */
-const ROAD_SOURCE_ID = 'composite';
-const ROAD_SOURCE_LAYER = 'road';
-
-/**
- * Mapbox's own basemap place-name labels (neighbourhood/settlement tier —
- * "Beverly Hills," "The Flats," etc.) and POI labels visually clash with
- * our own district labels and venue pins (2026-08, at explicit user
- * report: "district names and the map names... fighting against each
- * other and overlapping"). Curia's own labels already carry more (real
- * liveliness, accent colour, tap-to-navigate) than Mapbox's generic ones,
- * so this hides the basemap's competing layers rather than fighting for
- * space with them. Street name labels stay — those add realism without
- * competing with district identity. Well-documented, stable Mapbox
- * Streets v8 layer ids used across every core style including dark-v11;
- * `existing` + `visibility:'none'` targets a layer already baked into the
- * style rather than creating a new one — if a name doesn't match (style
- * schema drift), that one hide is just a no-op, nothing else breaks.
- */
-const COMPETING_LABEL_LAYER_IDS = [
-  'settlement-major-label',
-  'settlement-minor-label',
-  'settlement-subdivision-label',
-  'poi-label',
-];
-
 const ALL_DISTRICT_POINTS: GeoPoint[] = DISTRICTS.map((d) => ({ lat: d.lat, lon: d.lon }));
 
 function capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
-/** Same register the prototype's own `miles()` helper uses (e.g. "15 miles",
- * "1 mile"). */
 function formatMiles(value: number): string {
   const n = value % 1 === 0 ? String(value) : value.toFixed(2).replace(/0$/, '');
   return `${n} ${value === 1 ? 'mile' : 'miles'}`;
 }
 
-/** The real-location marker (2026-08, at explicit user request: "it should
- * pulse to show it is live") — a solid centre dot plus a translucent ring
- * that loops scale+fade outward, the same visual language most map apps use
- * for "this is a live GPS fix," not a static pin. Only ever rendered when
- * `session.location` is real (never for the DEMO_LOCATION fallback) — see
- * that field's doc comment in session.tsx. */
-function PulsingLocationDot() {
-  const pulse = useRef(new Animated.Value(0)).current;
+function buildLabelElement(label: MapLabel, subText: string, onTap: () => void): HTMLDivElement {
+  const el = document.createElement('div');
+  el.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:3px;width:140px;cursor:pointer;';
+  const title = document.createElement('div');
+  title.textContent = label.label;
+  title.style.cssText = `font-family:${label.kind === 'group' ? font.serif : font.serifRegular};font-size:${
+    label.kind === 'group' ? 15 : 16
+  }px;letter-spacing:${label.kind === 'group' ? 0.9 : 0.3}px;color:${color.textPrimaryBright};text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;`;
+  const sub = document.createElement('div');
+  sub.textContent = subText;
+  sub.style.cssText = `font-family:${font.sansMedium};font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(200,188,170,.75);text-align:center;white-space:nowrap;`;
+  el.appendChild(title);
+  el.appendChild(sub);
+  el.addEventListener('click', onTap);
+  return el;
+}
 
-  useEffect(() => {
-    const loop = Animated.loop(
-      Animated.timing(pulse, {
-        toValue: 1,
-        duration: 1800,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      })
-    );
-    loop.start();
-    return () => loop.stop();
-  }, [pulse]);
+function buildPinElement(rank: number, onTap: () => void): HTMLDivElement {
+  const el = document.createElement('div');
+  el.style.cssText = `width:28px;height:28px;border-radius:14px;border:1px solid rgba(192,160,98,.55);background:rgba(18,16,14,.88);display:flex;align-items:center;justify-content:center;cursor:pointer;`;
+  const text = document.createElement('span');
+  text.textContent = String(rank);
+  text.style.cssText = `font-family:${font.sansMedium};font-size:11px;color:${color.goldLight};`;
+  el.appendChild(text);
+  el.addEventListener('click', onTap);
+  return el;
+}
 
-  const scale = pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 2.8] });
-  const opacity = pulse.interpolate({ inputRange: [0, 1], outputRange: [0.55, 0] });
-
-  return (
-    <View style={styles.meWrap} pointerEvents="none">
-      <Animated.View style={[styles.mePulseRing, { transform: [{ scale }], opacity }]} />
-      <View style={styles.meDot} />
-    </View>
-  );
+function buildMeElement(): HTMLDivElement {
+  ensurePulseKeyframes();
+  const wrap = document.createElement('div');
+  // No `position` set here deliberately — this element becomes the
+  // `.mapboxgl-marker` root itself (mapbox-gl-js adds that class directly
+  // to a custom `element`, doesn't wrap it), so `position: absolute` has to
+  // come from ensureMarkerPositioningFallback()'s forced rule, not an
+  // inline style here — an inline `position: relative` on this exact
+  // element was the real bug behind the "no location/venue pins visible"
+  // report: it silently overrode mapbox-gl-js's required absolute
+  // positioning, throwing every marker's screen position off by hundreds
+  // of pixels.
+  wrap.style.cssText = 'width:40px;height:40px;display:flex;align-items:center;justify-content:center;';
+  const ring = document.createElement('div');
+  ring.style.cssText = `position:absolute;width:14px;height:14px;border-radius:7px;background:${color.weather};animation:curia-me-pulse 1.8s ease-out infinite;`;
+  const dot = document.createElement('div');
+  dot.style.cssText = `position:relative;width:14px;height:14px;border-radius:7px;background:${color.weather};border:2px solid ${color.baseVariants.b};`;
+  wrap.appendChild(ring);
+  wrap.appendChild(dot);
+  return wrap;
 }
 
 export default function Map() {
@@ -193,65 +259,221 @@ export default function Map() {
   const session = useSession();
   const { context, mood } = session;
 
-  const cameraRef = useRef<React.ElementRef<typeof Camera>>(null);
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<mapboxgl.Map | null>(null);
+  const labelMarkersRef = useRef<mapboxgl.Marker[]>([]);
+  const pinMarkersRef = useRef<mapboxgl.Marker[]>([]);
+  const meMarkerRef = useRef<mapboxgl.Marker | null>(null);
+  const autoLocatedRef = useRef(false);
+  // Lets the mount-only map effect below always call the current session's
+  // setRadiusMiles without needing `session` in its dependency array (which
+  // would tear down and recreate the whole map on every session change).
+  const sessionRef = useRef(session);
+  sessionRef.current = session;
+
   const [containerWidth, setContainerWidth] = useState(375);
   const [center, setCenter] = useState<GeoPoint>(session.location ?? MAP_HOME);
-  // Opens already zoomed to reflect the shared search radius (List's slider,
-  // or a previous Map session) instead of a fixed default — see
-  // radiusMilesToZoomLevel's doc comment.
   const [zoomLevel, setZoomLevel] = useState(() =>
     radiusMilesToZoomLevel(session.radiusMiles, center.lat, containerWidth)
   );
   const [bounds, setBounds] = useState<GeoBounds | null>(null);
   const [moodSheetOpen, setMoodSheetOpen] = useState(false);
   const [ctxSheetOpen, setCtxSheetOpen] = useState(false);
-  const autoLocatedRef = useRef(false);
 
   const onContainerLayout = useCallback((e: LayoutChangeEvent) => {
     setContainerWidth(e.nativeEvent.layout.width);
   }, []);
 
-  // Fly to the real device location the first time it resolves (shortly
-  // after mount, once expo-location's permission/fix round-trip completes) —
-  // but only once, so it doesn't fight the user's own subsequent panning.
-  if (session.location && !autoLocatedRef.current) {
-    autoLocatedRef.current = true;
-    cameraRef.current?.setCamera({
-      centerCoordinate: [session.location.lon, session.location.lat],
-      animationDuration: 500,
+  // Mount the real Mapbox GL JS map once.
+  useEffect(() => {
+    if (!mapContainerRef.current || mapRef.current) return;
+    ensureMapboxCss();
+    ensureMarkerPositioningFallback();
+    mapboxgl.accessToken = process.env.EXPO_PUBLIC_MAPBOX_TOKEN ?? '';
+    const initial = session.location ?? MAP_HOME;
+    const initialWidth = mapContainerRef.current.clientWidth || containerWidth;
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: DARK_STYLE_URL,
+      center: [initial.lon, initial.lat],
+      zoom: radiusMilesToZoomLevel(sessionRef.current.radiusMiles, initial.lat, initialWidth),
+      minZoom: MIN_ZOOM_LEVEL,
+      maxZoom: MAX_ZOOM_LEVEL,
+      attributionControl: true,
     });
-  }
+    mapRef.current = map;
 
-  const onCameraChanged = useCallback(
-    (state: MapState) => {
-      const [lon, lat] = state.properties.center;
-      setCenter({ lat, lon });
-      setZoomLevel(state.properties.zoom);
-      const [neLon, neLat] = state.properties.bounds.ne;
-      const [swLon, swLat] = state.properties.bounds.sw;
-      setBounds({ ne: { lat: neLat, lon: neLon }, sw: { lat: swLat, lon: swLon } });
+    const syncFromCamera = () => {
+      const c = map.getCenter();
+      setCenter({ lat: c.lat, lon: c.lng });
+      const zoom = map.getZoom();
+      setZoomLevel(zoom);
+      const b = map.getBounds();
+      if (b) {
+        setBounds({
+          ne: { lat: b.getNorth(), lon: b.getEast() },
+          sw: { lat: b.getSouth(), lon: b.getWest() },
+        });
+      }
       // Zooming the map is another way to set the shared search radius
-      // (2026-08, at explicit user request) — half the visible span, same
-      // shared value List's slider writes, so switching tabs still never
-      // changes the answer (Hard rule 5).
-      session.setRadiusMiles(spanMilesToRadiusMiles(zoomLevelToSpanMiles(state.properties.zoom, lat, containerWidth)));
-      // The camera's current center is the shared search origin (2026-08,
-      // at explicit user request — see session.tsx's searchOrigin doc
-      // comment for the full reasoning: panning to Manchester should rank
-      // against Manchester, while a plain zoom keeps ranking against real
-      // location since the center never moved).
-      session.setSearchOrigin({ lat, lon });
-    },
-    [session, containerWidth]
-  );
+      // (2026-08, at explicit user request) — half the visible span, the
+      // same shared value List's slider writes (Hard rule 5).
+      const width = mapContainerRef.current?.clientWidth || containerWidth;
+      sessionRef.current.setRadiusMiles(spanMilesToRadiusMiles(zoomLevelToSpanMiles(zoom, c.lat, width)));
+      // The camera's current center is the shared search origin — see
+      // session.tsx's searchOrigin doc comment. Mirrors map.tsx.
+      sessionRef.current.setSearchOrigin({ lat: c.lat, lon: c.lng });
+    };
+    // BEYOND THE EDGE (2026-08): a real coverage boundary instead of a
+    // floating text card — everywhere outside Curia's covered metros is
+    // masked to the app's own background (reads as empty, not just dimmed),
+    // with a glowing gold perimeter marking the edge. See
+    // src/lib/map/geo.ts's COVERAGE_MASK/COVERAGE_POLYGONS doc comment.
+    // Sources/layers can only be added once the style has loaded, hence its
+    // own 'load' listener rather than folding into syncFromCamera (which
+    // fires on every moveend too).
+    const addCoverageLayers = () => {
+      if (map.getSource('coverage-mask-source')) return;
+      map.addSource('coverage-mask-source', { type: 'geojson', data: COVERAGE_MASK });
+      map.addLayer({
+        id: 'coverage-mask-fill',
+        type: 'fill',
+        source: 'coverage-mask-source',
+        paint: { 'fill-color': color.baseVariants.b, 'fill-opacity': 0.94 },
+      });
+      map.addSource('coverage-outline-source', {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: COVERAGE_POLYGONS },
+      });
+      map.addLayer({
+        id: 'coverage-glow-outer',
+        type: 'line',
+        source: 'coverage-outline-source',
+        paint: { 'line-color': color.gold, 'line-width': 14, 'line-blur': 14, 'line-opacity': 0.18 },
+      });
+      map.addLayer({
+        id: 'coverage-glow-mid',
+        type: 'line',
+        source: 'coverage-outline-source',
+        paint: { 'line-color': color.gold, 'line-width': 7, 'line-blur': 6, 'line-opacity': 0.35 },
+      });
+      map.addLayer({
+        id: 'coverage-glow-core',
+        type: 'line',
+        source: 'coverage-outline-source',
+        paint: { 'line-color': color.goldLight, 'line-width': 2, 'line-opacity': 0.9 },
+      });
+    };
+    // "Make districts feel alive" (2026-08, at explicit user request): each
+    // district's own glow, coloured by its accentColor, intensity from its
+    // real current liveliness — a soft area glow zoomed out, the district's
+    // own real streets glowing zoomed in. Initial liveliness comes from
+    // whatever context is live at mount; the reactive effect below keeps it
+    // in sync as day/band changes afterward.
+    const addDistrictGlowLayers = () => {
+      if (map.getSource('district-glow-source')) return;
+      const initialResolved = resolveContext(sessionRef.current.context);
+      map.addSource('district-glow-source', {
+        type: 'geojson',
+        data: districtGlowFeatureCollection(initialResolved.day, initialResolved.band),
+      });
+      map.addLayer({
+        id: 'district-area-glow',
+        type: 'circle',
+        source: 'district-glow-source',
+        maxzoom: DISTRICT_DETAIL_ZOOM_THRESHOLD,
+        paint: {
+          'circle-color': ['get', 'accentColor'],
+          'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 40, DISTRICT_DETAIL_ZOOM_THRESHOLD, 170],
+          'circle-blur': 0.9,
+          'circle-opacity': ['*', ['get', 'livelinessNorm'], 0.45],
+        },
+      });
+
+      const { source: roadSource, sourceLayer: roadSourceLayer } = resolveRoadSourceLayer(map);
+      DISTRICTS.forEach((d) => {
+        try {
+          map.addLayer({
+            id: `street-glow-${d.id}`,
+            type: 'line',
+            source: roadSource,
+            'source-layer': roadSourceLayer,
+            minzoom: DISTRICT_DETAIL_ZOOM_THRESHOLD,
+            filter: ['within', DISTRICT_LOCAL_AREAS[d.id]] as unknown as mapboxgl.ExpressionSpecification,
+            paint: {
+              'line-color': d.accentColor,
+              'line-width': 2.5,
+              'line-blur': 3,
+              'line-opacity': normalizeLiveliness(districtLiveliness(d, initialResolved.day, initialResolved.band)) * 0.85,
+            },
+          });
+        } catch {
+          // Best-effort: if roadSource/roadSourceLayer turns out wrong for
+          // this style after all, this specific district's street glow just
+          // doesn't render — nothing else on the map is affected.
+        }
+      });
+    };
+    const hideCompetingLabels = () => hideCompetingMapLabels(map);
+    map.on('load', syncFromCamera);
+    map.on('load', addCoverageLayers);
+    map.on('load', addDistrictGlowLayers);
+    map.on('load', hideCompetingLabels);
+    map.on('moveend', syncFromCamera);
+
+    return () => {
+      map.off('load', syncFromCamera);
+      map.off('load', addCoverageLayers);
+      map.off('load', addDistrictGlowLayers);
+      map.off('load', hideCompetingLabels);
+      map.off('moveend', syncFromCamera);
+      map.remove();
+      mapRef.current = null;
+    };
+    // Intentionally mount-only — session.location is read once for the
+    // initial camera position; the effect below handles flying to it once
+    // resolved, and user gestures own the camera after that.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Fly to the real device location the first time it resolves, once only.
+  useEffect(() => {
+    if (session.location && !autoLocatedRef.current && mapRef.current) {
+      autoLocatedRef.current = true;
+      mapRef.current.flyTo({ center: [session.location.lon, session.location.lat], duration: 500 });
+    }
+  }, [session.location]);
 
   const resolved = resolveContext(context);
+
+  // Keep the district glow in sync as context changes (the context sheet,
+  // or "now" ticking forward on a re-render) — the layers themselves are
+  // created once on mount, but their liveliness-driven color/opacity data
+  // has to be pushed on every change after that.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    const glowSource = map.getSource('district-glow-source') as mapboxgl.GeoJSONSource | undefined;
+    glowSource?.setData(districtGlowFeatureCollection(resolved.day, resolved.band));
+    DISTRICTS.forEach((d) => {
+      try {
+        map.setPaintProperty(
+          `street-glow-${d.id}`,
+          'line-opacity',
+          normalizeLiveliness(districtLiveliness(d, resolved.day, resolved.band)) * 0.85
+        );
+      } catch {
+        // Layer doesn't exist yet (style still loading) or never got
+        // created (road source/layer lookup failed) — nothing to update.
+      }
+    });
+  }, [resolved.day, resolved.band]);
   const liveNow = resolveContext({ now: true });
-  // The context sheet's "PLANNING FOR" state shows a real-time-now reference
-  // line alongside the planned-day forecast (`nowSub` below) — this isn't a
-  // ranking input (only `session.weather`, wired into matchInput's context
-  // override further down, is), so it stays local Map-screen UI state rather
-  // than shared session state, same as `nowTimeLabel`.
+  // Real-time-now reference weather for the context sheet's "PLANNING FOR"
+  // state (`nowSub` below) — Map-screen UI only, not a ranking input (that's
+  // `session.weather`, wired into matchInput's context override below), so
+  // it stays local state here rather than shared session state. Mirrors
+  // map.tsx's identical effect.
   const [liveWeatherReal, setLiveWeatherReal] = useState<string | null>(null);
   useEffect(() => {
     let cancelled = false;
@@ -267,15 +489,6 @@ export default function Map() {
   const weather = session.weather ?? WEATHER_BY_BAND[resolved.band];
   const liveWeather = liveWeatherReal ?? WEATHER_BY_BAND[liveNow.band];
   const bandMeta = BAND_META.find((b) => b.key === resolved.band) ?? BAND_META[2];
-
-  // "Make districts feel alive" (2026-08, at explicit user request): each
-  // district's own glow, colour from its accentColor, intensity from its
-  // real current liveliness — recomputed whenever the resolved day/band
-  // changes (context sheet, or "now" ticking forward on a re-render).
-  const districtGlow = useMemo(
-    () => districtGlowFeatureCollection(resolved.day, resolved.band),
-    [resolved.day, resolved.band]
-  );
   const nowTimeLabel = useMemo(
     () => new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
     []
@@ -286,17 +499,13 @@ export default function Map() {
     return { category: mood.category, tileIds: mood.tileIds, subPreferences: [] as string[] };
   }, [mood]);
 
-  // context, mood, radiusMiles, and location all come from shared session
-  // state (src/lib/state/session.tsx), not local/fixed values, so Map and
-  // List can never drift apart on any of them (Hard rule 5). `context.weather`
-  // is populated here (not persisted on session.context itself — see that
-  // effect's own doc comment on why) from the real fetched `session.weather`,
-  // which is what rank-venues.ts's scoreWeather() actually reads
-  // (`input.context.weather`) — previously always undefined, so the
-  // Matchmaking contract's weather ranking signal never fired until now.
-  // location is session.searchOrigin, not session.location — ranking follows
-  // wherever the camera is centered (real location until the user pans
-  // away from it), per searchOrigin's own doc comment in session.tsx.
+  // `context.weather` is synthesized here from the real fetched
+  // `session.weather`, not persisted on session.context itself (see that
+  // effect's own doc comment on why) — this is what rank-venues.ts's
+  // scoreWeather() actually reads (`input.context.weather`), previously
+  // always undefined. location is session.searchOrigin, not
+  // session.location — ranking follows wherever the camera is centered.
+  // Mirrors map.tsx.
   const matchInput = useMemo(
     () =>
       buildMatchmakingInputFromSession(session, {
@@ -318,14 +527,70 @@ export default function Map() {
           const venue = VENUES.find((v) => v.id === r.venueId);
           return venue ? { rank: idx + 1, venue } : null;
         })
-        .filter((v): v is NonNullable<typeof v> => !!v),
+        .filter((v): v is { rank: number; venue: Venue } => !!v),
     [topRanked]
   );
 
   const labels = useMemo<MapLabel[]>(() => {
     if (!bounds) return [];
-    return groupVisibleDistricts(districtsInBounds(bounds), zoomLevel, containerWidth);
+    const width = mapContainerRef.current?.clientWidth || containerWidth;
+    return groupVisibleDistricts(districtsInBounds(bounds), zoomLevel, width);
   }, [bounds, zoomLevel, containerWidth]);
+
+  // Rebuild district/group label markers whenever the visible set changes.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    labelMarkersRef.current.forEach((m) => m.remove());
+    labelMarkersRef.current = labels.map((label) => {
+      const subText =
+        label.kind === 'group'
+          ? `${label.districtIds.length} DISTRICTS · ZOOM`
+          : `${labelLiveliness(label, resolved.day, resolved.band)} ALIVE`;
+      const el = buildLabelElement(label, subText, () => onTapLabelRef.current(label));
+      return new mapboxgl.Marker({ element: el, anchor: 'top' })
+        .setLngLat([label.center.lon, label.center.lat])
+        .addTo(map);
+    });
+    return () => {
+      labelMarkersRef.current.forEach((m) => m.remove());
+      labelMarkersRef.current = [];
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [labels, resolved.day, resolved.band]);
+
+  // Rebuild venue pin markers whenever the ranked top set changes.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    pinMarkersRef.current.forEach((m) => m.remove());
+    pinMarkersRef.current = topRankedVenues.map(({ rank, venue }) => {
+      const el = buildPinElement(rank, () => router.push(`/venue/${venue.id}`));
+      return new mapboxgl.Marker({ element: el, anchor: 'center' })
+        .setLngLat([venue.lon, venue.lat])
+        .addTo(map);
+    });
+    return () => {
+      pinMarkersRef.current.forEach((m) => m.remove());
+      pinMarkersRef.current = [];
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topRankedVenues]);
+
+  // "me" marker — only when a real device fix exists (never the demo point).
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    if (meMarkerRef.current) {
+      meMarkerRef.current.remove();
+      meMarkerRef.current = null;
+    }
+    if (session.location) {
+      meMarkerRef.current = new mapboxgl.Marker({ element: buildMeElement(), anchor: 'center' })
+        .setLngLat([session.location.lon, session.location.lat])
+        .addTo(map);
+    }
+  }, [session.location]);
 
   const spanMiles = zoomLevelToSpanMiles(zoomLevel, center.lat, containerWidth);
 
@@ -379,56 +644,57 @@ export default function Map() {
 
   const zoomIn = () => {
     const next = clampZoomLevel(zoomLevel + 1);
-    setZoomLevel(next);
-    cameraRef.current?.zoomTo(next, 250);
+    mapRef.current?.zoomTo(next, { duration: 250 });
   };
   const zoomOut = () => {
     const next = clampZoomLevel(zoomLevel - 1);
-    setZoomLevel(next);
-    cameraRef.current?.zoomTo(next, 250);
+    mapRef.current?.zoomTo(next, { duration: 250 });
   };
   const locate = () => {
     // Recentres only — deliberately leaves zoom (and therefore the shared
     // search radius) untouched, so tapping "locate me" can't silently change
     // how wide a search you'd set up.
     const target = session.location ?? MAP_HOME;
-    setCenter(target);
-    cameraRef.current?.setCamera({
-      centerCoordinate: [target.lon, target.lat],
-      animationDuration: 400,
-    });
+    mapRef.current?.flyTo({ center: [target.lon, target.lat], duration: 400 });
   };
   const fitRegion = () => {
     const b = boundsForPoints(ALL_DISTRICT_POINTS);
-    cameraRef.current?.fitBounds([b.ne.lon, b.ne.lat], [b.sw.lon, b.sw.lat], 60, 500);
+    mapRef.current?.fitBounds(
+      [
+        [b.sw.lon, b.sw.lat],
+        [b.ne.lon, b.ne.lat],
+      ],
+      { padding: 60, duration: 500 }
+    );
   };
 
-  const onTapLabel = (label: MapLabel) => {
-    if (label.kind === 'district') {
-      // Hard rule 6: only a real district (its own id) ever routes to a
-      // detail page.
-      router.push(`/district/${label.districtIds[0]}`);
-      return;
-    }
-    // Grouped labels ("The Golden Triangle", "Central Manchester", ...) are
-    // zoom-only navigation aids — reframe the view to fit every member, and
-    // never push a route. Uses groupTapCameraTarget (not a plain
-    // fitBounds) — see that function's doc comment for why: a whole-metro
-    // group label only ever shows once every member is already on screen,
-    // so naively fitting bounds to those same members barely moves the
-    // camera at all.
-    const members = DISTRICTS.filter((d) => label.districtIds.includes(d.id));
-    const { center: groupCenter, zoomLevel: groupZoom } = groupTapCameraTarget(
-      members,
-      zoomLevel,
-      containerWidth
-    );
-    cameraRef.current?.setCamera({
-      centerCoordinate: [groupCenter.lon, groupCenter.lat],
-      zoomLevel: groupZoom,
-      animationDuration: 450,
-    });
-  };
+  const onTapLabel = useCallback(
+    (label: MapLabel) => {
+      if (label.kind === 'district') {
+        // Hard rule 6: only a real district (its own id) ever routes to a
+        // detail page.
+        router.push(`/district/${label.districtIds[0]}`);
+        return;
+      }
+      // Grouped labels ("The Golden Triangle", "Central Manchester", ...)
+      // are zoom-only navigation aids — reframe the view to fit every
+      // member, and never push a route. Uses groupTapCameraTarget (not a
+      // plain fitBounds) — see that function's doc comment for why: a
+      // whole-metro group label only ever shows once every member is
+      // already on screen, so naively fitting bounds to those same members
+      // barely moves the camera at all.
+      const members = DISTRICTS.filter((d) => label.districtIds.includes(d.id));
+      const width = mapContainerRef.current?.clientWidth || containerWidth;
+      const { center: groupCenter, zoomLevel: groupZoom } = groupTapCameraTarget(members, zoomLevel, width);
+      mapRef.current?.flyTo({ center: [groupCenter.lon, groupCenter.lat], zoom: groupZoom, duration: 450 });
+    },
+    [router, zoomLevel, containerWidth]
+  );
+  // Marker click handlers are attached once via buildLabelElement and can't
+  // see later re-renders' onTapLabel closures directly, so route through a
+  // ref that always points at the latest version.
+  const onTapLabelRef = useRef(onTapLabel);
+  onTapLabelRef.current = onTapLabel;
 
   const openCtx = () => setCtxSheetOpen(true);
   const closeCtx = () => setCtxSheetOpen(false);
@@ -448,124 +714,7 @@ export default function Map() {
 
   return (
     <View style={styles.container} onLayout={onContainerLayout}>
-      <MapView
-        style={StyleSheet.absoluteFill}
-        styleURL={DARK_STYLE_URL}
-        onCameraChanged={onCameraChanged}
-        scaleBarEnabled={false}
-        compassEnabled={false}
-        logoPosition={{ bottom: 8, left: 8 }}
-        attributionPosition={{ bottom: 8, right: 8 }}
-      >
-        <Camera
-          ref={cameraRef}
-          defaultSettings={{ centerCoordinate: [center.lon, center.lat], zoomLevel }}
-          minZoomLevel={MIN_ZOOM_LEVEL}
-          maxZoomLevel={MAX_ZOOM_LEVEL}
-        />
-
-        {/* Hide the basemap's own competing place/POI labels — see
-            COMPETING_LABEL_LAYER_IDS's doc comment. */}
-        {COMPETING_LABEL_LAYER_IDS.map((id) => (
-          <SymbolLayer key={id} id={id} existing style={{ visibility: 'none' }} />
-        ))}
-
-        {/* BEYOND THE EDGE (2026-08): a real coverage boundary instead of a
-            floating text card — everywhere outside Curia's covered metros is
-            masked to the app's own background (reads as empty, not just
-            dimmed), with a glowing gold perimeter marking the edge. See
-            src/lib/map/geo.ts's COVERAGE_MASK/COVERAGE_POLYGONS doc comment. */}
-        <ShapeSource id="coverage-mask-source" shape={COVERAGE_MASK}>
-          <FillLayer id="coverage-mask-fill" style={{ fillColor: color.baseVariants.b, fillOpacity: 0.94 }} />
-        </ShapeSource>
-        <ShapeSource
-          id="coverage-outline-source"
-          shape={{ type: 'FeatureCollection', features: COVERAGE_POLYGONS }}
-        >
-          <LineLayer
-            id="coverage-glow-outer"
-            style={{ lineColor: color.gold, lineWidth: 14, lineBlur: 14, lineOpacity: 0.18 }}
-          />
-          <LineLayer
-            id="coverage-glow-mid"
-            style={{ lineColor: color.gold, lineWidth: 7, lineBlur: 6, lineOpacity: 0.35 }}
-          />
-          <LineLayer id="coverage-glow-core" style={{ lineColor: color.goldLight, lineWidth: 2, lineOpacity: 0.9 }} />
-        </ShapeSource>
-
-        {/* "Make districts feel alive" (2026-08): zoomed-out area glow —
-            one soft blurred circle per district, coloured by its own
-            accentColor, brighter the livelier it is right now. */}
-        <ShapeSource id="district-glow-source" shape={districtGlow}>
-          <CircleLayer
-            id="district-area-glow"
-            maxZoomLevel={DISTRICT_DETAIL_ZOOM_THRESHOLD}
-            style={{
-              circleColor: ['get', 'accentColor'],
-              circleRadius: ['interpolate', ['linear'], ['zoom'], 8, 40, DISTRICT_DETAIL_ZOOM_THRESHOLD, 170],
-              circleBlur: 0.9,
-              circleOpacity: ['*', ['get', 'livelinessNorm'], 0.45],
-            }}
-          />
-        </ShapeSource>
-
-        {/* Zoomed-in street glow — the same colour/liveliness signal, but
-            applied to each district's own real streets instead of an area
-            blob, once zoomed in enough to actually see them. */}
-        {DISTRICTS.map((d) => (
-          <LineLayer
-            key={`street-glow-${d.id}`}
-            id={`street-glow-${d.id}`}
-            sourceID={ROAD_SOURCE_ID}
-            sourceLayerID={ROAD_SOURCE_LAYER}
-            minZoomLevel={DISTRICT_DETAIL_ZOOM_THRESHOLD}
-            // @rnmapbox/maps types FilterExpression's arguments too
-            // narrowly to accept a real GeoJSON Feature literal (a known
-            // library type-definition gap, not a runtime issue) — `within`
-            // against a Polygon/MultiPolygon feature is valid, documented
-            // Mapbox GL style spec.
-            filter={['within', DISTRICT_LOCAL_AREAS[d.id]] as unknown as ['within', never]}
-            style={{
-              lineColor: d.accentColor,
-              lineWidth: 2.5,
-              lineBlur: 3,
-              lineOpacity: normalizeLiveliness(districtLiveliness(d, resolved.day, resolved.band)) * 0.85,
-            }}
-          />
-        ))}
-
-        {labels.map((label) => (
-          <MarkerView key={label.key} coordinate={[label.center.lon, label.center.lat]} anchor={{ x: 0.5, y: 0 }}>
-            <Pressable onPress={() => onTapLabel(label)} style={styles.labelWrap}>
-              <Text
-                style={label.kind === 'group' ? styles.groupLabel : styles.districtLabel}
-                numberOfLines={1}
-              >
-                {label.label}
-              </Text>
-              <Text style={styles.labelSub} numberOfLines={1}>
-                {label.kind === 'group'
-                  ? `${label.districtIds.length} DISTRICTS · ZOOM`
-                  : `${labelLiveliness(label, resolved.day, resolved.band)} ALIVE`}
-              </Text>
-            </Pressable>
-          </MarkerView>
-        ))}
-
-        {topRankedVenues.map(({ rank, venue }) => (
-          <MarkerView key={venue.id} coordinate={[venue.lon, venue.lat]} anchor={{ x: 0.5, y: 0.5 }}>
-            <Pressable onPress={() => router.push(`/venue/${venue.id}`)} style={styles.pin}>
-              <Text style={styles.pinText}>{rank}</Text>
-            </Pressable>
-          </MarkerView>
-        ))}
-
-        {session.location && (
-          <MarkerView coordinate={[session.location.lon, session.location.lat]} anchor={{ x: 0.5, y: 0.5 }}>
-            <PulsingLocationDot />
-          </MarkerView>
-        )}
-      </MapView>
+      <div ref={mapContainerRef} style={{ position: 'absolute', inset: 0 }} />
 
       <View style={styles.topStack}>
         <View style={styles.headerRow}>
@@ -767,83 +916,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 
-  labelWrap: {
-    width: 140,
-    alignItems: 'center',
-    gap: 3,
-  },
-  groupLabel: {
-    fontFamily: font.serif,
-    fontSize: 15,
-    letterSpacing: 0.9,
-    color: color.textPrimaryBright,
-    textAlign: 'center',
-  },
-  districtLabel: {
-    fontFamily: font.serifRegular,
-    fontSize: 16,
-    letterSpacing: 0.3,
-    color: color.textPrimaryBright,
-    textAlign: 'center',
-  },
-  labelSub: {
-    fontFamily: font.sansMedium,
-    fontSize: 9,
-    letterSpacing: 1.6,
-    textTransform: 'uppercase',
-    color: 'rgba(200,188,170,.75)',
-    textAlign: 'center',
-  },
-
-  pin: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: 'rgba(192,160,98,.55)',
-    backgroundColor: 'rgba(18,16,14,.88)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  pinText: {
-    fontFamily: font.sansMedium,
-    fontSize: 11,
-    color: color.goldLight,
-  },
-
-  meWrap: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  mePulseRing: {
-    position: 'absolute',
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    backgroundColor: color.weather,
-  },
-  meDot: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    backgroundColor: color.weather,
-    borderWidth: 2,
-    borderColor: color.baseVariants.b,
-  },
-
-  // headerRow (context pill + emblem) and the mood pill used to be two
-  // independently `position:'absolute'`-placed rows with a hardcoded 58px
-  // gap between them (top:56 / top:114) — fragile, since it assumed the
-  // context pill's rendered height would always stay under that gap. Real
-  // weather strings (2026-08) can run longer than the old static mock's,
-  // and font-metric differences across devices pushed it over that budget
-  // on a real device (user report: "overlap on the 'planning for' pill and
-  // the 'in the mood too' pill"). `topStack` now anchors once and lets the
-  // two rows flow normally underneath each other, so the mood pill's
-  // position always tracks the context pill's actual height instead of a
-  // guessed constant.
+  // See map.tsx's identical topStack doc comment: headerRow and moodPill
+  // used to be two independently `position:'absolute'`-placed rows with a
+  // hardcoded 58px gap, which overlapped once real weather strings/font
+  // metrics pushed the context pill's real height past that guess.
   topStack: {
     position: 'absolute',
     top: 56,

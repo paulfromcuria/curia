@@ -18,32 +18,18 @@
  * same principle the prototype itself uses (it only ever shows a tile chip
  * when `covered[...]` is nonzero for real seed venues).
  *
- * The Do/Drink/Eat grouping below is this module's own reasonable,
- * documented placement of the 13 real seed venue types into the three
- * known categories (not a silent product decision — there's no
- * onboarding-tile-to-venue-type catalog to consult yet, so this is
- * necessarily a judgment call, flagged here rather than guessed at
- * silently elsewhere).
+ * The Do/Drink/Eat grouping every real seed venue type falls into
+ * (`CATEGORY_BY_VENUE_TYPE`) now lives in src/lib/scoring/tile-catalog-map.ts
+ * — moved there 2026-08 so `rank-venues.ts`'s `passesMoodFilter` could use
+ * the same map this module always has (a category-only mood selection, no
+ * tiles narrowed, was silently filtering nothing at all until that fix).
+ * Originally a judgment call made here (no onboarding-tile-to-venue-type
+ * catalog existed to consult), not a silent product decision.
  */
 import { VENUES } from '../data/seed';
 import { slugifyType } from '../scoring/rank-venues';
+import { CATEGORY_BY_VENUE_TYPE } from '../scoring/tile-catalog-map';
 import type { TileCategory, Venue } from '../../types/models';
-
-const CATEGORY_BY_VENUE_TYPE: Record<string, TileCategory> = {
-  'SMALL PLATES': 'Eat',
-  'TASTING MENU': 'Eat',
-  'FINE DINING': 'Eat',
-  CELEBRATORY: 'Eat',
-  BAKERY: 'Eat',
-  'COCKTAIL BAR': 'Drink',
-  ROOFTOP: 'Drink',
-  SPEAKEASY: 'Drink',
-  'JAZZ BAR': 'Drink',
-  'HOTEL BAR': 'Drink',
-  'COFFEE ROOM': 'Drink',
-  'COUNTRY PUB': 'Drink',
-  'MARKET HALL': 'Do',
-};
 
 export interface MoodTileOption {
   /** What `rank-venues.ts`'s `passesMoodFilter` actually checks against. */

@@ -10,11 +10,14 @@
  * Real vs. mocked, spelled out for whoever reads this next:
  * - `preferences` / `you` come straight from `useSession()` — real
  *   onboarding state, not a placeholder.
- * - `location` defaults to a fixed demo lat/lon (central Northern Quarter,
- *   Manchester). There is no device geolocation or Mapbox integration yet
- *   (CLAUDE.md "Still genuinely open": Mapbox API key is a genuine
- *   credential gap) — flagged, not guessed. Callers may pass a real
- *   `location` override once one exists.
+ * - `location` prefers real device geolocation (`session.location`, set by
+ *   the effect in src/lib/state/session.tsx once permission is granted and a
+ *   fix comes back) and falls back to the fixed demo lat/lon (central
+ *   Northern Quarter, Manchester) until then — no permission yet, denied,
+ *   unavailable, or still resolving. An explicit `overrides.location` still
+ *   wins over both (e.g. venue detail's "always include this venue"
+ *   radius-widening use case doesn't want to depend on device location at
+ *   all).
  * - `radiusMiles` now defaults to the shared `session.radiusMiles`
  *   (src/lib/state/session.tsx) rather than a fixed per-caller constant —
  *   both M5 builds (Map and List) independently flagged that a fixed Map
@@ -58,7 +61,7 @@ export interface MatchmakingOverrides {
 }
 
 export function buildMatchmakingInputFromSession(
-  session: Pick<SessionContextValue, 'preferences' | 'you'>,
+  session: Pick<SessionContextValue, 'preferences' | 'you' | 'location'>,
   overrides: MatchmakingOverrides = {}
 ): MatchmakingInput {
   return {
@@ -68,7 +71,7 @@ export function buildMatchmakingInputFromSession(
       dietary: session.you.dietary,
       pet: session.you.pet,
     },
-    location: overrides.location ?? DEMO_LOCATION,
+    location: overrides.location ?? session.location ?? DEMO_LOCATION,
     radiusMiles: overrides.radiusMiles ?? DEFAULT_RADIUS_MILES,
     context: overrides.context ?? DEFAULT_CONTEXT,
     moodFilter: overrides.moodFilter,

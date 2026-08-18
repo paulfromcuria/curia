@@ -15,15 +15,24 @@
  *
  * Only tiles with an actual corresponding venue type in today's seed data
  * (docs/data/venues.json) are mapped — an empty array is not a bug, it's
- * this tile category genuinely having no matching venue yet (e.g. every
- * "Do" tile except "Markets": today's seed venues are all Drink/Eat types,
- * so Do-category picks can't yet move tile-match. That's a seed-data
- * coverage gap for curia-admin/M8 to fill as real Do-type venues are
- * curated, not a scoring defect — flagged here rather than faked).
+ * this tile category genuinely having no matching venue yet. Do used to be
+ * almost entirely empty (only "Markets" had a matching venue type) — closed
+ * 2026-08 at explicit user request ("expand... good coverage for DO, DRINK,
+ * AND EAT") once real Do-type venues (art galleries, spas, live music,
+ * performing arts, design galleries) were curated across the LA metro. Any
+ * tile still mapped to `[]` genuinely has no matching venue yet — a
+ * seed-data coverage gap for curia-admin/M8, not a scoring defect.
  */
 export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // Do
   Markets: ['market-hall'],
+  'Independent cinema': ['independent-cinema'],
+  Theatre: ['performing-arts', 'black-box-theater'],
+  'Ballet & opera': ['performing-arts'],
+  'Spa & wellness': ['spa'],
+  'Live music': ['live-music'],
+  'Art galleries': ['art-gallery'],
+  'Antiques & design': ['design-gallery'],
 
   // Drink
   'Cocktail bars': ['cocktail-bar', 'speakeasy'],
@@ -32,6 +41,7 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   'Upmarket pubs': ['country-pub'],
   'Hotel bars': ['hotel-bar'],
   'Cafés (late)': ['coffee-room', 'bakery'],
+  "Members' clubs": ['members-club'],
 
   // Eat
   'Tasting menu': ['tasting-menu'],
@@ -58,3 +68,55 @@ export function tileIdToVenueTypeSlugs(tileId: string): string[] {
   const name = tileId.slice(separatorIndex + 1);
   return TILE_NAME_TO_VENUE_TYPE_SLUGS[name] ?? [];
 }
+
+/**
+ * Which Do/Drink/Eat category each real seed venue type belongs to. Lives
+ * here (not src/lib/map/mood-tiles.ts, which originally defined this and now
+ * imports it from here instead) so `rank-venues.ts`'s `passesMoodFilter` can
+ * use the same map `moodTileOptionsForCategory` already used to build the
+ * mood-sheet's own tile chips — this file has zero imports of its own
+ * (unlike mood-tiles.ts, which pulls in `VENUES` from src/lib/data/seed.ts),
+ * so importing it here doesn't drag the JSON-import-attribute problem into
+ * this module's plain-`node --test` compatibility (see this module's own
+ * `rank-venues.ts` import comment).
+ *
+ * 2026-08 bug fix: picking a mood category with no tiles narrowed (e.g. just
+ * "Do", no specific tile chips) is a valid, intentionally "unnarrowed"
+ * selection (session.tsx's MoodSelection doc comment), but
+ * `passesMoodFilter` never actually read `moodFilter.category` — only
+ * `tileIds`/`subPreferences`, both empty in that case — so a category-only
+ * mood filter silently filtered nothing at all (user report: filtered to
+ * "Do" and still saw 20 Stories/The Ivy/Pollen Bakery — a bar, a restaurant,
+ * a bakery, none of them Do). This map is what closes that gap.
+ */
+export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
+  'SMALL PLATES': 'Eat',
+  'TASTING MENU': 'Eat',
+  'FINE DINING': 'Eat',
+  CELEBRATORY: 'Eat',
+  BAKERY: 'Eat',
+  'COCKTAIL BAR': 'Drink',
+  ROOFTOP: 'Drink',
+  SPEAKEASY: 'Drink',
+  'JAZZ BAR': 'Drink',
+  'HOTEL BAR': 'Drink',
+  'COFFEE ROOM': 'Drink',
+  'COUNTRY PUB': 'Drink',
+  'MARKET HALL': 'Do',
+  'WINE BAR': 'Drink',
+  'INDEPENDENT CINEMA': 'Do',
+  PIZZERIA: 'Eat',
+  'SHERRY BAR': 'Drink',
+  'PERFORMING ARTS': 'Do',
+  SPA: 'Do',
+  'MEMBERS CLUB': 'Drink',
+  'LIVE MUSIC': 'Do',
+  'DESIGN GALLERY': 'Do',
+  'ART GALLERY': 'Do',
+  'SEASONAL KITCHEN': 'Eat',
+  'CALIFORNIA CUISINE': 'Eat',
+  'HANDMADE PASTA': 'Eat',
+  'LISTENING BAR': 'Drink',
+  'BLACK BOX THEATER': 'Do',
+  'FRENCH BRASSERIE': 'Eat',
+};

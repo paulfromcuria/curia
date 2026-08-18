@@ -17,6 +17,12 @@ import { color, font, spacing } from '../theme';
  * onboarding screen (src/app/onboarding.tsx) at a specific step via
  * `?step=`, per CLAUDE.md's Onboarding model — this deliberately does not
  * build a second, parallel preferences editor.
+ *
+ * "Travel" (2026-08, at explicit user request) is not in the design
+ * prototype — added as one more row in YOUR TASTE rather than a new nav
+ * destination, per the user's own framing ("much more subtle than map
+ * list or journeys on the nav... maybe put into the profile"). See
+ * src/app/travel.tsx.
  */
 export default function Profile() {
   const router = useRouter();
@@ -81,6 +87,11 @@ export default function Profile() {
           label: 'Saved journeys',
           sub: savedJourneyCount > 0 ? `${savedJourneyCount} kept` : 'Nothing saved yet',
           onPress: () => router.push('/saved?view=journeys'),
+        },
+        {
+          label: 'Travel',
+          sub: 'Where your taste says to go next, and when',
+          onPress: () => router.push('/travel'),
         },
       ],
     },
@@ -147,7 +158,7 @@ export default function Profile() {
       ))}
 
       <Button label="Log out" variant="secondary" onPress={handleLogout} />
-      <Text style={styles.footer}>CURIA · MANCHESTER & CHESHIRE</Text>
+      <Text style={styles.footer}>CURIA · MANCHESTER · CHESHIRE · LOS ANGELES</Text>
     </ScrollView>
   );
 }

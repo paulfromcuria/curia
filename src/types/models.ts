@@ -76,7 +76,7 @@ export interface User {
   you: YouProfile;
 }
 
-export type MetroId = 'manchester' | 'cheshire';
+export type MetroId = 'manchester' | 'cheshire' | 'los-angeles';
 
 export interface City {
   id: MetroId;
@@ -185,6 +185,50 @@ export interface SavedCollection {
 export interface SavedJourney {
   userId: string;
   journeyId: string;
+}
+
+/**
+ * A holiday destination Curia can point a member toward — added 2026-08 at
+ * explicit user request for a subtle, Profile-only travel feature ("more
+ * Raya than Tinder, more Michelin Guide than TripAdvisor" extended past
+ * nights out to holidays: "which cities/island would be a good place for
+ * YOU to go, and when"). Not in the design prototype at all (nothing to
+ * transcribe), so this shape is original, not extracted — see
+ * docs/data/destinations.json's own `_source` note.
+ *
+ * Deliberately NOT a `District`: Curia doesn't operate here (no curated
+ * venues, no matchmaking hard filters). Closer in shape to a `Moment` —
+ * curated, editorial, reasoned — than to the venue ranking engine. See
+ * src/lib/scoring/rank-destinations.ts for the (intentionally much lighter
+ * than rank-venues.ts) matching logic.
+ */
+export interface Destination {
+  id: string;
+  name: string;
+  /** e.g. "Balearic Islands, Spain" — shown as the location line. */
+  region: string;
+  lat: number;
+  lon: number;
+  /** Months (1-12) this destination is genuinely at its best — the same
+   * "when, not just where" idea as District's dayMultiplier/bandMultiplier,
+   * one level up (season instead of day-part). */
+  bestMonths: number[];
+  /** Hand-written display form of bestMonths (e.g. "Late April – June,
+   * September – October") — kept separate from the numeric months rather
+   * than auto-formatted, so the copy can read like brand voice instead of
+   * a date-range widget. */
+  bestSeasonLabel: string;
+  /** Real onboarding Tile ids (src/lib/data/seed.ts TILES, `${category}|${name}`)
+   * this destination genuinely suits — the same taste vocabulary a user's
+   * own preferences are stored in, not a parallel vocabulary. Note: the real
+   * tile catalog has no "Golf" or ski-specific tile, so activity-led
+   * destinations (Sotogrande, Chamonix) are tagged against the closest real
+   * tiles (e.g. `Do|Spectator sport`'s "Polo/tennis" sub-preference) rather
+   * than an invented one — the activity itself still lives in the prose.
+   */
+  tileIds: string[];
+  curator: string;
+  editorialDescription: string;
 }
 
 export type AdminRole = 'admin'; // single role at launch, no multi-role distinction yet

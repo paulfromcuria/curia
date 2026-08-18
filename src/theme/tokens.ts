@@ -66,18 +66,26 @@ export const color = {
   mapWater: '#16262B',
 } as const;
 
-/** Per-district accent colors — confirmed 1:1 from the prototype's DISTRICTS data. */
+/** Per-district accent colors — confirmed 1:1 from the prototype's DISTRICTS
+ * data, except the five Cheshire entries and the five Manchester entries
+ * (both widened for real visual distinctiveness as glows, 2026-08 — see
+ * docs/data/districts.json's own _accentColorSource note for why). */
 export const districtAccent: Record<string, string> = {
-  'northern-quarter': '#C0A062',
-  ancoats: '#C9884E',
-  spinningfields: '#A8A06A',
-  deansgate: '#B98F72',
-  chinatown: '#BE7A5A',
-  altrincham: '#C0A062',
-  hale: '#A8A06A',
-  wilmslow: '#BE7A5A',
-  'alderley-edge': '#B98F72',
-  mobberley: '#8E8A66',
+  'northern-quarter': '#8B6FA8',
+  ancoats: '#9C5030',
+  spinningfields: '#6E8FA6',
+  deansgate: '#D68A3F',
+  chinatown: '#A73F52',
+  altrincham: '#D4A72C',
+  hale: '#C97F3D',
+  wilmslow: '#B85C3E',
+  'alderley-edge': '#A66B4F',
+  mobberley: '#7A7048',
+  'beverly-hills': '#CBA35C',
+  'west-hollywood': '#B08968',
+  'santa-monica': '#D4A85F',
+  venice: '#A57C52',
+  'culver-city': '#C48B5C',
 };
 
 export const font = {

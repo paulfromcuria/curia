@@ -1,0 +1,75 @@
+{
+  "_source": "FABRICATED PLACEHOLDER DATA — every record below is synthetic, not a real signup. There is no Supabase user table yet (CLAUDE.md 'Tech stack' / 'Still genuinely open') — src/lib/state/session.tsx only ever tracks one ephemeral, unpersisted SessionUser per browser session, so there is no real 'all members who signed up' data source to show in a Users admin screen. This file exists solely so that screen has something real to look at and validate the UX/growth-metrics concept against (2026-08, admin growth-dashboard expansion). Loaded only by src/lib/admin/demo-users.ts — never by src/lib/data/seed.ts, and never wired into src/lib/state/session.tsx or any member-facing screen. selectedTileIds values are real tile ids from docs/data/tiles.json, not invented.",
+  "members": [
+    {
+      "id": "isabelle-hartley",
+      "name": "Isabelle Hartley",
+      "email": "isabelle.hartley@example.com",
+      "subscriptionStatus": "active",
+      "spendLevel": 4,
+      "onboardingComplete": true,
+      "joinDate": "2026-02-10",
+      "selectedTileIds": ["Eat|Tasting menu", "Drink|Wine bars", "Do|Art galleries"]
+    },
+    {
+      "id": "marcus-webb",
+      "name": "Marcus Webb",
+      "email": "marcus.webb@example.com",
+      "subscriptionStatus": "trialing",
+      "spendLevel": 3,
+      "onboardingComplete": true,
+      "joinDate": "2026-08-01",
+      "selectedTileIds": ["Drink|Cocktail bars", "Eat|Small plates"]
+    },
+    {
+      "id": "freya-sinclair",
+      "name": "Freya Sinclair",
+      "email": "freya.sinclair@example.com",
+      "subscriptionStatus": "active",
+      "spendLevel": 5,
+      "onboardingComplete": true,
+      "joinDate": "2025-11-22",
+      "selectedTileIds": ["Eat|Private dining", "Drink|Champagne bars", "Do|Spa & wellness"]
+    },
+    {
+      "id": "oliver-bancroft",
+      "name": "Oliver Bancroft",
+      "email": "oliver.bancroft@example.com",
+      "subscriptionStatus": "past_due",
+      "spendLevel": 2,
+      "onboardingComplete": true,
+      "joinDate": "2026-05-14",
+      "selectedTileIds": ["Eat|Brunch", "Drink|Upmarket pubs"]
+    },
+    {
+      "id": "anaya-kapoor",
+      "name": "Anaya Kapoor",
+      "email": "anaya.kapoor@example.com",
+      "subscriptionStatus": "canceled",
+      "spendLevel": 3,
+      "onboardingComplete": true,
+      "joinDate": "2025-09-03",
+      "selectedTileIds": ["Do|Theatre", "Eat|Romantic"]
+    },
+    {
+      "id": "charlie-devereux",
+      "name": "Charlie Devereux",
+      "email": "charlie.devereux@example.com",
+      "subscriptionStatus": "none",
+      "spendLevel": 3,
+      "onboardingComplete": false,
+      "joinDate": "2026-08-15",
+      "selectedTileIds": ["Drink|Rooftop & scenic"]
+    },
+    {
+      "id": "sofia-marchetti",
+      "name": "Sofia Marchetti",
+      "email": "sofia.marchetti@example.com",
+      "subscriptionStatus": "trialing",
+      "spendLevel": 4,
+      "onboardingComplete": true,
+      "joinDate": "2026-07-28",
+      "selectedTileIds": ["Eat|Fine dining", "Do|Live music", "Drink|Members' clubs"]
+    }
+  ]
+}

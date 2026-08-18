@@ -8,7 +8,20 @@
 import districtsRaw from '../../../docs/data/districts.json';
 import venuesRaw from '../../../docs/data/venues.json';
 import tilesRaw from '../../../docs/data/tiles.json';
-import type { City, District, DistrictGroup, Journey, JourneyStop, Moment, MomentType, Tile, TileCategory, Venue } from '../../types/models';
+import destinationsRaw from '../../../docs/data/destinations.json';
+import type {
+  City,
+  Destination,
+  District,
+  DistrictGroup,
+  Journey,
+  JourneyStop,
+  Moment,
+  MomentType,
+  Tile,
+  TileCategory,
+  Venue,
+} from '../../types/models';
 
 const MOMENT_TYPE_BY_TITLE: Record<string, MomentType> = {
   'Best for Date Night': 'date-night',
@@ -36,10 +49,15 @@ export const DISTRICTS: District[] = districtsRaw.districts.map((d) => ({
   // The prototype's DAY_MULT/BAND_MULT tables are global, not per-district —
   // applied identically here so src/lib/scoring/rank-venues.ts's
   // scoreDayOfWeek signal (previously a no-op against real seed data, see M3
-  // report) has real values to read. bandMultiplier is keyed by district
-  // kind since BAND_MULT itself varies by city/county.
+  // report) has real values to read. bandMultiplier defaults to the
+  // district's kind (city/county), but a district can carry its own
+  // override directly in the JSON (Beverly Hills/West Hollywood do, as of
+  // 2026-08 — see districts.json's _bandMultiplierSource note) when sharing
+  // the generic kind curve would flatten real differences in character.
   dayMultiplier: districtsRaw.dayMultiplier,
-  bandMultiplier: districtsRaw.bandMultiplier[d.kind as 'city' | 'county'],
+  bandMultiplier:
+    (d as { bandMultiplier?: Record<string, number> }).bandMultiplier ??
+    districtsRaw.bandMultiplier[d.kind as 'city' | 'county'],
 }));
 
 export const DISTRICT_GROUPS: DistrictGroup[] = districtsRaw.districtGroups.map((g) => ({
@@ -161,6 +179,15 @@ export const TILES: Tile[] = (Object.entries(tilesRaw.categories) as [TileCatego
 export function tilesByCategory(category: TileCategory): Tile[] {
   return TILES.filter((t) => t.category === category);
 }
+
+/**
+ * Holiday destinations for the Travel feature (2026-08, at explicit user
+ * request) — see docs/data/destinations.json's own `_source` note and
+ * src/types/models.ts's Destination doc comment. Loaded the same way every
+ * other seed collection here is, so it swaps out cleanly whenever Supabase
+ * wiring replaces this whole file.
+ */
+export const DESTINATIONS: Destination[] = destinationsRaw.destinations;
 
 export function venuesByDistrict(districtId: string): Venue[] {
   return VENUES.filter((v) => v.districtId === districtId);

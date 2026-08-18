@@ -1,23 +1,22 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { AdminHeader } from '../../../components/admin/admin-header';
-import { Button, TextField } from '../../../components/curia';
+import { DistrictForm } from '../../../components/admin/district-form';
 import { useAdminData } from '../../../lib/admin/admin-data';
+import { CITIES } from '../../../lib/data/seed';
 import { color, font, spacing } from '../../../theme';
 
 /**
- * Edit a district's editorial description — the one district field the M8
- * brief calls out as editable here. Name, metro, kind, and accent color are
- * fixed/derived (CLAUDE.md's real 10 districts and per-district accent
- * family), shown read-only for context rather than made editable.
+ * Edit an existing district (2026-08, admin growth-dashboard expansion).
+ * Replaces the earlier editorial-only editor — see district-form.tsx's doc
+ * comment for why. Delete warns (not blocks) if venues still reference this
+ * district, matching chain-denylist.ts's warn-don't-overengineer approach.
  */
 export default function EditDistrict() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { getDistrict, updateDistrictEditorial } = useAdminData();
+  const { getDistrict, venues, upsertDistrict, deleteDistrict } = useAdminData();
   const district = getDistrict(id);
-  const [draft, setDraft] = useState(district?.editorialDescription ?? '');
 
   if (!district) {
     return (
@@ -28,40 +27,42 @@ export default function EditDistrict() {
     );
   }
 
-  function handleSave() {
-    updateDistrictEditorial(district!.id, draft);
-    router.back();
+  function handleDelete() {
+    const affected = venues.filter((v) => v.districtId === district!.id).length;
+    const message =
+      affected > 0
+        ? `"${district!.name}" has ${affected} venue(s) assigned to it. Deleting it will leave them pointing at a district that no longer exists. Delete anyway?`
+        : `Remove "${district!.name}" from the admin data set?`;
+    Alert.alert('Delete district', message, [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: () => {
+          deleteDistrict(district!.id);
+          router.back();
+        },
+      },
+    ]);
   }
 
   return (
     <View style={styles.flex}>
       <AdminHeader title={district.name} subtitle={`${district.metro} · ${district.kind}`} />
-      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-        <View style={styles.readOnlyRow}>
-          <View style={[styles.swatch, { backgroundColor: district.accentColor }]} />
-          <Text style={styles.readOnlyText}>Accent {district.accentColor}</Text>
-        </View>
-        <Text style={styles.readOnlyText}>Base liveliness score: {district.base}</Text>
-
-        <TextField
-          label="Editorial description"
-          value={draft}
-          onChangeText={setDraft}
-          multiline
-          placeholder="Editorial copy for this district's guide screen"
-        />
-
-        <Button label="Save changes" onPress={handleSave} />
-      </ScrollView>
+      <DistrictForm
+        initial={district}
+        cities={CITIES}
+        onSave={(updated) => {
+          upsertDistrict(updated);
+          router.back();
+        }}
+        onDelete={handleDelete}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   flex: { flex: 1, backgroundColor: color.base },
-  container: { padding: spacing.lg, gap: spacing.md, paddingBottom: spacing.xxl },
-  readOnlyRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
-  swatch: { width: 14, height: 14, borderRadius: 7 },
-  readOnlyText: { fontFamily: font.sans, fontSize: 12.5, color: color.textSecondary },
   empty: { fontFamily: font.sans, fontSize: 13, color: color.textSecondary, paddingHorizontal: spacing.lg },
 });

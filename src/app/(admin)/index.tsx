@@ -1,22 +1,28 @@
 import { useRouter, type Href } from 'expo-router';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AdminHeader } from '../../components/admin/admin-header';
+import { GrowthInsights } from '../../components/admin/growth-insights';
 import { Button, Card } from '../../components/curia';
 import { useAdminData } from '../../lib/admin/admin-data';
 import { useAdminSession } from '../../lib/admin/admin-session';
-import { JOURNEYS, MOMENTS } from '../../lib/data/seed';
+import { DEMO_MEMBERS } from '../../lib/admin/demo-users';
+import { CITIES, JOURNEYS, MOMENTS } from '../../lib/data/seed';
 import { color, font, spacing } from '../../theme';
 
 /**
- * Admin dashboard — the group's root screen. Links to the four curation
- * sections the M8 brief asks for: venues and districts are CRUD-ish
- * (in-memory, see src/lib/admin/admin-data.tsx), moments and journeys are
- * simple views (read from src/lib/data/seed.ts directly, no edit surface).
+ * Admin dashboard — the group's root screen. Links to the six curation
+ * sections: venues, districts, and tiles are full CRUD (in-memory, see
+ * src/lib/admin/admin-data.tsx); moments and journeys are simple views
+ * (read from src/lib/data/seed.ts directly, no edit surface); users is a
+ * read-only demo-data view (src/lib/admin/demo-users.ts — no real backend
+ * exists to show real members). Districts and Tiles were expanded from
+ * editorial-only/nonexistent to full CRUD, and Users/Growth signals are new
+ * (2026-08, admin growth-dashboard expansion).
  */
 export default function AdminHome() {
   const router = useRouter();
   const { admin, logout } = useAdminSession();
-  const { venues, districts } = useAdminData();
+  const { venues, districts, tiles } = useAdminData();
 
   const sections: { label: string; description: string; count: number; href: Href }[] = [
     {
@@ -27,9 +33,15 @@ export default function AdminHome() {
     },
     {
       label: 'Districts',
-      description: 'Edit each district’s editorial description.',
+      description: 'Add, edit and delete districts — including liveliness multipliers.',
       count: districts.length,
       href: '/(admin)/districts',
+    },
+    {
+      label: 'Tiles',
+      description: 'Add, edit and delete the Do/Drink/Eat onboarding tile catalog.',
+      count: tiles.length,
+      href: '/(admin)/tiles',
     },
     {
       label: 'Moments',
@@ -42,6 +54,12 @@ export default function AdminHome() {
       description: 'View multi-stop journeys and the districts they touch.',
       count: JOURNEYS.length,
       href: '/(admin)/journeys',
+    },
+    {
+      label: 'Users',
+      description: 'Demo data — no real backend yet, see CLAUDE.md "Tech stack".',
+      count: DEMO_MEMBERS.length,
+      href: '/(admin)/users',
     },
   ];
 
@@ -65,6 +83,8 @@ export default function AdminHome() {
           </Card>
         ))}
       </View>
+
+      <GrowthInsights venues={venues} districts={districts} tiles={tiles} cities={CITIES} />
 
       <Text style={styles.note}>
         Edits here are in-memory for this app session only — there is no backend to persist

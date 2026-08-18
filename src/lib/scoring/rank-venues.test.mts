@@ -211,6 +211,13 @@ test('mood filter: tileIds narrow the pool to matching venue types', () => {
   assert.equal(passesMoodFilter(venue({ type: 'COUNTRY PUB' }), moodFilter), false);
 });
 
+test('mood filter: category alone, with no tiles narrowed, still restricts to that category (regression — this used to be a silent no-op)', () => {
+  const moodFilter = { category: 'Do', tileIds: [], subPreferences: [] };
+  assert.equal(passesMoodFilter(venue({ type: 'MARKET HALL' }), moodFilter), true);
+  assert.equal(passesMoodFilter(schofields, moodFilter), false, 'COCKTAIL BAR is Drink, not Do');
+  assert.equal(passesMoodFilter(venue({ type: 'SMALL PLATES' }), moodFilter), false, 'SMALL PLATES is Eat, not Do');
+});
+
 test('mood filter: also accepts real Tile catalog ids, not just bare type-slugs', () => {
   const moodFilter = { category: 'Drink', tileIds: ['Drink|Upmarket pubs'], subPreferences: [] };
   assert.equal(passesMoodFilter(venue({ type: 'COUNTRY PUB' }), moodFilter), true);
