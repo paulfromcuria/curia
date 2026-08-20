@@ -1,5 +1,48 @@
 {
   "_source": "AI-researched venue CANDIDATES for Manchester and Cheshire, awaiting human review — never auto-promoted into docs/data/venues.json. Populated by a daily scheduled research agent (2026-08, at explicit user request: 'fan out some research agents who's goal is to run every day to find and suggest new businesses... they shouldn't go beyond cheshire and manchester just yet'). See .claude/agents/curia-research-daily.md for the full research brief/rules this agent works under (Hard rule 1 chain/fast-food screening, real coordinates only, no duplicates, Do/Drink/Eat coverage balance). Each entry mirrors docs/data/venues.json's own raw shape (name/district/type/spend/lat/lon/base/bands/reason) exactly, so a reviewed-and-approved entry can be moved into that file with a straight copy-paste, plus review-only fields (suggestedDate, status, researchNotes) that must be stripped before promotion. `district` values must be a real existing district id from docs/data/districts.json (manchester/cheshire metros only) UNLESS the entry is itself proposing a brand-new district — see district-suggestions.json for that case instead; a venue suggestion should never invent a district id that doesn't exist anywhere.",
   "_reviewWorkflow": "status starts 'pending' on every new entry. A human reviewer (or a future admin-dashboard review screen) changes it to 'approved' (then manually copies the venue fields into docs/data/venues.json and removes the entry here) or 'rejected' (left here with researchNotes explaining why, as a record so the same candidate isn't re-suggested later — the daily agent checks existing entries here, not just docs/data/venues.json, before adding anything new).",
-  "suggestions": []
+  "suggestions": [
+    {
+      "name": "Happy Seasons",
+      "district": "chinatown",
+      "type": "CANTONESE ROAST",
+      "spend": "££",
+      "lat": 53.4778,
+      "lon": -2.2386,
+      "base": 85,
+      "bands": ["afternoon", "evening"],
+      "reason": "Forty-odd years on Faulkner Street, and the queue for the roast duck still forms before the doors do.",
+      "suggestedDate": "2026-08-20",
+      "status": "pending",
+      "researchNotes": "Verified via web search (Tripadvisor, Manchester's Finest, Confidentials review, Wanderlog) — single-site, family-run Chinatown institution since 1982 (Faulkner Street), no sibling locations found anywhere, so it clears Hard rule 1 with room to spare. Address: 59 Faulkner St, Manchester M1 4FF. Fills a real gap: Chinatown currently has zero venues in venues.json despite being one of the ten seeded districts. No existing venue `type` fits Cantonese roast-meat/dim sum cooking, so introduced 'CANTONESE ROAST' as a new type — will need a docs/data/tiles.json / tile-catalog-map.ts mapping decision on promotion, since no Eat tile currently maps to it. Confidence: high (multiple independent, consistent reviews plus decades of trading history)."
+    },
+    {
+      "name": "The Bull's Head",
+      "district": "mobberley",
+      "type": "COUNTRY PUB",
+      "spend": "£££",
+      "lat": 53.3132,
+      "lon": -2.3169,
+      "base": 88,
+      "bands": ["afternoon", "evening"],
+      "reason": "Named best pub in Cheshire, then best in the whole North West, and Mill Lane still has more sheep on it than sat-nav.",
+      "suggestedDate": "2026-08-20",
+      "status": "pending",
+      "researchNotes": "Verified via CAMRA, Great British Life review, and the pub's own site — real, currently operating 19th-century country inn on Mill Lane, Mobberley (WA16 7HX). Crowned Best Pub in Cheshire 2025 and Best Pub in North West at the Pub & Bar Magazine National Awards 2025. Shares ownership with two sister pubs (The Roebuck Inn and The Church Inn), both also in Mobberley — a single-village three-pub group, not a multi-city chain, so it clears Hard rule 1 comfortably (closer to this project's own Ivy Spinningfields/Craig's precedent than to an actual chain). Fills the Mobberley gap — currently zero venues in that district — and reuses the existing 'COUNTRY PUB' type (exact match to the 'Upmarket pubs' Drink tile). Confidence: high."
+    },
+    {
+      "name": "HOME",
+      "district": "deansgate",
+      "type": "INDEPENDENT CINEMA",
+      "spend": "££",
+      "lat": 53.4729,
+      "lon": -2.2466,
+      "base": 86,
+      "bands": ["afternoon", "evening"],
+      "reason": "Five screens, two stages and a gallery floor that's changed again by the time you've finished your coffee downstairs.",
+      "suggestedDate": "2026-08-20",
+      "status": "pending",
+      "researchNotes": "Verified via Wikipedia, official homemcr.org site, and Oxford Road Corridor listing — real, currently operating single-site arts centre at 2 Tony Wilson Place, First Street, Manchester M15 4FN (opened 2015 from the merger of Cornerhouse and the Library Theatre Company; run by the registered charity Greater Manchester Arts Centre Limited, one site only). Clears Hard rule 1 outright — not a chain, a single charitable arts venue. Placed in 'deansgate' (First Street sits at the southern edge of that district, ~0.4km from the district's seeded lat/lon; the existing seed venue Refuge is a comparable distance away) — Deansgate currently has only one seeded venue (Refuge, a Drink venue) and zero Do venues, and Do is the thinnest category city-wide, so this is a high-value gap fill. Reused the existing 'INDEPENDENT CINEMA' type, an exact match to the 'Independent cinema' Do tile (same type Everyman Cinema already uses). Confidence: high."
+    }
+  ]
 }
