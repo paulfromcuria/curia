@@ -10,7 +10,10 @@
       "lat": 53.4778,
       "lon": -2.2386,
       "base": 85,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Forty-odd years on Faulkner Street, and the queue for the roast duck still forms before the doors do.",
       "suggestedDate": "2026-08-20",
       "status": "pending",
@@ -24,7 +27,10 @@
       "lat": 53.3132,
       "lon": -2.3169,
       "base": 88,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Named best pub in Cheshire, then best in the whole North West, and Mill Lane still has more sheep on it than sat-nav.",
       "suggestedDate": "2026-08-20",
       "status": "pending",
@@ -38,11 +44,81 @@
       "lat": 53.4729,
       "lon": -2.2466,
       "base": 86,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Five screens, two stages and a gallery floor that's changed again by the time you've finished your coffee downstairs.",
       "suggestedDate": "2026-08-20",
       "status": "pending",
       "researchNotes": "Verified via Wikipedia, official homemcr.org site, and Oxford Road Corridor listing — real, currently operating single-site arts centre at 2 Tony Wilson Place, First Street, Manchester M15 4FN (opened 2015 from the merger of Cornerhouse and the Library Theatre Company; run by the registered charity Greater Manchester Arts Centre Limited, one site only). Clears Hard rule 1 outright — not a chain, a single charitable arts venue. Placed in 'deansgate' (First Street sits at the southern edge of that district, ~0.4km from the district's seeded lat/lon; the existing seed venue Refuge is a comparable distance away) — Deansgate currently has only one seeded venue (Refuge, a Drink venue) and zero Do venues, and Do is the thinnest category city-wide, so this is a high-value gap fill. Reused the existing 'INDEPENDENT CINEMA' type, an exact match to the 'Independent cinema' Do tile (same type Everyman Cinema already uses). Confidence: high."
+    },
+    {
+      "name": "Band on the Wall",
+      "district": "northern-quarter",
+      "type": "LIVE MUSIC",
+      "spend": "£££",
+      "lat": 53.4854,
+      "lon": -2.2349,
+      "base": 88,
+      "bands": [
+        "evening",
+        "late"
+      ],
+      "reason": "A stage bolted high on the far wall since the thirties, reborn after a £3.5m rebuild — the room where the touring act you half-recognise turns out to be the whole point of the night.",
+      "suggestedDate": "2026-08-20",
+      "status": "pending",
+      "researchNotes": "Verified real and operating (bandonthewall.org, Wikipedia, Manchester City Council directory, Yelp reviews updated May 2026). 25 Swan Street, M4 5JZ — coordinates are the actual Swan Street address, not the NQ centroid. Hard rule 1: run as a single not-for-profit venue by registered charity Inner City Music — one location only, no chain footprint. Fills a genuine Do-category gap: LIVE MUSIC previously existed only in the LA seed (Troubadour), none in Manchester/Cheshire. Type reuses the existing 'LIVE MUSIC' slug. Confidence: high."
+    },
+    {
+      "name": "Manchester Art Gallery",
+      "district": "chinatown",
+      "type": "ART GALLERY",
+      "spend": "££",
+      "lat": 53.4779,
+      "lon": -2.2411,
+      "base": 84,
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
+      "reason": "Free to walk in off Mosley Street and stand in front of the Pre-Raphaelites; the current dress-and-textile show, WORN, quietly reframes how you look at your own coat on the way out.",
+      "suggestedDate": "2026-08-20",
+      "status": "pending",
+      "researchNotes": "Verified real and operating (manchesterartgallery.org, Wikipedia, Art Fund, current 2026 exhibitions WORN and Escapes listed). Mosley Street, M2 3JL — coordinates are the real address, which sits in the eastern city-core Chinatown map zone (nearest existing district; fills a district that had zero seeded venues). Hard rule 1: single civic institution run by Manchester City Council, free admission, no chain footprint. Fills a Do-category gap: ART GALLERY previously existed only in the LA seed. Type reuses existing 'ART GALLERY' slug; spend '££' matches the LA galleries' free/low-cost tier. Confidence: high."
+    },
+    {
+      "name": "Royal Exchange Theatre",
+      "district": "deansgate",
+      "type": "PERFORMING ARTS",
+      "spend": "£££",
+      "lat": 53.482,
+      "lon": -2.2448,
+      "base": 87,
+      "bands": [
+        "evening"
+      ],
+      "reason": "A glass module dropped into a Victorian trading hall — the largest theatre-in-the-round in the world, close enough that the actors' footsteps land in your chest.",
+      "suggestedDate": "2026-08-20",
+      "status": "pending",
+      "researchNotes": "Verified real and operating (royalexchange.co.uk, British Theatre Guide, Visit Manchester; 2026 is its 50th-anniversary season — Fun Home, King Lear, A Little Night Music confirmed). St Ann's Square, M2 7DH — coordinates are the real square; geographically it's between the Deansgate and Chinatown zones, assigned to the recognised Deansgate civic/cultural spine (a judgment call, flagged for the reviewer). Hard rule 1: single venue run by a registered charity, no chain footprint. Fills a Do-category gap: PERFORMING ARTS previously existed only in the LA seed. Type reuses existing 'PERFORMING ARTS' slug. Confidence: high."
+    },
+    {
+      "name": "The Wine Cellar",
+      "district": "wilmslow",
+      "type": "WINE BAR",
+      "spend": "£££",
+      "lat": 53.3268,
+      "lon": -2.234,
+      "base": 78,
+      "bands": [
+        "evening",
+        "late"
+      ],
+      "reason": "Forty wines by the glass and a slate of Courtyard Dairy cheese on a Hawthorn Lane side street — the sort of place you mean to leave after one and don't.",
+      "suggestedDate": "2026-08-20",
+      "status": "pending",
+      "researchNotes": "Verified real and operating (winecellarwilmslow.co.uk, active Instagram/Eventbrite, Food Standards Agency hygiene listing, CAMRA). 2d Hawthorn Lane, Wilmslow, SK9 1AA — coordinates approximate the real Hawthorn Lane address near the town centre. Hard rule 1: independent single-location wine bar (distinct from the multi-site Cibo group nearby, which was considered and dropped on chain grounds). Fills a district that had zero seeded venues (Wilmslow) and adds Drink-category depth in Cheshire (only prior Cheshire wine bar was The Old Cellars in Alderley Edge). Type reuses existing 'WINE BAR' slug (present in venues.json even though the tile-catalog map currently omits the 'Wine bars' tile — a separate existing gap). Confidence: medium-high."
     }
   ]
 }
