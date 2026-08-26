@@ -1,10 +1,7 @@
-import { useMemo } from 'react';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button, Kicker } from '../../components/curia';
 import { DISTRICTS, VENUES } from '../../lib/data/seed';
-import { rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
-import { buildMatchmakingInputFromSession, DEMO_LOCATION } from '../../lib/scoring/session-input';
 import { useSession } from '../../lib/state/session';
 import { estimateTrip } from '../../lib/travel/trip';
 import { color, font, radius, spacing } from '../../theme';
@@ -18,16 +15,19 @@ const BAND_LABEL: Record<string, string> = {
 
 /**
  * Real Venue detail (M6) — matches the design source's `isVenue` block:
- * photo hero, a facts strip, the curated description, "why it's ranked
- * here" reasons, a link to the venue's district, and a travel handoff CTA.
+ * photo hero, a facts strip, the curated description, a link to the
+ * venue's district, and a travel handoff CTA.
  *
- * The match score/reason shown here is real — the same `rankVenues` engine
- * Map/List call (src/lib/scoring/rank-venues.ts), run against this session's
- * real preferences with a radius wide enough to always include this one
- * venue (a fixed screen for a specific venue shouldn't silently show
- * "excluded" just because the live List radius is narrower). That's a
- * user-facing match score/reason, not one of the internal-only fields Hard
- * rule 8 bans (tier/sourceConfidence/notes/raw scores) — see CLAUDE.md.
+ * 2026-08 concierge positioning pass, at explicit user request: a real
+ * concierge never shows its working, so the visible match score and the
+ * separate "Why it's ranked here" (YOUR PREFERENCES/TIMING/SPEND) block are
+ * gone from this screen — presentation-layer only, `rank-venues.ts`'s
+ * scoring/ranking is untouched and Map/List still use it exactly as
+ * before. This also fixed a real duplication bug: `reasonFor()`
+ * (rank-venues.ts) returns `venue.description` verbatim whenever it's set
+ * (true for every real seeded venue), so the removed "YOUR PREFERENCES" row
+ * was always just repeating the `blurb` already shown above it — the blurb
+ * alone already is the "one paragraph of judgment" a concierge would give.
  *
  * Save uses the shared `session.toggleSavedVenue`/`isVenueSaved`
  * (src/lib/state/session.tsx, M7) — an M9 QA pass found this had shipped
@@ -36,7 +36,12 @@ const BAND_LABEL: Record<string, string> = {
  *
  * The travel CTA mirrors the design source's own `vTravel` logic: under
  * half a mile it sends you to Walk, otherwise to Ride (src/lib/travel/trip.ts
- * ports that exact threshold/formula).
+ * ports that exact threshold/formula). Trip distance is computed from
+ * `session.searchOrigin` — not the old `DEMO_LOCATION` fallback this screen
+ * used until the same 2026-08 pass — so "FROM YOU" here can never disagree
+ * with the distance List/Map show for the same venue, or with the ride
+ * screen's own trip (src/app/ride.tsx, fixed the same way): one real source
+ * of truth for "where you are," not two independent guesses.
  */
 export default function VenueDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -47,15 +52,7 @@ export default function VenueDetail() {
   const saved = venue ? session.isVenueSaved(venue.id) : false;
   const district = venue ? DISTRICTS.find((d) => d.id === venue.districtId) : undefined;
 
-  const matchInput = useMemo(
-    () => buildMatchmakingInputFromSession(session, { radiusMiles: 999 }),
-    [session]
-  );
-  const resolved = resolveContext(matchInput.context);
-  const ranked = useMemo(() => rankVenues(matchInput, VENUES, DISTRICTS), [matchInput]);
-  const rankedVenue = venue ? ranked.ranked.find((r) => r.venueId === venue.id) : undefined;
-
-  const trip = venue ? estimateTrip(DEMO_LOCATION, venue) : undefined;
+  const trip = venue ? estimateTrip(session.searchOrigin, venue) : undefined;
 
   if (!venue) {
     return (
@@ -67,11 +64,11 @@ export default function VenueDetail() {
   }
 
   const travelLabel = trip?.walkable ? 'WALKING DIRECTIONS' : 'REQUEST A CAR';
-  const travelNote = trip
-    ? trip.walkable
-      ? `${trip.walkMinutes} minutes on foot from where you are standing.`
-      : `Via Uber · ${trip.roadMiles.toFixed(1)} mi, about ${trip.driveMinutes} minutes by road.`
-    : '';
+  // A concierge offers to sort the journey, not a logistics printout — no
+  // distance/time readout here for the ride case (2026-08). The walking
+  // note stays: a short, practical "minutes on foot" is closer to a person
+  // telling you it's an easy stroll than to a mileage-and-ETA display.
+  const travelNote = trip?.walkable ? `${trip.walkMinutes} minutes on foot from where you are standing.` : '';
   const goTravel = () =>
     router.push({ pathname: trip?.walkable ? '/walk' : '/ride', params: { venueId: venue.id } });
 
@@ -94,12 +91,6 @@ export default function VenueDetail() {
             {(district?.name ?? '').toUpperCase()} · {venue.type}
           </Text>
           <Text style={styles.name}>{venue.name}</Text>
-          {rankedVenue && (
-            <View style={styles.scoreRow}>
-              <Text style={styles.score}>{rankedVenue.score}</Text>
-              <Text style={styles.scoreLabel}>MATCH FOR {resolved.day.toUpperCase()}</Text>
-            </View>
-          )}
         </View>
       </View>
 
@@ -120,38 +111,6 @@ export default function VenueDetail() {
         </View>
 
         <Text style={styles.blurb}>{venue.description}</Text>
-
-        <Kicker style={styles.sectionKicker}>Why it&rsquo;s ranked here</Kicker>
-        <View style={styles.reasons}>
-          {rankedVenue && (
-            <View style={styles.reasonRow}>
-              <View style={styles.reasonMark} />
-              <View style={styles.reasonText}>
-                <Text style={styles.reasonLabel}>YOUR PREFERENCES</Text>
-                <Text style={styles.reasonBody}>{rankedVenue.reason}</Text>
-              </View>
-            </View>
-          )}
-          <View style={styles.reasonRow}>
-            <View style={styles.reasonMark} />
-            <View style={styles.reasonText}>
-              <Text style={styles.reasonLabel}>TIMING</Text>
-              <Text style={styles.reasonBody}>
-                Runs through the {venue.bands.map((b) => BAND_LABEL[b].toLowerCase()).join(' and ')}.
-              </Text>
-            </View>
-          </View>
-          <View style={styles.reasonRow}>
-            <View style={styles.reasonMark} />
-            <View style={styles.reasonText}>
-              <Text style={styles.reasonLabel}>SPEND</Text>
-              <Text style={styles.reasonBody}>
-                Sits at {'£'.repeat(venue.spendLevel)} against the {'£'.repeat(session.you.spendLevel)} dial
-                you set in You.
-              </Text>
-            </View>
-          </View>
-        </View>
 
         <Pressable onPress={() => district && router.push(`/district/${district.id}`)} style={styles.districtButton}>
           <Text style={styles.districtButtonText}>MORE IN {(district?.name ?? '').toUpperCase()}</Text>
@@ -225,19 +184,6 @@ const styles = StyleSheet.create({
     color: color.textPrimary,
     marginTop: spacing.sm,
   },
-  scoreRow: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    gap: spacing.sm + 2,
-    marginTop: spacing.sm + 2,
-  },
-  score: { fontFamily: font.serifRegular, fontSize: 22, color: color.gold },
-  scoreLabel: {
-    fontFamily: font.sans,
-    fontSize: 10,
-    letterSpacing: 2,
-    color: color.textSecondary,
-  },
   body: { padding: spacing.lg, gap: spacing.md },
   factsRow: {
     flexDirection: 'row',
@@ -269,35 +215,6 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     fontSize: 15,
     lineHeight: 24,
-    color: color.borderNeutral,
-  },
-  sectionKicker: { marginTop: spacing.sm },
-  reasons: { gap: 4 },
-  reasonRow: {
-    flexDirection: 'row',
-    gap: spacing.sm + 2,
-    paddingVertical: spacing.sm + 3,
-    borderBottomWidth: 1,
-    borderBottomColor: color.hairlineMin,
-  },
-  reasonMark: {
-    width: 5,
-    height: 5,
-    borderRadius: 2.5,
-    backgroundColor: color.gold,
-    marginTop: 7,
-  },
-  reasonText: { flex: 1, gap: 6 },
-  reasonLabel: {
-    fontFamily: font.sans,
-    fontSize: 10,
-    letterSpacing: 1.8,
-    color: color.textSecondary,
-  },
-  reasonBody: {
-    fontFamily: font.sans,
-    fontSize: 13,
-    lineHeight: 20,
     color: color.borderNeutral,
   },
   districtButton: {

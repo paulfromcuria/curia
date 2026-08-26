@@ -22,7 +22,6 @@ import {
   districtLiveliness,
   districtsInBounds,
   groupVisibleDistricts,
-  labelLiveliness,
   normalizeLiveliness,
   radiusMilesToZoomLevel,
   spanMilesToRadiusMiles,
@@ -212,11 +211,13 @@ function buildLabelElement(label: MapLabel, subText: string, onTap: () => void):
   title.style.cssText = `font-family:${label.kind === 'group' ? font.serif : font.serifRegular};font-size:${
     label.kind === 'group' ? 15 : 16
   }px;letter-spacing:${label.kind === 'group' ? 0.9 : 0.3}px;color:${color.textPrimaryBright};text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;`;
-  const sub = document.createElement('div');
-  sub.textContent = subText;
-  sub.style.cssText = `font-family:${font.sansMedium};font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(200,188,170,.75);text-align:center;white-space:nowrap;`;
   el.appendChild(title);
-  el.appendChild(sub);
+  if (subText) {
+    const sub = document.createElement('div');
+    sub.textContent = subText;
+    sub.style.cssText = `font-family:${font.sansMedium};font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(200,188,170,.75);text-align:center;white-space:nowrap;`;
+    el.appendChild(sub);
+  }
   el.addEventListener('click', onTap);
   return el;
 }
@@ -543,10 +544,14 @@ export default function Map() {
     if (!map) return;
     labelMarkersRef.current.forEach((m) => m.remove());
     labelMarkersRef.current = labels.map((label) => {
-      const subText =
-        label.kind === 'group'
-          ? `${label.districtIds.length} DISTRICTS · ZOOM`
-          : `${labelLiveliness(label, resolved.day, resolved.band)} ALIVE`;
+      // 2026-08 concierge positioning pass: a raw "NN ALIVE" percentage on
+      // every district pin read as showing the calculation, not the
+      // judgment (labelLiveliness/districtLiveliness still drive the real
+      // glow intensity on the map itself — see addDistrictGlowLayers/the
+      // liveliness effect below, untouched). The group label's "N
+      // DISTRICTS · ZOOM" stays: that's a real navigation hint (Hard rule
+      // 6), not a stat.
+      const subText = label.kind === 'group' ? `${label.districtIds.length} DISTRICTS · ZOOM` : '';
       const el = buildLabelElement(label, subText, () => onTapLabelRef.current(label));
       return new mapboxgl.Marker({ element: el, anchor: 'top' })
         .setLngLat([label.center.lon, label.center.lat])
@@ -591,8 +596,6 @@ export default function Map() {
         .addTo(map);
     }
   }, [session.location]);
-
-  const spanMiles = zoomLevelToSpanMiles(zoomLevel, center.lat, containerWidth);
 
   const moodOn = !!mood?.category;
   const selectedTileIds = mood?.tileIds ?? [];
@@ -719,7 +722,7 @@ export default function Map() {
       <View style={styles.topStack}>
         <View style={styles.headerRow}>
           <View style={styles.ctxWrap}>
-            <ContextStrip kicker={ctxKicker} label={ctxLabel} weather={weather} onPress={openCtx} />
+            <ContextStrip kicker={ctxKicker} label={ctxLabel} onPress={openCtx} />
           </View>
           <EmblemButton initials={initials} onPress={() => router.push('/profile')} />
         </View>
@@ -739,6 +742,12 @@ export default function Map() {
         </Pressable>
       </View>
 
+      {/* 2026-08 concierge positioning pass: this column is real map
+          navigation (native pinch/scroll-zoom exists too, so these buttons
+          are a backup, not the primary way to zoom) — kept, but quieter
+          (styles.zoomBtn) and without the raw mile-span readout that used
+          to sit under it, so it reads as a utility in the corner rather
+          than a stat next to the curated content. */}
       <View style={styles.zoomCol}>
         <Pressable onPress={zoomIn} style={styles.zoomBtn}>
           <Text style={styles.zoomBtnText}>+</Text>
@@ -752,7 +761,6 @@ export default function Map() {
         <Pressable onPress={fitRegion} style={[styles.zoomBtn, styles.zoomBtnSpaced]}>
           <Text style={styles.fitBtnText}>⤢</Text>
         </Pressable>
-        <Text style={styles.scaleLabel}>{formatMiles(spanMiles)}</Text>
       </View>
 
       <Card tone="sheet" style={styles.sheet}>
@@ -785,7 +793,6 @@ export default function Map() {
                     {(district?.name ?? '').toUpperCase()} · {venue.type}
                   </Text>
                 </View>
-                <Text style={styles.sheetScore}>{r.score}</Text>
               </Pressable>
             );
           })}
@@ -987,12 +994,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   zoomBtn: {
-    width: 42,
-    height: 42,
+    width: 38,
+    height: 38,
     borderRadius: radius.md,
     borderWidth: 1,
-    borderColor: color.hairlineMin,
-    backgroundColor: 'rgba(19,17,16,.82)',
+    borderColor: 'rgba(240,233,223,.08)',
+    backgroundColor: 'rgba(19,17,16,.55)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -1014,16 +1021,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: color.textSecondary,
   },
-  scaleLabel: {
-    fontFamily: font.sans,
-    fontSize: 9,
-    letterSpacing: 1.4,
-    color: color.textTertiary,
-    marginTop: spacing.sm + 1,
-    textAlign: 'center',
-    width: 42,
-  },
-
   sheet: {
     position: 'absolute',
     left: 0,
@@ -1099,12 +1096,6 @@ const styles = StyleSheet.create({
     fontSize: 9.5,
     letterSpacing: 1.4,
     color: color.textSecondary,
-  },
-  sheetScore: {
-    fontFamily: font.sans,
-    fontSize: 12,
-    letterSpacing: 1,
-    color: color.gold,
   },
   sheetEmpty: {
     fontFamily: font.serifRegular,

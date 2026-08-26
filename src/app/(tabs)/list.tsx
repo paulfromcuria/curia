@@ -15,7 +15,7 @@ import { Card, EmblemButton, Kicker } from '../../components/curia';
 import { rankVenues, haversineMiles, resolveContext, slugifyType } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
 import { CITIES, DISTRICTS, VENUES, tilesByCategory, venuesByDistrict } from '../../lib/data/seed';
-import { MAX_RADIUS_MILES, MIN_RADIUS_MILES, clampRadiusMiles, districtLiveliness } from '../../lib/map/geo';
+import { MAX_RADIUS_MILES, MIN_RADIUS_MILES, clampRadiusMiles } from '../../lib/map/geo';
 import { useSession } from '../../lib/state/session';
 import { color, font, radius, spacing } from '../../theme';
 import type { TileCategory } from '../../types/models';
@@ -394,7 +394,6 @@ export default function List() {
               <View key={city.id} style={styles.metroGroup}>
                 <Kicker style={styles.metroKicker}>{city.name}</Kicker>
                 {districts.map(({ district, topMatches }) => {
-                  const live = districtLiveliness(district, resolvedContext.day, resolvedContext.band);
                   return (
                     <View key={district.id} style={styles.districtGroup}>
                       <Pressable
@@ -402,7 +401,6 @@ export default function List() {
                         style={styles.districtRow}
                       >
                         <Text style={styles.districtName}>{district.name}</Text>
-                        <Text style={styles.districtLive}>{live}% ALIVE</Text>
                       </Pressable>
                       {topMatches.length === 0 ? (
                         <Text style={styles.districtEmptyNote}>
@@ -411,7 +409,7 @@ export default function List() {
                             : 'Nothing kept here yet — our editors are still working their way through it.'}
                         </Text>
                       ) : (
-                        topMatches.map(({ venue, score }) => (
+                        topMatches.map(({ venue }) => (
                           <Pressable
                             key={venue.id}
                             onPress={() => router.push(`/venue/${venue.id}`)}
@@ -423,7 +421,6 @@ export default function List() {
                             <Text style={styles.districtVenueType} numberOfLines={1}>
                               {venue.type}
                             </Text>
-                            <Text style={styles.districtVenueScore}>{score}</Text>
                           </Pressable>
                         ))
                       )}
@@ -467,10 +464,6 @@ export default function List() {
                   <View style={styles.photo}>
                     <View style={styles.rankBadge}>
                       <Text style={styles.rankBadgeText}>NO. {i + 1}</Text>
-                    </View>
-                    <View style={styles.scoreBadge}>
-                      <Text style={styles.scoreBadgeScore}>{r.score}</Text>
-                      <Text style={styles.scoreBadgeLabel}>MATCH</Text>
                     </View>
                   </View>
                 </Pressable>
@@ -678,12 +671,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: color.textPrimary,
   },
-  districtLive: {
-    fontFamily: font.sans,
-    fontSize: 10,
-    letterSpacing: 1.2,
-    color: color.textTertiary,
-  },
   districtEmptyNote: {
     fontFamily: font.serifRegular,
     fontStyle: 'italic',
@@ -710,14 +697,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     color: color.textSecondary,
   },
-  districtVenueScore: {
-    fontFamily: font.serifRegular,
-    fontSize: 13,
-    color: color.gold,
-    minWidth: 20,
-    textAlign: 'right',
-  },
-
   moodPill: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -857,29 +836,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     letterSpacing: 1.6,
     color: color.goldLight,
-  },
-  scoreBadge: {
-    position: 'absolute',
-    top: 12,
-    right: 12,
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    gap: 5,
-    paddingVertical: 6,
-    paddingHorizontal: 11,
-    borderRadius: radius.pill,
-    backgroundColor: 'rgba(12,10,9,.72)',
-  },
-  scoreBadgeScore: {
-    fontFamily: font.serifRegular,
-    fontSize: 13,
-    color: color.gold,
-  },
-  scoreBadgeLabel: {
-    fontFamily: font.sans,
-    fontSize: 8.5,
-    letterSpacing: 1.6,
-    color: color.textSecondary,
   },
   rowBody: {
     flexDirection: 'row',

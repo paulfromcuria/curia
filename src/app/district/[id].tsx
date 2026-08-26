@@ -95,7 +95,6 @@ export default function DistrictGuide() {
               <View style={styles.liveTrack}>
                 <View style={[styles.liveFill, { width: `${live}%` }]} />
               </View>
-              <Text style={styles.liveLabel}>{live}% ALIVE</Text>
             </View>
           )}
         </View>
@@ -122,10 +121,6 @@ export default function DistrictGuide() {
                   {venue.type} · {'£'.repeat(venue.spendLevel)}
                 </Text>
                 <Text style={styles.matchReason}>{r.reason}</Text>
-              </View>
-              <View style={styles.matchScoreCol}>
-                <Text style={styles.matchScore}>{r.score}</Text>
-                <Text style={styles.matchScoreLabel}>MATCH</Text>
               </View>
             </Pressable>
           );
@@ -214,12 +209,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   liveFill: { height: 2, backgroundColor: color.gold },
-  liveLabel: {
-    fontFamily: font.sans,
-    fontSize: 11,
-    letterSpacing: 1.6,
-    color: color.textSecondary,
-  },
   body: { padding: spacing.lg, gap: spacing.md },
   blurb: {
     fontFamily: font.serifRegular,
@@ -273,15 +262,6 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     color: color.textSecondary,
     maxWidth: 280,
-  },
-  matchScoreCol: { alignItems: 'flex-end' },
-  matchScore: { fontFamily: font.serifRegular, fontSize: 17, color: color.gold },
-  matchScoreLabel: {
-    fontFamily: font.sans,
-    fontSize: 9,
-    letterSpacing: 1.6,
-    color: color.textTertiary,
-    marginTop: 4,
   },
   keptRow: {
     flexDirection: 'row',

@@ -3,14 +3,14 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Kicker } from '../components/curia';
 import { DISTRICTS, VENUES } from '../lib/data/seed';
-import { DEMO_LOCATION } from '../lib/scoring/session-input';
+import { useSession } from '../lib/state/session';
 import { estimateTrip, formatGBP, rideTiersFor } from '../lib/travel/trip';
 import { color, font, radius, spacing } from '../theme';
 
 /**
  * Real Ride-to-venue screen (M6) — matches the design source's `isRide`
- * block: pickup/destination, a real trip line, and a fare estimate across 3
- * tiers (UberX / Uber Comfort / Uber Black).
+ * block: pickup/destination and a fare estimate across 3 tiers (UberX /
+ * Uber Comfort / Uber Black).
  *
  * The fare-estimate structure is real and working (src/lib/travel/trip.ts
  * ports the design source's own `trip()`/tier-multiplier formulas exactly —
@@ -23,13 +23,24 @@ import { color, font, radius, spacing } from '../theme';
  * mirrors that same honest simulation rather than guessing at a deep-link
  * integration (e.g. a real `uber://` URI scheme call) that would silently
  * fail without real client credentials.
+ *
+ * 2026-08 concierge positioning pass, at explicit user request: dropped the
+ * raw "X mi · about Y min by road" readout from the trip card — a
+ * concierge offers to sort the car, not a logistics printout. Trip is now
+ * computed from `session.searchOrigin`, not the old `DEMO_LOCATION`
+ * fallback this screen used until this same pass — that's the one real
+ * "where you are" source of truth List/Map/venue detail all already used
+ * (src/app/venue/[id].tsx, fixed the same way), so this screen's distance
+ * can never quietly disagree with the venue detail page's "FROM YOU" for
+ * the same venue.
  */
 export default function Ride() {
   const router = useRouter();
+  const session = useSession();
   const { venueId } = useLocalSearchParams<{ venueId?: string }>();
   const venue = venueId ? VENUES.find((v) => v.id === venueId) : undefined;
   const district = venue ? DISTRICTS.find((d) => d.id === venue.districtId) : undefined;
-  const trip = venue ? estimateTrip(DEMO_LOCATION, venue) : undefined;
+  const trip = venue ? estimateTrip(session.searchOrigin, venue) : undefined;
   const tiers = trip ? rideTiersFor(trip) : [];
 
   const [tierIndex, setTierIndex] = useState(0);
@@ -71,11 +82,6 @@ export default function Ride() {
               </View>
             </View>
           </View>
-          {trip && (
-            <Text style={styles.tripMeta}>
-              {trip.roadMiles.toFixed(1)} mi · about {trip.driveMinutes} min by road
-            </Text>
-          )}
         </View>
 
         <Kicker style={styles.chooseKicker}>Choose a ride</Kicker>
@@ -176,15 +182,6 @@ const styles = StyleSheet.create({
     fontSize: 13.5,
     color: color.borderNeutral,
     marginTop: 6,
-  },
-  tripMeta: {
-    fontFamily: font.sans,
-    fontSize: 11.5,
-    color: color.textSecondary,
-    marginTop: spacing.md,
-    paddingTop: spacing.md,
-    borderTopWidth: 1,
-    borderTopColor: color.hairlineMin,
   },
   chooseKicker: { marginTop: spacing.xl },
   tierList: { gap: spacing.sm, marginTop: spacing.md },

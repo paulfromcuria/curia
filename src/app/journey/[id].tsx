@@ -3,7 +3,6 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Kicker } from '../../components/curia';
 import { JOURNEYS, VENUES, journeyDistricts } from '../../lib/data/seed';
-import { DEMO_LOCATION } from '../../lib/scoring/session-input';
 import { useSession } from '../../lib/state/session';
 import { estimateTrip } from '../../lib/travel/trip';
 import { color, font, radius, spacing } from '../../theme';
@@ -64,7 +63,11 @@ export default function JourneyDetail() {
   const firstVenue = stops[0]?.venue;
   const startJourney = () => {
     if (!firstVenue) return;
-    const trip = estimateTrip(DEMO_LOCATION, firstVenue);
+    // session.searchOrigin, not the old DEMO_LOCATION fallback (2026-08 —
+    // same fix as src/app/walk.tsx/ride.tsx/venue/[id].tsx) — this decides
+    // the real walk-vs-ride routing choice below, so it has to agree with
+    // whatever "where you are" every other screen is using.
+    const trip = estimateTrip(session.searchOrigin, firstVenue);
     router.push({ pathname: trip.walkable ? '/walk' : '/ride', params: { venueId: firstVenue.id } });
   };
 

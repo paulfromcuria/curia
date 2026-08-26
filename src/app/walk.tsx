@@ -2,7 +2,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Kicker } from '../components/curia';
 import { DISTRICTS, VENUES } from '../lib/data/seed';
-import { DEMO_LOCATION } from '../lib/scoring/session-input';
+import { useSession } from '../lib/state/session';
 import { estimateTrip } from '../lib/travel/trip';
 import { color, font, radius, spacing } from '../theme';
 
@@ -13,7 +13,16 @@ import { color, font, radius, spacing } from '../theme';
  *
  * What's real vs. flagged, so this doesn't read as more finished than it is:
  * distance and ETA are real (src/lib/travel/trip.ts, the same haversine-based
- * estimate Map/List already use for their own distance readouts). Turn-by-
+ * estimate Map/List already use for their own distance readouts), computed
+ * from `session.searchOrigin` (2026-08 — this screen used to use the old
+ * `DEMO_LOCATION` fallback, the same fix applied to src/app/ride.tsx and
+ * src/app/venue/[id].tsx for the same reason: one real "where you are"
+ * source of truth, not a separately-guessed one per screen). Distance/ETA
+ * shown here is live navigation progress, not a recommendation's scoring —
+ * the 2026-08 concierge positioning pass that removed match scores and
+ * logistics readouts elsewhere deliberately left this screen's remaining-
+ * distance/ETA alone; a walking-directions screen that can't tell you how
+ * far is left isn't a concierge touch, it's broken. Turn-by-
  * turn directions are NOT real — the design source's own street-by-street
  * steps ("Head north out of the square", "STEVENSON SQUARE"...) are a fixed,
  * hand-authored 5-step demo sequence in the prototype, not a real routing
@@ -26,10 +35,11 @@ import { color, font, radius, spacing } from '../theme';
  */
 export default function Walk() {
   const router = useRouter();
+  const session = useSession();
   const { venueId } = useLocalSearchParams<{ venueId?: string }>();
   const venue = venueId ? VENUES.find((v) => v.id === venueId) : undefined;
   const district = venue ? DISTRICTS.find((d) => d.id === venue.districtId) : undefined;
-  const trip = venue ? estimateTrip(DEMO_LOCATION, venue) : undefined;
+  const trip = venue ? estimateTrip(session.searchOrigin, venue) : undefined;
 
   return (
     <View style={styles.container}>

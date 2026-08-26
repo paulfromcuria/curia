@@ -32,7 +32,6 @@ import {
   districtLiveliness,
   districtsInBounds,
   groupVisibleDistricts,
-  labelLiveliness,
   normalizeLiveliness,
   radiusMilesToZoomLevel,
   spanMilesToRadiusMiles,
@@ -327,8 +326,6 @@ export default function Map() {
     return groupVisibleDistricts(districtsInBounds(bounds), zoomLevel, containerWidth);
   }, [bounds, zoomLevel, containerWidth]);
 
-  const spanMiles = zoomLevelToSpanMiles(zoomLevel, center.lat, containerWidth);
-
   const moodOn = !!mood?.category;
   const selectedTileIds = mood?.tileIds ?? [];
   const moodCategoryTiles = mood?.category ? moodTileOptionsForCategory(mood.category) : [];
@@ -543,11 +540,18 @@ export default function Map() {
               >
                 {label.label}
               </Text>
-              <Text style={styles.labelSub} numberOfLines={1}>
-                {label.kind === 'group'
-                  ? `${label.districtIds.length} DISTRICTS · ZOOM`
-                  : `${labelLiveliness(label, resolved.day, resolved.band)} ALIVE`}
-              </Text>
+              {/* 2026-08 concierge positioning pass: a raw "NN ALIVE"
+                  percentage on every district pin read as showing the
+                  calculation, not the judgment (labelLiveliness/
+                  districtLiveliness still drive the real glow intensity on
+                  the map itself — see the district glow layers above,
+                  untouched). The group label's "N DISTRICTS · ZOOM" stays:
+                  that's a real navigation hint (Hard rule 6), not a stat. */}
+              {label.kind === 'group' && (
+                <Text style={styles.labelSub} numberOfLines={1}>
+                  {label.districtIds.length} DISTRICTS · ZOOM
+                </Text>
+              )}
             </Pressable>
           </MarkerView>
         ))}
@@ -570,7 +574,7 @@ export default function Map() {
       <View style={styles.topStack}>
         <View style={styles.headerRow}>
           <View style={styles.ctxWrap}>
-            <ContextStrip kicker={ctxKicker} label={ctxLabel} weather={weather} onPress={openCtx} />
+            <ContextStrip kicker={ctxKicker} label={ctxLabel} onPress={openCtx} />
           </View>
           <EmblemButton initials={initials} onPress={() => router.push('/profile')} />
         </View>
@@ -590,6 +594,12 @@ export default function Map() {
         </Pressable>
       </View>
 
+      {/* 2026-08 concierge positioning pass: this column is real map
+          navigation (native pinch-zoom exists too, so these buttons are a
+          backup, not the primary way to zoom) — kept, but quieter
+          (styles.zoomBtn) and without the raw mile-span readout that used
+          to sit under it, so it reads as a utility in the corner rather
+          than a stat next to the curated content. */}
       <View style={styles.zoomCol}>
         <Pressable onPress={zoomIn} style={styles.zoomBtn}>
           <Text style={styles.zoomBtnText}>+</Text>
@@ -603,7 +613,6 @@ export default function Map() {
         <Pressable onPress={fitRegion} style={[styles.zoomBtn, styles.zoomBtnSpaced]}>
           <Text style={styles.fitBtnText}>⤢</Text>
         </Pressable>
-        <Text style={styles.scaleLabel}>{formatMiles(spanMiles)}</Text>
       </View>
 
       <Card tone="sheet" style={styles.sheet}>
@@ -636,7 +645,6 @@ export default function Map() {
                     {(district?.name ?? '').toUpperCase()} · {venue.type}
                   </Text>
                 </View>
-                <Text style={styles.sheetScore}>{r.score}</Text>
               </Pressable>
             );
           })}
@@ -911,12 +919,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   zoomBtn: {
-    width: 42,
-    height: 42,
+    width: 38,
+    height: 38,
     borderRadius: radius.md,
     borderWidth: 1,
-    borderColor: color.hairlineMin,
-    backgroundColor: 'rgba(19,17,16,.82)',
+    borderColor: 'rgba(240,233,223,.08)',
+    backgroundColor: 'rgba(19,17,16,.55)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -938,16 +946,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: color.textSecondary,
   },
-  scaleLabel: {
-    fontFamily: font.sans,
-    fontSize: 9,
-    letterSpacing: 1.4,
-    color: color.textTertiary,
-    marginTop: spacing.sm + 1,
-    textAlign: 'center',
-    width: 42,
-  },
-
   sheet: {
     position: 'absolute',
     left: 0,
@@ -1023,12 +1021,6 @@ const styles = StyleSheet.create({
     fontSize: 9.5,
     letterSpacing: 1.4,
     color: color.textSecondary,
-  },
-  sheetScore: {
-    fontFamily: font.sans,
-    fontSize: 12,
-    letterSpacing: 1,
-    color: color.gold,
   },
   sheetEmpty: {
     fontFamily: font.serifRegular,

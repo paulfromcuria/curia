@@ -4,12 +4,20 @@ import { color, font, radius, spacing } from '../../theme';
 interface ContextStripProps {
   kicker: string;
   label: string;
-  weather: string;
+  /** Optional — 2026-08 concierge positioning pass, at explicit user
+   * request: a live weather readout sitting in the primary view read as
+   * mechanics-on-display ("the weather pill"), not judgment. Weather still
+   * feeds real ranking (rank-venues.ts's scoreWeather) and is still visible
+   * to anyone who taps through — it's folded into the day/time sheet's own
+   * forecast note (map.web.tsx/map.tsx's `ctxForecast`) rather than shown
+   * here, so it's a tap away instead of always-on chrome. Left optional
+   * rather than deleted so a future call site can still opt back in. */
+  weather?: string;
   onPress?: () => void;
 }
 
 /**
- * The persistent kicker strip with live weather/time/day — a signature
+ * The persistent kicker strip with live time/day context — a signature
  * element per CLAUDE.md, and shared between Map and List so context never
  * drifts between the two tabs (Hard rule 5).
  */
@@ -21,7 +29,7 @@ export function ContextStrip({ kicker, label, weather, onPress }: ContextStripPr
         <Text style={styles.label}>{label}</Text>
       </View>
       <View style={styles.rightCol}>
-        <Text style={styles.weather}>{weather}</Text>
+        {!!weather && <Text style={styles.weather}>{weather}</Text>}
         <Text style={styles.chevron}>⌄</Text>
       </View>
     </Pressable>
