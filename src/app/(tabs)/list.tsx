@@ -14,12 +14,18 @@ import {
 import { Card, EmblemButton, Kicker } from '../../components/curia';
 import { rankVenues, haversineMiles, resolveContext, slugifyType } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
-import { DISTRICTS, VENUES, tilesByCategory } from '../../lib/data/seed';
-import { MAX_RADIUS_MILES, MIN_RADIUS_MILES, clampRadiusMiles } from '../../lib/map/geo';
+import { CITIES, DISTRICTS, VENUES, tilesByCategory, venuesByDistrict } from '../../lib/data/seed';
+import { MAX_RADIUS_MILES, MIN_RADIUS_MILES, clampRadiusMiles, districtLiveliness } from '../../lib/map/geo';
 import { useSession } from '../../lib/state/session';
 import { color, font, radius, spacing } from '../../theme';
 import type { TileCategory } from '../../types/models';
 import type { MatchmakingInput } from '../../types/matchmaking';
+
+/** How many top matches to show per district in the "Districts" browse mode
+ * — tighter than District Guide's own 4 (src/app/district/[id].tsx), since
+ * here every district on the page shows its own mini-list at once rather
+ * than one district getting the full screen. */
+const TOP_MATCHES_PER_DISTRICT = 3;
 
 const BAND_LABEL: Record<string, string> = {
   morning: 'Morning',
@@ -290,16 +296,77 @@ export default function List() {
     ? 'RANKED FOR NOW'
     : `${capitalize(resolvedContext.day)} · ${BAND_LABEL[resolvedContext.band]}`.toUpperCase();
 
+  // "Districts" browse mode (2026-08, at explicit user request: "a way to
+  // more easily explore districts... shows top matches in each district").
+  // Reuses District Guide's own established pattern
+  // (src/app/district/[id].tsx) for exactly this: a district-centered
+  // matchInput with radiusMiles effectively unlimited, ranking only that
+  // district's own venues — so browsing isn't accidentally constrained by
+  // whatever radius the RANKED tab's slider happens to be set to right now
+  // (the whole point is looking beyond it). Mood still applies (Hard rule
+  // 5's "mood restricts the candidate pool" contract), so switching tabs
+  // here never disagrees with what the RANKED tab would show for the same
+  // mood — only the distance hard filter is deliberately not in play, the
+  // same deliberate exception District Guide already makes.
+  const [viewMode, setViewMode] = useState<'ranked' | 'districts'>('ranked');
+
+  const districtMatches = useMemo(() => {
+    if (viewMode !== 'districts') return [];
+    return DISTRICTS.map((d) => {
+      const input = buildMatchmakingInputFromSession(session, {
+        context,
+        moodFilter,
+        location: { lat: d.lat, lon: d.lon },
+        radiusMiles: 999,
+      });
+      const districtVenues = venuesByDistrict(d.id);
+      const ranked = rankVenues(input, districtVenues, DISTRICTS).ranked.slice(0, TOP_MATCHES_PER_DISTRICT);
+      const topMatches = ranked
+        .map((r) => {
+          const venue = districtVenues.find((v) => v.id === r.venueId);
+          return venue ? { venue, score: r.score, reason: r.reason } : null;
+        })
+        .filter((m): m is { venue: (typeof districtVenues)[number]; score: number; reason: string } => !!m);
+      return { district: d, topMatches };
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewMode, session, context, moodFilter]);
+
+  const districtsByMetro = useMemo(() => {
+    return CITIES.map((city) => {
+      const inMetro = districtMatches.filter((dm) => dm.district.metro === city.id);
+      // Districts with a real top match lead; empty ones (nothing curated
+      // there yet, or nothing survives the current mood filter) sink to the
+      // bottom rather than disappearing — District Guide's own philosophy
+      // is to say so plainly, not hide the gap.
+      const sorted = [...inMetro].sort((a, b) => (b.topMatches[0]?.score ?? -1) - (a.topMatches[0]?.score ?? -1));
+      return { city, districts: sorted };
+    }).filter((m) => m.districts.length > 0);
+  }, [districtMatches]);
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.header}>
           <View style={styles.headerText}>
-            <Kicker>Ranked for you</Kicker>
-            <Text style={styles.headline}>{listHeadline}</Text>
+            <Kicker>{viewMode === 'ranked' ? 'Ranked for you' : 'Explore by district'}</Kicker>
+            <Text style={styles.headline}>
+              {viewMode === 'ranked' ? listHeadline : `${districtsByMetro.reduce((n, m) => n + m.districts.length, 0)} districts`}
+            </Text>
             <Text style={styles.meta}>{listMeta}</Text>
           </View>
           <EmblemButton initials="AV" onPress={() => router.push('/profile')} />
+        </View>
+
+        <View style={styles.viewModeRow}>
+          {(['ranked', 'districts'] as const).map((mode) => (
+            <Pressable key={mode} onPress={() => setViewMode(mode)} style={styles.viewModeTab}>
+              <Text style={[styles.viewModeLabel, viewMode === mode && styles.viewModeLabelActive]}>
+                {mode === 'ranked' ? 'RANKED' : 'DISTRICTS'}
+              </Text>
+              {viewMode === mode && <View style={styles.viewModeUnderline} />}
+            </Pressable>
+          ))}
         </View>
 
         <Pressable
@@ -321,21 +388,68 @@ export default function List() {
           )}
         </Pressable>
 
-        <Card tone="inset" style={styles.radiusCard}>
-          <View style={styles.radiusHeader}>
-            <Kicker style={styles.radiusKicker}>Search radius</Kicker>
-            <Text style={styles.radiusValue}>{radiusLabelFor(radiusMiles)}</Text>
+        {viewMode === 'districts' ? (
+          <View style={styles.districtBrowse}>
+            {districtsByMetro.map(({ city, districts }) => (
+              <View key={city.id} style={styles.metroGroup}>
+                <Kicker style={styles.metroKicker}>{city.name}</Kicker>
+                {districts.map(({ district, topMatches }) => {
+                  const live = districtLiveliness(district, resolvedContext.day, resolvedContext.band);
+                  return (
+                    <View key={district.id} style={styles.districtGroup}>
+                      <Pressable
+                        onPress={() => router.push(`/district/${district.id}`)}
+                        style={styles.districtRow}
+                      >
+                        <Text style={styles.districtName}>{district.name}</Text>
+                        <Text style={styles.districtLive}>{live}% ALIVE</Text>
+                      </Pressable>
+                      {topMatches.length === 0 ? (
+                        <Text style={styles.districtEmptyNote}>
+                          {moodOn
+                            ? 'Nothing here matches this mood right now.'
+                            : 'Nothing kept here yet — our editors are still working their way through it.'}
+                        </Text>
+                      ) : (
+                        topMatches.map(({ venue, score }) => (
+                          <Pressable
+                            key={venue.id}
+                            onPress={() => router.push(`/venue/${venue.id}`)}
+                            style={styles.districtVenueRow}
+                          >
+                            <Text style={styles.districtVenueName} numberOfLines={1}>
+                              {venue.name}
+                            </Text>
+                            <Text style={styles.districtVenueType} numberOfLines={1}>
+                              {venue.type}
+                            </Text>
+                            <Text style={styles.districtVenueScore}>{score}</Text>
+                          </Pressable>
+                        ))
+                      )}
+                    </View>
+                  );
+                })}
+              </View>
+            ))}
           </View>
-          <RadiusSlider value={radiusMiles} onChange={setRadiusMiles} />
-          <View style={styles.radiusEndpoints}>
-            <Text style={styles.radiusEndpoint}>¼ MI</Text>
-            <Text style={styles.radiusEndpoint}>{radiusHintFor(radiusMiles)}</Text>
-            <Text style={styles.radiusEndpoint}>30 MI</Text>
-          </View>
-          <Text style={styles.radiusNote}>{radiusNoteFor(radiusMiles)}</Text>
-        </Card>
+        ) : (
+          <>
+            <Card tone="inset" style={styles.radiusCard}>
+              <View style={styles.radiusHeader}>
+                <Kicker style={styles.radiusKicker}>Search radius</Kicker>
+                <Text style={styles.radiusValue}>{radiusLabelFor(radiusMiles)}</Text>
+              </View>
+              <RadiusSlider value={radiusMiles} onChange={setRadiusMiles} />
+              <View style={styles.radiusEndpoints}>
+                <Text style={styles.radiusEndpoint}>¼ MI</Text>
+                <Text style={styles.radiusEndpoint}>{radiusHintFor(radiusMiles)}</Text>
+                <Text style={styles.radiusEndpoint}>30 MI</Text>
+              </View>
+              <Text style={styles.radiusNote}>{radiusNoteFor(radiusMiles)}</Text>
+            </Card>
 
-        <View style={styles.rows}>
+            <View style={styles.rows}>
           {result.ranked.map((r, i) => {
             const venue = VENUES.find((v) => v.id === r.venueId);
             if (!venue) return null;
@@ -404,7 +518,9 @@ export default function List() {
               </Text>
             </View>
           )}
-        </View>
+            </View>
+          </>
+        )}
       </ScrollView>
 
       <Modal
@@ -507,6 +623,99 @@ const styles = StyleSheet.create({
     letterSpacing: 1.6,
     color: color.textSecondary,
     marginTop: 8,
+  },
+
+  viewModeRow: {
+    flexDirection: 'row',
+    gap: spacing.lg,
+    marginTop: spacing.lg,
+    marginHorizontal: spacing.lg,
+  },
+  viewModeTab: {
+    paddingBottom: spacing.sm,
+  },
+  viewModeLabel: {
+    fontFamily: font.sansMedium,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: color.textTertiary,
+  },
+  viewModeLabelActive: {
+    color: color.textPrimary,
+  },
+  viewModeUnderline: {
+    marginTop: 6,
+    height: 2,
+    backgroundColor: color.gold,
+    borderRadius: 1,
+  },
+
+  districtBrowse: {
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.lg,
+    gap: spacing.xl,
+  },
+  metroGroup: {
+    gap: spacing.md,
+  },
+  metroKicker: {
+    fontSize: 10,
+  },
+  districtGroup: {
+    gap: 6,
+    paddingBottom: spacing.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: color.hairlineMin,
+  },
+  districtRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    paddingVertical: spacing.xs,
+  },
+  districtName: {
+    fontFamily: font.serif,
+    fontSize: 20,
+    color: color.textPrimary,
+  },
+  districtLive: {
+    fontFamily: font.sans,
+    fontSize: 10,
+    letterSpacing: 1.2,
+    color: color.textTertiary,
+  },
+  districtEmptyNote: {
+    fontFamily: font.serifRegular,
+    fontStyle: 'italic',
+    fontSize: 13,
+    color: color.textSecondary,
+    paddingVertical: 4,
+  },
+  districtVenueRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    paddingVertical: 6,
+  },
+  districtVenueName: {
+    flex: 1,
+    minWidth: 0,
+    fontFamily: font.serifRegular,
+    fontSize: 15,
+    color: color.textPrimary,
+  },
+  districtVenueType: {
+    fontFamily: font.sans,
+    fontSize: 9.5,
+    letterSpacing: 1,
+    color: color.textSecondary,
+  },
+  districtVenueScore: {
+    fontFamily: font.serifRegular,
+    fontSize: 13,
+    color: color.gold,
+    minWidth: 20,
+    textAlign: 'right',
   },
 
   moodPill: {
