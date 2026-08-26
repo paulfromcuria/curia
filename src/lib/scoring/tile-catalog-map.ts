@@ -119,4 +119,10 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
   'LISTENING BAR': 'Drink',
   'BLACK BOX THEATER': 'Do',
   'FRENCH BRASSERIE': 'Eat',
+  // Added 2026-08 for Happy Seasons (Manchester Chinatown) — a real venue
+  // from the daily research pipeline with no existing Eat type/tile fit
+  // for a roast-meats specialist. Category-only, so mood filtering still
+  // finds it; no onboarding tile targets it specifically yet (see
+  // docs/data/venues.json's own _manchesterCheshireResearchSource note).
+  'CANTONESE ROAST': 'Eat',
 };
