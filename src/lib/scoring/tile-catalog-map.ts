@@ -50,6 +50,9 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   'Small plates': ['small-plates'],
   'Hidden gem': ['speakeasy'],
   Celebratory: ['celebratory'],
+  // Added 2026-08 for Aldeli (Cheshire expansion) — the first venue of this
+  // type; 'Brunch' previously matched zero venues anywhere in the app.
+  Brunch: ['brunch-spot'],
 };
 
 /**
@@ -125,4 +128,13 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
   // finds it; no onboarding tile targets it specifically yet (see
   // docs/data/venues.json's own _manchesterCheshireResearchSource note).
   'CANTONESE ROAST': 'Eat',
+  // Added 2026-08 for the Cheshire expansion (see docs/data/venues.json's
+  // own _cheshireExpansionSource note). HANDMADE PASTA already existed as a
+  // type (see above) — Sugo Pasta Kitchen is its first real venue. ALE HOUSE
+  // (The Old Dancer) and GREEK TAVERNA (The Stolen Lamb) are new, left
+  // category-only like CANTONESE ROAST since no tile fits either precisely.
+  // BRUNCH SPOT (Aldeli) also maps to the real 'Brunch' tile above.
+  'ALE HOUSE': 'Drink',
+  'GREEK TAVERNA': 'Eat',
+  'BRUNCH SPOT': 'Eat',
 };
