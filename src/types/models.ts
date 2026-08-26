@@ -76,7 +76,7 @@ export interface User {
   you: YouProfile;
 }
 
-export type MetroId = 'manchester' | 'cheshire' | 'los-angeles';
+export type MetroId = 'manchester' | 'cheshire';
 
 export interface City {
   id: MetroId;

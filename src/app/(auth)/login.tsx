@@ -44,8 +44,7 @@ export default function Login() {
           <Kicker>Curia</Kicker>
           <Text style={styles.title}>The evening, already decided.</Text>
           <Text style={styles.blurb}>
-            A private map of the rooms worth your night, across Manchester, Cheshire, and Los
-            Angeles.
+            A private map of the rooms worth your night, across Manchester and Cheshire.
           </Text>
         </View>
 

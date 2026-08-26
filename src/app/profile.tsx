@@ -158,7 +158,7 @@ export default function Profile() {
       ))}
 
       <Button label="Log out" variant="secondary" onPress={handleLogout} />
-      <Text style={styles.footer}>CURIA · MANCHESTER · CHESHIRE · LOS ANGELES</Text>
+      <Text style={styles.footer}>CURIA · MANCHESTER · CHESHIRE</Text>
     </ScrollView>
   );
 }

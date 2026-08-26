@@ -81,11 +81,6 @@ export const districtAccent: Record<string, string> = {
   wilmslow: '#B85C3E',
   'alderley-edge': '#A66B4F',
   mobberley: '#7A7048',
-  'beverly-hills': '#CBA35C',
-  'west-hollywood': '#B08968',
-  'santa-monica': '#D4A85F',
-  venice: '#A57C52',
-  'culver-city': '#C48B5C',
 };
 
 export const font = {

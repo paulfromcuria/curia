@@ -51,9 +51,9 @@ export const DISTRICTS: District[] = districtsRaw.districts.map((d) => ({
   // scoreDayOfWeek signal (previously a no-op against real seed data, see M3
   // report) has real values to read. bandMultiplier defaults to the
   // district's kind (city/county), but a district can carry its own
-  // override directly in the JSON (Beverly Hills/West Hollywood do, as of
-  // 2026-08 — see districts.json's _bandMultiplierSource note) when sharing
-  // the generic kind curve would flatten real differences in character.
+  // override directly in the JSON when sharing the generic kind curve would
+  // flatten real differences in character — see districts.json's own
+  // _bandMultiplierSource note for the mechanism and its history.
   dayMultiplier: districtsRaw.dayMultiplier,
   bandMultiplier:
     (d as { bandMultiplier?: Record<string, number> }).bandMultiplier ??
