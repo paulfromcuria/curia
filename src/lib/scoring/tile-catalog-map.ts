@@ -25,7 +25,7 @@
  */
 export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // Do
-  Markets: ['market-hall'],
+  Markets: ['market-hall', 'artisan-market'],
   'Independent cinema': ['independent-cinema'],
   Theatre: ['performing-arts', 'black-box-theater'],
   'Ballet & opera': ['performing-arts'],
@@ -33,6 +33,13 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   'Live music': ['live-music'],
   'Art galleries': ['art-gallery'],
   'Antiques & design': ['design-gallery'],
+  // Added 2026-08 for the Wilmslow density pass (see docs/data/venues.json's
+  // own _wilmslowDensitySource note) — four more real Do tile-coverage gaps
+  // closed, all previously zero-venue anywhere in the app.
+  'Parks & green space': ['riverside-park'],
+  'Cookery & craft': ['cookery-school'],
+  'Walking tours': ['walking-tour'],
+  'Spectator sport': ['rugby-club', 'golf-club'],
 
   // Drink
   'Cocktail bars': ['cocktail-bar', 'speakeasy'],
@@ -42,6 +49,9 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   'Hotel bars': ['hotel-bar'],
   'Cafés (late)': ['coffee-room', 'bakery'],
   "Members' clubs": ['members-club'],
+  // Added 2026-08 for the Wilmslow density pass — Symposium is the first
+  // venue of this type; previously zero-venue anywhere in the app.
+  'Late-night lounges': ['late-night-lounge'],
 
   // Eat
   'Tasting menu': ['tasting-menu'],
@@ -137,4 +147,22 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
   'ALE HOUSE': 'Drink',
   'GREEK TAVERNA': 'Eat',
   'BRUNCH SPOT': 'Eat',
+  // Added 2026-08 for the Wilmslow density pass (see docs/data/venues.json's
+  // own _wilmslowDensitySource note). Most are category-only, same treatment
+  // as CANTONESE ROAST/ALE HOUSE/GREEK TAVERNA above — a small town's real
+  // venues don't sort neatly into the tile catalog's city-scale categories.
+  'ITALIAN RESTAURANT': 'Eat',
+  'MIDDLE EASTERN': 'Eat',
+  'GASTROPUB': 'Eat',
+  'THAI RESTAURANT': 'Eat',
+  'VIETNAMESE': 'Eat',
+  'LATE-NIGHT LOUNGE': 'Drink',
+  'RIVERSIDE PARK': 'Do',
+  'COOKERY SCHOOL': 'Do',
+  'ARTISAN MARKET': 'Do',
+  'RUGBY CLUB': 'Do',
+  'GOLF CLUB': 'Do',
+  'WELLNESS STUDIO': 'Do',
+  'WALKING TOUR': 'Do',
+  'FITNESS STUDIO': 'Do',
 };
