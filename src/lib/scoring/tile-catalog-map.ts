@@ -165,4 +165,11 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
   'WELLNESS STUDIO': 'Do',
   'WALKING TOUR': 'Do',
   'FITNESS STUDIO': 'Do',
+  // Added 2026-09-02 by curia-suggestion-review promoting Waugh Brow Farm
+  // Shop (Mobberley) and Yang Sing (Chinatown) from docs/data/venue-suggestions.json.
+  // Both category-only (Eat), same treatment as CANTONESE ROAST/GREEK TAVERNA
+  // above — no existing tile fits a working-farm shop-and-café or a dim sum
+  // specialist precisely.
+  'FARM SHOP': 'Eat',
+  'DIM SUM': 'Eat',
 };
