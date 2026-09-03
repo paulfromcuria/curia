@@ -52,6 +52,9 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // Added 2026-08 for the Wilmslow density pass — Symposium is the first
   // venue of this type; previously zero-venue anywhere in the app.
   'Late-night lounges': ['late-night-lounge'],
+  // Added 2026-09-03 for Bacchus (Prestbury) — the first venue of this
+  // type; 'Champagne bars' previously matched zero venues anywhere in the app.
+  'Champagne bars': ['champagne-bar'],
 
   // Eat
   'Tasting menu': ['tasting-menu'],
@@ -165,4 +168,17 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
   'WELLNESS STUDIO': 'Do',
   'WALKING TOUR': 'Do',
   'FITNESS STUDIO': 'Do',
+  // Added 2026-09-03 for the Prestbury/Cheadle Hulme/Knutsford first-venue
+  // pass (see docs/data/venues.json's own source note). CHAMPAGNE BAR maps
+  // to the real 'Champagne bars' tile above; RARE BOOKSHOP and CRICKET CLUB
+  // were introduced the same day by the research pipeline itself.
+  'CHAMPAGNE BAR': 'Drink',
+  'INDIAN RESTAURANT': 'Eat',
+  'RARE BOOKSHOP': 'Do',
+  'CRICKET CLUB': 'Do',
+  // FARM SHOP found missing 2026-09-03 during the same pass, unrelated to
+  // it: introduced by the daily research pipeline's Sept 2 batch (Waugh
+  // Brow Farm Shop, Mobberley) but never wired into this map, so mood
+  // filtering's category-only bucket silently missed it.
+  'FARM SHOP': 'Eat',
 };
