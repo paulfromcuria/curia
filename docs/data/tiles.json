@@ -1,5 +1,6 @@
 {
-  "_source": "Transcribed from the Claude Design handoff bundle's CATS constant in Curia.dc.html (fetched 2026-07-30) — the real onboarding tile catalog for Do/Drink/Eat, 15 tiles per category. Sub-preferences (`subPreferences`) default ON per CLAUDE.md Hard rule 2; this file lists the possible set only, not any user's on/off state. One entry ('Cafés (late)') has had the source file's mangled UTF-8 encoding (rendered as 'CafÃ©s') corrected back to a plain é.",
+  "_source": "Transcribed from the Claude Design handoff bundle's CATS constant in Curia.dc.html (fetched 2026-07-30) — the real onboarding tile catalog for Do/Drink/Eat, originally 15 tiles per category. Sub-preferences (`subPreferences`) default ON per CLAUDE.md Hard rule 2; this file lists the possible set only, not any user's on/off state. One entry ('Cafés (late)') has had the source file's mangled UTF-8 encoding (rendered as 'CafÃ©s') corrected back to a plain é.",
+  "_neighbourhoodFavouriteSource": "'Neighbourhood favourite' added to Eat 2026-09-03 (16th Eat tile, catalog no longer 15/15/15 by design, not an oversight) at explicit user direction after a full catalog review: 'we aren't doing cuisine by country as a category option as its overdone... people want to know the atmosphere or moment that a place is known for, not what kind of food.' Closes the largest real gap the review found — 7 venues (Happy Seasons, Rudy's, Vietbowl, Delhi Dream, Phanthong Thai, The Stolen Lamb, Waugh Brow Farm Shop) sharing a real, distinct, unpretentious/no-fuss/long-established mood that no existing tile captured — see src/lib/scoring/tile-catalog-map.ts's own note on this tile for the per-venue reasoning. Deliberately a mood, not a cuisine list, matching that direction exactly.",
   "categories": {
     "Do": [
       { "name": "Culture", "subPreferences": ["Art", "History", "Libraries", "Museums", "Photography"] },
@@ -50,7 +51,8 @@
       { "name": "Al fresco", "subPreferences": ["Heated terrace", "Greenery", "Daytime hours"] },
       { "name": "Private dining", "subPreferences": ["Bookable rooms", "Bespoke menus", "Minimum spend"] },
       { "name": "Wine-led dining", "subPreferences": ["Sommelier pairing", "By-the-glass depth"] },
-      { "name": "Celebratory", "subPreferences": ["Set menus", "Champagne on arrival", "Dessert theatrics"] }
+      { "name": "Celebratory", "subPreferences": ["Set menus", "Champagne on arrival", "Dessert theatrics"] },
+      { "name": "Neighbourhood favourite", "subPreferences": ["No bookings", "Decades-old", "Family-run"] }
     ]
   }
 }

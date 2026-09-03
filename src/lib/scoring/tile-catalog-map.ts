@@ -29,43 +29,105 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   'Independent cinema': ['independent-cinema'],
   Theatre: ['performing-arts', 'black-box-theater'],
   'Ballet & opera': ['performing-arts'],
-  'Spa & wellness': ['spa'],
+  // wellness-studio added 2026-09-03 (Wilmslow Pilates & Wellness) — real
+  // pampering/relaxation overlap with spa, unlike fitness-studio below.
+  'Spa & wellness': ['spa', 'wellness-studio'],
   'Live music': ['live-music'],
   'Art galleries': ['art-gallery'],
-  'Antiques & design': ['design-gallery'],
+  // rare-bookshop added 2026-09-03 (Manchester Rare Books) — curated,
+  // browsing, collecting is the same real spirit as a design showroom.
+  'Antiques & design': ['design-gallery', 'rare-bookshop'],
   // Added 2026-08 for the Wilmslow density pass (see docs/data/venues.json's
   // own _wilmslowDensitySource note) — four more real Do tile-coverage gaps
   // closed, all previously zero-venue anywhere in the app.
   'Parks & green space': ['riverside-park'],
   'Cookery & craft': ['cookery-school'],
   'Walking tours': ['walking-tour'],
-  'Spectator sport': ['rugby-club', 'golf-club'],
+  // cricket-club added 2026-09-03 (Mobberley Cricket Club) — same spectator
+  // afternoon as rugby/golf, just a different pitch.
+  'Spectator sport': ['rugby-club', 'golf-club', 'cricket-club'],
+  // fitness-studio (Alchemy Personal Training) deliberately left untiled —
+  // 2026-09-03 review: one-to-one personal training isn't an evening-plans
+  // discovery the way spa/wellness is; CATEGORY_BY_VENUE_TYPE below still
+  // has it as 'Do' so mood filtering finds it, it just has no dedicated tile.
 
   // Drink
   'Cocktail bars': ['cocktail-bar', 'speakeasy'],
   'Jazz bars': ['jazz-bar'],
   'Rooftop & scenic': ['rooftop'],
-  'Upmarket pubs': ['country-pub'],
+  // gastropub added 2026-09-03 (Wilmslow Tavern, Charlie Brown's Hale) —
+  // same fireplace/beer-garden register as a country pub, not a precise fit
+  // for both (Charlie Brown's leans more cocktail-bar), but the closer of
+  // the two real Drink tiles available.
+  'Upmarket pubs': ['country-pub', 'gastropub'],
   'Hotel bars': ['hotel-bar'],
   'Cafés (late)': ['coffee-room', 'bakery'],
   "Members' clubs": ['members-club'],
-  // Added 2026-08 for the Wilmslow density pass — Symposium is the first
-  // venue of this type; previously zero-venue anywhere in the app.
-  'Late-night lounges': ['late-night-lounge'],
+  // listening-bar added 2026-09-03 (Nam) — a serious-sound-system basement
+  // room after dark is the same late-night register as Symposium.
+  'Late-night lounges': ['late-night-lounge', 'listening-bar'],
   // Added 2026-09-03 for Bacchus (Prestbury) — the first venue of this
   // type; 'Champagne bars' previously matched zero venues anywhere in the app.
   'Champagne bars': ['champagne-bar'],
+  // Fixed 2026-09-03, at explicit user report ("i think they can be
+  // improved") — this tile existed and matched real onboarding taste, but
+  // was never actually wired to the wine-bar type despite 6 real venues
+  // (The Wine Cellar, Suburban Green, The Old Cellars, ATOMECA, Wallop and
+  // one more) carrying it. The single biggest real bug this review found:
+  // the most-populated Drink type in the whole dataset was invisible to
+  // onboarding, not because of a curation gap but a missing map entry.
+  'Wine bars': ['wine-bar'],
 
   // Eat
   'Tasting menu': ['tasting-menu'],
   'Fine dining': ['fine-dining'],
   Scenic: ['rooftop'],
-  'Small plates': ['small-plates'],
+  // middle-eastern added 2026-09-03 (Heddy's, BAB NQ) on Heddy's read
+  // ("mezze arrives before you've finished deciding") — real tension noted
+  // deliberately, not hidden: BAB NQ's actual mood ("basement cocktail room
+  // that only unlocks once the sun's properly down") reads much closer to
+  // Late-night lounges than to sharing plates. One shared `type` string
+  // can't carry two different moods precisely — a real limit of mapping by
+  // venue type rather than per-venue, worth a proper fix if more venues
+  // hit the same wall, not invented today for a single pair.
+  'Small plates': ['small-plates', 'middle-eastern'],
   'Hidden gem': ['speakeasy'],
   Celebratory: ['celebratory'],
   // Added 2026-08 for Aldeli (Cheshire expansion) — the first venue of this
   // type; 'Brunch' previously matched zero venues anywhere in the app.
   Brunch: ['brunch-spot'],
+  // handmade-pasta added 2026-09-03 (Sugo Pasta Kitchen) — "thirty covers
+  // and an open kitchen across from the market" is literally this tile.
+  "Chef's counter": ['handmade-pasta'],
+  // italian-restaurant added 2026-09-03 (Cibo) — a hundred-and-sixty-cover
+  // room with a retractable roof and an open kitchen is exactly this
+  // tile's register, not a quiet neighbourhood table.
+  'Lively & loud': ['italian-restaurant'],
+  // sherry-bar added 2026-09-03 (Porta) — "one last sherry standing at the
+  // counter, kitchen closes at midnight" is a real late-night-eats read,
+  // not a sit-down dinner.
+  'Late-night eats': ['sherry-bar'],
+  // New tile, added 2026-09-03 at explicit user request — deliberately a
+  // real mood (honest, no-frills, a fixture rather than a scene), never a
+  // cuisine list: "we aren't doing cuisine by country as a category option
+  // — it's overdone... people want to know the atmosphere or moment a
+  // place is known for, not what kind of food." Closes what was otherwise
+  // the single largest blind spot in the catalog: 7 real venues across the
+  // most varied part of the whole dataset, invisible to onboarding not
+  // because nothing fit them but because nothing was *supposed* to fit
+  // them on a cuisine axis. Cantonese Roast (Happy Seasons, "the queue for
+  // the roast duck still forms before the doors do"), Pizzeria (Rudy's,
+  // "no bookings, but the queue after the late screening is usually
+  // nothing"), Vietnamese (Vietbowl, "the kind of pho you'd get told to
+  // slow down and finish properly"), Indian Restaurant (Delhi Dream,
+  // "never bothered opening a second site"), Thai Restaurant (Phanthong
+  // Thai, "mum-and-daughter run"), Greek Taverna (The Stolen Lamb,
+  // "regulars stopped reading past" the lamb chops), Farm Shop (Waugh
+  // Brow, "a working farm since 1985, with a café tacked on") — none of
+  // these are secret (ruling out Hidden gem) and none are a scene
+  // (ruling out Lively & loud/Celebratory); they're the opposite kind of
+  // good, and that's a real, distinct, requestable thing.
+  'Neighbourhood favourite': ['cantonese-roast', 'pizzeria', 'vietnamese', 'indian-restaurant', 'thai-restaurant', 'greek-taverna', 'farm-shop'],
 };
 
 /**
