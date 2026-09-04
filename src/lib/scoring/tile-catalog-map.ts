@@ -243,4 +243,9 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
   // Brow Farm Shop, Mobberley) but never wired into this map, so mood
   // filtering's category-only bucket silently missed it.
   'FARM SHOP': 'Eat',
+  // TOWN PARK and DIM SUM found missing 2026-09-04, same pattern: both
+  // introduced by the 2026-09-04 promotion (Thorn Grove Park, Cheadle
+  // Hulme; Little Yang Sing, Chinatown) but never wired in.
+  'TOWN PARK': 'Do',
+  'DIM SUM': 'Eat',
 };
