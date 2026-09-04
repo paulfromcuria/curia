@@ -1,0 +1,4 @@
+{
+  "_source": "Git-tracked fallback for curia-research-daily and curia-suggestion-review's daily briefing (see docs/data/pending-review-queue.json's own note for the full diagnosis — the Artifact tool's write_db is unreachable from this job's headless execution environment, read_db is fine). Each run appends one entry here instead of writing directly to Curia Command's `briefings` collection; synced in from a human or an interactive session during a normal check-in. `synced` flips to true once it's landed in the portal.",
+  "entries": []
+}
