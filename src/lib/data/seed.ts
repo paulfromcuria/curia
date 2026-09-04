@@ -75,10 +75,12 @@ function districtIdByName(name: string): string {
 
 /**
  * Seed venues only carry the fields the prototype's UI actually renders.
- * Internal-only fields (tier/sourceConfidence/notes — Hard rule 8) and
- * dietary/pet flags aren't in the design bundle's illustrative data, so they
- * default conservatively here rather than being invented per-venue. Real
- * curation (M8, curia-admin) replaces these defaults with real values.
+ * Internal-only fields (tier/sourceConfidence/notes — Hard rule 8) aren't in
+ * the design bundle's illustrative data, so they default conservatively here
+ * rather than being invented per-venue. petFriendly/dietaryOptions come from
+ * real per-venue research (see venues.json's own _dietaryPetSource note) —
+ * fall back to the conservative default only for the handful of prototype-
+ * transcribed entries that predate that pass and haven't been researched yet.
  */
 export const VENUES: Venue[] = venuesRaw.venues.map((v, i) => ({
   id: slugify(v.name),
@@ -92,8 +94,9 @@ export const VENUES: Venue[] = venuesRaw.venues.map((v, i) => ({
   metro: DISTRICTS.find((d) => d.id === v.district)?.metro ?? 'manchester',
   lat: v.lat,
   lon: v.lon,
-  petFriendly: false,
-  dietaryOptions: ['none'],
+  petFriendly: (v as { petFriendly?: boolean }).petFriendly ?? false,
+  dietaryOptions:
+    (v as { dietaryOptions?: Venue['dietaryOptions'] }).dietaryOptions ?? ['none'],
   photos: [],
   description: v.reason,
   bands: v.bands as Venue['bands'],
