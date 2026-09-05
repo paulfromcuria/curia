@@ -31,7 +31,9 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   'Ballet & opera': ['performing-arts'],
   // wellness-studio added 2026-09-03 (Wilmslow Pilates & Wellness) — real
   // pampering/relaxation overlap with spa, unlike fitness-studio below.
-  'Spa & wellness': ['spa', 'wellness-studio'],
+  // beauty-salon added 2026-09-05 (KLUB, Spinningfields) — one-to-one
+  // hair/beauty treatments read the same as a spa visit, not a fitness class.
+  'Spa & wellness': ['spa', 'wellness-studio', 'beauty-salon'],
   'Live music': ['live-music'],
   'Art galleries': ['art-gallery'],
   // rare-bookshop added 2026-09-03 (Manchester Rare Books) — curated,
@@ -41,7 +43,10 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // own _wilmslowDensitySource note) — four more real Do tile-coverage gaps
   // closed, all previously zero-venue anywhere in the app.
   'Parks & green space': ['riverside-park'],
-  'Cookery & craft': ['cookery-school'],
+  // pottery-studio added 2026-09-05 (Knutcraft at the Ruskin Rooms,
+  // Knutsford) — hands-on, expert-led glazing sits in the same real spirit
+  // as a cookery class.
+  'Cookery & craft': ['cookery-school', 'pottery-studio'],
   'Walking tours': ['walking-tour'],
   // cricket-club added 2026-09-03 (Mobberley Cricket Club) — same spectator
   // afternoon as rugby/golf, just a different pitch.
@@ -248,4 +253,15 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
   // Hulme; Little Yang Sing, Chinatown) but never wired in.
   'TOWN PARK': 'Do',
   'DIM SUM': 'Eat',
+  // Added 2026-09-05 for the day's four promoted candidates (see
+  // docs/data/venues.json's own note). DESIGN GALLERY/ART GALLERY/ITALIAN
+  // RESTAURANT/BRUNCH SPOT/COCKTAIL BAR already existed above — only these
+  // four are new. POTTERY STUDIO maps to the real 'Cookery & craft' tile
+  // above; BEAUTY SALON maps to 'Spa & wellness' above; JAPANESE RESTAURANT
+  // and WINE MERCHANT are category-only, same treatment as CANTONESE
+  // ROAST/ALE HOUSE since no existing tile fits either precisely.
+  'POTTERY STUDIO': 'Do',
+  'JAPANESE RESTAURANT': 'Eat',
+  'BEAUTY SALON': 'Do',
+  'WINE MERCHANT': 'Drink',
 };

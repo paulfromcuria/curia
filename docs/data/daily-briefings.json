@@ -1,4 +1,28 @@
 {
   "_source": "Git-tracked fallback for curia-research-daily and curia-suggestion-review's daily briefing (see docs/data/pending-review-queue.json's own note for the full diagnosis — the Artifact tool's write_db is unreachable from this job's headless execution environment, read_db is fine). Each run appends one entry here instead of writing directly to Curia Command's `briefings` collection; synced in from a human or an interactive session during a normal check-in. `synced` flips to true once it's landed in the portal.",
-  "entries": []
+  "entries": [
+    {
+      "agentType": "review",
+      "date": "2026-09-05",
+      "synced": false,
+      "title": "10 promoted, 0 rejected, 3 closures flagged for review",
+      "summary": "All 10 pending candidates in venue-suggestions.json (Northern Quarter, Ancoats, Altrincham, Knutsford, Mobberley, Chinatown, and two in Deansgate, Spinningfields, Hale) independently re-verified and promoted straight into venues.json, with real petFriendly/dietaryOptions researched for each. No Curia Command decisions were waiting to apply this run. The closure audit's rotating slice caught King Street Kitchen (Knutsford) as genuinely closed, and a follow-up on two closure signals left open since 2026-09-04 (Riva Bar & Restaurant, Hale; The Yard, Alderley Edge) corroborated both — all three sent to pending-review-queue.json as remove_venue candidates rather than auto-removed.",
+      "items": [
+        { "label": "Manchester Craft and Design Centre (Northern Quarter)", "detail": "promoted — verified non-chain charity/council-supported craft centre, still trading" },
+        { "label": "The Horsfall (Ancoats)", "detail": "promoted — verified single-site 42nd Street charity gallery, still trading" },
+        { "label": "Bar Etna (Altrincham)", "detail": "promoted — verified single-site, family-run since 2023; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "Knutcraft at the Ruskin Rooms (Knutsford)", "detail": "promoted — new type POTTERY STUDIO, mapped to 'Cookery & craft' tile" },
+        { "label": "Mobberley Ice Cream Coffee House (Mobberley)", "detail": "promoted — verified single working-farm site; confirmed dog-friendly and vegan/gluten-free" },
+        { "label": "Yuzu (Chinatown)", "detail": "promoted — new type JAPANESE RESTAURANT (category-only); confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "One Eight Six (Deansgate)", "detail": "promoted — verified single-site barbershop/bar under current ownership, still trading" },
+        { "label": "Arcane (Deansgate)", "detail": "promoted — verified single-site, independently owned; confirmed dog-friendly" },
+        { "label": "KLUB (Spinningfields)", "detail": "promoted — new type BEAUTY SALON, mapped to 'Spa & wellness' tile" },
+        { "label": "Portland Wine (Hale)", "detail": "promoted — confirmed single-site (shop and registered office both on Ashley Road), resolving the prior medium-confidence chain-footprint flag" },
+        { "label": "King Street Kitchen (Knutsford)", "detail": "sent to pending review — Tripadvisor and HappyCow both mark it CLOSED (closure-audit rotating slice)" },
+        { "label": "Riva Bar & Restaurant (Hale)", "detail": "sent to pending review — a Tripadvisor review confirms it closed, corroborating a signal flagged but not acted on 2026-09-04" },
+        { "label": "The Yard (Alderley Edge)", "detail": "sent to pending review — alderleyedge.com's own article confirms its cafe/shop closed, corroborating a signal flagged but not acted on 2026-09-04" }
+      ],
+      "createdAt": "2026-09-05T00:00:00Z"
+    }
+  ]
 }
