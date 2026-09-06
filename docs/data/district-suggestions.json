@@ -2,18 +2,5 @@
   "_source": "AI-researched NEW DISTRICT candidates for Manchester and Cheshire, awaiting review — never directly promoted by the research agent. Populated by the same daily scheduled research agent as venue-suggestions.json (2026-08, at explicit user request), committed straight to master the same way (see that file's own doc comment for why). Expected to be rare: the research brief (.claude/agents/curia-research-daily.md) treats district suggestions as an occasional finding (a genuinely distinct, not-yet-covered high-end area within Manchester or Cheshire), not a daily quota — most days should add zero entries here. The daily curia-suggestion-review agent (.claude/agents/curia-suggestion-review.md) is the only thing that promotes an entry into the real docs/data/districts.json, behind its own pull request. Each entry mirrors docs/data/districts.json's own raw shape (name/metro/lat/lon/base/kind/accentColor/editorialDescription) so an approved entry can be copied straight in, plus review-only fields (suggestedDate, status, researchNotes) stripped on promotion. `metro` must be 'manchester' or 'cheshire' only — never 'los-angeles' or a new metro (out of scope, per the user's explicit 'shouldn't go beyond cheshire and manchester just yet').",
   "_reviewWorkflow": "Same as venue-suggestions.json: status starts 'pending', the review agent flips it to 'approved' (then copies fields into districts.json, as part of its own PR) or 'rejected' (kept here with researchNotes so it isn't re-suggested). A human's real review happens by reading/merging that PR.",
   "suggestions": [
-    {
-      "name": "Chorlton",
-      "metro": "manchester",
-      "lat": 53.4390,
-      "lon": -2.2790,
-      "base": 78,
-      "kind": "city",
-      "accentColor": "#6B8F71",
-      "editorialDescription": "Three high streets and a green nobody rushes off of — Beech Road, Manchester Road and Wilbraham Road, each doing its own version of the same thing. More independent restaurants per acre than anywhere else in the city, a beer mile that means something, and the chain pub wave that swallowed everywhere else never quite got a foothold here.",
-      "suggestedDate": "2026-09-06",
-      "status": "pending",
-      "researchNotes": "Genuine gap check per this run's standing instruction (not skipped): Chorlton is a well-known, distinct south Manchester district — independently verified via creativetourist.com, manchestersfinest.com, mcr.city and manchestertourism.org as having 'more independent restaurants per acre than anywhere else in the city', the UK North's highest density of vegan options, an unusually chain-resistant pub scene, and its own named craft-beer trail (the Chorlton Beer Mile). It's also already referenced repeatedly, by name, as the real hometown of venues/sibling sites already in docs/data/venues.json (Suburban Green and Smoke Wilmslow's own precedent group, plus Trove's original site) without ever itself being a district — exactly the kind of local-obvious gap the 2026-09-03 correction note on this file's own workflow was written to stop happening again. Coordinates centre on Beech Road/Chorlton Green (M21 postcode area), the real heart of the area, not a borough-wide centroid. accentColor is a muted sage/forest green (#6B8F71) — distinct from all five existing Manchester districts' purple/rust-brick/soft-blue/orange/crimson-berry accents, chosen to read as 'leafy village green' without becoming a bright primary, consistent with CLAUDE.md's general aesthetic note. No venues suggested for it yet in this run — populating it with real, individually-verified venues is separate follow-up work, matching the precedent already set for Prestbury/Cheadle Hulme/Knutsford (district entry first, venues after)."
-    }
   ]
 }

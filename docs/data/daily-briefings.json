@@ -23,6 +23,27 @@
         { "label": "The Yard (Alderley Edge)", "detail": "sent to pending review — alderleyedge.com's own article confirms its cafe/shop closed, corroborating a signal flagged but not acted on 2026-09-04" }
       ],
       "createdAt": "2026-09-05T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-09-06",
+      "synced": false,
+      "title": "9 venues + 1 district promoted, 1 sent for review, 0 rejected, 0 closures",
+      "summary": "9 of the 10 pending candidates in venue-suggestions.json (Chinatown x2, Deansgate, Spinningfields, Altrincham, Hale, Knutsford, Mobberley, Ancoats) and the sole pending district candidate (Chorlton, a genuine new Manchester district) independently re-verified and promoted, with real petFriendly/dietaryOptions researched for each venue. No Curia Command decisions were waiting to apply this run. The tenth venue candidate, Fire Station Social Cucina (Alderley Edge), was held back — still only 2 sites but its operator has stated expansion plans for the brand — and sent to pending-review-queue.json for a human call rather than promoted or rejected. The closure audit's rotating slice (Riddles, Speak In Code, Bar Shrimp, Manchester Rare Books, Charlie Brown's Hale) found no closure signals.",
+      "items": [
+        { "label": "Contemporary Six (Chinatown)", "detail": "promoted — verified single gallery with one real sibling (Contemporary Six Hale), still trading" },
+        { "label": "K2 Karaoke (Chinatown)", "detail": "promoted — verified single site on George Street, core Chinatown location" },
+        { "label": "Pip (Deansgate)", "detail": "promoted — verified single dining concept inside a 2-hotel group, unrelated to the London hotel's own restaurant; confirmed dog-friendly and vegetarian/vegan/gluten-free/dairy-free" },
+        { "label": "Portfolio (Spinningfields)", "detail": "promoted — verified single site, UK's first dedicated Champagne bar" },
+        { "label": "HARCOURT (Altrincham)", "detail": "promoted — verified single free-of-tie site; confirmed dog-friendly; corrected co-owner's name (Priscilla So) and opening year (2023) from the original suggestion" },
+        { "label": "Butchers Bar (Hale)", "detail": "promoted — verified single site, opened May 2026" },
+        { "label": "Neki (Knutsford)", "detail": "promoted — verified single site (a planned second site hasn't opened yet); confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "Mobberley Village Bakers (Mobberley)", "detail": "promoted — verified single site, ~34 years trading" },
+        { "label": "Ancoats Coffee Co (Ancoats)", "detail": "promoted — verified 2 company-run retail sites (Royal Mills + a second at 111 Piccadilly, previously unknown to the queue), still within the small-sibling-group allowance; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "Chorlton (new Manchester district)", "detail": "promoted — verified as a genuine, distinct south Manchester district with a real independent food/drink scene and craft-beer trail, not overlapping any existing district" },
+        { "label": "Fire Station Social Cucina (Alderley Edge)", "detail": "sent to pending review — parent operator's stated multi-region expansion plans for this exact brand made this one a judgment call rather than a clean pass" }
+      ],
+      "createdAt": "2026-09-06T00:00:00Z"
     }
   ]
 }
