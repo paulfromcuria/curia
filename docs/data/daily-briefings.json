@@ -44,6 +44,27 @@
         { "label": "Fire Station Social Cucina (Alderley Edge)", "detail": "sent to pending review — parent operator's stated multi-region expansion plans for this exact brand made this one a judgment call rather than a clean pass" }
       ],
       "createdAt": "2026-09-06T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-09-07",
+      "synced": false,
+      "title": "10 venues + 1 district promoted, 0 rejected, 0 sent for review, 0 closures",
+      "summary": "All 10 pending candidates in venue-suggestions.json (three in Chorlton, plus Mobberley, Altrincham, Knutsford, Alderley Edge, Hale, Deansgate, Spinningfields) and the sole pending district candidate (Didsbury, a genuine new south Manchester suburb) independently re-verified and promoted, with real petFriendly/dietaryOptions researched for each venue. No Curia Command decisions were waiting to apply this run (pending_review collection was empty). Fire Station Social Cucina (Alderley Edge), already sitting in pending-review-queue.json since 2026-09-06 awaiting a human call, had no decision yet and was left as-is. The closure audit's rotating slice landed on the five venues promoted this same run (The Edge Theatre & Arts Centre, The Chorlton Tap, Bar San Juan, White Peak Alpaca Farm, Inch Arts) — already freshly verified as currently trading minutes earlier, so nothing further to flag.",
+      "items": [
+        { "label": "The Edge Theatre & Arts Centre (Chorlton)", "detail": "promoted — verified single-site charity theatre/arts centre, still trading" },
+        { "label": "The Chorlton Tap (Chorlton)", "detail": "promoted — verified single-site real-ale pub, Wander Beyond Brewing confirmed as a supplying brewery not an owner; confirmed vegetarian/vegan (fully vegan kitchen)" },
+        { "label": "Bar San Juan (Chorlton)", "detail": "promoted — verified single-site tapas bar trading since 2010, still trading; confirmed vegetarian/vegan/gluten-free" },
+        { "label": "White Peak Alpaca Farm (Mobberley)", "detail": "promoted — new type FARM EXPERIENCE, mapped category-only (Do) in tile-catalog-map.ts; verified single working farm, strong current reviews" },
+        { "label": "Inch Arts (Altrincham)", "detail": "promoted — verified single-site charity arts centre, current 2026 activity" },
+        { "label": "The Blind Pig (Knutsford)", "detail": "promoted — verified single speakeasy with one real sibling (Porto, same courtyard); confirmed dog-friendly" },
+        { "label": "Les Deux Pizza Bar (Alderley Edge)", "detail": "promoted — verified single-site pizza/cocktail bar; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "InHale Yoga (Hale)", "detail": "promoted — verified single-site studio with a live current class timetable" },
+        { "label": "Lions Den (Deansgate)", "detail": "promoted — verified single-site live music venue, current events" },
+        { "label": "Australasia (Spinningfields)", "detail": "promoted — verified single restaurant under Orka Koncepts, a confirmed small 4-venue Manchester-only operator, not a chain; corrected reason copy ('this year' to 'last year' relaunch)" },
+        { "label": "Didsbury (new Manchester district)", "detail": "promoted — verified as a genuine, distinct south Manchester suburb with its own independent food/drink scene, not overlapping Chorlton or any existing district" }
+      ],
+      "createdAt": "2026-09-07T00:00:00Z"
     }
   ]
 }

@@ -264,4 +264,9 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
   'JAPANESE RESTAURANT': 'Eat',
   'BEAUTY SALON': 'Do',
   'WINE MERCHANT': 'Drink',
+  // Added 2026-09-07 for White Peak Alpaca Farm (Mobberley) — no existing
+  // type fit a pre-booked animal-encounter attraction; category-only (Do),
+  // same treatment as RARE BOOKSHOP/CRICKET CLUB above since no onboarding
+  // tile targets it specifically yet.
+  'FARM EXPERIENCE': 'Do',
 };

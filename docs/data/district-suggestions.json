@@ -1,19 +1,5 @@
 {
   "_source": "AI-researched NEW DISTRICT candidates for Manchester and Cheshire, awaiting review — never directly promoted by the research agent. Populated by the same daily scheduled research agent as venue-suggestions.json (2026-08, at explicit user request), committed straight to master the same way (see that file's own doc comment for why). Expected to be rare: the research brief (.claude/agents/curia-research-daily.md) treats district suggestions as an occasional finding (a genuinely distinct, not-yet-covered high-end area within Manchester or Cheshire), not a daily quota — most days should add zero entries here. The daily curia-suggestion-review agent (.claude/agents/curia-suggestion-review.md) is the only thing that promotes an entry into the real docs/data/districts.json, behind its own pull request. Each entry mirrors docs/data/districts.json's own raw shape (name/metro/lat/lon/base/kind/accentColor/editorialDescription) so an approved entry can be copied straight in, plus review-only fields (suggestedDate, status, researchNotes) stripped on promotion. `metro` must be 'manchester' or 'cheshire' only — never 'los-angeles' or a new metro (out of scope, per the user's explicit 'shouldn't go beyond cheshire and manchester just yet').",
   "_reviewWorkflow": "Same as venue-suggestions.json: status starts 'pending', the review agent flips it to 'approved' (then copies fields into districts.json, as part of its own PR) or 'rejected' (kept here with researchNotes so it isn't re-suggested). A human's real review happens by reading/merging that PR.",
-  "suggestions": [
-    {
-      "name": "Didsbury",
-      "metro": "manchester",
-      "lat": 53.4176,
-      "lon": -2.2310,
-      "base": 80,
-      "kind": "city",
-      "accentColor": "#B98098",
-      "editorialDescription": "Victorian villas and two villages within one — Didsbury Village around School Lane, West Didsbury along Burton Road, half an hour from the city centre by tram and further than that in temperament. The kind of suburb where the fine-dining room and the Sunday jazz pub sit on the same postcode, and neither one apologises for the other.",
-      "suggestedDate": "2026-09-07",
-      "status": "pending",
-      "researchNotes": "Per the research brief's standing per-run check for a genuinely distinct, well-known area not yet covered: Didsbury passes the 'would a local raise an eyebrow' test clearly — it's a well-known, independent-heavy south Manchester food and drink destination (Hispi, The Lime Tree, Volta, FOLK), distinct from Chorlton (its nearest covered neighbour, ~2 miles away across the Mersey, with its own separate identity/high street) and from the city-centre districts. Notably, Didsbury is already referenced by name multiple times inside docs/data/venues.json's own sibling-site notes (Caramello's original brunch room, several Wilmslow-density venues' Didsbury sister sites) without Didsbury itself ever being a seeded district — a real, standing gap rather than a stretch. Verified via manchestersfinest.com, creativetourist.com and designmynight.com. Coordinates are the M20 6RD postcode centroid (doogal.co.uk) — School Lane, Didsbury Village, the same street Hispi trades on — not a metro-wide guess. accentColor is a dusty rose, distinct from every existing Manchester district accent (Northern Quarter's plum, Ancoats' rust-brick, Spinningfields' soft blue, Deansgate's orange, Chinatown's crimson-berry, Chorlton's sage green) and chosen to read as 'leafy Victorian villa' rather than a bright primary, per CLAUDE.md's general aesthetic note. No venues researched/seeded yet — same starting point Chorlton had before its own first venue pass; populating it with real, individually-verified venues is separate follow-up work."
-    }
-  ]
+  "suggestions": []
 }
