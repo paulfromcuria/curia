@@ -65,6 +65,29 @@
         { "label": "Didsbury (new Manchester district)", "detail": "promoted — verified as a genuine, distinct south Manchester suburb with its own independent food/drink scene, not overlapping Chorlton or any existing district" }
       ],
       "createdAt": "2026-09-07T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-09-08",
+      "synced": false,
+      "title": "10 venues + 1 district promoted, 1 sent for review, 0 rejected, 1 closure flagged",
+      "summary": "10 of the 11 pending candidates in venue-suggestions.json (four in Didsbury including the district's first venues, two in Chorlton, plus Prestbury, Knutsford, Altrincham and Alderley Edge) and the sole pending district candidate (Stockport's Underbanks quarter, a genuine new Manchester-metro district) independently re-verified and promoted, with real petFriendly/dietaryOptions researched for each venue. No Curia Command decisions were waiting to apply this run (pending_review collection was empty). Fire Station Social Cucina (Alderley Edge) was re-checked specifically for a rumoured third site — none found — and stays pending, already sitting in pending-review-queue.json since 2026-09-06. Two factual corrections surfaced during re-verification and were folded into the promoted copy: Lime Tree in fact has a second site in Bollington (still promoted, small personally-run pair, not a chain), and Casa de Moor's Heaton Moor sibling has rebranded to 'Casa De Casa' since it was first researched (reason text updated). The closure audit's rotating slice caught Les Deux Pizza Bar (Alderley Edge) showing as closed on its own Deliveroo listing — sent to pending-review-queue.json rather than auto-removed; the other four in the slice (The Blind Pig, InHale Yoga, Lions Den, Australasia) re-confirmed still trading.",
+      "items": [
+        { "label": "Lime Tree (Didsbury)", "detail": "promoted — verified real second site in Bollington under the same chef-patron; still within the small personally-run sibling-pair precedent; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "Volta (Didsbury)", "detail": "promoted — verified 3-site Unabombers group (Electrik, Volta, Refuge — Refuge already a real Deansgate venue), distinct concepts not a replicated brand; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "Saison (Didsbury)", "detail": "promoted — verified single site in the former Violet Hour unit, owner's other sites (Dulcimer, The Deaf Institute) confirmed distinct small-group precedent; confirmed dog-friendly and vegetarian/vegan" },
+        { "label": "Fletcher Moss Botanical Garden (Didsbury)", "detail": "promoted — verified council-owned public garden, zero chain risk; confirmed dog-friendly (on-lead in the formal gardens)" },
+        { "label": "The Jane Eyre Chorlton", "detail": "promoted — verified 3rd trading location exists (a small bar concession inside Escape to Freight Island, not a standalone restaurant), judged not to tip into chain territory; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "Casa de Moor (Chorlton)", "detail": "promoted — verified still trading; Heaton Moor sibling has rebranded to 'Casa De Casa' since original research, reason text updated to drop the stale two-site framing; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "Henry's Cafe (Prestbury)", "detail": "promoted — verified single-site, owner-run by Natalie, Companies House confirmed; confirmed dog-friendly and vegan/gluten-free/dairy-free" },
+        { "label": "Knutsford Heritage Centre", "detail": "promoted — verified volunteer-run charity, zero chain risk" },
+        { "label": "Altrincham Little Theatre", "detail": "promoted — verified registered charity/drama society since 1896, zero chain risk" },
+        { "label": "Festival Hall (Alderley Edge)", "detail": "promoted — verified parish council-run community hall, zero chain risk; correctly defaulted to not pet-friendly (own hire terms restrict to guide dogs only)" },
+        { "label": "Stockport (Underbanks) (new Manchester-metro district)", "detail": "promoted — verified genuine, distinct, council-documented independent regeneration quarter, coordinates land precisely on the Market Place, doesn't overlap Cheadle Hulme" },
+        { "label": "Fire Station Social Cucina (Alderley Edge)", "detail": "left pending — re-checked for a rumoured third site, none found, same status as 2026-09-06" },
+        { "label": "Les Deux Pizza Bar (Alderley Edge)", "detail": "sent to pending review — its own Deliveroo listing shows closed, uncorroborated by a second source" }
+      ],
+      "createdAt": "2026-09-08T00:00:00Z"
     }
   ]
 }
