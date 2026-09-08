@@ -123,15 +123,17 @@ function formatDistance(distanceMiles: number): string {
  * gap between M3's slug convention and M4's real tile names, not something
  * to silently paper over here).
  */
-const VENUE_TYPE_SLUGS = new Set(VENUES.map((v) => slugifyType(v.type)));
-
 function coveredTiles(category: TileCategory) {
+  // Computed fresh on every call, not a module-level const: VENUES
+  // (src/lib/data/seed.ts) is empty until loadContentData() resolves, well
+  // after this module is first imported — see src/lib/map/geo.ts's
+  // getCoveragePolygons/getCoverageMask doc comment for the same bug caught
+  // there. Cheap enough (134 venues) to just recompute rather than cache.
+  const venueTypeSlugs = new Set(VENUES.map((v) => slugifyType(v.type)));
   return tilesByCategory(category)
     .map((tile) => ({ tile, slug: slugifyType(tile.name) }))
-    .filter(({ slug }) => VENUE_TYPE_SLUGS.has(slug));
+    .filter(({ slug }) => venueTypeSlugs.has(slug));
 }
-
-const DISTRICT_BY_ID = new Map(DISTRICTS.map((d) => [d.id, d]));
 
 const MOOD_CATEGORIES: TileCategory[] = ['Do', 'Drink', 'Eat'];
 
@@ -455,7 +457,7 @@ export default function List() {
           {result.ranked.map((r, i) => {
             const venue = VENUES.find((v) => v.id === r.venueId);
             if (!venue) return null;
-            const district = DISTRICT_BY_ID.get(venue.districtId);
+            const district = DISTRICTS.find((d) => d.id === venue.districtId);
             // session.searchOrigin, not the fixed DEMO_LOCATION constant —
             // the displayed distance must agree with whatever point the
             // radius hard filter above actually measured from (2026-08),

@@ -18,10 +18,7 @@ import { rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
 import { DISTRICTS, VENUES } from '../../lib/data/seed';
 import {
-  COVERAGE_MASK,
-  COVERAGE_POLYGONS,
   DISTRICT_DETAIL_ZOOM_THRESHOLD,
-  DISTRICT_LOCAL_AREAS,
   MAP_HOME,
   MAX_ZOOM_LEVEL,
   MIN_ZOOM_LEVEL,
@@ -31,6 +28,9 @@ import {
   districtGlowFeatureCollection,
   districtLiveliness,
   districtsInBounds,
+  getCoverageMask,
+  getCoveragePolygons,
+  getDistrictLocalAreas,
   groupVisibleDistricts,
   normalizeLiveliness,
   radiusMilesToZoomLevel,
@@ -141,7 +141,14 @@ const COMPETING_LABEL_LAYER_IDS = [
   'poi-label',
 ];
 
-const ALL_DISTRICT_POINTS: GeoPoint[] = DISTRICTS.map((d) => ({ lat: d.lat, lon: d.lon }));
+// A function, not a module-level const: DISTRICTS (src/lib/data/seed.ts) is
+// empty until loadContentData() resolves, well after this module is first
+// imported — see src/lib/map/geo.ts's getCoveragePolygons/getCoverageMask
+// doc comment for the same bug caught there. Cheap enough to just recompute
+// on every call rather than needing a cached getter.
+function allDistrictPoints(): GeoPoint[] {
+  return DISTRICTS.map((d) => ({ lat: d.lat, lon: d.lon }));
+}
 
 function capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -396,7 +403,7 @@ export default function Map() {
     });
   };
   const fitRegion = () => {
-    const b = boundsForPoints(ALL_DISTRICT_POINTS);
+    const b = boundsForPoints(allDistrictPoints());
     cameraRef.current?.fitBounds([b.ne.lon, b.ne.lat], [b.sw.lon, b.sw.lat], 60, 500);
   };
 
@@ -472,12 +479,12 @@ export default function Map() {
             masked to the app's own background (reads as empty, not just
             dimmed), with a glowing gold perimeter marking the edge. See
             src/lib/map/geo.ts's COVERAGE_MASK/COVERAGE_POLYGONS doc comment. */}
-        <ShapeSource id="coverage-mask-source" shape={COVERAGE_MASK}>
+        <ShapeSource id="coverage-mask-source" shape={getCoverageMask()}>
           <FillLayer id="coverage-mask-fill" style={{ fillColor: color.baseVariants.b, fillOpacity: 0.94 }} />
         </ShapeSource>
         <ShapeSource
           id="coverage-outline-source"
-          shape={{ type: 'FeatureCollection', features: COVERAGE_POLYGONS }}
+          shape={{ type: 'FeatureCollection', features: getCoveragePolygons() }}
         >
           <LineLayer
             id="coverage-glow-outer"
@@ -521,7 +528,7 @@ export default function Map() {
             // library type-definition gap, not a runtime issue) — `within`
             // against a Polygon/MultiPolygon feature is valid, documented
             // Mapbox GL style spec.
-            filter={['within', DISTRICT_LOCAL_AREAS[d.id]] as unknown as ['within', never]}
+            filter={['within', getDistrictLocalAreas()[d.id]] as unknown as ['within', never]}
             style={{
               lineColor: d.accentColor,
               lineWidth: 2.5,

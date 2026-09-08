@@ -8,10 +8,7 @@ import { rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
 import { DISTRICTS, VENUES } from '../../lib/data/seed';
 import {
-  COVERAGE_MASK,
-  COVERAGE_POLYGONS,
   DISTRICT_DETAIL_ZOOM_THRESHOLD,
-  DISTRICT_LOCAL_AREAS,
   MAP_HOME,
   MAX_ZOOM_LEVEL,
   MIN_ZOOM_LEVEL,
@@ -21,6 +18,9 @@ import {
   districtGlowFeatureCollection,
   districtLiveliness,
   districtsInBounds,
+  getCoverageMask,
+  getCoveragePolygons,
+  getDistrictLocalAreas,
   groupVisibleDistricts,
   normalizeLiveliness,
   radiusMilesToZoomLevel,
@@ -192,7 +192,14 @@ const WEEK_DAYS: { key: string; label: string }[] = [
 
 const CATEGORIES: TileCategory[] = ['Do', 'Drink', 'Eat'];
 
-const ALL_DISTRICT_POINTS: GeoPoint[] = DISTRICTS.map((d) => ({ lat: d.lat, lon: d.lon }));
+// A function, not a module-level const: DISTRICTS (src/lib/data/seed.ts) is
+// empty until loadContentData() resolves, well after this module is first
+// imported — see src/lib/map/geo.ts's getCoveragePolygons/getCoverageMask
+// doc comment for the same bug caught there. Cheap enough to just recompute
+// on every call rather than needing a cached getter.
+function allDistrictPoints(): GeoPoint[] {
+  return DISTRICTS.map((d) => ({ lat: d.lat, lon: d.lon }));
+}
 
 function capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -335,7 +342,7 @@ export default function Map() {
     // fires on every moveend too).
     const addCoverageLayers = () => {
       if (map.getSource('coverage-mask-source')) return;
-      map.addSource('coverage-mask-source', { type: 'geojson', data: COVERAGE_MASK });
+      map.addSource('coverage-mask-source', { type: 'geojson', data: getCoverageMask() });
       map.addLayer({
         id: 'coverage-mask-fill',
         type: 'fill',
@@ -344,7 +351,7 @@ export default function Map() {
       });
       map.addSource('coverage-outline-source', {
         type: 'geojson',
-        data: { type: 'FeatureCollection', features: COVERAGE_POLYGONS },
+        data: { type: 'FeatureCollection', features: getCoveragePolygons() },
       });
       map.addLayer({
         id: 'coverage-glow-outer',
@@ -400,7 +407,7 @@ export default function Map() {
             source: roadSource,
             'source-layer': roadSourceLayer,
             minzoom: DISTRICT_DETAIL_ZOOM_THRESHOLD,
-            filter: ['within', DISTRICT_LOCAL_AREAS[d.id]] as unknown as mapboxgl.ExpressionSpecification,
+            filter: ['within', getDistrictLocalAreas()[d.id]] as unknown as mapboxgl.ExpressionSpecification,
             paint: {
               'line-color': d.accentColor,
               'line-width': 2.5,
@@ -661,7 +668,7 @@ export default function Map() {
     mapRef.current?.flyTo({ center: [target.lon, target.lat], duration: 400 });
   };
   const fitRegion = () => {
-    const b = boundsForPoints(ALL_DISTRICT_POINTS);
+    const b = boundsForPoints(allDistrictPoints());
     mapRef.current?.fitBounds(
       [
         [b.sw.lon, b.sw.lat],

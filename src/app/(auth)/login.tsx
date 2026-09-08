@@ -8,10 +8,9 @@ import { color, font, spacing } from '../../theme';
 /**
  * Sign-in screen. Copy and field set match the prototype's `authTitle` /
  * `authBlurb` / `authFields` / `authFoot` for the non-signup (`isAuth &&
- * !signing`) case exactly (Curia.dc.html). There is no Supabase project yet
- * (CLAUDE.md "Tech stack" credential gap), so this accepts any well-formed
- * email/password rather than checking a real account — see
- * src/lib/state/session.tsx for what a real backend swap replaces.
+ * !signing`) case exactly (Curia.dc.html). Backed by real Supabase Auth
+ * (src/lib/state/session.tsx) — a wrong email/password shows the real error
+ * back from the API, not a client-side guess at the message.
  */
 export default function Login() {
   const router = useRouter();
@@ -19,8 +18,9 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  function onSignIn() {
+  async function onSignIn() {
     if (!email.trim() || !email.includes('@')) {
       setError('Enter a valid email address.');
       return;
@@ -30,7 +30,13 @@ export default function Login() {
       return;
     }
     setError(null);
-    login(email.trim());
+    setSubmitting(true);
+    const { error: authError } = await login(email.trim(), password);
+    setSubmitting(false);
+    if (authError) {
+      setError(authError);
+      return;
+    }
     router.replace('/');
   }
 
@@ -71,7 +77,7 @@ export default function Login() {
         </View>
 
         <View style={styles.actions}>
-          <Button label="Sign in" onPress={onSignIn} />
+          <Button label={submitting ? 'Signing in…' : 'Sign in'} onPress={onSignIn} disabled={submitting} />
           <Button
             label="Create an account"
             variant="secondary"

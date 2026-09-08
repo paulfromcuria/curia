@@ -210,15 +210,38 @@ function computeCoveragePolygons(): Feature<Polygon | MultiPolygon>[] {
     .filter((f): f is Feature<Polygon | MultiPolygon> => !!f);
 }
 
+// Lazily computed, not eager module-level consts: DISTRICTS (src/lib/data/
+// seed.ts) is empty until loadContentData() resolves (real content now
+// loads from Supabase — see src/app/_layout.tsx's loading gate), which
+// happens well after this module is first imported. An eager
+// `computeCoveragePolygons()` at import time would permanently bake in an
+// empty-DISTRICTS result — mask()'ing a zero-polygon collection produces
+// invalid geometry ("Input geometry is not a valid Polygon or MultiPolygon"),
+// caught live 2026-09-08 wiring up the real backend. Computed once, on
+// first real call (by which point DISTRICTS is populated, since both
+// consumers below only ever call these from inside a mounted component,
+// downstream of the loading gate) and cached — DISTRICTS doesn't change
+// again mid-session, so a plain memoized-singleton is correct, not just
+// convenient.
+let cachedCoveragePolygons: Feature<Polygon | MultiPolygon>[] | null = null;
+
 /** One coverage polygon per metro — the source for the glowing perimeter
  * `LineLayer` (its outline) on both map.tsx and map.web.tsx. */
-export const COVERAGE_POLYGONS: Feature<Polygon | MultiPolygon>[] = computeCoveragePolygons();
+export function getCoveragePolygons(): Feature<Polygon | MultiPolygon>[] {
+  if (!cachedCoveragePolygons) cachedCoveragePolygons = computeCoveragePolygons();
+  return cachedCoveragePolygons;
+}
+
+let cachedCoverageMask: Feature<Polygon> | null = null;
 
 /** The world exterior with every metro's coverage polygon punched out as a
  * hole — the source for the mask `FillLayer` that hides the basemap
  * everywhere outside Curia's coverage. Filled with the app's own background
  * color at render time so "outside" reads as empty, not just dimmed. */
-export const COVERAGE_MASK: Feature<Polygon> = mask(featureCollection(COVERAGE_POLYGONS));
+export function getCoverageMask(): Feature<Polygon> {
+  if (!cachedCoverageMask) cachedCoverageMask = mask(featureCollection(getCoveragePolygons()));
+  return cachedCoverageMask;
+}
 
 export interface MapLabel {
   key: string;
@@ -438,9 +461,18 @@ export function districtLocalAreaPolygon(district: District): Feature<Polygon | 
   return buffered;
 }
 
-/** Precomputed once (district geometry is static, no need to re-buffer on
- * every render) — every real district's own local-area polygon, keyed by
- * id, for the per-district street-glow layers. */
-export const DISTRICT_LOCAL_AREAS: Record<string, Feature<Polygon | MultiPolygon>> = Object.fromEntries(
-  DISTRICTS.map((d) => [d.id, districtLocalAreaPolygon(d)])
-);
+let cachedDistrictLocalAreas: Record<string, Feature<Polygon | MultiPolygon>> | null = null;
+
+/** Every real district's own local-area polygon, keyed by id, for the
+ * per-district street-glow layers. Lazily computed and cached on first
+ * real call, same reasoning as getCoveragePolygons/getCoverageMask above —
+ * DISTRICTS is empty until loadContentData() resolves, well after this
+ * module is first imported, so an eager module-level const here would have
+ * permanently cached an empty {} (a quieter failure than COVERAGE_MASK's
+ * crash, but the same underlying bug — caught auditing for it 2026-09-08). */
+export function getDistrictLocalAreas(): Record<string, Feature<Polygon | MultiPolygon>> {
+  if (!cachedDistrictLocalAreas) {
+    cachedDistrictLocalAreas = Object.fromEntries(DISTRICTS.map((d) => [d.id, districtLocalAreaPolygon(d)]));
+  }
+  return cachedDistrictLocalAreas;
+}

@@ -10,9 +10,12 @@ import { color, font, spacing } from '../../theme';
  * Create-account screen. Copy/fields match the prototype's `signing` case
  * (Curia.dc.html `authTitle`/`authBlurb`/`authFields`/`authFoot`) exactly,
  * except the membership figure is pulled from the shared subscription
- * config rather than hardcoded (CLAUDE.md "Subscription"). No Supabase
- * project exists yet — this creates a local mock session only (see
- * src/lib/state/session.tsx).
+ * config rather than hardcoded (CLAUDE.md "Subscription"). Backed by real
+ * Supabase Auth (src/lib/state/session.tsx) — if the project has email
+ * confirmation switched on, signUp succeeds but doesn't return a session
+ * until the member clicks the link in their inbox; `needsConfirmation`
+ * below covers that case with real copy instead of silently hanging on
+ * "Continue".
  */
 export default function Signup() {
   const router = useRouter();
@@ -21,8 +24,10 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [needsConfirmation, setNeedsConfirmation] = useState(false);
 
-  function onContinue() {
+  async function onContinue() {
     if (!name.trim()) {
       setError('Tell us your name.');
       return;
@@ -36,8 +41,31 @@ export default function Signup() {
       return;
     }
     setError(null);
-    signup(name.trim(), email.trim());
-    router.replace('/onboarding');
+    setSubmitting(true);
+    const { error: authError, hasSession } = await signup(name.trim(), email.trim(), password);
+    setSubmitting(false);
+    if (authError) {
+      setError(authError);
+      return;
+    }
+    if (hasSession) {
+      router.replace('/onboarding');
+    } else {
+      setNeedsConfirmation(true);
+    }
+  }
+
+  if (needsConfirmation) {
+    return (
+      <View style={[styles.flex, styles.container, styles.confirmCenter]}>
+        <Kicker>Curia</Kicker>
+        <Text style={styles.title}>Check your inbox.</Text>
+        <Text style={styles.blurb}>
+          We sent a confirmation link to {email.trim()}. Open it, then come back and sign in.
+        </Text>
+        <Button label="Go to sign in" onPress={() => router.replace('/(auth)/login')} />
+      </View>
+    );
   }
 
   return (
@@ -78,7 +106,7 @@ export default function Signup() {
         </View>
 
         <View style={styles.actions}>
-          <Button label="Continue" onPress={onContinue} />
+          <Button label={submitting ? 'Creating account…' : 'Continue'} onPress={onContinue} disabled={submitting} />
           <Button
             label="I already have an account"
             variant="secondary"
@@ -117,6 +145,11 @@ const styles = StyleSheet.create({
   },
   fields: {
     gap: spacing.xs,
+  },
+  confirmCenter: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.md,
   },
   errorBanner: {
     marginTop: spacing.xs,

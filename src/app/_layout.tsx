@@ -1,12 +1,13 @@
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import { View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 import { useCuriaFonts } from '../hooks/use-curia-fonts';
+import { loadContentData } from '../lib/data/seed';
 import { configureMapbox } from '../lib/map/mapbox-config';
 import { SessionProvider } from '../lib/state/session';
-import { color } from '../theme';
+import { color, font } from '../theme';
 
 /**
  * Root stack. Curia is dark-mode-only end to end (CLAUDE.md) — the base
@@ -23,13 +24,52 @@ import { color } from '../theme';
  */
 export default function RootLayout() {
   const [fontsLoaded] = useCuriaFonts();
+  const [dataState, setDataState] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [dataError, setDataError] = useState<string | null>(null);
 
   useEffect(() => {
     configureMapbox();
   }, []);
 
-  if (!fontsLoaded) {
+  // Real content (venues/districts/tiles/moments/journeys) now lives in
+  // Supabase, not bundled JSON — every screen that reads DISTRICTS/VENUES/
+  // etc. (src/lib/data/seed.ts) assumes those arrays are already populated,
+  // the same synchronous-feeling contract the old JSON mock had. This gate
+  // is what makes that still true: nothing below renders until the one real
+  // fetch has resolved.
+  useEffect(() => {
+    loadContentData()
+      .then(() => setDataState('ready'))
+      .catch((err) => {
+        setDataError(err instanceof Error ? err.message : String(err));
+        setDataState('error');
+      });
+  }, []);
+
+  if (!fontsLoaded || dataState === 'loading') {
     return <View style={{ flex: 1, backgroundColor: color.base }} />;
+  }
+
+  if (dataState === 'error') {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: color.base,
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 24,
+          gap: 12,
+        }}
+      >
+        <Text style={{ fontFamily: font.serif, fontSize: 22, color: color.textPrimary, textAlign: 'center' }}>
+          Curia can't reach its database right now.
+        </Text>
+        <Text style={{ fontFamily: font.sans, fontSize: 13, color: color.textSecondary, textAlign: 'center' }}>
+          {dataError}
+        </Text>
+      </View>
+    );
   }
 
   return (

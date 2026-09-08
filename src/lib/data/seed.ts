@@ -1,14 +1,16 @@
 /**
- * Typed loader over the seed data transcribed from the Claude Design handoff
- * bundle (docs/data/districts.json, docs/data/venues.json). This is a local
- * mock data layer — Supabase wiring replaces this once a project exists, per
- * CLAUDE.md's tech stack section. Every consumer should go through this
- * module rather than requiring the JSON directly, so the swap is one place.
+ * Real backend data loader. Supabase (supabase/migrations/0001_init.sql,
+ * populated via scripts/seed-supabase.mjs / scripts/generate-seed-sql.mjs
+ * from docs/data/*.json) replaces the local-JSON mock this module used to
+ * be — every export below keeps the exact same name/shape the mock version
+ * had, so the ~20 screens that already import DISTRICTS/VENUES/TILES/etc.
+ * don't need to change at all. The one new piece is `loadContentData()`,
+ * called once at app boot (src/app/_layout.tsx) before anything else
+ * renders — the same "block until ready" pattern already used there for
+ * font loading. Until it resolves, every array below is empty; nothing
+ * should read them before that point (the root layout gate enforces this).
  */
-import districtsRaw from '../../../docs/data/districts.json';
-import venuesRaw from '../../../docs/data/venues.json';
-import tilesRaw from '../../../docs/data/tiles.json';
-import destinationsRaw from '../../../docs/data/destinations.json';
+import { supabase } from './supabase-client';
 import type {
   City,
   Destination,
@@ -23,122 +25,190 @@ import type {
   Venue,
 } from '../../types/models';
 
-const MOMENT_TYPE_BY_TITLE: Record<string, MomentType> = {
-  'Best for Date Night': 'date-night',
-  'Entertaining a Client': 'entertaining-a-client',
-  'Big Group of Friends': 'big-group-of-friends',
-  'Solo Reset': 'solo-reset',
-};
-
 function slugify(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
-export const CITIES: City[] = districtsRaw.metros.map((m) => ({ id: m.id as City['id'], name: m.name }));
+export let CITIES: City[] = [];
+export let DISTRICTS: District[] = [];
+export let DISTRICT_GROUPS: DistrictGroup[] = [];
+export let METRO_WHOLE_SET_LABEL: Record<string, string> = {
+  manchester: 'Central Manchester',
+  cheshire: 'The Cheshire Set',
+};
+export let VENUES: Venue[] = [];
+export let MOMENTS: Moment[] = [];
+export let JOURNEYS: Journey[] = [];
+export let TILES: Tile[] = [];
+export let DESTINATIONS: Destination[] = [];
 
-export const DISTRICTS: District[] = districtsRaw.districts.map((d) => ({
-  id: d.id,
-  name: d.name,
-  metro: d.metro as District['metro'],
-  lat: d.lat,
-  lon: d.lon,
-  base: d.base,
-  kind: d.kind as District['kind'],
-  accentColor: d.accentColor,
-  editorialDescription: d.editorialDescription,
-  // The prototype's DAY_MULT/BAND_MULT tables are global, not per-district —
-  // applied identically here so src/lib/scoring/rank-venues.ts's
-  // scoreDayOfWeek signal (previously a no-op against real seed data, see M3
-  // report) has real values to read. bandMultiplier defaults to the
-  // district's kind (city/county), but a district can carry its own
-  // override directly in the JSON when sharing the generic kind curve would
-  // flatten real differences in character — see districts.json's own
-  // _bandMultiplierSource note for the mechanism and its history.
-  dayMultiplier: districtsRaw.dayMultiplier,
-  bandMultiplier:
-    (d as { bandMultiplier?: Record<string, number> }).bandMultiplier ??
-    districtsRaw.bandMultiplier[d.kind as 'city' | 'county'],
-}));
+let loaded = false;
+let loadPromise: Promise<void> | null = null;
 
-export const DISTRICT_GROUPS: DistrictGroup[] = districtsRaw.districtGroups.map((g) => ({
-  name: g.name,
-  districtIds: g.of,
-}));
-
-export const METRO_WHOLE_SET_LABEL: Record<string, string> = districtsRaw.metroWholeSetLabel;
-
-function districtIdByName(name: string): string {
-  const match = DISTRICTS.find((d) => d.name === name);
-  if (!match) throw new Error(`Seed data references unknown district "${name}"`);
-  return match.id;
+export function isContentDataLoaded(): boolean {
+  return loaded;
 }
 
-/**
- * Seed venues only carry the fields the prototype's UI actually renders.
- * Internal-only fields (tier/sourceConfidence/notes — Hard rule 8) aren't in
- * the design bundle's illustrative data, so they default conservatively here
- * rather than being invented per-venue. petFriendly/dietaryOptions come from
- * real per-venue research (see venues.json's own _dietaryPetSource note) —
- * fall back to the conservative default only for the handful of prototype-
- * transcribed entries that predate that pass and haven't been researched yet.
- */
-export const VENUES: Venue[] = venuesRaw.venues.map((v, i) => ({
-  id: slugify(v.name),
-  name: v.name,
-  type: v.type,
-  subPreferenceTags: [],
-  spendLevel: v.spend.length as Venue['spendLevel'],
-  districtId: districtIdByName(
-    DISTRICTS.find((d) => d.id === v.district)?.name ?? v.district
-  ),
-  metro: DISTRICTS.find((d) => d.id === v.district)?.metro ?? 'manchester',
-  lat: v.lat,
-  lon: v.lon,
-  petFriendly: (v as { petFriendly?: boolean }).petFriendly ?? false,
-  dietaryOptions:
-    (v as { dietaryOptions?: Venue['dietaryOptions'] }).dietaryOptions ?? ['none'],
-  status: (v as { status?: Venue['status'] }).status ?? 'live',
-  photos: [],
-  description: v.reason,
-  bands: v.bands as Venue['bands'],
-  base: v.base,
-  tier: i < 8 ? 'signature' : 'texture',
-  sourceConfidence: 1,
-  notes: undefined,
-}));
+/** Fetches every content table once and populates the exports above.
+ * Safe to call more than once — later callers just await the same promise. */
+export function loadContentData(): Promise<void> {
+  if (loadPromise) return loadPromise;
 
-export const MOMENTS: Moment[] = venuesRaw.moments.map((m) => ({
-  id: slugify(m.title),
-  type: MOMENT_TYPE_BY_TITLE[m.title] ?? slugify(m.title) as MomentType,
-  title: m.title === 'Best for Date Night' ? 'Date Night' : m.title,
-  curator: m.curator,
-  blurb: m.blurb,
-  venueIds: m.picks.map(slugify).filter((id) => VENUES.some((v) => v.id === id)),
-}));
+  loadPromise = (async () => {
+    const [
+      citiesRes,
+      districtsRes,
+      groupsRes,
+      groupMembersRes,
+      tilesRes,
+      venuesRes,
+      momentsRes,
+      momentVenuesRes,
+      journeysRes,
+      journeyStopsRes,
+      destinationsRes,
+    ] = await Promise.all([
+      supabase.from('cities').select('*'),
+      supabase.from('districts').select('*'),
+      supabase.from('district_groups').select('*'),
+      supabase.from('district_group_members').select('*'),
+      supabase.from('tiles').select('*'),
+      supabase.from('venues').select('*'),
+      supabase.from('moments').select('*'),
+      supabase.from('moment_venues').select('*').order('position'),
+      supabase.from('journeys').select('*'),
+      supabase.from('journey_stops').select('*').order('stop_order'),
+      supabase.from('destinations').select('*'),
+    ]);
 
-/**
- * Real ordered stops (venue ids, order, walk-time-to-next), transcribed from
- * the design source's own JOURNEYS constant (Curia.dc.html) — see
- * docs/data/venues.json's `_source` note for exactly what's transcribed vs.
- * newly filled in. `momentType` previously always resolved to 'date-night'
- * for every journey (a placeholder bug: it searched for any moment titled
- * with "date" regardless of which journey was being mapped) — each journey
- * now carries its own real `moment` slug in the JSON instead.
- */
-export const JOURNEYS: Journey[] = venuesRaw.journeys.map((j) => ({
-  id: slugify(j.title),
-  momentType: j.moment as MomentType,
-  title: j.title,
-  blurb: j.blurb,
-  meta: j.meta,
-  stops: j.stops
-    .map((s, i): JourneyStop => ({
-      venueId: slugify(s.venue),
-      order: i + 1,
-      walkTimeToNextMinutes: (s as { walkToNextMinutes?: number }).walkToNextMinutes,
-    }))
-    .filter((s) => VENUES.some((v) => v.id === s.venueId)),
-}));
+    const firstError = [
+      citiesRes,
+      districtsRes,
+      groupsRes,
+      groupMembersRes,
+      tilesRes,
+      venuesRes,
+      momentsRes,
+      momentVenuesRes,
+      journeysRes,
+      journeyStopsRes,
+      destinationsRes,
+    ].find((r) => r.error)?.error;
+    if (firstError) throw new Error(`Failed to load content data: ${firstError.message}`);
+
+    CITIES = (citiesRes.data ?? []).map((c) => ({ id: c.id as City['id'], name: c.name }));
+
+    DISTRICTS = (districtsRes.data ?? []).map((d) => ({
+      id: d.id,
+      name: d.name,
+      metro: d.metro as District['metro'],
+      lat: d.lat,
+      lon: d.lon,
+      base: d.base,
+      kind: d.kind as District['kind'],
+      accentColor: d.accent_color,
+      editorialDescription: d.editorial_description ?? undefined,
+      dayMultiplier: (d.day_multiplier as Record<string, number> | null) ?? undefined,
+      bandMultiplier: (d.band_multiplier as Record<string, number> | null) ?? undefined,
+      groupId: d.group_id ?? undefined,
+    }));
+
+    const districtIdsByGroup = new Map<string, string[]>();
+    for (const m of groupMembersRes.data ?? []) {
+      const list = districtIdsByGroup.get(m.group_name) ?? [];
+      list.push(m.district_id);
+      districtIdsByGroup.set(m.group_name, list);
+    }
+    DISTRICT_GROUPS = (groupsRes.data ?? []).map((g) => ({
+      name: g.name,
+      districtIds: districtIdsByGroup.get(g.name) ?? [],
+    }));
+
+    VENUES = (venuesRes.data ?? []).map((v) => ({
+      id: v.id,
+      name: v.name,
+      type: v.type,
+      subPreferenceTags: v.sub_preference_tags ?? [],
+      spendLevel: v.spend_level as Venue['spendLevel'],
+      districtId: v.district_id,
+      metro: v.metro as Venue['metro'],
+      lat: v.lat,
+      lon: v.lon,
+      petFriendly: v.pet_friendly,
+      dietaryOptions: v.dietary_options as Venue['dietaryOptions'],
+      status: v.status as Venue['status'],
+      photos: v.photos ?? [],
+      description: v.description,
+      bands: v.bands as Venue['bands'],
+      base: v.base,
+      tier: v.tier as Venue['tier'],
+      sourceConfidence: v.source_confidence,
+      notes: v.notes ?? undefined,
+    }));
+
+    const venueIdsByMoment = new Map<string, string[]>();
+    for (const mv of momentVenuesRes.data ?? []) {
+      const list = venueIdsByMoment.get(mv.moment_id) ?? [];
+      list.push(mv.venue_id);
+      venueIdsByMoment.set(mv.moment_id, list);
+    }
+    // `id` is slugify(title) (matches every other content id's convention);
+    // `type` is the DB row's own id (already the MomentType value — see
+    // 0001_init.sql's moments table). "Best for Date Night" is shortened to
+    // "Date Night" for display, same special-case the JSON mock always had.
+    MOMENTS = (momentsRes.data ?? []).map((m) => ({
+      id: slugify(m.title),
+      type: m.id as MomentType,
+      title: m.title === 'Best for Date Night' ? 'Date Night' : m.title,
+      curator: m.curator,
+      blurb: m.blurb,
+      venueIds: venueIdsByMoment.get(m.id) ?? [],
+    }));
+
+    const stopsByJourney = new Map<string, JourneyStop[]>();
+    for (const s of journeyStopsRes.data ?? []) {
+      const list = stopsByJourney.get(s.journey_id) ?? [];
+      list.push({
+        venueId: s.venue_id,
+        order: list.length + 1,
+        walkTimeToNextMinutes: s.walk_time_to_next_minutes ?? undefined,
+      });
+      stopsByJourney.set(s.journey_id, list);
+    }
+    JOURNEYS = (journeysRes.data ?? []).map((j) => ({
+      id: j.id,
+      momentType: j.moment_id as MomentType,
+      title: j.title,
+      blurb: j.blurb ?? undefined,
+      meta: j.meta ?? undefined,
+      stops: stopsByJourney.get(j.id) ?? [],
+    }));
+
+    TILES = (tilesRes.data ?? []).map((t) => ({
+      id: t.id,
+      category: t.category as TileCategory,
+      name: t.name,
+      subPreferences: t.sub_preferences ?? [],
+    }));
+
+    DESTINATIONS = (destinationsRes.data ?? []).map((d) => ({
+      id: d.id,
+      name: d.name,
+      region: d.region,
+      lat: d.lat,
+      lon: d.lon,
+      bestMonths: d.best_months ?? [],
+      bestSeasonLabel: d.best_season_label,
+      tileIds: d.tile_ids ?? [],
+      curator: d.curator,
+      editorialDescription: d.editorial_description,
+    }));
+
+    loaded = true;
+  })();
+
+  return loadPromise;
+}
 
 /** The set of districts a journey's stops touch (CLAUDE.md: a Journey "can
  * span multiple districts — a Journey's displayed location is the set of
@@ -164,34 +234,9 @@ export function momentsByDistrict(districtId: string): Moment[] {
   );
 }
 
-/**
- * Onboarding tile catalog (Do/Drink/Eat), transcribed from the Claude Design
- * handoff bundle's `CATS` constant — see docs/data/tiles.json. Tile ids are
- * derived as `category|name` so they're stable and human-readable in
- * UserPreference.selectedTileIds.
- */
-export const TILES: Tile[] = (Object.entries(tilesRaw.categories) as [TileCategory, { name: string; subPreferences: string[] }[]][])
-  .flatMap(([category, tiles]) =>
-    tiles.map((t) => ({
-      id: `${category}|${t.name}`,
-      category,
-      name: t.name,
-      subPreferences: t.subPreferences,
-    }))
-  );
-
 export function tilesByCategory(category: TileCategory): Tile[] {
   return TILES.filter((t) => t.category === category);
 }
-
-/**
- * Holiday destinations for the Travel feature (2026-08, at explicit user
- * request) — see docs/data/destinations.json's own `_source` note and
- * src/types/models.ts's Destination doc comment. Loaded the same way every
- * other seed collection here is, so it swaps out cleanly whenever Supabase
- * wiring replaces this whole file.
- */
-export const DESTINATIONS: Destination[] = destinationsRaw.destinations;
 
 export function venuesByDistrict(districtId: string): Venue[] {
   return VENUES.filter((v) => v.districtId === districtId);
