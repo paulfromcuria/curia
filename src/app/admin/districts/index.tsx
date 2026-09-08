@@ -28,7 +28,7 @@ export default function DistrictsList() {
     return (
       <Pressable
         style={styles.row}
-        onPress={() => router.push({ pathname: '/(admin)/districts/[id]', params: { id: item.id } })}
+        onPress={() => router.push({ pathname: '/admin/districts/[id]', params: { id: item.id } })}
       >
         <View style={[styles.swatch, { backgroundColor: item.accentColor }]} />
         <View style={styles.rowMain}>
@@ -57,7 +57,7 @@ export default function DistrictsList() {
         ListEmptyComponent={<Text style={styles.empty}>No districts match &quot;{query}&quot;.</Text>}
       />
       <View style={styles.footer}>
-        <Button label="Add district" onPress={() => router.push('/(admin)/districts/new')} />
+        <Button label="Add district" onPress={() => router.push('/admin/districts/new')} />
       </View>
     </View>
   );

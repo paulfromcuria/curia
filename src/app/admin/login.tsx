@@ -31,7 +31,7 @@ export default function AdminLogin() {
     }
     setError(null);
     login(email.trim());
-    router.replace('/(admin)');
+    router.replace('/admin');
   }
 
   return (

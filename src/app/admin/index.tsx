@@ -29,37 +29,37 @@ export default function AdminHome() {
       label: 'Venues',
       description: 'Edit venue details, spend level, tier, source confidence and curator notes.',
       count: venues.length,
-      href: '/(admin)/venues',
+      href: '/admin/venues',
     },
     {
       label: 'Districts',
       description: 'Add, edit and delete districts — including liveliness multipliers.',
       count: districts.length,
-      href: '/(admin)/districts',
+      href: '/admin/districts',
     },
     {
       label: 'Tiles',
       description: 'Add, edit and delete the Do/Drink/Eat onboarding tile catalog.',
       count: tiles.length,
-      href: '/(admin)/tiles',
+      href: '/admin/tiles',
     },
     {
       label: 'Moments',
       description: 'View the 4 curated moment lists and their curator bylines.',
       count: MOMENTS.length,
-      href: '/(admin)/moments',
+      href: '/admin/moments',
     },
     {
       label: 'Journeys',
       description: 'View multi-stop journeys and the districts they touch.',
       count: JOURNEYS.length,
-      href: '/(admin)/journeys',
+      href: '/admin/journeys',
     },
     {
       label: 'Users',
       description: 'Demo data — no real backend yet, see CLAUDE.md "Tech stack".',
       count: DEMO_MEMBERS.length,
-      href: '/(admin)/users',
+      href: '/admin/users',
     },
   ];
 

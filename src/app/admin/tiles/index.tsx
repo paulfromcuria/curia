@@ -33,7 +33,7 @@ export default function TilesList() {
     return (
       <Pressable
         style={styles.row}
-        onPress={() => router.push({ pathname: '/(admin)/tiles/[id]', params: { id: item.id } })}
+        onPress={() => router.push({ pathname: '/admin/tiles/[id]', params: { id: item.id } })}
       >
         <View style={styles.rowMain}>
           <Text style={styles.rowTitle}>{item.name}</Text>
@@ -66,7 +66,7 @@ export default function TilesList() {
         ListEmptyComponent={<Text style={styles.empty}>No tiles match &quot;{query}&quot;.</Text>}
       />
       <View style={styles.footer}>
-        <Button label="Add tile" onPress={() => router.push('/(admin)/tiles/new')} />
+        <Button label="Add tile" onPress={() => router.push('/admin/tiles/new')} />
       </View>
     </View>
   );

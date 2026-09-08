@@ -33,7 +33,7 @@ export default function VenuesList() {
     return (
       <Pressable
         style={styles.row}
-        onPress={() => router.push({ pathname: '/(admin)/venues/[id]', params: { id: item.id } })}
+        onPress={() => router.push({ pathname: '/admin/venues/[id]', params: { id: item.id } })}
       >
         <View style={styles.rowMain}>
           <Text style={styles.rowTitle}>{item.name}</Text>
@@ -63,7 +63,7 @@ export default function VenuesList() {
         ListEmptyComponent={<Text style={styles.empty}>No venues match &quot;{query}&quot;.</Text>}
       />
       <View style={styles.footer}>
-        <Button label="Add venue" onPress={() => router.push('/(admin)/venues/new')} />
+        <Button label="Add venue" onPress={() => router.push('/admin/venues/new')} />
       </View>
     </View>
   );

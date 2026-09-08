@@ -44,7 +44,7 @@ export default function UsersList() {
     return (
       <Pressable
         style={styles.row}
-        onPress={() => router.push({ pathname: '/(admin)/users/[id]', params: { id: item.id } })}
+        onPress={() => router.push({ pathname: '/admin/users/[id]', params: { id: item.id } })}
       >
         <View style={styles.rowMain}>
           <Text style={styles.rowTitle}>{item.name}</Text>

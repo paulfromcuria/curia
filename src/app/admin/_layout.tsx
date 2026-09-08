@@ -8,7 +8,7 @@ import { color } from '../../theme';
  * group from the member-facing app, per the M8 brief and
  * .claude/agents/curia-admin.md ("a separate surface from the
  * member-facing mobile app"). Nothing in (auth), (tabs), onboarding, or any
- * pushed member screen links here — reaching `/(admin)` means navigating
+ * pushed member screen links here — reaching `/admin` means navigating
  * to it directly (e.g. by URL), there is no in-app entry point.
  *
  * Provides its own mock session (src/lib/admin/admin-session.tsx) —
@@ -38,10 +38,10 @@ function GuardedAdminStack() {
   const isLoginRoute = segments[segments.length - 1] === 'login';
 
   if (!isAdminAuthenticated && !isLoginRoute) {
-    return <Redirect href="/(admin)/login" />;
+    return <Redirect href="/admin/login" />;
   }
   if (isAdminAuthenticated && isLoginRoute) {
-    return <Redirect href="/(admin)" />;
+    return <Redirect href="/admin" />;
   }
 
   return (
