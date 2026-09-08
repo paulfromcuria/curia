@@ -1,9 +1,10 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Button, Kicker } from '../../components/curia';
-import { DISTRICTS, VENUES } from '../../lib/data/seed';
+import { Button, Kicker, Tag } from '../../components/curia';
+import { DISTRICTS, MOMENTS, VENUES } from '../../lib/data/seed';
 import { useSession } from '../../lib/state/session';
 import { estimateTrip } from '../../lib/travel/trip';
+import type { DietaryRequirement, MomentType } from '../../types/models';
 import { color, font, radius, spacing } from '../../theme';
 
 const BAND_LABEL: Record<string, string> = {
@@ -11,6 +12,22 @@ const BAND_LABEL: Record<string, string> = {
   afternoon: 'Afternoon',
   evening: 'Evening',
   late: 'Late night',
+};
+
+const MOMENT_LABEL: Record<MomentType, string> = {
+  'date-night': 'Date Night',
+  'entertaining-a-client': 'Entertaining a Client',
+  'big-group-of-friends': 'Big Group of Friends',
+  'solo-reset': 'Solo Reset',
+};
+
+const DIETARY_LABEL: Record<Exclude<DietaryRequirement, 'none'>, string> = {
+  vegetarian: 'Vegetarian options',
+  vegan: 'Vegan options',
+  pescatarian: 'Pescatarian options',
+  'gluten-free': 'Gluten-free options',
+  'dairy-free': 'Dairy-free options',
+  'nut-allergy': 'Nut-allergy friendly',
 };
 
 /**
@@ -42,6 +59,26 @@ const BAND_LABEL: Record<string, string> = {
  * with the distance List/Map show for the same venue, or with the ride
  * screen's own trip (src/app/ride.tsx, fixed the same way): one real source
  * of truth for "where you are," not two independent guesses.
+ *
+ * 2026-09 addition, at explicit user request: "GOOD FOR" moment chips and a
+ * "GOOD TO KNOW" matched-facts row. Both are real, computed signals, not new
+ * copy or a second scoring system:
+ * - "GOOD FOR" lists every real Moment (docs/data/venues.json `moments` ->
+ *   `Moment.venueIds`, see seed.ts) this venue is an actual curated pick in
+ *   -- tapping one deep-links to Moments filtered to that moment + this
+ *   venue's district (see moments.tsx's `moment` param).
+ * - "GOOD TO KNOW" tags are plain amenity facts, not a preference-match
+ *   score breakdown -- deliberately distinct from the "Why it's ranked here"
+ *   block the 2026-08 concierge pass removed (Hard rule 8 / Presentation
+ *   layer section: no labelled YOUR PREFERENCES fields). Each tag only
+ *   appears when it's a genuinely matched fact against the signed-in
+ *   member's own `session.you` profile (set for real during onboarding) --
+ *   spend level, dietary requirements, and pet-friendliness are all real
+ *   `Venue`/`YouProfile` fields already used as hard filters/ranking signals
+ *   elsewhere (rank-venues.ts); this reads the same facts rather than
+ *   inventing new ones. `Venue.subPreferenceTags` is intentionally not used
+ *   here -- no seed venue has any populated yet (a real, pre-existing data
+ *   gap, not something to fake for this screen).
  */
 export default function VenueDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -53,6 +90,17 @@ export default function VenueDetail() {
   const district = venue ? DISTRICTS.find((d) => d.id === venue.districtId) : undefined;
 
   const trip = venue ? estimateTrip(session.searchOrigin, venue) : undefined;
+
+  const matchedMoments = venue ? MOMENTS.filter((m) => m.venueIds.includes(venue.id)) : [];
+
+  const matchTags: string[] = [];
+  if (venue) {
+    if (venue.spendLevel === session.you.spendLevel) matchTags.push('In your price range');
+    if (session.you.pet !== 'none' && venue.petFriendly) matchTags.push('Dog friendly');
+    for (const req of session.you.dietary) {
+      if (req !== 'none' && venue.dietaryOptions.includes(req)) matchTags.push(DIETARY_LABEL[req]);
+    }
+  }
 
   if (!venue) {
     return (
@@ -118,6 +166,38 @@ export default function VenueDetail() {
         </View>
 
         <Text style={styles.blurb}>{venue.description}</Text>
+
+        {matchedMoments.length > 0 && (
+          <View style={styles.tagSection}>
+            <Text style={styles.tagSectionLabel}>GOOD FOR</Text>
+            <View style={styles.tagRow}>
+              {matchedMoments.map((m) => (
+                <Tag
+                  key={m.id}
+                  label={MOMENT_LABEL[m.type]}
+                  active
+                  onPress={() =>
+                    router.push({
+                      pathname: '/(tabs)/moments',
+                      params: { moment: m.type, ...(district ? { district: district.id } : {}) },
+                    })
+                  }
+                />
+              ))}
+            </View>
+          </View>
+        )}
+
+        {matchTags.length > 0 && (
+          <View style={styles.tagSection}>
+            <Text style={styles.tagSectionLabel}>GOOD TO KNOW</Text>
+            <View style={styles.tagRow}>
+              {matchTags.map((tag) => (
+                <Tag key={tag} label={tag} active />
+              ))}
+            </View>
+          </View>
+        )}
 
         <Pressable onPress={() => district && router.push(`/district/${district.id}`)} style={styles.districtButton}>
           <Text style={styles.districtButtonText}>MORE IN {(district?.name ?? '').toUpperCase()}</Text>
@@ -238,6 +318,18 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 24,
     color: color.borderNeutral,
+  },
+  tagSection: { gap: spacing.xs },
+  tagSectionLabel: {
+    fontFamily: font.sans,
+    fontSize: 9,
+    letterSpacing: 1.8,
+    color: color.textTertiary,
+  },
+  tagRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.xs,
   },
   districtButton: {
     marginTop: spacing.sm,

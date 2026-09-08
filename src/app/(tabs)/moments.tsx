@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Card, Kicker } from '../../components/curia';
 import { DISTRICTS, JOURNEYS, MOMENTS, VENUES, journeyDistricts } from '../../lib/data/seed';
+import type { MomentType } from '../../types/models';
 import { color, font, radius, spacing } from '../../theme';
 
 /**
@@ -26,23 +27,35 @@ import { color, font, radius, spacing } from '../../theme';
  * each moment's venue chips and the journey list down to that district only
  * (mirroring the prototype's own `momentDistrict` filter/"SHOW EVERYWHERE"
  * pattern), rather than duplicating a browsable moment-detail screen.
+ *
+ * An optional `moment` param (a `MomentType`) narrows to that one moment's
+ * section only — added so Venue detail's "GOOD FOR" chips (a venue can be a
+ * pick in more than one Moment) can deep-link straight to the relevant
+ * section instead of dumping the visitor into every moment active in that
+ * district. "SHOW EVERYWHERE" already clears both params at once since it
+ * replaces the route with none.
  */
 export default function Moments() {
   const router = useRouter();
-  const { district: districtId } = useLocalSearchParams<{ district?: string }>();
+  const { district: districtId, moment: momentType } = useLocalSearchParams<{
+    district?: string;
+    moment?: MomentType;
+  }>();
 
   const district = districtId ? DISTRICTS.find((d) => d.id === districtId) : undefined;
 
   const momentSections = useMemo(
     () =>
-      MOMENTS.map((m) => {
-        const venues = m.venueIds
-          .map((id) => VENUES.find((v) => v.id === id))
-          .filter((v): v is NonNullable<typeof v> => !!v)
-          .filter((v) => !district || v.districtId === district.id);
-        return { moment: m, venues };
-      }).filter((sec) => sec.venues.length > 0),
-    [district]
+      MOMENTS.filter((m) => !momentType || m.type === momentType)
+        .map((m) => {
+          const venues = m.venueIds
+            .map((id) => VENUES.find((v) => v.id === id))
+            .filter((v): v is NonNullable<typeof v> => !!v)
+            .filter((v) => !district || v.districtId === district.id);
+          return { moment: m, venues };
+        })
+        .filter((sec) => sec.venues.length > 0),
+    [district, momentType]
   );
 
   const journeys = useMemo(
