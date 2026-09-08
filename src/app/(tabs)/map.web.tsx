@@ -686,7 +686,6 @@ export default function Map() {
   const selectedTileLabels = moodCategoryTiles
     .filter((t) => selectedTileIds.includes(t.tileId))
     .map((t) => t.label);
-  const moodKicker = moodOn ? 'JUST FOR TONIGHT' : 'IN THE MOOD TO';
   const moodLabel = !moodOn
     ? 'Do · Drink · Eat'
     : selectedTileLabels.length
@@ -784,27 +783,35 @@ export default function Map() {
     <View style={styles.container} onLayout={onContainerLayout}>
       <div ref={mapContainerRef} style={{ position: 'absolute', inset: 0 }} />
 
+      {/* 2026-09, at explicit user request: this used to be two stacked
+          rows (context pill full-width, mood pill below it) eating enough
+          vertical space over the map that it read as a toolbar, not a map.
+          Both pills now render compact/single-line so they fit in one row
+          alongside a smaller profile emblem — same information, tap-through
+          behaviour and active/mood-on states, just far less height. */}
       <View style={styles.topStack}>
         <View style={styles.headerRow}>
-          <View style={styles.ctxWrap}>
-            <ContextStrip kicker={ctxKicker} label={ctxLabel} onPress={openCtx} />
-          </View>
-          <EmblemButton initials={initials} onPress={() => router.push('/profile')} />
-        </View>
-
-        <Pressable onPress={openMood} style={[styles.moodPill, moodOn && styles.moodPillActive]}>
-          <View style={styles.moodTextCol}>
-            <Text style={[styles.moodKicker, moodOn && styles.moodKickerActive]}>{moodKicker}</Text>
+          <ContextStrip
+            kicker={ctxKicker}
+            label={ctxLabel}
+            onPress={openCtx}
+            compact
+            compactText={context.now ? 'LIVE NOW' : ctxLabel}
+          />
+          <Pressable onPress={openMood} style={[styles.moodPill, moodOn && styles.moodPillActive]}>
             <Text style={[styles.moodLabel, moodOn && styles.moodLabelActive]} numberOfLines={1}>
               {moodLabel}
             </Text>
-          </View>
-          {moodOn && (
-            <Pressable onPress={clearMood} hitSlop={8}>
-              <Text style={styles.moodClear}>×</Text>
-            </Pressable>
-          )}
-        </Pressable>
+            {moodOn ? (
+              <Pressable onPress={clearMood} hitSlop={8}>
+                <Text style={styles.moodClear}>×</Text>
+              </Pressable>
+            ) : (
+              <Text style={styles.moodChevron}>⌄</Text>
+            )}
+          </Pressable>
+          <EmblemButton initials={initials} onPress={() => router.push('/profile')} compact />
+        </View>
       </View>
 
       {/* 2026-09, at explicit user request: this is a mobile-first
@@ -990,62 +997,51 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 
-  // See map.tsx's identical topStack doc comment: headerRow and moodPill
-  // used to be two independently `position:'absolute'`-placed rows with a
-  // hardcoded 58px gap, which overlapped once real weather strings/font
-  // metrics pushed the context pill's real height past that guess.
+  // 2026-09, at explicit user request: was two stacked rows (a full-height
+  // context pill, then the mood pill below it) — collapsed to one row, both
+  // pills compact/single-line, so the map starts noticeably higher.
   topStack: {
     position: 'absolute',
     top: 56,
     left: spacing.lg,
     right: spacing.lg,
-    gap: spacing.sm,
   },
   headerRow: {
     flexDirection: 'row',
     gap: spacing.sm,
-    alignItems: 'flex-start',
-  },
-  ctxWrap: {
-    flex: 1,
+    alignItems: 'center',
   },
   moodPill: {
+    flex: 1,
+    minWidth: 0,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm + 2,
-    paddingVertical: 9,
+    justifyContent: 'space-between',
+    gap: spacing.sm,
+    paddingVertical: 8,
     paddingHorizontal: spacing.md,
     borderRadius: radius.pill,
     borderWidth: 1,
     borderColor: color.hairlineMax,
     backgroundColor: 'rgba(19,17,16,.78)',
-    alignSelf: 'flex-start',
-    maxWidth: '100%',
   },
   moodPillActive: {
     borderColor: 'rgba(192,160,98,.55)',
     backgroundColor: 'rgba(192,160,98,.14)',
   },
-  moodTextCol: {
-    flexShrink: 1,
-    gap: 4,
-  },
-  moodKicker: {
-    fontFamily: font.sansRegular,
-    fontSize: 8.5,
-    letterSpacing: 2,
-    color: color.textSecondary,
-  },
-  moodKickerActive: {
-    color: color.gold,
-  },
   moodLabel: {
+    flexShrink: 1,
     fontFamily: font.serifRegular,
     fontSize: 13,
     color: color.textSecondaryAlt,
   },
   moodLabelActive: {
     color: color.textPrimary,
+  },
+  moodChevron: {
+    fontFamily: font.sans,
+    fontSize: 12,
+    color: color.gold,
   },
   moodClear: {
     fontFamily: font.sans,
@@ -1057,7 +1053,9 @@ const styles = StyleSheet.create({
   zoomCol: {
     position: 'absolute',
     right: spacing.lg,
-    top: 168,
+    // Was 168 — calibrated for the old two-row header. Dropped now that
+    // header collapses to one compact row (2026-09), reclaiming more map.
+    top: 116,
     alignItems: 'center',
   },
   zoomBtn: {
