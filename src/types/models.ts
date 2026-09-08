@@ -131,6 +131,19 @@ export interface Venue {
   bands: DayTimeBand[];
   /** Base attractiveness score before ranking weights are applied. */
   base: number;
+  /**
+   * 'coming-soon' marks a venue Curia isn't fully committing to as a
+   * long-term catalog pick yet (e.g. a new venue whose parent operator has
+   * stated multi-site expansion plans that could later tip it into Hard
+   * rule 1 chain territory) — an editorial confidence marker set by
+   * curation, distinct from petFriendly/dietaryOptions (real per-venue
+   * facts, and hard filters per the Matchmaking contract). It still appears
+   * in normal ranked results (no dedicated "browse all venues" surface
+   * exists to show it otherwise) with a "New" badge in the UI — never
+   * literal "coming soon" copy, since the venue itself may already be open
+   * and trading. Defaults to 'live'.
+   */
+  status: 'live' | 'coming-soon';
 
   // Internal-only fields — Hard rule 8: must NEVER surface in user-facing UI,
   // API responses to the member app, or copy. Admin/back-office only.

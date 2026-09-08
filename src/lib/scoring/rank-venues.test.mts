@@ -58,6 +58,7 @@ function venue(overrides: Partial<Venue>): Venue {
     lon: -2.2276,
     petFriendly: false,
     dietaryOptions: ['none'],
+    status: 'live',
     photos: [],
     description: 'Natural wine and communal tables both on, and the kitchen runs to 11pm.',
     bands: ['evening', 'late'],

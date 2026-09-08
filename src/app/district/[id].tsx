@@ -116,7 +116,14 @@ export default function DistrictGuide() {
           return (
             <Pressable key={venue.id} onPress={() => router.push(`/venue/${venue.id}`)} style={styles.matchRow}>
               <View style={styles.matchText}>
-                <Text style={styles.matchName}>{venue.name}</Text>
+                <View style={styles.matchNameRow}>
+                  <Text style={styles.matchName}>{venue.name}</Text>
+                  {venue.status === 'coming-soon' && (
+                    <View style={styles.newBadge}>
+                      <Text style={styles.newBadgeText}>NEW</Text>
+                    </View>
+                  )}
+                </View>
                 <Text style={styles.matchMeta}>
                   {venue.type} · {'£'.repeat(venue.spendLevel)}
                 </Text>
@@ -249,7 +256,22 @@ const styles = StyleSheet.create({
     borderBottomColor: color.hairlineMin,
   },
   matchText: { flex: 1, gap: 6 },
+  matchNameRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   matchName: { fontFamily: font.serifRegular, fontSize: 21, color: color.textPrimary },
+  newBadge: {
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: 'rgba(192,160,98,.6)',
+    backgroundColor: 'rgba(192,160,98,.14)',
+    paddingHorizontal: 8,
+    paddingVertical: 2.5,
+  },
+  newBadgeText: {
+    fontFamily: font.sansMedium,
+    fontSize: 9,
+    letterSpacing: 1.5,
+    color: color.goldLight,
+  },
   matchMeta: {
     fontFamily: font.sans,
     fontSize: 10.5,

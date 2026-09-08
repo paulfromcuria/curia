@@ -97,6 +97,7 @@ export const VENUES: Venue[] = venuesRaw.venues.map((v, i) => ({
   petFriendly: (v as { petFriendly?: boolean }).petFriendly ?? false,
   dietaryOptions:
     (v as { dietaryOptions?: Venue['dietaryOptions'] }).dietaryOptions ?? ['none'],
+  status: (v as { status?: Venue['status'] }).status ?? 'live',
   photos: [],
   description: v.reason,
   bands: v.bands as Venue['bands'],

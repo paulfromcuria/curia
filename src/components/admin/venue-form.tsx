@@ -17,6 +17,8 @@ const DIETARY_OPTIONS: DietaryRequirement[] = [
 
 const BAND_OPTIONS: DayTimeBand[] = ['morning', 'afternoon', 'evening', 'late'];
 
+const STATUS_OPTIONS: Venue['status'][] = ['live', 'coming-soon'];
+
 interface VenueFormProps {
   initial: Venue;
   districts: District[];
@@ -150,6 +152,14 @@ export function VenueForm({ initial, districts, onSave, onDelete, saveLabel = 'S
               active={draft.dietaryOptions.includes(opt)}
               onPress={() => update('dietaryOptions', toggleInArray(draft.dietaryOptions, opt))}
             />
+          ))}
+        </View>
+      </Field>
+
+      <Field label="Status — a curation confidence marker, not a member-facing fact (unlike the fields above): 'Coming soon' still appears in results with a New badge, since there's no separate browse surface to hide it on">
+        <View style={styles.wrap}>
+          {STATUS_OPTIONS.map((s) => (
+            <Tag key={s} label={s} active={draft.status === s} onPress={() => update('status', s)} />
           ))}
         </View>
       </Field>

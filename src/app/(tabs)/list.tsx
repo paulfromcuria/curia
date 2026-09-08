@@ -418,6 +418,11 @@ export default function List() {
                             <Text style={styles.districtVenueName} numberOfLines={1}>
                               {venue.name}
                             </Text>
+                            {venue.status === 'coming-soon' && (
+                              <View style={styles.newBadge}>
+                                <Text style={styles.newBadgeText}>NEW</Text>
+                              </View>
+                            )}
                             <Text style={styles.districtVenueType} numberOfLines={1}>
                               {venue.type}
                             </Text>
@@ -472,9 +477,16 @@ export default function List() {
                     <Text style={styles.name} numberOfLines={1}>
                       {venue.name}
                     </Text>
-                    <Text style={styles.type} numberOfLines={1}>
-                      {(district?.name ?? '').toUpperCase()} · {venue.type}
-                    </Text>
+                    <View style={styles.typeRow}>
+                      <Text style={styles.type} numberOfLines={1}>
+                        {(district?.name ?? '').toUpperCase()} · {venue.type}
+                      </Text>
+                      {venue.status === 'coming-soon' && (
+                        <View style={styles.newBadge}>
+                          <Text style={styles.newBadgeText}>NEW</Text>
+                        </View>
+                      )}
+                    </View>
                   </Pressable>
                   <View style={styles.rowRight}>
                     <View style={styles.rowRightText}>
@@ -858,7 +870,27 @@ const styles = StyleSheet.create({
     fontSize: 10.5,
     letterSpacing: 1.6,
     color: color.textSecondary,
+    flexShrink: 1,
+  },
+  typeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
     marginTop: 9,
+  },
+  newBadge: {
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: 'rgba(192,160,98,.6)',
+    backgroundColor: 'rgba(192,160,98,.14)',
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+  },
+  newBadgeText: {
+    fontFamily: font.sansMedium,
+    fontSize: 8.5,
+    letterSpacing: 1.4,
+    color: color.goldLight,
   },
   rowRight: {
     flexDirection: 'row',

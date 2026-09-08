@@ -31,6 +31,7 @@ export default function NewVenue() {
       lon: firstDistrict?.lon ?? 0,
       petFriendly: false,
       dietaryOptions: ['none'],
+      status: 'live',
       photos: [],
       description: '',
       bands: ['evening'],

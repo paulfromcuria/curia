@@ -90,7 +90,14 @@ export default function VenueDetail() {
           <Text style={styles.kicker}>
             {(district?.name ?? '').toUpperCase()} · {venue.type}
           </Text>
-          <Text style={styles.name}>{venue.name}</Text>
+          <View style={styles.nameRow}>
+            <Text style={styles.name}>{venue.name}</Text>
+            {venue.status === 'coming-soon' && (
+              <View style={styles.newBadge}>
+                <Text style={styles.newBadgeText}>NEW</Text>
+              </View>
+            )}
+          </View>
         </View>
       </View>
 
@@ -147,6 +154,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   backButtonText: { color: color.textPrimary, fontSize: 15 },
+  nameRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  newBadge: {
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: 'rgba(192,160,98,.6)',
+    backgroundColor: 'rgba(192,160,98,.14)',
+    paddingHorizontal: 9,
+    paddingVertical: 3,
+  },
+  newBadgeText: {
+    fontFamily: font.sansMedium,
+    fontSize: 9.5,
+    letterSpacing: 1.6,
+    color: color.goldLight,
+  },
   saveButton: {
     position: 'absolute',
     top: 56,
