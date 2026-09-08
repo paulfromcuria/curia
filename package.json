@@ -6,6 +6,7 @@
     "@expo-google-fonts/cormorant-garamond": "^0.4.1",
     "@expo-google-fonts/jost": "^0.4.2",
     "@rnmapbox/maps": "^10.3.5",
+    "@supabase/supabase-js": "^2.116.0",
     "@turf/buffer": "^7.4.0",
     "@turf/helpers": "^7.4.0",
     "@turf/mask": "^7.4.0",
@@ -42,6 +43,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
+    "db:seed": "node scripts/seed-supabase.mjs",
     "lint": "expo lint",
     "test": "node --test"
   },
