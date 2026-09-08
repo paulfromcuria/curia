@@ -254,6 +254,7 @@ export default function Map() {
   const [bounds, setBounds] = useState<GeoBounds | null>(null);
   const [moodSheetOpen, setMoodSheetOpen] = useState(false);
   const [ctxSheetOpen, setCtxSheetOpen] = useState(false);
+  const [sheetExpanded, setSheetExpanded] = useState(true);
   const autoLocatedRef = useRef(false);
 
   const onContainerLayout = useCallback((e: LayoutChangeEvent) => {
@@ -686,41 +687,53 @@ export default function Map() {
         </Pressable>
       </View>
 
-      <Card tone="sheet" style={styles.sheet}>
-        <View style={styles.sheetHandle} />
-        <View style={styles.sheetHeader}>
-          <Text style={styles.sheetTitle} numberOfLines={1}>
-            {sheetTitle}
-          </Text>
-          <Text style={styles.sheetMeta}>{sheetMeta}</Text>
-        </View>
-        <View style={styles.sheetList}>
-          {topRanked.map((r, idx) => {
-            const venue = VENUES.find((v) => v.id === r.venueId);
-            if (!venue) return null;
-            const district = DISTRICTS.find((d) => d.id === venue.districtId);
-            return (
-              <Pressable
-                key={r.venueId}
-                onPress={() => router.push(`/venue/${venue.id}`)}
-                style={styles.sheetRow}
-              >
-                <View style={styles.sheetRank}>
-                  <Text style={styles.sheetRankText}>{idx + 1}</Text>
-                </View>
-                <View style={styles.sheetRowText}>
-                  <Text style={styles.sheetVenueName} numberOfLines={1}>
-                    {venue.name}
-                  </Text>
-                  <Text style={styles.sheetVenueMeta} numberOfLines={1}>
-                    {(district?.name ?? '').toUpperCase()} · {venue.type}
-                  </Text>
-                </View>
-              </Pressable>
-            );
-          })}
-          {ranked.length === 0 && <Text style={styles.sheetEmpty}>{emptyNote}</Text>}
-        </View>
+      <Card tone="sheet" style={[styles.sheet, !sheetExpanded && styles.sheetCollapsed]}>
+        <Pressable
+          onPress={() => setSheetExpanded((v) => !v)}
+          style={styles.sheetHandleArea}
+          accessibilityRole="button"
+          accessibilityLabel={sheetExpanded ? 'Collapse venue list' : 'Expand venue list'}
+        >
+          <View style={styles.sheetHandle} />
+          <View style={styles.sheetHeader}>
+            <Text style={styles.sheetTitle} numberOfLines={1}>
+              {sheetTitle}
+            </Text>
+            <View style={styles.sheetHeaderRight}>
+              <Text style={styles.sheetMeta}>{sheetMeta}</Text>
+              <Text style={styles.sheetChevron}>{sheetExpanded ? '⌄' : '⌃'}</Text>
+            </View>
+          </View>
+        </Pressable>
+        {sheetExpanded && (
+          <ScrollView style={styles.sheetList} showsVerticalScrollIndicator={false}>
+            {topRanked.map((r, idx) => {
+              const venue = VENUES.find((v) => v.id === r.venueId);
+              if (!venue) return null;
+              const district = DISTRICTS.find((d) => d.id === venue.districtId);
+              return (
+                <Pressable
+                  key={r.venueId}
+                  onPress={() => router.push(`/venue/${venue.id}`)}
+                  style={styles.sheetRow}
+                >
+                  <View style={styles.sheetRank}>
+                    <Text style={styles.sheetRankText}>{idx + 1}</Text>
+                  </View>
+                  <View style={styles.sheetRowText}>
+                    <Text style={styles.sheetVenueName} numberOfLines={1}>
+                      {venue.name}
+                    </Text>
+                    <Text style={styles.sheetVenueMeta} numberOfLines={1}>
+                      {(district?.name ?? '').toUpperCase()} · {venue.type}
+                    </Text>
+                  </View>
+                </Pressable>
+              );
+            })}
+            {ranked.length === 0 && <Text style={styles.sheetEmpty}>{emptyNote}</Text>}
+          </ScrollView>
+        )}
       </Card>
 
       {moodSheetOpen && (
@@ -1050,6 +1063,19 @@ const styles = StyleSheet.create({
     maxHeight: 300,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
+    overflow: 'hidden',
+  },
+  sheetCollapsed: {
+    maxHeight: undefined,
+    paddingBottom: spacing.md,
+  },
+  sheetHandleArea: {
+    // Generous hit area so the collapse/expand tap target isn't just the
+    // 3px handle bar itself.
+    marginHorizontal: -spacing.md,
+    paddingHorizontal: spacing.md,
+    marginTop: -spacing.xs,
+    paddingTop: spacing.xs,
   },
   sheetHandle: {
     width: 36,
@@ -1072,13 +1098,24 @@ const styles = StyleSheet.create({
     color: color.gold,
     flexShrink: 1,
   },
+  sheetHeaderRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs + 2,
+  },
   sheetMeta: {
     fontFamily: font.sans,
     fontSize: 10.5,
     letterSpacing: 1.2,
     color: color.textTertiary,
   },
+  sheetChevron: {
+    fontFamily: font.sans,
+    fontSize: 13,
+    color: color.gold,
+  },
   sheetList: {
+    flex: 1,
     marginTop: spacing.xs + 2,
   },
   sheetRow: {
