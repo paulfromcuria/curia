@@ -13,9 +13,7 @@ import {
   MAP_HOME,
   MAX_ZOOM_LEVEL,
   MIN_ZOOM_LEVEL,
-  boundsForPoints,
   groupTapCameraTarget,
-  clampZoomLevel,
   districtGlowFeatureCollection,
   districtLiveliness,
   districtsInBounds,
@@ -131,6 +129,24 @@ function ensureMapboxCss() {
 }
 
 /**
+ * mapbox-gl-js has no constructor option to disable the logo control (unlike
+ * @rnmapbox/maps' native `logoEnabled` prop, used the same way in map.tsx) —
+ * the documented workaround is hiding `.mapboxgl-ctrl-logo` via CSS. Kept
+ * separate from `attributionControl` (left on): 2026-09, at explicit user
+ * request, this hides only the wordmark graphic — Mapbox's terms require
+ * attribution to remain visible somewhere (the small "© Mapbox ©
+ * OpenStreetMap" text link), so that control stays.
+ */
+function hideMapboxLogo() {
+  if (typeof document === 'undefined') return;
+  if (document.querySelector('style[data-curia-hide-logo]')) return;
+  const style = document.createElement('style');
+  style.setAttribute('data-curia-hide-logo', 'true');
+  style.textContent = `.mapboxgl-ctrl-logo { display: none !important; }`;
+  document.head.appendChild(style);
+}
+
+/**
  * `mapboxgl.Marker` requires its element to be `position: absolute` (that's
  * how it applies the transform that puts a marker at its real map
  * coordinate) — normally supplied by mapbox-gl.css's own
@@ -197,15 +213,6 @@ const WEEK_DAYS: { key: string; label: string }[] = [
 ];
 
 const CATEGORIES: TileCategory[] = ['Do', 'Drink', 'Eat'];
-
-// A function, not a module-level const: DISTRICTS (src/lib/data/seed.ts) is
-// empty until loadContentData() resolves, well after this module is first
-// imported — see src/lib/map/geo.ts's getCoveragePolygons/getCoverageMask
-// doc comment for the same bug caught there. Cheap enough to just recompute
-// on every call rather than needing a cached getter.
-function allDistrictPoints(): GeoPoint[] {
-  return DISTRICTS.map((d) => ({ lat: d.lat, lon: d.lon }));
-}
 
 function capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -335,6 +342,7 @@ export default function Map() {
     if (!mapContainerRef.current || mapRef.current) return;
     ensureMapboxCss();
     ensureMarkerPositioningFallback();
+    hideMapboxLogo();
     mapboxgl.accessToken = process.env.EXPO_PUBLIC_MAPBOX_TOKEN ?? '';
     const initial = session.location ?? MAP_HOME;
     const initialWidth = mapContainerRef.current.clientWidth || containerWidth;
@@ -720,30 +728,12 @@ export default function Map() {
     .slice(0, 2)
     .toUpperCase();
 
-  const zoomIn = () => {
-    const next = clampZoomLevel(zoomLevel + 1);
-    mapRef.current?.zoomTo(next, { duration: 250 });
-  };
-  const zoomOut = () => {
-    const next = clampZoomLevel(zoomLevel - 1);
-    mapRef.current?.zoomTo(next, { duration: 250 });
-  };
   const locate = () => {
     // Recentres only — deliberately leaves zoom (and therefore the shared
     // search radius) untouched, so tapping "locate me" can't silently change
     // how wide a search you'd set up.
     const target = session.location ?? MAP_HOME;
     mapRef.current?.flyTo({ center: [target.lon, target.lat], duration: 400 });
-  };
-  const fitRegion = () => {
-    const b = boundsForPoints(allDistrictPoints());
-    mapRef.current?.fitBounds(
-      [
-        [b.sw.lon, b.sw.lat],
-        [b.ne.lon, b.ne.lat],
-      ],
-      { padding: 60, duration: 500 }
-    );
   };
 
   const onTapLabel = useCallback(
@@ -817,24 +807,14 @@ export default function Map() {
         </Pressable>
       </View>
 
-      {/* 2026-08 concierge positioning pass: this column is real map
-          navigation (native pinch/scroll-zoom exists too, so these buttons
-          are a backup, not the primary way to zoom) — kept, but quieter
-          (styles.zoomBtn) and without the raw mile-span readout that used
-          to sit under it, so it reads as a utility in the corner rather
-          than a stat next to the curated content. */}
+      {/* 2026-09, at explicit user request: this is a mobile-first
+          experience — pinch/scroll zoom is the primary (and now only) way to
+          zoom, so the +/- buttons and the "fit to region" button were
+          dropped. The locate button stays; it does something a gesture
+          can't (jump back to the user's real location). */}
       <View style={styles.zoomCol}>
-        <Pressable onPress={zoomIn} style={styles.zoomBtn}>
-          <Text style={styles.zoomBtnText}>+</Text>
-        </Pressable>
-        <Pressable onPress={zoomOut} style={[styles.zoomBtn, styles.zoomBtnSpaced]}>
-          <Text style={styles.zoomBtnText}>−</Text>
-        </Pressable>
-        <Pressable onPress={locate} style={[styles.zoomBtn, styles.zoomBtnSpaced]}>
+        <Pressable onPress={locate} style={styles.zoomBtn}>
           <Text style={styles.locateBtnText}>◎</Text>
-        </Pressable>
-        <Pressable onPress={fitRegion} style={[styles.zoomBtn, styles.zoomBtnSpaced]}>
-          <Text style={styles.fitBtnText}>⤢</Text>
         </Pressable>
       </View>
 
@@ -1090,23 +1070,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  zoomBtnSpaced: {
-    marginTop: spacing.sm,
-  },
-  zoomBtnText: {
-    fontFamily: font.sans,
-    fontSize: 18,
-    color: color.textPrimary,
-  },
   locateBtnText: {
     fontFamily: font.sans,
     fontSize: 14,
     color: color.weather,
-  },
-  fitBtnText: {
-    fontFamily: font.sans,
-    fontSize: 13,
-    color: color.textSecondary,
   },
   sheet: {
     position: 'absolute',

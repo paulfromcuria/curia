@@ -23,9 +23,7 @@ import {
   MAP_HOME,
   MAX_ZOOM_LEVEL,
   MIN_ZOOM_LEVEL,
-  boundsForPoints,
   groupTapCameraTarget,
-  clampZoomLevel,
   districtGlowFeatureCollection,
   districtLiveliness,
   districtsInBounds,
@@ -143,15 +141,6 @@ const COMPETING_LABEL_LAYER_IDS = [
   'settlement-subdivision-label',
   'poi-label',
 ];
-
-// A function, not a module-level const: DISTRICTS (src/lib/data/seed.ts) is
-// empty until loadContentData() resolves, well after this module is first
-// imported — see src/lib/map/geo.ts's getCoveragePolygons/getCoverageMask
-// doc comment for the same bug caught there. Cheap enough to just recompute
-// on every call rather than needing a cached getter.
-function allDistrictPoints(): GeoPoint[] {
-  return DISTRICTS.map((d) => ({ lat: d.lat, lon: d.lon }));
-}
 
 function capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -437,16 +426,6 @@ export default function Map() {
     .slice(0, 2)
     .toUpperCase();
 
-  const zoomIn = () => {
-    const next = clampZoomLevel(zoomLevel + 1);
-    setZoomLevel(next);
-    cameraRef.current?.zoomTo(next, 250);
-  };
-  const zoomOut = () => {
-    const next = clampZoomLevel(zoomLevel - 1);
-    setZoomLevel(next);
-    cameraRef.current?.zoomTo(next, 250);
-  };
   const locate = () => {
     // Recentres only — deliberately leaves zoom (and therefore the shared
     // search radius) untouched, so tapping "locate me" can't silently change
@@ -457,10 +436,6 @@ export default function Map() {
       centerCoordinate: [target.lon, target.lat],
       animationDuration: 400,
     });
-  };
-  const fitRegion = () => {
-    const b = boundsForPoints(allDistrictPoints());
-    cameraRef.current?.fitBounds([b.ne.lon, b.ne.lat], [b.sw.lon, b.sw.lat], 60, 500);
   };
 
   const onTapLabel = (label: MapLabel) => {
@@ -514,7 +489,7 @@ export default function Map() {
         onCameraChanged={onCameraChanged}
         scaleBarEnabled={false}
         compassEnabled={false}
-        logoPosition={{ bottom: 8, left: 8 }}
+        logoEnabled={false}
         attributionPosition={{ bottom: 8, right: 8 }}
       >
         <Camera
@@ -666,24 +641,14 @@ export default function Map() {
         </Pressable>
       </View>
 
-      {/* 2026-08 concierge positioning pass: this column is real map
-          navigation (native pinch-zoom exists too, so these buttons are a
-          backup, not the primary way to zoom) — kept, but quieter
-          (styles.zoomBtn) and without the raw mile-span readout that used
-          to sit under it, so it reads as a utility in the corner rather
-          than a stat next to the curated content. */}
+      {/* 2026-09, at explicit user request: this is a mobile-first
+          experience — pinch/scroll zoom is the primary (and now only) way to
+          zoom, so the +/- buttons and the "fit to region" button were
+          dropped. The locate button stays; it does something a gesture
+          can't (jump back to the user's real location). */}
       <View style={styles.zoomCol}>
-        <Pressable onPress={zoomIn} style={styles.zoomBtn}>
-          <Text style={styles.zoomBtnText}>+</Text>
-        </Pressable>
-        <Pressable onPress={zoomOut} style={[styles.zoomBtn, styles.zoomBtnSpaced]}>
-          <Text style={styles.zoomBtnText}>−</Text>
-        </Pressable>
-        <Pressable onPress={locate} style={[styles.zoomBtn, styles.zoomBtnSpaced]}>
+        <Pressable onPress={locate} style={styles.zoomBtn}>
           <Text style={styles.locateBtnText}>◎</Text>
-        </Pressable>
-        <Pressable onPress={fitRegion} style={[styles.zoomBtn, styles.zoomBtnSpaced]}>
-          <Text style={styles.fitBtnText}>⤢</Text>
         </Pressable>
       </View>
 
@@ -1037,23 +1002,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  zoomBtnSpaced: {
-    marginTop: spacing.sm,
-  },
-  zoomBtnText: {
-    fontFamily: font.sans,
-    fontSize: 18,
-    color: color.textPrimary,
-  },
   locateBtnText: {
     fontFamily: font.sans,
     fontSize: 14,
     color: color.weather,
-  },
-  fitBtnText: {
-    fontFamily: font.sans,
-    fontSize: 13,
-    color: color.textSecondary,
   },
   sheet: {
     position: 'absolute',
