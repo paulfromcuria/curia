@@ -162,7 +162,10 @@ function ensurePulseKeyframes() {
   if (document.querySelector('style[data-curia-pulse]')) return;
   const style = document.createElement('style');
   style.setAttribute('data-curia-pulse', 'true');
-  style.textContent = `@keyframes curia-me-pulse { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(2.8); opacity: 0; } }`;
+  style.textContent = `
+    @keyframes curia-me-pulse { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(2.8); opacity: 0; } }
+    @keyframes curia-match-pulse { 0% { transform: scale(1); opacity: .5; } 100% { transform: scale(2.2); opacity: 0; } }
+  `;
   document.head.appendChild(style);
 }
 
@@ -232,20 +235,35 @@ function buildLabelElement(label: MapLabel, subText: string, onTap: () => void):
   return el;
 }
 
-function buildPinElement(rank: number, onTap: () => void): HTMLDivElement {
-  const el = document.createElement('div');
-  el.style.cssText = `width:28px;height:28px;border-radius:14px;border:1px solid rgba(192,160,98,.55);background:rgba(18,16,14,.88);display:flex;align-items:center;justify-content:center;cursor:pointer;`;
-  const text = document.createElement('span');
-  text.textContent = String(rank);
-  text.style.cssText = `font-family:${font.sansMedium};font-size:11px;color:${color.goldLight};`;
-  el.appendChild(text);
-  el.addEventListener('click', onTap);
-  return el;
+// Top-match marker (2026-09, at explicit user request: "we dont need
+// numbers for the map view... instead... use their icon but bright and
+// pulsing so they stand out"). Same ring-pulse language as buildMeElement
+// below, applied to the venue's own type icon instead of a plain dot —
+// bright gold (color.goldLight) against the dim color.textTertiary used
+// for every other venue at this zoom. The numbered ordering isn't gone —
+// it's still real, just shown in the sheet below the map / the List tab,
+// not printed on the pin itself. Mirrors map.tsx's PulsingMatchIcon
+// exactly (same VENUE_ICON_PRIMITIVES).
+function buildMatchPinElement(venue: Venue, onTap: () => void): HTMLDivElement {
+  ensurePulseKeyframes();
+  const wrap = document.createElement('div');
+  // No `position` set here — see buildMeElement's own comment on why the
+  // marker root can't carry an inline `position` override.
+  wrap.style.cssText = 'width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;';
+  const ring = document.createElement('div');
+  ring.style.cssText = `position:absolute;width:28px;height:28px;border-radius:14px;background:${color.gold};animation:curia-match-pulse 1.4s ease-out infinite;`;
+  const dot = document.createElement('div');
+  dot.style.cssText = `position:relative;width:28px;height:28px;border-radius:14px;border:1px solid rgba(231,214,176,.8);background:rgba(18,16,14,.9);display:flex;align-items:center;justify-content:center;`;
+  dot.innerHTML = iconSvgMarkup(iconForVenueType(venue.type), 16, color.goldLight);
+  wrap.appendChild(ring);
+  wrap.appendChild(dot);
+  wrap.addEventListener('click', onTap);
+  return wrap;
 }
 
 // Quiet on purpose (2026-09): every real venue at this zoom, so it has to
-// stay clearly secondary to buildPinElement's numbered match pins — no
-// border, a faint low-opacity fill, dim icon color (color.textTertiary)
+// stay clearly secondary to buildMatchPinElement's bright pulsing match
+// pins — no border, a faint low-opacity fill, dim icon color (color.textTertiary)
 // rather than the gold used everywhere a match is highlighted. Mirrors
 // map.tsx's `backgroundPin` style + VenueTypeIcon exactly (same
 // VENUE_ICON_PRIMITIVES, see src/lib/map/venue-icons.ts's own top comment
@@ -568,7 +586,7 @@ export default function Map() {
   // the recommended matches are much more visible" (2026-09, at explicit
   // user request). Every real venue in view once past
   // ALL_VENUES_ZOOM_THRESHOLD, minus whichever ones are already showing as
-  // a numbered top-match pin — never render the same venue twice.
+  // a bright pulsing top-match pin — never render the same venue twice.
   const backgroundVenues = useMemo(() => {
     if (!bounds || zoomLevel < ALL_VENUES_ZOOM_THRESHOLD) return [];
     const topIds = new Set(topRankedVenues.map(({ venue }) => venue.id));
@@ -606,8 +624,8 @@ export default function Map() {
     const map = mapRef.current;
     if (!map) return;
     pinMarkersRef.current.forEach((m) => m.remove());
-    pinMarkersRef.current = topRankedVenues.map(({ rank, venue }) => {
-      const el = buildPinElement(rank, () => router.push(`/venue/${venue.id}`));
+    pinMarkersRef.current = topRankedVenues.map(({ venue }) => {
+      const el = buildMatchPinElement(venue, () => router.push(`/venue/${venue.id}`));
       return new mapboxgl.Marker({ element: el, anchor: 'center' })
         .setLngLat([venue.lon, venue.lat])
         .addTo(map);

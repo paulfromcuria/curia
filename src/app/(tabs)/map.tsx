@@ -40,7 +40,7 @@ import {
   zoomLevelToSpanMiles,
 } from '../../lib/map/geo';
 import type { GeoBounds, GeoPoint, MapLabel } from '../../lib/map/geo';
-import { iconForVenueType } from '../../lib/map/venue-icons';
+import { iconForVenueType, type VenueIconKey } from '../../lib/map/venue-icons';
 import { moodTileOptionsForCategory } from '../../lib/map/mood-tiles';
 import { useSession } from '../../lib/state/session';
 import { fetchWeather } from '../../lib/weather/forecast';
@@ -194,6 +194,46 @@ function PulsingLocationDot() {
       <Animated.View style={[styles.mePulseRing, { transform: [{ scale }], opacity }]} />
       <View style={styles.meDot} />
     </View>
+  );
+}
+
+/**
+ * Top-match marker (2026-09, at explicit user request: "we dont need
+ * numbers for the map view... instead... use their icon but bright and
+ * pulsing so they stand out"). Same ring-pulse language as
+ * PulsingLocationDot above, applied to the venue's own type icon instead
+ * of a plain dot — bright gold (color.goldLight) against the dim
+ * color.textTertiary used for every other venue at this zoom, so it reads
+ * as "the recommendation" without a number. The numbered ordering isn't
+ * gone — it's still real, just shown in the sheet below the map
+ * (styles.sheetRank) and on the List tab, not printed on the pin itself.
+ */
+function PulsingMatchIcon({ icon, onPress }: { icon: VenueIconKey; onPress: () => void }) {
+  const pulse = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.timing(pulse, {
+        toValue: 1,
+        duration: 1400,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      })
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
+
+  const scale = pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 2.2] });
+  const opacity = pulse.interpolate({ inputRange: [0, 1], outputRange: [0.5, 0] });
+
+  return (
+    <Pressable onPress={onPress} style={styles.matchWrap}>
+      <Animated.View style={[styles.matchPulseRing, { transform: [{ scale }], opacity }]} />
+      <View style={styles.matchDot}>
+        <VenueTypeIcon icon={icon} size={16} color={color.goldLight} />
+      </View>
+    </Pressable>
   );
 }
 
@@ -586,11 +626,12 @@ export default function Map() {
           </MarkerView>
         ))}
 
-        {topRankedVenues.map(({ rank, venue }) => (
+        {topRankedVenues.map(({ venue }) => (
           <MarkerView key={venue.id} coordinate={[venue.lon, venue.lat]} anchor={{ x: 0.5, y: 0.5 }}>
-            <Pressable onPress={() => router.push(`/venue/${venue.id}`)} style={styles.pin}>
-              <Text style={styles.pinText}>{rank}</Text>
-            </Pressable>
+            <PulsingMatchIcon
+              icon={iconForVenueType(venue.type)}
+              onPress={() => router.push(`/venue/${venue.id}`)}
+            />
           </MarkerView>
         ))}
 
@@ -834,8 +875,8 @@ const styles = StyleSheet.create({
   },
 
   // Quiet on purpose (2026-09): every real venue at this zoom, so it has
-  // to stay clearly secondary to the numbered `pin` style below — no
-  // border, a faint low-opacity fill, and a dim icon color
+  // to stay clearly secondary to the bright pulsing `matchDot` style below
+  // — no border, a faint low-opacity fill, and a dim icon color
   // (color.textTertiary) rather than the gold used everywhere a match is
   // being highlighted.
   backgroundPin: {
@@ -847,20 +888,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  pin: {
+  // Top-match marker (2026-09) — bright + pulsing, not numbered (the real
+  // ordering lives in the sheet below the map / the List tab instead, see
+  // PulsingMatchIcon's own doc comment).
+  matchWrap: {
+    width: 34,
+    height: 34,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  matchPulseRing: {
+    position: 'absolute',
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: color.gold,
+  },
+  matchDot: {
     width: 28,
     height: 28,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: 'rgba(192,160,98,.55)',
-    backgroundColor: 'rgba(18,16,14,.88)',
+    borderColor: 'rgba(231,214,176,.8)',
+    backgroundColor: 'rgba(18,16,14,.9)',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  pinText: {
-    fontFamily: font.sansMedium,
-    fontSize: 11,
-    color: color.goldLight,
   },
 
   meWrap: {
