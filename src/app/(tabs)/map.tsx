@@ -98,7 +98,7 @@ const WEEK_DAYS: { key: string; label: string }[] = [
   { key: 'sunday', label: 'SUN' },
 ];
 
-const CATEGORIES: TileCategory[] = ['Do', 'Drink', 'Eat'];
+const CATEGORIES: TileCategory[] = ['Do', 'Drink', 'Eat', 'Holiday'];
 
 /** Dark style, one rung newer than the enum @rnmapbox/maps ships
  * (`Mapbox.StyleURL.Dark` = dark-v10) — passed as a plain style URL string

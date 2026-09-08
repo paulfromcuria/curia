@@ -133,6 +133,14 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // (ruling out Lively & loud/Celebratory); they're the opposite kind of
   // good, and that's a real, distinct, requestable thing.
   'Neighbourhood favourite': ['cantonese-roast', 'pizzeria', 'vietnamese', 'indian-restaurant', 'thai-restaurant', 'greek-taverna', 'farm-shop'],
+
+  // Holiday (added 2026-09 for the Santorini pass — see TileCategory's own
+  // doc comment in src/types/models.ts). Deliberately just one tile: a
+  // sun-lounger-and-cocktails beach club is a genuinely distinct venue kind
+  // this catalog had no fit for at all, unlike a sunset bar or wine terrace
+  // (already covered by 'Rooftop & scenic'/'Wine bars') — sized to match
+  // real curated venues, not invented speculatively.
+  'Beach clubs': ['beach-club'],
 };
 
 /**
@@ -172,7 +180,7 @@ export function tileIdToVenueTypeSlugs(tileId: string): string[] {
  * "Do" and still saw 20 Stories/The Ivy/Pollen Bakery — a bar, a restaurant,
  * a bakery, none of them Do). This map is what closes that gap.
  */
-export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
+export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Holiday'> = {
   'SMALL PLATES': 'Eat',
   'TASTING MENU': 'Eat',
   'FINE DINING': 'Eat',
@@ -269,4 +277,9 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
   // same treatment as RARE BOOKSHOP/CRICKET CLUB above since no onboarding
   // tile targets it specifically yet.
   'FARM EXPERIENCE': 'Do',
+  // Santorini pass (2026-09) — see docs/data/venues.json's own source note
+  // and TileCategory's doc comment (src/types/models.ts). BEACH CLUB maps
+  // to the new 'Beach clubs' tile above; the rest are category-only,
+  // matching real venue types Manchester/Cheshire tiles don't target.
+  'BEACH CLUB': 'Holiday',
 };

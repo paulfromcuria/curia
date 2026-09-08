@@ -35,8 +35,18 @@ export type RelationshipStatus =
   | 'married'
   | 'prefer-not-to-say';
 
-/** The three tile-grid onboarding categories. "You" is a 4th step but isn't tile-gated. */
-export type TileCategory = 'Do' | 'Drink' | 'Eat';
+/**
+ * The tile-grid onboarding categories. "You" is a separate step but isn't
+ * tile-gated. 'Holiday' added 2026-09, at explicit user request: a member
+ * travelling somewhere Curia doesn't have Do/Drink/Eat coverage for yet
+ * (e.g. a first Santorini pass) still needs a way to express real,
+ * holiday-specific taste — beach clubs and the like — that the
+ * Manchester/Cheshire-flavoured Do/Drink/Eat tile catalog was never built to
+ * capture. Unlike Do/Drink/Eat, Holiday is optional and never gates
+ * onboarding completion (src/app/onboarding.tsx) — most members aren't
+ * travelling, and it should cost them nothing.
+ */
+export type TileCategory = 'Do' | 'Drink' | 'Eat' | 'Holiday';
 
 export interface Tile {
   id: string;
@@ -76,7 +86,13 @@ export interface User {
   you: YouProfile;
 }
 
-export type MetroId = 'manchester' | 'cheshire';
+// 'santorini' added 2026-09, at explicit user request — Curia's first
+// destination outside Manchester/Cheshire, for a real member travelling
+// there right now. The app's location/radius/district architecture is
+// metro-agnostic by design (see src/lib/map/geo.ts's per-metro coverage
+// polygons) — this and METROS_WITH_DISTRICTS (geo.ts) were the only two
+// places a metro id needed to be named explicitly.
+export type MetroId = 'manchester' | 'cheshire' | 'santorini';
 
 export interface City {
   id: MetroId;

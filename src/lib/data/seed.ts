@@ -35,6 +35,7 @@ export let DISTRICT_GROUPS: DistrictGroup[] = [];
 export let METRO_WHOLE_SET_LABEL: Record<string, string> = {
   manchester: 'Central Manchester',
   cheshire: 'The Cheshire Set',
+  santorini: 'Santorini',
 };
 export let VENUES: Venue[] = [];
 export let MOMENTS: Moment[] = [];

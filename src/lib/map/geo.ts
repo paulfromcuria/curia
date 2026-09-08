@@ -269,7 +269,7 @@ export interface MapLabel {
   accentColor: string;
 }
 
-const METROS_WITH_DISTRICTS = ['manchester', 'cheshire'] as const;
+const METROS_WITH_DISTRICTS = ['manchester', 'cheshire', 'santorini'] as const;
 
 /**
  * On-screen diameter (px) below which a cluster of district points reads as

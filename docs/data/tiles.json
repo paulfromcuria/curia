@@ -53,6 +53,10 @@
       { "name": "Wine-led dining", "subPreferences": ["Sommelier pairing", "By-the-glass depth"] },
       { "name": "Celebratory", "subPreferences": ["Set menus", "Champagne on arrival", "Dessert theatrics"] },
       { "name": "Neighbourhood favourite", "subPreferences": ["No bookings", "Decades-old", "Family-run"] }
+    ],
+    "Holiday": [
+      { "name": "Beach clubs", "subPreferences": ["Sun loungers/day beds", "DJ/music", "Full food menu", "Adults-only"] }
     ]
-  }
+  },
+  "_holidaySource": "Added 2026-09 at explicit user request, for the Santorini pass — see TileCategory's own doc comment in src/types/models.ts and src/lib/scoring/tile-catalog-map.ts's note on the 'Beach clubs' tile. Deliberately just one tile, sized to match real curated venues rather than invented speculatively."
 }

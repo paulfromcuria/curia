@@ -198,6 +198,7 @@ const INITIAL_STATE: SessionState = {
     Do: EMPTY_PREFERENCE('Do'),
     Drink: EMPTY_PREFERENCE('Drink'),
     Eat: EMPTY_PREFERENCE('Eat'),
+    Holiday: EMPTY_PREFERENCE('Holiday'),
   },
   you: DEFAULT_YOU,
   subscriptionStatus: 'none',
@@ -314,6 +315,7 @@ async function hydrateFromDatabase(userId: string, email: string): Promise<Parti
     Do: EMPTY_PREFERENCE('Do'),
     Drink: EMPTY_PREFERENCE('Drink'),
     Eat: EMPTY_PREFERENCE('Eat'),
+    Holiday: EMPTY_PREFERENCE('Holiday'),
   };
   for (const row of prefsRes.data ?? []) {
     const category = row.category as TileCategory;
@@ -527,11 +529,11 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.user, state.onboardingComplete, state.subscriptionStatus, state.you]);
 
-  // Persists tile preferences to `user_preferences` (one upsert covering all
-  // three categories) whenever they change.
+  // Persists tile preferences to `user_preferences` (one upsert covering
+  // every category) whenever they change.
   useEffect(() => {
     if (!state.user || hydratingRef.current) return;
-    const rows = (['Do', 'Drink', 'Eat'] as TileCategory[]).map((category) => ({
+    const rows = (['Do', 'Drink', 'Eat', 'Holiday'] as TileCategory[]).map((category) => ({
       user_id: state.user!.id,
       category,
       selected_tile_ids: state.preferences[category].selectedTileIds,

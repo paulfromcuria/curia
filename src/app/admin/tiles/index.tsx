@@ -7,7 +7,7 @@ import { useAdminData } from '../../../lib/admin/admin-data';
 import { color, font, spacing } from '../../../theme';
 import type { Tile, TileCategory } from '../../../types/models';
 
-const CATEGORY_FILTERS: (TileCategory | 'All')[] = ['All', 'Do', 'Drink', 'Eat'];
+const CATEGORY_FILTERS: (TileCategory | 'All')[] = ['All', 'Do', 'Drink', 'Eat', 'Holiday'];
 
 /**
  * Onboarding tile catalog list — search by name, filter by category, tap a

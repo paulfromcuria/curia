@@ -212,7 +212,7 @@ const WEEK_DAYS: { key: string; label: string }[] = [
   { key: 'sunday', label: 'SUN' },
 ];
 
-const CATEGORIES: TileCategory[] = ['Do', 'Drink', 'Eat'];
+const CATEGORIES: TileCategory[] = ['Do', 'Drink', 'Eat', 'Holiday'];
 
 function capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);

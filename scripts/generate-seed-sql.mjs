@@ -136,7 +136,7 @@ sql += '\n';
 
 // tiles
 const tileRows = [];
-for (const category of ['Do', 'Drink', 'Eat']) {
+for (const category of ['Do', 'Drink', 'Eat', 'Holiday']) {
   for (const t of tilesRaw.categories[category]) {
     tileRows.push({
       id: sqlStr(`${category}|${t.name}`),

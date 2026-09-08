@@ -50,21 +50,26 @@ import type {
  */
 
 type Step = TileCategory | 'You';
-const STEPS: Step[] = ['Do', 'Drink', 'Eat', 'You'];
+const STEPS: Step[] = ['Do', 'Drink', 'Eat', 'Holiday', 'You'];
 
 function isStep(value: string | undefined): value is Step {
-  return value === 'Do' || value === 'Drink' || value === 'Eat' || value === 'You';
+  return value === 'Do' || value === 'Drink' || value === 'Eat' || value === 'Holiday' || value === 'You';
 }
 
 const HEADLINES: Record<Step, string> = {
   Do: 'How do you like to spend the hours in between?',
   Drink: 'Where would you rather be drinking?',
   Eat: 'And when you sit down to eat?',
+  Holiday: 'Somewhere else right now?',
   You: 'A little about you.',
 };
 
 const TILE_SUBHEAD =
   "Pick the ones you'd actually choose — three or more, as many as you like. Everything below a tile is on by default because most people want it; turn off anything you don't care for.";
+// Optional, unlike the other three — no 3-tile minimum, since most members
+// aren't travelling and shouldn't be made to fill this in.
+const HOLIDAY_SUBHEAD =
+  "Optional. If you're away, add a few holiday spots — beach clubs and the like — so they show up alongside everything else. Skip this if you're not travelling.";
 const YOU_SUBHEAD =
   'Set once, applied everywhere. These weight the ranking rather than filter it — nothing is ever hidden outright.';
 
@@ -131,10 +136,15 @@ export default function Onboarding() {
     Do: session.tileCount('Do'),
     Drink: session.tileCount('Drink'),
     Eat: session.tileCount('Eat'),
+    Holiday: session.tileCount('Holiday'),
   };
+  // Holiday deliberately never gates completion — see TileCategory's doc
+  // comment (src/types/models.ts). "allOk" and Continue/Enter Curia both
+  // stay keyed to the original three.
   const allOk = counts.Do >= 3 && counts.Drink >= 3 && counts.Eat >= 3;
   const isYou = step === 'You';
-  const gateOk = isYou ? allOk : counts[step as TileCategory] >= 3;
+  const isHoliday = step === 'Holiday';
+  const gateOk = isYou ? allOk : isHoliday ? true : counts[step as TileCategory] >= 3;
 
   const tiles = useMemo(() => (isYou ? [] : tilesByCategory(step as TileCategory)), [isYou, step]);
 
@@ -174,7 +184,9 @@ export default function Onboarding() {
         <View style={styles.tabsRow}>
           {STEPS.map((s) => {
             const active = s === step;
-            const done = s !== 'You' && counts[s as TileCategory] >= 3;
+            // Holiday has no minimum — "done" just means at least one pick.
+            const done =
+              s === 'You' ? false : s === 'Holiday' ? counts.Holiday > 0 : counts[s as TileCategory] >= 3;
             const reachable = STEPS.indexOf(s) <= stepIndex || allOk;
             return (
               <View key={s} style={styles.tab}>
@@ -202,7 +214,9 @@ export default function Onboarding() {
 
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.headline}>{HEADLINES[step]}</Text>
-        <Text style={styles.subhead}>{isYou ? YOU_SUBHEAD : TILE_SUBHEAD}</Text>
+        <Text style={styles.subhead}>
+          {isYou ? YOU_SUBHEAD : isHoliday ? HOLIDAY_SUBHEAD : TILE_SUBHEAD}
+        </Text>
 
         {!isYou && (
           <View style={styles.tileList}>
@@ -357,13 +371,17 @@ export default function Onboarding() {
               ? allOk
                 ? 'Everything set'
                 : `Three still needed in ${counts.Do < 3 ? 'Do' : counts.Drink < 3 ? 'Drink' : 'Eat'}`
-              : gateOk
-                ? 'Ready for the next step'
-                : 'Select at least 3'}
+              : isHoliday
+                ? counts.Holiday > 0
+                  ? 'Ready for the next step'
+                  : 'Optional — skip if you’re not travelling'
+                : gateOk
+                  ? 'Ready for the next step'
+                  : 'Select at least 3'}
           </Text>
         </View>
         <Button
-          label={isYou ? 'Enter Curia' : 'Continue'}
+          label={isYou ? 'Enter Curia' : isHoliday && counts.Holiday === 0 ? 'Skip' : 'Continue'}
           disabled={!gateOk}
           onPress={onContinue}
         />

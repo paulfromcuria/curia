@@ -4,7 +4,7 @@ import { Button, Tag, TextField } from '../curia';
 import { color, font, spacing } from '../../theme';
 import type { Tile, TileCategory } from '../../types/models';
 
-const CATEGORY_OPTIONS: TileCategory[] = ['Do', 'Drink', 'Eat'];
+const CATEGORY_OPTIONS: TileCategory[] = ['Do', 'Drink', 'Eat', 'Holiday'];
 
 interface TileFormProps {
   initial: Tile;

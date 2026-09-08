@@ -39,7 +39,10 @@ export default function Profile() {
     .toUpperCase();
 
   const preferencesSetCount =
-    session.tileCount('Do') + session.tileCount('Drink') + session.tileCount('Eat');
+    session.tileCount('Do') +
+    session.tileCount('Drink') +
+    session.tileCount('Eat') +
+    session.tileCount('Holiday');
 
   const savedVenueNames = useMemo(() => {
     const ids = new Set<string>();
