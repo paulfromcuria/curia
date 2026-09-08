@@ -55,8 +55,11 @@
       { "name": "Neighbourhood favourite", "subPreferences": ["No bookings", "Decades-old", "Family-run"] }
     ],
     "Holiday": [
-      { "name": "Beach clubs", "subPreferences": ["Sun loungers/day beds", "DJ/music", "Full food menu", "Adults-only"] }
+      { "name": "Beach clubs", "subPreferences": ["Sun loungers/day beds", "DJ/music", "Full food menu", "Adults-only"] },
+      { "name": "Sunset bars", "subPreferences": ["Caldera/sea view", "Reservation required", "Live music", "Rooftop or terrace"] },
+      { "name": "Wine tasting", "subPreferences": ["Vineyard tour included", "Local grape varieties", "Small producer", "Flight/tasting menu"] },
+      { "name": "Boat trips", "subPreferences": ["Sunset cruise", "Swim stops", "Catamaran", "Private charter"] }
     ]
   },
-  "_holidaySource": "Added 2026-09 at explicit user request, for the Santorini pass — see TileCategory's own doc comment in src/types/models.ts and src/lib/scoring/tile-catalog-map.ts's note on the 'Beach clubs' tile. Deliberately just one tile, sized to match real curated venues rather than invented speculatively."
+  "_holidaySource": "Added 2026-09 at explicit user request, for the Santorini pass — see TileCategory's own doc comment in src/types/models.ts and src/lib/scoring/tile-catalog-map.ts's note on the 'Beach clubs' tile. Started as one tile, sized to match real curated venues rather than invented speculatively. Expanded to four 2026-09, at explicit user request ('expand the preferences beyond just beach club'): 'Sunset bars' (4 real venues — Sun Spirit, Sparkling Sunset Oia, Lioyerma, Astra Suites/Buddha-Bar), 'Wine tasting' and 'Boat trips' (1 real venue each — Domaine Sigalas; Sunset Oia Sailing Cruises). The latter two are thin by this file's usual bar, but real and genuinely distinct from every other Holiday/Drink/Do tile — same precedent as 'Champagne bars' (a single real venue, Bacchus, when it was first added) elsewhere in this catalog; not padded with invented venues to look fuller."
 }

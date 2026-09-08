@@ -135,12 +135,16 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   'Neighbourhood favourite': ['cantonese-roast', 'pizzeria', 'vietnamese', 'indian-restaurant', 'thai-restaurant', 'greek-taverna', 'farm-shop'],
 
   // Holiday (added 2026-09 for the Santorini pass — see TileCategory's own
-  // doc comment in src/types/models.ts). Deliberately just one tile: a
-  // sun-lounger-and-cocktails beach club is a genuinely distinct venue kind
-  // this catalog had no fit for at all, unlike a sunset bar or wine terrace
-  // (already covered by 'Rooftop & scenic'/'Wine bars') — sized to match
-  // real curated venues, not invented speculatively.
+  // doc comment in src/types/models.ts). Started as one tile ('Beach
+  // clubs'); expanded to four 2026-09 at explicit user request ('expand the
+  // preferences beyond just beach club') — see docs/data/tiles.json's own
+  // _holidaySource note for the real venue counts backing each. 'Wine
+  // tasting' and 'Boat trips' have just one real venue each so far, same
+  // precedent as 'Champagne bars' when it was first added with one.
   'Beach clubs': ['beach-club'],
+  'Sunset bars': ['sunset-bar'],
+  'Wine tasting': ['winery'],
+  'Boat trips': ['boat-tour'],
 };
 
 /**
@@ -278,20 +282,22 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   // tile targets it specifically yet.
   'FARM EXPERIENCE': 'Do',
   // Santorini pass (2026-09) — see docs/data/venues.json's own source note
-  // and TileCategory's doc comment (src/types/models.ts). BEACH CLUB maps
-  // to the new 'Beach clubs' tile above; the rest are category-only,
-  // matching real venue types Manchester/Cheshire tiles don't target.
+  // and TileCategory's doc comment (src/types/models.ts). BEACH CLUB,
+  // SUNSET BAR, WINERY and BOAT TOUR map to the four Holiday tiles above
+  // (the Holiday-catalog expansion, also 2026-09); the rest are
+  // category-only, matching real venue types Manchester/Cheshire tiles
+  // don't target.
   'BEACH CLUB': 'Holiday',
   NIGHTCLUB: 'Drink',
   'SPORTS BAR': 'Drink',
-  // SUNSET BAR: caldera-facing sunset-viewing bars (Oia/Imerovigli) — a
-  // real, distinct Santorini category, not the same as ROOFTOP.
-  'SUNSET BAR': 'Drink',
-  WINERY: 'Drink',
+  // Caldera-facing sunset-viewing bars (Oia/Imerovigli) — a real, distinct
+  // Santorini category, not the same as ROOFTOP.
+  'SUNSET BAR': 'Holiday',
+  WINERY: 'Holiday',
   'JEWELLERY BOUTIQUE': 'Do',
   'FASHION BOUTIQUE': 'Do',
   MUSEUM: 'Do',
-  'BOAT TOUR': 'Do',
+  'BOAT TOUR': 'Holiday',
   'SOUVLAKI SPOT': 'Eat',
   'SEAFOOD RESTAURANT': 'Eat',
 };
