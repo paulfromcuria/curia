@@ -46,7 +46,9 @@
     "typecheck": "tsc --noEmit",
     "db:seed": "node scripts/seed-supabase.mjs",
     "lint": "expo lint",
-    "test": "node --test"
+    "test": "node --test",
+    "build:web": "expo export --platform web && node scripts/fix-web-export-for-deploy.mjs",
+    "deploy:web": "npm run build:web && cd dist && npx vercel deploy --yes --prod"
   },
   "private": true
 }
