@@ -282,4 +282,16 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   // to the new 'Beach clubs' tile above; the rest are category-only,
   // matching real venue types Manchester/Cheshire tiles don't target.
   'BEACH CLUB': 'Holiday',
+  NIGHTCLUB: 'Drink',
+  'SPORTS BAR': 'Drink',
+  // SUNSET BAR: caldera-facing sunset-viewing bars (Oia/Imerovigli) — a
+  // real, distinct Santorini category, not the same as ROOFTOP.
+  'SUNSET BAR': 'Drink',
+  WINERY: 'Drink',
+  'JEWELLERY BOUTIQUE': 'Do',
+  'FASHION BOUTIQUE': 'Do',
+  MUSEUM: 'Do',
+  'BOAT TOUR': 'Do',
+  'SOUVLAKI SPOT': 'Eat',
+  'SEAFOOD RESTAURANT': 'Eat',
 };
