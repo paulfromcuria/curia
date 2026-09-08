@@ -7,9 +7,14 @@
  * Needs the SERVICE ROLE key (not the anon key) — content tables' RLS
  * policies only grant public SELECT, so an anon-key client can't write to
  * them. The service key bypasses RLS entirely, so:
- *   - never commit it, never paste it into chat — put it in a local
- *     .env.local (already git-ignored) as SUPABASE_SERVICE_ROLE_KEY
- *   - run this script yourself, locally: `node scripts/seed-supabase.mjs`
+ *   - never commit it, never paste it into chat
+ *   - put ONE line in a new .env.local (already git-ignored, sits next to
+ *     the existing .env): SUPABASE_SERVICE_ROLE_KEY=<paste it here>
+ *   - run this script yourself, locally: `npm run db:seed`
+ * .env.local is loaded automatically (see the dotenv calls below) — no
+ * shell-specific export step needed on any platform. The project URL is
+ * read from EXPO_PUBLIC_SUPABASE_URL, already set in .env, so .env.local
+ * only needs that one new line.
  *
  * Uses `upsert` throughout, so re-running after editing docs/data/*.json is
  * exactly how you push data updates to the real database — same "edit the
@@ -17,20 +22,26 @@
  * into Supabase.
  */
 import { createClient } from '@supabase/supabase-js';
+import { config as loadEnv } from 'dotenv';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'docs', 'data');
+const ROOT_DIR = path.join(__dirname, '..');
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
+// .env.local overrides/extends .env — service key lives only in the former.
+loadEnv({ path: path.join(ROOT_DIR, '.env') });
+loadEnv({ path: path.join(ROOT_DIR, '.env.local'), override: true });
+
+const SUPABASE_URL = process.env.SUPABASE_URL || process.env.EXPO_PUBLIC_SUPABASE_URL;
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!SUPABASE_URL || !SERVICE_KEY) {
   console.error(
-    'Missing env vars. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (e.g. in .env.local, ' +
-      'then `export $(cat .env.local | xargs)` before running, or use a tool like dotenv-cli).'
+    'Missing config. Need EXPO_PUBLIC_SUPABASE_URL (already in .env) and ' +
+      'SUPABASE_SERVICE_ROLE_KEY (add it to a new .env.local — see this file\'s own header comment).'
   );
   process.exit(1);
 }
