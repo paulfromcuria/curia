@@ -20,8 +20,8 @@ import { featureCollection, multiPoint, point } from '@turf/helpers';
 import type { Feature, FeatureCollection, MultiPolygon, Point, Polygon } from 'geojson';
 import { haversineMiles } from '../scoring/rank-venues';
 import { DEMO_LOCATION } from '../scoring/session-input';
-import { DISTRICTS, METRO_WHOLE_SET_LABEL, districtGroupFor } from '../data/seed';
-import type { District, MetroId } from '../../types/models';
+import { DISTRICTS, VENUES, METRO_WHOLE_SET_LABEL, districtGroupFor } from '../data/seed';
+import type { District, MetroId, Venue } from '../../types/models';
 
 export interface GeoPoint {
   lat: number;
@@ -183,6 +183,21 @@ function inBounds(point: GeoPoint, bounds: GeoBounds): boolean {
 export function districtsInBounds(bounds: GeoBounds, districts: District[] = DISTRICTS): District[] {
   return districts.filter((d) => inBounds({ lat: d.lat, lon: d.lon }, bounds));
 }
+
+/** Venues whose lat/lon falls within the map's current real visible bounds
+ * — same idea as districtsInBounds above, for the "show every real venue,
+ * subtly, once zoomed in enough" layer (2026-09, at explicit user
+ * request). */
+export function venuesInBounds(bounds: GeoBounds, venues: Venue[] = VENUES): Venue[] {
+  return venues.filter((v) => inBounds({ lat: v.lat, lon: v.lon }, bounds));
+}
+
+/** Zoom level at which individual venue pins start rendering for every
+ * real venue in view, not just the top matches — the same "zoomed in
+ * enough for street-level detail" boundary the district street-glow layer
+ * already switches on (DISTRICT_DETAIL_ZOOM_THRESHOLD below), reused
+ * rather than inventing a second threshold with no other meaning. */
+export const ALL_VENUES_ZOOM_THRESHOLD = 14;
 
 /**
  * Real "BEYOND THE EDGE" coverage boundary (2026-08, at explicit user

@@ -13,11 +13,12 @@ import Mapbox, {
   SymbolLayer,
   type MapState,
 } from '@rnmapbox/maps';
-import { Button, Card, ContextStrip, EmblemButton, Kicker } from '../../components/curia';
+import { Button, Card, ContextStrip, EmblemButton, Kicker, VenueTypeIcon } from '../../components/curia';
 import { rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
 import { DISTRICTS, VENUES } from '../../lib/data/seed';
 import {
+  ALL_VENUES_ZOOM_THRESHOLD,
   DISTRICT_DETAIL_ZOOM_THRESHOLD,
   MAP_HOME,
   MAX_ZOOM_LEVEL,
@@ -35,9 +36,11 @@ import {
   normalizeLiveliness,
   radiusMilesToZoomLevel,
   spanMilesToRadiusMiles,
+  venuesInBounds,
   zoomLevelToSpanMiles,
 } from '../../lib/map/geo';
 import type { GeoBounds, GeoPoint, MapLabel } from '../../lib/map/geo';
+import { iconForVenueType } from '../../lib/map/venue-icons';
 import { moodTileOptionsForCategory } from '../../lib/map/mood-tiles';
 import { useSession } from '../../lib/state/session';
 import { fetchWeather } from '../../lib/weather/forecast';
@@ -333,6 +336,18 @@ export default function Map() {
     return groupVisibleDistricts(districtsInBounds(bounds), zoomLevel, containerWidth);
   }, [bounds, zoomLevel, containerWidth]);
 
+  // "If zoomed in enough, all venues on our DB are visible... subtly, so
+  // the recommended matches are much more visible" (2026-09, at explicit
+  // user request). Every real venue in view once past
+  // ALL_VENUES_ZOOM_THRESHOLD, minus whichever ones are already showing as
+  // a numbered top-match pin (topRankedVenues below) — never render the
+  // same venue twice.
+  const backgroundVenues = useMemo(() => {
+    if (!bounds || zoomLevel < ALL_VENUES_ZOOM_THRESHOLD) return [];
+    const topIds = new Set(topRankedVenues.map(({ venue }) => venue.id));
+    return venuesInBounds(bounds).filter((v) => !topIds.has(v.id));
+  }, [bounds, zoomLevel, topRankedVenues]);
+
   const moodOn = !!mood?.category;
   const selectedTileIds = mood?.tileIds ?? [];
   const moodCategoryTiles = mood?.category ? moodTileOptionsForCategory(mood.category) : [];
@@ -559,6 +574,14 @@ export default function Map() {
                   {label.districtIds.length} DISTRICTS · ZOOM
                 </Text>
               )}
+            </Pressable>
+          </MarkerView>
+        ))}
+
+        {backgroundVenues.map((venue) => (
+          <MarkerView key={venue.id} coordinate={[venue.lon, venue.lat]} anchor={{ x: 0.5, y: 0.5 }}>
+            <Pressable onPress={() => router.push(`/venue/${venue.id}`)} style={styles.backgroundPin} hitSlop={6}>
+              <VenueTypeIcon icon={iconForVenueType(venue.type)} size={13} color={color.textTertiary} />
             </Pressable>
           </MarkerView>
         ))}
@@ -808,6 +831,20 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     color: 'rgba(200,188,170,.75)',
     textAlign: 'center',
+  },
+
+  // Quiet on purpose (2026-09): every real venue at this zoom, so it has
+  // to stay clearly secondary to the numbered `pin` style below — no
+  // border, a faint low-opacity fill, and a dim icon color
+  // (color.textTertiary) rather than the gold used everywhere a match is
+  // being highlighted.
+  backgroundPin: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: 'rgba(18,16,14,.55)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   pin: {

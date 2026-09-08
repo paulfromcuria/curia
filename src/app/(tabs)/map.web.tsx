@@ -8,6 +8,7 @@ import { rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
 import { DISTRICTS, VENUES } from '../../lib/data/seed';
 import {
+  ALL_VENUES_ZOOM_THRESHOLD,
   DISTRICT_DETAIL_ZOOM_THRESHOLD,
   MAP_HOME,
   MAX_ZOOM_LEVEL,
@@ -25,9 +26,11 @@ import {
   normalizeLiveliness,
   radiusMilesToZoomLevel,
   spanMilesToRadiusMiles,
+  venuesInBounds,
   zoomLevelToSpanMiles,
 } from '../../lib/map/geo';
 import type { GeoBounds, GeoPoint, MapLabel } from '../../lib/map/geo';
+import { iconForVenueType, iconSvgMarkup } from '../../lib/map/venue-icons';
 import { moodTileOptionsForCategory } from '../../lib/map/mood-tiles';
 import { useSession } from '../../lib/state/session';
 import { fetchWeather } from '../../lib/weather/forecast';
@@ -240,6 +243,21 @@ function buildPinElement(rank: number, onTap: () => void): HTMLDivElement {
   return el;
 }
 
+// Quiet on purpose (2026-09): every real venue at this zoom, so it has to
+// stay clearly secondary to buildPinElement's numbered match pins — no
+// border, a faint low-opacity fill, dim icon color (color.textTertiary)
+// rather than the gold used everywhere a match is highlighted. Mirrors
+// map.tsx's `backgroundPin` style + VenueTypeIcon exactly (same
+// VENUE_ICON_PRIMITIVES, see src/lib/map/venue-icons.ts's own top comment
+// for why there are two renderers).
+function buildBackgroundPinElement(venue: Venue, onTap: () => void): HTMLDivElement {
+  const el = document.createElement('div');
+  el.style.cssText = `width:20px;height:20px;border-radius:10px;background:rgba(18,16,14,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;`;
+  el.innerHTML = iconSvgMarkup(iconForVenueType(venue.type), 13, color.textTertiary);
+  el.addEventListener('click', onTap);
+  return el;
+}
+
 function buildMeElement(): HTMLDivElement {
   ensurePulseKeyframes();
   const wrap = document.createElement('div');
@@ -271,6 +289,7 @@ export default function Map() {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const labelMarkersRef = useRef<mapboxgl.Marker[]>([]);
   const pinMarkersRef = useRef<mapboxgl.Marker[]>([]);
+  const backgroundPinMarkersRef = useRef<mapboxgl.Marker[]>([]);
   const meMarkerRef = useRef<mapboxgl.Marker | null>(null);
   const autoLocatedRef = useRef(false);
   // Lets the mount-only map effect below always call the current session's
@@ -545,6 +564,17 @@ export default function Map() {
     return groupVisibleDistricts(districtsInBounds(bounds), zoomLevel, width);
   }, [bounds, zoomLevel, containerWidth]);
 
+  // "If zoomed in enough, all venues on our DB are visible... subtly, so
+  // the recommended matches are much more visible" (2026-09, at explicit
+  // user request). Every real venue in view once past
+  // ALL_VENUES_ZOOM_THRESHOLD, minus whichever ones are already showing as
+  // a numbered top-match pin — never render the same venue twice.
+  const backgroundVenues = useMemo(() => {
+    if (!bounds || zoomLevel < ALL_VENUES_ZOOM_THRESHOLD) return [];
+    const topIds = new Set(topRankedVenues.map(({ venue }) => venue.id));
+    return venuesInBounds(bounds).filter((v) => !topIds.has(v.id));
+  }, [bounds, zoomLevel, topRankedVenues]);
+
   // Rebuild district/group label markers whenever the visible set changes.
   useEffect(() => {
     const map = mapRef.current;
@@ -588,6 +618,25 @@ export default function Map() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topRankedVenues]);
+
+  // Rebuild the subtle "every real venue" markers whenever the visible set
+  // changes (pans, zooms across the threshold, or the top-match set shifts).
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    backgroundPinMarkersRef.current.forEach((m) => m.remove());
+    backgroundPinMarkersRef.current = backgroundVenues.map((venue) => {
+      const el = buildBackgroundPinElement(venue, () => router.push(`/venue/${venue.id}`));
+      return new mapboxgl.Marker({ element: el, anchor: 'center' })
+        .setLngLat([venue.lon, venue.lat])
+        .addTo(map);
+    });
+    return () => {
+      backgroundPinMarkersRef.current.forEach((m) => m.remove());
+      backgroundPinMarkersRef.current = [];
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [backgroundVenues]);
 
   // "me" marker — only when a real device fix exists (never the demo point).
   useEffect(() => {
