@@ -269,4 +269,9 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
   // same treatment as RARE BOOKSHOP/CRICKET CLUB above since no onboarding
   // tile targets it specifically yet.
   'FARM EXPERIENCE': 'Do',
+  // Added 2026-09-09 for Chorlton Bookshop — RARE BOOKSHOP specifically
+  // implies antiquarian/secondhand stock, which this general independent
+  // new-book shop isn't; category-only (Do), same treatment as RARE
+  // BOOKSHOP/FARM EXPERIENCE above since no onboarding tile fits precisely.
+  'BOOKSHOP': 'Do',
 };

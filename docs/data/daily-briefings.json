@@ -88,6 +88,27 @@
         { "label": "Les Deux Pizza Bar (Alderley Edge)", "detail": "sent to pending review — its own Deliveroo listing shows closed, uncorroborated by a second source" }
       ],
       "createdAt": "2026-09-08T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-09-09",
+      "synced": false,
+      "title": "10 venues + 1 district promoted, 0 rejected, 0 sent for review, 0 closures",
+      "summary": "All 10 pending candidates in venue-suggestions.json (Where the Light Gets In, Bruk and Stockport Market Hall in the new Stockport (Underbanks) district; FOLK and Marie Louise Gardens, Didsbury; Chorlton Bookshop and Chorlton Water Park, Chorlton; Giovanni's, Knutsford; Corks Out, Alderley Edge; The Seven Oaks, Chinatown) and the sole pending district candidate (Heaton Moor, a genuine new south Manchester/Stockport suburb) independently re-verified and promoted, with real petFriendly/dietaryOptions researched for each venue. No Curia Command decisions were waiting to apply this run (pending_review collection was empty). Introduces one new venue type, BOOKSHOP, mapped category-only (Do) in tile-catalog-map.ts. The closure audit's rotating slice (Smolensky Gallery, Podium Restaurant, Hale Country Club & Spa, Barnshaw Smithy, Nam) found no closure signals — all five re-confirmed still trading.",
+      "items": [
+        { "label": "Where the Light Gets In (Stockport (Underbanks))", "detail": "promoted — verified single-site Michelin Green Star tasting-menu restaurant, chef-owner Sam Buckley" },
+        { "label": "Bruk (Stockport (Underbanks))", "detail": "promoted — verified single-site self-funded natural wine bar, opened Feb 2025; confirmed dog-friendly" },
+        { "label": "Stockport Market Hall (Stockport (Underbanks))", "detail": "promoted — verified council-run Victorian market hall, 30+ independent stalls, same precedent as Mackie Mayor/Altrincham Market" },
+        { "label": "FOLK (Didsbury)", "detail": "promoted — verified single-site, independently run by four owners; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "Marie Louise Gardens (Didsbury)", "detail": "promoted — verified council-owned public park, Green Flag 2014; confirmed dog-friendly" },
+        { "label": "Chorlton Bookshop (Chorlton)", "detail": "promoted — verified single-site independent bookshop trading since 1983; new type BOOKSHOP, mapped category-only (Do); confirmed dog-friendly" },
+        { "label": "Chorlton Water Park (Chorlton)", "detail": "promoted — verified council-owned 170-acre nature reserve; confirmed dog-friendly (on-lead near the lake)" },
+        { "label": "Giovanni's (Knutsford)", "detail": "promoted — verified single-site independent Italian in a Grade II-listed former Post Office; confirmed vegetarian/vegan/gluten-free" },
+        { "label": "Corks Out (Alderley Edge)", "detail": "promoted — verified real 2-site sibling pair (Alderley Edge + Stockton Heath), within the small-sibling-group precedent; confirmed dog-friendly" },
+        { "label": "The Seven Oaks (Chinatown)", "detail": "promoted — verified single-site freehouse with a locally-listed white faience exterior; confirmed dog-friendly" },
+        { "label": "Heaton Moor (new Manchester-metro district)", "detail": "promoted — verified genuine, distinct suburb ('The Heatons') with its own independent high street, anchored by the Savoy Cinema; doesn't overlap Stockport (Underbanks) or Cheadle Hulme" }
+      ],
+      "createdAt": "2026-09-09T00:00:00Z"
     }
   ]
 }
