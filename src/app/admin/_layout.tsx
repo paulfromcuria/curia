@@ -1,6 +1,5 @@
 import { Redirect, Stack, useSegments } from 'expo-router';
-import { AdminDataProvider } from '../../lib/admin/admin-data';
-import { AdminSessionProvider, useAdminSession } from '../../lib/admin/admin-session';
+import { useAdminSession } from '../../lib/admin/admin-session';
 import { color } from '../../theme';
 
 /**
@@ -11,20 +10,14 @@ import { color } from '../../theme';
  * pushed member screen links here — reaching `/admin` means navigating
  * to it directly (e.g. by URL), there is no in-app entry point.
  *
- * Provides its own mock session (src/lib/admin/admin-session.tsx) —
- * entirely separate from src/lib/state/session.tsx's member
- * SessionProvider — and its own in-memory CRUD data store
- * (src/lib/admin/admin-data.tsx) seeded from the same src/lib/data/seed.ts
- * loader every other surface reads from.
+ * AdminSessionProvider/AdminDataProvider used to be mounted here. Moved to
+ * the root src/app/_layout.tsx 2026-09 (bug fix, see that file's own doc
+ * comment) — this layout still conditionally renders <Redirect> vs <Stack>
+ * below, and anything mounted inside that same subtree remounts every time
+ * that conditional flips, which is exactly what broke admin login.
  */
 export default function AdminLayout() {
-  return (
-    <AdminSessionProvider>
-      <AdminDataProvider>
-        <GuardedAdminStack />
-      </AdminDataProvider>
-    </AdminSessionProvider>
-  );
+  return <GuardedAdminStack />;
 }
 
 /** Same guard-in-the-layout idiom src/app/(tabs)/_layout.tsx and

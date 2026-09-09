@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { useCuriaFonts } from '../hooks/use-curia-fonts';
 import { loadContentData } from '../lib/data/seed';
+import { AdminDataProvider } from '../lib/admin/admin-data';
+import { AdminSessionProvider } from '../lib/admin/admin-session';
 import { configureMapbox } from '../lib/map/mapbox-config';
 import { SessionProvider } from '../lib/state/session';
 import { color, font } from '../theme';
@@ -75,18 +77,37 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: color.base }}>
       <SessionProvider>
-        <StatusBar style="light" />
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: color.base },
-          }}
-        >
-          <Stack.Screen name="(auth)" />
-          <Stack.Screen name="onboarding" />
-          <Stack.Screen name="subscription" />
-          <Stack.Screen name="(tabs)" />
-        </Stack>
+        {/* 2026-09, bug fix at explicit user report ("nothing happens when
+            clicking sign in" on /admin): AdminSessionProvider/AdminDataProvider
+            used to live inside admin/_layout.tsx, nested alongside the same
+            component that conditionally renders either <Redirect> or <Stack>
+            depending on auth state. Every time that conditional flipped (e.g.
+            right after a successful admin login), the whole admin layout
+            subtree — including these two providers — remounted, silently
+            resetting isAdminAuthenticated back to false and bouncing straight
+            back to the login screen with no visible error. Moved up here,
+            mirroring exactly how SessionProvider (member auth) already
+            avoids the same trap by living outside any per-segment layout
+            that does its own conditional redirect (see (tabs)/_layout.tsx
+            and admin/_layout.tsx's own guard for the pattern this sidesteps).
+            Safe to mount for the whole app, not just /admin — nothing outside
+            admin/* screens ever calls useAdminSession()/useAdminData(). */}
+        <AdminSessionProvider>
+          <AdminDataProvider>
+            <StatusBar style="light" />
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                contentStyle: { backgroundColor: color.base },
+              }}
+            >
+              <Stack.Screen name="(auth)" />
+              <Stack.Screen name="onboarding" />
+              <Stack.Screen name="subscription" />
+              <Stack.Screen name="(tabs)" />
+            </Stack>
+          </AdminDataProvider>
+        </AdminSessionProvider>
       </SessionProvider>
     </GestureHandlerRootView>
   );
