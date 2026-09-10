@@ -274,4 +274,13 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
   // new-book shop isn't; category-only (Do), same treatment as RARE
   // BOOKSHOP/FARM EXPERIENCE above since no onboarding tile fits precisely.
   'BOOKSHOP': 'Do',
+  // Added 2026-09-10 for the day's promoted Heaton Moor/Alderley Edge
+  // candidates (see docs/data/venues.json's own _dailyReviewPromotionSource20260910
+  // note). FRENCH BISTRO (Cure Bistro) — GASTROPUB is the closest existing
+  // Eat type but implies a British pub kitchen, which this isn't; NATURE
+  // RESERVE (The Edge) — RIVERSIDE PARK implies a riverside, which this
+  // isn't. Both category-only, same treatment as CANTONESE ROAST/GREEK
+  // TAVERNA/FARM EXPERIENCE above since no onboarding tile fits precisely.
+  'FRENCH BISTRO': 'Eat',
+  'NATURE RESERVE': 'Do',
 };

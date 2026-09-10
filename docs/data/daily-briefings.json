@@ -3,6 +3,27 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-09-10",
+      "synced": false,
+      "title": "10 promoted, 1 district promoted, 0 rejected, 0 closures",
+      "summary": "All 10 pending venue candidates (Savoy Cinema, Heaton Social, Cure Bistro in Heaton Moor; Bar Caput, Stockport Underbanks; Trattoria D'Agostino, Cheadle Hulme; Sip Wine Bar, Didsbury; Prestbury Golf Club; The Beer House, Chorlton; The Garden Eatery, Hale; The Edge, Alderley Edge) plus the one pending district candidate (Bramhall, Cheshire) independently re-verified via fresh parallel web research and promoted straight into venues.json/districts.json. No rejections this run — every candidate cleared Hard rule 1, duplicate, schema, coordinate and brand-voice checks. Two factual corrections folded into the copy (The Beer House's CAMRA streak is 5 years not 4; The Garden Eatery has two founders, Kate and Amy, not one). Real petFriendly/dietaryOptions researched for all 10. Curia Command's pending_review collection was empty (nothing to apply from a prior human decision). The day's closure-audit slice (5 venues) found no closure signals.",
+      "items": [
+        { "label": "Savoy Cinema (Heaton Moor)", "detail": "promoted — Mundin family's 3rd cinema (Belper, Melton Mowbray), still trading" },
+        { "label": "Heaton Social (Heaton Moor)", "detail": "promoted — single-site, dog-friendly, still trading" },
+        { "label": "Cure Bistro (Heaton Moor)", "detail": "promoted — new type FRENCH BISTRO, confirmed vegan/gluten-free options" },
+        { "label": "Bar Caput (Stockport Underbanks)", "detail": "promoted — same-owner relaunch of the former Cantaloupe (Michelin Bib Gourmand), single-site" },
+        { "label": "Trattoria D'Agostino (Cheadle Hulme)", "detail": "promoted — single-site since 2010, still trading" },
+        { "label": "Sip Wine Bar (Didsbury)", "detail": "promoted — single-site, dog-friendly, confirmed vegan/gluten-free/dairy-free menu" },
+        { "label": "Prestbury Golf Club", "detail": "promoted — genuinely independent members' club, confirmed NOT dog-friendly" },
+        { "label": "The Beer House (Chorlton)", "detail": "promoted — independent since 2018, 5-year CAMRA Pub of the Year streak (corrected from candidate's '4 years')" },
+        { "label": "The Garden Eatery (Hale)", "detail": "promoted — corrected to two founders (Kate and Amy), dog-friendly, vegan/gluten-free" },
+        { "label": "The Edge (Alderley Edge)", "detail": "promoted — new type NATURE RESERVE, National Trust land, dog-friendly" },
+        { "label": "Bramhall (new Cheshire district)", "detail": "promoted — genuine distinct village identity confirmed; real-world distance to Cheadle Hulme corrected to ~2mi/3.2km (candidate said 2.6km), still within this file's existing close-district precedent" }
+      ],
+      "createdAt": "2026-09-10T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-05",
       "synced": false,
       "title": "10 promoted, 0 rejected, 3 closures flagged for review",
