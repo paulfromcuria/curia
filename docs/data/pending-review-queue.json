@@ -70,6 +70,25 @@
         "name": "Les Deux Pizza Bar",
         "district": "alderley-edge"
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-11",
+      "reason": "CAMRA and whatpub.com both list Prana as 'Closed Long Term' since a 28/05/2024 update, but a new company (PRANA F&B LIMITED) was incorporated at the same address four months later and remains active today, and a Food Hygiene Ratings record exists for the venue — genuinely conflicting signals about whether it's trading now, not a clean pass or fail.",
+      "researchNotes": "Independently re-verified 2026-09-11, re-checking the original candidate's 'CAMRA-listed and actively promoted' claim: Prana, 14-16 Ashley Road, Altrincham WA14 2DW, opened November 2023 as an independent live-music venue and cocktail bar (sister venue to Amp in Stockport, a real 2-site pair, not a chain footprint issue). CAMRA's own listing and whatpub.com both read 'Closed Long Term', last updated 28/05/2024, and a since-deleted-content Altrincham Today Facebook post headline ('Very sad news - Prana has announced it will be closing until further notice while...') corroborates a real closure around that date. Against that: Companies House shows PRANA F&B LIMITED incorporated 13 September 2024 at the same 14-16 Ashley Road address, status Active as of this search, and a Food Hygiene Ratings record exists under 'Prana - Altrincham' — both signals consistent with the venue reopening or changing hands rather than the unit sitting empty for two years, but no direct 2025/2026 evidence of actual trading (a dated event listing, a recent social media post, a current review) was found either way despite searching Skiddle, Instagram and Tripadvisor. Coordinates, spend, bands and type all otherwise pass the usual checks. Sent here rather than promoted or rejected outright — its suggestion-queue entry in docs/data/venue-suggestions.json stays 'pending' pending this decision.",
+      "payload": {
+        "name": "Prana",
+        "district": "altrincham",
+        "type": "COCKTAIL BAR",
+        "spend": "£££",
+        "lat": 53.3837,
+        "lon": -2.3526,
+        "base": 78,
+        "bands": ["evening", "late"],
+        "reason": "Two floors of proper acoustics on Ashley Road from the team behind Stockport's Amp — order the cocktail, but the stage is the reason to stay past nine."
+      }
     }
   ]
 }

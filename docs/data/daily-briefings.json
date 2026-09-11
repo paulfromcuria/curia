@@ -3,6 +3,27 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-09-11",
+      "synced": false,
+      "title": "9 venues + 1 district promoted, 1 sent for review, 0 rejected, 0 closures",
+      "summary": "9 of the 10 pending venue candidates (Bramall Hall, The Mounting Stone and Pix Pizza in Bramhall; The Chiverton Tap and Dos Hermanos in Cheadle Hulme; Staircase House and The Underbank in Stockport (Underbanks); Sett174 Art Cafe, Didsbury; The Creameries, Chorlton) and the sole pending district candidate (Macclesfield, a genuine new Cheshire market town) independently re-verified and promoted straight into venues.json/districts.json, with real petFriendly/dietaryOptions researched for each venue. The tenth candidate, Prana (Altrincham), was held back: CAMRA and whatpub.com list it 'Closed Long Term' since May 2024, but a new company was incorporated at the same address that September and remains active today, plus a food hygiene record exists — genuinely conflicting signals, so it's sent to the pending-review queue for a human call rather than promoted or rejected. No Curia Command decisions were waiting to apply this run (pending_review collection was empty). The closure audit's rotating slice (Rex Cinema, The Carrs, Wilmslow Kitchen, Ricardo Van Parmar Gallery, Wilmslow Artisan Market) found no closure signals — all five re-confirmed still trading.",
+      "items": [
+        { "label": "Bramall Hall (Bramhall)", "detail": "promoted — Grade I Tudor manor, council-owned civic attraction, exterior scaffolding not a closure signal" },
+        { "label": "The Mounting Stone (Bramhall)", "detail": "promoted — micropub with its own microbrewery, confirmed dog-friendly, sister pub to Cheadle Hulme's Chiverton Tap" },
+        { "label": "Pix Pizza (Bramhall)", "detail": "promoted — confirmed vegan/gluten-free options and current trading despite a stale HappyCow 'CLOSED' listing, same pattern already dismissed for The Underbank" },
+        { "label": "The Chiverton Tap (Cheadle Hulme)", "detail": "promoted — confirmed dog-friendly, sister pub to Bramhall's Mounting Stone" },
+        { "label": "Dos Hermanos (Cheadle Hulme)", "detail": "promoted — single-site tapas, confirmed vegetarian/vegan/gluten-free options" },
+        { "label": "Staircase House (Stockport (Underbanks))", "detail": "promoted — council-run 15th-century townhouse museum, confirmed not dog-friendly (assistance dogs only)" },
+        { "label": "The Underbank (Stockport (Underbanks))", "detail": "promoted — confirmed still trading (monthly open-mic series current) and dog-friendly, resolving the original candidate's flagged ambiguity" },
+        { "label": "Sett174 Art Cafe (Didsbury)", "detail": "promoted — new type ART STUDIO, confirmed vegan/gluten-free options" },
+        { "label": "The Creameries (Chorlton)", "detail": "promoted — Pomona Island's 3-site footprint judged within the existing small-independent-group allowance (same as Wallop's 3-site precedent)" },
+        { "label": "Prana (Altrincham)", "detail": "sent to pending review — CAMRA/whatpub show 'Closed Long Term' since May 2024, but a new company was incorporated at the same address that September and remains active; conflicting signals" },
+        { "label": "Macclesfield (new Cheshire district)", "detail": "promoted — genuine, distinct Cheshire market town confirmed via a reopened Market Hall (Feb 2026) and an active monthly Treacle Market, doesn't overlap Prestbury" }
+      ],
+      "createdAt": "2026-09-11T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-10",
       "synced": false,
       "title": "10 promoted, 1 district promoted, 0 rejected, 0 closures",
