@@ -151,6 +151,28 @@
         { "label": "Heaton Moor (new Manchester-metro district)", "detail": "promoted — verified genuine, distinct suburb ('The Heatons') with its own independent high street, anchored by the Savoy Cinema; doesn't overlap Stockport (Underbanks) or Cheadle Hulme" }
       ],
       "createdAt": "2026-09-09T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-09-12",
+      "synced": false,
+      "title": "10 venues and a new Cheshire district promoted; Prana still waiting on a human call",
+      "summary": "Re-verified all 11 pending candidates in the suggestion queues and promoted 10 venues (across Macclesfield, Bramhall, Heaton Moor, Stockport (Underbanks) and Didsbury) plus the new Nantwich district straight to master — nothing rejected today. Curia Command's pending_review collection was empty, so nothing to apply from prior human decisions; Prana (Altrincham) stays in docs/data/pending-review-queue.json awaiting a decision, unchanged this run. The closure-audit slice (Where the Light Gets In, Bruk, Stockport Market Hall, FOLK, Marie Louise Gardens) found no real closures — a stale Michelin 'closed' tag on Where the Light Gets In was traced to a 2025 renovation closure that ended with a confirmed April 2025 reopening.",
+      "items": [
+        { "label": "Picturedrome (Macclesfield)", "detail": "promoted — verified 3rd site of the Mackie Mayor/Altrincham Market team in Macclesfield's 1911 cinema; confirmed dog-friendly and vegetarian/vegan" },
+        { "label": "Chestergate Bistro (Macclesfield)", "detail": "promoted — verified single-site, independent since 2009; new type BISTRO, category-only (Eat); confirmed dog-friendly and vegetarian/vegan/gluten-free (a stale Uber Eats 'closed' listing was checked and dismissed against active OpenTable/Tripadvisor trading)" },
+        { "label": "MASH (Macclesfield)", "detail": "promoted — verified single-site 60s/70s-themed live-music bar, Castle Quarter; confirmed dog-friendly" },
+        { "label": "Amici (Bramhall)", "detail": "promoted — verified single-site Italian-Greek restaurant, own limited company; a co-owner's past role at chain Piccolino checked and found not to make this venture a chain; confirmed vegetarian/vegan" },
+        { "label": "Long Bar & Kitchen (Bramhall)", "detail": "promoted — verified single-site independent bar and small-plates kitchen; confirmed gluten-free" },
+        { "label": "Avanti Restaurant & Grill (Heaton Moor)", "detail": "promoted — verified single-site, family-owned since 2006 ('Chico' confirmed as the real owner); confirmed vegetarian/gluten-free" },
+        { "label": "Heaton Moor Producers Market (Heaton Moor)", "detail": "promoted — verified real, currently-running monthly civic market with 2026 dates published; confirmed dog-friendly" },
+        { "label": "Cork of the North (Heaton Moor)", "detail": "promoted — verified real 2-site sibling pair with the original Sale wine bar; confirmed dog-friendly and vegan" },
+        { "label": "By Yon Orange (Stockport (Underbanks))", "detail": "promoted — verified single-site, newly incorporated specialty coffee café; confirmed vegan" },
+        { "label": "The Drawing Room (Didsbury)", "detail": "promoted, reason text lightly rewritten — the original candidate's 'Rob and Lorna'/'life-drawing classes'/'art lecturers' detail couldn't be independently re-corroborated this run, so the copy was trimmed to only what re-verification actually confirmed (open since 2008, day-time art classes, the jukebox, single-site); confirmed dog-friendly" },
+        { "label": "Nantwich (new Cheshire district)", "detail": "promoted — verified genuine, distinct Cheshire market town ~15 miles south of Knutsford with no overlap on any existing district; no venues seeded yet" },
+        { "label": "Prana (Altrincham)", "detail": "left pending — no decision yet in Curia Command's pending_review collection; conflicting closure/reopening signals unchanged since 2026-09-11" }
+      ],
+      "createdAt": "2026-09-12T00:00:00Z"
     }
   ]
 }
