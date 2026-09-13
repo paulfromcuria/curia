@@ -283,4 +283,9 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat'> = {
   // TAVERNA/FARM EXPERIENCE above since no onboarding tile fits precisely.
   'FRENCH BISTRO': 'Eat',
   'NATURE RESERVE': 'Do',
+  // Added 2026-09-13 for Deadwood Smokehouse (Nantwich) — no existing Eat
+  // type fits a dedicated American BBQ smokehouse; category-only, same
+  // treatment as CANTONESE ROAST/GREEK TAVERNA above since no onboarding
+  // tile fits precisely.
+  'SMOKEHOUSE': 'Eat',
 };

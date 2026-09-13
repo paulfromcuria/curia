@@ -3,6 +3,27 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-09-13",
+      "synced": false,
+      "title": "10 venues promoted across Nantwich, Macclesfield and Bramhall; Prana still waiting on a human call",
+      "summary": "Independently re-verified and promoted all 10 pending candidates in venue-suggestions.json — five closing out Nantwich's real zero-venue gap, three rounding out Macclesfield, two rounding out Bramhall — with real petFriendly/dietaryOptions researched for each. Nothing rejected today. Curia Command's pending_review collection was empty, so nothing to apply from a prior human decision. Prana (Altrincham) was re-checked again: still no direct 2025/2026 trading evidence either way, though one new detail (a reported plan to convert it into an events space after its 2024 closure) surfaced without resolving anything; it stays in docs/data/pending-review-queue.json unchanged. Also fixed an accidental literal duplicate of the Prana entry in venue-suggestions.json (same content appended twice) down to one. The closure-audit slice (Bar Shrimp, Manchester Rare Books, Charlie Brown's Hale, esea contemporary, Mobberley Cricket Club) found no real closures — Bar Shrimp's Uber Eats delisting is the same stale-delivery-aggregator pattern already dismissed elsewhere in this file, and esea contemporary's 'closed' note traced to a routine exhibition changeover.",
+      "items": [
+        { "label": "Residence Restaurant & Bar (Nantwich)", "detail": "promoted — single-site Georgian mansion restaurant, confirmed gluten-free menu, currently trading" },
+        { "label": "Black Lion (Nantwich)", "detail": "promoted — genuine 1664 freehouse with no brewery tie, confirmed dog-friendly (downstairs) and vegan-adaptable" },
+        { "label": "Deadwood Smokehouse (Nantwich)", "detail": "promoted — new type SMOKEHOUSE (category-only, Eat); real 2-site sibling pair with Mold, confirmed dog-friendly (outdoor frontage only)" },
+        { "label": "The Nest Nantwich (Nantwich)", "detail": "promoted — single-site distillery/cocktail bar, Three Wrens Gin, confirmed dog-friendly" },
+        { "label": "Nantwich Bookshop & Coffee Lounge (Nantwich)", "detail": "promoted — single-site independent since 2003, confirmed vegan/gluten-free and dog-friendly (downstairs); a 2025 sale attempt fell through in Jan 2026 but the shop continues trading under its original owners" },
+        { "label": "Diversion Bar & Kitchen (Macclesfield)", "detail": "promoted — single-site, opened 2026, confirmed vegetarian-friendly menu" },
+        { "label": "Waters Green Tavern (Macclesfield)", "detail": "promoted — genuine multi-award CAMRA free house, confirmed vegetarian/vegan/gluten-free and dog-friendly" },
+        { "label": "Silk Museum & Paradise Mill (Macclesfield)", "detail": "promoted — independent/charitable heritage attraction, correctly defaulted to not pet-friendly (standard museum accessibility policy)" },
+        { "label": "Simply Books (Bramhall)", "detail": "promoted — award-winning single-site independent bookshop/café, new owners since March 2024" },
+        { "label": "Cheshire Art Gallery (Bramhall)", "detail": "promoted — single-site commercial gallery, Geoffrey Key/Mark Demsteader representation independently confirmed" },
+        { "label": "Prana (Altrincham)", "detail": "left pending — still no direct 2025/2026 trading evidence either way; no decision yet in Curia Command's pending_review collection" }
+      ],
+      "createdAt": "2026-09-13T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-11",
       "synced": false,
       "title": "9 venues + 1 district promoted, 1 sent for review, 0 rejected, 0 closures",
