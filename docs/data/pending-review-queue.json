@@ -89,6 +89,44 @@
         "bands": ["evening", "late"],
         "reason": "Two floors of proper acoustics on Ashley Road from the team behind Stockport's Amp — order the cocktail, but the stage is the reason to stay past nine."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-14",
+      "reason": "Companies House shows a cluster of similarly-named entities (a dissolved 'Buon Cibo Cheshire Ltd', a 'Buon Cibo Milano Ltd', and a newly incorporated September 2025 'Buon Cibo Group Ltd' with an active restaurant SIC code) that reads more like an operator scaling up than the simple 2-site family pair this candidate was framed as, and the claimed Reddish sister site couldn't be independently confirmed at all.",
+      "researchNotes": "The Heaton Moor restaurant itself (17 Shaw Road, SK4 4AG) is real and actively trading. The Reddish 'sister site' the original candidate named couldn't be found on a fresh search of that street. Confirmed unrelated to the app's existing 'Cibo' venues (a different Didsbury/Chorlton group) and to a separate celebrity-owned 'Cibo' chain in an unrelated trademark dispute, so no name-collision problem — the concern is specifically the Companies House entity cluster suggesting active expansion, not a settled small-group precedent like Cibo/Suburban Green/Smoke Wilmslow elsewhere in this app.",
+      "payload": {
+        "name": "Buon Cibo",
+        "district": "heaton-moor",
+        "type": "ITALIAN RESTAURANT",
+        "spend": "££",
+        "lat": 53.423255,
+        "lon": -2.185411,
+        "base": 74,
+        "bands": ["afternoon", "evening"],
+        "reason": "A family kitchen on Shaw Road doing proper Italian without the tablecloth theatre."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-14",
+      "reason": "Genuinely independent and non-chain, but its recent history is a closure announced 17 September 2025, a partial (initially daytime-only) reopening 15 October 2025 after community support, and its original operating company dissolved 12 November 2025 — unclear whether it's trading today, and whether the evening/live-music programme central to its 'Irish bar' identity has come back.",
+      "researchNotes": "Ownership checks out cleanly as genuinely independent, family-run, no chain signal found. The trading-status timeline (closure announcement, community-backed reopening, dissolved operating company) comes from Manchester World and The Manc's own coverage plus a live Companies House record for RUSTIK LTD — real events, but not enough to say whether the venue trades today as described. A direct check of its current Instagram/Google listing would resolve this faster than another web search.",
+      "payload": {
+        "name": "Rustik",
+        "district": "didsbury",
+        "type": "IRISH BAR",
+        "spend": "££",
+        "lat": 53.427674,
+        "lon": -2.241957,
+        "base": 72,
+        "bands": ["morning", "afternoon", "evening"],
+        "reason": "Burton Road's own Irish corner — brunch by day, a proper session by night, family-run without a single chain tell in the fit-out."
+      }
     }
   ]
 }

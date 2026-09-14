@@ -3,6 +3,27 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-09-14",
+      "synced": false,
+      "title": "7 venues promoted across Nantwich, Bramhall, Stockport (Underbanks), Mobberley, Altrincham and Knutsford; 1 rejected, 2 sent for review",
+      "summary": "Independently re-verified all 10 pending candidates in venue-suggestions.json and promoted 7 (Nantwich Museum, Bench Bistro Bar, Plumcake Cafe, The Warren, Railway Inn, Gin Can, Rose & Crown), with real petFriendly/dietaryOptions researched for each and one stale reason string (Bench Bistro Bar's now-closed Congleton sibling) rewritten. The Copper Room (Macclesfield) was rejected — the chef-owned concept it described no longer trades at the given address, which is now occupied by an unrelated pub venture. Two candidates were genuinely uncertain rather than a clean pass/reject and were sent to pending-review-queue.json: Buon Cibo (a suspicious Companies House entity cluster suggesting active expansion, and an unconfirmable sister site) and Rustik (real but a contradictory recent closure/reopening/dissolution history). Prana (Altrincham) was re-checked again with no new evidence either way, unchanged since 2026-09-11. Curia Command's pending_review collection was empty, so nothing to apply from a prior human decision. The closure-audit rotating slice (20 Stories, The Jane Eyre, Blinker, Matt & Phreds, The Ivy Spinningfields) found no real closures.",
+      "items": [
+        { "label": "Nantwich Museum (Nantwich)", "detail": "promoted — volunteer-run charitable heritage museum, zero chain risk" },
+        { "label": "Plumcake Cafe (Bramhall)", "detail": "promoted — single-site family-run brunch cafe, confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "The Warren (Stockport (Underbanks))", "detail": "promoted — independent artist-collective gallery, a temporary Manchester pop-up stall doesn't count as a second site" },
+        { "label": "Railway Inn (Mobberley)", "detail": "promoted — genuine free house, no ownership link to Mobberley's existing Cheshire Cat pub group, confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "Gin Can (Altrincham)", "detail": "promoted — sibling group corrected from 2 to 3 venues (Cheshire Tap, Gin Can, Ivy League) under one small team, still within the small-group allowance; confirmed dog-friendly" },
+        { "label": "Bench Bistro Bar (Nantwich)", "detail": "promoted, reason text corrected — Congleton sibling closed Sept 2025 (now 'Black Bear'), so Bench is single-site again; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "Rose & Crown (Knutsford)", "detail": "promoted — 1647 coaching inn, explicitly independent, confirmed dog-friendly and vegan/gluten-free" },
+        { "label": "The Copper Room (Macclesfield)", "detail": "rejected — the described chef-owned concept no longer trades at 60-62 Chestergate; the room has sat empty since summer 2025 and is being converted into an unrelated pub" },
+        { "label": "Buon Cibo (Heaton Moor)", "detail": "sent for review — Companies House shows a cluster of similarly-named entities including a newly incorporated 'Buon Cibo Group Ltd', reading more like expansion than a simple 2-site family pair" },
+        { "label": "Rustik (Didsbury)", "detail": "sent for review — genuinely independent, but a real closure (Sept 2025), partial reopening (Oct 2025) and dissolved operating company (Nov 2025) leave its current trading status unclear" },
+        { "label": "Prana (Altrincham)", "detail": "left pending — no new evidence either way, unchanged since 2026-09-11" }
+      ],
+      "createdAt": "2026-09-14T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-13",
       "synced": false,
       "title": "10 venues promoted across Nantwich, Macclesfield and Bramhall; Prana still waiting on a human call",
