@@ -1,6 +1,6 @@
 {
-  "_source": "AI-researched venue CANDIDATES for Manchester and Cheshire, awaiting review — never directly edited by the research agent. Populated by a daily scheduled research agent (2026-08, at explicit user request: 'fan out some research agents who's goal is to run every day to find and suggest new businesses... they shouldn't go beyond cheshire and manchester just yet'; bumped from ~3-5/day to 10/day at a later explicit request). See .claude/agents/curia-research-daily.md for the full research brief/rules this agent works under (Hard rule 1 chain/fast-food screening, real coordinates only, no duplicates, Do/Drink/Eat coverage balance). The research agent commits straight to master for this file (no PR — this queue has zero effect on the live app, nothing reads it except the review agent and the admin dashboard's Growth Insights context). A second, independent daily agent (.claude/agents/curia-suggestion-review.md) re-verifies each `pending` entry and is the only thing that ever promotes one into the real docs/data/venues.json, behind its own pull request — see that file's own doc comment for why the human checkpoint lives there instead of here. Each entry mirrors docs/data/venues.json's own raw shape (name/district/type/spend/lat/lon/base/bands/reason) exactly, so a reviewed-and-approved entry can be moved into that file with a straight copy-paste, plus review-only fields (suggestedDate, status, researchNotes) that get stripped on promotion. `district` values must be a real existing district id from docs/data/districts.json (manchester/cheshire metros only) UNLESS the entry is itself proposing a brand-new district — see district-suggestions.json for that case instead; a venue suggestion should never invent a district id that doesn't exist anywhere.",
-  "_reviewWorkflow": "status starts 'pending' on every new entry. The daily curia-suggestion-review agent changes it to 'approved' (then copies the venue fields into docs/data/venues.json and removes the entry here, as part of its own PR) or 'rejected' (left here with researchNotes explaining why, as a record so the same candidate isn't re-suggested later — curia-research-daily checks every entry here regardless of status before suggesting anything new). A human's actual review happens by reading/merging the review agent's PR, not by editing this file directly, though a human reviewer (or a future admin-dashboard screen) can still hand-edit an entry's status here if needed.",
+  "_source": "AI-researched venue CANDIDATES for Manchester and Cheshire, awaiting review — never directly edited by the research agent. Populated by a daily scheduled research agent (2026-08, at explicit user request: 'fan out some research agents who's goal is to run every day to find and suggest new businesses... they shouldn't go beyond cheshire and manchester just yet'; bumped from ~3-5/day to 10/day at a later explicit request). See .claude/agents/curia-research-daily.md for the full research brief/rules this agent works under (Hard rule 1 chain/fast-food screening, real coordinates only, no duplicates, Do/Drink/Eat coverage balance). The research agent commits straight to master for this file (no PR — this queue has zero effect on the live app, nothing reads it except the review agent and the admin dashboard's Growth Insights context). A second, independent daily agent (.claude/agents/curia-suggestion-review.md) re-verifies each `pending` entry and is the thing that promotes one into the real docs/data/venues.json, pushing straight to master after its own independent re-verification (see that file's own 2026-09-04 doc comment for why the human checkpoint moved to Curia Command's Pending Review tab instead of a PR here). Each entry mirrors docs/data/venues.json's own raw shape (name/district/type/spend/lat/lon/base/bands/reason) exactly, so a reviewed-and-approved entry can be moved into that file with a straight copy-paste, plus review-only fields (suggestedDate, status, researchNotes) that get stripped on promotion. `district` values must be a real existing district id from docs/data/districts.json (manchester/cheshire metros only) UNLESS the entry is itself proposing a brand-new district — see district-suggestions.json for that case instead; a venue suggestion should never invent a district id that doesn't exist anywhere.",
+  "_reviewWorkflow": "status starts 'pending' on every new entry. The daily curia-suggestion-review agent changes it to 'approved'/promoted (then copies the venue fields into docs/data/venues.json and removes the entry here, pushed straight to master) or 'rejected' (left here with researchNotes explaining why, as a record so the same candidate isn't re-suggested later — curia-research-daily checks every entry here regardless of status before suggesting anything new). Genuinely uncertain candidates go to docs/data/pending-review-queue.json instead, staying 'pending' here until a human decides via Curia Command. A human's actual review happens by reading Curia Command's daily briefing and Pending Review tab, not by editing this file directly, though a human reviewer (or a future admin-dashboard screen) can still hand-edit an entry's status here if needed.",
   "suggestions": [
     {
       "name": "Clark Art",
@@ -81,21 +81,7 @@
       "reason": "Two floors of proper acoustics on Ashley Road from the team behind Stockport's Amp — order the cocktail, but the stage is the reason to stay past nine.",
       "suggestedDate": "2026-09-11",
       "status": "pending",
-      "researchNotes": "Verified via CAMRA (camra.org.uk), whatpub.com and Altrincham Today: Prana, 14-16 Ashley Road, Altrincham WA14 2DW, an independent live-music venue and cocktail bar opened November 2023, run by the same team as Amp in Stockport — a real 2-site sibling pair, not a chain, same precedent as Bramhall/Cheadle Hulme's Mounting Stone/Chiverton Tap pair in this batch. RE-VERIFICATION 2026-09-11 (curia-suggestion-review) found the original researcher's 'CAMRA-listed and actively promoted' claim was incomplete: CAMRA and whatpub.com both actually list Prana as 'Closed Long Term' (last updated 28/05/2024), following a reported 'closing until further notice' Facebook announcement from Altrincham Today around the same date — a real closure signal the original pass missed. However, a new company, PRANA F&B LIMITED, was incorporated 13 September 2024 at the same 14-16 Ashley Road address and remains active per Companies House, and a Food Hygiene Ratings record exists for 'Prana - Altrincham' — both consistent with a reopening or change of hands rather than the site sitting empty, but no direct evidence of current 2025/2026 trading (a recent event listing, an active social post) was found either way. Genuinely conflicting signals rather than a clean pass or fail — left pending here and sent to docs/data/pending-review-queue.json for a human call rather than promoted or rejected outright. RE-CHECKED 2026-09-12 (curia-suggestion-review): Curia Command's pending_review collection had no decision recorded yet; still no direct 2026 trading evidence found either way. Left as-is. RE-CHECKED 2026-09-13 (curia-suggestion-review): still no direct 2025/2026 trading evidence either way despite fresh searches (Instagram/Skiddle listings exist for the venue but show no current events; two of this run's source URLs, altrincham.co.uk's own listing and a Skiddle venue page, were blocked by this session's network egress policy and couldn't be checked directly). One new detail surfaced: a Facebook report from around the 2024 closure mentions the owner's intent to convert the venue into an events space, which doesn't resolve whether it's trading today. Curia Command's pending_review collection was empty again this run — no human decision yet. This file previously carried an accidental duplicate of this exact entry (identical content, same 2026-09-11 suggestedDate) — deduplicated down to one today; no information was lost, the surviving entry already carried the fuller, more recently updated research notes. Left pending, unchanged in verdict, same as every prior run since 2026-09-11. RE-CHECKED 2026-09-14 (curia-suggestion-review): fresh search specifically for anything dated 2026 or late 2025 (recent reviews, active social media, current event listings, local news) found nothing new confirming current trading, and nothing new confirming a permanent closure/re-let either — the CAMRA/whatpub 'Closed Long Term' record and the active PRANA F&B LIMITED company/food hygiene registration both stand unchanged. Curia Command's pending_review collection was checked and had no decision recorded yet. Genuinely unresolved, unchanged in verdict since 2026-09-11."
-    },
-    {
-      "name": "The Copper Room",
-      "district": "macclesfield",
-      "type": "FINE DINING",
-      "spend": "£££",
-      "lat": 53.260779,
-      "lon": -2.128924,
-      "base": 78,
-      "bands": ["afternoon", "evening"],
-      "reason": "Amy and Rick Armstrong crowdfunded their way into Charles Roe House's Grade II* rooms — steak and seafood cooked properly, in a silk merchant's own dining room on Chestergate.",
-      "suggestedDate": "2026-09-14",
-      "status": "rejected",
-      "researchNotes": "Verified via the operator's own site (chefrick.co.uk), Macclesfield Nub News (two separate pieces confirming both the Kickstarter-funded opening and the venue name) and Tripadvisor (active listing with 2026-dated reviews): The Copper Room, Charles Roe House, 60-62 Chestergate, Macclesfield SK11 6DY, a fine-dining restaurant and cocktail bar run by chef-owners Amy and Rick Armstrong. No second site or group ownership found anywhere — single-site, independently owned, passes Hard rule 1 cleanly. Coordinates from doogal.co.uk's postcode geocode for SK11 6DY. Reuses the existing FINE DINING type. Fills a real gap: Macclesfield had only 1 Eat-category venue (Chestergate Bistro) against 2 Do and 3 Drink before this addition. REJECTED on independent re-verification 2026-09-14: the chef-owned fine-dining concept this candidate described no longer trades at 60-62 Chestergate. Charles Roe House's dining room changed to 'Piccante at The Copper Room' (Italian/Brazilian tapas, opened Dec 2022) and per Macclesfield Nub News that room has sat empty since summer 2025 while the building is converted into a different, unrelated venture, 'The Charles Roe Pub' (reopening Dec 2025). Amy and Rick Armstrong's ownership story checks out, but whatever they run today is not trading at this address under this description — a closure/identity mismatch, not a chain issue. Do not re-suggest at this address; a genuinely reopened Armstrong-run venue elsewhere would need its own fresh verification."
+      "researchNotes": "Verified via CAMRA (camra.org.uk), whatpub.com and Altrincham Today: Prana, 14-16 Ashley Road, Altrincham WA14 2DW, an independent live-music venue and cocktail bar opened November 2023, run by the same team as Amp in Stockport — a real 2-site sibling pair, not a chain, same precedent as Bramhall/Cheadle Hulme's Mounting Stone/Chiverton Tap pair in this batch. RE-VERIFICATION 2026-09-11 (curia-suggestion-review) found the original researcher's 'CAMRA-listed and actively promoted' claim was incomplete: CAMRA and whatpub.com both actually list Prana as 'Closed Long Term' (last updated 28/05/2024), following a reported 'closing until further notice' Facebook announcement from Altrincham Today around the same date — a real closure signal the original pass missed. However, a new company, PRANA F&B LIMITED, was incorporated 13 September 2024 at the same 14-16 Ashley Road address and remains active per Companies House, and a Food Hygiene Ratings record exists for 'Prana - Altrincham' — both consistent with a reopening or change of hands rather than the site sitting empty, but no direct evidence of current 2025/2026 trading (a recent event listing, an active social post) was found either way. Genuinely conflicting signals rather than a clean pass or fail — left pending here and sent to docs/data/pending-review-queue.json for a human call rather than promoted or rejected outright. RE-CHECKED 2026-09-12 (curia-suggestion-review): Curia Command's pending_review collection had no decision recorded yet; still no direct 2026 trading evidence found either way. Left as-is. RE-CHECKED 2026-09-13 (curia-suggestion-review): still no direct 2025/2026 trading evidence either way despite fresh searches (Instagram/Skiddle listings exist for the venue but show no current events; two of this run's source URLs, altrincham.co.uk's own listing and a Skiddle venue page, were blocked by this session's network egress policy and couldn't be checked directly). One new detail surfaced: a Facebook report from around the 2024 closure mentions the owner's intent to convert the venue into an events space, which doesn't resolve whether it's trading today. Curia Command's pending_review collection was empty again this run — no human decision yet. This file previously carried an accidental duplicate of this exact entry (identical content, same 2026-09-11 suggestedDate) — deduplicated down to one today; no information was lost, the surviving entry already carried the fuller, more recently updated research notes. Left pending, unchanged in verdict, same as every prior run since 2026-09-11. RE-CHECKED 2026-09-14 (curia-suggestion-review): fresh search specifically for anything dated 2026 or late 2025 (recent reviews, active social media, current event listings, local news) found nothing new confirming current trading, and nothing new confirming a permanent closure/re-let either — the CAMRA/whatpub 'Closed Long Term' record and the active PRANA F&B LIMITED company/food hygiene registration both stand unchanged. Curia Command's pending_review collection was checked and had no decision recorded yet. Genuinely unresolved, unchanged in verdict since 2026-09-11. RE-CHECKED 2026-09-15 (curia-suggestion-review): Curia Command's pending_review collection still empty, no decision recorded. No new search performed this run beyond the standing checks — unchanged since 2026-09-11, still sitting in docs/data/pending-review-queue.json for a human call."
     },
     {
       "name": "Buon Cibo",
@@ -109,7 +95,7 @@
       "reason": "A family kitchen on Shaw Road doing proper Italian without the tablecloth theatre — the sister site over in Reddish hasn't thinned out what lands on the plate here.",
       "suggestedDate": "2026-09-14",
       "status": "pending",
-      "researchNotes": "Verified via OpenTable (4.5-star, active current bookings), Tripadvisor and the venue's own Instagram/Facebook: Buon Cibo, 17 Shaw Road, Heaton Moor, Stockport SK4 4AG, described as family-run on its own social presence. A second site trading under the same name exists in nearby Reddish (79a-81 Broadstone Road, Stockport SK5 7AS) — both within the same borough, a real 2-site local sibling pair consistent with this file's existing precedent (Cibo/Heddy's/Caramello, Wallop). Owner's name not independently confirmed beyond the 'family run' descriptor both sites use, so flagged as moderate rather than high confidence on the ownership-link specifically, though the chain-footprint check itself (2 sites, same borough, same brand) is solid. Coordinates from doogal.co.uk's postcode geocode for SK4 4AG. Reuses the existing ITALIAN RESTAURANT type. Heaton Moor was at 6 venues (2 Do, 2 Drink, 2 Eat) before this addition, the thinnest district in this run's tally. RE-VERIFICATION 2026-09-14 (curia-suggestion-review): the Heaton Moor restaurant itself is real and actively trading (Tripadvisor/OpenTable 2026 activity, FHRS rating updated June 2026), but the claimed Reddish sister site could not be independently confirmed this run — a fresh search of that address turned up only unrelated businesses. More concerning, Companies House shows a cluster of similarly-named entities: a dissolved 'Buon Cibo Cheshire Ltd' (2021-2023), a 'Buon Cibo Milano Ltd', and a newly incorporated (September 2025) 'Buon Cibo Group Ltd' carrying an active licensed-restaurant SIC code — a pattern that reads more like an operator scaling up than the simple family-run 2-site pair this candidate was originally framed as. Confirmed unrelated to both the existing app-database 'Cibo' group (Adam Karim's Didsbury/Chorlton restaurants) and a separate celebrity-owned 'Cibo' chain currently in a High Court trademark dispute, so no name-collision issue — but the real ownership footprint needs pinning down before this can be promoted or rejected outright. Sent to docs/data/pending-review-queue.json for a human call; left 'pending' here rather than decided either way."
+      "researchNotes": "Verified via OpenTable (4.5-star, active current bookings), Tripadvisor and the venue's own Instagram/Facebook: Buon Cibo, 17 Shaw Road, Heaton Moor, Stockport SK4 4AG, described as family-run on its own social presence. A second site trading under the same name exists in nearby Reddish (79a-81 Broadstone Road, Stockport SK5 7AS) — both within the same borough, a real 2-site local sibling pair consistent with this file's existing precedent (Cibo/Heddy's/Caramello, Wallop). Owner's name not independently confirmed beyond the 'family run' descriptor both sites use, so flagged as moderate rather than high confidence on the ownership-link specifically, though the chain-footprint check itself (2 sites, same borough, same brand) is solid. Coordinates from doogal.co.uk's postcode geocode for SK4 4AG. Reuses the existing ITALIAN RESTAURANT type. Heaton Moor was at 6 venues (2 Do, 2 Drink, 2 Eat) before this addition, the thinnest district in this run's tally. RE-VERIFICATION 2026-09-14 (curia-suggestion-review): the Heaton Moor restaurant itself is real and actively trading (Tripadvisor/OpenTable 2026 activity, FHRS rating updated June 2026), but the claimed Reddish sister site could not be independently confirmed this run — a fresh search of that address turned up only unrelated businesses. More concerning, Companies House shows a cluster of similarly-named entities: a dissolved 'Buon Cibo Cheshire Ltd' (2021-2023), a 'Buon Cibo Milano Ltd', and a newly incorporated (September 2025) 'Buon Cibo Group Ltd' carrying an active licensed-restaurant SIC code — a pattern that reads more like an operator scaling up than the simple family-run 2-site pair this candidate was originally framed as. Confirmed unrelated to both the existing app-database 'Cibo' group (Adam Karim's Didsbury/Chorlton restaurants) and a separate celebrity-owned 'Cibo' chain currently in a High Court trademark dispute, so no name-collision issue — but the real ownership footprint needs pinning down before this can be promoted or rejected outright. Sent to docs/data/pending-review-queue.json for a human call; left 'pending' here rather than decided either way. RE-CHECKED 2026-09-15 (curia-suggestion-review): Curia Command's pending_review collection still empty, no decision recorded. Unchanged since 2026-09-14, still sitting in docs/data/pending-review-queue.json for a human call."
     },
     {
       "name": "Rustik",
@@ -123,147 +109,7 @@
       "reason": "Burton Road's own Irish corner — brunch by day, a proper session by night, family-run without a single chain tell in the fit-out.",
       "suggestedDate": "2026-09-14",
       "status": "pending",
-      "researchNotes": "Verified via the venue's own site (rustikcafebar.co.uk), Yelp and manchestersfinest.com: Rustik, 198 Burton Road, West Didsbury, Manchester M20 1LH, an independent, family-run Irish neighbourhood bar/eatery — brunch by day, live music and a bar programme in the evenings. No second site or group ownership found anywhere. Passes Hard rule 1 cleanly. Coordinates from doogal.co.uk's postcode geocode for M20 1LH. Introduces a new venue type, IRISH BAR — no existing type/tile precisely fits a venue built around Irish-bar identity specifically rather than a general gastropub; left category-only (Drink), same precedent as ALE HOUSE/FRENCH BISTRO elsewhere in this file, not mapped to any onboarding tile yet. Didsbury was at 9 venues (3 Do, 3 Drink, 3 Eat, already balanced) before this addition — simply adds to a balanced district's overall count. RE-VERIFICATION 2026-09-14 (curia-suggestion-review): ownership checks out as genuinely independent, single-site, family-run, with no chain signal anywhere. However, current operating status is contradictory: the venue publicly announced permanent closure around 17 September 2025 after ~10 years, then reopened 15 October 2025 following a wave of community support — initially reported as daytime/brunch-only, with evening service (including the live-music programme this candidate's 'Irish bar' framing depends on) not confirmed to have resumed at that point. Companies House separately shows the original operating company, RUSTIK LTD, was dissolved 12 November 2025, and it's unclear from open-web sources whether a successor company now runs the same trading name at the same address, or whether the venue is still open today at all. Sent to docs/data/pending-review-queue.json for a human call (a direct check of its live Instagram/Google listing would resolve this faster than another web search); left 'pending' here rather than decided either way."
-    },
-    {
-      "name": "Cinemac",
-      "district": "macclesfield",
-      "type": "INDEPENDENT CINEMA",
-      "spend": "££",
-      "lat": 53.2577,
-      "lon": -2.1271,
-      "base": 71,
-      "bands": ["afternoon", "evening"],
-      "reason": "A single raked screen inside a restored 1814 Sunday school on Roe Street, sofa seats for two upstairs and a Wednesday slot handed over to the volunteer-run Silkscreen Film Society — the only room in town where the building's own history gets more attention than the trailers.",
-      "suggestedDate": "2026-09-15",
-      "status": "pending",
-      "researchNotes": "Verified via the venue's own site (cinemac.org.uk), Cinema Treasures, Tripadvisor and Visit Macclesfield: Cinemac, Old Sunday School Heritage Centre, Roe Street, Macclesfield SK11 6UT, opened 2003, run within a building restored and operated by a Macclesfield-based heritage charitable trust — single site, no group/chain ownership found anywhere, passes Hard rule 1 cleanly. Coordinates approximated from the SK11 6UT postcode centroid (web search geocode, doogal.co.uk itself blocked by this session's network egress policy). Reuses the existing INDEPENDENT CINEMA type. Macclesfield was thinnest of all under-10 districts (6 venues: 2 Do/3 Drink/1 Eat) — this closes part of the Do gap alongside Amazing India closing the Eat gap in the same batch."
-    },
-    {
-      "name": "Amazing India",
-      "district": "macclesfield",
-      "type": "INDIAN RESTAURANT",
-      "spend": "££",
-      "lat": 53.2574,
-      "lon": -2.1237,
-      "base": 73,
-      "bands": ["afternoon", "evening"],
-      "reason": "South Indian cooking on Pickford Street with every chef trained in Kerala — dosa and fish curry done properly, and a first-floor party room that keeps Saturday's live music from ever reaching the tables downstairs.",
-      "suggestedDate": "2026-09-15",
-      "status": "pending",
-      "researchNotes": "Verified via the operator's own site (amazingindia.uk), Macclesfield Nub News (two separate pieces on the opening and confirmed opening date) and Tripadvisor (active listing, 2026-dated reviews): Amazing India, 2-5 Marlborough Court, Pickford Street, Macclesfield SK11 6JD, opened by owners Joby and Prema Pillai in the former Masala Spoon unit, the only South Indian specialist in town. Companies House shows a single company, AMAZING INDIA UK LTD — no second site or group ownership found anywhere, passes Hard rule 1 cleanly. Coordinates approximated from the SK11 6JD postcode centroid (web search geocode). Reuses the existing INDIAN RESTAURANT type. Macclesfield's Eat category was the weakest of any under-10 district (1 venue against 2 Do/3 Drink) before this addition."
-    },
-    {
-      "name": "Bar Six",
-      "district": "nantwich",
-      "type": "COCKTAIL BAR",
-      "spend": "£££",
-      "lat": 53.065977,
-      "lon": -2.519466,
-      "base": 75,
-      "bands": ["evening", "late"],
-      "reason": "Hospital Street's own late room — small-batch spirits and a wine list that skips the safe names, chilled by day and properly loud by the time everyone else's kitchen has stopped taking orders.",
-      "suggestedDate": "2026-09-15",
-      "status": "pending",
-      "researchNotes": "Verified via the operator's own site (sixnantwich.com), Companies House and Untappd: Bar Six, 90-92 Hospital Street, Nantwich CW5 5RP, run by Bar Six Nantwich Limited, incorporated 2020, active, single registered address. No second site or group ownership found anywhere — passes Hard rule 1 cleanly. Coordinates from web-search geocode of CW5 5RP. Reuses the existing COCKTAIL BAR type. Nantwich's Do and Drink categories were tied weakest (2 each against 3 Eat) before this batch — this closes part of the Drink gap alongside Drift Art Gallery closing part of the Do gap."
-    },
-    {
-      "name": "Drift Art Gallery",
-      "district": "nantwich",
-      "type": "ART GALLERY",
-      "spend": "£",
-      "lat": 53.0658,
-      "lon": -2.5195,
-      "base": 64,
-      "bands": ["morning", "afternoon"],
-      "reason": "A working gallery on the High Street since 2024, given over to painters, ceramicists and makers rather than prints on a wall — the sort of room that runs its own workshops instead of just hanging a price list.",
-      "suggestedDate": "2026-09-15",
-      "status": "pending",
-      "researchNotes": "Verified via the gallery's own site (driftartgallery.com), Nantwich News (opening coverage, May 2024) and Instagram: Drift Art Gallery, 15 High Street, Nantwich CW5 5AH, opened 2024, representing contemporary painters/ceramicists/makers with its own workshop programme. No second site or group ownership found anywhere — passes Hard rule 1 cleanly. Coordinates are an approximation (~150-250m) centred on Nantwich town centre/High Street, derived from this file's existing nearby venues (Nantwich Museum, Black Lion) rather than a direct postcode geocode — CW5 5AH's exact centroid couldn't be retrieved this run (doogal.co.uk blocked by network egress policy, and search results didn't surface the raw coordinate); real street, approximate point on it, flagged for the reviewer to tighten if a direct geocode becomes available. Introduces no new type — reuses existing ART GALLERY."
-    },
-    {
-      "name": "Prestbury Cricket Club",
-      "district": "prestbury",
-      "type": "CRICKET CLUB",
-      "spend": "£",
-      "lat": 53.2893,
-      "lon": -2.1516,
-      "base": 56,
-      "bands": ["afternoon"],
-      "reason": "The Village Ground a few minutes past the antique shops — a Saturday league fixture with the boundary rope close enough to the timbered pubs that last orders and last over tend to land around the same time.",
-      "suggestedDate": "2026-09-15",
-      "status": "pending",
-      "researchNotes": "Verified via the club's own Play-Cricket site (prestburyches.play-cricket.com), Prestbury Parish Council's own listing and Instagram: Prestbury Cricket Club, The Village Ground, Prestbury SK10 4DG, an active amateur members' club fielding multiple league sides. Amateur sports club, not a commercial chain — passes Hard rule 1 trivially. Coordinates from web-search geocode of SK10 4DG. Reuses the existing CRICKET CLUB type (already seeded once for Mobberley Cricket Club). Prestbury's Do category was weakest (2 against 3 Drink/3 Eat) before this addition."
-    },
-    {
-      "name": "Sticky Fingers Bakery",
-      "district": "stockport-underbanks",
-      "type": "BAKERY",
-      "spend": "£",
-      "lat": 53.4108,
-      "lon": -2.1586,
-      "base": 74,
-      "bands": ["morning", "afternoon"],
-      "reason": "Adrian and Klaudyna's Polish bakery graduated from a Market Hall stall to its own shopfront on Great Underbank — proper pierogi and viennoiserie both, and the queue for the doughnuts starts before the ovens finish the first batch.",
-      "suggestedDate": "2026-09-15",
-      "status": "pending",
-      "researchNotes": "Verified via Stockport Nub News (two pieces: the Market Hall stall's 2022 start and the Great Underbank shop's 22 November opening), Totally Stockport and Tripadvisor: Sticky Fingers, 39 Great Underbank, Stockport SK1 1NE, husband-and-wife owned (Adrian and Klaudyna), Polish artisan bakery. Operates a second, earlier stall inside Stockport Market Hall (same town, same owners since 2022) — a real small-sibling-pair, the same precedent already established for Cibo/Heddy's/Caramello/Wallop elsewhere in this file, not a chain. Coordinates from web-search geocode of the Great Underbank address (SK1 1NE, cross-checked against neighbouring Great Underbank addresses' published coordinates). Reuses the existing BAKERY type. Stockport (Underbanks)'s Eat category was weakest (2 against 3 Do/3 Drink) before this addition."
-    },
-    {
-      "name": "78 Degrees",
-      "district": "bramhall",
-      "type": "GIN BAR",
-      "spend": "££",
-      "lat": 53.3569,
-      "lon": -2.1653,
-      "base": 69,
-      "bands": ["evening", "late"],
-      "reason": "A hundred-odd gins behind a bar barely wider than the counter itself, run by the same young couple since it opened — the sort of place that remembers what you drank last time, not just what's chalked up tonight.",
-      "suggestedDate": "2026-09-15",
-      "status": "pending",
-      "researchNotes": "Verified via Tripadvisor (multiple 2025/2026-dated reviews describing the owners as a family-run young couple) and Restaurant Guru: 78 Degrees, 9 Woodford Road, Bramhall, Stockport SK7 1JN, an independent gin bar (~100 varieties) also serving beer, wine and pizza. No second site or group ownership found anywhere — passes Hard rule 1 cleanly, though confidence on the zero-other-locations point is moderate (a small independent with limited web presence beyond Tripadvisor/menu aggregators) rather than confirmed via the operator's own site, which wasn't found. Coordinates from web-search geocode of SK7 1JN. Introduces a new venue type, GIN BAR — no existing type precisely fits a gin specialist (COCKTAIL BAR implies a broader mixed-drinks list); left category-only (Drink), same precedent as ALE HOUSE/WINE MERCHANT elsewhere in this file. Flagged for the reviewer: this could also close the real 'Whisky & spirits' onboarding tile's current zero-venue gap if mapped at promotion time, though that tile is specifically spirits-collection-led rather than gin-bar-led, so it's a loose fit at best. Bramhall's Drink category was weakest (2 against 3 Do/3 Eat) before this addition."
-    },
-    {
-      "name": "T.La Art & Craft Gallery",
-      "district": "chinatown",
-      "type": "ART GALLERY",
-      "spend": "£",
-      "lat": 53.4783,
-      "lon": -2.2402,
-      "base": 64,
-      "bands": ["afternoon"],
-      "reason": "A narrow shopfront on Nicholas Street given over entirely to Chinese and East Asian craft and fine art — ink paintings and ceramics stacked floor to ceiling, the kind of browse that outlasts the archway photo everyone else stops for.",
-      "suggestedDate": "2026-09-15",
-      "status": "pending",
-      "researchNotes": "Verified via confidentials.com (independent review), Yelp and the gallery's own Facebook/Instagram presence: T.La Art & Craft Gallery, 16 Nicholas Street, Manchester M1 4EJ, an independent Chinese/East Asian art and craft gift gallery in Chinatown. Moderate rather than high confidence on the single-site point specifically: one of its own Facebook pages is titled 'T.La Art & Craft Gallery - Chinatown/Oriental Arts - Wing Yip Centre branch', which reads as though it could denote a second physical location at the Wing Yip Centre (Oldham Road) rather than just a legacy page name — a direct search couldn't confirm or rule out an actual second site, so this is flagged explicitly for the reviewer to check before promotion rather than decided here. If it is genuinely a 2-site pair within Manchester, that would still sit within this file's existing small-sibling-group precedent (Craig's/Ivy Spinningfields); if it's a wider footprint, it shouldn't be promoted. Coordinates from web-search geocode of M1 4EJ. Introduces no new type — reuses existing ART GALLERY. Chinatown's Do category was weakest (2 against 3 Drink/4 Eat) before this addition."
-    },
-    {
-      "name": "Heaton Moor Park",
-      "district": "heaton-moor",
-      "type": "TOWN PARK",
-      "spend": "£",
-      "lat": 53.425437,
-      "lon": -2.186519,
-      "base": 63,
-      "bands": ["morning", "afternoon"],
-      "reason": "Laid out in 1894 and barely altered since — a mini woodland walk, a bowling green kept going by volunteers, and enough bench space that nobody minds you staying past the dog walk that brought you here.",
-      "suggestedDate": "2026-09-15",
-      "status": "pending",
-      "researchNotes": "Verified via Stockport Council's own listing (stockport.gov.uk/heaton-moor-park), Friends of Heaton Moor Park (heatonmoorpark.co.uk, an active volunteer group's own history page) and themanc.com: Heaton Moor Park, Park Road, Heaton Moor SK4 4PY, a public park donated 1894, council-maintained with an active Friends group. A public civic green space, not a commercial venue — passes Hard rule 1 trivially, same precedent as Chorlton Water Park/Marie Louise Gardens/Bruntwood Park/Thorn Grove Park elsewhere in this file. Coordinates from web-search geocode of SK4 4PY. Reuses the existing TOWN PARK type. Heaton Moor's Do and Drink categories were tied weakest (2 each against 2 Eat, soon 3 once the pending Buon Cibo candidate is decided) before this batch — this closes part of the Do gap alongside Beer Shop closing part of the Drink gap."
-    },
-    {
-      "name": "Beer Shop",
-      "district": "heaton-moor",
-      "type": "BOTTLE SHOP",
-      "spend": "£",
-      "lat": 53.422857,
-      "lon": -2.199269,
-      "base": 68,
-      "bands": ["afternoon", "evening"],
-      "reason": "A converted butcher's on Kingsleigh Road doing more bar than shop these days — local cans, a serious run of German bottles, and a fridge that turns over often enough to be worth the repeat visit.",
-      "suggestedDate": "2026-09-15",
-      "status": "pending",
-      "researchNotes": "Verified via CAMRA (camra.org.uk) and whatpub.com: Beer Shop, 13 Kingsleigh Road, Heaton Moor SK4 3QF, opened 2011 by Dean Hilton, taken over by current owner Markus Sorsa in September 2020 — single site, no group/chain ownership found anywhere, passes Hard rule 1 cleanly. Coordinates from web-search geocode of SK4 3QF. Introduces a new venue type, BOTTLE SHOP — no existing type precisely fits a beer bottle-shop-with-tasting-bar (ALE HOUSE implies a pub, WINE MERCHANT implies wine); left category-only (Drink), same precedent as ALE HOUSE/WINE MERCHANT elsewhere in this file. Heaton Moor's Drink category was tied weakest (2 against 2 Do/2 Eat) before this batch."
+      "researchNotes": "Verified via the venue's own site (rustikcafebar.co.uk), Yelp and manchestersfinest.com: Rustik, 198 Burton Road, West Didsbury, Manchester M20 1LH, an independent, family-run Irish neighbourhood bar/eatery — brunch by day, live music and a bar programme in the evenings. No second site or group ownership found anywhere. Passes Hard rule 1 cleanly. Coordinates from doogal.co.uk's postcode geocode for M20 1LH. Introduces a new venue type, IRISH BAR — no existing type/tile precisely fits a venue built around Irish-bar identity specifically rather than a general gastropub; left category-only (Drink), same precedent as ALE HOUSE/FRENCH BISTRO elsewhere in this file, not mapped to any onboarding tile yet. Didsbury was at 9 venues (3 Do, 3 Drink, 3 Eat, already balanced) before this addition — simply adds to a balanced district's overall count. RE-VERIFICATION 2026-09-14 (curia-suggestion-review): ownership checks out as genuinely independent, single-site, family-run, with no chain signal anywhere. However, current operating status is contradictory: the venue publicly announced permanent closure around 17 September 2025 after ~10 years, then reopened 15 October 2025 following a wave of community support — initially reported as daytime/brunch-only, with evening service (including the live-music programme this candidate's 'Irish bar' framing depends on) not confirmed to have resumed at that point. Companies House separately shows the original operating company, RUSTIK LTD, was dissolved 12 November 2025, and it's unclear from open-web sources whether a successor company now runs the same trading name at the same address, or whether the venue is still open today at all. Sent to docs/data/pending-review-queue.json for a human call (a direct check of its live Instagram/Google listing would resolve this faster than another web search); left 'pending' here rather than decided either way. RE-CHECKED 2026-09-15 (curia-suggestion-review): Curia Command's pending_review collection still empty, no decision recorded. Unchanged since 2026-09-14, still sitting in docs/data/pending-review-queue.json for a human call."
     }
   ]
 }

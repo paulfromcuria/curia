@@ -215,6 +215,29 @@
         { "label": "Prana (Altrincham)", "detail": "left pending — no decision yet in Curia Command's pending_review collection; conflicting closure/reopening signals unchanged since 2026-09-11" }
       ],
       "createdAt": "2026-09-12T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-09-15",
+      "synced": false,
+      "title": "10 venues promoted across Macclesfield, Nantwich, Prestbury, Stockport (Underbanks), Bramhall, Chinatown and Heaton Moor; 0 rejected, 0 newly sent for review",
+      "summary": "Independently re-verified all 10 pending candidates in venue-suggestions.json with a 2026-09-15 suggestedDate and promoted all 10 (Cinemac and Amazing India, Macclesfield; Bar Six and Drift Art Gallery, Nantwich; Prestbury Cricket Club; Sticky Fingers Bakery, Stockport (Underbanks); 78 Degrees, Bramhall; T.La Art & Craft Gallery, Chinatown; Heaton Moor Park and Beer Shop, Heaton Moor) via two parallel fresh web-research passes, coordinates tightened against real postcode centroids for most, reason copy checked against Brand voice and left unchanged. Two needed real judgment rather than a clean pass: Bar Six turned out to be a genuine 3-site family group (Sandbach/Nantwich/Knutsford), judged within the same small-sibling-group allowance already set by Wallop and The Creameries elsewhere in the database; T.La Art & Craft Gallery's possible second 'Wing Yip Centre' location couldn't be conclusively resolved, but even a real 2-site outcome would still clear the same allowance, so it was promoted rather than queued. An unconfirmed single-source rumour of a closure at Amazing India's address was weighed and judged not credible (no primary source, contradicted by an active company registration and 2025 reviews) — not acted on, but flagged here for a future closure-audit look. The three items already sitting in pending-review-queue.json (Prana/Altrincham, Buon Cibo/Heaton Moor, Rustik/Didsbury) were checked against Curia Command's pending_review collection (still empty, no decision recorded) and left unchanged — no new evidence this run. The closure-audit rotating slice (Prestbury Golf Club, The Beer House, The Garden Eatery, The Edge, Bramall Hall) found no closures.",
+      "items": [
+        { "label": "Cinemac (Macclesfield)", "detail": "promoted — single-site heritage-charity cinema, no chain risk, coordinates tightened to postcode centroid" },
+        { "label": "Amazing India (Macclesfield)", "detail": "promoted — single-site, no chain risk; one unconfirmed/likely-false foreclosure rumour flagged for a future closure-audit look, not acted on" },
+        { "label": "Bar Six (Nantwich)", "detail": "promoted — actually a 3-site family group (Sandbach/Nantwich/Knutsford), not the single site originally claimed; judged within the same small-sibling-group allowance as Wallop/The Creameries" },
+        { "label": "Drift Art Gallery (Nantwich)", "detail": "promoted — verified single-site independent gallery; coordinates remain an acknowledged street-level approximation" },
+        { "label": "Prestbury Cricket Club (Prestbury)", "detail": "promoted — active amateur members' club, non-commercial, coordinates tightened to postcode centroid" },
+        { "label": "Sticky Fingers Bakery (Stockport (Underbanks))", "detail": "promoted — single-site (plus its original Market Hall stall) Polish family bakery, opening date resolved to 22 Nov 2025; coordinates tightened" },
+        { "label": "78 Degrees (Bramhall)", "detail": "promoted — verified single-site independent gin bar, coordinates matched almost exactly" },
+        { "label": "T.La Art & Craft Gallery (Chinatown)", "detail": "promoted — single confirmed Companies House registration since 2002; a possible second Wing Yip Centre location couldn't be conclusively resolved but wouldn't change the verdict either way" },
+        { "label": "Heaton Moor Park (Heaton Moor)", "detail": "promoted — real, council-maintained public park with an active Friends group; coordinates matched exactly" },
+        { "label": "Beer Shop (Heaton Moor)", "detail": "promoted — verified single-site bottle shop, ownership history confirmed exactly as claimed" },
+        { "label": "Prana (Altrincham)", "detail": "left pending — no decision yet in Curia Command's pending_review collection; unchanged since 2026-09-11" },
+        { "label": "Buon Cibo (Heaton Moor)", "detail": "left pending — no decision yet in Curia Command's pending_review collection; unchanged since 2026-09-14" },
+        { "label": "Rustik (Didsbury)", "detail": "left pending — no decision yet in Curia Command's pending_review collection; unchanged since 2026-09-14" }
+      ],
+      "createdAt": "2026-09-15T00:00:00Z"
     }
   ]
 }
