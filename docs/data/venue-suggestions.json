@@ -70,6 +70,20 @@
       "researchNotes": "Verified via thebusinessdesk.com, wilmslow.co.uk/alderleyedge.com and the operator's own site (firestationsocial.co.uk): Fire Station Social Cucina, 75 London Road, Alderley Edge SK9 7DY, opened 10 June 2026 in the former Gusto unit — the second site for this specific concept, after the original in Tarporley. Run by 'Project Social Cucina', the restaurant division of Cheshire Pub Company (a separate entity from the 7-pub Cheshire Cat group already referenced elsewhere in this file) — only 2 sites confirmed under the Fire Station Social Cucina name itself, the same 2-site sibling precedent already used for Cibo/Suburban Green/Smoke Wilmslow/Heddy's/Caramello. Flagged for the reviewer: the parent company's own press describes this as 'expansion', so worth a quick re-check at promotion time that a third site hasn't since appeared. Moderate-high confidence otherwise — real, recently opened, well-covered locally, no closure signals. Re-checked again 2026-09-08 (curia-suggestion-review daily pass) specifically for a rumoured third site: none found — same 2-site status as this note originally recorded, still pending, still in docs/data/pending-review-queue.json for a human call rather than re-decided here. DECIDED 2026-09-08 by direct user instruction, in an interactive session: promoted into venues.json with the new `status: 'coming-soon'` field (added the same day specifically for this case) rather than a flat yes/no — real venue, passes Hard rule 1 on site count today, but its editorial confidence marker stays provisional given the parent's stated expansion plans. See venues.json's own note on the new field."
     },
     {
+      "name": "The Copper Room",
+      "district": "macclesfield",
+      "type": "FINE DINING",
+      "spend": "£££",
+      "lat": 53.260779,
+      "lon": -2.128924,
+      "base": 78,
+      "bands": ["afternoon", "evening"],
+      "reason": "Amy and Rick Armstrong crowdfunded their way into Charles Roe House's Grade II* rooms — steak and seafood cooked properly, in a silk merchant's own dining room on Chestergate.",
+      "suggestedDate": "2026-09-14",
+      "status": "rejected",
+      "researchNotes": "Verified via the operator's own site (chefrick.co.uk), Macclesfield Nub News (two separate pieces confirming both the Kickstarter-funded opening and the venue name) and Tripadvisor (active listing with 2026-dated reviews): The Copper Room, Charles Roe House, 60-62 Chestergate, Macclesfield SK11 6DY, a fine-dining restaurant and cocktail bar run by chef-owners Amy and Rick Armstrong. No second site or group ownership found anywhere — single-site, independently owned, passes Hard rule 1 cleanly. Coordinates from doogal.co.uk's postcode geocode for SK11 6DY. Reuses the existing FINE DINING type. Fills a real gap: Macclesfield had only 1 Eat-category venue (Chestergate Bistro) against 2 Do and 3 Drink before this addition. REJECTED on independent re-verification 2026-09-14: the chef-owned fine-dining concept this candidate described no longer trades at 60-62 Chestergate. Charles Roe House's dining room changed to 'Piccante at The Copper Room' (Italian/Brazilian tapas, opened Dec 2022) and per Macclesfield Nub News that room has sat empty since summer 2025 while the building is converted into a different, unrelated venture, 'The Charles Roe Pub' (reopening Dec 2025). Amy and Rick Armstrong's ownership story checks out, but whatever they run today is not trading at this address under this description — a closure/identity mismatch, not a chain issue. Do not re-suggest at this address; a genuinely reopened Armstrong-run venue elsewhere would need its own fresh verification."
+    },
+    {
       "name": "Prana",
       "district": "altrincham",
       "type": "COCKTAIL BAR",
