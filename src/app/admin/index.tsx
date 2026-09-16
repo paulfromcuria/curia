@@ -1,4 +1,5 @@
 import { useRouter, type Href } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AdminHeader } from '../../components/admin/admin-header';
 import { GrowthInsights } from '../../components/admin/growth-insights';
@@ -6,6 +7,7 @@ import { Button, Card } from '../../components/curia';
 import { useAdminData } from '../../lib/admin/admin-data';
 import { useAdminMembers } from '../../lib/admin/admin-members';
 import { useAdminSession } from '../../lib/admin/admin-session';
+import { supabaseAdmin } from '../../lib/data/supabase-admin-client';
 import { CITIES, JOURNEYS, MOMENTS } from '../../lib/data/seed';
 import { color, font, spacing } from '../../theme';
 
@@ -25,8 +27,23 @@ export default function AdminHome() {
   const { admin, logout } = useAdminSession();
   const { venues, districts, tiles } = useAdminData();
   const { members } = useAdminMembers();
+  const [pendingReviewCount, setPendingReviewCount] = useState(0);
+
+  useEffect(() => {
+    supabaseAdmin
+      .from('venue_candidates')
+      .select('id', { count: 'exact', head: true })
+      .in('status', ['pending_review', 'needs_new_type'])
+      .then(({ count }) => setPendingReviewCount(count ?? 0));
+  }, []);
 
   const sections: { label: string; description: string; count: number; href: Href }[] = [
+    {
+      label: 'Review',
+      description: 'Approve or reject Curator worker candidates awaiting a decision.',
+      count: pendingReviewCount,
+      href: '/admin/review',
+    },
     {
       label: 'Venues',
       description: 'Edit venue details, spend level, tier, source confidence and curator notes.',
