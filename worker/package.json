@@ -1,0 +1,27 @@
+{
+  "name": "curia-curator",
+  "version": "1.0.0",
+  "description": "Curia's autonomous venue/district research worker — discovers candidates, verifies, drafts copy, and submits them for human review. Never writes to venues/districts directly.",
+  "private": true,
+  "type": "module",
+  "main": "dist/run-discovery.js",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "discover": "tsc && node dist/run-discovery.js",
+    "promote": "tsc && node dist/run-promotion.js",
+    "dev:discover": "tsx src/run-discovery.ts",
+    "dev:promote": "tsx src/run-promotion.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.126.0",
+    "@supabase/supabase-js": "^2.116.0",
+    "dotenv": "^16.4.5",
+    "yaml": "^2.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0"
+  }
+}

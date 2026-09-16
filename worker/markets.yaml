@@ -1,0 +1,58 @@
+# Curia Curator — expansion order.
+#
+# Phases are priority order, not a hard gate — Plan (src/run-discovery.ts)
+# picks districts within the highest-priority phase that still has
+# under-`minVenueFloor` districts, falling through to the next phase once
+# a whole phase clears. Worth being honest about on day one: most existing
+# Manchester/Cheshire/Riyadh/London districts sit well under 12 venues
+# (Hittin and KAFD have 2 each) — nearly every phase-1 district qualifies
+# as a target simultaneously, so DAILY_USD_BUDGET/DAILY_CANDIDATE_TARGET
+# (worker/.env.example) are what actually pace expansion, not a shortage
+# of real targets.
+
+minVenueFloor: 12
+
+phases:
+  - name: "Manchester & Cheshire fill-out"
+    metros: [manchester, cheshire]
+    # No explicit district list — Plan queries every existing district in
+    # these metros and targets whichever sit under minVenueFloor.
+
+  - name: "Remaining London villages"
+    metros: [london]
+    # The 6 seeded districts (Knightsbridge/Chelsea/Mayfair/Belgravia/
+    # Notting Hill/St James's) fill out under minVenueFloor same as phase
+    # 1; genuinely new London villages get proposed as district_candidates
+    # the same way Chorlton/Didsbury/etc. were for Manchester.
+
+  - name: "New UK markets"
+    newMetros:
+      - { id: edinburgh, name: Edinburgh, region: uk }
+      - { id: bath, name: Bath, region: uk }
+      - { id: cotswolds, name: Cotswolds, region: uk }
+      - { id: leeds, name: Leeds, region: uk }
+      - { id: york, name: York, region: uk }
+      - { id: harrogate, name: Harrogate, region: uk }
+      - { id: bristol, name: Bristol, region: uk }
+      - { id: birmingham, name: Birmingham, region: uk }
+      - { id: cheltenham, name: Cheltenham, region: uk }
+      - { id: cornwall, name: Cornwall, region: uk }
+
+  - name: "Gulf expansion"
+    metros: [riyadh]
+    newMetros:
+      - { id: jeddah, name: Jeddah, region: riyadh, searchLanguageHint: ar }
+      - { id: dubai, name: Dubai, region: riyadh, searchLanguageHint: ar }
+    # Riyadh itself continues filling out (KAFD/Hittin in particular are
+    # thin) alongside the two genuinely new Gulf metros. searchLanguageHint
+    # matters here — the Riyadh second pass (docs/data/venues.json's own
+    # _riyadhVenueSourceSecondPass note) nearly doubled real yield by
+    # explicitly pushing Arabic-language sourcing over English-only search.
+
+  - name: "Santorini's neighbours"
+    newMetros:
+      - { id: mykonos, name: Mykonos, region: uk, searchLanguageHint: el }
+      - { id: paros, name: Paros, region: uk, searchLanguageHint: el }
+    # Behind HOLIDAY_FEATURE_ENABLED (src/lib/config/features.ts) same as
+    # Santorini itself until the holiday feature is a real go — see that
+    # flag's own comment before targeting this phase.
