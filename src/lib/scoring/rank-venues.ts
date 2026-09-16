@@ -125,6 +125,10 @@ export function passesMoodFilter(
 export function applyHardFilters(venues: Venue[], input: MatchmakingInput): Venue[] {
   return venues.filter(
     (v) =>
+      // 'closed' (migration 0011, alongside the growth-engine promotion
+      // cron's closure-audit flow) must never rank — 'coming-soon' still
+      // does, deliberately (see Venue.status's own doc comment).
+      v.status !== 'closed' &&
       passesDistanceFilter(v, input.location, input.radiusMiles) &&
       passesDietaryFilter(v, input.you.dietary) &&
       passesMoodFilter(v, input.moodFilter)

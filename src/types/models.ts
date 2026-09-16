@@ -192,8 +192,14 @@ export interface Venue {
    * exists to show it otherwise) with a "New" badge in the UI — never
    * literal "coming soon" copy, since the venue itself may already be open
    * and trading. Defaults to 'live'.
+   *
+   * 'closed' (migration 0011, 2026-09-16) marks a venue the growth
+   * engine's closure-audit flow (worker/src/pipeline/audit.ts) found and a
+   * human confirmed via /admin/review — a hard exclusion from ranking
+   * (see applyHardFilters in rank-venues.ts), never surfaced anywhere,
+   * unlike 'coming-soon' which still ranks normally.
    */
-  status: 'live' | 'coming-soon';
+  status: 'live' | 'coming-soon' | 'closed';
 
   /**
    * Gate 2 of the two-gate model (CLAUDE.md Hard rule 1, amended
