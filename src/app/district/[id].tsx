@@ -5,12 +5,13 @@ import { Kicker } from '../../components/curia';
 import {
   CITIES,
   DISTRICTS,
+  RATING_STATS,
   journeysByDistrict,
   momentsByDistrict,
   venuesByDistrict,
 } from '../../lib/data/seed';
 import { districtLiveliness } from '../../lib/map/geo';
-import { rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
+import { haversineMiles, rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
 import { useSession } from '../../lib/state/session';
 import { color, font, radius, spacing } from '../../theme';
@@ -31,6 +32,7 @@ export default function DistrictGuide() {
   const district = DISTRICTS.find((d) => d.id === id);
   const metroName = CITIES.find((c) => c.id === district?.metro)?.name ?? '';
   const districtVenues = useMemo(() => (district ? venuesByDistrict(district.id) : []), [district]);
+  const districtVenueIds = useMemo(() => new Set(districtVenues.map((v) => v.id)), [districtVenues]);
 
   const matchInput = useMemo(
     () =>
@@ -44,7 +46,7 @@ export default function DistrictGuide() {
   );
   const resolved = matchInput ? resolveContext(matchInput.context) : undefined;
   const ranked = useMemo(
-    () => (matchInput ? rankVenues(matchInput, districtVenues, DISTRICTS) : { ranked: [], empty: true }),
+    () => (matchInput ? rankVenues(matchInput, districtVenues, DISTRICTS, RATING_STATS) : { ranked: [], empty: true }),
     [matchInput, districtVenues]
   );
   const topMatches = ranked.ranked.slice(0, 4);
@@ -58,12 +60,17 @@ export default function DistrictGuide() {
       sub: j.meta ?? '',
       onTap: () => router.push(`/journey/${j.id}`),
     })),
-    ...moments.map((m) => ({
-      kicker: 'MOMENT',
-      title: m.title,
-      sub: `BY ${m.curator}`,
-      onTap: () => router.push({ pathname: '/(tabs)/moments', params: { district: district?.id } }),
-    })),
+    ...moments.map((m) => {
+      const pickCount = m.venueIds.filter((vid) => districtVenueIds.has(vid)).length;
+      return {
+        kicker: 'MOMENT',
+        title: m.title,
+        // Mirrors a Journey's "N STOPS" meta line above — no curator byline
+        // here either, see moments.tsx's own doc comment for why.
+        sub: `${pickCount} PICK${pickCount === 1 ? '' : 'S'}`,
+        onTap: () => router.push({ pathname: '/(tabs)/moments', params: { district: district?.id } }),
+      };
+    }),
   ];
   const keptShown = kept.slice(0, 3);
 
@@ -84,6 +91,19 @@ export default function DistrictGuide() {
       <View style={styles.hero}>
         <Pressable onPress={() => router.back()} style={styles.backButton}>
           <Text style={styles.backButtonText}>←</Text>
+        </Pressable>
+        {/* 2026-09, at explicit user request: "add a show map button on
+            district page so the user can quickly hop back to the map view
+            but centred on this district... at a walking distance no
+            further than 7 minutes type range." Carries the district id as
+            a route param map.tsx/map.web.tsx read once on mount, mirroring
+            the existing `district` param Moments already reads the same
+            way (see that screen's own doc comment). */}
+        <Pressable
+          onPress={() => router.push({ pathname: '/(tabs)/map', params: { focusDistrict: district.id } })}
+          style={styles.mapButton}
+        >
+          <Text style={styles.mapButtonText}>MAP</Text>
         </Pressable>
         <View style={styles.heroText}>
           <Text style={styles.kicker}>
@@ -108,14 +128,17 @@ export default function DistrictGuide() {
           {resolved && <Text style={styles.sectionMeta}>{resolved.day.toUpperCase()} · {resolved.band.toUpperCase()}</Text>}
         </View>
         {topMatches.length === 0 && (
-          <Text style={styles.emptyNote}>Nothing kept here yet — our editors are still working their way through {district.name}.</Text>
+          <Text style={styles.emptyNote}>Nothing kept here yet. Our editors are still working their way through {district.name}.</Text>
         )}
-        {topMatches.map((r) => {
+        {topMatches.map((r, idx) => {
           const venue = districtVenues.find((v) => v.id === r.venueId);
           if (!venue) return null;
+          const distanceMiles = haversineMiles(session.searchOrigin, venue);
+          const stats = RATING_STATS[venue.id];
           return (
             <Pressable key={venue.id} onPress={() => router.push(`/venue/${venue.id}`)} style={styles.matchRow}>
               <View style={styles.matchText}>
+                <Text style={styles.matchRank}>NO. {idx + 1}</Text>
                 <View style={styles.matchNameRow}>
                   <Text style={styles.matchName}>{venue.name}</Text>
                   {venue.status === 'coming-soon' && (
@@ -125,7 +148,8 @@ export default function DistrictGuide() {
                   )}
                 </View>
                 <Text style={styles.matchMeta}>
-                  {venue.type} · {'£'.repeat(venue.spendLevel)}
+                  {venue.type} · {'£'.repeat(venue.spendLevel)} · {distanceMiles.toFixed(1)} MI
+                  {stats ? ` · ★ ${stats.avg.toFixed(1)} (${stats.count})` : ''}
                 </Text>
                 <Text style={styles.matchReason}>{r.reason}</Text>
               </View>
@@ -139,7 +163,7 @@ export default function DistrictGuide() {
         </View>
         {keptShown.length === 0 && (
           <Text style={styles.emptyNote}>
-            Nothing kept here yet — our editors are still working their way through {district.name}.
+            Nothing kept here yet. Our editors are still working their way through {district.name}.
           </Text>
         )}
         {keptShown.map((k, idx) => (
@@ -189,6 +213,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   backButtonText: { color: color.textPrimary, fontSize: 15 },
+  mapButton: {
+    position: 'absolute',
+    top: 56,
+    right: spacing.lg,
+    height: 38,
+    paddingHorizontal: 16,
+    borderRadius: 19,
+    borderWidth: 1,
+    borderColor: color.hairlineMax,
+    backgroundColor: 'rgba(19,17,16,.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  mapButtonText: {
+    fontFamily: font.sansMedium,
+    fontSize: 10,
+    letterSpacing: 1.6,
+    color: color.gold,
+  },
   heroText: { padding: spacing.lg },
   kicker: {
     fontFamily: font.sansMedium,
@@ -256,6 +299,16 @@ const styles = StyleSheet.create({
     borderBottomColor: color.hairlineMin,
   },
   matchText: { flex: 1, gap: 6 },
+  // Same "NO. N" gold-kicker convention as the map's venue popup
+  // (buildVenuePopupElement in map.web.tsx) — an ordinal position, not a
+  // raw score, so it's fine under CLAUDE.md's "never show a match score"
+  // rule (Presentation layer section).
+  matchRank: {
+    fontFamily: font.sansRegular,
+    fontSize: 9,
+    letterSpacing: 1.8,
+    color: color.gold,
+  },
   matchNameRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   matchName: { fontFamily: font.serifRegular, fontSize: 21, color: color.textPrimary },
   newBadge: {

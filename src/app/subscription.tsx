@@ -1,35 +1,55 @@
 import { useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Button, Kicker } from '../components/curia';
-import { formatMonthlyPrice, SUBSCRIPTION_CONFIG } from '../lib/config/subscription';
+import { BackButton, Button, Kicker } from '../components/curia';
 import { useSession } from '../lib/state/session';
 import { color, font, radius, spacing } from '../theme';
 
+const PERKS = [
+  'The full curated venue database, no chains, ever.',
+  'Predictive ranking tuned to your tiles, spend and the moment.',
+  'Moments and journeys curated by Curia’s editors.',
+  'Saved places and collections across every city Curia covers.',
+];
+
 /**
- * Membership screen — serves two roles from one route, matching how the
- * prototype's own `subscription`/`isSub` screen is written as a single
- * membership-management view (Curia.dc.html):
+ * Open beta gate (2026-09, at explicit user request, replacing the old
+ * paywall this route used to show). There is no Stripe account/API key yet
+ * (CLAUDE.md "Still genuinely open" — a genuine credential gap), and rather
+ * than keep showing a price and a trial countdown for a charge that can't
+ * actually happen, this route now just asks someone to enter the beta —
+ * structurally still the Hard rule 4 checkpoint between onboarding and
+ * Map/List (`src/app/index.tsx` and `(tabs)/_layout.tsx` both still redirect
+ * here until `isSubscribed` is true), it just doesn't show subscription
+ * language to get there. `session.enterOpenBeta()` sets the same real
+ * `subscriptionStatus` field a Stripe webhook will write later
+ * (src/lib/state/session.tsx's own doc comment on that function) — when
+ * real billing exists, this screen goes back to being a real paywall
+ * without any change to the gating logic around it, only to what's shown
+ * here.
  *
- *  - GATE (subscriptionStatus === 'none'): the structural checkpoint Hard
- *    rule 4 requires between onboarding and Map/List. Completing onboarding
- *    alone never grants access — `src/app/index.tsx` and
- *    `src/app/(tabs)/_layout.tsx` both redirect here until this is cleared.
- *  - MANAGE (already trialing/active): the prototype's real membership-card
- *    copy ("Renews {{date}}", "Update payment method", "Pause or cancel"),
- *    reached from Profile via the avatar emblem (curia-profile's surface).
+ * The old MANAGE view (price, "Update payment method", "Pause or cancel
+ * membership") is gone too — there's no real subscription yet to manage,
+ * and a fake "cancel" button that revokes free beta access for no reason
+ * would be actively misleading. Someone who's already in just sees a plain
+ * confirmation if they land back here (e.g. via Profile).
  *
- * There is no Stripe account/API key yet (CLAUDE.md "Still genuinely open"
- * — a genuine credential gap, not guessable). `startTrial`/`cancelMembership`
- * in src/lib/state/session.tsx are local mock actions standing in for real
- * Stripe Checkout/Billing Portal calls — every place that needs to become
- * real Stripe wiring is marked `SUBSCRIPTION_CONFIG.isMockBilling`.
+ * Real bug fixed 2026-09: this screen's root was a plain `View`, not a
+ * `ScrollView` — on a phone where the perks list + button run taller than
+ * the visible viewport (worse once the browser's own address bar eats into
+ * it), the "Enter open beta" button rendered below the fold with no way to
+ * scroll down to it, stranding a brand-new member on this exact screen
+ * with no visible way forward. Every sibling screen with this same
+ * BackButton treatment (profile/notifications/travel) already used
+ * `ScrollView style={styles.container} contentContainerStyle={styles.content}`
+ * — this just brings subscription.tsx in line with that established
+ * pattern instead of the one-off plain View it had.
  */
 export default function Subscription() {
   const router = useRouter();
-  const { subscriptionStatus, isSubscribed, startTrial, cancelMembership } = useSession();
+  const { isSubscribed, enterOpenBeta } = useSession();
 
-  function onStartTrial() {
-    startTrial();
+  function onEnter() {
+    enterOpenBeta();
     // Route through "/" rather than hardcoding a tab path so the redirect
     // chain in index.tsx stays the single source of truth for "what's next".
     router.replace('/');
@@ -37,71 +57,54 @@ export default function Subscription() {
 
   if (!isSubscribed) {
     return (
-      <View style={styles.container}>
-        <Kicker>Membership</Kicker>
+      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+        <BackButton />
+        <Kicker>Open beta</Kicker>
         <View style={styles.card}>
-          <Kicker>Curia Membership</Kicker>
-          <View style={styles.priceRow}>
-            <Text style={styles.price}>{formatMonthlyPrice()}</Text>
-            <Text style={styles.perMonth}>/ Month</Text>
+          <Kicker>Curia is in open beta</Kicker>
+          <Text style={styles.headline}>Free while we build this out.</Text>
+          <Text style={styles.body}>
+            You&apos;re trying Curia before anyone else can pay for it. No card, no commitment, just
+            the same curated map and recommendations everyone else will eventually pay for.
+          </Text>
+        </View>
+        <Text style={styles.sectionLabel}>What&apos;s included</Text>
+        {PERKS.map((perk) => (
+          <View key={perk} style={styles.perkRow}>
+            <View style={styles.perkDot} />
+            <Text style={styles.perkText}>{perk}</Text>
           </View>
-          <Text style={styles.trialLine}>
-            Free for your first {SUBSCRIPTION_CONFIG.trialDays} days, then {formatMonthlyPrice()} a month.
-          </Text>
-        </View>
-        <Text style={styles.gateBody}>
-          One last step before Curia opens up: start your trial to unlock the map and list.
-        </Text>
-        {SUBSCRIPTION_CONFIG.isMockBilling && (
-          <Text style={styles.mockNotice}>
-            No payment is taken yet — Stripe isn&apos;t wired up (a flagged credential gap), so this sets a local
-            trial flag only.
-          </Text>
-        )}
+        ))}
         <View style={styles.actions}>
-          <Button label={`Start ${SUBSCRIPTION_CONFIG.trialDays}-day free trial`} onPress={onStartTrial} />
+          <Button label="Enter open beta" onPress={onEnter} />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Kicker>Membership</Kicker>
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <BackButton />
+      <Kicker>Open beta</Kicker>
       <View style={styles.card}>
-        <Kicker>Curia Membership</Kicker>
-        <View style={styles.priceRow}>
-          <Text style={styles.price}>{formatMonthlyPrice()}</Text>
-          <Text style={styles.perMonth}>/ Month</Text>
-        </View>
-        <Text style={styles.trialLine}>
-          {subscriptionStatus === 'trialing' ? 'Currently in your free trial period.' : 'Active membership.'}
+        <Kicker>You&apos;re in</Kicker>
+        <Text style={styles.headline}>Free while we build this out.</Text>
+        <Text style={styles.body}>
+          Nothing to manage yet. No card on file, nothing to renew. We&apos;ll let you know well
+          before that changes.
         </Text>
       </View>
-      <Text style={styles.sectionLabel}>What it includes</Text>
-      {[
-        'The full curated venue database — no chains, ever.',
-        'Predictive ranking tuned to your tiles, spend and the moment.',
-        'Moments and journeys curated by Curia’s editors.',
-        'Saved places and collections across Manchester and Cheshire.',
-      ].map((perk) => (
-        <View key={perk} style={styles.perkRow}>
-          <View style={styles.perkDot} />
-          <Text style={styles.perkText}>{perk}</Text>
-        </View>
-      ))}
-      <Button label="Update payment method" variant="secondary" onPress={() => {}} />
-      <Button label="Pause or cancel membership" variant="ghost" onPress={cancelMembership} />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: { flex: 1, backgroundColor: color.baseVariants.a },
+  content: {
     flexGrow: 1,
-    backgroundColor: color.baseVariants.a,
     padding: spacing.lg,
     paddingTop: spacing.xxl,
+    paddingBottom: spacing.xxl,
     gap: spacing.md,
   },
   card: {
@@ -113,41 +116,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(192,160,98,.08)',
     gap: spacing.sm,
   },
-  priceRow: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    gap: spacing.xs,
-  },
-  price: {
+  headline: {
     fontFamily: font.serif,
-    fontSize: 42,
+    fontSize: 26,
     color: color.textPrimary,
   },
-  perMonth: {
+  body: {
     fontFamily: font.sans,
-    fontSize: 12,
-    letterSpacing: 1.4,
-    color: color.textSecondary,
-  },
-  trialLine: {
-    fontFamily: font.sans,
-    fontSize: 12.5,
-    lineHeight: 20,
+    fontSize: 13,
+    lineHeight: 21,
     color: color.textSecondaryAlt,
-  },
-  gateBody: {
-    fontFamily: font.sans,
-    fontSize: 13.5,
-    lineHeight: 22,
-    color: color.textSecondary,
-    maxWidth: 300,
-  },
-  mockNotice: {
-    fontFamily: font.sans,
-    fontSize: 11.5,
-    lineHeight: 18,
-    color: color.textTertiary,
-    maxWidth: 300,
   },
   actions: {
     marginTop: spacing.md,

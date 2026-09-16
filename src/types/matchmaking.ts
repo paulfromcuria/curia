@@ -3,7 +3,7 @@
  * against this shape even before the real scoring engine exists, so Map and
  * List can share one implementation (Hard rule 5).
  */
-import type { DayTimeBand, DietaryRequirement, PetPreference, UserPreference, YouProfile } from './models';
+import type { DayTimeBand, UserPreference, YouProfile } from './models';
 
 export interface MatchContext {
   /** "now" uses the live day/band; otherwise an explicit day+band selection. */
@@ -42,12 +42,4 @@ export interface MatchmakingResult {
   ranked: RankedVenue[];
   /** True when hard filters eliminated the entire candidate pool. */
   empty: boolean;
-}
-
-/** Hard filters — a failing venue must never appear, regardless of score. */
-export interface HardFilterContext {
-  radiusMiles: number;
-  userLocation: { lat: number; lon: number };
-  dietary: DietaryRequirement[];
-  travelingWithPet: PetPreference;
 }

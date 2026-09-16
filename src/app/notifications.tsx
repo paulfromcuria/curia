@@ -1,39 +1,29 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Kicker } from '../components/curia';
+import { BackButton, Kicker } from '../components/curia';
 import { type NotificationPrefs, useSession } from '../lib/state/session';
 import { color, font, radius, spacing } from '../theme';
 
 /**
- * Real Notifications screen (M7). Copy and the four toggle rows are
- * transcribed verbatim from the Claude Design handoff bundle's `isNotif`
- * block and `NOTIFS` data (Curia.dc.html) — this is real, if plain, brand
- * copy, not placeholder text.
+ * Real Notifications screen (M7). Originally 4 toggle rows transcribed
+ * verbatim from the Claude Design handoff bundle's `isNotif`/`NOTIFS` data
+ * (Curia.dc.html) — real, but real copy for functionality that turned out
+ * not to exist. 2026-09, at explicit user report after using the real app:
+ * "i saw 'alert about an open table at one of your saved places' and we do
+ * not have that functionality." Cut down to the one toggle with a real,
+ * buildable trigger behind it — see NotificationPrefs's own doc comment in
+ * src/lib/state/session.tsx for why `table`/`journey`/`district` are gone,
+ * not just hidden.
  *
  * There is no push/email provider (APNs/FCM/email) wired up anywhere in
  * this project yet — a genuine credential gap, not guessable, per
  * .claude/agents/curia-profile.md ("flag rather than guessing at one"). The
  * "RECENT" empty state below is therefore expected, not a gap to fake: with
  * no notification-generating backend, there is nothing real to list. The
- * toggles themselves are a real, working user preference
- * (session.notificationPrefs) — they just don't yet gate any real send.
+ * toggle itself is a real, working user preference
+ * (session.notificationPrefs) — it just doesn't yet gate a real send.
  */
 
 const ROWS: { key: keyof NotificationPrefs; label: string; sub: string }[] = [
-  {
-    key: 'table',
-    label: 'A table opens up',
-    sub: 'Only for rooms you have saved, and only when it is tonight or tomorrow.',
-  },
-  {
-    key: 'journey',
-    label: 'Journey worth taking',
-    sub: 'When the weather and your diary suit an evening we have planned.',
-  },
-  {
-    key: 'district',
-    label: 'A district comes alive',
-    sub: 'Rare. Sent when somewhere near you is unusually good for the hour.',
-  },
   {
     key: 'editorial',
     label: 'New from our editors',
@@ -46,6 +36,7 @@ export default function Notifications() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <BackButton />
       <Kicker tone="tertiary">Notifications</Kicker>
       <Text style={styles.title}>We would rather say nothing than say something dull.</Text>
       <Text style={styles.subhead}>
@@ -77,10 +68,10 @@ export default function Notifications() {
 
       <View style={styles.recentCard}>
         <Kicker>Recent</Kicker>
-        <Text style={styles.recentTitle}>Nothing yet — you only joined this week.</Text>
+        <Text style={styles.recentTitle}>Nothing yet. You only joined this week.</Text>
         <Text style={styles.recentBody}>
-          When a room you saved opens a table, or a district near you comes alive unexpectedly, it
-          appears here. Never more than twice a week.
+          When our editors add a new Moment or Journey near you, it appears here. Never more than
+          once a week.
         </Text>
       </View>
     </ScrollView>

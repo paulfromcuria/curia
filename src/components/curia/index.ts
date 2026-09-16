@@ -1,3 +1,4 @@
+export * from './back-button';
 export * from './button';
 export * from './card';
 export * from './context-strip';
@@ -6,3 +7,4 @@ export * from './kicker';
 export * from './tag';
 export * from './text-field';
 export * from './venue-type-icon';
+export * from './wordmark';

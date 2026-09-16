@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { Button, Kicker } from '../components/curia';
+import { BackButton, Button, Kicker } from '../components/curia';
 import { DISTRICTS, JOURNEYS, VENUES } from '../lib/data/seed';
 import { useSession } from '../lib/state/session';
 import { color, font, radius, spacing } from '../theme';
@@ -52,6 +52,7 @@ export default function Saved() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <BackButton />
       <Kicker tone="tertiary">{places ? 'Saved places' : 'Saved journeys'}</Kicker>
 
       <View style={styles.tabRow}>
@@ -86,7 +87,7 @@ export default function Saved() {
         <EmptyState
           mark="✧"
           title="Nothing kept yet."
-          body="Save a room from Map or List and it will wait here — re-ranked against whatever evening you open next."
+          body="Save a room from Map or List and it will wait here, re-ranked against whatever evening you open next."
           cta="BROWSE TONIGHT"
           onPress={() => router.push('/(tabs)/list')}
         />

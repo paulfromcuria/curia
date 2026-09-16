@@ -2,7 +2,7 @@
  * Destination matching for the Travel feature (2026-08, at explicit user
  * request: a subtle, Profile-only "which cities/island suit YOU, and when"
  * recommendation). Deliberately much lighter than rank-venues.ts's full
- * Matchmaking contract — no hard filters (distance/dietary/pet make no
+ * Matchmaking contract — no hard filters (distance/dietary make no
  * sense for a holiday destination), no day/band/weather. It's closer to how
  * Moments work: a curated list plus a real, specific reason, not a scored
  * pipeline with excluded candidates.

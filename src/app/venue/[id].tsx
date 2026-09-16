@@ -1,7 +1,8 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button, Kicker, Tag } from '../../components/curia';
-import { DISTRICTS, MOMENTS, VENUES } from '../../lib/data/seed';
+import { DISTRICTS, MOMENTS, RATING_STATS, VENUES } from '../../lib/data/seed';
+import { placeholderPhotoFor } from '../../lib/data/placeholder-photos';
 import { useSession } from '../../lib/state/session';
 import { estimateTrip } from '../../lib/travel/trip';
 import type { DietaryRequirement, MomentType } from '../../types/models';
@@ -28,6 +29,15 @@ const DIETARY_LABEL: Record<Exclude<DietaryRequirement, 'none'>, string> = {
   'gluten-free': 'Gluten-free options',
   'dairy-free': 'Dairy-free options',
   'nut-allergy': 'Nut-allergy friendly',
+};
+
+const DIETARY_MISMATCH_LABEL: Record<Exclude<DietaryRequirement, 'none'>, string> = {
+  vegetarian: 'No confirmed vegetarian options',
+  vegan: 'No confirmed vegan options',
+  pescatarian: 'No confirmed pescatarian options',
+  'gluten-free': 'No confirmed gluten-free options',
+  'dairy-free': 'No confirmed dairy-free options',
+  'nut-allergy': 'Nut-allergy friendliness not confirmed',
 };
 
 /**
@@ -79,6 +89,23 @@ const DIETARY_LABEL: Record<Exclude<DietaryRequirement, 'none'>, string> = {
  *   inventing new ones. `Venue.subPreferenceTags` is intentionally not used
  *   here -- no seed venue has any populated yet (a real, pre-existing data
  *   gap, not something to fake for this screen).
+ *
+ * 2026-09 extension, at explicit user request ("say these tags match, these
+ * tags don't... aware of why somewhere is a good fit or a great fit but they
+ * cant take their dog"): "GOOD TO KNOW" now also surfaces genuine mismatches
+ * -- pet-friendliness and dietary requirements the venue does NOT confirm --
+ * not just matches, styled as plain (inactive) tags next to the gold
+ * (active) matched ones in the same row. This still isn't the "Why it's
+ * ranked here" score breakdown the 2026-08 pass removed: every tag here is a
+ * concrete yes/no fact the member can act on (can I bring the dog? is there
+ * a vegan option?), never a weight, category label, or number. Worth this
+ * distinction precisely because pet-friendliness is now a soft ranking
+ * signal, not a hard filter (rank-venues.ts's scorePetFit) -- a
+ * pet-unfriendly venue can genuinely appear and even rank well for a
+ * pet-owner now, so the member needs to be told plainly, not left to
+ * assume every result they see is dog-friendly. Spend level intentionally
+ * has no mismatch counterpart: it's a continuous fit, not a binary
+ * can/can't-do-this fact the way pet and dietary are.
  */
 export default function VenueDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -87,18 +114,35 @@ export default function VenueDetail() {
 
   const venue = VENUES.find((v) => v.id === id);
   const saved = venue ? session.isVenueSaved(venue.id) : false;
+  const myRating = venue ? session.myRatingFor(venue.id) : undefined;
+  const ratingStats = venue ? RATING_STATS[venue.id] : undefined;
   const district = venue ? DISTRICTS.find((d) => d.id === venue.districtId) : undefined;
 
   const trip = venue ? estimateTrip(session.searchOrigin, venue) : undefined;
 
   const matchedMoments = venue ? MOMENTS.filter((m) => m.venueIds.includes(venue.id)) : [];
 
-  const matchTags: string[] = [];
+  interface FactTag {
+    label: string;
+    matched: boolean;
+  }
+  const factTags: FactTag[] = [];
   if (venue) {
-    if (venue.spendLevel === session.you.spendLevel) matchTags.push('In your price range');
-    if (session.you.pet !== 'none' && venue.petFriendly) matchTags.push('Dog friendly');
+    if (venue.spendLevel === session.you.spendLevel) factTags.push({ label: 'In your price range', matched: true });
+    if (session.you.pet !== 'none') {
+      factTags.push(
+        venue.petFriendly
+          ? { label: 'Dog friendly', matched: true }
+          : { label: 'Not dog friendly', matched: false }
+      );
+    }
     for (const req of session.you.dietary) {
-      if (req !== 'none' && venue.dietaryOptions.includes(req)) matchTags.push(DIETARY_LABEL[req]);
+      if (req === 'none') continue;
+      const confirmed = venue.dietaryOptions.includes(req);
+      factTags.push({
+        label: confirmed ? DIETARY_LABEL[req] : DIETARY_MISMATCH_LABEL[req],
+        matched: confirmed,
+      });
     }
   }
 
@@ -123,6 +167,12 @@ export default function VenueDetail() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.hero}>
+        <Image
+          source={{ uri: venue.photos[0] ?? placeholderPhotoFor(venue.type) }}
+          style={styles.heroImage}
+          resizeMode="cover"
+        />
+        <View style={styles.heroScrim} />
         <Pressable onPress={() => router.back()} style={styles.backButton}>
           <Text style={styles.backButtonText}>←</Text>
         </Pressable>
@@ -188,16 +238,37 @@ export default function VenueDetail() {
           </View>
         )}
 
-        {matchTags.length > 0 && (
+        {factTags.length > 0 && (
           <View style={styles.tagSection}>
             <Text style={styles.tagSectionLabel}>GOOD TO KNOW</Text>
             <View style={styles.tagRow}>
-              {matchTags.map((tag) => (
-                <Tag key={tag} label={tag} active />
+              {factTags.map((tag) => (
+                <Tag key={tag.label} label={tag.label} active={tag.matched} />
               ))}
             </View>
           </View>
         )}
+
+        <View style={styles.tagSection}>
+          <Text style={styles.tagSectionLabel}>YOUR RATING</Text>
+          <View style={styles.starRow}>
+            {[1, 2, 3, 4, 5].map((n) => (
+              <Pressable
+                key={n}
+                onPress={() => venue && session.rateVenue(venue.id, n)}
+                hitSlop={8}
+                accessibilityLabel={`Rate ${n} of 5 stars`}
+              >
+                <Text style={[styles.star, n <= (myRating ?? 0) && styles.starOn]}>★</Text>
+              </Pressable>
+            ))}
+          </View>
+          {ratingStats && (
+            <Text style={styles.ratingCrowdNote}>
+              {ratingStats.avg.toFixed(1)} average from {ratingStats.count} {ratingStats.count === 1 ? 'member' : 'members'}
+            </Text>
+          )}
+        </View>
 
         <Pressable onPress={() => district && router.push(`/district/${district.id}`)} style={styles.districtButton}>
           <Text style={styles.districtButtonText}>MORE IN {(district?.name ?? '').toUpperCase()}</Text>
@@ -219,6 +290,23 @@ const styles = StyleSheet.create({
     height: 300,
     backgroundColor: color.surface,
     justifyContent: 'flex-end',
+    overflow: 'hidden',
+  },
+  // 2026-09, at explicit user request following feedback that the app had
+  // no venue photos: `photos[0]` renders here when a venue has a real one,
+  // placeholderPhotoFor(venue.type) otherwise (most of them, until admin
+  // fills real photos in — see VenueForm's own doc comment and
+  // placeholder-photos.ts's). `hero`'s own backgroundColor stays as a pure
+  // loading-flash guard, not a real fallback path anymore. Flat scrim
+  // rather than a gradient — no gradient library is a dependency here yet —
+  // just enough to keep name/kicker legible over an arbitrary photo instead
+  // of the flat surface color they were originally designed against.
+  heroImage: {
+    ...StyleSheet.absoluteFill,
+  },
+  heroScrim: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: 'rgba(11,10,9,.4)',
   },
   backButton: {
     position: 'absolute',
@@ -330,6 +418,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: spacing.xs,
+  },
+  // 2026-09, at explicit user request: "a feedback loop e.g how was smoke,
+  // i rate it 2 stars, it remembers that, takes it on board for other
+  // similar users." Tapping a star writes straight through session.rateVenue
+  // (optimistic, no confirm step) — the real "remembers it" half. The
+  // crowd-average note below is the "other similar users" half's visible
+  // side; scoreRatings (rank-venues.ts) is the half that actually feeds it
+  // into ranking, invisibly, same as every other scoring signal here.
+  starRow: {
+    flexDirection: 'row',
+    gap: 6,
+  },
+  star: {
+    fontSize: 22,
+    color: color.hairlineMax,
+  },
+  starOn: {
+    color: color.goldLight,
+  },
+  ratingCrowdNote: {
+    fontFamily: font.sans,
+    fontSize: 11.5,
+    color: color.textSecondary,
   },
   districtButton: {
     marginTop: spacing.sm,

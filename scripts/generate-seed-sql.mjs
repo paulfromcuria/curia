@@ -143,10 +143,14 @@ for (const category of ['Do', 'Drink', 'Eat', 'Holiday']) {
       category: sqlStr(category),
       name: sqlStr(t.name),
       sub_preferences: sqlTextArray(t.subPreferences),
+      // Null means universal (every Do/Eat tile today) — only some Drink
+      // tiles set this, see HomeRegion's own doc comment (types/models.ts).
+      // sqlStr already turns undefined into the SQL keyword null.
+      region: sqlStr(t.region),
     });
   }
 }
-sql += insertStatement('tiles', ['id', 'category', 'name', 'sub_preferences'], tileRows, ['id']);
+sql += insertStatement('tiles', ['id', 'category', 'name', 'sub_preferences', 'region'], tileRows, ['id']);
 sql += '\n';
 
 // venues

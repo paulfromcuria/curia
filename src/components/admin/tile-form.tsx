@@ -2,9 +2,19 @@ import { useMemo, useState, type ReactNode } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Tag, TextField } from '../curia';
 import { color, font, spacing } from '../../theme';
-import type { Tile, TileCategory } from '../../types/models';
+import type { HomeRegion, Tile, TileCategory } from '../../types/models';
 
 const CATEGORY_OPTIONS: TileCategory[] = ['Do', 'Drink', 'Eat', 'Holiday'];
+
+// 'Universal' (no region set) is the right default for every category
+// except Drink — see HomeRegion's own doc comment (types/models.ts). Shown
+// for every category, not just Drink, since a future category could need
+// the same split without this form needing another change.
+const REGION_OPTIONS: { label: string; value: HomeRegion | null }[] = [
+  { label: 'Universal', value: null },
+  { label: 'UK', value: 'uk' },
+  { label: 'Riyadh', value: 'riyadh' },
+];
 
 interface TileFormProps {
   initial: Tile;
@@ -62,7 +72,7 @@ export function TileForm({ initial, existingTiles, onSave, onDelete, saveLabel =
       <TextField label="Name" value={draft.name} onChangeText={(v) => update('name', v)} placeholder="Tile name" />
       {duplicateHit ? (
         <Text style={styles.warning}>
-          A {draft.category} tile named &quot;{draft.name.trim()}&quot; already exists — rename this one or edit that
+          A {draft.category} tile named &quot;{draft.name.trim()}&quot; already exists. Rename this one or edit that
           one instead.
         </Text>
       ) : null}
@@ -75,8 +85,21 @@ export function TileForm({ initial, existingTiles, onSave, onDelete, saveLabel =
         </View>
       </Field>
 
+      <Field label="Region">
+        <View style={styles.wrap}>
+          {REGION_OPTIONS.map((o) => (
+            <Tag
+              key={o.label}
+              label={o.label}
+              active={(draft.region ?? null) === o.value}
+              onPress={() => update('region', o.value ?? undefined)}
+            />
+          ))}
+        </View>
+      </Field>
+
       {!isNew ? (
-        <Text style={styles.idNote}>ID: {initial.id} (fixed — renaming won&apos;t change this)</Text>
+        <Text style={styles.idNote}>ID: {initial.id} (fixed, renaming won&apos;t change this)</Text>
       ) : null}
 
       <TextField

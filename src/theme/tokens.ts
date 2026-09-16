@@ -58,9 +58,22 @@ export const color = {
   hairlineMax: 'rgba(240,233,223,.14)',
   mutedSurface: '#4F483E',
 
-  // The one cool, pale note in an otherwise warm palette. Weather glyph and
-  // "me" location-pin fill only — never decorative (per CLAUDE.md).
+  // The one cool, pale note in an otherwise warm palette. Weather glyph
+  // only — never decorative (per CLAUDE.md). No longer the "me" location
+  // pin's fill — see locationPin below.
   weather: '#CFE3E6',
+
+  /** The "me" location-pin fill (2026-09, at explicit user request: "white
+   * isn't classy, gold or purple or something" — split out from `weather`,
+   * which it previously shared, since CLAUDE.md still reserves that token
+   * for a future weather glyph). Gold was ruled out even though it's the
+   * palette's primary accent: it's already the venue-match-pin color
+   * (map.tsx/map.web.tsx's buildMatchPinElement), so reusing it here would
+   * make "this is you" and "this is a recommended venue" indistinguishable
+   * on the map at a glance. A soft amethyst reads clearly apart from both
+   * gold and the warm neutrals, and pairs the way jewel tones traditionally
+   * pair with gold rather than clashing with it. */
+  locationPin: '#B79FD6',
 
   // Map-render-only
   mapWater: '#16262B',

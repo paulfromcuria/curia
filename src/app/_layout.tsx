@@ -6,6 +6,7 @@ import { Text, View } from 'react-native';
 import { useCuriaFonts } from '../hooks/use-curia-fonts';
 import { loadContentData } from '../lib/data/seed';
 import { AdminDataProvider } from '../lib/admin/admin-data';
+import { AdminMembersProvider } from '../lib/admin/admin-members';
 import { AdminSessionProvider } from '../lib/admin/admin-session';
 import { configureMapbox } from '../lib/map/mapbox-config';
 import { SessionProvider } from '../lib/state/session';
@@ -93,20 +94,22 @@ export default function RootLayout() {
             Safe to mount for the whole app, not just /admin — nothing outside
             admin/* screens ever calls useAdminSession()/useAdminData(). */}
         <AdminSessionProvider>
-          <AdminDataProvider>
-            <StatusBar style="light" />
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                contentStyle: { backgroundColor: color.base },
-              }}
-            >
-              <Stack.Screen name="(auth)" />
-              <Stack.Screen name="onboarding" />
-              <Stack.Screen name="subscription" />
-              <Stack.Screen name="(tabs)" />
-            </Stack>
-          </AdminDataProvider>
+          <AdminMembersProvider>
+            <AdminDataProvider>
+              <StatusBar style="light" />
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                  contentStyle: { backgroundColor: color.base },
+                }}
+              >
+                <Stack.Screen name="(auth)" />
+                <Stack.Screen name="onboarding" />
+                <Stack.Screen name="subscription" />
+                <Stack.Screen name="(tabs)" />
+              </Stack>
+            </AdminDataProvider>
+          </AdminMembersProvider>
         </AdminSessionProvider>
       </SessionProvider>
     </GestureHandlerRootView>

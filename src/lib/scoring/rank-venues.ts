@@ -89,12 +89,6 @@ export function passesDietaryFilter(venue: Venue, dietary: DietaryRequirement[])
   return required.every((r) => venue.dietaryOptions.includes(r));
 }
 
-/** Venue-side pet-friendly flag vs. user-side "traveling with a pet" (CLAUDE.md contract). */
-export function passesPetFilter(venue: Venue, travelingWithPet: PetPreference): boolean {
-  if (travelingWithPet === 'none') return true;
-  return venue.petFriendly;
-}
-
 /**
  * Active "mood" quick filter narrows the candidate pool before ranking runs.
  *
@@ -133,7 +127,6 @@ export function applyHardFilters(venues: Venue[], input: MatchmakingInput): Venu
     (v) =>
       passesDistanceFilter(v, input.location, input.radiusMiles) &&
       passesDietaryFilter(v, input.you.dietary) &&
-      passesPetFilter(v, input.you.pet) &&
       passesMoodFilter(v, input.moodFilter)
   );
 }
@@ -185,6 +178,52 @@ export function scoreSpendFit(venue: Venue, userSpendLevel: number): number {
   return clamp(1 - Math.abs(venue.spendLevel - userSpendLevel) / 4, 0, 1);
 }
 
+/**
+ * Pet-friendliness is a ranking boost, not a hard filter (2026-09, changed
+ * at explicit user request — Hard rule 3 previously listed it alongside
+ * distance and dietary requirement, but a real report showed why that's
+ * wrong in practice: Santorini has zero confirmed pet-friendly venues, so
+ * hard-filtering wiped every Santorini result for any traveling-with-a-pet
+ * user. The underlying reasoning doesn't hold the way dietary requirement's
+ * does either — having a pet doesn't mean never going anywhere without it,
+ * the way a real allergy means a dish is genuinely off-limits). A
+ * pet-friendly venue scores higher when the user is traveling with a pet;
+ * a non-pet-friendly venue is scored neutrally either way and never
+ * penalized, since leaving the pet at home is always a normal option.
+ */
+export function scorePetFit(venue: Venue, travelingWithPet: PetPreference): number {
+  if (travelingWithPet === 'none') return 0.5;
+  return venue.petFriendly ? 1 : 0.5;
+}
+
+/** Minimum real ratings before the crowd signal is trusted at full
+ * strength — see scoreRatings' own doc comment. */
+const MIN_RATINGS_FOR_FULL_WEIGHT = 5;
+
+/**
+ * Crowd rating signal (2026-09, at explicit user request: "how was smoke,
+ * i rate it 2 stars, it remembers that, takes it on board for other
+ * similar users"). `ratingStats` is the aggregate across every member —
+ * supabase/migrations/0005_venue_ratings.sql's `venue_rating_stats` view,
+ * never a single person's own rating (Curia doesn't do per-user
+ * collaborative filtering yet; that needs real volume this app doesn't
+ * have). Neutral (0.5) for a venue with no ratings at all, same
+ * "no-signal-no-penalty" convention scorePetFit/scoreDayOfWeek/etc. all
+ * use — an unrated venue is not the same as a poorly-rated one. Below
+ * MIN_RATINGS_FOR_FULL_WEIGHT, blended toward neutral proportionally to
+ * how few ratings exist, so a single 1-star rating can't tank a venue's
+ * score the way a real sample size could — a simple confidence dampener,
+ * not a real Bayesian model (not worth the complexity at today's data
+ * volume).
+ */
+export function scoreRatings(venue: Venue, ratingStats: Record<string, { avg: number; count: number }>): number {
+  const stats = ratingStats[venue.id];
+  if (!stats || stats.count === 0) return 0.5;
+  const normalized = clamp((stats.avg - 1) / 4, 0, 1); // 1★ -> 0, 5★ -> 1
+  const confidence = clamp(stats.count / MIN_RATINGS_FOR_FULL_WEIGHT, 0, 1);
+  return 0.5 + (normalized - 0.5) * confidence;
+}
+
 /** 1 if the current context band is one the venue actually runs during, else a low-but-nonzero base. */
 export function scoreTimeOfDay(venue: Venue, band: MatchContext['band']): number {
   if (!band) return 0.5;
@@ -207,6 +246,42 @@ export function scoreDayOfWeek(district: District | undefined, day: string | und
   const mult = district.dayMultiplier[day];
   if (mult === undefined) return 0.5;
   return clamp(mult, 0, 2) / 2;
+}
+
+/**
+ * How alive the district itself is right now — `District.bandMultiplier`,
+ * the same day×time liveliness curve that already drives the map's visual
+ * "how alive is this district" glow (src/lib/map/geo.ts's
+ * districtLiveliness), but was never fed into venue ranking itself until
+ * now (2026-09, part of the matchmaking-smartness pass). Distinct from
+ * scoreTimeOfDay, which asks whether THIS venue runs during this band —
+ * this asks whether the district around it is generally busy at this hour.
+ * Same neutral-0.5-when-unknown and 0..2-clamped-then-halved shape as
+ * scoreDayOfWeek, for the same reason (values are centered on 1.0).
+ */
+export function scoreLiveliness(district: District | undefined, band: MatchContext['band']): number {
+  if (!district || !band || !district.bandMultiplier) return 0.5;
+  const mult = district.bandMultiplier[band];
+  if (mult === undefined) return 0.5;
+  return clamp(mult, 0, 2) / 2;
+}
+
+/**
+ * Slight boost for being closer within the radius, all else equal — CLAUDE.md's
+ * Matchmaking contract only ever documented distance as a hard cutoff, not a
+ * ranking weight, but a venue 0.2mi away and one 4.9mi away (both inside a
+ * 5mi radius) scoring identically doesn't match how people actually choose.
+ * 1 at zero distance, 0 at the radius edge, linear between — deliberately
+ * simple, this is a light tiebreaker, not a proximity-dominated re-ranking
+ * (see SCORE_WEIGHTS/weightsFor's own comment on its weight).
+ */
+export function scoreProximity(
+  venue: Venue,
+  location: { lat: number; lon: number },
+  radiusMiles: number
+): number {
+  if (radiusMiles <= 0) return 1;
+  return clamp(1 - haversineMiles(location, venue) / radiusMiles, 0, 1);
 }
 
 const OUTDOOR_TYPE_HINTS = ['rooftop', 'garden', 'terrace', 'outdoor', 'country pub'];
@@ -240,19 +315,80 @@ export function scoreWeather(venue: Venue, weather: string | undefined): number 
  * not their relative weight, so this is this engine's own choice, not a
  * product decision to guess at silently. Tile match and the venue's own
  * curated base score are weighted heaviest since they're the strongest,
- * most concrete signals available today; day-of-week and weather are
- * weighted lightest since their underlying data is currently thin (see
- * scoreDayOfWeek). Weights sum to 1 so the final score lands in 0..100.
+ * most concrete signals available today; day-of-week, liveliness, weather,
+ * pet fit and proximity are weighted lightest — day-of-week/liveliness
+ * because their underlying data is currently thin (real per-district
+ * curves don't exist yet, see scoreDayOfWeek), weather because it only
+ * matters some of the time (see weightsFor below), pet fit and proximity
+ * because both are deliberately light tiebreaker-style boosts, not
+ * dominant factors. `subPreference` gave up 0.05 (0.2 -> 0.15) to make
+ * room for liveliness and proximity when they were added, same pattern as
+ * `spend` did for `pet` earlier; `base` gave up 0.05 (0.2 -> 0.15) the same
+ * way to make room for `ratings` (2026-09) — real crowd feedback is at
+ * least as trustworthy a quality signal as the venue's own curated base
+ * score once enough of it exists (scoreRatings' own confidence dampener is
+ * what keeps a thin sample from dominating before then). Sums to 1 so the
+ * final score lands in 0..100 — `weightsFor` below must preserve that (it
+ * does, via normalizeWeights), not just this base set.
  */
-export const SCORE_WEIGHTS = {
-  base: 0.2,
-  tile: 0.25,
-  subPreference: 0.2,
-  spend: 0.15,
+export const BASE_WEIGHTS = {
+  base: 0.15,
+  tile: 0.2,
+  subPreference: 0.15,
+  spend: 0.1,
   timeOfDay: 0.1,
   dayOfWeek: 0.05,
+  liveliness: 0.05,
   weather: 0.05,
+  pet: 0.05,
+  proximity: 0.05,
+  ratings: 0.05,
 } as const;
+
+export type ScoreWeights = typeof BASE_WEIGHTS;
+
+function normalizeWeights(w: ScoreWeights): ScoreWeights {
+  const sum = Object.values(w).reduce((a, b) => a + b, 0);
+  const out = {} as Record<keyof ScoreWeights, number>;
+  for (const key of Object.keys(w) as (keyof ScoreWeights)[]) out[key] = w[key] / sum;
+  return out as ScoreWeights;
+}
+
+const EXTREME_WEATHER_KEYWORDS = ['storm', 'rain', 'downpour', 'snow', 'gale', 'thunder', 'sleet'];
+
+/**
+ * Context-dependent weight schedule (2026-09, at explicit user request:
+ * "pet weighting is more important in the day time than late night" —
+ * generalized into a real principle, that a signal's IMPORTANCE should
+ * flex with context, not just its value. Each rule below is an
+ * independent, documented multiplier off BASE_WEIGHTS; normalizeWeights
+ * rescales the result back to sum-to-1 afterward, so the 0..100 score
+ * range invariant holds automatically no matter which rules fire together
+ * — no manual rebalancing needed when a new rule is added here, unlike
+ * the one-off hand-rebalance BASE_WEIGHTS itself needed when pet first
+ * moved from a hard filter to a weighted signal.
+ */
+export function weightsFor(band: MatchContext['band'], weather: string | undefined): ScoreWeights {
+  const w = { ...BASE_WEIGHTS };
+
+  // Pet fit: people are out with a dog on a walk, at brunch, running
+  // daytime errands — not usually bringing it to a 1am cocktail bar.
+  if (band === 'morning' || band === 'afternoon') w.pet *= 1.6;
+  else if (band === 'late') w.pet *= 0.3;
+
+  // Weather: a mild afternoon shouldn't weight indoor-vs-outdoor as
+  // heavily as genuinely bad weather does — the choice matters more when
+  // conditions are actually extreme, not just "a bit cold."
+  const weatherLower = (weather ?? '').toLowerCase();
+  if (EXTREME_WEATHER_KEYWORDS.some((k) => weatherLower.includes(k))) w.weather *= 3;
+
+  // Spend fit: evening/late is usually "the" meal or night out for the
+  // day — getting the price point right matters more than for a casual
+  // daytime coffee stop.
+  if (band === 'evening' || band === 'late') w.spend *= 1.3;
+
+  return normalizeWeights(w);
+}
 
 const DAY_NAMES = [
   'sunday',
@@ -313,31 +449,42 @@ export function reasonFor(
 
 /**
  * Ranks `venues` for `input`, applying hard filters first (distance, dietary,
- * pet, mood) and then scoring the survivors on the weighted signals. Pure:
- * same inputs always produce the same output, no I/O, no seed import (see
- * module doc comment). `districts` is optional lookup context for the
- * day-of-week signal only (scoreDayOfWeek degrades gracefully without it).
+ * mood) and then scoring the survivors on the weighted signals — including
+ * pet fit (scorePetFit), district liveliness (scoreLiveliness), proximity
+ * (scoreProximity) and the crowd rating signal (scoreRatings), all weighted
+ * contextually by `weightsFor` rather than a fixed set (see that function's
+ * own comment). Pure: same inputs always produce the same output, no I/O,
+ * no seed import (see module doc comment). `districts` is optional lookup
+ * context for the day-of-week/liveliness signals only; `ratingStats`
+ * likewise for scoreRatings — both degrade gracefully (neutral scoring)
+ * without it, same as calling this before either has loaded.
  */
 export function rankVenues(
   input: MatchmakingInput,
   venues: Venue[],
-  districts: District[] = []
+  districts: District[] = [],
+  ratingStats: Record<string, { avg: number; count: number }> = {}
 ): MatchmakingResult {
   const resolved = resolveContext(input.context);
   const districtById = new Map(districts.map((d) => [d.id, d]));
+  const weights = weightsFor(resolved.band, input.context.weather);
 
   const candidates = applyHardFilters(venues, input);
 
   const ranked: RankedVenue[] = candidates.map((venue) => {
     const district = districtById.get(venue.districtId);
     const weighted =
-      scoreBaseQuality(venue) * SCORE_WEIGHTS.base +
-      scoreTileMatch(venue, input.preferences) * SCORE_WEIGHTS.tile +
-      scoreSubPreferenceMatch(venue, input.preferences) * SCORE_WEIGHTS.subPreference +
-      scoreSpendFit(venue, input.you.spendLevel) * SCORE_WEIGHTS.spend +
-      scoreTimeOfDay(venue, resolved.band) * SCORE_WEIGHTS.timeOfDay +
-      scoreDayOfWeek(district, resolved.day) * SCORE_WEIGHTS.dayOfWeek +
-      scoreWeather(venue, input.context.weather) * SCORE_WEIGHTS.weather;
+      scoreBaseQuality(venue) * weights.base +
+      scoreTileMatch(venue, input.preferences) * weights.tile +
+      scoreSubPreferenceMatch(venue, input.preferences) * weights.subPreference +
+      scoreSpendFit(venue, input.you.spendLevel) * weights.spend +
+      scoreTimeOfDay(venue, resolved.band) * weights.timeOfDay +
+      scoreDayOfWeek(district, resolved.day) * weights.dayOfWeek +
+      scoreLiveliness(district, resolved.band) * weights.liveliness +
+      scoreWeather(venue, input.context.weather) * weights.weather +
+      scorePetFit(venue, input.you.pet) * weights.pet +
+      scoreProximity(venue, input.location, input.radiusMiles) * weights.proximity +
+      scoreRatings(venue, ratingStats) * weights.ratings;
 
     return {
       venueId: venue.id,

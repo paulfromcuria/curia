@@ -9,6 +9,13 @@
  * open"): there is no Stripe account/API key yet. `isMockBilling` marks
  * every place that stands in for real Stripe wiring — grep for it when a
  * real key exists and the mock gate needs to become a real paywall.
+ *
+ * 2026-09, at explicit user request: the app is in open beta and shows no
+ * subscription language anywhere (`src/app/subscription.tsx` is now an
+ * open-beta gate, not a paywall) — so `formatMonthlyPrice`/`trialCopy`
+ * below are currently unused. Left in place, not deleted: the price/trial
+ * terms are already decided and this file is exactly where the real
+ * paywall copy comes back from once Stripe is wired up, not a hypothetical.
  */
 export const SUBSCRIPTION_CONFIG = {
   priceGBP: 19.99,

@@ -10,14 +10,18 @@
  * font loading. Until it resolves, every array below is empty; nothing
  * should read them before that point (the root layout gate enforces this).
  */
+import { useEffect, useReducer } from 'react';
 import { supabase } from './supabase-client';
+import { HOLIDAY_FEATURE_ENABLED } from '../config/features';
 import type {
   City,
   Destination,
   District,
   DistrictGroup,
+  HomeRegion,
   Journey,
   JourneyStop,
+  MetroId,
   Moment,
   MomentType,
   Tile,
@@ -36,18 +40,129 @@ export let METRO_WHOLE_SET_LABEL: Record<string, string> = {
   manchester: 'Central Manchester',
   cheshire: 'The Cheshire Set',
   santorini: 'Santorini',
+  riyadh: 'Riyadh',
+  london: 'London',
 };
 export let VENUES: Venue[] = [];
 export let MOMENTS: Moment[] = [];
 export let JOURNEYS: Journey[] = [];
 export let TILES: Tile[] = [];
 export let DESTINATIONS: Destination[] = [];
+/** Aggregate crowd rating per venue, from the `venue_rating_stats` view
+ * (supabase/migrations/0005_venue_ratings.sql) — never per-user data, see
+ * that migration's own doc comment on why. Keyed by venue id; a venue with
+ * no ratings yet simply has no entry (not a zeroed one), matching every
+ * other seed export's "empty means nothing loaded yet" convention. Read by
+ * src/lib/scoring/rank-venues.ts's scoreRatings() and rendered directly on
+ * venue/[id].tsx. */
+export let RATING_STATS: Record<string, { avg: number; count: number }> = {};
 
 let loaded = false;
 let loadPromise: Promise<void> | null = null;
 
 export function isContentDataLoaded(): boolean {
   return loaded;
+}
+
+/** Metros whose venues load eagerly, before the app's initial render gate
+ * opens (src/app/_layout.tsx) — Curia's founding market, and where a
+ * signed-in member almost certainly is if we don't know anything else yet
+ * (DEMO_LOCATION, src/lib/scoring/session-input.ts, sits inside Manchester).
+ * Every other metro's venues load on demand via loadVenuesForMetro() below
+ * — 2026-09, at explicit user request ("only fetch current region data on
+ * load, and go fetch another region's data if the user starts to navigate
+ * between regions"), the fix for a real scaling problem: loadContentData()
+ * used to fetch every venue in every metro unconditionally, which was fine
+ * at a few hundred rows but would mean every user's cold load paying for
+ * every market's data regardless of which one they'd ever actually use.
+ * Districts/cities/tiles/moments/journeys/destinations stay eager and
+ * global — all small, and needed everywhere (the map's coverage boundary,
+ * the district filter rows on Moments/List, etc. — see src/lib/map/geo.ts's
+ * metroForPoint doc comment for the boundary-detection side of this). */
+export const DEFAULT_METROS: MetroId[] = ['manchester', 'cheshire'];
+
+const loadedMetros = new Set<MetroId>();
+
+/** Whether a metro's venues have already been fetched — src/app/(tabs)/
+ * map.web.tsx checks this before offering a "switch region" prompt (no
+ * point prompting for a metro that's already loaded). */
+export function isMetroLoaded(metro: MetroId): boolean {
+  return loadedMetros.has(metro);
+}
+
+// Minimal pub/sub so screens that read VENUES directly (Map/List/Moments —
+// none of them go through React state or context for it, same "module-level
+// array" contract this whole file's doc comment describes) can react when
+// loadVenuesForMetro() mutates it after the initial load. Before this
+// feature, VENUES was populated exactly once, before anything ever
+// rendered, so no consumer needed a way to notice a later change — now that
+// a region switch can add rows mid-session, they do.
+type ContentListener = () => void;
+const contentListeners = new Set<ContentListener>();
+function notifyContentChanged() {
+  contentListeners.forEach((fn) => fn());
+}
+
+/** Bumps whenever loadVenuesForMetro() adds a newly-loaded region's venues
+ * — include the return value in a `useMemo`/`useCallback` dependency array
+ * alongside VENUES-derived work (rankVenues and friends) so it recomputes
+ * after a region switch instead of silently missing the new rows. Before
+ * this feature, VENUES was populated exactly once, before anything ever
+ * rendered, so nothing needed a way to notice a later change. */
+export function useContentVersion(): number {
+  const [version, forceUpdate] = useReducer((n: number) => n + 1, 0);
+  useEffect(() => {
+    contentListeners.add(forceUpdate);
+    return () => {
+      contentListeners.delete(forceUpdate);
+    };
+  }, []);
+  return version;
+}
+
+function mapVenueRow(v: Record<string, unknown>): Venue {
+  return {
+    id: v.id as string,
+    name: v.name as string,
+    type: v.type as string,
+    subPreferenceTags: (v.sub_preference_tags as string[]) ?? [],
+    spendLevel: v.spend_level as Venue['spendLevel'],
+    districtId: v.district_id as string,
+    metro: v.metro as Venue['metro'],
+    lat: v.lat as number,
+    lon: v.lon as number,
+    petFriendly: v.pet_friendly as boolean,
+    dietaryOptions: v.dietary_options as Venue['dietaryOptions'],
+    status: v.status as Venue['status'],
+    photos: (v.photos as string[]) ?? [],
+    description: v.description as string,
+    bands: v.bands as Venue['bands'],
+    base: v.base as number,
+    tier: v.tier as Venue['tier'],
+    sourceConfidence: v.source_confidence as number,
+    notes: (v.notes as string | null) ?? undefined,
+  };
+}
+
+/** Fetches one metro's venues and merges them into VENUES — the on-demand
+ * counterpart to loadContentData()'s eager DEFAULT_METROS fetch. Safe to
+ * call for an already-loaded metro (no-ops) or before loadContentData()
+ * has resolved (queues behind it, same as loadContentData() itself). */
+export async function loadVenuesForMetro(metro: MetroId): Promise<void> {
+  if (loadPromise) await loadPromise;
+  if (loadedMetros.has(metro)) return;
+  // Defensive, not expected to be reachable via UI: santorini stays
+  // soft-hidden regardless of which metro a caller asks for (see
+  // HOLIDAY_FEATURE_ENABLED's own doc comment) — src/app/(tabs)/map.web.tsx
+  // never offers it as a switch target while the flag is off.
+  if (metro === 'santorini' && !HOLIDAY_FEATURE_ENABLED) return;
+
+  const { data, error } = await supabase.from('venues').select('*').eq('metro', metro);
+  if (error) throw new Error(`Failed to load venues for ${metro}: ${error.message}`);
+
+  VENUES = [...VENUES, ...(data ?? []).map(mapVenueRow)];
+  loadedMetros.add(metro);
+  notifyContentChanged();
 }
 
 /** Fetches every content table once and populates the exports above.
@@ -68,18 +183,20 @@ export function loadContentData(): Promise<void> {
       journeysRes,
       journeyStopsRes,
       destinationsRes,
+      ratingStatsRes,
     ] = await Promise.all([
       supabase.from('cities').select('*'),
       supabase.from('districts').select('*'),
       supabase.from('district_groups').select('*'),
       supabase.from('district_group_members').select('*'),
       supabase.from('tiles').select('*'),
-      supabase.from('venues').select('*'),
+      supabase.from('venues').select('*').in('metro', DEFAULT_METROS),
       supabase.from('moments').select('*'),
       supabase.from('moment_venues').select('*').order('position'),
       supabase.from('journeys').select('*'),
       supabase.from('journey_stops').select('*').order('stop_order'),
       supabase.from('destinations').select('*'),
+      supabase.from('venue_rating_stats').select('*'),
     ]);
 
     const firstError = [
@@ -94,6 +211,11 @@ export function loadContentData(): Promise<void> {
       journeysRes,
       journeyStopsRes,
       destinationsRes,
+      // ratingStatsRes deliberately excluded: it degrades gracefully (empty
+      // RATING_STATS -> scoreRatings() returns neutral for everything, the
+      // same as if nobody had rated anything, which is also the genuinely
+      // correct real state on a fresh install) — not worth blocking the
+      // entire app's load over, unlike every other table above.
     ].find((r) => r.error)?.error;
     if (firstError) throw new Error(`Failed to load content data: ${firstError.message}`);
 
@@ -125,27 +247,8 @@ export function loadContentData(): Promise<void> {
       districtIds: districtIdsByGroup.get(g.name) ?? [],
     }));
 
-    VENUES = (venuesRes.data ?? []).map((v) => ({
-      id: v.id,
-      name: v.name,
-      type: v.type,
-      subPreferenceTags: v.sub_preference_tags ?? [],
-      spendLevel: v.spend_level as Venue['spendLevel'],
-      districtId: v.district_id,
-      metro: v.metro as Venue['metro'],
-      lat: v.lat,
-      lon: v.lon,
-      petFriendly: v.pet_friendly,
-      dietaryOptions: v.dietary_options as Venue['dietaryOptions'],
-      status: v.status as Venue['status'],
-      photos: v.photos ?? [],
-      description: v.description,
-      bands: v.bands as Venue['bands'],
-      base: v.base,
-      tier: v.tier as Venue['tier'],
-      sourceConfidence: v.source_confidence,
-      notes: v.notes ?? undefined,
-    }));
+    VENUES = (venuesRes.data ?? []).map(mapVenueRow);
+    DEFAULT_METROS.forEach((m) => loadedMetros.add(m));
 
     const venueIdsByMoment = new Map<string, string[]>();
     for (const mv of momentVenuesRes.data ?? []) {
@@ -190,6 +293,7 @@ export function loadContentData(): Promise<void> {
       category: t.category as TileCategory,
       name: t.name,
       subPreferences: t.sub_preferences ?? [],
+      region: (t.region as HomeRegion | null) ?? undefined,
     }));
 
     DESTINATIONS = (destinationsRes.data ?? []).map((d) => ({
@@ -204,6 +308,31 @@ export function loadContentData(): Promise<void> {
       curator: d.curator,
       editorialDescription: d.editorial_description,
     }));
+
+    RATING_STATS = {};
+    for (const r of ratingStatsRes.data ?? []) {
+      RATING_STATS[r.venue_id] = { avg: Number(r.avg_rating), count: r.rating_count };
+    }
+
+    // Soft-hide Santorini + Holiday — see features.ts's doc comment. Real
+    // rows stay untouched in the database; this just filters what the app
+    // exposes. Order matters: VENUES is filtered before MOMENTS/JOURNEYS so
+    // their dangling-reference filters below can check against it directly.
+    // The VENUES line is now mostly defensive — DEFAULT_METROS never
+    // includes 'santorini', so its rows aren't fetched here in the first
+    // place, and loadVenuesForMetro() refuses it too — but CITIES/DISTRICTS
+    // still need real filtering, they load unconditionally for every metro.
+    if (!HOLIDAY_FEATURE_ENABLED) {
+      CITIES = CITIES.filter((c) => c.id !== 'santorini');
+      DISTRICTS = DISTRICTS.filter((d) => d.metro !== 'santorini');
+      VENUES = VENUES.filter((v) => v.metro !== 'santorini');
+      MOMENTS = MOMENTS.map((m) => ({
+        ...m,
+        venueIds: m.venueIds.filter((id) => VENUES.some((v) => v.id === id)),
+      }));
+      JOURNEYS = JOURNEYS.filter((j) => j.stops.every((s) => VENUES.some((v) => v.id === s.venueId)));
+      TILES = TILES.filter((t) => t.category !== 'Holiday');
+    }
 
     loaded = true;
   })();
@@ -235,8 +364,16 @@ export function momentsByDistrict(districtId: string): Moment[] {
   );
 }
 
-export function tilesByCategory(category: TileCategory): Tile[] {
-  return TILES.filter((t) => t.category === category);
+/** `homeRegion` only matters for categories with region-scoped tiles
+ * (currently just Drink — see HomeRegion's own doc comment,
+ * types/models.ts). A tile with no `region` is universal and always
+ * included; a tile with one is only included when it matches. Passing no
+ * `homeRegion` (or null, the pre-answer state) falls back to 'uk' — every
+ * real member before this feature existed is UK-based, and onboarding's
+ * own 'Region' step is what actually sets a real value. */
+export function tilesByCategory(category: TileCategory, homeRegion?: HomeRegion | null): Tile[] {
+  const effectiveRegion = homeRegion ?? 'uk';
+  return TILES.filter((t) => t.category === category && (!t.region || t.region === effectiveRegion));
 }
 
 export function venuesByDistrict(districtId: string): Venue[] {

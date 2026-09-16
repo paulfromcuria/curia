@@ -7,12 +7,13 @@ import type { District, Tile, Venue } from '../../types/models';
  * for the growth-dashboard expansion), seeded once from the same typed
  * loader (src/lib/data/seed.ts) every other surface reads from.
  *
- * IMPORTANT: this does NOT persist edits across an app restart. There is
- * no Supabase project yet (CLAUDE.md "Tech stack" / "Still genuinely open"
- * — a real credential gap, not guessable), so "CRUD" here means mutating
- * this in-memory copy only, exactly as the M8 brief describes. A real
- * backend swap replaces the bodies of the functions below with Supabase
- * calls without changing the shape consumers see (Venue/District/Tile from
+ * IMPORTANT: this does NOT persist edits across an app restart. A real
+ * Supabase project exists now (see supabase/migrations/*.sql — the member
+ * app and the admin Users screen both use it), but Venues/Districts/Tiles
+ * were never wired to it: "CRUD" here still means mutating this in-memory
+ * copy only, exactly as the M8 brief originally described. A real backend
+ * swap replaces the bodies of the functions below with Supabase calls
+ * without changing the shape consumers see (Venue/District/Tile from
  * src/types/models.ts).
  *
  * This store's arrays are independent copies of src/lib/data/seed.ts's own
@@ -22,13 +23,10 @@ import type { District, Tile, Venue } from '../../types/models';
  * never leak into the member app (Hard rule 8) — there is no wiring
  * between this file and any member-facing screen at all.
  *
- * Deliberately does NOT include a "users" slice — there is no real backend
- * and no source of real member records to CRUD (session.tsx tracks exactly
- * one ephemeral, unpersisted current member per browser session, not a
- * registry of everyone who's signed up). See src/lib/admin/demo-users.ts
- * for the Users admin screen's separate, explicitly-fabricated data source
- * — kept out of this provider on purpose, since there's nothing real here
- * to mutate.
+ * Deliberately does NOT include a "users" slice — real members are a
+ * separate concern (real signups via Supabase Auth, not something this
+ * provider's seed-then-mutate pattern fits) with their own read-only
+ * provider, src/lib/admin/admin-members.tsx.
  */
 export interface AdminDataContextValue {
   venues: Venue[];

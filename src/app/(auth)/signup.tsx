@@ -1,21 +1,22 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Button, Kicker, TextField } from '../../components/curia';
-import { trialCopy } from '../../lib/config/subscription';
+import { Button, TextField, Wordmark } from '../../components/curia';
 import { useSession } from '../../lib/state/session';
 import { color, font, spacing } from '../../theme';
 
 /**
  * Create-account screen. Copy/fields match the prototype's `signing` case
- * (Curia.dc.html `authTitle`/`authBlurb`/`authFields`/`authFoot`) exactly,
- * except the membership figure is pulled from the shared subscription
- * config rather than hardcoded (CLAUDE.md "Subscription"). Backed by real
- * Supabase Auth (src/lib/state/session.tsx) — if the project has email
- * confirmation switched on, signUp succeeds but doesn't return a session
- * until the member clicks the link in their inbox; `needsConfirmation`
- * below covers that case with real copy instead of silently hanging on
- * "Continue".
+ * (Curia.dc.html `authTitle`/`authBlurb`/`authFields`/`authFoot`), except
+ * the footer — the prototype's own line named a real membership price, but
+ * this app is in open beta (2026-09, at explicit user request: no
+ * subscription language visible anywhere in the member-facing app while
+ * Stripe isn't wired up — see src/app/subscription.tsx's own doc comment).
+ * Backed by real Supabase Auth (src/lib/state/session.tsx) — if the project
+ * has email confirmation switched on, signUp succeeds but doesn't return a
+ * session until the member clicks the link in their inbox;
+ * `needsConfirmation` below covers that case with real copy instead of
+ * silently hanging on "Continue".
  */
 export default function Signup() {
   const router = useRouter();
@@ -58,7 +59,7 @@ export default function Signup() {
   if (needsConfirmation) {
     return (
       <View style={[styles.flex, styles.container, styles.confirmCenter]}>
-        <Kicker>Curia</Kicker>
+        <Wordmark height={20} />
         <Text style={styles.title}>Check your inbox.</Text>
         <Text style={styles.blurb}>
           We sent a confirmation link to {email.trim()}. Open it, then come back and sign in.
@@ -75,7 +76,7 @@ export default function Signup() {
     >
       <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
         <View>
-          <Kicker>Curia</Kicker>
+          <Wordmark height={20} style={styles.wordmark} />
           <Text style={styles.title}>Tell us who is joining.</Text>
           <Text style={styles.blurb}>
             Two details now, four questions next. After that Curia only asks when something changes.
@@ -112,7 +113,7 @@ export default function Signup() {
             variant="secondary"
             onPress={() => router.replace('/(auth)/login')}
           />
-          <Text style={styles.foot}>{trialCopy()}</Text>
+          <Text style={styles.foot}>Free while Curia is in open beta.</Text>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -127,6 +128,9 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
     paddingBottom: spacing.xxl,
     gap: spacing.lg,
+  },
+  wordmark: {
+    marginBottom: spacing.xs,
   },
   title: {
     fontFamily: font.serif,

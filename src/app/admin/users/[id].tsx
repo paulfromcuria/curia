@@ -1,9 +1,8 @@
 import { useLocalSearchParams } from 'expo-router';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AdminHeader } from '../../../components/admin/admin-header';
-import { DemoDataBanner } from '../../../components/admin/demo-data-banner';
+import { useAdminMembers } from '../../../lib/admin/admin-members';
 import { TILES } from '../../../lib/data/seed';
-import { DEMO_MEMBERS } from '../../../lib/admin/demo-users';
 import { color, font, spacing } from '../../../theme';
 
 const STATUS_LABELS: Record<string, string> = {
@@ -15,20 +14,21 @@ const STATUS_LABELS: Record<string, string> = {
 };
 
 /**
- * Read-only member detail (2026-08, admin growth-dashboard expansion).
- * No edit/delete controls — members aren't administered this way even in
- * a real system, and this is explicitly a read-focused view. See
- * demo-users.ts's doc comment: this is fabricated placeholder data.
+ * Read-only member detail (2026-09, real data — see
+ * src/lib/admin/admin-members.tsx). No edit/delete controls — members
+ * aren't administered this way even in a real system, this is explicitly a
+ * read-focused view.
  */
 export default function UserDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const member = DEMO_MEMBERS.find((m) => m.id === id);
+  const { members, loading } = useAdminMembers();
+  const member = members.find((m) => m.id === id);
 
   if (!member) {
     return (
       <View style={styles.flex}>
-        <AdminHeader title="Member not found" />
-        <Text style={styles.empty}>No demo member with id &quot;{id}&quot;.</Text>
+        <AdminHeader title={loading ? 'Loading…' : 'Member not found'} />
+        {!loading ? <Text style={styles.empty}>No member with id &quot;{id}&quot;.</Text> : null}
       </View>
     );
   }
@@ -37,8 +37,6 @@ export default function UserDetail() {
     <View style={styles.flex}>
       <AdminHeader title={member.name} subtitle={member.email} />
       <ScrollView contentContainerStyle={styles.container}>
-        <DemoDataBanner count={DEMO_MEMBERS.length} />
-
         <Row label="Subscription" value={STATUS_LABELS[member.subscriptionStatus] ?? member.subscriptionStatus} />
         <Row label="Spend level" value={'£'.repeat(member.spendLevel)} />
         <Row label="Onboarding complete" value={member.onboardingComplete ? 'Yes' : 'No'} />

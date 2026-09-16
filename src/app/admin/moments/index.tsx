@@ -28,7 +28,7 @@ export default function MomentsList() {
 
   return (
     <View style={styles.flex}>
-      <AdminHeader title="Moments" subtitle={`${MOMENTS.length} moment types (fixed — Hard rule per CLAUDE.md)`} />
+      <AdminHeader title="Moments" subtitle={`${MOMENTS.length} moment types (fixed, Hard rule per CLAUDE.md)`} />
       <FlatList
         data={MOMENTS}
         keyExtractor={(m) => m.id}

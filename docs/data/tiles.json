@@ -1,6 +1,7 @@
 {
   "_source": "Transcribed from the Claude Design handoff bundle's CATS constant in Curia.dc.html (fetched 2026-07-30) — the real onboarding tile catalog for Do/Drink/Eat, originally 15 tiles per category. Sub-preferences (`subPreferences`) default ON per CLAUDE.md Hard rule 2; this file lists the possible set only, not any user's on/off state. One entry ('Cafés (late)') has had the source file's mangled UTF-8 encoding (rendered as 'CafÃ©s') corrected back to a plain é.",
   "_neighbourhoodFavouriteSource": "'Neighbourhood favourite' added to Eat 2026-09-03 (16th Eat tile, catalog no longer 15/15/15 by design, not an oversight) at explicit user direction after a full catalog review: 'we aren't doing cuisine by country as a category option as its overdone... people want to know the atmosphere or moment that a place is known for, not what kind of food.' Closes the largest real gap the review found — 7 venues (Happy Seasons, Rudy's, Vietbowl, Delhi Dream, Phanthong Thai, The Stolen Lamb, Waugh Brow Farm Shop) sharing a real, distinct, unpretentious/no-fuss/long-established mood that no existing tile captured — see src/lib/scoring/tile-catalog-map.ts's own note on this tile for the per-venue reasoning. Deliberately a mood, not a cuisine list, matching that direction exactly.",
+  "_regionSource": "`region` added to every Drink tile 2026-09, at explicit user request, onboarding Riyadh — see HomeRegion's own doc comment (src/types/models.ts) for the full architecture. Alcohol is prohibited nationwide in Saudi Arabia, so the original 15 Drink tiles (all built around cocktail bars/wine bars/pubs/nightclubs) have zero real applicability there; tagged `region: 'uk'` rather than left untagged so a Riyadh member never sees them during onboarding. Eight new Drink tiles added alongside them, tagged `region: 'riyadh'`, built from real, verified categories (WebSearch, 2026-09) rather than invented: Specialty coffee (Saudi's specialty-coffee scene is genuinely large — 60,000+ licensed cafes, described as rivaling Melbourne/Tokyo for density), Mocktail lounges (the real non-alcoholic equivalent of a cocktail bar — e.g. the Four Seasons Riyadh's Tonic Bar), Tea houses (traditional karak/spiced tea culture, majlis-style seating), Shisha lounges (a genuine, distinct social-evening category, not a novelty), Dessert cafés and Juice & smoothie bars (both real and prominent in Saudi social life), Hotel lounges (the non-alcoholic parallel to 'Hotel bars' — live pianist, five-star setting, no alcohol served), and Rooftop cafés (kept as a distinct name from 'Rooftop & scenic' specifically to avoid any ambiguity about whether a rooftop venue implies alcohol — it doesn't, but the existing UK tile's name and 'DJ sets' framing read as bar culture, so a clean separate entry was safer than assuming). Do/Eat/Holiday tiles are untouched and stay universal (no `region` field) — this is deliberately narrow to the one category that's actually incompatible across the two markets, not a wholesale re-tagging.",
   "categories": {
     "Do": [
       { "name": "Culture", "subPreferences": ["Art", "History", "Libraries", "Museums", "Photography"] },
@@ -20,21 +21,29 @@
       { "name": "Cookery & craft", "subPreferences": ["Small group", "Hands-on", "Expert-led"] }
     ],
     "Drink": [
-      { "name": "Cocktail bars", "subPreferences": ["Speakeasy-style", "Award-winning list", "Live mixology", "Booth seating"] },
-      { "name": "Wine bars", "subPreferences": ["Natural wine", "Sommelier on site", "Small plates", "Vinyl/curated music"] },
-      { "name": "Nightclubs", "subPreferences": ["House music", "Hip-hop/R&B", "Table service", "No trainers", "Late license", "Dress code"] },
-      { "name": "Jazz bars", "subPreferences": ["Live music", "Late sets", "Intimate seating", "No cover charge"] },
-      { "name": "Rooftop & scenic", "subPreferences": ["Skyline view", "Heated outdoor", "Sunset hours", "DJ sets"] },
-      { "name": "Upmarket pubs", "subPreferences": ["Fireplace", "Sunday roast", "Dog-friendly", "Beer garden"] },
-      { "name": "Members' clubs", "subPreferences": ["Guest-list only", "Dress code", "Live entertainment"] },
-      { "name": "Whisky & spirits", "subPreferences": ["Rare/aged selection", "Tasting flights", "Cigar terrace"] },
-      { "name": "Hotel bars", "subPreferences": ["Live pianist", "Late service", "Views"] },
-      { "name": "Champagne bars", "subPreferences": ["Vintage list", "Oyster pairing", "Booth service"] },
-      { "name": "Late-night lounges", "subPreferences": ["DJ sets", "Bottle service", "Smoking terrace"] },
-      { "name": "Cafés (late)", "subPreferences": ["Specialty coffee", "Wine by the glass", "Late opening"] },
-      { "name": "Beer gardens", "subPreferences": ["Independent brewers", "Outdoor heaters", "Live sport"] },
-      { "name": "Waterside bars", "subPreferences": ["Outdoor terrace", "Dock views", "Sunset hours"] },
-      { "name": "Wellness bars", "subPreferences": ["Cold-pressed", "Alcohol-free cocktails", "Morning hours"] }
+      { "name": "Cocktail bars", "region": "uk", "subPreferences": ["Speakeasy-style", "Award-winning list", "Live mixology", "Booth seating"] },
+      { "name": "Wine bars", "region": "uk", "subPreferences": ["Natural wine", "Sommelier on site", "Small plates", "Vinyl/curated music"] },
+      { "name": "Nightclubs", "region": "uk", "subPreferences": ["House music", "Hip-hop/R&B", "Table service", "No trainers", "Late license", "Dress code"] },
+      { "name": "Jazz bars", "region": "uk", "subPreferences": ["Live music", "Late sets", "Intimate seating", "No cover charge"] },
+      { "name": "Rooftop & scenic", "region": "uk", "subPreferences": ["Skyline view", "Heated outdoor", "Sunset hours", "DJ sets"] },
+      { "name": "Upmarket pubs", "region": "uk", "subPreferences": ["Fireplace", "Sunday roast", "Dog-friendly", "Beer garden"] },
+      { "name": "Members' clubs", "region": "uk", "subPreferences": ["Guest-list only", "Dress code", "Live entertainment"] },
+      { "name": "Whisky & spirits", "region": "uk", "subPreferences": ["Rare/aged selection", "Tasting flights", "Cigar terrace"] },
+      { "name": "Hotel bars", "region": "uk", "subPreferences": ["Live pianist", "Late service", "Views"] },
+      { "name": "Champagne bars", "region": "uk", "subPreferences": ["Vintage list", "Oyster pairing", "Booth service"] },
+      { "name": "Late-night lounges", "region": "uk", "subPreferences": ["DJ sets", "Bottle service", "Smoking terrace"] },
+      { "name": "Cafés (late)", "region": "uk", "subPreferences": ["Specialty coffee", "Wine by the glass", "Late opening"] },
+      { "name": "Beer gardens", "region": "uk", "subPreferences": ["Independent brewers", "Outdoor heaters", "Live sport"] },
+      { "name": "Waterside bars", "region": "uk", "subPreferences": ["Outdoor terrace", "Dock views", "Sunset hours"] },
+      { "name": "Wellness bars", "region": "uk", "subPreferences": ["Cold-pressed", "Alcohol-free cocktails", "Morning hours"] },
+      { "name": "Specialty coffee", "region": "riyadh", "subPreferences": ["Pour-over", "Single-origin", "Roastery on site", "Late-night"] },
+      { "name": "Mocktail lounges", "region": "riyadh", "subPreferences": ["Elaborate presentation", "Hotel setting", "Live music", "Late-night"] },
+      { "name": "Tea houses", "region": "riyadh", "subPreferences": ["Traditional service", "Karak & spiced tea", "Majlis seating", "Outdoor seating"] },
+      { "name": "Shisha lounges", "region": "riyadh", "subPreferences": ["Rooftop", "Late-night", "Live entertainment", "Traditional"] },
+      { "name": "Dessert cafés", "region": "riyadh", "subPreferences": ["Artisan pastry", "Traditional sweets", "Late-night", "Instagram-worthy"] },
+      { "name": "Juice & smoothie bars", "region": "riyadh", "subPreferences": ["Fresh-pressed", "Traditional flavours", "Quick stop"] },
+      { "name": "Hotel lounges", "region": "riyadh", "subPreferences": ["Live pianist", "Five-star setting", "Views", "Late service"] },
+      { "name": "Rooftop cafés", "region": "riyadh", "subPreferences": ["Skyline view", "Sunset hours", "Heated outdoor", "Live music"] }
     ],
     "Eat": [
       { "name": "Tasting menu", "subPreferences": ["Wine pairing", "Chef's table", "5+ courses"] },

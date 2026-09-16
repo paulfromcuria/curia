@@ -42,11 +42,17 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // Added 2026-08 for the Wilmslow density pass (see docs/data/venues.json's
   // own _wilmslowDensitySource note) — four more real Do tile-coverage gaps
   // closed, all previously zero-venue anywhere in the app.
-  'Parks & green space': ['riverside-park'],
+  // botanical-garden added 2026-09-15 (Chelsea Physic Garden, London) — a
+  // walled botanic garden is the same real "green space" outing as a
+  // riverside park, just a different kind of green.
+  'Parks & green space': ['riverside-park', 'botanical-garden'],
   // pottery-studio added 2026-09-05 (Knutcraft at the Ruskin Rooms,
   // Knutsford) — hands-on, expert-led glazing sits in the same real spirit
   // as a cookery class.
-  'Cookery & craft': ['cookery-school', 'pottery-studio'],
+  // cookbook-shop added 2026-09-15 (Books for Cooks, London) — a real
+  // working test kitchen serving recipes straight from the shelves is the
+  // same hands-on spirit as a cookery class, not just retail.
+  'Cookery & craft': ['cookery-school', 'pottery-studio', 'cookbook-shop'],
   'Walking tours': ['walking-tour'],
   // cricket-club added 2026-09-03 (Mobberley Cricket Club) — same spectator
   // afternoon as rugby/golf, just a different pitch.
@@ -67,6 +73,25 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   'Upmarket pubs': ['country-pub', 'gastropub'],
   'Hotel bars': ['hotel-bar'],
   'Cafés (late)': ['coffee-room', 'bakery'],
+  // Riyadh Drink catalog (region-scoped, see HomeRegion's own doc comment,
+  // src/types/models.ts) — wired 2026-09-15 alongside Riyadh's first real
+  // venues (docs/data/venues.json's own _riyadhVenueSource note). Alcohol
+  // is prohibited nationwide, so these replace cocktail-bar/wine-bar-style
+  // tiles entirely for Riyadh members rather than sitting alongside them.
+  // coffee-room already existed (reused above for 'Cafés (late)') — reused
+  // again here rather than introducing a second, redundant type.
+  'Specialty coffee': ['coffee-room'],
+  'Shisha lounges': ['shisha-lounge'],
+  'Dessert cafés': ['dessert-cafe'],
+  'Hotel lounges': ['hotel-lounge'],
+  // tea-house added 2026-09-15 (HODAJ, Diriyah) — the second Riyadh venue
+  // pass's first Tea houses match.
+  'Tea houses': ['tea-house'],
+  // 'Mocktail lounges' and 'Juice & smoothie bars' still match zero
+  // venues — a real coverage gap for the next Riyadh pass, not wired to
+  // anything yet since a mapping with no venue behind it would be
+  // premature (same "an empty array is not a bug" convention as every
+  // other sparse tile in this file).
   "Members' clubs": ['members-club'],
   // listening-bar added 2026-09-03 (Nam) — a serious-sound-system basement
   // room after dark is the same late-night register as Symposium.
@@ -132,7 +157,10 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // these are secret (ruling out Hidden gem) and none are a scene
   // (ruling out Lively & loud/Celebratory); they're the opposite kind of
   // good, and that's a real, distinct, requestable thing.
-  'Neighbourhood favourite': ['cantonese-roast', 'pizzeria', 'vietnamese', 'indian-restaurant', 'thai-restaurant', 'greek-taverna', 'farm-shop'],
+  // lebanese-restaurant added 2026-09-15 (Ishbilia, London) — 26 years
+  // family-run with no scene to speak of, the same honest-fixture register
+  // as this tile's other cuisine types.
+  'Neighbourhood favourite': ['cantonese-roast', 'pizzeria', 'vietnamese', 'indian-restaurant', 'thai-restaurant', 'greek-taverna', 'farm-shop', 'lebanese-restaurant'],
 
   // Holiday (added 2026-09 for the Santorini pass — see TileCategory's own
   // doc comment in src/types/models.ts). Started as one tile ('Beach
@@ -300,4 +328,38 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   'BOAT TOUR': 'Holiday',
   'SOUVLAKI SPOT': 'Eat',
   'SEAFOOD RESTAURANT': 'Eat',
+  // London pass (2026-09-15) — see docs/data/venues.json's own
+  // _londonVenueSource note. LEBANESE RESTAURANT maps to the real
+  // 'Neighbourhood favourite' tile above; BOTANICAL GARDEN maps to 'Parks
+  // & green space'; COOKBOOK SHOP maps to 'Cookery & craft'. The rest are
+  // category-only, same treatment as this file's many existing
+  // category-only types, since no existing tile fits any of them
+  // precisely.
+  'LEBANESE RESTAURANT': 'Eat',
+  'TURKISH RESTAURANT': 'Eat',
+  'BRITISH RESTAURANT': 'Eat',
+  'BOTANICAL GARDEN': 'Do',
+  'TRADITIONAL PUB': 'Drink',
+  BOUTIQUE: 'Do',
+  'INDEPENDENT BOOKSHOP': 'Do',
+  'COOKBOOK SHOP': 'Do',
+  'HISTORIC HOUSE': 'Do',
+  // Riyadh pass (2026-09-15) — see docs/data/venues.json's own
+  // _riyadhVenueSource note. SHISHA LOUNGE, DESSERT CAFE and HOTEL LOUNGE
+  // map onto real Riyadh Drink tiles above; SAUDI HERITAGE CUISINE and
+  // FIRE GRILL are category-only (Eat), distinct enough from MIDDLE
+  // EASTERN to warrant their own label; CONTEMPORARY ART MUSEUM is
+  // category-only (Do) — a purpose-built national museum is a different
+  // register from a commercial ART GALLERY.
+  'SHISHA LOUNGE': 'Drink',
+  'DESSERT CAFE': 'Drink',
+  'HOTEL LOUNGE': 'Drink',
+  'SAUDI HERITAGE CUISINE': 'Eat',
+  'FIRE GRILL': 'Eat',
+  'CONTEMPORARY ART MUSEUM': 'Do',
+  // Riyadh second pass (2026-09-15). TEA HOUSE maps to the real 'Tea
+  // houses' tile above. MOROCCAN LOUNGE is category-only — not hotel-based
+  // and not a shisha-only concept, so no existing Drink type fits it.
+  'TEA HOUSE': 'Drink',
+  'MOROCCAN LOUNGE': 'Drink',
 };

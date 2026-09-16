@@ -5,8 +5,7 @@ import type { City, District, Tile, Venue } from '../../types/models';
 /**
  * Pure, presentation-free growth/coverage stats for the admin dashboard
  * home (2026-08, admin growth-dashboard expansion). Computed live from the
- * real admin `venues`/`districts`/`tiles` state — nothing synthetic here
- * (unlike the Users screen's demo-users.ts). Lives under src/lib/admin/
+ * real admin `venues`/`districts`/`tiles` state. Lives under src/lib/admin/
  * rather than inline in the dashboard screen, mirroring how
  * src/lib/scoring/*.ts keeps scoring logic pure and separate from the
  * screens that render it.

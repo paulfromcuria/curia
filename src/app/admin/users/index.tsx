@@ -2,9 +2,8 @@ import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { AdminHeader } from '../../../components/admin/admin-header';
-import { DemoDataBanner } from '../../../components/admin/demo-data-banner';
-import { Tag, TextField } from '../../../components/curia';
-import { DEMO_MEMBERS, type DemoMember } from '../../../lib/admin/demo-users';
+import { Button, Tag, TextField } from '../../../components/curia';
+import { type AdminMember, useAdminMembers } from '../../../lib/admin/admin-members';
 import { color, font, spacing } from '../../../theme';
 import type { SpendLevel, SubscriptionStatus } from '../../../types/models';
 
@@ -20,27 +19,28 @@ const STATUS_LABELS: Record<SubscriptionStatus | 'All', string> = {
 const SPEND_FILTERS: (SpendLevel | 'All')[] = ['All', 1, 2, 3, 4, 5];
 
 /**
- * Users list (2026-08, admin growth-dashboard expansion) — read-only, no
- * add/edit/delete. See demo-users.ts's doc comment: this is fabricated
- * placeholder data, not real members, hence the persistent banner.
+ * Users list (2026-09) — real members (src/lib/admin/admin-members.tsx),
+ * read-only, no add/edit/delete: members aren't administered by creating
+ * rows by hand even in a real system, this surfaces who has signed up.
  */
 export default function UsersList() {
   const router = useRouter();
+  const { members, loading, error, refresh } = useAdminMembers();
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState<SubscriptionStatus | 'All'>('All');
   const [spend, setSpend] = useState<SpendLevel | 'All'>('All');
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return DEMO_MEMBERS.filter((m) => {
+    return members.filter((m) => {
       if (status !== 'All' && m.subscriptionStatus !== status) return false;
       if (spend !== 'All' && m.spendLevel !== spend) return false;
       if (q && !m.name.toLowerCase().includes(q) && !m.email.toLowerCase().includes(q)) return false;
       return true;
     });
-  }, [query, status, spend]);
+  }, [members, query, status, spend]);
 
-  function renderItem({ item }: { item: DemoMember }) {
+  function renderItem({ item }: { item: AdminMember }) {
     return (
       <Pressable
         style={styles.row}
@@ -59,8 +59,7 @@ export default function UsersList() {
 
   return (
     <View style={styles.flex}>
-      <AdminHeader title="Users" subtitle={`${DEMO_MEMBERS.length} demo members`} />
-      <DemoDataBanner count={DEMO_MEMBERS.length} />
+      <AdminHeader title="Users" subtitle={`${members.length} member${members.length === 1 ? '' : 's'}`} />
       <View style={styles.filterRow}>
         {STATUS_FILTERS.map((s) => (
           <Tag key={s} label={STATUS_LABELS[s]} active={status === s} onPress={() => setStatus(s)} />
@@ -74,14 +73,23 @@ export default function UsersList() {
       <View style={styles.searchRow}>
         <TextField label="Search" value={query} onChangeText={setQuery} placeholder="Name or email" autoCapitalize="none" />
       </View>
-      <FlatList
-        data={filtered}
-        keyExtractor={(m) => m.id}
-        renderItem={renderItem}
-        contentContainerStyle={styles.list}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        ListEmptyComponent={<Text style={styles.empty}>No members match these filters.</Text>}
-      />
+      {error ? (
+        <View style={styles.stateBlock}>
+          <Text style={styles.errorText}>Couldn&apos;t load members: {error}</Text>
+          <Button label="Retry" variant="secondary" onPress={refresh} />
+        </View>
+      ) : (
+        <FlatList
+          data={filtered}
+          keyExtractor={(m) => m.id}
+          renderItem={renderItem}
+          contentContainerStyle={styles.list}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          ListEmptyComponent={
+            <Text style={styles.empty}>{loading ? 'Loading members…' : 'No members match these filters.'}</Text>
+          }
+        />
+      )}
     </View>
   );
 }
@@ -92,6 +100,8 @@ const styles = StyleSheet.create({
   searchRow: { paddingHorizontal: spacing.lg, marginBottom: spacing.sm },
   list: { paddingHorizontal: spacing.lg, paddingBottom: spacing.xl },
   separator: { height: 1, backgroundColor: color.hairline },
+  stateBlock: { paddingHorizontal: spacing.lg, paddingVertical: spacing.lg, gap: spacing.sm },
+  errorText: { fontFamily: font.sans, fontSize: 13, color: color.goldHover },
   row: {
     flexDirection: 'row',
     alignItems: 'center',

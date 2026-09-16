@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Button, Kicker, TextField } from '../../components/curia';
+import { Button, TextField, Wordmark } from '../../components/curia';
 import { useSession } from '../../lib/state/session';
 import { color, font, spacing } from '../../theme';
 
@@ -47,10 +47,10 @@ export default function Login() {
     >
       <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
         <View>
-          <Kicker>Curia</Kicker>
-          <Text style={styles.title}>The evening, already decided.</Text>
+          <Wordmark height={20} style={styles.wordmark} />
+          <Text style={styles.title}>Your moments, already decided.</Text>
           <Text style={styles.blurb}>
-            A private map of the rooms worth your night, across Manchester and Cheshire.
+            A private map of the places worth your time, wherever you&apos;re spending it.
           </Text>
         </View>
 
@@ -98,6 +98,9 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
     paddingBottom: spacing.xxl,
     gap: spacing.lg,
+  },
+  wordmark: {
+    marginBottom: spacing.xs,
   },
   title: {
     fontFamily: font.serif,

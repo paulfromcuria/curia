@@ -20,22 +20,27 @@ import type { District, Venue } from '../../types/models';
 import type { MatchmakingInput } from '../../types/matchmaking';
 import {
   applyHardFilters,
+  BASE_WEIGHTS,
   haversineMiles,
   passesDietaryFilter,
   passesDistanceFilter,
   passesMoodFilter,
-  passesPetFilter,
   rankVenues,
   reasonFor,
   resolveContext,
   scoreBaseQuality,
   scoreDayOfWeek,
+  scoreLiveliness,
+  scorePetFit,
+  scoreProximity,
+  scoreRatings,
   scoreSpendFit,
   scoreSubPreferenceMatch,
   scoreTileMatch,
   scoreTimeOfDay,
   scoreWeather,
   slugifyType,
+  weightsFor,
 } from './rank-venues.ts';
 
 // ---------------------------------------------------------------------------
@@ -172,29 +177,31 @@ test('rankVenues excludes a high-scoring venue that cannot meet a dietary requir
 });
 
 // ---------------------------------------------------------------------------
-// Hard filter: pet-friendliness (venue-side flag vs. user traveling-with-pet)
+// Soft weight: pet fit (a ranking boost, not a hard filter — 2026-09,
+// changed at explicit user request; see scorePetFit's own doc comment)
 // ---------------------------------------------------------------------------
 
-test('pet filter: passes when the user is not traveling with a pet, regardless of venue flag', () => {
-  assert.equal(passesPetFilter(venue({ petFriendly: false }), 'none'), true);
+test('pet fit: neutral for every venue when the user is not traveling with a pet', () => {
+  assert.equal(scorePetFit(venue({ petFriendly: false }), 'none'), 0.5);
+  assert.equal(scorePetFit(venue({ petFriendly: true }), 'none'), 0.5);
 });
 
-test('pet filter: excludes a pet-unfriendly venue when the user is traveling with a pet', () => {
-  assert.equal(passesPetFilter(venue({ petFriendly: false }), 'small-dog'), false);
+test('pet fit: a pet-friendly venue scores higher when the user is traveling with a pet', () => {
+  assert.equal(scorePetFit(venue({ petFriendly: true }), 'small-dog'), 1);
 });
 
-test('pet filter: a pet-friendly venue passes when the user is traveling with a pet', () => {
-  assert.equal(passesPetFilter(venue({ petFriendly: true }), 'large-dog'), true);
+test('pet fit: a non-pet-friendly venue stays neutral, not penalized, when the user is traveling with a pet', () => {
+  assert.equal(scorePetFit(venue({ petFriendly: false }), 'large-dog'), 0.5);
 });
 
-test('rankVenues excludes a high-scoring pet-unfriendly venue when traveling with a pet', () => {
-  const noPets = venue({ id: 'v1', base: 99, petFriendly: false });
-  const petsOk = venue({ id: 'v2', base: 5, petFriendly: true });
+test('rankVenues still includes a non-pet-friendly venue when traveling with a pet, but ranks the pet-friendly one first', () => {
+  const noPets = venue({ id: 'v1', base: 80, petFriendly: false });
+  const petsOk = venue({ id: 'v2', base: 80, petFriendly: true });
   const input = baseInput({ you: { spendLevel: 3, dietary: ['none'], pet: 'small-dog' } });
   const result = rankVenues(input, [noPets, petsOk], []);
   assert.deepEqual(
     result.ranked.map((r) => r.venueId),
-    ['v2']
+    ['v2', 'v1']
   );
 });
 
@@ -398,6 +405,181 @@ test('weather: unknown/absent weather is neutral', () => {
 });
 
 // ---------------------------------------------------------------------------
+// Weighted signal: liveliness (District.bandMultiplier — how alive the
+// district is right now, distinct from scoreTimeOfDay's venue-own-hours check)
+// ---------------------------------------------------------------------------
+
+const livelyLateDistrict: District = {
+  id: 'test-district-2',
+  name: 'Test District 2',
+  metro: 'manchester',
+  lat: 0,
+  lon: 0,
+  base: 50,
+  kind: 'city',
+  accentColor: '#000000',
+  bandMultiplier: { late: 1.8, morning: 0.3 },
+};
+
+test('liveliness: a district livelier in the given band scores higher', () => {
+  const late = scoreLiveliness(livelyLateDistrict, 'late');
+  const morning = scoreLiveliness(livelyLateDistrict, 'morning');
+  assert.ok(late > morning, `expected late (${late}) > morning (${morning})`);
+});
+
+test('liveliness: missing multiplier data is neutral, not a penalty', () => {
+  assert.equal(scoreLiveliness(undefined, 'late'), 0.5);
+  assert.equal(scoreLiveliness(livelyLateDistrict, 'evening'), 0.5);
+  assert.equal(scoreLiveliness(livelyLateDistrict, undefined), 0.5);
+});
+
+// ---------------------------------------------------------------------------
+// Weighted signal: proximity (a soft tiebreaker inside the hard radius —
+// distance itself stays a hard cutoff, see the distance filter tests above)
+// ---------------------------------------------------------------------------
+
+test('proximity: scores 1 at zero distance and approaches 0 at the radius edge', () => {
+  const here = scoreProximity(venue({ lat: manchesterCityCentre.lat, lon: manchesterCityCentre.lon }), manchesterCityCentre, 10);
+  assert.equal(here, 1);
+  const edge = scoreProximity(schofields, manchesterCityCentre, 0.01);
+  assert.ok(edge < 0.5, `expected a venue well outside a tiny radius to score low, got ${edge}`);
+});
+
+test('proximity: closer venues always score higher than farther ones inside the same radius', () => {
+  const near = scoreProximity(schofields, manchesterCityCentre, 10);
+  const far = scoreProximity(theWizard, manchesterCityCentre, 30);
+  assert.ok(near > far, `expected near (${near}) > far (${far})`);
+});
+
+test('rankVenues never lets proximity override a genuine quality gap, but breaks near-ties toward the closer venue', () => {
+  const near = venue({ id: 'near', base: 80, lat: manchesterCityCentre.lat, lon: manchesterCityCentre.lon });
+  const far = venue({ id: 'far', base: 80, lat: manchesterCityCentre.lat + 0.05, lon: manchesterCityCentre.lon });
+  const result = rankVenues(baseInput({ radiusMiles: 10 }), [far, near], []);
+  assert.deepEqual(
+    result.ranked.map((r) => r.venueId),
+    ['near', 'far']
+  );
+});
+
+// ---------------------------------------------------------------------------
+// Crowd rating signal (scoreRatings) — 2026-09, at explicit user request:
+// "how was smoke, i rate it 2 stars, it remembers that, takes it on board
+// for other similar users."
+// ---------------------------------------------------------------------------
+
+test('ratings: neutral for a venue with no ratings at all', () => {
+  assert.equal(scoreRatings(venue({}), {}), 0.5);
+});
+
+test('ratings: a well-rated venue with a real sample size scores near 1, a poorly-rated one near 0', () => {
+  const stats = {
+    erst: { avg: 5, count: 10 },
+    schofields: { avg: 1, count: 10 },
+  };
+  assert.ok(scoreRatings(venue({ id: 'erst' }), stats) > 0.9);
+  assert.ok(scoreRatings(venue({ id: 'schofields' }), stats) < 0.1);
+});
+
+test('ratings: a single bad rating cannot tank a score the way a real sample of bad ratings can', () => {
+  const thin = scoreRatings(venue({ id: 'erst' }), { erst: { avg: 1, count: 1 } });
+  const real = scoreRatings(venue({ id: 'erst' }), { erst: { avg: 1, count: 10 } });
+  assert.ok(thin > real, `expected a thin sample (${thin}) to stay closer to neutral than a real one (${real})`);
+  assert.ok(thin > 0.3, `expected a single 1-star rating to still land well above 0, got ${thin}`);
+});
+
+test('rankVenues: a highly-rated venue outranks an otherwise-identical unrated one', () => {
+  const rated = venue({ id: 'rated', base: 70 });
+  const unrated = venue({ id: 'unrated', base: 70 });
+  const result = rankVenues(baseInput(), [rated, unrated], [], { rated: { avg: 5, count: 20 } });
+  assert.deepEqual(
+    result.ranked.map((r) => r.venueId),
+    ['rated', 'unrated']
+  );
+});
+
+// ---------------------------------------------------------------------------
+// Context-dependent weights (weightsFor) — 2026-09 matchmaking-smartness
+// pass, at explicit user request: "pet weighting is more important in the
+// day time than late night," generalized into a real rule.
+// ---------------------------------------------------------------------------
+
+test('weightsFor always sums to 1, regardless of which contextual rules fire', () => {
+  const cases: [MatchmakingInput['context']['band'], string | undefined][] = [
+    ['morning', undefined],
+    ['afternoon', 'Heavy storm'],
+    ['evening', 'Clear, 18°'],
+    ['late', undefined],
+    [undefined, undefined],
+  ];
+  for (const [band, weather] of cases) {
+    const w = weightsFor(band, weather);
+    const sum = Object.values(w).reduce((a, b) => a + b, 0);
+    assert.ok(Math.abs(sum - 1) < 1e-9, `weightsFor(${band}, ${weather}) summed to ${sum}, not 1`);
+  }
+});
+
+test('weightsFor: pet fit is weighted more in the daytime than late at night', () => {
+  const day = weightsFor('afternoon', undefined);
+  const late = weightsFor('late', undefined);
+  assert.ok(day.pet > late.pet, `expected daytime pet weight (${day.pet}) > late-night (${late.pet})`);
+});
+
+test('weightsFor: weather is weighted more heavily when conditions are actually extreme', () => {
+  const mild = weightsFor('evening', 'Partly cloudy, 15°');
+  const extreme = weightsFor('evening', 'Heavy thunderstorm');
+  assert.ok(extreme.weather > mild.weather, `expected extreme (${extreme.weather}) > mild (${mild.weather})`);
+});
+
+test('weightsFor: spend fit matters more for an evening/late decision than daytime', () => {
+  const morning = weightsFor('morning', undefined);
+  const evening = weightsFor('evening', undefined);
+  assert.ok(evening.spend > morning.spend, `expected evening spend weight (${evening.spend}) > morning (${morning.spend})`);
+});
+
+test('weightsFor: with no band and no weather, no contextual rule fires — matches BASE_WEIGHTS exactly', () => {
+  // Every real band triggers at least one rule (pet keys off
+  // morning/afternoon/late, spend off evening/late — together that's all
+  // four), so `undefined` is the only genuine passthrough case, useful as a
+  // sanity check that BASE_WEIGHTS itself is already normalized (sums to 1).
+  const w = weightsFor(undefined, undefined);
+  for (const key of Object.keys(BASE_WEIGHTS) as (keyof typeof BASE_WEIGHTS)[]) {
+    assert.ok(
+      Math.abs(w[key] - BASE_WEIGHTS[key]) < 1e-9,
+      `expected weightsFor(undefined, undefined).${key} (${w[key]}) to match BASE_WEIGHTS.${key} (${BASE_WEIGHTS[key]})`
+    );
+  }
+});
+
+test('rankVenues: a pet-friendly venue outranks an otherwise-identical non-pet-friendly one more decisively in the daytime than late at night', () => {
+  const petsOk = venue({ id: 'pets-ok', base: 80, petFriendly: true });
+  const noPets = venue({ id: 'no-pets', base: 80, petFriendly: false });
+  const you: MatchmakingInput['you'] = { spendLevel: 3, dietary: ['none'], pet: 'small-dog' };
+
+  const afternoonResult = rankVenues(
+    baseInput({ you, context: { now: false, day: 'tuesday', band: 'afternoon' } }),
+    [petsOk, noPets],
+    []
+  );
+  const lateResult = rankVenues(
+    baseInput({ you, context: { now: false, day: 'tuesday', band: 'late' } }),
+    [petsOk, noPets],
+    []
+  );
+
+  const afternoonGap =
+    afternoonResult.ranked.find((r) => r.venueId === 'pets-ok')!.score -
+    afternoonResult.ranked.find((r) => r.venueId === 'no-pets')!.score;
+  const lateGap =
+    lateResult.ranked.find((r) => r.venueId === 'pets-ok')!.score -
+    lateResult.ranked.find((r) => r.venueId === 'no-pets')!.score;
+
+  assert.ok(
+    afternoonGap > lateGap,
+    `expected the pet-friendly score gap to be bigger in the afternoon (${afternoonGap}) than late at night (${lateGap})`
+  );
+});
+
+// ---------------------------------------------------------------------------
 // Overall ranking behaviour
 // ---------------------------------------------------------------------------
 
@@ -444,12 +626,15 @@ test('slugifyType matches the seed loader convention (lowercase, hyphenated)', (
   assert.equal(slugifyType('Small Plates'), 'small-plates');
 });
 
-test('applyHardFilters composes all four filters (AND, not OR)', () => {
-  const good = venue({ id: 'good', petFriendly: true, dietaryOptions: ['vegan'] });
-  const failsDiet = venue({ id: 'fails-diet', petFriendly: true, dietaryOptions: ['none'] });
-  const failsPet = venue({ id: 'fails-pet', petFriendly: false, dietaryOptions: ['vegan'] });
-  const input = baseInput({ you: { spendLevel: 3, dietary: ['vegan'], pet: 'small-dog' } });
-  const survivors = applyHardFilters([good, failsDiet, failsPet], input);
+test('applyHardFilters composes distance, dietary and mood together (AND, not OR)', () => {
+  const good = venue({ id: 'good', type: 'COCKTAIL BAR', dietaryOptions: ['vegan'] });
+  const failsDiet = venue({ id: 'fails-diet', type: 'COCKTAIL BAR', dietaryOptions: ['none'] });
+  const failsMood = venue({ id: 'fails-mood', type: 'SMALL PLATES', dietaryOptions: ['vegan'] });
+  const input = baseInput({
+    you: { spendLevel: 3, dietary: ['vegan'], pet: 'none' },
+    moodFilter: { category: 'Drink', tileIds: [], subPreferences: [] },
+  });
+  const survivors = applyHardFilters([good, failsDiet, failsMood], input);
   assert.deepEqual(
     survivors.map((v) => v.id),
     ['good']

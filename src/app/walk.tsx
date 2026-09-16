@@ -89,7 +89,7 @@ export default function Walk() {
           <Text style={styles.stepDist}>{trip ? `${trip.walkMinutes} min` : ''}</Text>
         </View>
         <Text style={styles.routeNote}>
-          Turn-by-turn directions need a real mapping/routing provider, not yet connected — follow
+          Turn-by-turn directions need a real mapping/routing provider, not yet connected. Follow
           your phone&rsquo;s own maps app for street-by-street guidance. Distance and time above are
           real, straight-line estimates from where you are now.
         </Text>

@@ -5,12 +5,14 @@ import { useAdminSession } from '../../lib/admin/admin-session';
 import { color, font, spacing } from '../../theme';
 
 /**
- * Mock admin sign-in. There is no Supabase project yet (CLAUDE.md
- * credential gap) — mirrors src/lib/state/session.tsx's member login
- * pattern: any well-formed email + non-empty password is accepted, no real
- * credential is checked. This session is entirely separate from the
- * member app's login (src/app/(auth)/login.tsx) — it neither reads nor
- * writes member session state, and grants no access to member screens.
+ * Real admin sign-in (2026-09) — backed by Supabase Auth through a separate
+ * client (supabase-admin-client.ts) plus an admin_users role check
+ * (admin-session.tsx). This session is entirely separate from the member
+ * app's login (src/app/(auth)/login.tsx) — different client, different
+ * storage key, it neither reads nor writes member session state, and grants
+ * no access to member screens. An account needs a row in `admin_users`
+ * (a manual, service-role-only insert — there is no admin signup flow) or
+ * `login` rejects it even with a correct password.
  *
  * 2026-09, bug fix at explicit user report ("nothing happens when clicking
  * sign in"): this used to also call `router.replace('/admin')` right after
@@ -32,8 +34,9 @@ export default function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  function onSignIn() {
+  async function onSignIn() {
     if (!email.trim() || !email.includes('@')) {
       setError('Enter a valid email address.');
       return;
@@ -43,7 +46,12 @@ export default function AdminLogin() {
       return;
     }
     setError(null);
-    login(email.trim());
+    setSubmitting(true);
+    const { error: authError } = await login(email.trim(), password);
+    setSubmitting(false);
+    if (authError) {
+      setError(authError);
+    }
   }
 
   return (
@@ -53,7 +61,7 @@ export default function AdminLogin() {
           <Kicker tone="tertiary">Curia Admin</Kicker>
           <Text style={styles.title}>Curation tools</Text>
           <Text style={styles.blurb}>
-            Internal-only. Not part of the member app — venues, districts, moments and journeys
+            Internal-only. Not part of the member app: venues, districts, moments and journeys
             are curated here before anything reaches a member&apos;s map.
           </Text>
         </View>
@@ -80,7 +88,7 @@ export default function AdminLogin() {
           {error ? <Text style={styles.errorBanner}>{error}</Text> : null}
         </View>
 
-        <Button label="Sign in" onPress={onSignIn} />
+        <Button label={submitting ? 'Signing in…' : 'Sign in'} onPress={onSignIn} disabled={submitting} />
       </ScrollView>
     </KeyboardAvoidingView>
   );

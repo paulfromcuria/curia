@@ -48,12 +48,37 @@ export type RelationshipStatus =
  */
 export type TileCategory = 'Do' | 'Drink' | 'Eat' | 'Holiday';
 
+/**
+ * A member's home base, for the one onboarding category that genuinely
+ * can't share a single global catalog: Drink. Added 2026-09, at explicit
+ * user request, onboarding Riyadh — alcohol is prohibited nationwide in
+ * Saudi Arabia, so Manchester/Cheshire's Drink catalog (cocktail bars, wine
+ * bars, pubs) has zero real applicability there, and the reverse is true
+ * of a Riyadh-flavoured catalog (specialty coffee, mocktail lounges, tea
+ * houses, shisha) for a UK member. Every other category (Do/Eat/You) and
+ * the entire rest of the app — Map/List/Moments/Journeys/the scoring
+ * engine/the venue data model — stays fully shared; this is deliberately
+ * narrow, not a fork of the product. Asked once, early in onboarding (see
+ * src/app/onboarding.tsx's 'Region' step), before Drink tiles are shown.
+ * 'uk' covers Manchester and Cheshire both — they already share one Drink
+ * catalog today, so this doesn't split them further.
+ */
+export type HomeRegion = 'uk' | 'riyadh';
+
 export interface Tile {
   id: string;
   category: TileCategory;
   name: string;
   /** Sub-preferences default ON ("I want this"). Never invert this. */
   subPreferences: string[];
+  /** Restricts which HomeRegion sees this tile during onboarding — absent
+   * means universal (shown to everyone, e.g. every Do/Eat tile today).
+   * Only Drink tiles use this so far; see HomeRegion's own doc comment for
+   * why. Scoring/matching (rank-venues.ts, tile-catalog-map.ts) is
+   * unaffected — a tile a member has already selected still matches
+   * venues normally regardless of region, this only gates what's *offered*
+   * during onboarding. */
+  region?: HomeRegion;
 }
 
 export interface UserPreference {
@@ -92,7 +117,16 @@ export interface User {
 // metro-agnostic by design (see src/lib/map/geo.ts's per-metro coverage
 // polygons) — this and METROS_WITH_DISTRICTS (geo.ts) were the only two
 // places a metro id needed to be named explicitly.
-export type MetroId = 'manchester' | 'cheshire' | 'santorini';
+// 'riyadh' added 2026-09, at explicit user request — Curia's first fully
+// separate market (not a "holiday" bolt-on like Santorini): a real member
+// base with its own onboarding Drink catalog, see HomeRegion's own doc
+// comment above for why. Structurally just another MetroId — the
+// location/radius/district architecture doesn't need to know why a metro
+// exists, only that it does.
+// 'london' added 2026-09-15, at explicit user request — a second real UK
+// metro alongside Manchester/Cheshire, fully 'uk' HomeRegion (no Drink
+// catalog split needed, unlike Riyadh).
+export type MetroId = 'manchester' | 'cheshire' | 'santorini' | 'riyadh' | 'london';
 
 export interface City {
   id: MetroId;

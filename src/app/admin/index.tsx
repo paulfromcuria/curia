@@ -4,8 +4,8 @@ import { AdminHeader } from '../../components/admin/admin-header';
 import { GrowthInsights } from '../../components/admin/growth-insights';
 import { Button, Card } from '../../components/curia';
 import { useAdminData } from '../../lib/admin/admin-data';
+import { useAdminMembers } from '../../lib/admin/admin-members';
 import { useAdminSession } from '../../lib/admin/admin-session';
-import { DEMO_MEMBERS } from '../../lib/admin/demo-users';
 import { CITIES, JOURNEYS, MOMENTS } from '../../lib/data/seed';
 import { color, font, spacing } from '../../theme';
 
@@ -14,15 +14,17 @@ import { color, font, spacing } from '../../theme';
  * sections: venues, districts, and tiles are full CRUD (in-memory, see
  * src/lib/admin/admin-data.tsx); moments and journeys are simple views
  * (read from src/lib/data/seed.ts directly, no edit surface); users is a
- * read-only demo-data view (src/lib/admin/demo-users.ts — no real backend
- * exists to show real members). Districts and Tiles were expanded from
- * editorial-only/nonexistent to full CRUD, and Users/Growth signals are new
- * (2026-08, admin growth-dashboard expansion).
+ * read-only view of real members (src/lib/admin/admin-members.tsx, wired to
+ * Supabase 2026-09 — see that file and supabase/migrations/0004_admin_access.sql).
+ * Districts and Tiles were expanded from editorial-only/nonexistent to full
+ * CRUD, and Users/Growth signals are new (2026-08, admin growth-dashboard
+ * expansion).
  */
 export default function AdminHome() {
   const router = useRouter();
   const { admin, logout } = useAdminSession();
   const { venues, districts, tiles } = useAdminData();
+  const { members } = useAdminMembers();
 
   const sections: { label: string; description: string; count: number; href: Href }[] = [
     {
@@ -33,7 +35,7 @@ export default function AdminHome() {
     },
     {
       label: 'Districts',
-      description: 'Add, edit and delete districts — including liveliness multipliers.',
+      description: 'Add, edit and delete districts, including liveliness multipliers.',
       count: districts.length,
       href: '/admin/districts',
     },
@@ -57,8 +59,8 @@ export default function AdminHome() {
     },
     {
       label: 'Users',
-      description: 'Demo data — no real backend yet, see CLAUDE.md "Tech stack".',
-      count: DEMO_MEMBERS.length,
+      description: 'Real members, pulled live from Supabase, read-only.',
+      count: members.length,
       href: '/admin/users',
     },
   ];
@@ -87,10 +89,10 @@ export default function AdminHome() {
       <GrowthInsights venues={venues} districts={districts} tiles={tiles} cities={CITIES} />
 
       <Text style={styles.note}>
-        Edits here are in-memory for this app session only — there is no backend to persist
-        to yet (see src/lib/admin/admin-data.tsx). Restarting the app resets everything back to
-        the seed data in docs/data/*.json. A real Supabase project (CLAUDE.md &quot;Tech
-        stack&quot;) replaces this without changing these screens.
+        Venues, Districts and Tiles edits are in-memory for this app session only. There is no
+        backend wired up for them yet (see src/lib/admin/admin-data.tsx). Restarting the app
+        resets those three back to the seed data in docs/data/*.json. Users is real, pulled
+        live from Supabase.
       </Text>
 
       <Button label="Sign out" variant="ghost" onPress={logout} />

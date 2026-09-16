@@ -1,7 +1,8 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState, type ReactNode } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Button, Card, Kicker, Tag } from '../components/curia';
+import { Button, Card, Kicker, Tag, Wordmark } from '../components/curia';
+import { HOLIDAY_FEATURE_ENABLED } from '../lib/config/features';
 import { tilesByCategory } from '../lib/data/seed';
 import { useSession } from '../lib/state/session';
 import { color, font, spacing } from '../theme';
@@ -9,6 +10,7 @@ import type {
   AgeRange,
   DietaryRequirement,
   Gender,
+  HomeRegion,
   PetPreference,
   ReligiousObservance,
   RelationshipStatus,
@@ -44,19 +46,46 @@ import type {
  * per this agent's brief to keep the addition minimal; flagging it back for
  * curia-onboarding/the orchestrator to pick up. Practical effect today:
  * editing an already-subscribed member's preferences and clicking through
- * to "You" → "Enter Curia" lands on /subscription, which shows the
- * membership-management view (not a paywall) since they're already
+ * to "You" → "Enter Curia" lands on /subscription, which shows the "you're
+ * in the open beta" confirmation (not the entry gate) since they're already
  * subscribed — a minor rough edge, not a broken gate.
+ *
+ * Third addition (2026-09, at explicit user request, following feedback
+ * that initial onboarding asked too much before showing any real value):
+ * sub-preference refinement panels are hidden on a member's first pass
+ * through this screen — `isFirstTimeOnboarding` (session.onboardingComplete
+ * being false is exactly "hasn't finished onboarding once yet", the same
+ * signal Hard rule 4's redirect chain already relies on, no new state
+ * added). Tapping a tile still selects it; it just no longer expands
+ * "Director's cuts"/"Q&A screenings"/etc. inline. This is presentation
+ * only — sub-preferences still default ON either way (Hard rule 2), so a
+ * first-time member who never opens a refinement panel ends up in exactly
+ * the same scoring state as one who opened every panel and changed
+ * nothing. The You step's closing gate note reminds them refinements are
+ * still there, reachable anytime through Profile → "Edit preferences" (the
+ * `?step=` entry point above) — which restores the full panel, since by
+ * then onboardingComplete is true.
  */
 
-type Step = TileCategory | 'You';
-const STEPS: Step[] = ['Do', 'Drink', 'Eat', 'Holiday', 'You'];
+// 'Region' added 2026-09, at explicit user request, onboarding Riyadh —
+// see HomeRegion's own doc comment (types/models.ts) for the full
+// reasoning. First step, not folded into "You": it has to be answered
+// before Drink tiles are shown (Drink is the one category that can't share
+// a single global catalog), whereas every "You" field only affects ranking
+// weight after onboarding, never what's offered during it.
+type Step = 'Region' | TileCategory | 'You';
+// Holiday is soft-hidden (see lib/config/features.ts) — dropped from the
+// flow entirely rather than left reachable with nothing to show.
+const STEPS: Step[] = HOLIDAY_FEATURE_ENABLED
+  ? ['Region', 'Do', 'Drink', 'Eat', 'Holiday', 'You']
+  : ['Region', 'Do', 'Drink', 'Eat', 'You'];
 
 function isStep(value: string | undefined): value is Step {
-  return value === 'Do' || value === 'Drink' || value === 'Eat' || value === 'Holiday' || value === 'You';
+  return (STEPS as string[]).includes(value ?? '');
 }
 
 const HEADLINES: Record<Step, string> = {
+  Region: 'Where are you based?',
   Do: 'How do you like to spend the hours in between?',
   Drink: 'Where would you rather be drinking?',
   Eat: 'And when you sit down to eat?',
@@ -64,14 +93,35 @@ const HEADLINES: Record<Step, string> = {
   You: 'A little about you.',
 };
 
+const REGION_SUBHEAD =
+  "Sets the Drink options you'll see next — everything else is the same wherever you are.";
+
+const REGION_OPTS: { label: string; value: HomeRegion }[] = [
+  { label: 'UK (Manchester & Cheshire)', value: 'uk' },
+  { label: 'Riyadh', value: 'riyadh' },
+];
+
+// 2026-09, at explicit user request, following on from feedback that
+// initial onboarding front-loaded too much before showing any real value:
+// sub-preference refinement panels (tap a tile to expand "Director's cuts",
+// "Q&A screenings", etc.) now only show once someone is editing an
+// already-completed profile (session.onboardingComplete — see
+// isFirstTimeOnboarding below), not on the first pass through signup. This
+// costs nothing functionally: sub-preferences default ON (Hard rule 2), so
+// never opening the panel leaves the same state a user who opened it and
+// touched nothing would have. The two subheads exist because the first
+// one used to describe that panel ("Everything below a tile is on by
+// default") — inaccurate once there's nothing below the tile to point at.
 const TILE_SUBHEAD =
-  "Pick the ones you'd actually choose — three or more, as many as you like. Everything below a tile is on by default because most people want it; turn off anything you don't care for.";
+  "Pick the ones you'd actually choose: three or more, as many as you like. Everything below a tile is on by default because most people want it; turn off anything you don't care for.";
+const TILE_SUBHEAD_FIRST_TIME =
+  "Pick the ones you'd actually choose: three or more, as many as you like. You can fine-tune each one further from your profile, anytime.";
 // Optional, unlike the other three — no 3-tile minimum, since most members
 // aren't travelling and shouldn't be made to fill this in.
 const HOLIDAY_SUBHEAD =
-  "Optional. If you're away, add a few holiday spots — beach clubs and the like — so they show up alongside everything else. Skip this if you're not travelling.";
+  "Optional. If you're away, add a few holiday spots (beach clubs and the like) so they show up alongside everything else. Skip this if you're not travelling.";
 const YOU_SUBHEAD =
-  'Set once, applied everywhere. These weight the ranking rather than filter it — nothing is ever hidden outright.';
+  'Set once, applied everywhere. These weight the ranking rather than filter it: nothing is ever hidden outright.';
 
 const SPEND_LEVELS: SpendLevel[] = [1, 2, 3, 4, 5];
 
@@ -128,8 +178,10 @@ export default function Onboarding() {
   const router = useRouter();
   const session = useSession();
   const { step: requestedStep } = useLocalSearchParams<{ step?: string }>();
-  const [step, setStep] = useState<Step>(isStep(requestedStep) ? requestedStep : 'Do');
+  const [step, setStep] = useState<Step>(isStep(requestedStep) ? requestedStep : 'Region');
   const [openTileId, setOpenTileId] = useState<string | null>(null);
+  // See TILE_SUBHEAD_FIRST_TIME's doc comment above.
+  const isFirstTimeOnboarding = !session.onboardingComplete;
 
   const stepIndex = STEPS.indexOf(step);
   const counts = {
@@ -140,18 +192,32 @@ export default function Onboarding() {
   };
   // Holiday deliberately never gates completion — see TileCategory's doc
   // comment (src/types/models.ts). "allOk" and Continue/Enter Curia both
-  // stay keyed to the original three.
+  // stay keyed to the original three — Region gates its own step directly
+  // (below) rather than folding into allOk, since the linear step order
+  // (Region first) already makes it a real prerequisite for reaching Do
+  // at all; allOk only needs to answer "have the three tile categories
+  // been done", its original, narrower meaning.
   const allOk = counts.Do >= 3 && counts.Drink >= 3 && counts.Eat >= 3;
   const isYou = step === 'You';
   const isHoliday = step === 'Holiday';
-  const gateOk = isYou ? allOk : isHoliday ? true : counts[step as TileCategory] >= 3;
+  const isRegion = step === 'Region';
+  const gateOk = isYou ? allOk : isHoliday ? true : isRegion ? !!session.homeRegion : counts[step as TileCategory] >= 3;
 
-  const tiles = useMemo(() => (isYou ? [] : tilesByCategory(step as TileCategory)), [isYou, step]);
+  const tiles = useMemo(
+    () => (isYou || isRegion ? [] : tilesByCategory(step as TileCategory, session.homeRegion)),
+    [isYou, isRegion, step, session.homeRegion]
+  );
 
   function onTileTap(tileId: string) {
     const category = step as TileCategory;
     session.toggleTile(category, tileId);
-    setOpenTileId((current) => (current === tileId ? null : tileId));
+    // First-time onboarding: tapping only selects the tile — no
+    // refinement panel to expand. openTileId simply never becomes
+    // non-null in this mode, so the {open && ...} render below never
+    // fires; nothing else needs to branch on isFirstTimeOnboarding.
+    if (!isFirstTimeOnboarding) {
+      setOpenTileId((current) => (current === tileId ? null : tileId));
+    }
   }
 
   function onContinue() {
@@ -168,7 +234,7 @@ export default function Onboarding() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Kicker>Curia</Kicker>
+        <Wordmark height={14} />
         <View style={styles.progressStrip}>
           {STEPS.map((s, i) => (
             <View
@@ -185,8 +251,15 @@ export default function Onboarding() {
           {STEPS.map((s) => {
             const active = s === step;
             // Holiday has no minimum — "done" just means at least one pick.
+            // Region is a single choice, not a count — "done" means answered.
             const done =
-              s === 'You' ? false : s === 'Holiday' ? counts.Holiday > 0 : counts[s as TileCategory] >= 3;
+              s === 'You'
+                ? false
+                : s === 'Region'
+                  ? !!session.homeRegion
+                  : s === 'Holiday'
+                    ? counts.Holiday > 0
+                    : counts[s as TileCategory] >= 3;
             const reachable = STEPS.indexOf(s) <= stepIndex || allOk;
             return (
               <View key={s} style={styles.tab}>
@@ -204,7 +277,7 @@ export default function Onboarding() {
                   {s.toUpperCase()}
                 </Text>
                 <Text style={[styles.tabBadge, done && styles.tabBadgeDone]}>
-                  {s === 'You' ? '·' : String(counts[s as TileCategory])}
+                  {s === 'You' || s === 'Region' ? '·' : String(counts[s as TileCategory])}
                 </Text>
               </View>
             );
@@ -215,10 +288,31 @@ export default function Onboarding() {
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.headline}>{HEADLINES[step]}</Text>
         <Text style={styles.subhead}>
-          {isYou ? YOU_SUBHEAD : isHoliday ? HOLIDAY_SUBHEAD : TILE_SUBHEAD}
+          {isYou
+            ? YOU_SUBHEAD
+            : isRegion
+              ? REGION_SUBHEAD
+              : isHoliday
+                ? HOLIDAY_SUBHEAD
+                : isFirstTimeOnboarding
+                  ? TILE_SUBHEAD_FIRST_TIME
+                  : TILE_SUBHEAD}
         </Text>
 
-        {!isYou && (
+        {isRegion && (
+          <View style={styles.wrapRow}>
+            {REGION_OPTS.map((o) => (
+              <Tag
+                key={o.value}
+                label={o.label}
+                active={session.homeRegion === o.value}
+                onPress={() => session.setHomeRegion(o.value)}
+              />
+            ))}
+          </View>
+        )}
+
+        {!isYou && !isRegion && (
           <View style={styles.tileList}>
             {tiles.map((tile) => {
               const selected = session.preferences[step as TileCategory].selectedTileIds.includes(tile.id);
@@ -303,7 +397,7 @@ export default function Onboarding() {
             <YouGroup
               title="RELIGIOUS OBSERVANCE"
               note="MULTI-SELECT"
-              help="Handled quietly — it affects ranking, never a visible label on your account."
+              help="Handled quietly: it affects ranking, never a visible label on your account."
             >
               <View style={styles.wrapRow}>
                 {FAITH_OPTS.map((o) => (
@@ -365,19 +459,27 @@ export default function Onboarding() {
 
       <View style={styles.footer}>
         <View style={styles.gateRow}>
-          {!isYou && <Text style={styles.gateCount}>{counts[step as TileCategory]} selected</Text>}
+          {!isYou && !isRegion && (
+            <Text style={styles.gateCount}>{counts[step as TileCategory]} selected</Text>
+          )}
           <Text style={[styles.gateNote, gateOk && styles.gateNoteReady]}>
             {isYou
               ? allOk
-                ? 'Everything set'
+                ? isFirstTimeOnboarding
+                  ? 'Everything set, refine anytime from your profile'
+                  : 'Everything set'
                 : `Three still needed in ${counts.Do < 3 ? 'Do' : counts.Drink < 3 ? 'Drink' : 'Eat'}`
-              : isHoliday
-                ? counts.Holiday > 0
+              : isRegion
+                ? gateOk
                   ? 'Ready for the next step'
-                  : 'Optional — skip if you’re not travelling'
-                : gateOk
-                  ? 'Ready for the next step'
-                  : 'Select at least 3'}
+                  : 'Select one to continue'
+                : isHoliday
+                  ? counts.Holiday > 0
+                    ? 'Ready for the next step'
+                    : 'Optional, skip if you’re not travelling'
+                  : gateOk
+                    ? 'Ready for the next step'
+                    : 'Select at least 3'}
           </Text>
         </View>
         <Button

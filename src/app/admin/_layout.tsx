@@ -1,4 +1,5 @@
 import { Redirect, Stack, useSegments } from 'expo-router';
+import { View } from 'react-native';
 import { useAdminSession } from '../../lib/admin/admin-session';
 import { color } from '../../theme';
 
@@ -26,9 +27,18 @@ export default function AdminLayout() {
  * check also has to let `login` itself through and bounce an already
  * signed-in admin away from it. */
 function GuardedAdminStack() {
-  const { isAdminAuthenticated } = useAdminSession();
+  const { isAdminAuthenticated, authReady } = useAdminSession();
   const segments = useSegments();
   const isLoginRoute = segments[segments.length - 1] === 'login';
+
+  // Admin auth is now a real, persisted Supabase session (2026-09) — wait
+  // for the on-mount restore to resolve, same reason src/app/index.tsx
+  // waits on the member session's authReady: without this, a returning
+  // admin would flash through "logged out" -> /admin/login for a moment on
+  // every fresh page load, since isAdminAuthenticated starts false.
+  if (!authReady) {
+    return <View style={{ flex: 1, backgroundColor: color.base }} />;
+  }
 
   if (!isAdminAuthenticated && !isLoginRoute) {
     return <Redirect href="/admin/login" />;

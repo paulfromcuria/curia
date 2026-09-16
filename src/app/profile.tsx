@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Button, Kicker } from '../components/curia';
+import { BackButton, Button, Kicker } from '../components/curia';
 import { VENUES } from '../lib/data/seed';
 import { useSession } from '../lib/state/session';
 import { color, font, spacing } from '../theme';
@@ -78,7 +78,7 @@ export default function Profile() {
       rows: [
         {
           label: 'Edit preferences',
-          sub: 'Do, Drink, Eat and You — already filled in',
+          sub: 'Do, Drink, Eat and You, already filled in',
           onPress: () => router.push('/onboarding?step=Do'),
         },
         {
@@ -107,13 +107,13 @@ export default function Profile() {
           onPress: () => router.push('/onboarding?step=You'),
         },
         {
-          label: 'Membership',
-          sub: membershipSummary(session.subscriptionStatus, session.isSubscribed),
+          label: 'Beta access',
+          sub: session.isSubscribed ? 'In the open beta' : 'Not started',
           onPress: () => router.push('/subscription'),
         },
         {
           label: 'Notifications',
-          sub: `${notificationsOnCount} of 4 turned on`,
+          sub: notificationsOnCount > 0 ? 'Editor updates on' : 'Editor updates off',
           onPress: () => router.push('/notifications'),
         },
       ],
@@ -122,6 +122,7 @@ export default function Profile() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <BackButton />
       <Kicker tone="tertiary">Account</Kicker>
 
       <View style={styles.header}>
@@ -164,11 +165,6 @@ export default function Profile() {
       <Text style={styles.footer}>CURIA · MANCHESTER · CHESHIRE</Text>
     </ScrollView>
   );
-}
-
-function membershipSummary(status: string, isSubscribed: boolean): string {
-  if (!isSubscribed) return 'Not started';
-  return status === 'trialing' ? '£19.99 a month · in free trial' : '£19.99 a month · active';
 }
 
 const styles = StyleSheet.create({

@@ -46,6 +46,18 @@ export function VenueForm({ initial, districts, onSave, onDelete, saveLabel = 'S
   const [baseText, setBaseText] = useState(String(initial.base));
   const [confidenceText, setConfidenceText] = useState(String(initial.sourceConfidence));
   const [tagsText, setTagsText] = useState(initial.subPreferenceTags.join(', '));
+  // 2026-09, at explicit user request following feedback that the app had
+  // no venue photos anywhere: `photos` has been a real column on the
+  // venues table since 0001_init.sql (defaults to '{}') and this form's
+  // own onSave already round-trips it through Venue's other array fields —
+  // it just never had an input to edit it or anywhere in the member app
+  // that rendered it. This is the admin half of that fix; the member-facing
+  // half is venue/[id].tsx's hero and list.tsx's photo row, both of which
+  // now show `photos[0]` when present. Same shadow-string pattern as
+  // tagsText above — paste real URLs, not an upload picker (no Storage
+  // bucket exists yet; that's a real follow-up if hosting your own images
+  // ever matters more than linking existing ones).
+  const [photosText, setPhotosText] = useState(initial.photos.join(', '));
 
   const denylistHit = useMemo(() => matchesChainDenylist(draft.name), [draft.name]);
 
@@ -66,6 +78,10 @@ export function VenueForm({ initial, districts, onSave, onDelete, saveLabel = 'S
       .split(',')
       .map((t) => t.trim())
       .filter(Boolean);
+    const photos = photosText
+      .split(',')
+      .map((t) => t.trim())
+      .filter(Boolean);
 
     onSave({
       ...draft,
@@ -76,6 +92,7 @@ export function VenueForm({ initial, districts, onSave, onDelete, saveLabel = 'S
         ? Math.min(1, Math.max(0, sourceConfidence))
         : draft.sourceConfidence,
       subPreferenceTags,
+      photos,
       notes: draft.notes?.trim() ? draft.notes : undefined,
     });
   }
@@ -86,7 +103,7 @@ export function VenueForm({ initial, districts, onSave, onDelete, saveLabel = 'S
       {denylistHit ? (
         <Text style={styles.warning}>
           This name matches &quot;{denylistHit}&quot; on the chain/fast-food denylist
-          (CLAUDE.md Hard rule 1). Chain venues must never be added, ever — rename or cancel.
+          (CLAUDE.md Hard rule 1). Chain venues must never be added, ever. Rename or cancel.
         </Text>
       ) : null}
 
@@ -156,7 +173,7 @@ export function VenueForm({ initial, districts, onSave, onDelete, saveLabel = 'S
         </View>
       </Field>
 
-      <Field label="Status — a curation confidence marker, not a member-facing fact (unlike the fields above): 'Coming soon' still appears in results with a New badge, since there's no separate browse surface to hide it on">
+      <Field label="Status: a curation confidence marker, not a member-facing fact (unlike the fields above). 'Coming soon' still appears in results with a New badge, since there's no separate browse surface to hide it on">
         <View style={styles.wrap}>
           {STATUS_OPTIONS.map((s) => (
             <Tag key={s} label={s} active={draft.status === s} onPress={() => update('status', s)} />
@@ -185,6 +202,14 @@ export function VenueForm({ initial, districts, onSave, onDelete, saveLabel = 'S
       />
 
       <TextField
+        label="Photo URLs (comma separated, first is the hero image)"
+        value={photosText}
+        onChangeText={setPhotosText}
+        autoCapitalize="none"
+        placeholder="https://..."
+      />
+
+      <TextField
         label="Sub-preference tags (comma separated)"
         value={tagsText}
         onChangeText={setTagsText}
@@ -199,7 +224,7 @@ export function VenueForm({ initial, districts, onSave, onDelete, saveLabel = 'S
         keyboardType="decimal-pad"
       />
 
-      <Text style={styles.sectionLabel}>Internal only — never shown to members (Hard rule 8)</Text>
+      <Text style={styles.sectionLabel}>Internal only, never shown to members (Hard rule 8)</Text>
 
       <Field label="Tier">
         <View style={styles.wrap}>
@@ -220,7 +245,7 @@ export function VenueForm({ initial, districts, onSave, onDelete, saveLabel = 'S
         value={draft.notes ?? ''}
         onChangeText={(v) => update('notes', v)}
         multiline
-        placeholder="Internal-only notes — never rendered in the member app"
+        placeholder="Internal-only notes, never rendered in the member app"
       />
 
       <Button label={saveLabel} onPress={handleSave} disabled={!draft.name.trim() || !!denylistHit} />

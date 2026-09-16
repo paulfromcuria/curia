@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'expo-router';
 import {
+  Image,
   Modal,
   PanResponder,
   Pressable,
@@ -11,10 +12,19 @@ import {
   type AccessibilityActionEvent,
   type GestureResponderEvent,
 } from 'react-native';
-import { Card, EmblemButton, Kicker } from '../../components/curia';
+import { Card, EmblemButton, Kicker, Tag } from '../../components/curia';
 import { rankVenues, haversineMiles, resolveContext, slugifyType } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
-import { CITIES, DISTRICTS, VENUES, tilesByCategory, venuesByDistrict } from '../../lib/data/seed';
+import {
+  CITIES,
+  DISTRICTS,
+  RATING_STATS,
+  useContentVersion,
+  VENUES,
+  tilesByCategory,
+  venuesByDistrict,
+} from '../../lib/data/seed';
+import { placeholderPhotoFor } from '../../lib/data/placeholder-photos';
 import { MAX_RADIUS_MILES, MIN_RADIUS_MILES, clampRadiusMiles } from '../../lib/map/geo';
 import { useSession } from '../../lib/state/session';
 import { color, font, radius, spacing } from '../../theme';
@@ -96,9 +106,9 @@ function radiusHintFor(value: number): string {
 }
 
 function radiusNoteFor(value: number): string {
-  if (value <= 2) return 'Close to home — we let proximity break ties between good matches.';
+  if (value <= 2) return 'Close to home. We let proximity break ties between good matches.';
   if (value <= 10) return 'You will travel a little, so we weigh the walk lightly.';
-  return 'You have told us distance is no object — ranked on fit alone.';
+  return 'You have told us distance is no object. Ranked on fit alone.';
 }
 
 /** Distance + walk/drive estimate, matching the prototype's own listRows formatting exactly. */
@@ -200,6 +210,9 @@ function RadiusSlider({ value, onChange }: { value: number; onChange: (value: nu
 export default function List() {
   const router = useRouter();
   const session = useSession();
+  // Re-renders once a region switch (triggered on Map) adds a newly-loaded
+  // metro's venues to VENUES — see src/lib/data/seed.ts's own doc comment.
+  const contentVersion = useContentVersion();
 
   // Shared with Map via session state, not local — Hard rule 5 ("Map and
   // List share one radius and one context, so switching tabs never changes
@@ -285,7 +298,10 @@ export default function List() {
     [session, radiusMiles, context, moodFilter]
   );
 
-  const result = useMemo(() => rankVenues(matchmakingInput, VENUES, DISTRICTS), [matchmakingInput]);
+  const result = useMemo(
+    () => rankVenues(matchmakingInput, VENUES, DISTRICTS, RATING_STATS),
+    [matchmakingInput, contentVersion]
+  );
 
   const listHeadline = result.ranked.length
     ? `${result.ranked.length} ${result.ranked.length === 1 ? 'venue' : 'venues'}`
@@ -322,29 +338,47 @@ export default function List() {
         radiusMiles: 999,
       });
       const districtVenues = venuesByDistrict(d.id);
-      const ranked = rankVenues(input, districtVenues, DISTRICTS).ranked.slice(0, TOP_MATCHES_PER_DISTRICT);
+      const ranked = rankVenues(input, districtVenues, DISTRICTS, RATING_STATS).ranked.slice(0, TOP_MATCHES_PER_DISTRICT);
       const topMatches = ranked
         .map((r) => {
           const venue = districtVenues.find((v) => v.id === r.venueId);
           return venue ? { venue, score: r.score, reason: r.reason } : null;
         })
         .filter((m): m is { venue: (typeof districtVenues)[number]; score: number; reason: string } => !!m);
-      return { district: d, topMatches };
+      // 2026-09, at explicit user request: districts order by real proximity
+      // to the user, not by match quality — this is a browse-by-place mode
+      // (the RANKED tab already exists for "best match" ordering), so the
+      // nearest district should lead regardless of how good today's top pick
+      // there happens to be.
+      const distanceMiles = haversineMiles(session.searchOrigin, { lat: d.lat, lon: d.lon });
+      return { district: d, topMatches, distanceMiles };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [viewMode, session, context, moodFilter]);
+  }, [viewMode, session, context, moodFilter, contentVersion]);
 
   const districtsByMetro = useMemo(() => {
     return CITIES.map((city) => {
       const inMetro = districtMatches.filter((dm) => dm.district.metro === city.id);
-      // Districts with a real top match lead; empty ones (nothing curated
-      // there yet, or nothing survives the current mood filter) sink to the
-      // bottom rather than disappearing — District Guide's own philosophy
-      // is to say so plainly, not hide the gap.
-      const sorted = [...inMetro].sort((a, b) => (b.topMatches[0]?.score ?? -1) - (a.topMatches[0]?.score ?? -1));
+      const sorted = [...inMetro].sort((a, b) => a.distanceMiles - b.distanceMiles);
       return { city, districts: sorted };
     }).filter((m) => m.districts.length > 0);
   }, [districtMatches]);
+
+  // District quick-nav for the RANKED tab (2026-09, at explicit user
+  // request: "incorporate [Moments' district navigation] on... list view").
+  // The DISTRICTS tab above is already a full district browser, so this
+  // isn't repeated there — it exists to let someone jump straight to
+  // District Guide for a specific district without leaving RANKED first.
+  // Nearest-to-the-user first, same ordering districtsByMetro and Moments'
+  // own pill row both use; filtered to districts with a real venue so no
+  // pill is a dead end.
+  const nearbyDistricts = useMemo(
+    () =>
+      DISTRICTS.filter((d) => venuesByDistrict(d.id).length > 0).sort(
+        (a, b) => haversineMiles(session.searchOrigin, a) - haversineMiles(session.searchOrigin, b)
+      ),
+    [session.searchOrigin, contentVersion]
+  );
 
   return (
     <View style={styles.container}>
@@ -408,7 +442,7 @@ export default function List() {
                         <Text style={styles.districtEmptyNote}>
                           {moodOn
                             ? 'Nothing here matches this mood right now.'
-                            : 'Nothing kept here yet — our editors are still working their way through it.'}
+                            : 'Nothing kept here yet. Our editors are still working their way through it.'}
                         </Text>
                       ) : (
                         topMatches.map(({ venue }) => (
@@ -439,6 +473,16 @@ export default function List() {
           </View>
         ) : (
           <>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.districtNavRow}
+            >
+              {nearbyDistricts.map((d) => (
+                <Tag key={d.id} label={d.name} onPress={() => router.push(`/district/${d.id}`)} />
+              ))}
+            </ScrollView>
+
             <Card tone="inset" style={styles.radiusCard}>
               <View style={styles.radiusHeader}>
                 <Kicker style={styles.radiusKicker}>Search radius</Kicker>
@@ -469,6 +513,11 @@ export default function List() {
               <View key={venue.id} style={styles.row}>
                 <Pressable onPress={() => router.push(`/venue/${venue.id}`)}>
                   <View style={styles.photo}>
+                    <Image
+                      source={{ uri: venue.photos[0] ?? placeholderPhotoFor(venue.type) }}
+                      style={styles.photoImage}
+                      resizeMode="cover"
+                    />
                     <View style={styles.rankBadge}>
                       <Text style={styles.rankBadgeText}>NO. {i + 1}</Text>
                     </View>
@@ -758,6 +807,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
   },
 
+  districtNavRow: {
+    gap: spacing.sm - 2,
+    marginTop: spacing.md,
+    marginHorizontal: spacing.lg,
+    paddingBottom: 2,
+  },
   radiusCard: {
     marginTop: spacing.md,
     marginHorizontal: spacing.lg,
@@ -835,6 +890,15 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     backgroundColor: color.surface,
     overflow: 'hidden',
+  },
+  // 2026-09, at explicit user request following feedback that the app had
+  // no venue photos: `photos[0]` renders here when a venue has a real one,
+  // placeholderPhotoFor(venue.type) otherwise — see that module's doc
+  // comment. rankBadge already carries its own opaque pill background
+  // (below), so no separate scrim is needed here the way venue/[id].tsx's
+  // hero needed one for its plain-text name/kicker.
+  photoImage: {
+    ...StyleSheet.absoluteFill,
   },
   rankBadge: {
     position: 'absolute',

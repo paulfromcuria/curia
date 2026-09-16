@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import * as Location from 'expo-location';
 import type {
   DietaryRequirement,
+  HomeRegion,
   ReligiousObservance,
   SavedCollection,
   SpendLevel,
@@ -67,27 +68,34 @@ const DEFAULT_YOU: YouProfile = {
 };
 
 /**
- * Which-in-app notifications a member has switched on. Sourced from the
- * prototype's own `NOTIFS`/`notif` state (Curia.dc.html) — real copy and
- * real default values ("table" and "journey" and "editorial" on by default,
- * "district" off), not invented. There is no push/email provider wired up
- * yet (a genuine credential gap — flag it, don't guess at one per
- * .claude/agents/curia-profile.md) — these toggles are a real user
- * preference in the meantime, just with nothing generating real
- * notifications to send against them yet. Local-only, not persisted — see
- * this file's own top comment.
+ * Which-in-app notifications a member has switched on. Originally 4 toggles
+ * transcribed verbatim from the prototype's own `NOTIFS` state (Curia.dc.html)
+ * — real copy, but copy describing functionality that doesn't actually
+ * exist behind it. 2026-09, at explicit user report after using the real
+ * app ("i saw 'alert about an open table at one of your saved places' and
+ * we do not have that functionality"): `table` (real-time table
+ * availability at saved venues) and `district` (a district being
+ * unusually lively right now) both promised a live signal this app has no
+ * way to generate — `table` because there's no venue-side availability
+ * feed at all, `district` because a real "unusually lively right now"
+ * read needs actual user density data, not the static day/band
+ * liveliness multipliers rank-venues.ts's districtLiveliness() uses for
+ * scoring. `journey` (weather + "your diary" suiting a planned evening)
+ * has the same problem — no diary/calendar integration exists to match
+ * against. Cut down to the one toggle with a real, buildable trigger:
+ * editors actually do add Moments/Journeys by hand (this session added
+ * dozens), so "new from our editors" is a real future event, just not
+ * wired to a real send yet. There is no push/email provider wired up
+ * (a genuine credential gap — flag it, don't guess at one per
+ * .claude/agents/curia-profile.md) — this toggle is a real user
+ * preference in the meantime. Local-only, not persisted — see this file's
+ * own top comment.
  */
 export interface NotificationPrefs {
-  table: boolean;
-  journey: boolean;
-  district: boolean;
   editorial: boolean;
 }
 
 const DEFAULT_NOTIFICATION_PREFS: NotificationPrefs = {
-  table: true,
-  journey: true,
-  district: false,
   editorial: true,
 };
 
@@ -109,6 +117,14 @@ interface SessionState {
   preferences: Record<TileCategory, UserPreference>;
   you: YouProfile;
   subscriptionStatus: SubscriptionStatus;
+  /** Null until the onboarding 'Region' step is answered — see HomeRegion's
+   * own doc comment (types/models.ts) for why this exists and what it does
+   * and doesn't gate. Tile-catalog filtering treats null as 'uk' (every
+   * real member before this feature existed is UK-based), but the local
+   * value stays null until a real choice is made so onboarding's own
+   * "done" indicator doesn't lie about a step nobody has actually seen
+   * yet. */
+  homeRegion: HomeRegion | null;
   /**
    * Search radius in miles, shared between Map and List. Lives here (not as
    * separate per-screen state) so the two tabs can never drift apart on it —
@@ -187,6 +203,13 @@ interface SessionState {
    * `saved_journeys` on login. */
   savedJourneyIds: string[];
   notificationPrefs: NotificationPrefs;
+  /** This member's own venue ratings (1-5), loaded from `venue_ratings` on
+   * login — see supabase/migrations/0005_venue_ratings.sql. Keyed by venue
+   * id; a venue this member hasn't rated simply has no entry. Distinct from
+   * RATING_STATS (src/lib/data/seed.ts), which is the cross-member
+   * aggregate the scoring engine reads — this is just "what did *I* say",
+   * shown back to the member on venue/[id].tsx. */
+  myRatings: Record<string, number>;
 }
 
 const DEFAULT_RADIUS_MILES = 0.9;
@@ -202,6 +225,7 @@ const INITIAL_STATE: SessionState = {
   },
   you: DEFAULT_YOU,
   subscriptionStatus: 'none',
+  homeRegion: null,
   radiusMiles: DEFAULT_RADIUS_MILES,
   context: { now: true },
   mood: null,
@@ -211,6 +235,7 @@ const INITIAL_STATE: SessionState = {
   savedCollections: [],
   savedJourneyIds: [],
   notificationPrefs: DEFAULT_NOTIFICATION_PREFS,
+  myRatings: {},
 };
 
 /** Exported so shared, non-screen-owned modules (e.g.
@@ -223,9 +248,10 @@ export interface SessionContextValue extends SessionState {
    * any) has resolved. src/app/index.tsx waits on this before redirecting,
    * so a real returning member doesn't flash through "logged out". */
   authReady: boolean;
-  /** True once the subscription gate has been cleared (Hard rule 4: this is
+  /** True once the open-beta gate has been cleared (Hard rule 4: this is
    * distinct from `onboardingComplete` — completing onboarding alone must
-   * never grant access). */
+   * never grant access). Named `isSubscribed` for the real subscription
+   * check it becomes once Stripe billing replaces the open beta. */
   isSubscribed: boolean;
   /** `hasSession` is false when the Supabase project has email confirmation
    * switched on — signUp succeeds but no session (and therefore no
@@ -247,9 +273,9 @@ export interface SessionContextValue extends SessionState {
   setGender: (value: YouProfile['gender']) => void;
   setAgeRange: (value: YouProfile['ageRange']) => void;
   setRelationshipStatus: (value: YouProfile['relationshipStatus']) => void;
+  setHomeRegion: (value: HomeRegion) => void;
   completeOnboarding: () => void;
-  startTrial: () => void;
-  cancelMembership: () => void;
+  enterOpenBeta: () => void;
   setRadiusMiles: (miles: number) => void;
   setContext: (context: MatchContext) => void;
   setLocation: (location: { lat: number; lon: number } | null) => void;
@@ -276,6 +302,11 @@ export interface SessionContextValue extends SessionState {
   isJourneySaved: (journeyId: string) => boolean;
   toggleSavedJourney: (journeyId: string) => void;
   toggleNotificationPref: (key: keyof NotificationPrefs) => void;
+  /** This member's own rating for venueId, or undefined if they haven't
+   * rated it. */
+  myRatingFor: (venueId: string) => number | undefined;
+  /** Sets (or replaces) this member's own 1-5 rating for venueId. */
+  rateVenue: (venueId: string, rating: number) => void;
 }
 
 const SessionContext = createContext<SessionContextValue | null>(null);
@@ -292,13 +323,14 @@ interface ProfileRow {
   gender: YouProfile['gender'] | null;
   age_range: YouProfile['ageRange'] | null;
   relationship_status: YouProfile['relationshipStatus'] | null;
+  home_region: HomeRegion | null;
 }
 
 /** Everything that lives in Supabase, fetched in one go right after a
  * session appears (fresh sign-in, or a persisted session restored on
  * launch). */
 async function hydrateFromDatabase(userId: string, email: string): Promise<Partial<SessionState> & { user: SessionUser }> {
-  const [profileRes, prefsRes, collectionsRes, journeysRes] = await Promise.all([
+  const [profileRes, prefsRes, collectionsRes, journeysRes, ratingsRes] = await Promise.all([
     supabase.from('profiles').select('*').eq('id', userId).single(),
     supabase.from('user_preferences').select('*').eq('user_id', userId),
     supabase
@@ -307,6 +339,7 @@ async function hydrateFromDatabase(userId: string, email: string): Promise<Parti
       .eq('user_id', userId)
       .order('created_at'),
     supabase.from('saved_journeys').select('journey_id').eq('user_id', userId),
+    supabase.from('venue_ratings').select('venue_id, rating').eq('user_id', userId),
   ]);
 
   const profile = profileRes.data as ProfileRow | null;
@@ -333,10 +366,14 @@ async function hydrateFromDatabase(userId: string, email: string): Promise<Parti
     venueIds: (c.saved_collection_venues ?? []).map((v: { venue_id: string }) => v.venue_id),
   }));
 
+  const myRatings: Record<string, number> = {};
+  for (const r of ratingsRes.data ?? []) myRatings[r.venue_id] = r.rating;
+
   return {
     user: { id: userId, name: profile?.name ?? '', email },
     onboardingComplete: profile?.onboarding_complete ?? false,
     subscriptionStatus: profile?.subscription_status ?? 'none',
+    homeRegion: (profile?.home_region as HomeRegion | null) ?? null,
     you: {
       spendLevel: profile?.spend_level ?? DEFAULT_YOU.spendLevel,
       dietary: profile?.dietary ?? [],
@@ -349,6 +386,7 @@ async function hydrateFromDatabase(userId: string, email: string): Promise<Parti
     preferences,
     savedCollections,
     savedJourneyIds: (journeysRes.data ?? []).map((j) => j.journey_id),
+    myRatings,
   };
 }
 
@@ -363,6 +401,12 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((_event, authSession) => {
       if (authSession?.user) {
+        // Supabase fires both INITIAL_SESSION and SIGNED_IN in quick
+        // succession on a single fresh load with a persisted session (found
+        // 2026-09 while investigating a reported "session persistence" bug
+        // — the restore itself was already working; this guard just stops
+        // it from doing the real hydrate fetch twice for one page load).
+        if (hydratingRef.current) return;
         hydratingRef.current = true;
         hydrateFromDatabase(authSession.user.id, authSession.user.email ?? '')
           .then((hydrated) => {
@@ -486,21 +530,28 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, you: { ...s.you, relationshipStatus: value } }));
   }, []);
 
+  const setHomeRegion = useCallback((value: HomeRegion) => {
+    setState((s) => ({ ...s, homeRegion: value }));
+  }, []);
+
   const completeOnboarding = useCallback(() => {
     setState((s) => ({ ...s, onboardingComplete: true }));
   }, []);
 
-  // Mock billing (CLAUDE.md: Stripe key is a genuine credential gap — see
-  // src/lib/config/subscription.ts). `trialing` is treated as subscribed for
-  // gating purposes, same as a real Stripe trial would be. subscription_status
-  // still round-trips through `profiles` (the sync effect below) so a real
-  // Stripe webhook can write the same column later without a shape change.
-  const startTrial = useCallback(() => {
-    setState((s) => ({ ...s, subscriptionStatus: 'trialing' }));
-  }, []);
-
-  const cancelMembership = useCallback(() => {
-    setState((s) => ({ ...s, subscriptionStatus: 'none' }));
+  // Open beta (2026-09, at explicit user request): no real Stripe account
+  // exists yet (CLAUDE.md "Still genuinely open" — a genuine credential gap,
+  // see src/lib/config/subscription.ts), and rather than keep showing a
+  // trial/price paywall for a charge that can't actually happen, the gate
+  // between onboarding and Map/List is now framed as entering the open beta.
+  // The underlying model is untouched on purpose: `subscriptionStatus` still
+  // round-trips through `profiles.subscription_status` (the sync effect
+  // below) exactly as it did before, so a real Stripe integration later just
+  // swaps this function's body (and the UI copy) back to a real
+  // trial/charge flow without any schema or gating-logic change. `'active'`
+  // rather than `'trialing'` on purpose — there's no real trial clock
+  // counting down to a real charge to be "in a trial" of.
+  const enterOpenBeta = useCallback(() => {
+    setState((s) => ({ ...s, subscriptionStatus: 'active' }));
   }, []);
 
   // Persists onboarding/subscription/"You" profile fields to `profiles`
@@ -521,13 +572,14 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         gender: state.you.gender ?? null,
         age_range: state.you.ageRange ?? null,
         relationship_status: state.you.relationshipStatus ?? null,
+        home_region: state.homeRegion,
       })
       .eq('id', state.user.id)
       .then(({ error }) => {
         if (error) console.error('Failed to save profile:', error);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.user, state.onboardingComplete, state.subscriptionStatus, state.you]);
+  }, [state.user, state.onboardingComplete, state.subscriptionStatus, state.you, state.homeRegion]);
 
   // Persists tile preferences to `user_preferences` (one upsert covering
   // every category) whenever they change.
@@ -633,6 +685,27 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     (venueId: string) => state.savedCollections.some((c) => c.venueIds.includes(venueId)),
     [state.savedCollections]
   );
+
+  const myRatingFor = useCallback((venueId: string) => state.myRatings[venueId], [state.myRatings]);
+
+  // Upsert, not insert — re-rating an already-rated venue replaces the old
+  // value rather than erroring on the (user_id, venue_id) primary key
+  // (0005_venue_ratings.sql). Optimistic local update first, same
+  // fire-and-forget pattern as toggleSavedVenue above — this file's own top
+  // comment covers why callers shouldn't await a return value here.
+  const rateVenue = useCallback((venueId: string, rating: number) => {
+    setState((s) => {
+      if (s.user) {
+        supabase
+          .from('venue_ratings')
+          .upsert({ user_id: s.user.id, venue_id: venueId, rating })
+          .then(({ error }: { error: { message: string } | null }) => {
+            if (error) console.error('Failed to save rating:', error);
+          });
+      }
+      return { ...s, myRatings: { ...s.myRatings, [venueId]: rating } };
+    });
+  }, []);
 
   const toggleSavedVenue = useCallback(
     (venueId: string, collectionId?: string) => {
@@ -769,9 +842,9 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       setGender,
       setAgeRange,
       setRelationshipStatus,
+      setHomeRegion,
       completeOnboarding,
-      startTrial,
-      cancelMembership,
+      enterOpenBeta,
       setRadiusMiles,
       setContext,
       setLocation,
@@ -787,6 +860,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       isJourneySaved,
       toggleSavedJourney,
       toggleNotificationPref,
+      myRatingFor,
+      rateVenue,
     }),
     [
       state,
@@ -805,9 +880,9 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       setGender,
       setAgeRange,
       setRelationshipStatus,
+      setHomeRegion,
       completeOnboarding,
-      startTrial,
-      cancelMembership,
+      enterOpenBeta,
       setRadiusMiles,
       setContext,
       setLocation,
@@ -823,6 +898,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       isJourneySaved,
       toggleSavedJourney,
       toggleNotificationPref,
+      myRatingFor,
+      rateVenue,
     ]
   );
 

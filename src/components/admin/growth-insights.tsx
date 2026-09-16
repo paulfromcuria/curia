@@ -28,7 +28,7 @@ export function GrowthInsights({ venues, districts, tiles, cities }: GrowthInsig
   return (
     <View style={styles.container}>
       <Kicker>Growth signals</Kicker>
-      <Text style={styles.note}>Computed live from the venues, districts and tiles above — not demo data.</Text>
+      <Text style={styles.note}>Computed live from the venues, districts and tiles above, not demo data.</Text>
 
       <Card tone="inset" style={styles.card}>
         <Text style={styles.cardTitle}>Coverage by metro</Text>

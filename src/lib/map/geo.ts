@@ -16,6 +16,8 @@
  */
 import buffer from '@turf/buffer';
 import mask from '@turf/mask';
+import union from '@turf/union';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import { featureCollection, multiPoint, point } from '@turf/helpers';
 import type { Feature, FeatureCollection, MultiPolygon, Point, Polygon } from 'geojson';
 import { haversineMiles } from '../scoring/rank-venues';
@@ -37,6 +39,37 @@ export interface GeoBounds {
  * back (src/lib/state/session.tsx's geolocation effect) — the map's default
  * "home"/recenter point when `session.location` is still null. */
 export const MAP_HOME: GeoPoint = DEMO_LOCATION;
+
+/** Metros whose venue catalog actually includes Holiday-category types
+ * (docs/data/tiles.json's Holiday tiles, tile-catalog-map.ts's
+ * CATEGORY_BY_VENUE_TYPE) — currently just Santorini. Extend this array,
+ * not any calling logic, when a second holiday destination launches. */
+const HOLIDAY_METROS: readonly MetroId[] = ['santorini'];
+
+/** True when `origin`'s nearest district belongs to a metro with real
+ * Holiday-category coverage. Used to decide whether Map's mood-filter
+ * picker should even offer "Holiday" — showing it everywhere invites a
+ * guaranteed-empty tap for anyone not near Santorini, since distance is a
+ * hard filter (CLAUDE.md's Matchmaking contract) and no real-world radius
+ * reaches Santorini from Manchester or Cheshire.
+ *
+ * Nearest-district (not polygon containment) is intentional and sufficient
+ * here: the qualifying metros sit thousands of miles apart, so a coarse
+ * "closest district overall" check can't misclassify at that distance the
+ * way it might between two adjacent UK districts. */
+export function isNearHolidayCoverage(origin: GeoPoint): boolean {
+  if (DISTRICTS.length === 0) return false;
+  let nearest = DISTRICTS[0];
+  let nearestMiles = haversineMiles(origin, nearest);
+  for (const d of DISTRICTS.slice(1)) {
+    const miles = haversineMiles(origin, d);
+    if (miles < nearestMiles) {
+      nearest = d;
+      nearestMiles = miles;
+    }
+  }
+  return HOLIDAY_METROS.includes(nearest.metro);
+}
 
 const EARTH_CIRCUMFERENCE_METERS = 40075016.686;
 const MILES_TO_METERS = 1609.344;
@@ -60,6 +93,16 @@ export const MAX_RADIUS_MILES = 30;
 export function clampRadiusMiles(miles: number): number {
   return Math.max(MIN_RADIUS_MILES, Math.min(MAX_RADIUS_MILES, miles));
 }
+
+/** Roughly how far someone covers on foot in ~7 minutes at an average
+ * walking pace (~3 mph) — the radius District Guide's "Show on map" button
+ * flies to (2026-09, at explicit user request: "centred on this district...
+ * at a walking distance no further than 7 minutes type range"). Its own
+ * constant, deliberately not reused from DISTRICT_LOCAL_AREA_RADIUS_MILES
+ * below (0.7mi — a wider street-glow render radius with a different real
+ * purpose) or COVERAGE_RADIUS_MILES (the whole metro catchment) — this one
+ * specifically means "comfortably walkable in under ten minutes." */
+export const SEVEN_MINUTE_WALK_RADIUS_MILES = 0.35;
 
 /** Search radius implied by a map viewport's current span — half the visible
  * width, since "radius" means centre-to-edge, not edge-to-edge. Used to keep
@@ -212,17 +255,35 @@ export const ALL_VENUES_ZOOM_THRESHOLD = 14;
  * boundary polygon exists in the data model yet, so this is still a
  * distance-buffer approximation, not hand-drawn geometry — just a real
  * polygon now instead of a per-frame sampled fraction.
+ *
+ * 2026-09 fix, at explicit user report ("why does manchester and cheshire
+ * have 2 overlapping boundary lines"): the per-metro buffer step above
+ * only ever unions a metro's OWN districts into one shape — it never
+ * merges *across* metros, so where two metros' buffers overlap or touch
+ * (Manchester and Cheshire sit close enough that they do), the old code
+ * rendered each metro's outline as its own separate `LineLayer` feature,
+ * and the two lines crossed through each other's interior. The line's job
+ * is "Curia operates here," one continuous area, not "here is Manchester,
+ * here is Cheshire" — two county outlines that happen to overlap. Fixed by
+ * unioning every metro's polygon together into a single Feature below
+ * (`@turf/union`, which returns a real MultiPolygon — not merged into one
+ * ring — when parts genuinely are disjoint, e.g. Santorini stays its own
+ * separate lobe rather than being forced to touch Manchester/Cheshire).
  */
 export const COVERAGE_RADIUS_MILES = 5.5;
 
 function computeCoveragePolygons(): Feature<Polygon | MultiPolygon>[] {
   const metros = Array.from(new Set(DISTRICTS.map((d) => d.metro))) as MetroId[];
-  return metros
+  const perMetro = metros
     .map((metro) => {
       const points = DISTRICTS.filter((d) => d.metro === metro).map((d) => [d.lon, d.lat]);
       return buffer(multiPoint(points), COVERAGE_RADIUS_MILES, { units: 'miles' });
     })
     .filter((f): f is Feature<Polygon | MultiPolygon> => !!f);
+
+  if (perMetro.length <= 1) return perMetro;
+  const merged = union(featureCollection(perMetro));
+  return merged ? [merged] : perMetro;
 }
 
 // Lazily computed, not eager module-level consts: DISTRICTS (src/lib/data/
@@ -240,8 +301,14 @@ function computeCoveragePolygons(): Feature<Polygon | MultiPolygon>[] {
 // convenient.
 let cachedCoveragePolygons: Feature<Polygon | MultiPolygon>[] | null = null;
 
-/** One coverage polygon per metro — the source for the glowing perimeter
- * `LineLayer` (its outline) on both map.tsx and map.web.tsx. */
+/** One merged coverage polygon across every metro (touching/overlapping
+ * metros dissolve into a single shape, genuinely separate ones stay their
+ * own lobe of the same MultiPolygon — see computeCoveragePolygons' own
+ * comment) — the source for the glowing perimeter `LineLayer` (its
+ * outline) on both map.tsx and map.web.tsx. Still returns an array (length
+ * 0 or 1 in practice) rather than a bare Feature, so both call sites can
+ * keep spreading it straight into a FeatureCollection's `features` without
+ * a null-check. */
 export function getCoveragePolygons(): Feature<Polygon | MultiPolygon>[] {
   if (!cachedCoveragePolygons) cachedCoveragePolygons = computeCoveragePolygons();
   return cachedCoveragePolygons;
@@ -258,6 +325,48 @@ export function getCoverageMask(): Feature<Polygon> {
   return cachedCoverageMask;
 }
 
+// Lazily computed and cached — same reasoning as cachedCoveragePolygons
+// above (DISTRICTS is empty until loadContentData() resolves).
+let cachedPerMetroPolygons: Partial<Record<MetroId, Feature<Polygon | MultiPolygon>>> | null = null;
+
+/** Each metro's OWN coverage polygon, kept separate — unlike
+ * getCoveragePolygons() above, which deliberately unions every metro
+ * together into one shape for the perimeter line/mask, this needs to tell
+ * metros apart, so no union step. Backs metroForPoint() below (2026-09,
+ * region-scoped venue loading, at explicit user request: "only fetch
+ * current region data on load, and go fetch another region's data if the
+ * user starts to navigate between regions"). */
+function getPerMetroPolygons(): Partial<Record<MetroId, Feature<Polygon | MultiPolygon>>> {
+  if (!cachedPerMetroPolygons) {
+    const metros = Array.from(new Set(DISTRICTS.map((d) => d.metro))) as MetroId[];
+    const result: Partial<Record<MetroId, Feature<Polygon | MultiPolygon>>> = {};
+    metros.forEach((metro) => {
+      const points = DISTRICTS.filter((d) => d.metro === metro).map((d) => [d.lon, d.lat]);
+      const poly = buffer(multiPoint(points), COVERAGE_RADIUS_MILES, { units: 'miles' });
+      if (poly) result[metro] = poly;
+    });
+    cachedPerMetroPolygons = result;
+  }
+  return cachedPerMetroPolygons;
+}
+
+/** Which metro (if any) a point falls inside — the same COVERAGE_RADIUS_MILES
+ * buffer used for the map's own perimeter line, just tested per metro
+ * instead of merged. Returns null both for genuinely-uncovered space and
+ * for the (rare) sliver where two metros' buffers overlap and a point
+ * matches more than one — first match wins there, which only matters at
+ * Manchester/Cheshire's shared edge and doesn't change which venues are
+ * relevant (both would already be loaded together, see DEFAULT_METROS in
+ * src/lib/data/seed.ts). */
+export function metroForPoint(p: GeoPoint): MetroId | null {
+  const pt = point([p.lon, p.lat]);
+  const polys = getPerMetroPolygons();
+  const match = (Object.entries(polys) as [MetroId, Feature<Polygon | MultiPolygon>][]).find(([, poly]) =>
+    booleanPointInPolygon(pt, poly)
+  );
+  return match ? match[0] : null;
+}
+
 export interface MapLabel {
   key: string;
   label: string;
@@ -269,7 +378,7 @@ export interface MapLabel {
   accentColor: string;
 }
 
-const METROS_WITH_DISTRICTS = ['manchester', 'cheshire', 'santorini'] as const;
+const METROS_WITH_DISTRICTS = ['manchester', 'cheshire', 'santorini', 'riyadh', 'london'] as const;
 
 /**
  * On-screen diameter (px) below which a cluster of district points reads as

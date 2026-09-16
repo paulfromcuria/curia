@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Card, Kicker, Tag } from '../components/curia';
+import { BackButton, Card, Kicker, Tag } from '../components/curia';
 import { DESTINATIONS, TILES } from '../lib/data/seed';
 import { rankDestinations } from '../lib/scoring/rank-destinations';
 import { useSession } from '../lib/state/session';
@@ -14,11 +14,12 @@ import { color, font, spacing } from '../theme';
  * TASTE" group (see profile.tsx), never a tab (Hard rule 9) and not linked
  * from anywhere else — deliberately quiet, the way the user asked for it.
  *
- * No back button here, matching the existing convention for every other
- * Profile-child screen (saved.tsx, subscription.tsx, notifications.tsx all
- * rely on the platform's own back gesture/button, not an in-UI control) —
- * not an oversight, just following the pattern already established rather
- * than inventing a new one for this one screen.
+ * 2026-09 correction: the doc comment here used to justify having no back
+ * button by pointing at "the platform's own back gesture/button" — that
+ * doesn't exist. `headerShown: false` is global (src/app/_layout.tsx), so
+ * there's no native chevron on any platform, and web has no hardware back
+ * button either. A real user got stuck on exactly this class of screen.
+ * Now uses the same BackButton as saved.tsx/subscription.tsx/notifications.tsx.
  *
  * Ranking is real onboarding-tile overlap (src/lib/scoring/rank-destinations.ts),
  * not a coin flip or static order — capped to the top 6 rather than all 20,
@@ -36,10 +37,11 @@ export default function Travel() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <BackButton />
       <Kicker tone="tertiary">Travel</Kicker>
       <Text style={styles.headline}>Where you'd actually want to go.</Text>
       <Text style={styles.tagline}>
-        Matched against the same taste you gave us for tonight — not a "top places to visit"
+        Matched against the same taste you gave us for tonight. Not a "top places to visit"
         list, just the places that overlap with what you already told us you like.
       </Text>
 

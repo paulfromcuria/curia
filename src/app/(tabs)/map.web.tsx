@@ -1,14 +1,23 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import type { LayoutChangeEvent } from 'react-native';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import mapboxgl from 'mapbox-gl';
-import { Button, Card, ContextStrip, EmblemButton, Kicker } from '../../components/curia';
-import { rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
+import { Button, Card, ContextStrip, EmblemButton, Kicker, Tag } from '../../components/curia';
+import { haversineMiles, rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
-import { DISTRICTS, VENUES } from '../../lib/data/seed';
+import {
+  DISTRICTS,
+  isMetroLoaded,
+  loadVenuesForMetro,
+  METRO_WHOLE_SET_LABEL,
+  RATING_STATS,
+  useContentVersion,
+  VENUES,
+} from '../../lib/data/seed';
 import {
   ALL_VENUES_ZOOM_THRESHOLD,
+  DEFAULT_ZOOM_LEVEL,
   DISTRICT_DETAIL_ZOOM_THRESHOLD,
   MAP_HOME,
   MAX_ZOOM_LEVEL,
@@ -21,8 +30,11 @@ import {
   getCoveragePolygons,
   getDistrictLocalAreas,
   groupVisibleDistricts,
+  isNearHolidayCoverage,
+  metroForPoint,
   normalizeLiveliness,
   radiusMilesToZoomLevel,
+  SEVEN_MINUTE_WALK_RADIUS_MILES,
   spanMilesToRadiusMiles,
   venuesInBounds,
   zoomLevelToSpanMiles,
@@ -33,7 +45,15 @@ import { moodTileOptionsForCategory } from '../../lib/map/mood-tiles';
 import { useSession } from '../../lib/state/session';
 import { fetchWeather } from '../../lib/weather/forecast';
 import { color, font, radius, spacing } from '../../theme';
-import type { DayTimeBand, TileCategory, Venue } from '../../types/models';
+import type { DayTimeBand, MetroId, TileCategory, Venue } from '../../types/models';
+
+/** Below this zoom, more than one of Curia's metros could plausibly be in
+ * frame at once — "the country level" (2026-09, at explicit user request)
+ * — so a single "switch to X" guess stops making sense and the region
+ * prompt below offers a full picker instead. MIN_ZOOM_LEVEL is 3 (the
+ * whole world); this sits roughly at "you can see more than one city," well
+ * below DEFAULT_ZOOM_LEVEL (12). */
+const REGION_PICKER_ZOOM_THRESHOLD = 8;
 
 /**
  * Web counterpart to (tabs)/map.tsx. @rnmapbox/maps is native-only (see
@@ -212,15 +232,13 @@ const WEEK_DAYS: { key: string; label: string }[] = [
   { key: 'sunday', label: 'SUN' },
 ];
 
-const CATEGORIES: TileCategory[] = ['Do', 'Drink', 'Eat', 'Holiday'];
+/** The full possible set — filtered per-render to `categories` below, since
+ * 'Holiday' should only appear near real Holiday coverage (see
+ * isNearHolidayCoverage's own doc comment in lib/map/geo.ts). */
+const ALL_CATEGORIES: TileCategory[] = ['Do', 'Drink', 'Eat', 'Holiday'];
 
 function capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
-}
-
-function formatMiles(value: number): string {
-  const n = value % 1 === 0 ? String(value) : value.toFixed(2).replace(/0$/, '');
-  return `${n} ${value === 1 ? 'mile' : 'miles'}`;
 }
 
 function buildLabelElement(label: MapLabel, subText: string, onTap: () => void): HTMLDivElement {
@@ -251,7 +269,26 @@ function buildLabelElement(label: MapLabel, subText: string, onTap: () => void):
 // it's still real, just shown in the sheet below the map / the List tab,
 // not printed on the pin itself. Mirrors map.tsx's PulsingMatchIcon
 // exactly (same VENUE_ICON_PRIMITIVES).
-function buildMatchPinElement(venue: Venue, onTap: () => void): HTMLDivElement {
+// `saved` badge (2026-09, at explicit user request: "i just saved smoke
+// wilmslow, but noticed it gets no special treatment on the app... it
+// should get a subtle star or something when being appended to the map" —
+// List already had this via its own save star, the map pins never did).
+// Small gold-outlined star, top-right corner, overlaid on whichever pin
+// variant the venue is currently rendered as — deliberately not its own
+// third marker type, a saved venue is still either a top match or a
+// background pin first. `wrap`/`el` already resolve to `position: absolute`
+// via ensureMarkerPositioningFallback()'s injected rule (they become the
+// `.mapboxgl-marker` root itself), so an absolutely-positioned child here
+// anchors correctly without needing an inline `position` override on the
+// root — the same constraint buildMeElement's own comment documents.
+function buildSavedBadge(size: number, fontSize: number): HTMLDivElement {
+  const badge = document.createElement('div');
+  badge.style.cssText = `position:absolute;top:-3px;right:-3px;width:${size}px;height:${size}px;border-radius:${size / 2}px;background:rgba(19,17,16,.92);border:1px solid ${color.gold};display:flex;align-items:center;justify-content:center;font-size:${fontSize}px;line-height:1;color:${color.goldLight};pointer-events:none;`;
+  badge.textContent = '★';
+  return badge;
+}
+
+function buildMatchPinElement(venue: Venue, saved: boolean, onTap: () => void): HTMLDivElement {
   ensurePulseKeyframes();
   const wrap = document.createElement('div');
   // No `position` set here — see buildMeElement's own comment on why the
@@ -264,7 +301,17 @@ function buildMatchPinElement(venue: Venue, onTap: () => void): HTMLDivElement {
   dot.innerHTML = iconSvgMarkup(iconForVenueType(venue.type), 16, color.goldLight);
   wrap.appendChild(ring);
   wrap.appendChild(dot);
-  wrap.addEventListener('click', onTap);
+  if (saved) wrap.appendChild(buildSavedBadge(14, 8));
+  // stopPropagation is required, not decorative: a marker's click event
+  // bubbles up to the map container, where openPopupFor's own
+  // `closeOnClick: true` Popup is listening for exactly that — without
+  // this, opening the popup and mapbox-gl-js closing it again happen in
+  // the same click, so it never actually appears. Found live (2026-09)
+  // while wiring up the venue pin popup.
+  wrap.addEventListener('click', (e) => {
+    e.stopPropagation();
+    onTap();
+  });
   return wrap;
 }
 
@@ -275,14 +322,86 @@ function buildMatchPinElement(venue: Venue, onTap: () => void): HTMLDivElement {
 // map.tsx's `backgroundPin` style + VenueTypeIcon exactly (same
 // VENUE_ICON_PRIMITIVES, see src/lib/map/venue-icons.ts's own top comment
 // for why there are two renderers).
-function buildBackgroundPinElement(venue: Venue, onTap: () => void): HTMLDivElement {
+function buildBackgroundPinElement(venue: Venue, saved: boolean, onTap: () => void): HTMLDivElement {
   const el = document.createElement('div');
   el.style.cssText = `width:20px;height:20px;border-radius:10px;background:rgba(18,16,14,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;`;
   el.innerHTML = iconSvgMarkup(iconForVenueType(venue.type), 13, color.textTertiary);
+  if (saved) el.appendChild(buildSavedBadge(11, 6.5));
+  // See buildMatchPinElement's identical stopPropagation comment.
+  el.addEventListener('click', (e) => {
+    e.stopPropagation();
+    onTap();
+  });
+  return el;
+}
+
+/**
+ * mapbox-gl-js's default Popup renders a white box with a black arrow —
+ * matches nothing about Curia's dark theme. Same injected-`<style>` pattern
+ * as ensureMarkerPositioningFallback/ensurePulseKeyframes above; scoped to
+ * `.curia-venue-popup` (the Popup's own `className` option below) so it
+ * can't affect any other mapbox-gl-js consumer on the page.
+ */
+function ensureVenuePopupStyles() {
+  if (typeof document === 'undefined') return;
+  if (document.querySelector('style[data-curia-venue-popup]')) return;
+  const style = document.createElement('style');
+  style.setAttribute('data-curia-venue-popup', 'true');
+  style.textContent = `
+    .curia-venue-popup .mapboxgl-popup-content { background: rgba(19,17,16,.96); border: 1px solid rgba(192,160,98,.4); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.4); padding: 0; }
+    .curia-venue-popup .mapboxgl-popup-tip { border-top-color: rgba(19,17,16,.96) !important; border-bottom-color: rgba(19,17,16,.96) !important; }
+    .curia-venue-popup .mapboxgl-popup-close-button { display: none; }
+  `;
+  document.head.appendChild(style);
+}
+
+/**
+ * Venue pin popup content (2026-09, at explicit user request: "instead of
+ * going straight to the venue page, on first tap lets have a pop up showing
+ * key business info... another tap takes you through to venue page"). Tap
+ * behaviour lives in the two callers below (openPopupFor/onVenuePinTap) —
+ * this only builds what's shown once a popup is already open. `rank` is the
+ * venue's real position in the current ranked results (undefined if it
+ * falls outside them, e.g. a background pin the hard filters excluded) —
+ * not just the top-4 shown as pulsing match pins.
+ */
+function buildVenuePopupElement(venue: Venue, rank: number | undefined, onTap: () => void): HTMLDivElement {
+  const el = document.createElement('div');
+  el.style.cssText = 'display:flex;flex-direction:column;gap:5px;padding:13px 15px;min-width:150px;max-width:220px;cursor:pointer;';
+  if (rank) {
+    const rankEl = document.createElement('div');
+    rankEl.textContent = `NO. ${rank}`;
+    rankEl.style.cssText = `font-family:${font.sansRegular};font-size:9px;letter-spacing:1.8px;color:${color.gold};`;
+    el.appendChild(rankEl);
+  }
+  const nameEl = document.createElement('div');
+  nameEl.textContent = venue.name;
+  nameEl.style.cssText = `font-family:${font.serifRegular};font-size:16px;color:${color.textPrimaryBright};`;
+  el.appendChild(nameEl);
+  const typeEl = document.createElement('div');
+  typeEl.textContent = venue.type;
+  typeEl.style.cssText = `font-family:${font.sans};font-size:10px;letter-spacing:1.2px;color:rgba(200,188,170,.75);`;
+  el.appendChild(typeEl);
+  const hintEl = document.createElement('div');
+  hintEl.textContent = 'TAP FOR MORE';
+  hintEl.style.cssText = `font-family:${font.sansMedium};font-size:8px;letter-spacing:1.4px;color:${color.goldLight};margin-top:3px;`;
+  el.appendChild(hintEl);
   el.addEventListener('click', onTap);
   return el;
 }
 
+/** The real-location marker (2026-08, at explicit user request: "it should
+ * pulse to show it is live"; restyled 2026-09 to a premium dark-framed dot;
+ * briefly tried as an abstract standing figure the same day, reverted right
+ * back at explicit user request — "i dont like our new location pin human
+ * figure, could we revert to the white pulsing circle" — this dark-framed
+ * dot with the amethyst fill is that reverted-to state, not the original
+ * plain pale dot from before either restyle). A soft ambient glow, a
+ * dark-framed centre dot (same frame language as buildMatchPinElement's
+ * venue pins below), and a thin stroked ring that loops scale+fade
+ * outward, rather than a flat filled circle. `color.locationPin` fills it —
+ * see that token's doc comment (theme/tokens.ts) for why it's a dedicated
+ * token and why gold was ruled out. Mirrors map.tsx's identical revert. */
 function buildMeElement(): HTMLDivElement {
   ensurePulseKeyframes();
   const wrap = document.createElement('div');
@@ -295,13 +414,19 @@ function buildMeElement(): HTMLDivElement {
   // report: it silently overrode mapbox-gl-js's required absolute
   // positioning, throwing every marker's screen position off by hundreds
   // of pixels.
-  wrap.style.cssText = 'width:40px;height:40px;display:flex;align-items:center;justify-content:center;';
+  wrap.style.cssText = 'width:44px;height:44px;display:flex;align-items:center;justify-content:center;';
+  const glow = document.createElement('div');
+  glow.style.cssText = `position:absolute;width:30px;height:30px;border-radius:15px;background:${color.locationPin};opacity:.22;filter:blur(5px);`;
   const ring = document.createElement('div');
-  ring.style.cssText = `position:absolute;width:14px;height:14px;border-radius:7px;background:${color.weather};animation:curia-me-pulse 1.8s ease-out infinite;`;
+  ring.style.cssText = `position:absolute;width:16px;height:16px;border-radius:8px;border:1.5px solid ${color.locationPin};animation:curia-me-pulse 1.8s ease-out infinite;`;
+  const frame = document.createElement('div');
+  frame.style.cssText = `position:relative;width:18px;height:18px;border-radius:9px;background:rgba(18,16,14,.92);border:1px solid rgba(240,233,223,.16);display:flex;align-items:center;justify-content:center;`;
   const dot = document.createElement('div');
-  dot.style.cssText = `position:relative;width:14px;height:14px;border-radius:7px;background:${color.weather};border:2px solid ${color.baseVariants.b};`;
+  dot.style.cssText = `width:9px;height:9px;border-radius:4.5px;background:${color.locationPin};box-shadow:0 0 4px ${color.locationPin};`;
+  frame.appendChild(dot);
+  wrap.appendChild(glow);
   wrap.appendChild(ring);
-  wrap.appendChild(dot);
+  wrap.appendChild(frame);
   return wrap;
 }
 
@@ -309,6 +434,7 @@ export default function Map() {
   const router = useRouter();
   const session = useSession();
   const { context, mood } = session;
+  const { focusDistrict } = useLocalSearchParams<{ focusDistrict?: string }>();
 
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -316,7 +442,10 @@ export default function Map() {
   const pinMarkersRef = useRef<mapboxgl.Marker[]>([]);
   const backgroundPinMarkersRef = useRef<mapboxgl.Marker[]>([]);
   const meMarkerRef = useRef<mapboxgl.Marker | null>(null);
+  const venuePopupRef = useRef<mapboxgl.Popup | null>(null);
+  const activePopupVenueIdRef = useRef<string | null>(null);
   const autoLocatedRef = useRef(false);
+  const focusDistrictAppliedRef = useRef<string | null>(null);
   // Lets the mount-only map effect below always call the current session's
   // setRadiusMiles without needing `session` in its dependency array (which
   // would tear down and recreate the whole map on every session change).
@@ -331,7 +460,121 @@ export default function Map() {
   const [bounds, setBounds] = useState<GeoBounds | null>(null);
   const [moodSheetOpen, setMoodSheetOpen] = useState(false);
   const [ctxSheetOpen, setCtxSheetOpen] = useState(false);
-  const [sheetExpanded, setSheetExpanded] = useState(true);
+
+  // Region-scoped venue loading (2026-09, at explicit user request: "only
+  // fetch current region data on load, and go fetch another region's data
+  // if the user starts to navigate between regions" — "essentially then
+  // only the venue data of the region you are in will be loaded, so we can
+  // handle lots of venues"). `focusedMetro` is whichever metro's venues are
+  // actually being shown/ranked right now. `regionPromptReason` drives the
+  // popup below (rendered near the return statement) — three cases funnel
+  // into the same picker, all of them meaning "we don't know which one
+  // region you want, ask": 'lost' (the camera is outside every metro's
+  // coverage — real "no man's land" between markets), 'zoomed-out' (below
+  // REGION_PICKER_ZOOM_THRESHOLD, more than one region could plausibly be
+  // in frame), or a specific MetroId (the camera IS sitting inside one real
+  // metro, it's just not loaded yet). Revised 2026-09, at explicit user
+  // request, replacing an earlier quiet bottom-bar-swap version: "a pop up
+  // over the map... when a user navigates out into no mans land, or zooms
+  // out way bigger than a region... upon selection it navigates into that
+  // region... and loads in the region's data."
+  const contentVersion = useContentVersion();
+  const [focusedMetro, setFocusedMetro] = useState<MetroId | null>(() => metroForPoint(center));
+  // Read inside the detection effect below instead of listing focusedMetro
+  // as a dependency — deliberately. Setting focusedMetro (from either
+  // branch that does it below) must never itself re-trigger a fresh
+  // detection pass: the effect would then re-derive the prompt from
+  // whatever center/zoomLevel currently hold, which — if the camera's
+  // fly-to animation is still mid-flight, slow, or (rarely) never fires
+  // its moveend at all — can still be the *old* position, flashing the
+  // popup straight back on for a choice the user just explicitly made.
+  // With focusedMetro out of the dependency array, this effect only ever
+  // re-runs on a genuine camera move, which is the only thing it should
+  // actually be reacting to.
+  const focusedMetroRef = useRef(focusedMetro);
+  focusedMetroRef.current = focusedMetro;
+  const [regionPromptReason, setRegionPromptReason] = useState<'lost' | 'zoomed-out' | MetroId | null>(null);
+  const [promptDismissed, setPromptDismissed] = useState(false);
+  const [switchingRegion, setSwitchingRegion] = useState(false);
+
+  useEffect(() => {
+    // Any real camera move gets a fresh chance to prompt — dismissing the
+    // popup only ever hides it for the current, unmoving camera position.
+    setPromptDismissed(false);
+    if (zoomLevel < REGION_PICKER_ZOOM_THRESHOLD) {
+      setRegionPromptReason('zoomed-out');
+      return;
+    }
+    const detected = metroForPoint(center);
+    if (!detected) {
+      setRegionPromptReason('lost');
+      return;
+    }
+    if (detected === focusedMetroRef.current) {
+      setRegionPromptReason(null);
+      return;
+    }
+    if (isMetroLoaded(detected)) {
+      // Already-fetched neighbour (e.g. Manchester <-> Cheshire, both in
+      // DEFAULT_METROS) — just follow the camera, nothing to prompt.
+      setFocusedMetro(detected);
+      setRegionPromptReason(null);
+      return;
+    }
+    setRegionPromptReason(detected);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [center, zoomLevel]);
+
+  // Every real metro currently offered by the app, for the picker —
+  // DISTRICTS is already Santorini-filtered when the Holiday feature is
+  // off (see seed.ts), so that stays out of this list too without needing
+  // its own check here.
+  const availableMetros = useMemo(
+    () => Array.from(new Set(DISTRICTS.map((d) => d.metro))) as MetroId[],
+    []
+  );
+
+  /** Simple average of a metro's own district coordinates — good enough to
+   * fly the camera somewhere sensible inside it; the district glow/labels
+   * that render once there are what actually orient the user, not this
+   * exact point. */
+  function metroCentroid(metro: MetroId): GeoPoint | null {
+    const inMetro = DISTRICTS.filter((d) => d.metro === metro);
+    if (inMetro.length === 0) return null;
+    return {
+      lat: inMetro.reduce((sum, d) => sum + d.lat, 0) / inMetro.length,
+      lon: inMetro.reduce((sum, d) => sum + d.lon, 0) / inMetro.length,
+    };
+  }
+
+  async function handleSelectRegion(metro: MetroId) {
+    setSwitchingRegion(true);
+    try {
+      await loadVenuesForMetro(metro);
+      const target = metroCentroid(metro);
+      const map = mapRef.current;
+      if (target && map) {
+        map.flyTo({ center: [target.lon, target.lat], zoom: DEFAULT_ZOOM_LEVEL, duration: 800 });
+        // Wait for the fly-to's own moveend before touching focusedMetro —
+        // the detection effect above reacts to center/zoomLevel, which only
+        // update once syncFromCamera's moveend handler runs. Setting
+        // focusedMetro first (before the camera's actually arrived) made
+        // that effect re-run against the *old*, pre-flight center/zoom,
+        // briefly flashing the popup back on for whatever the old reading
+        // was (e.g. still-zoomed-out) before the real position caught up a
+        // moment later. A short timeout fallback guards against 'moveend'
+        // never firing for some reason, so this can't hang forever.
+        await Promise.race([
+          new Promise<void>((resolve) => map.once('moveend', () => resolve())),
+          new Promise<void>((resolve) => setTimeout(resolve, 2000)),
+        ]);
+      }
+      setFocusedMetro(metro);
+      setRegionPromptReason(null);
+    } finally {
+      setSwitchingRegion(false);
+    }
+  }
 
   const onContainerLayout = useCallback((e: LayoutChangeEvent) => {
     setContainerWidth(e.nativeEvent.layout.width);
@@ -343,6 +586,7 @@ export default function Map() {
     ensureMapboxCss();
     ensureMarkerPositioningFallback();
     hideMapboxLogo();
+    ensureVenuePopupStyles();
     mapboxgl.accessToken = process.env.EXPO_PUBLIC_MAPBOX_TOKEN ?? '';
     const initial = session.location ?? MAP_HOME;
     const initialWidth = mapContainerRef.current.clientWidth || containerWidth;
@@ -356,6 +600,23 @@ export default function Map() {
       attributionControl: true,
     });
     mapRef.current = map;
+
+    // 2026-09, real bug report: navigating to a venue and back left half the
+    // map rendered black. Map is a tab screen — venue detail is a stack
+    // *push* on top of it (CLAUDE.md's Navigation shell), so this component
+    // never unmounts and the mapboxgl.Map instance above is created exactly
+    // once for the whole session (guarded by the mapRef.current check
+    // above). Whatever hides this screen while venue detail covers it
+    // (display:none or similar) collapses the container's measured size;
+    // mapbox-gl-js doesn't repaint its internal canvas buffer to match a
+    // container resize on its own; ResizeObserver both catches genuine
+    // resizes (rotation, browser chrome show/hide) and the display:none
+    // round trip, since that also changes the observed content box (down to
+    // 0x0 and back) — map.resize() re-syncs the canvas to match every time.
+    const resizeObserver = new ResizeObserver(() => {
+      map.resize();
+    });
+    resizeObserver.observe(mapContainerRef.current);
 
     const syncFromCamera = () => {
       const c = map.getCenter();
@@ -476,6 +737,7 @@ export default function Map() {
     map.on('moveend', syncFromCamera);
 
     return () => {
+      resizeObserver.disconnect();
       map.off('load', syncFromCamera);
       map.off('load', addCoverageLayers);
       map.off('load', addDistrictGlowLayers);
@@ -490,13 +752,37 @@ export default function Map() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // District Guide's "MAP" button (2026-09, at explicit user request: "hop
+  // back to the map view but centred on this district... at a walking
+  // distance no further than 7 minutes type range"). Fires once per
+  // distinct `focusDistrict` value, same "once, then don't fight the
+  // user's own panning" contract as the auto-locate effect below — which
+  // this deliberately takes priority over when the id actually resolves to
+  // a real district, since arriving here via this button is a more
+  // specific, explicit request than the passive "centre on me" default. An
+  // unrecognised id (a stale/malformed link) is treated as if the param
+  // were never there, so auto-locate still runs rather than stranding the
+  // map at its plain default. Mirrors map.tsx's identical addition.
+  const focusDistrictTarget = focusDistrict ? DISTRICTS.find((d) => d.id === focusDistrict) : undefined;
+  useEffect(() => {
+    if (focusDistrictTarget && focusDistrictAppliedRef.current !== focusDistrictTarget.id && mapRef.current) {
+      focusDistrictAppliedRef.current = focusDistrictTarget.id;
+      autoLocatedRef.current = true; // suppress the auto-locate-to-me effect below
+      mapRef.current.flyTo({
+        center: [focusDistrictTarget.lon, focusDistrictTarget.lat],
+        zoom: radiusMilesToZoomLevel(SEVEN_MINUTE_WALK_RADIUS_MILES, focusDistrictTarget.lat, containerWidth),
+        duration: 500,
+      });
+    }
+  }, [focusDistrictTarget, containerWidth]);
+
   // Fly to the real device location the first time it resolves, once only.
   useEffect(() => {
-    if (session.location && !autoLocatedRef.current && mapRef.current) {
+    if (session.location && !autoLocatedRef.current && !focusDistrictTarget && mapRef.current) {
       autoLocatedRef.current = true;
       mapRef.current.flyTo({ center: [session.location.lon, session.location.lat], duration: 500 });
     }
-  }, [session.location]);
+  }, [session.location, focusDistrictTarget]);
 
   const resolved = resolveContext(context);
 
@@ -571,7 +857,21 @@ export default function Map() {
     [session, context, moodFilter]
   );
 
-  const result = useMemo(() => rankVenues(matchInput, VENUES, DISTRICTS), [matchInput]);
+  const result = useMemo(
+    () => rankVenues(matchInput, VENUES, DISTRICTS, RATING_STATS),
+    // contentVersion: recompute once loadVenuesForMetro() adds a newly
+    // switched-to region's venues — see this file's own region-switch note
+    // above.
+    [matchInput, contentVersion]
+  );
+
+  // Only offer the 'Holiday' mood filter near real Holiday coverage
+  // (Santorini today) — everywhere else it's a guaranteed-empty tap, since
+  // distance is a hard filter and no UK radius reaches Santorini.
+  const categories = useMemo(
+    () => ALL_CATEGORIES.filter((c) => c !== 'Holiday' || isNearHolidayCoverage(session.searchOrigin)),
+    [session.searchOrigin]
+  );
   const ranked = result.ranked;
   const topRanked = ranked.slice(0, 4);
   const topRankedVenues = useMemo(
@@ -600,7 +900,7 @@ export default function Map() {
     if (!bounds || zoomLevel < ALL_VENUES_ZOOM_THRESHOLD) return [];
     const topIds = new Set(topRankedVenues.map(({ venue }) => venue.id));
     return venuesInBounds(bounds).filter((v) => !topIds.has(v.id));
-  }, [bounds, zoomLevel, topRankedVenues]);
+  }, [bounds, zoomLevel, topRankedVenues, contentVersion]);
 
   // Rebuild district/group label markers whenever the visible set changes.
   useEffect(() => {
@@ -628,13 +928,18 @@ export default function Map() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [labels, resolved.day, resolved.band]);
 
-  // Rebuild venue pin markers whenever the ranked top set changes.
+  // Rebuild venue pin markers whenever the ranked top set changes. Always
+  // at each venue's true coordinate — 2026-09, at explicit user request,
+  // after trying (and being asked to revert) a screen-space declutter pass
+  // through several iterations: "lets have the icons stay in their true
+  // location always. no moving around when changing zoom." A pin sitting
+  // on top of another is accepted as accurate rather than corrected for.
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
     pinMarkersRef.current.forEach((m) => m.remove());
     pinMarkersRef.current = topRankedVenues.map(({ venue }) => {
-      const el = buildMatchPinElement(venue, () => router.push(`/venue/${venue.id}`));
+      const el = buildMatchPinElement(venue, session.isVenueSaved(venue.id), () => onVenuePinTap(venue));
       return new mapboxgl.Marker({ element: el, anchor: 'center' })
         .setLngLat([venue.lon, venue.lat])
         .addTo(map);
@@ -653,7 +958,7 @@ export default function Map() {
     if (!map) return;
     backgroundPinMarkersRef.current.forEach((m) => m.remove());
     backgroundPinMarkersRef.current = backgroundVenues.map((venue) => {
-      const el = buildBackgroundPinElement(venue, () => router.push(`/venue/${venue.id}`));
+      const el = buildBackgroundPinElement(venue, session.isVenueSaved(venue.id), () => onVenuePinTap(venue));
       return new mapboxgl.Marker({ element: el, anchor: 'center' })
         .setLngLat([venue.lon, venue.lat])
         .addTo(map);
@@ -699,17 +1004,6 @@ export default function Map() {
         ? 'Refine below if you know what you are after, or leave it broad.'
         : 'Add a tile or two if you want to be more particular.';
 
-  const radiusLabel = formatMiles(matchInput.radiusMiles);
-  const sheetTitle = ranked.length
-    ? `RANKED WITHIN ${radiusLabel.toUpperCase()} · ${ranked.length} ${ranked.length === 1 ? 'VENUE' : 'VENUES'}`
-    : `NOTHING WITHIN ${radiusLabel.toUpperCase()}`;
-  const sheetMeta = context.now
-    ? 'NOW'
-    : `${resolved.day.slice(0, 3).toUpperCase()} ${bandMeta.label.toUpperCase()}`;
-  const emptyNote = moodOn
-    ? `Nothing matching this mood inside ${radiusLabel}. Widen the search, or clear the mood to see everything you normally would.`
-    : 'Nothing worth your evening inside this radius. Zoom out and we will widen the search.';
-
   const ctxKicker = context.now ? 'LIVE NOW' : 'PLANNING FOR';
   const ctxLabel = context.now
     ? `${capitalize(resolved.day)}, ${nowTimeLabel}`
@@ -728,12 +1022,97 @@ export default function Map() {
     .toUpperCase();
 
   const locate = () => {
-    // Recentres only — deliberately leaves zoom (and therefore the shared
-    // search radius) untouched, so tapping "locate me" can't silently change
-    // how wide a search you'd set up.
+    // 2026-09, at explicit user request ("it should recentre the user but
+    // also zoom back in to an appropriate level for walking distance
+    // venues") — supersedes the original recentre-only behaviour, which
+    // deliberately left zoom untouched. Now flies to
+    // DISTRICT_DETAIL_ZOOM_THRESHOLD, the same "street-level detail" zoom
+    // flyToDistrict below already uses, rather than inventing a second
+    // meaning for a new number. session.radiusMiles updates for free
+    // through the same moveend/syncFromCamera pipeline every other camera
+    // move already goes through — no separate call needed here. Mirrors
+    // map.tsx's identical change.
     const target = session.location ?? MAP_HOME;
-    mapRef.current?.flyTo({ center: [target.lon, target.lat], duration: 400 });
+    mapRef.current?.flyTo({ center: [target.lon, target.lat], zoom: DISTRICT_DETAIL_ZOOM_THRESHOLD, duration: 400 });
   };
+
+  // District quick-nav (2026-09, at explicit user request: "incorporate
+  // [Moments' district navigation] on the map view... so users can quickly
+  // pop around districts and have a look"). Unlike Moments (which filters
+  // its own in-page content) or List (which navigates away to District
+  // Guide), the map's own camera IS the "have a look" surface — flying it
+  // to a district's centre at DISTRICT_DETAIL_ZOOM_THRESHOLD reuses the
+  // exact same moveend/syncFromCamera pipeline `locate()` already does, so
+  // the ranked candidate set re-centres on that district for free, no
+  // separate fetch or special-cased state. Nearest-to-the-user first, same
+  // haversineMiles-against-searchOrigin ordering List's district-browse
+  // mode and Moments' pill row both already use. Filtered to districts
+  // with at least one real venue, so no pill is a dead end. Mirrors
+  // map.tsx's identical addition.
+  const nearbyDistricts = useMemo(
+    () =>
+      DISTRICTS.filter((d) => VENUES.some((v) => v.districtId === d.id)).sort(
+        (a, b) => haversineMiles(session.searchOrigin, a) - haversineMiles(session.searchOrigin, b)
+      ),
+    [session.searchOrigin, contentVersion]
+  );
+
+  const closeVenuePopup = useCallback(() => {
+    venuePopupRef.current?.remove();
+    venuePopupRef.current = null;
+    activePopupVenueIdRef.current = null;
+  }, []);
+
+  const flyToDistrict = (d: (typeof DISTRICTS)[number]) => {
+    closeVenuePopup();
+    mapRef.current?.flyTo({ center: [d.lon, d.lat], zoom: DISTRICT_DETAIL_ZOOM_THRESHOLD, duration: 450 });
+  };
+
+  // Venue pin tap behaviour (2026-09, at explicit user request: "instead of
+  // going straight to the venue page, on first tap lets have a pop up
+  // showing key business info... another tap takes you through to venue
+  // page"). First tap on a pin opens a mapboxgl.Popup at its coordinate
+  // (openPopupFor); tapping that popup navigates straight to venue detail.
+  // Tapping the SAME pin again (activePopupVenueIdRef already equals its
+  // id) also navigates — the second half of the "first tap: preview,
+  // second tap: open" contract, for anyone who taps the pin again instead
+  // of the popup itself. `rank` is the venue's real position in the full
+  // ranked candidate set (not just the top-4 shown as pulsing match pins),
+  // computed once here rather than threading a lookup through every caller.
+  const openPopupFor = useCallback(
+    (venue: Venue, rank: number | undefined) => {
+      const map = mapRef.current;
+      if (!map) return;
+      closeVenuePopup();
+      const el = buildVenuePopupElement(venue, rank, () => {
+        closeVenuePopup();
+        router.push(`/venue/${venue.id}`);
+      });
+      const popup = new mapboxgl.Popup({ closeButton: false, closeOnClick: true, offset: 20, className: 'curia-venue-popup' })
+        .setLngLat([venue.lon, venue.lat])
+        .setDOMContent(el)
+        .addTo(map);
+      popup.on('close', () => {
+        activePopupVenueIdRef.current = null;
+      });
+      venuePopupRef.current = popup;
+      activePopupVenueIdRef.current = venue.id;
+    },
+    [closeVenuePopup, router]
+  );
+
+  const onVenuePinTap = useCallback(
+    (venue: Venue) => {
+      if (activePopupVenueIdRef.current === venue.id) {
+        closeVenuePopup();
+        router.push(`/venue/${venue.id}`);
+        return;
+      }
+      const rankIndex = ranked.findIndex((r) => r.venueId === venue.id);
+      openPopupFor(venue, rankIndex >= 0 ? rankIndex + 1 : undefined);
+    },
+    [ranked, openPopupFor, closeVenuePopup, router]
+  );
 
   const onTapLabel = useCallback(
     (label: MapLabel) => {
@@ -825,54 +1204,63 @@ export default function Map() {
         </Pressable>
       </View>
 
-      <Card tone="sheet" style={[styles.sheet, !sheetExpanded && styles.sheetCollapsed]}>
-        <Pressable
-          onPress={() => setSheetExpanded((v) => !v)}
-          style={styles.sheetHandleArea}
-          accessibilityRole="button"
-          accessibilityLabel={sheetExpanded ? 'Collapse venue list' : 'Expand venue list'}
+      {/* 2026-09, at explicit user request: this used to be a collapsible
+          sheet with a numbered venue list — dropped entirely (that's what
+          the List tab is for) so the map itself is always fully visible,
+          never partially covered by an expanded card. District quick-nav
+          takes over this same fixed strip along the bottom. */}
+      <Card tone="sheet" style={styles.navBar}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.districtNavRow}
         >
-          <View style={styles.sheetHandle} />
-          <View style={styles.sheetHeader}>
-            <Text style={styles.sheetTitle} numberOfLines={1}>
-              {sheetTitle}
-            </Text>
-            <View style={styles.sheetHeaderRight}>
-              <Text style={styles.sheetMeta}>{sheetMeta}</Text>
-              <Text style={styles.sheetChevron}>{sheetExpanded ? '⌄' : '⌃'}</Text>
-            </View>
-          </View>
-        </Pressable>
-        {sheetExpanded && (
-          <ScrollView style={styles.sheetList} showsVerticalScrollIndicator={false}>
-            {topRanked.map((r, idx) => {
-              const venue = VENUES.find((v) => v.id === r.venueId);
-              if (!venue) return null;
-              const district = DISTRICTS.find((d) => d.id === venue.districtId);
-              return (
-                <Pressable
-                  key={r.venueId}
-                  onPress={() => router.push(`/venue/${venue.id}`)}
-                  style={styles.sheetRow}
-                >
-                  <View style={styles.sheetRank}>
-                    <Text style={styles.sheetRankText}>{idx + 1}</Text>
-                  </View>
-                  <View style={styles.sheetRowText}>
-                    <Text style={styles.sheetVenueName} numberOfLines={1}>
-                      {venue.name}
-                    </Text>
-                    <Text style={styles.sheetVenueMeta} numberOfLines={1}>
-                      {(district?.name ?? '').toUpperCase()} · {venue.type}
-                    </Text>
-                  </View>
-                </Pressable>
-              );
-            })}
-            {ranked.length === 0 && <Text style={styles.sheetEmpty}>{emptyNote}</Text>}
-          </ScrollView>
-        )}
+          {nearbyDistricts.map((d) => (
+            <Tag key={d.id} label={d.name} onPress={() => flyToDistrict(d)} />
+          ))}
+        </ScrollView>
       </Card>
+
+      {/* Region picker (2026-09, at explicit user request) — a real popup
+          over the map rather than a quiet bottom-bar swap: shown whenever
+          the camera can't be resolved to one specific loaded region (lost
+          between markets, zoomed out past region-level, or sitting inside a
+          real but not-yet-loaded one). Picking an option both flies the
+          camera there and loads its venues — see handleSelectRegion above. */}
+      {regionPromptReason && !promptDismissed && !switchingRegion && (
+        <>
+          <Pressable style={styles.backdrop} onPress={() => setPromptDismissed(true)} />
+          <Card tone="sheet" style={styles.modalSheet}>
+            <View style={styles.sheetHandle} />
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Where to?</Text>
+              <Pressable onPress={() => setPromptDismissed(true)}>
+                <Text style={styles.doneLabel}>CLOSE</Text>
+              </Pressable>
+            </View>
+            <Text style={styles.regionPromptBody}>
+              {regionPromptReason === 'lost'
+                ? "Curia hasn't arrived here yet — pick a region to jump straight there."
+                : regionPromptReason === 'zoomed-out'
+                  ? "Zoomed out too far to tell where you're headed — pick a region."
+                  : `Load ${METRO_WHOLE_SET_LABEL[regionPromptReason] ?? regionPromptReason}'s venues to see what's actually here.`}
+            </Text>
+            <View style={styles.regionOptionList}>
+              {availableMetros.map((m) => (
+                <Pressable
+                  key={m}
+                  onPress={() => handleSelectRegion(m)}
+                  disabled={switchingRegion}
+                  style={styles.regionOptionRow}
+                >
+                  <Text style={styles.regionOptionLabel}>{METRO_WHOLE_SET_LABEL[m] ?? m}</Text>
+                  <Text style={styles.regionOptionArrow}>{switchingRegion ? '···' : '→'}</Text>
+                </Pressable>
+              ))}
+            </View>
+          </Card>
+        </>
+      )}
 
       {moodSheetOpen && (
         <>
@@ -887,7 +1275,7 @@ export default function Map() {
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
               <View style={styles.categoryRow}>
-                {CATEGORIES.map((c) => {
+                {categories.map((c) => {
                   const on = mood?.category === c;
                   return (
                     <Pressable
@@ -1000,9 +1388,15 @@ const styles = StyleSheet.create({
   // 2026-09, at explicit user request: was two stacked rows (a full-height
   // context pill, then the mood pill below it) — collapsed to one row, both
   // pills compact/single-line, so the map starts noticeably higher.
+  //
+  // top was 56 (2026-09 update, same request): on mobile web there is no
+  // native status bar/notch to clear — the browser's own chrome sits
+  // outside the page viewport — so that much clearance just read as dead
+  // space above the pills. Dropped to spacing.lg, matching the horizontal
+  // inset already used on the same row.
   topStack: {
     position: 'absolute',
-    top: 56,
+    top: spacing.lg,
     left: spacing.lg,
     right: spacing.lg,
   },
@@ -1053,9 +1447,10 @@ const styles = StyleSheet.create({
   zoomCol: {
     position: 'absolute',
     right: spacing.lg,
-    // Was 168 — calibrated for the old two-row header. Dropped now that
-    // header collapses to one compact row (2026-09), reclaiming more map.
-    top: 116,
+    // Was 168, then 116 — calibrated for topStack.top, which moved from 56
+    // to spacing.lg in the same 2026-09 mobile-spacing pass. Keeps the same
+    // ~60px gap below the header row so this button never overlaps it.
+    top: spacing.lg + 60,
     alignItems: 'center',
   },
   zoomBtn: {
@@ -1071,30 +1466,52 @@ const styles = StyleSheet.create({
   locateBtnText: {
     fontFamily: font.sans,
     fontSize: 14,
-    color: color.weather,
+    color: color.locationPin,
   },
-  sheet: {
+  navBar: {
     position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
-    maxHeight: 300,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    overflow: 'hidden',
+    paddingBottom: spacing.lg,
   },
-  sheetCollapsed: {
-    maxHeight: undefined,
-    paddingBottom: spacing.md,
+  districtNavRow: {
+    gap: spacing.sm - 2,
+    paddingBottom: 2,
   },
-  sheetHandleArea: {
-    // Generous hit area so the collapse/expand tap target isn't just the
-    // 3px handle bar itself.
-    marginHorizontal: -spacing.md,
-    paddingHorizontal: spacing.md,
-    marginTop: -spacing.xs,
-    paddingTop: spacing.xs,
+  regionPromptBody: {
+    fontFamily: font.sans,
+    fontSize: 13,
+    lineHeight: 20,
+    color: color.textSecondary,
+    marginTop: spacing.sm,
+    maxWidth: 320,
   },
+  regionOptionList: {
+    marginTop: spacing.lg,
+    gap: 2,
+  },
+  regionOptionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: color.hairlineMin,
+  },
+  regionOptionLabel: {
+    fontFamily: font.serifRegular,
+    fontSize: 18,
+    color: color.textPrimary,
+  },
+  regionOptionArrow: {
+    fontFamily: font.sans,
+    fontSize: 15,
+    color: color.gold,
+  },
+  // Still used by the mood/context modal sheets below.
   sheetHandle: {
     width: 36,
     height: 3,
@@ -1102,83 +1519,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(240,233,223,.2)',
     alignSelf: 'center',
     marginBottom: spacing.md,
-  },
-  sheetHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'baseline',
-    gap: spacing.sm,
-  },
-  sheetTitle: {
-    fontFamily: font.sansRegular,
-    fontSize: 10,
-    letterSpacing: 2.2,
-    color: color.gold,
-    flexShrink: 1,
-  },
-  sheetHeaderRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs + 2,
-  },
-  sheetMeta: {
-    fontFamily: font.sans,
-    fontSize: 10.5,
-    letterSpacing: 1.2,
-    color: color.textTertiary,
-  },
-  sheetChevron: {
-    fontFamily: font.sans,
-    fontSize: 13,
-    color: color.gold,
-  },
-  sheetList: {
-    flex: 1,
-    marginTop: spacing.xs + 2,
-  },
-  sheetRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm + 2,
-    paddingVertical: 11,
-    borderBottomWidth: 1,
-    borderBottomColor: color.hairlineMin,
-  },
-  sheetRank: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: 'rgba(192,160,98,.45)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  sheetRankText: {
-    fontFamily: font.serifRegular,
-    fontSize: 11,
-    color: color.goldLight,
-  },
-  sheetRowText: {
-    flex: 1,
-    gap: 4,
-  },
-  sheetVenueName: {
-    fontFamily: font.serifRegular,
-    fontSize: 17,
-    color: color.textPrimary,
-  },
-  sheetVenueMeta: {
-    fontFamily: font.sans,
-    fontSize: 9.5,
-    letterSpacing: 1.4,
-    color: color.textSecondary,
-  },
-  sheetEmpty: {
-    fontFamily: font.serifRegular,
-    fontSize: 14,
-    fontStyle: 'italic',
-    color: color.borderNeutral,
-    paddingVertical: spacing.md,
   },
 
   backdrop: {
