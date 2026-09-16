@@ -47,6 +47,7 @@
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
     "db:seed": "node scripts/seed-supabase.mjs",
+    "db:export": "node scripts/export-db-to-json.mjs",
     "lint": "expo lint",
     "test": "node --test",
     "build:web": "expo export --platform web && node scripts/fix-web-export-for-deploy.mjs",

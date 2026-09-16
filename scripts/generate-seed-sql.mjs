@@ -4,6 +4,13 @@
  * exactly — the paste-into-SQL-Editor equivalent of scripts/seed-supabase.mjs,
  * for whoever'd rather not touch a terminal/service-role-key at all.
  *
+ * Bootstrap-only as of the growth-engine migrations (0009/0010, 2026-09-16):
+ * once the Curator worker and promotion cron are live, Supabase is the
+ * canonical source for venues/districts and docs/data/*.json becomes a
+ * generated snapshot (see scripts/export-db-to-json.mjs, the reverse of
+ * this file) — this script is still the right tool for seeding a fresh
+ * environment from scratch, just no longer the live day-to-day data path.
+ *
  * Run by Claude, not the end user: `node scripts/generate-seed-sql.mjs`
  * writes supabase/seed.sql, which then gets handed to the user as a file to
  * paste into Supabase's SQL Editor — the same motion as the migration.
