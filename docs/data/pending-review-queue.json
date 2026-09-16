@@ -127,6 +127,25 @@
         "bands": ["morning", "afternoon", "evening"],
         "reason": "Burton Road's own Irish corner — brunch by day, a proper session by night, family-run without a single chain tell in the fit-out."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-16",
+      "reason": "A new candidate named 'Underbank' (no 'The') appears to describe the same real venue as this file's own already-promoted 'The Underbank' entry (added 2026-09-11) — the existing entry's reason text (former bank, Des and Nina O'Malley, Pomona Island/Runaway on tap, a basement sound system) matches this candidate fact for fact, while a separate, genuinely different venue on the same street (Benji Taylor's Syndikat-building live-music venue) appears to be the real 'The Underbank' and has apparently never been seeded. This is a naming/identity mix-up between two real venues, not a clean duplicate or a clean distinct-venue case, so it needs a human call rather than a guess.",
+      "researchNotes": "Independently re-verified 2026-09-16: 'Underbank', 27 Great Underbank, Stockport SK1 1LN, opened 30 May 2025 by Des and Nina O'Malley (also behind Heaton Moor's Nook) in a former bank branch — beer hall, margarita bar, Pomona Island/Runaway on tap, basement sound system (manchesterwire.co.uk, manchestersfinest.com, camra.org.uk, themanc.com all independently confirm the same facts). This file's existing venues.json entry 'The Underbank' (stockport-underbanks, promoted 2026-09-11) carries the identical description almost verbatim: 'A former Cheshire bank on Great Underbank turned beer hall, Pomona Island and Runaway on tap and Stockport's first proper sound system in the basement — the same husband-and-wife team behind Heaton Moor's Nook.' A third, separate search confirms a genuinely different venue, also called 'The Underbank', founded by Benji Taylor (of Bask) in the Syndikat building, a live-music/comedy/quiz venue with no O'Malley or beer-hall connection — this appears to be the venue the app's existing entry's *name* actually belongs to, even though its *description* belongs to the O'Malley venue. A human familiar with both venues (or a site visit / direct Google Maps check) would resolve this fastest: options include renaming the existing entry from 'The Underbank' to 'Underbank' (matching its real description), adding a new, correctly-described entry for Benji Taylor's actual 'The Underbank', or some combination. Not promoted or rejected outright — the underlying candidate ('Underbank', O'Malley's venue) is real and well-documented on its own facts; the issue is purely the collision with this file's existing data.",
+      "payload": {
+        "name": "Underbank",
+        "district": "stockport-underbanks",
+        "type": "LIVE MUSIC BAR",
+        "spend": "££",
+        "lat": 53.41095,
+        "lon": -2.1589,
+        "base": 68,
+        "bands": ["evening", "late"],
+        "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
+      }
     }
   ]
 }

@@ -3,6 +3,28 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-09-16",
+      "synced": false,
+      "title": "8 venues + Chester (new Cheshire district) promoted; 1 rejected as a real chain, 1 naming mix-up sent for review",
+      "summary": "Independently re-verified all 10 pending candidates in venue-suggestions.json with a 2026-09-16 suggestedDate and the sole pending district candidate (Chester), promoting 8 venues (Pottery Corner, Chorlton; The Damson Tree Cafe, Cheadle Hulme; Ebenezer's Craft Beer Emporium, Nantwich; St Peter's Church & Norman Chapel, Prestbury; BeefnBerry Bistro, Macclesfield; The Blarney Barrel, Bramhall; The Old Bakery Didsbury; Runway Pilates, Alderley Edge) and Chester itself. Mouro Coffee Bar (Heaton Moor) was rejected, reversing the original researcher's own finding — fresh search found it's actually a real, actively expanding four-site coffee brand (Heaton Moor plus two Altrincham sites plus a fourth opened May 2026 in the Northern Quarter), past this file's small-sibling-group allowance. Underbank (Stockport (Underbanks)) needed a genuine human call rather than a promote/reject guess: it appears to describe the same real venue as this file's own already-promoted 'The Underbank' entry, while a separate, different venue with a near-identical name (Benji Taylor's live-music venue) seems to be the one that name actually belongs to — a naming mix-up, sent to pending-review-queue.json. Curia Command's pending_review collection (checked via read_db) had zero decided items to apply this run. Prana, Buon Cibo and Rustik remain unchanged in pending-review-queue.json, still awaiting a human decision. The closure-audit rotating slice (Manchester Craft and Design Centre, The Horsfall, Bar Etna, Knutcraft at the Ruskin Rooms, Mobberley Ice Cream Coffee House) found no closures — all five re-confirmed still trading.",
+      "items": [
+        { "label": "Pottery Corner (Chorlton)", "detail": "promoted — single-site paint-a-pot studio, no chain signal" },
+        { "label": "The Damson Tree Cafe (Cheadle Hulme)", "detail": "promoted — single-site, locally run cafe/cake-maker" },
+        { "label": "Ebenezer's Craft Beer Emporium (Nantwich)", "detail": "promoted — confirmed real 2-site pair (Nantwich, Crewe), within the small-sibling-group allowance" },
+        { "label": "St Peter's Church & Norman Chapel (Prestbury)", "detail": "promoted — free, publicly accessible Grade I/II heritage site, new type HISTORIC CHURCH (category-only)" },
+        { "label": "BeefnBerry Bistro (Macclesfield)", "detail": "promoted — single-site, confirmed vegetarian/vegan menu options" },
+        { "label": "The Blarney Barrel (Bramhall)", "detail": "promoted — real 2-site sibling pair with 78 Degrees, opened Dec 2025" },
+        { "label": "The Old Bakery Didsbury", "detail": "promoted — Alpine Tearoom's confirmed 2-site sibling pair" },
+        { "label": "Runway Pilates (Alderley Edge)", "detail": "promoted — confirmed genuine 3-site footprint (Alderley Edge, Altrincham, Manchester), within precedent" },
+        { "label": "Chester (new Cheshire district)", "detail": "promoted — genuine, distinct, nationally known Cheshire city; coordinate sits just past this file's usual sanity-box edge but is a real, precisely documented landmark (Eastgate Clock), not a research error" },
+        { "label": "Mouro Coffee Bar (Heaton Moor)", "detail": "rejected — actually a real, expanding 4-site coffee brand (Heaton Moor, 2x Altrincham, Northern Quarter), past the small-group allowance" },
+        { "label": "Underbank (Stockport (Underbanks))", "detail": "sent for review — appears to be the same real venue as this file's existing 'The Underbank' entry under a different name, while a different, genuinely distinct venue seems to be the real 'The Underbank'; needs a human to untangle" },
+        { "label": "Prana (Altrincham) / Buon Cibo (Heaton Moor) / Rustik (Didsbury)", "detail": "left pending — no decision yet in Curia Command's pending_review collection, unchanged this run" }
+      ],
+      "createdAt": "2026-09-16T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-14",
       "synced": false,
       "title": "7 venues promoted across Nantwich, Bramhall, Stockport (Underbanks), Mobberley, Altrincham and Knutsford; 1 rejected, 2 sent for review",
