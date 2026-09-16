@@ -195,6 +195,29 @@ export interface Venue {
    */
   status: 'live' | 'coming-soon';
 
+  /**
+   * Gate 2 of the two-gate model (CLAUDE.md Hard rule 1, amended
+   * 2026-09-16) — a 1-5 editorial "would a local tell a visiting friend
+   * about this specific place" score. Feeds `rank-venues.ts` as a
+   * discount-only multiplier (see Matchmaking contract), never a
+   * presentation-layer badge (Presentation layer section — no raw scores
+   * in user-facing UI). Optional here pending migration 0009 and the
+   * seed-loader wiring that reads it from Supabase (see docs/data
+   * pipeline) — every real row is NOT NULL with a default of 4 once that
+   * lands; absent only means "not yet wired up for this Venue instance"
+   * (e.g. an older test fixture), never "genuinely unscored."
+   */
+  distinctiveness?: number;
+  /** Ownership research that feeds the distinctiveness score above — an
+   * input, not a veto, under the amended Hard rule 1. Same optionality
+   * note as distinctiveness. */
+  ownership?: 'independent' | 'small_group' | 'group' | 'high_street';
+  ownershipNotes?: string;
+  /** Editorial copy pipeline state for venues arriving via the Curator
+   * worker (see the growth-engine plan) — existing hand-curated venues are
+   * 'live' by definition. Same optionality note as distinctiveness. */
+  copyStatus?: 'draft' | 'voice_qa_passed' | 'live';
+
   // Internal-only fields — Hard rule 8: must NEVER surface in user-facing UI,
   // API responses to the member app, or copy. Admin/back-office only.
   tier: 'signature' | 'texture';
