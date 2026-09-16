@@ -309,6 +309,25 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   // same treatment as RARE BOOKSHOP/CRICKET CLUB above since no onboarding
   // tile targets it specifically yet.
   'FARM EXPERIENCE': 'Do',
+  // Added 2026-09-09 for Chorlton Bookshop — RARE BOOKSHOP specifically
+  // implies antiquarian/secondhand stock, which this general independent
+  // new-book shop isn't; category-only (Do), same treatment as RARE
+  // BOOKSHOP/FARM EXPERIENCE above since no onboarding tile fits precisely.
+  'BOOKSHOP': 'Do',
+  // Added 2026-09-10 for the day's promoted Heaton Moor/Alderley Edge
+  // candidates (see docs/data/venues.json's own _dailyReviewPromotionSource20260910
+  // note). FRENCH BISTRO (Cure Bistro) — GASTROPUB is the closest existing
+  // Eat type but implies a British pub kitchen, which this isn't; NATURE
+  // RESERVE (The Edge) — RIVERSIDE PARK implies a riverside, which this
+  // isn't. Both category-only, same treatment as CANTONESE ROAST/GREEK
+  // TAVERNA/FARM EXPERIENCE above since no onboarding tile fits precisely.
+  'FRENCH BISTRO': 'Eat',
+  'NATURE RESERVE': 'Do',
+  // Added 2026-09-13 for Deadwood Smokehouse (Nantwich) — no existing Eat
+  // type fits a dedicated American BBQ smokehouse; category-only, same
+  // treatment as CANTONESE ROAST/GREEK TAVERNA above since no onboarding
+  // tile fits precisely.
+  'SMOKEHOUSE': 'Eat',
   // Santorini pass (2026-09) — see docs/data/venues.json's own source note
   // and TileCategory's doc comment (src/types/models.ts). BEACH CLUB,
   // SUNSET BAR, WINERY and BOAT TOUR map to the four Holiday tiles above
