@@ -284,6 +284,23 @@ export function scoreProximity(
   return clamp(1 - haversineMiles(location, venue) / radiusMiles, 0, 1);
 }
 
+/**
+ * Gate 2 of the two-gate model (CLAUDE.md Hard rule 1, amended
+ * 2026-09-16) — a discount-only multiplier on the venue's final weighted
+ * score, not an additive weighted signal like the others in this file (see
+ * rankVenues below for where it's actually applied). Linear from
+ * distinctiveness 5 -> 1.0 (no discount) down to 1 -> 0.45 (a meaningful
+ * discount, but never a zero-out): 5 -> 1.0, 4 -> 0.8625, 3 -> 0.725,
+ * 2 -> 0.5875, 1 -> 0.45. A distinctiveness-1 venue can still win a narrow
+ * filter when it's the only real match. Defaults to 4 (matching migration
+ * 0009's column default) when unset, e.g. an older test fixture built
+ * before this field existed.
+ */
+export function scoreDistinctivenessFactor(venue: Venue): number {
+  const distinctiveness = clamp(venue.distinctiveness ?? 4, 1, 5);
+  return 0.3125 + 0.1375 * distinctiveness;
+}
+
 const OUTDOOR_TYPE_HINTS = ['rooftop', 'garden', 'terrace', 'outdoor', 'country pub'];
 
 function isOutdoorLeaning(venue: Venue): boolean {
@@ -453,7 +470,9 @@ export function reasonFor(
  * pet fit (scorePetFit), district liveliness (scoreLiveliness), proximity
  * (scoreProximity) and the crowd rating signal (scoreRatings), all weighted
  * contextually by `weightsFor` rather than a fixed set (see that function's
- * own comment). Pure: same inputs always produce the same output, no I/O,
+ * own comment) — then discounted by Gate 2 distinctiveness
+ * (scoreDistinctivenessFactor), a multiplier rather than another additive
+ * weighted term. Pure: same inputs always produce the same output, no I/O,
  * no seed import (see module doc comment). `districts` is optional lookup
  * context for the day-of-week/liveliness signals only; `ratingStats`
  * likewise for scoreRatings — both degrade gracefully (neutral scoring)
@@ -486,9 +505,14 @@ export function rankVenues(
       scoreProximity(venue, input.location, input.radiusMiles) * weights.proximity +
       scoreRatings(venue, ratingStats) * weights.ratings;
 
+    // Gate 2 (distinctiveness) is a discount multiplier on the summed
+    // score, not another additive weighted term — see
+    // scoreDistinctivenessFactor's own comment for why.
+    const distinctivenessAdjusted = weighted * scoreDistinctivenessFactor(venue);
+
     return {
       venueId: venue.id,
-      score: Math.round(clamp(weighted, 0, 1) * 100),
+      score: Math.round(clamp(distinctivenessAdjusted, 0, 1) * 100),
       reason: reasonFor(venue, input, resolved),
     };
   });

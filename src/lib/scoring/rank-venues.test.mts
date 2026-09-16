@@ -30,6 +30,7 @@ import {
   resolveContext,
   scoreBaseQuality,
   scoreDayOfWeek,
+  scoreDistinctivenessFactor,
   scoreLiveliness,
   scorePetFit,
   scoreProximity,
@@ -495,6 +496,42 @@ test('rankVenues: a highly-rated venue outranks an otherwise-identical unrated o
     result.ranked.map((r) => r.venueId),
     ['rated', 'unrated']
   );
+});
+
+// ---------------------------------------------------------------------------
+// Gate 2 distinctiveness (scoreDistinctivenessFactor) — CLAUDE.md Hard rule
+// 1's two-gate model, 2026-09-16. A discount-only multiplier on the final
+// weighted score, not another additive weighted signal — see rankVenues.
+// ---------------------------------------------------------------------------
+
+test('distinctiveness: unset defaults to the migration 0009 column default (4)', () => {
+  assert.equal(scoreDistinctivenessFactor(venue({})), scoreDistinctivenessFactor(venue({ distinctiveness: 4 })));
+});
+
+test('distinctiveness: 5 applies no discount, 1 discounts to 0.45', () => {
+  assert.equal(scoreDistinctivenessFactor(venue({ distinctiveness: 5 })), 1);
+  assert.equal(scoreDistinctivenessFactor(venue({ distinctiveness: 1 })), 0.45);
+});
+
+test('distinctiveness: linear between the endpoints', () => {
+  assert.ok(Math.abs(scoreDistinctivenessFactor(venue({ distinctiveness: 3 })) - 0.725) < 1e-9);
+});
+
+test('rankVenues: a distinctiveness-5 venue outranks an otherwise-identical distinctiveness-1 venue', () => {
+  const singular = venue({ id: 'singular', base: 70, distinctiveness: 5 });
+  const ubiquitous = venue({ id: 'ubiquitous', base: 70, distinctiveness: 1 });
+  const result = rankVenues(baseInput(), [singular, ubiquitous], [], {});
+  assert.deepEqual(
+    result.ranked.map((r) => r.venueId),
+    ['singular', 'ubiquitous']
+  );
+});
+
+test('rankVenues: a distinctiveness-1 venue is discounted, never excluded — it still wins as the only real match', () => {
+  const onlyMatch = venue({ id: 'only-match', base: 70, distinctiveness: 1 });
+  const result = rankVenues(baseInput(), [onlyMatch], [], {});
+  assert.equal(result.ranked.length, 1);
+  assert.ok(result.ranked[0].score > 0, 'expected a discounted score, not a zeroed-out one');
 });
 
 // ---------------------------------------------------------------------------
