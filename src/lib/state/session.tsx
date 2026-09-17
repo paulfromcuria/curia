@@ -210,6 +210,17 @@ interface SessionState {
    * aggregate the scoring engine reads — this is just "what did *I* say",
    * shown back to the member on venue/[id].tsx. */
   myRatings: Record<string, number>;
+  /** Set when hydrateFromDatabase's profile fetch genuinely fails (network,
+   * RLS, transient error) — found live 2026-09-18 ("why have i been logged
+   * out... it was as if it needed me to redo onboarding"). Before this fix,
+   * a failed profile query was silently swallowed and defaulted
+   * onboardingComplete to false for a real, fully-onboarded member — still
+   * authenticated (a real user object was set), so it looked exactly like
+   * "logged in but suddenly needs onboarding again", not a real logout.
+   * src/app/index.tsx shows a retry screen instead of routing anywhere
+   * while this is set, rather than presenting a false onboarding/login
+   * state. */
+  hydrateError: string | null;
 }
 
 const DEFAULT_RADIUS_MILES = 0.9;
@@ -236,6 +247,7 @@ const INITIAL_STATE: SessionState = {
   savedJourneyIds: [],
   notificationPrefs: DEFAULT_NOTIFICATION_PREFS,
   myRatings: {},
+  hydrateError: null,
 };
 
 /** Exported so shared, non-screen-owned modules (e.g.
@@ -253,6 +265,10 @@ export interface SessionContextValue extends SessionState {
    * never grant access). Named `isSubscribed` for the real subscription
    * check it becomes once Stripe billing replaces the open beta. */
   isSubscribed: boolean;
+  /** Re-runs hydrateFromDatabase for whoever's currently authenticated —
+   * the retry action for the hydrateError screen (src/app/index.tsx). A
+   * no-op if there's no real authenticated user to retry for. */
+  retryHydrate: () => void;
   /** `hasSession` is false when the Supabase project has email confirmation
    * switched on — signUp succeeds but no session (and therefore no
    * `isAuthenticated`) exists until the member clicks the emailed link.
@@ -331,7 +347,19 @@ interface ProfileRow {
  * launch). */
 async function hydrateFromDatabase(userId: string, email: string): Promise<Partial<SessionState> & { user: SessionUser }> {
   const [profileRes, prefsRes, collectionsRes, journeysRes, ratingsRes] = await Promise.all([
-    supabase.from('profiles').select('*').eq('id', userId).single(),
+    // maybeSingle(), not single(): single() throws on zero rows, which
+    // would be a real (if unlikely, given the auto-create trigger in
+    // 0001_init.sql) case for a genuinely brand-new user, not a real
+    // failure. Either way, profileRes.error is checked explicitly below —
+    // found live 2026-09-18 that this whole function used to silently
+    // ignore every one of these five queries' own error field, reading
+    // only .data with a `?? default` fallback throughout. For the other
+    // four, a failed fetch just means an empty list, low-severity. For
+    // profile specifically, a failed fetch silently defaulted
+    // onboardingComplete to false for a real, fully-onboarded member —
+    // see hydrateError's own doc comment (SessionState) for the real bug
+    // this caused.
+    supabase.from('profiles').select('*').eq('id', userId).maybeSingle(),
     supabase.from('user_preferences').select('*').eq('user_id', userId),
     supabase
       .from('saved_collections')
@@ -342,6 +370,9 @@ async function hydrateFromDatabase(userId: string, email: string): Promise<Parti
     supabase.from('venue_ratings').select('venue_id, rating').eq('user_id', userId),
   ]);
 
+  if (profileRes.error) {
+    throw new Error(`Couldn't load your profile: ${profileRes.error.message}`);
+  }
   const profile = profileRes.data as ProfileRow | null;
 
   const preferences: Record<TileCategory, UserPreference> = {
@@ -397,35 +428,61 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   // writing straight back the exact values a hydrate just read — harmless
   // either way (idempotent), just an avoidable round trip.
   const hydratingRef = useRef(false);
+  // Remembered so retryHydrate (exposed below, for the hydrateError retry
+  // screen — see src/app/index.tsx) can re-run the same fetch without
+  // needing a fresh auth event to fire one.
+  const currentAuthUserRef = useRef<{ id: string; email: string } | null>(null);
+
+  const runHydrate = useCallback((userId: string, email: string) => {
+    if (hydratingRef.current) return;
+    hydratingRef.current = true;
+    hydrateFromDatabase(userId, email)
+      .then((hydrated) => {
+        setState((s) => ({ ...s, ...hydrated, hydrateError: null }));
+      })
+      .catch((err) => {
+        // Deliberately does NOT reset user/onboardingComplete/etc back to
+        // INITIAL_STATE here — found live 2026-09-18 ("why have i been
+        // logged out... it was as if it needed me to redo onboarding"):
+        // silently defaulting those on a failed fetch is exactly what
+        // produced that bug. A real fetch failure gets a real, visible
+        // retry screen (hydrateError, checked in src/app/index.tsx)
+        // instead of a false "you need to onboard again" or "you're
+        // logged out" state.
+        const message = err instanceof Error ? err.message : String(err);
+        console.error('Failed to load account data:', err);
+        setState((s) => ({ ...s, hydrateError: message }));
+      })
+      .finally(() => {
+        hydratingRef.current = false;
+        setAuthReady(true);
+      });
+  }, []);
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((_event, authSession) => {
       if (authSession?.user) {
+        currentAuthUserRef.current = { id: authSession.user.id, email: authSession.user.email ?? '' };
         // Supabase fires both INITIAL_SESSION and SIGNED_IN in quick
         // succession on a single fresh load with a persisted session (found
         // 2026-09 while investigating a reported "session persistence" bug
         // — the restore itself was already working; this guard just stops
         // it from doing the real hydrate fetch twice for one page load).
-        if (hydratingRef.current) return;
-        hydratingRef.current = true;
-        hydrateFromDatabase(authSession.user.id, authSession.user.email ?? '')
-          .then((hydrated) => {
-            setState((s) => ({ ...s, ...hydrated }));
-          })
-          .catch((err) => {
-            console.error('Failed to load account data:', err);
-          })
-          .finally(() => {
-            hydratingRef.current = false;
-            setAuthReady(true);
-          });
+        runHydrate(authSession.user.id, authSession.user.email ?? '');
       } else {
+        currentAuthUserRef.current = null;
         setState(INITIAL_STATE);
         setAuthReady(true);
       }
     });
     return () => sub.subscription.unsubscribe();
-  }, []);
+  }, [runHydrate]);
+
+  const retryHydrate = useCallback(() => {
+    if (!currentAuthUserRef.current) return;
+    setState((s) => ({ ...s, hydrateError: null }));
+    runHydrate(currentAuthUserRef.current.id, currentAuthUserRef.current.email);
+  }, [runHydrate]);
 
   const signup = useCallback(async (name: string, email: string, password: string) => {
     const { data, error } = await supabase.auth.signUp({
@@ -828,6 +885,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       isAuthenticated: state.user !== null,
       authReady,
       isSubscribed: state.subscriptionStatus === 'trialing' || state.subscriptionStatus === 'active',
+      retryHydrate,
       signup,
       login,
       logout,
@@ -866,6 +924,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     [
       state,
       authReady,
+      retryHydrate,
       signup,
       login,
       logout,
