@@ -130,6 +130,17 @@ function radiusNoteFor(value: number): string {
   return 'You have told us distance is no object. Ranked on fit alone.';
 }
 
+/** Same radius, same thresholds, different meaning: on the Districts view
+ * this is a hard filter on which districts even appear (see
+ * districtsByMetro's own comment), not a tie-breaker on an already-ranked
+ * list — the copy says so rather than reusing radiusNoteFor's RANKED-tab
+ * wording, which would misdescribe what the slider actually does here. */
+function districtRadiusNoteFor(value: number): string {
+  if (value <= 2) return 'Only the closest districts make the cut.';
+  if (value <= 10) return 'A comfortable trip out — nothing further shows up.';
+  return 'You have told us distance is no object. Every district in range, ranked on fit.';
+}
+
 /** Distance + walk/drive estimate, matching the prototype's own listRows formatting exactly. */
 function formatDistance(distanceMiles: number): string {
   const meters = distanceMiles * 1609;
@@ -390,13 +401,27 @@ export default function List() {
       // right now" — see MIN_MATCHES_TO_RANK's own comment. Thin/uncurated
       // districts (many still have 0-2 venues) simply don't appear in this
       // view rather than showing an empty or misleadingly-ranked card.
+      //
+      // radiusMiles is a hard filter here (2026-09-18, at explicit user
+      // request: "add a radius filter to the districts list like on the
+      // venues list page") — same session-level radius the RANKED tab's
+      // slider controls (Hard rule 5: one radius for the whole List page),
+      // applied to the district's own distance rather than to any single
+      // venue's. This is a different use of the same value from the 999
+      // passed into each district's own internal matchInput above — that
+      // 999 is deliberately unlimited so a district that DOES pass this
+      // filter still ranks by its true best matches, not ones artificially
+      // cut off at the same radius a second time.
       const inMetro = districtMatches.filter(
-        (dm) => dm.district.metro === city.id && dm.matchCount >= MIN_MATCHES_TO_RANK
+        (dm) =>
+          dm.district.metro === city.id &&
+          dm.matchCount >= MIN_MATCHES_TO_RANK &&
+          dm.distanceMiles <= radiusMiles
       );
       const sorted = [...inMetro].sort((a, b) => b.rankScore - a.rankScore);
       return { city, districts: sorted };
     }).filter((m) => m.districts.length > 0);
-  }, [districtMatches]);
+  }, [districtMatches, radiusMiles]);
 
   // District quick-nav for the RANKED tab (2026-09, at explicit user
   // request: "incorporate [Moments' district navigation] on... list view").
@@ -458,13 +483,29 @@ export default function List() {
           )}
         </Pressable>
 
+        <Card tone="inset" style={styles.radiusCard}>
+          <View style={styles.radiusHeader}>
+            <Kicker style={styles.radiusKicker}>Search radius</Kicker>
+            <Text style={styles.radiusValue}>{radiusLabelFor(radiusMiles)}</Text>
+          </View>
+          <RadiusSlider value={radiusMiles} onChange={setRadiusMiles} />
+          <View style={styles.radiusEndpoints}>
+            <Text style={styles.radiusEndpoint}>¼ MI</Text>
+            <Text style={styles.radiusEndpoint}>{radiusHintFor(radiusMiles)}</Text>
+            <Text style={styles.radiusEndpoint}>30 MI</Text>
+          </View>
+          <Text style={styles.radiusNote}>
+            {viewMode === 'districts' ? districtRadiusNoteFor(radiusMiles) : radiusNoteFor(radiusMiles)}
+          </Text>
+        </Card>
+
         {viewMode === 'districts' ? (
           <View style={styles.districtBrowse}>
             {districtsByMetro.length === 0 ? (
               <Text style={styles.districtEmptyNote}>
                 {moodOn
                   ? 'Nothing matches this mood right now — try clearing it.'
-                  : "Nothing's built up enough real matches to rank yet."}
+                  : `Nothing inside ${formatMiles(radiusMiles)} has built up enough real matches to rank yet. Try widening the radius above.`}
               </Text>
             ) : (
               districtsByMetro.map(({ city, districts }) => (
@@ -508,20 +549,6 @@ export default function List() {
                 <Tag key={d.id} label={d.name} onPress={() => router.push(`/district/${d.id}`)} />
               ))}
             </ScrollView>
-
-            <Card tone="inset" style={styles.radiusCard}>
-              <View style={styles.radiusHeader}>
-                <Kicker style={styles.radiusKicker}>Search radius</Kicker>
-                <Text style={styles.radiusValue}>{radiusLabelFor(radiusMiles)}</Text>
-              </View>
-              <RadiusSlider value={radiusMiles} onChange={setRadiusMiles} />
-              <View style={styles.radiusEndpoints}>
-                <Text style={styles.radiusEndpoint}>¼ MI</Text>
-                <Text style={styles.radiusEndpoint}>{radiusHintFor(radiusMiles)}</Text>
-                <Text style={styles.radiusEndpoint}>30 MI</Text>
-              </View>
-              <Text style={styles.radiusNote}>{radiusNoteFor(radiusMiles)}</Text>
-            </Card>
 
             <View style={styles.rows}>
           {rankedVisible.map((r, i) => {
