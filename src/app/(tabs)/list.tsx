@@ -31,18 +31,30 @@ import { color, font, radius, spacing } from '../../theme';
 import type { TileCategory } from '../../types/models';
 import type { MatchmakingInput } from '../../types/matchmaking';
 
-/** How many matches to show in the RANKED tab and per district in the
- * "Districts" browse mode. 2026-09-17: the Districts view briefly showed
- * every hard-filter-passing venue in a district, sorted by distinctiveness
- * alone — with dense coverage that meant unbounded per-district lists.
- * Reverted to a real ranked list (sorted by the venue's actual match score,
- * which already folds in the Gate 2 distinctiveness discount — see
- * rank-venues.ts and CLAUDE.md's Matchmaking contract) capped at a fixed
- * size. 2026-09-18, at explicit user request: the RANKED tab itself was
- * never actually capped — a prior comment here claimed it already was,
- * which was wrong (found live, "33 venues" rendering uncapped) — now both
- * views share this one cap. */
+/** How many matches to show in the RANKED tab, and how many of a district's
+ * own top matches feed its "Districts" browse-mode ranking. 2026-09-17: the
+ * Districts view briefly showed every hard-filter-passing venue in a
+ * district, sorted by distinctiveness alone — with dense coverage that
+ * meant unbounded per-district lists. Reverted to a real ranked list
+ * (sorted by the venue's actual match score, which already folds in the
+ * Gate 2 distinctiveness discount — see rank-venues.ts and CLAUDE.md's
+ * Matchmaking contract) capped at a fixed size. 2026-09-18, at explicit
+ * user request: the RANKED tab itself was never actually capped — a prior
+ * comment here claimed it already was, which was wrong (found live, "33
+ * venues" rendering uncapped) — now both views share this one cap. */
 const LIST_CAP = 20;
+
+/** 2026-09-18, at explicit user request ("rank the districts the user would
+ * enjoy right now" instead of listing venues under each one): a district's
+ * rank score is the average of its own top DISTRICT_SCORE_WINDOW venue
+ * scores — the same rankVenues output already used everywhere else, just
+ * aggregated up one level, so "which district" stays honestly derived from
+ * "which venues," never a separate opaque formula. A district needs at
+ * least this many real matches to be ranked at all (see
+ * MIN_MATCHES_TO_RANK below) — both constants share this value on purpose,
+ * since a 1-venue "average" isn't a meaningful signal either way. */
+const DISTRICT_SCORE_WINDOW = 3;
+const MIN_MATCHES_TO_RANK = DISTRICT_SCORE_WINDOW;
 
 const BAND_LABEL: Record<string, string> = {
   morning: 'Morning',
@@ -357,23 +369,31 @@ export default function List() {
           return venue ? { venue, score: r.score, reason: r.reason } : null;
         })
         .filter((m): m is { venue: (typeof districtVenues)[number]; score: number; reason: string } => !!m)
-        .sort((a, b) => (b.score !== a.score ? b.score - a.score : a.venue.name.localeCompare(b.venue.name)))
-        .slice(0, LIST_CAP);
-      // 2026-09, at explicit user request: districts order by real proximity
-      // to the user, not by match quality — this is a browse-by-place mode
-      // (the RANKED tab already exists for "best match" ordering), so the
-      // nearest district should lead regardless of how good today's top pick
-      // there happens to be.
+        .sort((a, b) => (b.score !== a.score ? b.score - a.score : a.venue.name.localeCompare(b.venue.name)));
+      const topWindow = matches.slice(0, DISTRICT_SCORE_WINDOW);
+      // "How much would you enjoy this district right now" — the average of
+      // its own top few matches, not a separate opaque formula (see
+      // DISTRICT_SCORE_WINDOW's own comment above).
+      const rankScore = topWindow.length
+        ? topWindow.reduce((sum, m) => sum + m.score, 0) / topWindow.length
+        : 0;
+      const topVenue = matches[0]?.venue;
       const distanceMiles = haversineMiles(session.searchOrigin, { lat: d.lat, lon: d.lon });
-      return { district: d, matches, distanceMiles };
+      return { district: d, matchCount: matches.length, rankScore, topVenue, distanceMiles };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viewMode, session, context, moodFilter, contentVersion]);
 
   const districtsByMetro = useMemo(() => {
     return CITIES.map((city) => {
-      const inMetro = districtMatches.filter((dm) => dm.district.metro === city.id);
-      const sorted = [...inMetro].sort((a, b) => a.distanceMiles - b.distanceMiles);
+      // A district needs real matches to be worth recommending as "go here
+      // right now" — see MIN_MATCHES_TO_RANK's own comment. Thin/uncurated
+      // districts (many still have 0-2 venues) simply don't appear in this
+      // view rather than showing an empty or misleadingly-ranked card.
+      const inMetro = districtMatches.filter(
+        (dm) => dm.district.metro === city.id && dm.matchCount >= MIN_MATCHES_TO_RANK
+      );
+      const sorted = [...inMetro].sort((a, b) => b.rankScore - a.rankScore);
       return { city, districts: sorted };
     }).filter((m) => m.districts.length > 0);
   }, [districtMatches]);
@@ -440,50 +460,42 @@ export default function List() {
 
         {viewMode === 'districts' ? (
           <View style={styles.districtBrowse}>
-            {districtsByMetro.map(({ city, districts }) => (
-              <View key={city.id} style={styles.metroGroup}>
-                <Kicker style={styles.metroKicker}>{city.name}</Kicker>
-                {districts.map(({ district, matches }) => {
-                  return (
-                    <View key={district.id} style={styles.districtGroup}>
+            {districtsByMetro.length === 0 ? (
+              <Text style={styles.districtEmptyNote}>
+                {moodOn
+                  ? 'Nothing matches this mood right now — try clearing it.'
+                  : "Nothing's built up enough real matches to rank yet."}
+              </Text>
+            ) : (
+              districtsByMetro.map(({ city, districts }) => (
+                <View key={city.id} style={styles.metroGroup}>
+                  <Kicker style={styles.metroKicker}>{city.name}</Kicker>
+                  {districts.map(({ district, topVenue, distanceMiles }) => {
+                    const photoUri = topVenue?.photos[0] ?? placeholderPhotoFor(topVenue?.type ?? '');
+                    return (
                       <Pressable
+                        key={district.id}
                         onPress={() => router.push(`/district/${district.id}`)}
-                        style={styles.districtRow}
+                        style={styles.districtCard}
                       >
-                        <Text style={styles.districtName}>{district.name}</Text>
+                        <Image source={{ uri: photoUri }} style={styles.districtPhoto} resizeMode="cover" />
+                        <View style={styles.districtCardBody}>
+                          <View style={styles.districtCardHeader}>
+                            <Text style={styles.districtName}>{district.name}</Text>
+                            <Text style={styles.districtDistance}>{formatDistance(distanceMiles)}</Text>
+                          </View>
+                          {district.editorialDescription && (
+                            <Text style={styles.districtDescription} numberOfLines={3}>
+                              {district.editorialDescription}
+                            </Text>
+                          )}
+                        </View>
                       </Pressable>
-                      {matches.length === 0 ? (
-                        <Text style={styles.districtEmptyNote}>
-                          {moodOn
-                            ? 'Nothing here matches this mood right now.'
-                            : 'Nothing kept here yet. Our editors are still working their way through it.'}
-                        </Text>
-                      ) : (
-                        matches.map(({ venue }) => (
-                          <Pressable
-                            key={venue.id}
-                            onPress={() => router.push(`/venue/${venue.id}`)}
-                            style={styles.districtVenueRow}
-                          >
-                            <Text style={styles.districtVenueName} numberOfLines={1}>
-                              {venue.name}
-                            </Text>
-                            {venue.status === 'coming-soon' && (
-                              <View style={styles.newBadge}>
-                                <Text style={styles.newBadgeText}>NEW</Text>
-                              </View>
-                            )}
-                            <Text style={styles.districtVenueType} numberOfLines={1}>
-                              {venue.type}
-                            </Text>
-                          </Pressable>
-                        ))
-                      )}
-                    </View>
-                  );
-                })}
-              </View>
-            ))}
+                    );
+                  })}
+                </View>
+              ))
+            )}
           </View>
         ) : (
           <>
@@ -731,22 +743,43 @@ const styles = StyleSheet.create({
   metroKicker: {
     fontSize: 10,
   },
-  districtGroup: {
-    gap: 6,
-    paddingBottom: spacing.sm,
+  districtCard: {
+    gap: spacing.sm,
+    paddingBottom: spacing.lg,
     borderBottomWidth: 1,
     borderBottomColor: color.hairlineMin,
   },
-  districtRow: {
+  districtPhoto: {
+    height: 172,
+    borderRadius: radius.lg,
+    backgroundColor: color.surface,
+    overflow: 'hidden',
+  },
+  districtCardBody: {
+    gap: 4,
+  },
+  districtCardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'baseline',
-    paddingVertical: spacing.xs,
+    gap: spacing.sm,
   },
   districtName: {
     fontFamily: font.serif,
     fontSize: 20,
     color: color.textPrimary,
+  },
+  districtDistance: {
+    fontFamily: font.sans,
+    fontSize: 10.5,
+    letterSpacing: 1,
+    color: color.textTertiary,
+  },
+  districtDescription: {
+    fontFamily: font.serifRegular,
+    fontSize: 14,
+    lineHeight: 20,
+    color: color.textSecondary,
   },
   districtEmptyNote: {
     fontFamily: font.serifRegular,
@@ -754,25 +787,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: color.textSecondary,
     paddingVertical: 4,
-  },
-  districtVenueRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    paddingVertical: 6,
-  },
-  districtVenueName: {
-    flex: 1,
-    minWidth: 0,
-    fontFamily: font.serifRegular,
-    fontSize: 15,
-    color: color.textPrimary,
-  },
-  districtVenueType: {
-    fontFamily: font.sans,
-    fontSize: 9.5,
-    letterSpacing: 1,
-    color: color.textSecondary,
   },
   moodPill: {
     flexDirection: 'row',
