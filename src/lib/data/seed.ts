@@ -138,6 +138,22 @@ export function mapVenueRow(v: Record<string, unknown>): Venue {
     description: v.description as string,
     bands: v.bands as Venue['bands'],
     base: v.base as number,
+    // Found 2026-09-18, building admin dashboard metrics that needed to
+    // count real scored venues: this row mapper never actually read these
+    // three columns, despite migration 0009 adding them and the Venue
+    // type's own doc comment (models.ts) explicitly flagging "pending...
+    // the seed-loader wiring that reads it from Supabase" as a known TODO.
+    // Every venue loaded through the real app has had distinctiveness/
+    // ownership silently undefined this whole time regardless of what's
+    // actually in the database — meaning rank-venues.ts's Gate 2
+    // distinctiveness discount (scoreDistinctivenessFactor) has always
+    // fallen back to the neutral default for every real venue, even ones
+    // with a real, individually-researched score (Piccolino Grande, Cibo,
+    // the 25-venue ownership backfill, the tile-coverage-gap additions).
+    distinctiveness: (v.distinctiveness as number | null) ?? undefined,
+    ownership: (v.ownership as Venue['ownership']) ?? undefined,
+    ownershipNotes: (v.ownership_notes as string | null) ?? undefined,
+    copyStatus: (v.copy_status as Venue['copyStatus']) ?? undefined,
     tier: v.tier as Venue['tier'],
     sourceConfidence: v.source_confidence as number,
     notes: (v.notes as string | null) ?? undefined,
