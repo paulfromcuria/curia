@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import { Card, EmblemButton, Kicker, Tag } from '../../components/curia';
 import { rankVenues, haversineMiles, resolveContext, slugifyType } from '../../lib/scoring/rank-venues';
-import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
+import { buildMatchmakingInputFromSession, DEMO_LOCATION } from '../../lib/scoring/session-input';
 import {
   CITIES,
   DISTRICTS,
@@ -114,8 +114,19 @@ function formatMiles(value: number): string {
   return `${n} ${value === 1 ? 'mile' : 'miles'}`;
 }
 
-function radiusLabelFor(value: number): string {
-  return value >= MAX_RADIUS_MILES ? 'Anywhere in the region' : `Within ${formatMiles(value)}`;
+/** 2026-09-18, at explicit user report: the radius always measures from
+ * session.searchOrigin, which follows wherever Map's camera was last left
+ * (see session.tsx's own doc comment) — not necessarily where the member
+ * physically is. Nothing on this screen said so, so "within 2 miles"
+ * showing Didsbury/Heaton Moor read as a bug ("wait, Didsbury is further
+ * than 2 miles?") rather than the deliberate "you're browsing wherever you
+ * last looked on the map" behaviour it actually is. `nearLabel` (nearest
+ * district's name to searchOrigin) makes the center point visible instead
+ * of implicit. */
+function radiusLabelFor(value: number, nearLabel?: string): string {
+  if (value >= MAX_RADIUS_MILES) return 'Anywhere in the region';
+  const base = `Within ${formatMiles(value)}`;
+  return nearLabel ? `${base} of ${nearLabel}` : base;
 }
 
 function radiusHintFor(value: number): string {
@@ -249,7 +260,7 @@ export default function List() {
   // the answer"). radiusMiles, context, and mood all lived as separate
   // per-screen state at various points; all three now come from
   // src/lib/state/session.tsx so List and Map can never drift apart.
-  const { radiusMiles, setRadiusMiles, context, mood, isVenueSaved, toggleSavedVenue } = session;
+  const { radiusMiles, setRadiusMiles, setSearchOrigin, context, mood, isVenueSaved, toggleSavedVenue } = session;
   const [moodOpen, setMoodOpen] = useState(false);
 
   const clearMood = useCallback(() => {
@@ -498,8 +509,15 @@ export default function List() {
         <Card tone="inset" style={styles.radiusCard}>
           <View style={styles.radiusHeader}>
             <Kicker style={styles.radiusKicker}>Search radius</Kicker>
-            <Text style={styles.radiusValue}>{radiusLabelFor(radiusMiles)}</Text>
+            <Text style={styles.radiusValue}>{radiusLabelFor(radiusMiles, nearbyDistricts[0]?.name)}</Text>
           </View>
+          <Pressable
+            onPress={() => setSearchOrigin(session.location ?? DEMO_LOCATION)}
+            hitSlop={8}
+            style={styles.radiusRecenterRow}
+          >
+            <Text style={styles.radiusRecenter}>Use my location</Text>
+          </Pressable>
           <RadiusSlider value={radiusMiles} onChange={setRadiusMiles} />
           <View style={styles.radiusEndpoints}>
             <Text style={styles.radiusEndpoint}>¼ MI</Text>
@@ -517,7 +535,7 @@ export default function List() {
               <Text style={styles.districtEmptyNote}>
                 {moodOn
                   ? 'Nothing matches this mood right now — try clearing it.'
-                  : `Nothing inside ${formatMiles(radiusMiles)} has built up enough real matches to rank yet. Try widening the radius above.`}
+                  : `Nothing within ${formatMiles(radiusMiles)} of ${nearbyDistricts[0]?.name ?? 'here'} has built up enough real matches to rank yet. Try widening the radius above.`}
               </Text>
             ) : (
               districtsByMetro.map(({ city, districts }) => (
@@ -629,7 +647,9 @@ export default function List() {
 
           {result.empty && (
             <View style={styles.emptyWrap}>
-              <Text style={styles.emptyTitle}>Nothing inside {formatMiles(radiusMiles)}.</Text>
+              <Text style={styles.emptyTitle}>
+                Nothing within {formatMiles(radiusMiles)} of {nearbyDistricts[0]?.name ?? 'here'}.
+              </Text>
               <Text style={styles.emptyNote}>
                 {moodOn
                   ? `Nothing matching this mood inside ${formatMiles(
@@ -897,6 +917,16 @@ const styles = StyleSheet.create({
     fontSize: 12.5,
     letterSpacing: 0.8,
     color: color.textPrimary,
+  },
+  radiusRecenterRow: {
+    alignSelf: 'flex-start',
+    marginTop: 4,
+  },
+  radiusRecenter: {
+    fontFamily: font.sans,
+    fontSize: 10.5,
+    letterSpacing: 0.6,
+    color: color.gold,
   },
   sliderTrack: {
     height: 24,
