@@ -260,6 +260,23 @@
         { "label": "Rustik (Didsbury)", "detail": "left pending — no decision yet in Curia Command's pending_review collection; unchanged since 2026-09-14" }
       ],
       "createdAt": "2026-09-15T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-09-17",
+      "synced": false,
+      "title": "Research-tool outage limited today's pass to 3 promotions; 11 items left pending, untouched",
+      "summary": "A genuine research-tool outage hit for most of this run — WebSearch mostly returned 'unavailable' errors or surfaced only Wikipedia-indexed content, and WebFetch was blocked (EGRESS_BLOCKED) for essentially every other domain tried (Google, Bing, DuckDuckGo, Instagram, Facebook, Tripadvisor, Companies House, CAMRA/whatpub, even plain Wikipedia). Only 3 of the 10 new pending candidates (all in the Chester district) had enough Wikipedia coverage to be genuinely independently re-verified and were promoted: Storyhouse, Chester Cathedral, Grosvenor Museum. The other 7 new candidates (6 in Chester plus Eden in Heaton Moor), all 4 long-stuck pending-review-queue items (Prana, Buon Cibo, Rustik, the Underbank naming mix-up), and today's closure-audit slice could not be honestly verified one way or the other, so nothing was promoted, rejected, or newly queued for any of them — they remain exactly as they were, pending a re-run once tooling recovers. Curia Command's pending_review collection was checked via read_db (unaffected by the outage) and had zero decided items to apply.",
+      "items": [
+        { "label": "Storyhouse (Chester)", "detail": "promoted — Wikipedia-confirmed single-site theatre/cinema/library in a restored 1930s Odeon, no closure signal (opening date corrected to May 2017 vs the candidate's claimed 2018, not reflected in the promoted copy)" },
+        { "label": "Chester Cathedral", "detail": "promoted — working Church of England cathedral, single-site by nature, no chain/closure concern" },
+        { "label": "Grosvenor Museum (Chester)", "detail": "promoted — long-established (1886) local-authority museum, Wikipedia-confirmed, no chain/closure signal" },
+        { "label": "Craft & Company / Beer Heroes / Huxley's / Paysan / Olive Tree Brasserie / Shrub (Chester)", "detail": "left pending, unchanged — no Wikipedia coverage and every other source blocked; Olive Tree Brasserie (a claimed 3-site regional group) is the highest-priority re-check once tooling recovers" },
+        { "label": "Eden (Heaton Moor)", "detail": "left pending, unchanged — could not independently verify ownership or current trading status" },
+        { "label": "Prana (Altrincham) / Buon Cibo (Heaton Moor) / Rustik (Didsbury) / Underbank naming mix-up (Stockport Underbanks)", "detail": "left pending in pending-review-queue.json, unchanged — no new evidence found, a tooling gap rather than a fresh 'still unresolved' finding" },
+        { "label": "Closure audit (indices 28-32: Wiltons, Franco's, Chris Beetles Gallery, Spencer House, The Globe)", "detail": "not completed — could not find real evidence either way, so nothing written rather than guessing" }
+      ],
+      "createdAt": "2026-09-17T09:20:00Z"
     }
   ]
 }
