@@ -501,24 +501,33 @@ export default function Map() {
     // Any real camera move gets a fresh chance to prompt — dismissing the
     // popup only ever hides it for the current, unmoving camera position.
     setPromptDismissed(false);
+    const detected = metroForPoint(center);
+
+    // Inside any already-loaded metro (the one we're focused on, or a
+    // loaded sibling like Manchester <-> Cheshire) — always just follow the
+    // camera, never prompt, regardless of zoom level. Checked *before* the
+    // zoom threshold below, deliberately: found live 2026-09-18 ("still
+    // kind of navigating around cheshire here but its blocking me with half
+    // of cheshire visible") — Cheshire's own real footprint has grown
+    // enough (Chester/Tarporley/Nantwich/Northwich now span a much wider
+    // area than the original Golden-Triangle-centric cluster) that seeing
+    // more than one of your own already-loaded region's towns at once
+    // routinely needs a zoom level below REGION_PICKER_ZOOM_THRESHOLD now —
+    // that's normal local browsing, not being lost, and shouldn't trigger
+    // the same interruptive popup as genuinely not knowing which region
+    // you're looking at.
+    if (detected && isMetroLoaded(detected)) {
+      if (detected !== focusedMetroRef.current) setFocusedMetro(detected);
+      setRegionPromptReason(null);
+      return;
+    }
+
     if (zoomLevel < REGION_PICKER_ZOOM_THRESHOLD) {
       setRegionPromptReason('zoomed-out');
       return;
     }
-    const detected = metroForPoint(center);
     if (!detected) {
       setRegionPromptReason('lost');
-      return;
-    }
-    if (detected === focusedMetroRef.current) {
-      setRegionPromptReason(null);
-      return;
-    }
-    if (isMetroLoaded(detected)) {
-      // Already-fetched neighbour (e.g. Manchester <-> Cheshire, both in
-      // DEFAULT_METROS) — just follow the camera, nothing to prompt.
-      setFocusedMetro(detected);
-      setRegionPromptReason(null);
       return;
     }
     setRegionPromptReason(detected);
