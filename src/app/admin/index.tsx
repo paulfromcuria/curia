@@ -25,7 +25,7 @@ import { color, font, spacing } from '../../theme';
 export default function AdminHome() {
   const router = useRouter();
   const { admin, logout } = useAdminSession();
-  const { venues, districts, tiles } = useAdminData();
+  const { venues, districts, tiles, loading } = useAdminData();
   const { members } = useAdminMembers();
   const [pendingReviewCount, setPendingReviewCount] = useState(0);
 
@@ -95,7 +95,7 @@ export default function AdminHome() {
           <Card key={s.label} style={styles.card}>
             <View style={styles.cardHeaderRow}>
               <Text style={styles.cardLabel}>{s.label}</Text>
-              <Text style={styles.cardCount}>{s.count}</Text>
+              <Text style={styles.cardCount}>{loading ? '—' : s.count}</Text>
             </View>
             <Text style={styles.cardDescription}>{s.description}</Text>
             <Button label={`Open ${s.label}`} variant="secondary" onPress={() => router.push(s.href)} />
@@ -103,13 +103,20 @@ export default function AdminHome() {
         ))}
       </View>
 
-      <GrowthInsights venues={venues} districts={districts} tiles={tiles} cities={CITIES} />
+      {loading ? (
+        <Text style={styles.note}>Loading real venue/district/tile counts from Supabase…</Text>
+      ) : (
+        <GrowthInsights venues={venues} districts={districts} tiles={tiles} cities={CITIES} />
+      )}
 
       <Text style={styles.note}>
-        Venues, Districts and Tiles edits are in-memory for this app session only. There is no
-        backend wired up for them yet (see src/lib/admin/admin-data.tsx). Restarting the app
-        resets those three back to the seed data in docs/data/*.json. Users is real, pulled
-        live from Supabase.
+        Venues/Districts/Tiles counts and coverage above are read live from Supabase (fixed
+        2026-09-18 — this used to silently undercount, reading only whatever the member app's
+        region-scoped loader had fetched so far). Editing them here is still in-memory for this
+        app session only, though — there is no write backend wired up yet (see
+        src/lib/admin/admin-data.tsx). Restarting the app re-fetches the real live data, but
+        discards any unsaved edits made here. Users is real and read-only, pulled live from
+        Supabase.
       </Text>
 
       <Button label="Sign out" variant="ghost" onPress={logout} />

@@ -120,7 +120,7 @@ export function useContentVersion(): number {
   return version;
 }
 
-function mapVenueRow(v: Record<string, unknown>): Venue {
+export function mapVenueRow(v: Record<string, unknown>): Venue {
   return {
     id: v.id as string,
     name: v.name as string,

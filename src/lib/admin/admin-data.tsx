@@ -1,62 +1,115 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
-import { DISTRICTS, TILES, VENUES } from '../data/seed';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { mapVenueRow } from '../data/seed';
+import { supabase } from '../data/supabase-client';
 import type { District, Tile, Venue } from '../../types/models';
 
 /**
- * In-memory admin data store for the curation surface (M8, extended 2026-08
- * for the growth-dashboard expansion), seeded once from the same typed
- * loader (src/lib/data/seed.ts) every other surface reads from.
+ * Admin data store for the curation surface (M8, extended 2026-08 for the
+ * growth-dashboard expansion, read side fixed 2026-09-18).
  *
- * IMPORTANT: this does NOT persist edits across an app restart. A real
- * Supabase project exists now (see supabase/migrations/*.sql — the member
- * app and the admin Users screen both use it), but Venues/Districts/Tiles
- * were never wired to it: "CRUD" here still means mutating this in-memory
- * copy only, exactly as the M8 brief originally described. A real backend
- * swap replaces the bodies of the functions below with Supabase calls
- * without changing the shape consumers see (Venue/District/Tile from
- * src/types/models.ts).
+ * READ side: fetches fresh, unscoped from Supabase on mount — every venue/
+ * district/tile in every metro, always. Previously seeded from
+ * src/lib/data/seed.ts's own exported VENUES/DISTRICTS/TILES, which is
+ * wrong for an admin surface: those are the member app's region-scoped
+ * arrays (DEFAULT_METROS = manchester+cheshire only, until a member
+ * actually browses another region and triggers loadVenuesForMetro), so the
+ * dashboard's own venue count and tile-coverage stats were silently
+ * undercounting by whatever wasn't lazy-loaded yet — found live 2026-09-18
+ * ("my admin portal is showing 219 venues total, is that correct?" — real
+ * answer was 329, London/Riyadh/Santorini missing entirely).
  *
- * This store's arrays are independent copies of src/lib/data/seed.ts's own
- * exported VENUES/DISTRICTS/TILES — those stay the static seed snapshot the
- * member-facing app and the scoring engine (curia-matchmaking) were built
- * and tested against. Admin edits made here never mutate those exports and
- * never leak into the member app (Hard rule 8) — there is no wiring
- * between this file and any member-facing screen at all.
+ * WRITE side is NOT fixed here — still real scope, not done: upsert/delete
+ * below only mutate this in-memory copy, exactly as the original M8 brief
+ * described, and don't persist across a refresh. A real write path needs
+ * RLS granting admin_users direct write access to venues/districts/tiles
+ * (same idiom migration 0012 already set up for the growth-engine tables),
+ * plus rewriting every function below to hit Supabase — a genuinely
+ * separate, larger piece of work, flagged rather than silently left for
+ * someone to discover the hard way.
  *
  * Deliberately does NOT include a "users" slice — real members are a
  * separate concern (real signups via Supabase Auth, not something this
- * provider's seed-then-mutate pattern fits) with their own read-only
+ * provider's fetch-then-mutate pattern fits) with their own read-only
  * provider, src/lib/admin/admin-members.tsx.
  */
 export interface AdminDataContextValue {
   venues: Venue[];
   districts: District[];
   tiles: Tile[];
+  /** True until the initial Supabase fetch resolves — every count/coverage
+   * stat computed from venues/districts/tiles is 0/empty until this flips,
+   * not a real "nothing here" answer. */
+  loading: boolean;
   getVenue: (id: string) => Venue | undefined;
   getDistrict: (id: string) => District | undefined;
   getTile: (id: string) => Tile | undefined;
-  /** Inserts if `venue.id` is new, otherwise replaces the existing entry. */
+  /** Inserts if `venue.id` is new, otherwise replaces the existing entry.
+   * In-memory only — see this file's own header comment. */
   upsertVenue: (venue: Venue) => void;
   deleteVenue: (id: string) => void;
-  /** Inserts if `district.id` is new, otherwise replaces the existing entry. */
+  /** Inserts if `district.id` is new, otherwise replaces the existing entry.
+   * In-memory only — see this file's own header comment. */
   upsertDistrict: (district: District) => void;
   deleteDistrict: (id: string) => void;
-  /** Inserts if `tile.id` is new, otherwise replaces the existing entry. */
+  /** Inserts if `tile.id` is new, otherwise replaces the existing entry.
+   * In-memory only — see this file's own header comment. */
   upsertTile: (tile: Tile) => void;
   deleteTile: (id: string) => void;
 }
 
 const AdminDataContext = createContext<AdminDataContextValue | null>(null);
 
+function mapDistrictRow(d: Record<string, unknown>): District {
+  return {
+    id: d.id as string,
+    name: d.name as string,
+    metro: d.metro as District['metro'],
+    lat: d.lat as number,
+    lon: d.lon as number,
+    base: d.base as number,
+    kind: d.kind as District['kind'],
+    accentColor: d.accent_color as string,
+    editorialDescription: (d.editorial_description as string | null) ?? undefined,
+    dayMultiplier: (d.day_multiplier as Record<string, number> | null) ?? undefined,
+    bandMultiplier: (d.band_multiplier as Record<string, number> | null) ?? undefined,
+    groupId: (d.group_id as string | null) ?? undefined,
+  };
+}
+
+function mapTileRow(t: Record<string, unknown>): Tile {
+  return {
+    id: t.id as string,
+    category: t.category as Tile['category'],
+    name: t.name as string,
+    subPreferences: (t.sub_preferences as string[]) ?? [],
+    region: (t.region as Tile['region']) ?? undefined,
+  };
+}
+
 export function AdminDataProvider({ children }: { children: ReactNode }) {
-  const [venues, setVenues] = useState<Venue[]>(() => VENUES.map((v) => ({ ...v })));
-  const [districts, setDistricts] = useState<District[]>(() => DISTRICTS.map((d) => ({ ...d })));
-  // Clones the nested subPreferences array too, not just the top-level
-  // object — Tile is the first seeded type here with a nested array field,
-  // and a shallow `{...t}` clone alone would still share that array by
-  // reference with seed.ts's own exported TILES, letting an in-place edit
-  // (e.g. sorting or pushing) mutate the real seed data out from under it.
-  const [tiles, setTiles] = useState<Tile[]>(() => TILES.map((t) => ({ ...t, subPreferences: [...t.subPreferences] })));
+  const [venues, setVenues] = useState<Venue[]>([]);
+  const [districts, setDistricts] = useState<District[]>([]);
+  const [tiles, setTiles] = useState<Tile[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const [venuesRes, districtsRes, tilesRes] = await Promise.all([
+        supabase.from('venues').select('*'),
+        supabase.from('districts').select('*'),
+        supabase.from('tiles').select('*'),
+      ]);
+      if (cancelled) return;
+      setVenues((venuesRes.data ?? []).map(mapVenueRow));
+      setDistricts((districtsRes.data ?? []).map(mapDistrictRow));
+      setTiles((tilesRes.data ?? []).map(mapTileRow));
+      setLoading(false);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const getVenue = useCallback((id: string) => venues.find((v) => v.id === id), [venues]);
   const getDistrict = useCallback((id: string) => districts.find((d) => d.id === id), [districts]);
@@ -100,6 +153,7 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
       venues,
       districts,
       tiles,
+      loading,
       getVenue,
       getDistrict,
       getTile,
@@ -114,6 +168,7 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
       venues,
       districts,
       tiles,
+      loading,
       getVenue,
       getDistrict,
       getTile,
