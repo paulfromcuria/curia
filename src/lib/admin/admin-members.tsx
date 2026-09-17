@@ -28,6 +28,11 @@ export interface AdminMember {
   selectedTileIds: string[];
   /** ISO date string, e.g. "2026-03-14" — sliced from profiles.created_at. */
   joinDate: string;
+  /** Real Supabase Auth column (auth.users.last_sign_in_at) — null if they
+   * signed up but have never actually signed back in. */
+  lastSignInAt: string | null;
+  savedVenueCount: number;
+  ratedVenueCount: number;
 }
 
 interface AdminListMembersRow {
@@ -39,6 +44,9 @@ interface AdminListMembersRow {
   spend_level: SpendLevel;
   selected_tile_ids: string[] | null;
   created_at: string;
+  last_sign_in_at: string | null;
+  saved_venue_count: number;
+  rated_venue_count: number;
 }
 
 function mapRow(row: AdminListMembersRow): AdminMember {
@@ -51,6 +59,9 @@ function mapRow(row: AdminListMembersRow): AdminMember {
     onboardingComplete: row.onboarding_complete,
     selectedTileIds: row.selected_tile_ids ?? [],
     joinDate: row.created_at.slice(0, 10),
+    lastSignInAt: row.last_sign_in_at,
+    savedVenueCount: row.saved_venue_count,
+    ratedVenueCount: row.rated_venue_count,
   };
 }
 

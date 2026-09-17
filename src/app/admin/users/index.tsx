@@ -18,6 +18,19 @@ const STATUS_LABELS: Record<SubscriptionStatus | 'All', string> = {
 };
 const SPEND_FILTERS: (SpendLevel | 'All')[] = ['All', 1, 2, 3, 4, 5];
 
+/** auth.users.last_sign_in_at is null for a member who signed up but has
+ * never actually signed back in — worth saying plainly rather than
+ * leaving a blank, since "never came back" is itself real usage signal. */
+function lastActiveLabel(lastSignInAt: string | null): string {
+  if (!lastSignInAt) return 'Never signed in again';
+  const days = Math.floor((Date.now() - new Date(lastSignInAt).getTime()) / 86400000);
+  if (days <= 0) return 'Active today';
+  if (days === 1) return 'Active yesterday';
+  if (days < 30) return `Active ${days}d ago`;
+  const months = Math.floor(days / 30);
+  return `Active ${months}mo ago`;
+}
+
 /**
  * Users list (2026-09) — real members (src/lib/admin/admin-members.tsx),
  * read-only, no add/edit/delete: members aren't administered by creating
@@ -50,6 +63,9 @@ export default function UsersList() {
           <Text style={styles.rowTitle}>{item.name}</Text>
           <Text style={styles.rowMeta}>
             {item.email} · {'£'.repeat(item.spendLevel)}
+          </Text>
+          <Text style={styles.rowActivity}>
+            {lastActiveLabel(item.lastSignInAt)} · {item.savedVenueCount} saved · {item.ratedVenueCount} rated
           </Text>
         </View>
         <Text style={styles.statusBadge}>{STATUS_LABELS[item.subscriptionStatus]}</Text>
@@ -111,6 +127,7 @@ const styles = StyleSheet.create({
   rowMain: { flex: 1, gap: 2 },
   rowTitle: { fontFamily: font.serifRegular, fontSize: 18, color: color.textPrimary },
   rowMeta: { fontFamily: font.sans, fontSize: 12, color: color.textSecondary },
+  rowActivity: { fontFamily: font.sans, fontSize: 10.5, letterSpacing: 0.4, color: color.textTertiary, marginTop: 2 },
   statusBadge: {
     fontFamily: font.sansMedium,
     fontSize: 10,
