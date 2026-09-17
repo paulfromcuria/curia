@@ -31,18 +31,15 @@ import { color, font, radius, spacing } from '../../theme';
 import type { TileCategory } from '../../types/models';
 import type { MatchmakingInput } from '../../types/matchmaking';
 
-/** How many top matches to show per district in the "Districts" browse mode
- * — tighter than District Guide's own 4 (src/app/district/[id].tsx), since
- * here every district on the page shows its own mini-list at once rather
- * than one district getting the full screen. */
-// A distinctiveness of 2 or below (Gate 2, CLAUDE.md Hard rule 1) is the
-// "comfortable, competent, ubiquitous" end of the scale — still a real,
-// hard-filter-passing match, just not the kind worth leading with. Below
-// this threshold a district's matches fall into the trailing "When you
-// just need one" sub-section instead of the main list (2026-09-16, at
-// explicit user request, alongside removing the old fixed per-district
-// cap this same view used to apply).
-const LOW_DISTINCTIVENESS_THRESHOLD = 2;
+/** How many matches to show per district in the "Districts" browse mode.
+ * 2026-09-17, at explicit user request: this view briefly showed every
+ * hard-filter-passing venue in a district, sorted by distinctiveness alone
+ * — with dense coverage that meant unbounded per-district lists. Reverted
+ * to a real ranked list (sorted by the venue's actual match score, which
+ * already folds in the Gate 2 distinctiveness discount — see rank-venues.ts
+ * and CLAUDE.md's Matchmaking contract) capped at a fixed size, the same
+ * shape the RANKED tab uses. */
+const DISTRICT_MATCHES_CAP = 20;
 
 const BAND_LABEL: Record<string, string> = {
   morning: 'Morning',
@@ -346,33 +343,21 @@ export default function List() {
       });
       const districtVenues = venuesByDistrict(d.id);
       const ranked = rankVenues(input, districtVenues, DISTRICTS, RATING_STATS).ranked;
-      const allMatches = ranked
+      const matches = ranked
         .map((r) => {
           const venue = districtVenues.find((v) => v.id === r.venueId);
           return venue ? { venue, score: r.score, reason: r.reason } : null;
         })
         .filter((m): m is { venue: (typeof districtVenues)[number]; score: number; reason: string } => !!m)
-        // Districts view sorts by distinctiveness, not match score — a
-        // browse-by-place mode should lead with a district's most singular
-        // venues, not whatever today's context happens to score highest.
-        // The RANKED tab already covers "best match for right now."
-        .sort((a, b) => {
-          const diff = (b.venue.distinctiveness ?? 4) - (a.venue.distinctiveness ?? 4);
-          return diff !== 0 ? diff : a.venue.name.localeCompare(b.venue.name);
-        });
-      const topMatches = allMatches.filter(
-        (m) => (m.venue.distinctiveness ?? 4) > LOW_DISTINCTIVENESS_THRESHOLD
-      );
-      const lesserMatches = allMatches.filter(
-        (m) => (m.venue.distinctiveness ?? 4) <= LOW_DISTINCTIVENESS_THRESHOLD
-      );
+        .sort((a, b) => (b.score !== a.score ? b.score - a.score : a.venue.name.localeCompare(b.venue.name)))
+        .slice(0, DISTRICT_MATCHES_CAP);
       // 2026-09, at explicit user request: districts order by real proximity
       // to the user, not by match quality — this is a browse-by-place mode
       // (the RANKED tab already exists for "best match" ordering), so the
       // nearest district should lead regardless of how good today's top pick
       // there happens to be.
       const distanceMiles = haversineMiles(session.searchOrigin, { lat: d.lat, lon: d.lon });
-      return { district: d, topMatches, lesserMatches, distanceMiles };
+      return { district: d, matches, distanceMiles };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viewMode, session, context, moodFilter, contentVersion]);
@@ -450,7 +435,7 @@ export default function List() {
             {districtsByMetro.map(({ city, districts }) => (
               <View key={city.id} style={styles.metroGroup}>
                 <Kicker style={styles.metroKicker}>{city.name}</Kicker>
-                {districts.map(({ district, topMatches, lesserMatches }) => {
+                {districts.map(({ district, matches }) => {
                   return (
                     <View key={district.id} style={styles.districtGroup}>
                       <Pressable
@@ -459,53 +444,32 @@ export default function List() {
                       >
                         <Text style={styles.districtName}>{district.name}</Text>
                       </Pressable>
-                      {topMatches.length === 0 && lesserMatches.length === 0 ? (
+                      {matches.length === 0 ? (
                         <Text style={styles.districtEmptyNote}>
                           {moodOn
                             ? 'Nothing here matches this mood right now.'
                             : 'Nothing kept here yet. Our editors are still working their way through it.'}
                         </Text>
                       ) : (
-                        <>
-                          {topMatches.map(({ venue }) => (
-                            <Pressable
-                              key={venue.id}
-                              onPress={() => router.push(`/venue/${venue.id}`)}
-                              style={styles.districtVenueRow}
-                            >
-                              <Text style={styles.districtVenueName} numberOfLines={1}>
-                                {venue.name}
-                              </Text>
-                              {venue.status === 'coming-soon' && (
-                                <View style={styles.newBadge}>
-                                  <Text style={styles.newBadgeText}>NEW</Text>
-                                </View>
-                              )}
-                              <Text style={styles.districtVenueType} numberOfLines={1}>
-                                {venue.type}
-                              </Text>
-                            </Pressable>
-                          ))}
-                          {lesserMatches.length > 0 && (
-                            <View style={styles.lesserMatchesGroup}>
-                              <Kicker style={styles.lesserMatchesKicker}>When you just need one</Kicker>
-                              {lesserMatches.map(({ venue }) => (
-                                <Pressable
-                                  key={venue.id}
-                                  onPress={() => router.push(`/venue/${venue.id}`)}
-                                  style={styles.lesserMatchRow}
-                                >
-                                  <Text style={styles.lesserMatchName} numberOfLines={1}>
-                                    {venue.name}
-                                  </Text>
-                                  <Text style={styles.lesserMatchType} numberOfLines={1}>
-                                    {venue.type}
-                                  </Text>
-                                </Pressable>
-                              ))}
-                            </View>
-                          )}
-                        </>
+                        matches.map(({ venue }) => (
+                          <Pressable
+                            key={venue.id}
+                            onPress={() => router.push(`/venue/${venue.id}`)}
+                            style={styles.districtVenueRow}
+                          >
+                            <Text style={styles.districtVenueName} numberOfLines={1}>
+                              {venue.name}
+                            </Text>
+                            {venue.status === 'coming-soon' && (
+                              <View style={styles.newBadge}>
+                                <Text style={styles.newBadgeText}>NEW</Text>
+                              </View>
+                            )}
+                            <Text style={styles.districtVenueType} numberOfLines={1}>
+                              {venue.type}
+                            </Text>
+                          </Pressable>
+                        ))
                       )}
                     </View>
                   );
@@ -801,36 +765,6 @@ const styles = StyleSheet.create({
     fontSize: 9.5,
     letterSpacing: 1,
     color: color.textSecondary,
-  },
-  lesserMatchesGroup: {
-    gap: 4,
-    marginTop: spacing.xs,
-    paddingTop: spacing.xs,
-    borderTopWidth: 1,
-    borderTopColor: color.hairlineMin,
-  },
-  lesserMatchesKicker: {
-    color: color.textTertiary,
-    marginBottom: 2,
-  },
-  lesserMatchRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    paddingVertical: 4,
-  },
-  lesserMatchName: {
-    flex: 1,
-    minWidth: 0,
-    fontFamily: font.serifRegular,
-    fontSize: 13,
-    color: color.textTertiary,
-  },
-  lesserMatchType: {
-    fontFamily: font.sans,
-    fontSize: 9,
-    letterSpacing: 1,
-    color: color.textTertiary,
   },
   moodPill: {
     flexDirection: 'row',
