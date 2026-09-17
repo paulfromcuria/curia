@@ -501,38 +501,52 @@ export default function Map() {
     // Any real camera move gets a fresh chance to prompt — dismissing the
     // popup only ever hides it for the current, unmoving camera position.
     setPromptDismissed(false);
-    const detected = metroForPoint(center);
+
+    // Sample the whole visible viewport, not just the exact center point —
+    // found live 2026-09-18, still too aggressive after the first fix
+    // ("increase the radius... until a user can't see any live region on
+    // their screen"): the true camera center can sit in a real empty gap
+    // while plenty of a loaded region is still visible elsewhere on
+    // screen, especially on a narrow phone viewport where the visible map
+    // area is a tall sliver rather than a square around the center. Bounds
+    // corners + center is a cheap, good-enough stand-in for a full
+    // polygon-intersection check: if a loaded metro shows up at any of
+    // these five points, something real is genuinely on screen.
+    const samplePoints = bounds
+      ? [
+          center,
+          bounds.ne,
+          bounds.sw,
+          { lat: bounds.ne.lat, lon: bounds.sw.lon },
+          { lat: bounds.sw.lat, lon: bounds.ne.lon },
+        ]
+      : [center];
+    const visibleLoadedMetro = samplePoints
+      .map((p) => metroForPoint(p))
+      .find((m): m is MetroId => !!m && isMetroLoaded(m));
 
     // Inside any already-loaded metro (the one we're focused on, or a
     // loaded sibling like Manchester <-> Cheshire) — always just follow the
-    // camera, never prompt, regardless of zoom level. Checked *before* the
-    // zoom threshold below, deliberately: found live 2026-09-18 ("still
-    // kind of navigating around cheshire here but its blocking me with half
-    // of cheshire visible") — Cheshire's own real footprint has grown
-    // enough (Chester/Tarporley/Nantwich/Northwich now span a much wider
-    // area than the original Golden-Triangle-centric cluster) that seeing
-    // more than one of your own already-loaded region's towns at once
-    // routinely needs a zoom level below REGION_PICKER_ZOOM_THRESHOLD now —
-    // that's normal local browsing, not being lost, and shouldn't trigger
-    // the same interruptive popup as genuinely not knowing which region
-    // you're looking at.
-    if (detected && isMetroLoaded(detected)) {
-      if (detected !== focusedMetroRef.current) setFocusedMetro(detected);
+    // camera, never prompt, regardless of zoom level.
+    if (visibleLoadedMetro) {
+      if (visibleLoadedMetro !== focusedMetroRef.current) setFocusedMetro(visibleLoadedMetro);
       setRegionPromptReason(null);
       return;
     }
 
+    // Nothing loaded is visible anywhere on screen — now it's worth asking.
     if (zoomLevel < REGION_PICKER_ZOOM_THRESHOLD) {
       setRegionPromptReason('zoomed-out');
       return;
     }
+    const detected = metroForPoint(center);
     if (!detected) {
       setRegionPromptReason('lost');
       return;
     }
     setRegionPromptReason(detected);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [center, zoomLevel]);
+  }, [center, zoomLevel, bounds]);
 
   // Every real metro currently offered by the app, for the picker —
   // DISTRICTS is already Santorini-filtered when the Holiday feature is
