@@ -423,6 +423,18 @@ export default function List() {
     }).filter((m) => m.districts.length > 0);
   }, [districtMatches, radiusMiles]);
 
+  // Found live 2026-09-18 ("i see a profile icon... that says AV?"): this
+  // was a hardcoded literal, never wired to the real signed-in user, unlike
+  // Map's own EmblemButton (map.tsx/map.web.tsx) which both already derive
+  // this from session.user?.name — same computation here now.
+  const initials = (session.user?.name ?? 'You')
+    .split(' ')
+    .filter(Boolean)
+    .map((w) => w[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+
   // District quick-nav for the RANKED tab (2026-09, at explicit user
   // request: "incorporate [Moments' district navigation] on... list view").
   // The DISTRICTS tab above is already a full district browser, so this
@@ -450,7 +462,7 @@ export default function List() {
             </Text>
             <Text style={styles.meta}>{listMeta}</Text>
           </View>
-          <EmblemButton initials="AV" onPress={() => router.push('/profile')} />
+          <EmblemButton initials={initials} onPress={() => router.push('/profile')} />
         </View>
 
         <View style={styles.viewModeRow}>
