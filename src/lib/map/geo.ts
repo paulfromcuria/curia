@@ -16,6 +16,7 @@
  */
 import buffer from '@turf/buffer';
 import mask from '@turf/mask';
+import simplify from '@turf/simplify';
 import union from '@turf/union';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import { featureCollection, multiPoint, point } from '@turf/helpers';
@@ -272,18 +273,52 @@ export const ALL_VENUES_ZOOM_THRESHOLD = 14;
  */
 export const COVERAGE_RADIUS_MILES = 5.5;
 
+/** How far to dilate-then-erode the coverage shape by, to round off the
+ * scalloped notches a raw union of circles leaves wherever two districts'
+ * buffers partially overlap without fully swallowing each other — found
+ * live 2026-09-18 ("this looks like some form of weird disformed shape"),
+ * most visible once Tarporley/Northwich turned Chester/Nantwich from
+ * isolated circles into a narrow connected chain. A standard morphological
+ * "closing" pass (buffer out by this radius, then back in by the same
+ * amount) fills notches roughly up to 2x this size while leaving the real
+ * outer footprint essentially unchanged — it doesn't fatten the genuinely
+ * thin Chester-Tarporley-Nantwich corridor's width (that width is a real
+ * fact of how far apart those districts are), it just smooths the wiggly
+ * edge contour into a cleaner one. Deliberately well under
+ * COVERAGE_RADIUS_MILES so it can't meaningfully change which real-world
+ * points read as "inside" coverage. */
+const COVERAGE_SMOOTH_RADIUS_MILES = 2;
+
+function smoothCoverageShape(
+  shape: Feature<Polygon | MultiPolygon>
+): Feature<Polygon | MultiPolygon> {
+  const dilated = buffer(shape, COVERAGE_SMOOTH_RADIUS_MILES, { units: 'miles' });
+  if (!dilated) return shape;
+  const eroded = buffer(dilated, -COVERAGE_SMOOTH_RADIUS_MILES, { units: 'miles' });
+  if (!eroded) return shape;
+  // The dilate/erode pass itself re-discretizes the curve at every existing
+  // vertex, so it comes out with *more* points than it went in with (1175
+  // vs the raw union's 329, measured against real district data) — still
+  // geometrically smoother (concave notches genuinely filled), but visually
+  // noisier without this cleanup. tolerance in degrees, not miles — 0.001°
+  // is roughly 100m at this latitude, comfortably below anything that would
+  // visibly move the coastline-like outline.
+  return simplify(eroded, { tolerance: 0.001, highQuality: true });
+}
+
 function computeCoveragePolygons(): Feature<Polygon | MultiPolygon>[] {
   const metros = Array.from(new Set(DISTRICTS.map((d) => d.metro))) as MetroId[];
   const perMetro = metros
     .map((metro) => {
       const points = DISTRICTS.filter((d) => d.metro === metro).map((d) => [d.lon, d.lat]);
-      return buffer(multiPoint(points), COVERAGE_RADIUS_MILES, { units: 'miles' });
+      const raw = buffer(multiPoint(points), COVERAGE_RADIUS_MILES, { units: 'miles' });
+      return raw && smoothCoverageShape(raw);
     })
     .filter((f): f is Feature<Polygon | MultiPolygon> => !!f);
 
   if (perMetro.length <= 1) return perMetro;
   const merged = union(featureCollection(perMetro));
-  return merged ? [merged] : perMetro;
+  return merged ? [smoothCoverageShape(merged)] : perMetro;
 }
 
 // Lazily computed, not eager module-level consts: DISTRICTS (src/lib/data/

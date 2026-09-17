@@ -11,6 +11,7 @@
     "@turf/buffer": "^7.4.0",
     "@turf/helpers": "^7.4.0",
     "@turf/mask": "^7.4.0",
+    "@turf/simplify": "^7.4.0",
     "@turf/union": "^7.4.0",
     "expo": "~57.0.9",
     "expo-constants": "~57.0.8",
