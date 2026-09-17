@@ -25,6 +25,18 @@
  */
 export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // Do
+  // Found 2026-09-18, at explicit user report from the admin tile-coverage
+  // dashboard: Culture and Clothes shopping had 11 and 6 real, live venues
+  // between them (museums, heritage centres, historic houses/churches;
+  // fashion boutiques) that already existed across the dataset but were
+  // never wired to either tile — a pure mapping gap, not a density one.
+  // Distinct from Independent cinema/Theatre/Ballet & opera/Art galleries
+  // above, which already have their own tiles.
+  Culture: ['museum', 'contemporary-art-museum', 'heritage-centre', 'historic-house', 'historic-church'],
+  'Clothes shopping': ['fashion-boutique', 'boutique'],
+  // comedy-club added 2026-09-18 (The Frog and Bucket, Northern Quarter) —
+  // Comedy's first real venue anywhere in the app.
+  Comedy: ['comedy-club'],
   Markets: ['market-hall', 'artisan-market'],
   'Independent cinema': ['independent-cinema'],
   Theatre: ['performing-arts', 'black-box-theater'],
@@ -63,6 +75,15 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // has it as 'Do' so mood filtering finds it, it just has no dedicated tile.
 
   // Drink
+  // Found 2026-09-18 alongside the Culture/Clothes shopping fix above —
+  // Enigma Club and Koo Club (both real, live NIGHTCLUB-type venues)
+  // existed but Nightclubs had never been wired to them either.
+  Nightclubs: ['nightclub'],
+  // whisky-bar/beer-garden added 2026-09-18 (The Whiskey Jar, Port Street
+  // Beer House, both Northern Quarter) — first real venues anywhere in the
+  // app for either tile.
+  'Whisky & spirits': ['whisky-bar'],
+  'Beer gardens': ['beer-garden'],
   'Cocktail bars': ['cocktail-bar', 'speakeasy'],
   'Jazz bars': ['jazz-bar'],
   'Rooftop & scenic': ['rooftop'],
@@ -381,4 +402,11 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   // and not a shisha-only concept, so no existing Drink type fits it.
   'TEA HOUSE': 'Drink',
   'MOROCCAN LOUNGE': 'Drink',
+  // Manchester Comedy/Whisky & spirits/Beer gardens pass (2026-09-18) — see
+  // docs/data/venues.json's own _tileCoverageGapSource note. Three brand
+  // new types, one venue each, each wired to the one real tile it exists
+  // to close: COMEDY CLUB (Do), WHISKY BAR and BEER GARDEN (both Drink).
+  'COMEDY CLUB': 'Do',
+  'WHISKY BAR': 'Drink',
+  'BEER GARDEN': 'Drink',
 };
