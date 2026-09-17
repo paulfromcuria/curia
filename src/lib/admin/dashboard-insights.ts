@@ -1,6 +1,7 @@
 import { slugifyType } from '../scoring/rank-venues';
 import { tileIdToVenueTypeSlugs } from '../scoring/tile-catalog-map';
 import type { City, District, Tile, Venue } from '../../types/models';
+import type { AdminMember } from './admin-members';
 
 /**
  * Pure, presentation-free growth/coverage stats for the admin dashboard
@@ -62,4 +63,92 @@ export function tileCoverage(venues: Venue[], tiles: Tile[]): TileCoverage[] {
 
 export function lowCoverageTiles(coverage: TileCoverage[]): TileCoverage[] {
   return coverage.filter((c) => c.matchingVenueCount === 0);
+}
+
+// --- Growth & engagement (2026-09-18, at explicit user request: "some
+// skpi's and metrics and BA stuff... metrics tracking development
+// progress and database depth etc with some targets") ---
+
+export interface MemberGrowthMetrics {
+  total: number;
+  new7d: number;
+  new30d: number;
+  /** % of members with onboarding_complete = true. */
+  onboardingCompletionPct: number;
+  /** % who have saved or rated at least one venue — the closest real
+   * "aha moment" signal available without a dedicated event log. */
+  activatedPct: number;
+  /** % whose last_sign_in_at is a real, later date than their join date —
+   * i.e. they've actually come back at least once, not just signed up. */
+  returnedPct: number;
+  subscriptionCounts: Record<string, number>;
+}
+
+export function memberGrowthMetrics(members: AdminMember[]): MemberGrowthMetrics {
+  const total = members.length;
+  const now = Date.now();
+  const days = (iso: string) => (now - new Date(iso).getTime()) / 86400000;
+  const pct = (n: number) => (total === 0 ? 0 : Math.round((n / total) * 100));
+
+  const new7d = members.filter((m) => days(m.joinDate) <= 7).length;
+  const new30d = members.filter((m) => days(m.joinDate) <= 30).length;
+  const onboardingCompletionPct = pct(members.filter((m) => m.onboardingComplete).length);
+  const activatedPct = pct(members.filter((m) => m.savedVenueCount > 0 || m.ratedVenueCount > 0).length);
+  const returnedPct = pct(
+    members.filter((m) => {
+      if (!m.lastSignInAt) return false;
+      // More than a day past their join date — same-day sign-in on
+      // signup itself shouldn't count as "came back".
+      return new Date(m.lastSignInAt).getTime() - new Date(m.joinDate).getTime() > 86400000;
+    }).length
+  );
+  const subscriptionCounts: Record<string, number> = {};
+  for (const m of members) subscriptionCounts[m.subscriptionStatus] = (subscriptionCounts[m.subscriptionStatus] ?? 0) + 1;
+
+  return { total, new7d, new30d, onboardingCompletionPct, activatedPct, returnedPct, subscriptionCounts };
+}
+
+export interface ContentQualityMetrics {
+  totalVenues: number;
+  totalDistricts: number;
+  /** Venues whose distinctiveness/ownership have been individually
+   * researched, not left at migration 0009's blanket default — signalled
+   * by ownership_notes being set, since the default backfill never wrote
+   * one (see migration 0014's own header for why this is a clean, real
+   * signal rather than a guess). */
+  individuallyScoredVenues: number;
+  /** Real onboarding tiles with at least one matching live venue. */
+  tilesCovered: number;
+  totalTiles: number;
+  /** Districts with fewer than 3 real matches — the same
+   * MIN_MATCHES_TO_RANK threshold the Districts view itself uses
+   * (src/app/(tabs)/list.tsx) — below this, a district is invisible
+   * there regardless of how many venues nominally exist. */
+  districtsBelowRankThreshold: number;
+}
+
+const CONTENT_MIN_MATCHES_TO_RANK = 3;
+
+export function contentQualityMetrics(
+  venues: Venue[],
+  districts: District[],
+  tiles: Tile[]
+): ContentQualityMetrics {
+  const individuallyScoredVenues = venues.filter((v) => !!v.ownershipNotes).length;
+  const coverage = tileCoverage(venues, tiles);
+  const tilesCovered = coverage.filter((c) => c.matchingVenueCount > 0).length;
+  const venuesPerDistrict = new Map<string, number>();
+  for (const v of venues) venuesPerDistrict.set(v.districtId, (venuesPerDistrict.get(v.districtId) ?? 0) + 1);
+  const districtsBelowRankThreshold = districts.filter(
+    (d) => (venuesPerDistrict.get(d.id) ?? 0) < CONTENT_MIN_MATCHES_TO_RANK
+  ).length;
+
+  return {
+    totalVenues: venues.length,
+    totalDistricts: districts.length,
+    individuallyScoredVenues,
+    tilesCovered,
+    totalTiles: tiles.length,
+    districtsBelowRankThreshold,
+  };
 }

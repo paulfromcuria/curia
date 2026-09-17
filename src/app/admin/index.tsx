@@ -106,7 +106,7 @@ export default function AdminHome() {
       {loading ? (
         <Text style={styles.note}>Loading real venue/district/tile counts from Supabase…</Text>
       ) : (
-        <GrowthInsights venues={venues} districts={districts} tiles={tiles} cities={CITIES} />
+        <GrowthInsights venues={venues} districts={districts} tiles={tiles} cities={CITIES} members={members} />
       )}
 
       <Text style={styles.note}>

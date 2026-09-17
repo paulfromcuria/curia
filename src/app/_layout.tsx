@@ -8,6 +8,7 @@ import { loadContentData } from '../lib/data/seed';
 import { AdminDataProvider } from '../lib/admin/admin-data';
 import { AdminMembersProvider } from '../lib/admin/admin-members';
 import { AdminSessionProvider } from '../lib/admin/admin-session';
+import { AdminTargetsProvider } from '../lib/admin/admin-targets';
 import { configureMapbox } from '../lib/map/mapbox-config';
 import { SessionProvider } from '../lib/state/session';
 import { color, font } from '../theme';
@@ -96,18 +97,20 @@ export default function RootLayout() {
         <AdminSessionProvider>
           <AdminMembersProvider>
             <AdminDataProvider>
-              <StatusBar style="light" />
-              <Stack
-                screenOptions={{
-                  headerShown: false,
-                  contentStyle: { backgroundColor: color.base },
-                }}
-              >
-                <Stack.Screen name="(auth)" />
-                <Stack.Screen name="onboarding" />
-                <Stack.Screen name="subscription" />
-                <Stack.Screen name="(tabs)" />
-              </Stack>
+              <AdminTargetsProvider>
+                <StatusBar style="light" />
+                <Stack
+                  screenOptions={{
+                    headerShown: false,
+                    contentStyle: { backgroundColor: color.base },
+                  }}
+                >
+                  <Stack.Screen name="(auth)" />
+                  <Stack.Screen name="onboarding" />
+                  <Stack.Screen name="subscription" />
+                  <Stack.Screen name="(tabs)" />
+                </Stack>
+              </AdminTargetsProvider>
             </AdminDataProvider>
           </AdminMembersProvider>
         </AdminSessionProvider>
