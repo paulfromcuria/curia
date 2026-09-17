@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button, Kicker, Tag } from '../../components/curia';
 import { DISTRICTS, MOMENTS, RATING_STATS, VENUES } from '../../lib/data/seed';
 import { placeholderPhotoFor } from '../../lib/data/placeholder-photos';
+import { DEMO_LOCATION } from '../../lib/scoring/session-input';
 import { useSession } from '../../lib/state/session';
 import { estimateTrip } from '../../lib/travel/trip';
 import type { DietaryRequirement, MomentType } from '../../types/models';
@@ -64,11 +65,14 @@ const DIETARY_MISMATCH_LABEL: Record<Exclude<DietaryRequirement, 'none'>, string
  * The travel CTA mirrors the design source's own `vTravel` logic: under
  * half a mile it sends you to Walk, otherwise to Ride (src/lib/travel/trip.ts
  * ports that exact threshold/formula). Trip distance is computed from
- * `session.searchOrigin` — not the old `DEMO_LOCATION` fallback this screen
- * used until the same 2026-08 pass — so "FROM YOU" here can never disagree
- * with the distance List/Map show for the same venue, or with the ride
- * screen's own trip (src/app/ride.tsx, fixed the same way): one real source
- * of truth for "where you are," not two independent guesses.
+ * `session.location` (2026-09-18, at explicit user report — this used
+ * `session.searchOrigin` since the 2026-08 pass, but session.tsx's own doc
+ * comment on that field says plainly it's for ranking/browsing, not "real
+ * physical distance (walk/ride ETAs)"; searchOrigin follows wherever Map's
+ * camera has been panned to, so "FROM YOU" could silently mean "from where
+ * you were looking on the map," not from you. Fixed the same way in
+ * src/app/walk.tsx and src/app/ride.tsx, so this still can't disagree with
+ * either of those — just correctly anchored now).
  *
  * 2026-09 addition, at explicit user request: "GOOD FOR" moment chips and a
  * "GOOD TO KNOW" matched-facts row. Both are real, computed signals, not new
@@ -118,7 +122,7 @@ export default function VenueDetail() {
   const ratingStats = venue ? RATING_STATS[venue.id] : undefined;
   const district = venue ? DISTRICTS.find((d) => d.id === venue.districtId) : undefined;
 
-  const trip = venue ? estimateTrip(session.searchOrigin, venue) : undefined;
+  const trip = venue ? estimateTrip(session.location ?? DEMO_LOCATION, venue) : undefined;
 
   const matchedMoments = venue ? MOMENTS.filter((m) => m.venueIds.includes(venue.id)) : [];
 

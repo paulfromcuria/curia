@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Kicker } from '../components/curia';
 import { DISTRICTS, VENUES } from '../lib/data/seed';
+import { DEMO_LOCATION } from '../lib/scoring/session-input';
 import { useSession } from '../lib/state/session';
 import { estimateTrip, formatGBP, rideTiersFor } from '../lib/travel/trip';
 import { color, font, radius, spacing } from '../theme';
@@ -26,13 +27,18 @@ import { color, font, radius, spacing } from '../theme';
  *
  * 2026-08 concierge positioning pass, at explicit user request: dropped the
  * raw "X mi · about Y min by road" readout from the trip card — a
- * concierge offers to sort the car, not a logistics printout. Trip is now
- * computed from `session.searchOrigin`, not the old `DEMO_LOCATION`
- * fallback this screen used until this same pass — that's the one real
- * "where you are" source of truth List/Map/venue detail all already used
- * (src/app/venue/[id].tsx, fixed the same way), so this screen's distance
- * can never quietly disagree with the venue detail page's "FROM YOU" for
- * the same venue.
+ * concierge offers to sort the car, not a logistics printout.
+ *
+ * 2026-09-18, at explicit user report: trip is computed from
+ * `session.location` now, not `session.searchOrigin` as the 2026-08 pass
+ * above set it to — session.tsx's own doc comment on searchOrigin says
+ * plainly that it's "the 'what am I browsing' point," and follows wherever
+ * Map's camera has been panned to, while `location` is "the ground truth
+ * for real physical distance (walk/ride ETAs)." Using searchOrigin meant a
+ * ride's pickup distance could silently be measured from a browsed-to
+ * point miles from where the member actually is. Fixed the same way in
+ * src/app/walk.tsx and src/app/venue/[id].tsx — all three still agree with
+ * each other, just on the correct field this time.
  */
 export default function Ride() {
   const router = useRouter();
@@ -40,7 +46,7 @@ export default function Ride() {
   const { venueId } = useLocalSearchParams<{ venueId?: string }>();
   const venue = venueId ? VENUES.find((v) => v.id === venueId) : undefined;
   const district = venue ? DISTRICTS.find((d) => d.id === venue.districtId) : undefined;
-  const trip = venue ? estimateTrip(session.searchOrigin, venue) : undefined;
+  const trip = venue ? estimateTrip(session.location ?? DEMO_LOCATION, venue) : undefined;
   const tiers = trip ? rideTiersFor(trip) : [];
 
   const [tierIndex, setTierIndex] = useState(0);

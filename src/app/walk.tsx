@@ -2,6 +2,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Kicker } from '../components/curia';
 import { DISTRICTS, VENUES } from '../lib/data/seed';
+import { DEMO_LOCATION } from '../lib/scoring/session-input';
 import { useSession } from '../lib/state/session';
 import { estimateTrip } from '../lib/travel/trip';
 import { color, font, radius, spacing } from '../theme';
@@ -14,10 +15,16 @@ import { color, font, radius, spacing } from '../theme';
  * What's real vs. flagged, so this doesn't read as more finished than it is:
  * distance and ETA are real (src/lib/travel/trip.ts, the same haversine-based
  * estimate Map/List already use for their own distance readouts), computed
- * from `session.searchOrigin` (2026-08 — this screen used to use the old
- * `DEMO_LOCATION` fallback, the same fix applied to src/app/ride.tsx and
- * src/app/venue/[id].tsx for the same reason: one real "where you are"
- * source of truth, not a separately-guessed one per screen). Distance/ETA
+ * from `session.location` (2026-09-18, at explicit user report — this had
+ * used `session.searchOrigin` since 2026-08, which session.tsx's own doc
+ * comment on that field explicitly says is wrong for this: "`location`
+ * stays the ground truth for real physical distance (walk/ride ETAs),
+ * `searchOrigin` is the 'what am I browsing' point." The 2026-08 pass fixed
+ * this screen off a hardcoded `DEMO_LOCATION` but picked the wrong session
+ * field — searchOrigin follows wherever Map's camera has been panned to, so
+ * walking directions could silently measure from a browsed-to point miles
+ * from where the member actually is. Same bug, same fix, in
+ * src/app/ride.tsx and src/app/venue/[id].tsx.). Distance/ETA
  * shown here is live navigation progress, not a recommendation's scoring —
  * the 2026-08 concierge positioning pass that removed match scores and
  * logistics readouts elsewhere deliberately left this screen's remaining-
@@ -39,7 +46,7 @@ export default function Walk() {
   const { venueId } = useLocalSearchParams<{ venueId?: string }>();
   const venue = venueId ? VENUES.find((v) => v.id === venueId) : undefined;
   const district = venue ? DISTRICTS.find((d) => d.id === venue.districtId) : undefined;
-  const trip = venue ? estimateTrip(session.searchOrigin, venue) : undefined;
+  const trip = venue ? estimateTrip(session.location ?? DEMO_LOCATION, venue) : undefined;
 
   return (
     <View style={styles.container}>
