@@ -108,6 +108,61 @@ export function memberGrowthMetrics(members: AdminMember[]): MemberGrowthMetrics
   return { total, new7d, new30d, onboardingCompletionPct, activatedPct, returnedPct, subscriptionCounts };
 }
 
+export interface ChartBar {
+  label: string;
+  value: number;
+}
+
+/** Real signups per day, oldest first — the one genuinely time-series
+ * chart this app can honestly draw, since joinDate is the only per-member
+ * event with a real timestamp history (everything else, like save/rate
+ * counts, is a current snapshot with no "when" behind it). */
+export function signupsByDay(members: AdminMember[], windowDays = 14): ChartBar[] {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const counts = new Map<string, number>();
+  for (let i = windowDays - 1; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    counts.set(d.toISOString().slice(0, 10), 0);
+  }
+  for (const m of members) {
+    const key = m.joinDate;
+    if (counts.has(key)) counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+  return Array.from(counts.entries()).map(([date, value]) => ({
+    label: `${date.slice(8, 10)}/${date.slice(5, 7)}`,
+    value,
+  }));
+}
+
+/** The real onboarding→engagement funnel, each stage a strict subset of
+ * the one before it — signed up, then completed onboarding, then actually
+ * activated (saved or rated something), then came back a second time. */
+export function engagementFunnel(members: AdminMember[]): ChartBar[] {
+  const total = members.length;
+  const onboarded = members.filter((m) => m.onboardingComplete).length;
+  const activated = members.filter((m) => m.savedVenueCount > 0 || m.ratedVenueCount > 0).length;
+  const returned = members.filter((m) => {
+    if (!m.lastSignInAt) return false;
+    return new Date(m.lastSignInAt).getTime() - new Date(m.joinDate).getTime() > 86400000;
+  }).length;
+  return [
+    { label: 'Signed up', value: total },
+    { label: 'Onboarded', value: onboarded },
+    { label: 'Activated', value: activated },
+    { label: 'Returned', value: returned },
+  ];
+}
+
+export function venuesByMetroChart(venues: Venue[], cities: City[]): ChartBar[] {
+  return cities.map((c) => ({ label: c.name, value: venues.filter((v) => v.metro === c.id).length }));
+}
+
+export function subscriptionBreakdownChart(subscriptionCounts: Record<string, number>): ChartBar[] {
+  return Object.entries(subscriptionCounts).map(([label, value]) => ({ label, value }));
+}
+
 export interface ContentQualityMetrics {
   totalVenues: number;
   totalDistricts: number;

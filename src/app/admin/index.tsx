@@ -90,6 +90,16 @@ export default function AdminHome() {
         showBack={false}
       />
 
+      {/* 2026-09-18, at explicit user request ("push it to the top"): KPIs
+          now render before the section-navigation cards, not after — this
+          is the dashboard's actual headline content, not a footnote below
+          the nav grid. */}
+      {loading ? (
+        <Text style={styles.note}>Loading real venue/district/tile counts from Supabase…</Text>
+      ) : (
+        <GrowthInsights venues={venues} districts={districts} tiles={tiles} cities={CITIES} members={members} />
+      )}
+
       <View style={styles.grid}>
         {sections.map((s) => (
           <Card key={s.label} style={styles.card}>
@@ -102,12 +112,6 @@ export default function AdminHome() {
           </Card>
         ))}
       </View>
-
-      {loading ? (
-        <Text style={styles.note}>Loading real venue/district/tile counts from Supabase…</Text>
-      ) : (
-        <GrowthInsights venues={venues} districts={districts} tiles={tiles} cities={CITIES} members={members} />
-      )}
 
       <Text style={styles.note}>
         Venues/Districts/Tiles counts and coverage above are read live from Supabase (fixed
