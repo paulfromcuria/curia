@@ -31,15 +31,18 @@ import { color, font, radius, spacing } from '../../theme';
 import type { TileCategory } from '../../types/models';
 import type { MatchmakingInput } from '../../types/matchmaking';
 
-/** How many matches to show per district in the "Districts" browse mode.
- * 2026-09-17, at explicit user request: this view briefly showed every
- * hard-filter-passing venue in a district, sorted by distinctiveness alone
- * — with dense coverage that meant unbounded per-district lists. Reverted
- * to a real ranked list (sorted by the venue's actual match score, which
- * already folds in the Gate 2 distinctiveness discount — see rank-venues.ts
- * and CLAUDE.md's Matchmaking contract) capped at a fixed size, the same
- * shape the RANKED tab uses. */
-const DISTRICT_MATCHES_CAP = 20;
+/** How many matches to show in the RANKED tab and per district in the
+ * "Districts" browse mode. 2026-09-17: the Districts view briefly showed
+ * every hard-filter-passing venue in a district, sorted by distinctiveness
+ * alone — with dense coverage that meant unbounded per-district lists.
+ * Reverted to a real ranked list (sorted by the venue's actual match score,
+ * which already folds in the Gate 2 distinctiveness discount — see
+ * rank-venues.ts and CLAUDE.md's Matchmaking contract) capped at a fixed
+ * size. 2026-09-18, at explicit user request: the RANKED tab itself was
+ * never actually capped — a prior comment here claimed it already was,
+ * which was wrong (found live, "33 venues" rendering uncapped) — now both
+ * views share this one cap. */
+const LIST_CAP = 20;
 
 const BAND_LABEL: Record<string, string> = {
   morning: 'Morning',
@@ -307,8 +310,13 @@ export default function List() {
     [matchmakingInput, contentVersion]
   );
 
-  const listHeadline = result.ranked.length
-    ? `${result.ranked.length} ${result.ranked.length === 1 ? 'venue' : 'venues'}`
+  // Capped to LIST_CAP (2026-09-18) — with dense coverage, result.ranked can
+  // run into the hundreds; the RANKED tab is "best matches," not "every
+  // hard-filter-passing venue," so only the top LIST_CAP are ever rendered.
+  const rankedVisible = useMemo(() => result.ranked.slice(0, LIST_CAP), [result]);
+
+  const listHeadline = rankedVisible.length
+    ? `${rankedVisible.length} ${rankedVisible.length === 1 ? 'venue' : 'venues'}`
     : 'Nothing in range';
 
   // Mirrors the prototype's own `listMeta` (Curia.dc.html): "RANKED FOR NOW"
@@ -350,7 +358,7 @@ export default function List() {
         })
         .filter((m): m is { venue: (typeof districtVenues)[number]; score: number; reason: string } => !!m)
         .sort((a, b) => (b.score !== a.score ? b.score - a.score : a.venue.name.localeCompare(b.venue.name)))
-        .slice(0, DISTRICT_MATCHES_CAP);
+        .slice(0, LIST_CAP);
       // 2026-09, at explicit user request: districts order by real proximity
       // to the user, not by match quality — this is a browse-by-place mode
       // (the RANKED tab already exists for "best match" ordering), so the
@@ -504,7 +512,7 @@ export default function List() {
             </Card>
 
             <View style={styles.rows}>
-          {result.ranked.map((r, i) => {
+          {rankedVisible.map((r, i) => {
             const venue = VENUES.find((v) => v.id === r.venueId);
             if (!venue) return null;
             const district = DISTRICTS.find((d) => d.id === venue.districtId);
