@@ -3,7 +3,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import type { LayoutChangeEvent } from 'react-native';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import mapboxgl from 'mapbox-gl';
-import { Button, Card, ContextStrip, EmblemButton, Kicker, Tag, TopPicksRail } from '../../components/curia';
+import { Button, Card, ContextStrip, EmblemButton, Kicker, Tag, TopPicksRail, TOP_PICKS_COUNT } from '../../components/curia';
 import type { TopPickItem } from '../../components/curia';
 import { FLEXIBLE_MATCH_PIN_COUNT_ENABLED, TOP_PICKS_RAIL_ENABLED } from '../../lib/config/features';
 import { haversineMiles, rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
@@ -33,6 +33,7 @@ import {
   getDistrictLocalAreas,
   groupVisibleDistricts,
   isNearHolidayCoverage,
+  MATCH_PIN_MIN_SCORE_RATIO,
   metroForPoint,
   normalizeLiveliness,
   radiusMilesToZoomLevel,
@@ -954,7 +955,7 @@ export default function Map() {
   // show a different answer than what's actually on the map (Hard rule 5).
   const topPicks: TopPickItem[] = useMemo(
     () =>
-      result.ranked.slice(0, 4).flatMap((r) => {
+      result.ranked.slice(0, TOP_PICKS_COUNT).flatMap((r) => {
         const pickVenue = VENUES.find((v) => v.id === r.venueId);
         if (!pickVenue) return [];
         const pickDistrict = DISTRICTS.find((d) => d.id === pickVenue.districtId);
@@ -973,13 +974,23 @@ export default function Map() {
   const ranked = result.ranked;
   // Resolved in full rank order (not pre-sliced) so selectCollisionFreePins
   // below has the whole pool to choose from — it decides the cut itself.
-  const rankedResolved = useMemo(
-    () => ranked.flatMap((r) => {
+  // Filtered to a quality floor first (MATCH_PIN_MIN_SCORE_RATIO) — real
+  // bug fix, 2026-09-18, at direct user report (a fitness studio ranked
+  // ~14th on List was showing as a map pin): without this, collision
+  // avoidance happily walked deep into the ranked list for *anything*
+  // that didn't collide, letting a geographically-isolated but genuinely
+  // mediocre venue out-compete much better matches that just happened to
+  // sit close together and collide with each other. See projection.ts's
+  // own comment on MATCH_PIN_MIN_SCORE_RATIO.
+  const rankedResolved = useMemo(() => {
+    if (ranked.length === 0) return [];
+    const minScore = ranked[0].score * MATCH_PIN_MIN_SCORE_RATIO;
+    return ranked.flatMap((r) => {
+      if (r.score < minScore) return [];
       const venue = VENUES.find((v) => v.id === r.venueId);
       return venue ? [venue] : [];
-    }),
-    [ranked]
-  );
+    });
+  }, [ranked]);
   const topRankedVenues = useMemo(() => {
     const picked = FLEXIBLE_MATCH_PIN_COUNT_ENABLED
       ? selectCollisionFreePins(rankedResolved, (v) => v, center, zoomLevel)

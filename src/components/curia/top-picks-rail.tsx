@@ -28,6 +28,19 @@ const COLLAPSED_TILE = 26;
 const COLLAPSED_VPAD = spacing.sm;
 const EXPANDED_HEIGHT = 360;
 
+/** How many total picks the rail is prepared to show once expanded
+ * (2026-09-18, at explicit user request — the collapsed view only ever
+ * hinted at 4, but the expanded card list is a fixed, scrollable height
+ * that can comfortably hold more). Callers (map.tsx/map.web.tsx) slice
+ * their ranked list to this count before passing `picks` in. */
+export const TOP_PICKS_COUNT = 8;
+
+/** How many individual icon tiles the COLLAPSED rail shows before folding
+ * the rest into a single "+N" tile — a real count, not a decorative cap,
+ * so a member glancing at the collapsed rail knows there's more to
+ * scroll to once they expand it, per the same user request above. */
+const MAX_COLLAPSED_TILES = 4;
+
 /** Where the rail's own vertical CENTER sits, as a fraction of the window
  * height — not where its top edge sits. Collapsed and expanded heights
  * differ a lot (collapsed hugs a handful of icons; expanded is a fixed
@@ -55,8 +68,11 @@ function collapsedHeightFor(count: number): number {
  * see this feature's own doc comment on TOP_PICKS_RAIL_ENABLED,
  * src/lib/config/features.ts, for the full brief and revert story). Shows a
  * quiet, collapsed left-edge tab of small icon tiles — one per current top
- * pick — that expands into a short card list on tap, so the top 3-4 venues
- * are glanceable without leaving Map for List. Reads the exact same
+ * pick, folding into a "+N" tile past MAX_COLLAPSED_TILES so a glance at
+ * the collapsed rail already tells you how much more is behind it — that
+ * expands into a scrollable card list of the top TOP_PICKS_COUNT venues on
+ * tap, so they're glanceable without leaving Map for List. Reads the exact
+ * same
  * `RankedVenue`s Map's own pins are built from (passed in as `picks` by the
  * caller), so it can never show a different answer than the pins do or than
  * List would (Hard rule 5) — this component does no ranking of its own.
@@ -82,8 +98,12 @@ export function TopPicksRail({ picks, onSelectVenue }: TopPicksRailProps) {
 
   if (picks.length === 0) return null;
 
-  const visibleCount = Math.min(picks.length, 4);
-  const collapsedHeight = collapsedHeightFor(visibleCount);
+  const visibleTiles = picks.slice(0, MAX_COLLAPSED_TILES);
+  const overflowCount = picks.length - visibleTiles.length;
+  // +1 slot for the "+N" badge tile when there's more than fits — the
+  // collapsed rail's height has to account for it too, not just the icons.
+  const tileSlots = visibleTiles.length + (overflowCount > 0 ? 1 : 0);
+  const collapsedHeight = collapsedHeightFor(tileSlots);
 
   const toggle = () => {
     const next = !expanded;
@@ -131,11 +151,16 @@ export function TopPicksRail({ picks, onSelectVenue }: TopPicksRailProps) {
       >
         <Pressable onPress={toggle} style={styles.collapsedTouchable} accessibilityRole="button" accessibilityLabel="Show top picks">
           <View style={styles.collapsedTiles}>
-            {picks.slice(0, 4).map((p) => (
+            {visibleTiles.map((p) => (
               <View key={p.venue.id} style={styles.collapsedTile}>
                 <VenueTypeIcon icon={iconForVenueType(p.venue.type)} size={14} color={color.gold} />
               </View>
             ))}
+            {overflowCount > 0 && (
+              <View style={[styles.collapsedTile, styles.collapsedOverflowTile]}>
+                <Text style={styles.collapsedOverflowText}>+{overflowCount}</Text>
+              </View>
+            )}
           </View>
           <Text style={styles.collapsedChevron}>›</Text>
         </Pressable>
@@ -225,6 +250,14 @@ const styles = StyleSheet.create({
     backgroundColor: color.surfaceVariants.a,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  collapsedOverflowTile: {
+    backgroundColor: 'rgba(192,160,98,.16)',
+  },
+  collapsedOverflowText: {
+    fontFamily: font.sansMedium,
+    fontSize: 9.5,
+    color: color.gold,
   },
   collapsedChevron: {
     fontFamily: font.sansRegular,

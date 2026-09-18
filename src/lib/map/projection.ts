@@ -78,6 +78,26 @@ export const MIN_MATCH_PIN_GAP_PX = 36;
 export const MAX_MATCH_PINS = 10;
 
 /**
+ * How far below the single best-ranked venue's score a candidate may fall
+ * and still be eligible for a match pin at all — applied by the caller
+ * (map.tsx/map.web.tsx) as a pre-filter on the ranked list *before*
+ * selectCollisionFreePins runs, not inside it (this module has no concept
+ * of "score," deliberately — see its own doc comment on staying a generic
+ * point/pixel utility). Real bug this fixes, caught by direct user report
+ * with a live example: without a quality floor, once the genuinely good
+ * matches near the top of the ranked list collide with each other (a real
+ * cluster of great venues sitting close together, e.g. central Wilmslow),
+ * collision avoidance happily walked deep into the ranked list looking for
+ * *anything* that didn't collide — which is trivially easy for a
+ * mediocre, geographically isolated venue (nothing nearby to collide
+ * with), so a rank-14/15 gym could out-compete rank-5/6/7 restaurants for
+ * a pin slot simply by being alone in space. Collision avoidance decides
+ * *where* a good match can fit; it must never decide *what counts as
+ * good* — that's this ratio's job, applied first.
+ */
+export const MATCH_PIN_MIN_SCORE_RATIO = 0.7;
+
+/**
  * Picks, in rank order, as many of `candidates` as fit on screen without
  * any two landing within `minGapPx` of each other — real collision
  * avoidance rather than a hand-tuned "N pins per zoom level" table, so the

@@ -34,7 +34,13 @@ import { DISTRICTS, VENUES, METRO_WHOLE_SET_LABEL, districtGroupFor } from '../d
 import { EARTH_CIRCUMFERENCE_METERS, metersPerPixelAt, MILES_TO_METERS, TILE_SIZE_PX } from './projection';
 import type { District, MetroId, Venue } from '../../types/models';
 
-export { projectToPixels, selectCollisionFreePins, MIN_MATCH_PIN_GAP_PX, MAX_MATCH_PINS } from './projection';
+export {
+  projectToPixels,
+  selectCollisionFreePins,
+  MIN_MATCH_PIN_GAP_PX,
+  MAX_MATCH_PINS,
+  MATCH_PIN_MIN_SCORE_RATIO,
+} from './projection';
 export type { PixelOffset } from './projection';
 
 export interface GeoPoint {
