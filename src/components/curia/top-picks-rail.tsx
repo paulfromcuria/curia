@@ -20,6 +20,18 @@ interface TopPicksRailProps {
 }
 
 const COLLAPSED_WIDTH = 40;
+const COLLAPSED_TILE = 26;
+const COLLAPSED_VPAD = spacing.sm;
+const COLLAPSED_CHEVRON_HEIGHT = 24;
+const EXPANDED_HEIGHT = 360;
+
+/** The collapsed rail must hug its own content (a handful of small icon
+ * tiles), never a fraction of the screen — computed from the same
+ * constants the collapsed styles below use, rather than duplicated as a
+ * second hand-tuned number that could quietly drift out of sync. */
+function collapsedHeightFor(count: number): number {
+  return COLLAPSED_VPAD * 2 + count * COLLAPSED_TILE + count * spacing.xs + COLLAPSED_CHEVRON_HEIGHT;
+}
 
 /**
  * Map's collapsed "top picks" rail (2026-09-18, at explicit user request —
@@ -52,6 +64,9 @@ export function TopPicksRail({ picks, onSelectVenue }: TopPicksRailProps) {
 
   if (picks.length === 0) return null;
 
+  const visibleCount = Math.min(picks.length, 4);
+  const collapsedHeight = collapsedHeightFor(visibleCount);
+
   const toggle = () => {
     const next = !expanded;
     setExpanded(next);
@@ -67,6 +82,10 @@ export function TopPicksRail({ picks, onSelectVenue }: TopPicksRailProps) {
     inputRange: [0, 1],
     outputRange: [COLLAPSED_WIDTH, expandedWidth],
   });
+  const railHeight = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [collapsedHeight, EXPANDED_HEIGHT],
+  });
   const collapsedOpacity = anim.interpolate({
     inputRange: [0, 0.4, 1],
     outputRange: [1, 0, 0],
@@ -81,7 +100,7 @@ export function TopPicksRail({ picks, onSelectVenue }: TopPicksRailProps) {
   });
 
   return (
-    <Animated.View style={[styles.rail, { width: railWidth }]} pointerEvents="box-none">
+    <Animated.View style={[styles.rail, { width: railWidth, height: railHeight }]} pointerEvents="box-none">
       {/* Collapsed: a quiet stack of icon tiles, one per top pick, fading
           out as the panel expands rather than disappearing abruptly. */}
       <Animated.View
@@ -150,7 +169,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     top: '32%',
-    maxHeight: '52%',
     backgroundColor: 'rgba(27,23,20,0.94)',
     borderTopRightRadius: radius.lg,
     borderBottomRightRadius: radius.lg,
@@ -186,7 +204,11 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   expandedContent: {
-    flex: 1,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
   },
   expandedHeader: {
     flexDirection: 'row',
@@ -208,7 +230,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xs,
   },
   list: {
-    flexGrow: 0,
+    flex: 1,
   },
   listContent: {
     paddingHorizontal: spacing.sm,
