@@ -5,6 +5,7 @@ import { DISTRICTS, MOMENTS, RATING_STATS, VENUES } from '../../lib/data/seed';
 import { placeholderPhotoFor } from '../../lib/data/placeholder-photos';
 import { DEMO_LOCATION } from '../../lib/scoring/session-input';
 import { useSession } from '../../lib/state/session';
+import { contextNoteFor, resolveContext } from '../../lib/scoring/rank-venues';
 import { estimateTrip } from '../../lib/travel/trip';
 import type { DietaryRequirement, MomentType } from '../../types/models';
 import { color, font, radius, spacing } from '../../theme';
@@ -110,6 +111,17 @@ const DIETARY_MISMATCH_LABEL: Record<Exclude<DietaryRequirement, 'none'>, string
  * assume every result they see is dog-friendly. Spend level intentionally
  * has no mismatch counterpart: it's a continuous fit, not a binary
  * can/can't-do-this fact the way pet and dietary are.
+ *
+ * 2026-09-18 addition, at explicit user request, prompted by a real example
+ * (Rex Cinema recommended in Wilmslow on a rainy Friday evening — a great
+ * match, but nothing said why): a real-time "why this works right now" line,
+ * shown directly under the curated blurb when the live weather or the
+ * district's own liveliness curve is actually notable right now
+ * (`contextNoteFor`, rank-venues.ts). A third instance of this screen's own
+ * standing rule — a real computed signal, never a score or a labelled
+ * category — and deliberately not a repeat of the blurb: the blurb is the
+ * venue's fixed character, this is what today specifically adds to it.
+ * Absent (not a filler line) when neither signal is notable right now.
  */
 export default function VenueDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -121,6 +133,14 @@ export default function VenueDetail() {
   const myRating = venue ? session.myRatingFor(venue.id) : undefined;
   const ratingStats = venue ? RATING_STATS[venue.id] : undefined;
   const district = venue ? DISTRICTS.find((d) => d.id === venue.districtId) : undefined;
+  // Real-time-now weather/liveliness aside, same signal Map/List's
+  // contextNoteFor already computes as part of rankVenues — this screen
+  // doesn't call rankVenues at all (it reads the venue directly by id), so
+  // it's computed standalone here from the same real `session.weather`/
+  // `session.context`, not a second implementation.
+  const contextNote = venue
+    ? contextNoteFor(venue, district, resolveContext(session.context), session.weather ?? undefined)
+    : undefined;
 
   const trip = venue ? estimateTrip(session.location ?? DEMO_LOCATION, venue) : undefined;
 
@@ -220,6 +240,7 @@ export default function VenueDetail() {
         </View>
 
         <Text style={styles.blurb}>{venue.description}</Text>
+        {contextNote && <Text style={styles.contextNote}>{contextNote}</Text>}
 
         {matchedMoments.length > 0 && (
           <View style={styles.tagSection}>
@@ -410,6 +431,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 24,
     color: color.borderNeutral,
+  },
+  contextNote: {
+    fontFamily: font.sans,
+    fontSize: 13,
+    lineHeight: 19,
+    color: color.gold,
+    marginTop: spacing.xs,
   },
   tagSection: { gap: spacing.xs },
   tagSectionLabel: {

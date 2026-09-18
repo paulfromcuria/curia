@@ -331,6 +331,73 @@ export function scoreWeather(venue: Venue, weather: string | undefined): number 
   return 0.5;
 }
 
+const BAND_PHRASE: Record<NonNullable<MatchContext['band']>, string> = {
+  morning: 'this morning',
+  afternoon: 'this afternoon',
+  evening: 'this evening',
+  late: 'tonight',
+};
+
+function weatherLabel(weatherLower: string): string {
+  if (weatherLower.includes('snow')) return 'Snowing';
+  if (weatherLower.includes('storm')) return 'Stormy';
+  if (weatherLower.includes('sleet')) return 'Sleeting';
+  if (weatherLower.includes('freez')) return 'Freezing';
+  if (weatherLower.includes('rain')) return 'Raining';
+  if (weatherLower.includes('cold')) return 'Cold';
+  return 'Poor weather';
+}
+
+/** District liveliness this notable above neutral (1.0) is worth naming —
+ * same bar as "genuinely lively," not just "slightly above average." */
+const NOTABLE_LIVELINESS_MULTIPLIER = 1.15;
+
+/**
+ * A short, human "why this works right now" line — real-time weather and
+ * district liveliness are the two ranking signals (scoreWeather,
+ * scoreLiveliness) that are genuinely time-sensitive rather than fixed venue
+ * character, so they're the only two this draws on. Added 2026-09-18 at
+ * explicit user request, prompted by a real example: Rex Cinema surfacing in
+ * Wilmslow on a rainy Friday evening was a genuinely excellent match, but
+ * nothing told the member why.
+ *
+ * Deliberately NOT a repeat of `reasonFor` (the venue's own fixed,
+ * always-true description) and not the "Why it's ranked here" score
+ * breakdown CLAUDE.md's Presentation layer section removed in 2026-08 — no
+ * labelled category, no number, just one plain observation about right now,
+ * same "a fact the member can act on" standard the venue detail screen's
+ * "GOOD TO KNOW" row already holds itself to. Weather takes priority over
+ * liveliness when both would qualify (matches the more concrete, more
+ * urgent example this was built from), and returns undefined — never a
+ * forced generic line — when neither signal is actually notable right now,
+ * same "silence is fine" discipline scorePetFit/scoreDayOfWeek/etc. already
+ * use for "no real signal."
+ */
+export function contextNoteFor(
+  venue: Venue,
+  district: District | undefined,
+  resolved: { day: string; band: NonNullable<MatchContext['band']> },
+  weather: string | undefined
+): string | undefined {
+  const weatherLower = (weather ?? '').toLowerCase();
+  const outdoor = isOutdoorLeaning(venue);
+  const bandPhrase = BAND_PHRASE[resolved.band];
+
+  if (WET_OR_COLD.some((k) => weatherLower.includes(k)) && !outdoor) {
+    return `${weatherLabel(weatherLower)} ${bandPhrase} — this one's indoors, start to finish.`;
+  }
+  if (WARM_OR_CLEAR.some((k) => weatherLower.includes(k)) && outdoor) {
+    return `Clear and warm ${bandPhrase} — good call for the outdoor space.`;
+  }
+
+  const liveliness = district?.bandMultiplier?.[resolved.band];
+  if (district && liveliness !== undefined && liveliness >= NOTABLE_LIVELINESS_MULTIPLIER) {
+    return `${district.name} tends to be genuinely lively ${bandPhrase} — good timing.`;
+  }
+
+  return undefined;
+}
+
 /**
  * Documented weight tuning — CLAUDE.md pins down *which* signals matter but
  * not their relative weight, so this is this engine's own choice, not a
@@ -480,7 +547,12 @@ export function reasonFor(
  * no seed import (see module doc comment). `districts` is optional lookup
  * context for the day-of-week/liveliness signals only; `ratingStats`
  * likewise for scoreRatings — both degrade gracefully (neutral scoring)
- * without it, same as calling this before either has loaded.
+ * without it, same as calling this before either has loaded. Each result
+ * also carries `contextNote` (contextNoteFor) — a real-time weather/
+ * liveliness aside, separate from `reason`'s fixed venue character; callers
+ * must pass `input.context.weather` for this to ever fire (see
+ * buildMatchmakingInputFromSession's doc comment on why that isn't
+ * automatic).
  */
 export function rankVenues(
   input: MatchmakingInput,
@@ -518,6 +590,7 @@ export function rankVenues(
       venueId: venue.id,
       score: Math.round(clamp(distinctivenessAdjusted, 0, 1) * 100),
       reason: reasonFor(venue, input, resolved),
+      contextNote: contextNoteFor(venue, district, resolved, input.context.weather),
     };
   });
 

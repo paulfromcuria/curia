@@ -261,6 +261,16 @@ export default function List() {
   // per-screen state at various points; all three now come from
   // src/lib/state/session.tsx so List and Map can never drift apart.
   const { radiusMiles, setRadiusMiles, setSearchOrigin, context, mood, isVenueSaved, toggleSavedVenue } = session;
+  // `context.weather` is synthesized here from the real fetched
+  // `session.weather`, the same fix map.tsx/map.web.tsx already carry (see
+  // their own doc comments) — List never had it, so scoreWeather (and the
+  // new contextNoteFor "why this works right now" note) silently never
+  // fired here even though session.weather was always real. Found while
+  // building contextNoteFor, 2026-09-18.
+  const contextWithWeather = useMemo(
+    () => ({ ...context, weather: session.weather ?? undefined }),
+    [context, session.weather]
+  );
   const [moodOpen, setMoodOpen] = useState(false);
 
   const clearMood = useCallback(() => {
@@ -335,8 +345,14 @@ export default function List() {
   // matches too, not silently fall back to real location. See session.tsx's
   // searchOrigin doc comment.
   const matchmakingInput = useMemo<MatchmakingInput>(
-    () => buildMatchmakingInputFromSession(session, { radiusMiles, context, moodFilter, location: session.searchOrigin }),
-    [session, radiusMiles, context, moodFilter]
+    () =>
+      buildMatchmakingInputFromSession(session, {
+        radiusMiles,
+        context: contextWithWeather,
+        moodFilter,
+        location: session.searchOrigin,
+      }),
+    [session, radiusMiles, contextWithWeather, moodFilter]
   );
 
   const result = useMemo(
@@ -378,7 +394,7 @@ export default function List() {
     if (viewMode !== 'districts') return [];
     return DISTRICTS.map((d) => {
       const input = buildMatchmakingInputFromSession(session, {
-        context,
+        context: contextWithWeather,
         moodFilter,
         location: { lat: d.lat, lon: d.lon },
         radiusMiles: 999,
@@ -404,7 +420,7 @@ export default function List() {
       return { district: d, matchCount: matches.length, rankScore, topVenue, distanceMiles };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [viewMode, session, context, moodFilter, contentVersion]);
+  }, [viewMode, session, contextWithWeather, moodFilter, contentVersion]);
 
   const districtsByMetro = useMemo(() => {
     return CITIES.map((city) => {
@@ -641,6 +657,7 @@ export default function List() {
                   </View>
                 </View>
                 <Text style={styles.reason}>{r.reason}</Text>
+                {r.contextNote && <Text style={styles.contextNote}>{r.contextNote}</Text>}
               </View>
             );
           })}
@@ -1104,6 +1121,14 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     color: color.textSecondary,
     marginTop: 10,
+    maxWidth: 320,
+  },
+  contextNote: {
+    fontFamily: font.sans,
+    fontSize: 12,
+    lineHeight: 17,
+    color: color.gold,
+    marginTop: 4,
     maxWidth: 320,
   },
 

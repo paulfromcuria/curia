@@ -36,6 +36,11 @@ export interface RankedVenue {
   /** Short, specific, brand-voice observation — never a generic score
    * justification (see CLAUDE.md "Brand voice"). */
   reason: string;
+  /** Optional "why this works right now" line — real-time weather/liveliness
+   * only, distinct from `reason`'s fixed venue character. Absent when
+   * neither signal is actually notable (see rank-venues.ts's
+   * contextNoteFor). */
+  contextNote?: string;
 }
 
 export interface MatchmakingResult {
