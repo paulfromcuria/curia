@@ -455,6 +455,7 @@
     { "title": "Big Group of Friends", "curator": "PRIYA N.", "picks": ["Victors", "Tattu", "Rudy's", "Mackie Mayor", "K2 Karaoke", "Band on the Wall", "Altrincham Market", "Cibo", "The Bull's Head", "Forty One 41", "Jo Jo's Beach Bar", "The Beach Bar"], "blurb": "Rooms that can take eight at short notice without a sigh from the host." },
     { "title": "Solo Reset", "curator": "ELENA M.", "picks": ["Erst", "Matt & Phreds", "Porta", "The Old Cellars", "Foundation Coffee", "Pollen Bakery", "The Horsfall", "Wilmslow Pilates & Wellness", "The Carrs", "Passaris Bakery", "Kalipso", "Domaine Sigalas"], "blurb": "Counter seats, a book, and nobody asking whether you're waiting for someone." }
   ],
+  "_dayOffTheQuadSource": "2026-09-18, at explicit user request — a real Journey for the specific member Chicago was built for (a UChicago student): 'a day on campus' idea, built to fit the existing Moment model rather than needing a 5th type (Hard rule: exactly 4 Moments). 'Solo Reset' is the genuine fit — same register as the existing 'An Afternoon to Yourself in Knutsford' (a real precedent for a multi-stop solo day, not a new pattern) — a campus day alone (breakfast, study, a quiet pint) is squarely 'counter seats... nobody asking whether you're waiting for someone', not romantic/client/group. All 3 stops are real venues already curated for Chicago; walk times are real haversine-distance estimates at a 3mph pace between each stop's actual coordinates, not guessed.",
   "journeys": [
     {
       "title": "Date Night in Altrincham",
@@ -557,6 +558,18 @@
       "stops": [
         { "venue": "Neki", "walkToNextMinutes": 5 },
         { "venue": "Knutcraft at the Ruskin Rooms" }
+      ]
+    },
+    {
+      "title": "A Day Off the Quad",
+      "district": "hyde-park",
+      "meta": "HYDE PARK · 3 STOPS · 4 HOURS",
+      "moment": "solo-reset",
+      "blurb": "Steam-table eggs at Valois, the Reg's reading rooms for however long the reading takes, then a pint at Jimmy's with nobody checking the time.",
+      "stops": [
+        { "venue": "Valois", "walkToNextMinutes": 16 },
+        { "venue": "Joseph Regenstein Library", "walkToNextMinutes": 5 },
+        { "venue": "Jimmy's (Woodlawn Tap)" }
       ]
     }
   ]
