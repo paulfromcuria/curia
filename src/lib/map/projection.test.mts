@@ -10,11 +10,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  clampRadiusMiles,
+  MATCH_PIN_MIN_SCORE_RATIO,
   MAX_MATCH_PINS,
+  MAX_RADIUS_MILES,
   MIN_MATCH_PIN_GAP_PX,
+  MIN_RADIUS_MILES,
   metersPerPixelAt,
   projectToPixels,
   selectCollisionFreePins,
+  spanMilesToRadiusMiles,
+  ZOOM_DERIVED_MIN_RADIUS_MILES,
   type GeoPoint,
 } from './projection.ts';
 
@@ -136,4 +142,115 @@ test('selectCollisionFreePins: an empty candidate list returns empty, not an err
 
 test('MIN_MATCH_PIN_GAP_PX is a sane positive pixel value', () => {
   assert.ok(MIN_MATCH_PIN_GAP_PX > 0 && MIN_MATCH_PIN_GAP_PX < 200);
+});
+
+test('MATCH_PIN_MIN_SCORE_RATIO is a real, meaningful fraction (not 0, not 1)', () => {
+  assert.ok(MATCH_PIN_MIN_SCORE_RATIO > 0 && MATCH_PIN_MIN_SCORE_RATIO < 1);
+});
+
+// ---------------------------------------------------------------------------
+// The real bug this was built to fix (2026-09-18, direct user report): a
+// fitness studio ranked ~14th on List was showing as a Map match pin, only
+// because it sat alone in space with nothing nearby to collide with, while
+// several genuinely better matches collided with each other and lost their
+// slots. selectCollisionFreePins itself has no concept of "score" by design
+// (see its own doc comment) — the fix is the CALLER pre-filtering candidates
+// to MATCH_PIN_MIN_SCORE_RATIO of the top score before collision selection
+// ever runs, which these tests exercise directly (mirroring exactly what
+// map.tsx/map.web.tsx now do).
+// ---------------------------------------------------------------------------
+
+interface ScoredFixture extends Fixture {
+  score: number;
+}
+
+function scoredFixture(id: string, offsetDeg: number, score: number): ScoredFixture {
+  return { ...fixture(id, offsetDeg), score };
+}
+
+function preFilterByScoreFloor(candidates: ScoredFixture[]): ScoredFixture[] {
+  if (candidates.length === 0) return [];
+  const minScore = candidates[0].score * MATCH_PIN_MIN_SCORE_RATIO;
+  return candidates.filter((c) => c.score >= minScore);
+}
+
+test('quality floor: an isolated but low-scoring venue no longer wins a slot just by not colliding', () => {
+  // Four great, tightly-clustered venues (score 90) that all collide with
+  // each other at this zoom, plus one mediocre venue (score 40) far enough
+  // away to never collide with anything.
+  const cluster = [
+    scoredFixture('a', 0, 90),
+    scoredFixture('b', 0.0001, 90),
+    scoredFixture('c', 0.0002, 90),
+    scoredFixture('d', 0.0003, 90),
+  ];
+  const isolatedMediocre = scoredFixture('gym', 5, 40);
+  const ranked = [...cluster, isolatedMediocre];
+
+  // Without the floor: the isolated venue never collides, so it rides
+  // along for free once the cluster starts colliding with itself.
+  const withoutFloor = selectCollisionFreePins(ranked, getPoint, MANCHESTER, 10, 10);
+  assert.ok(
+    withoutFloor.some((f) => f.id === 'gym'),
+    'sanity check: the isolated mediocre venue really would be picked without a floor'
+  );
+
+  // With the floor applied first, as map.tsx/map.web.tsx now do: it never
+  // even enters the candidate pool.
+  const filtered = preFilterByScoreFloor(ranked);
+  const withFloor = selectCollisionFreePins(filtered, getPoint, MANCHESTER, 10, 10);
+  assert.ok(
+    !withFloor.some((f) => f.id === 'gym'),
+    'the isolated mediocre venue must not win a slot just for not colliding'
+  );
+});
+
+test('quality floor: a genuinely close-scoring venue still gets a fair shot at a slot', () => {
+  const ranked = [scoredFixture('best', 0, 90), scoredFixture('close-second', 5, 80)];
+  const filtered = preFilterByScoreFloor(ranked);
+  assert.deepEqual(
+    filtered.map((f) => f.id),
+    ['best', 'close-second'],
+    '80 is well within 70% of 90 — the floor should never exclude a real near-match'
+  );
+});
+
+// ---------------------------------------------------------------------------
+// spanMilesToRadiusMiles / clampRadiusMiles — the ranking-radius floor.
+// Real bug, 2026-09-18 direct user report: zoomed in tight on Wilmslow on a
+// Friday evening, a fitness studio showed as "the" recommendation over
+// several real, closer bars — because that tight a zoom collapsed the
+// ranking radius down to the bare 0.25mi slider floor, and Wilmslow's real
+// bars sit at real distances (0.25-0.4mi) that got hard-excluded, leaving
+// the gym as one of the only survivors. See ZOOM_DERIVED_MIN_RADIUS_MILES's
+// own doc comment for the full story.
+// ---------------------------------------------------------------------------
+
+test('clampRadiusMiles: clamps to the real prototype slider range, ¼mi to 30mi', () => {
+  assert.equal(clampRadiusMiles(0.01), MIN_RADIUS_MILES);
+  assert.equal(clampRadiusMiles(100), MAX_RADIUS_MILES);
+  assert.equal(clampRadiusMiles(5), 5);
+});
+
+test('spanMilesToRadiusMiles: a wide span (zoomed out) is unaffected by the zoom-derived floor', () => {
+  // 8mi span -> 4mi radius, well above the 1mi floor.
+  assert.equal(spanMilesToRadiusMiles(8), 4);
+});
+
+test('spanMilesToRadiusMiles: a tight zoom no longer collapses the ranking radius to the bare 0.25mi slider floor', () => {
+  // A very tight zoom implies a span well under half a mile — half of that
+  // is under MIN_RADIUS_MILES, so clampRadiusMiles alone would floor it at
+  // 0.25mi (the exact bug: Wilmslow's real bars sit at 0.25-0.4mi, outside
+  // that). ZOOM_DERIVED_MIN_RADIUS_MILES (1mi) is the real fix.
+  assert.equal(spanMilesToRadiusMiles(0.1), ZOOM_DERIVED_MIN_RADIUS_MILES);
+  assert.equal(spanMilesToRadiusMiles(0.4), ZOOM_DERIVED_MIN_RADIUS_MILES);
+});
+
+test('spanMilesToRadiusMiles: never returns less than ZOOM_DERIVED_MIN_RADIUS_MILES, whatever the input', () => {
+  for (const span of [0, 0.01, 0.5, 1, 1.9]) {
+    assert.ok(
+      spanMilesToRadiusMiles(span) >= ZOOM_DERIVED_MIN_RADIUS_MILES,
+      `span ${span} produced a radius below the floor`
+    );
+  }
 });

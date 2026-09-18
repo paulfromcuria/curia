@@ -74,7 +74,7 @@ export function moodTileOptionsForCategory(
   const counts = new Map<string, number>();
   const labels = new Map<string, string>();
   candidates.forEach((v) => {
-    if (CATEGORY_BY_VENUE_TYPE[v.type] !== category) return;
+    if (!(CATEGORY_BY_VENUE_TYPE[v.type] ?? []).includes(category)) return;
     const slug = slugifyType(v.type);
     const tileName = slugToTileName.get(slug);
     const key = tileName ? `${category}|${tileName}` : slug;

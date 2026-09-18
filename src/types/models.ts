@@ -189,6 +189,39 @@ export interface DistrictGroup {
 
 export type DayTimeBand = 'morning' | 'afternoon' | 'evening' | 'late';
 
+export type DayName = 'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday';
+
+/** One open/close window on a single day. `close` may be numerically
+ * earlier than `open` (e.g. open "22:00", close "02:00") — that means the
+ * venue stays open into the following calendar day, not that it's closed;
+ * see src/lib/data/opening-hours.ts's isOpenNow for how that's resolved. */
+export interface OpeningHoursRange {
+  /** 24h "HH:MM". */
+  open: string;
+  /** 24h "HH:MM". */
+  close: string;
+}
+
+/**
+ * Real, sourced per-day opening hours (2026-09-18, at explicit user
+ * request: a red closed-indicator on Map's local-zoom venue icons, which
+ * needs real hours to be honest rather than an approximation). A day key
+ * absent from the record, or present with an empty array, means closed
+ * that day — not "unknown for that day." See src/lib/data/opening-hours.ts
+ * for the actual "is this open right now" logic (including the overnight
+ * case above).
+ *
+ * This is genuinely a large sourcing effort across the whole catalog (no
+ * existing field approximates it — `Venue.bands` is a coarse 4-bucket
+ * ranking signal, not real hours), so most venues will have this
+ * `undefined` for a long while. `undefined` on the venue means "not
+ * researched yet," and must never be treated as closed — only a real,
+ * confirmed range says that. Sourced venue-by-venue via the same
+ * WebSearch-and-verify discipline as every other real-data pass this
+ * session (golf clubs, campus venues, etc.), never invented.
+ */
+export type OpeningHours = Partial<Record<DayName, OpeningHoursRange[]>>;
+
 export interface Venue {
   id: string;
   name: string;
@@ -249,6 +282,9 @@ export interface Venue {
    * worker (see the growth-engine plan) — existing hand-curated venues are
    * 'live' by definition. Same optionality note as distinctiveness. */
   copyStatus?: 'draft' | 'voice_qa_passed' | 'live';
+  /** Real per-day hours, sourced venue-by-venue — see OpeningHours' own doc
+   * comment. `undefined` means not yet researched, never "closed." */
+  openingHours?: OpeningHours;
 
   // Internal-only fields — Hard rule 8: must NEVER surface in user-facing UI,
   // API responses to the member app, or copy. Admin/back-office only.

@@ -34,7 +34,18 @@ import { DISTRICTS, VENUES, METRO_WHOLE_SET_LABEL, districtGroupFor } from '../d
 import { EARTH_CIRCUMFERENCE_METERS, metersPerPixelAt, MILES_TO_METERS, TILE_SIZE_PX } from './projection';
 import type { District, MetroId, Venue } from '../../types/models';
 
-export { projectToPixels, selectCollisionFreePins, MIN_MATCH_PIN_GAP_PX, MAX_MATCH_PINS } from './projection';
+export {
+  projectToPixels,
+  selectCollisionFreePins,
+  MIN_MATCH_PIN_GAP_PX,
+  MAX_MATCH_PINS,
+  MATCH_PIN_MIN_SCORE_RATIO,
+  MIN_RADIUS_MILES,
+  MAX_RADIUS_MILES,
+  ZOOM_DERIVED_MIN_RADIUS_MILES,
+  clampRadiusMiles,
+  spanMilesToRadiusMiles,
+} from './projection';
 export type { PixelOffset } from './projection';
 
 export interface GeoPoint {
@@ -91,17 +102,6 @@ export function clampZoomLevel(zoom: number): number {
   return Math.max(MIN_ZOOM_LEVEL, Math.min(MAX_ZOOM_LEVEL, zoom));
 }
 
-/** Search radius bounds — the prototype's own slider range (CLAUDE.md
- * Matchmaking contract: "¼ mi to 30 mi"). Shared with List's radius slider
- * (src/app/(tabs)/list.tsx) so Map's zoom-driven radius and List's dragged
- * radius can never disagree on what's in-bounds. */
-export const MIN_RADIUS_MILES = 0.25;
-export const MAX_RADIUS_MILES = 30;
-
-export function clampRadiusMiles(miles: number): number {
-  return Math.max(MIN_RADIUS_MILES, Math.min(MAX_RADIUS_MILES, miles));
-}
-
 /** Roughly how far someone covers on foot in ~7 minutes at an average
  * walking pace (~3 mph) — the radius District Guide's "Show on map" button
  * flies to (2026-09, at explicit user request: "centred on this district...
@@ -111,16 +111,6 @@ export function clampRadiusMiles(miles: number): number {
  * purpose) or COVERAGE_RADIUS_MILES (the whole metro catchment) — this one
  * specifically means "comfortably walkable in under ten minutes." */
 export const SEVEN_MINUTE_WALK_RADIUS_MILES = 0.35;
-
-/** Search radius implied by a map viewport's current span — half the visible
- * width, since "radius" means centre-to-edge, not edge-to-edge. Used to keep
- * Map's zoom and the shared session.radiusMiles in sync (2026-08, at
- * explicit user request): zooming the map out widens the search, zooming in
- * narrows it, the same way List's slider already does — both write the one
- * shared value (Hard rule 5), neither forks its own copy. */
-export function spanMilesToRadiusMiles(spanMiles: number): number {
-  return clampRadiusMiles(spanMiles / 2);
-}
 
 /** Inverse — the zoom level whose span matches a given search radius, so
  * Map can open already zoomed to reflect whatever radius List's slider (or

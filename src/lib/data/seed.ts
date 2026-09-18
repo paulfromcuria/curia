@@ -155,6 +155,7 @@ export function mapVenueRow(v: Record<string, unknown>): Venue {
     ownership: (v.ownership as Venue['ownership']) ?? undefined,
     ownershipNotes: (v.ownership_notes as string | null) ?? undefined,
     copyStatus: (v.copy_status as Venue['copyStatus']) ?? undefined,
+    openingHours: (v.opening_hours as Venue['openingHours']) ?? undefined,
     tier: v.tier as Venue['tier'],
     sourceConfidence: v.source_confidence as number,
     notes: (v.notes as string | null) ?? undefined,

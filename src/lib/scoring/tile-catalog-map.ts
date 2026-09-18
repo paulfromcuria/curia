@@ -264,93 +264,105 @@ export function tileIdToVenueTypeSlugs(tileId: string): string[] {
  * mood filter silently filtered nothing at all (user report: filtered to
  * "Do" and still saw 20 Stories/The Ivy/Pollen Bakery — a bar, a restaurant,
  * a bakery, none of them Do). This map is what closes that gap.
+ *
+ * 2026-09-18: values changed from a single category to an array of them, at
+ * direct user report — The Mucky Pup (GASTROPUB) was invisible under a
+ * "Go Drink" filter, only findable under "Go Eat", even though "it's a pub,
+ * one goes there to drink mainly." A single venue type genuinely belongs to
+ * more than one category for a real pub: GASTROPUB, COUNTRY PUB, ALE HOUSE
+ * and TRADITIONAL PUB are now `['Eat', 'Drink']` — every other type below
+ * still carries exactly one category, wrapped in a single-element array
+ * rather than changed in kind, so this was a mechanical widening, not a
+ * re-categorization. `passesMoodFilter` (rank-venues.ts) and
+ * `moodTileOptionsForCategory` (mood-tiles.ts) both now check
+ * `.includes(category)` instead of `===`.
  */
-export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Holiday'> = {
-  'SMALL PLATES': 'Eat',
-  'TASTING MENU': 'Eat',
-  'FINE DINING': 'Eat',
-  CELEBRATORY: 'Eat',
-  BAKERY: 'Eat',
-  'COCKTAIL BAR': 'Drink',
-  ROOFTOP: 'Drink',
-  SPEAKEASY: 'Drink',
-  'JAZZ BAR': 'Drink',
-  'HOTEL BAR': 'Drink',
-  'COFFEE ROOM': 'Drink',
-  'COUNTRY PUB': 'Drink',
-  'MARKET HALL': 'Do',
-  'WINE BAR': 'Drink',
-  'INDEPENDENT CINEMA': 'Do',
-  PIZZERIA: 'Eat',
-  'SHERRY BAR': 'Drink',
-  'PERFORMING ARTS': 'Do',
-  SPA: 'Do',
-  'MEMBERS CLUB': 'Drink',
-  'LIVE MUSIC': 'Do',
-  'DESIGN GALLERY': 'Do',
-  'ART GALLERY': 'Do',
-  'SEASONAL KITCHEN': 'Eat',
-  'CALIFORNIA CUISINE': 'Eat',
-  'HANDMADE PASTA': 'Eat',
-  'LISTENING BAR': 'Drink',
-  'BLACK BOX THEATER': 'Do',
-  'FRENCH BRASSERIE': 'Eat',
+export const CATEGORY_BY_VENUE_TYPE: Record<string, ('Do' | 'Drink' | 'Eat' | 'Holiday')[]> = {
+  'SMALL PLATES': ['Eat'],
+  'TASTING MENU': ['Eat'],
+  'FINE DINING': ['Eat'],
+  CELEBRATORY: ['Eat'],
+  BAKERY: ['Eat'],
+  'COCKTAIL BAR': ['Drink'],
+  ROOFTOP: ['Drink'],
+  SPEAKEASY: ['Drink'],
+  'JAZZ BAR': ['Drink'],
+  'HOTEL BAR': ['Drink'],
+  'COFFEE ROOM': ['Drink'],
+  'COUNTRY PUB': ['Eat', 'Drink'],
+  'MARKET HALL': ['Do'],
+  'WINE BAR': ['Drink'],
+  'INDEPENDENT CINEMA': ['Do'],
+  PIZZERIA: ['Eat'],
+  'SHERRY BAR': ['Drink'],
+  'PERFORMING ARTS': ['Do'],
+  SPA: ['Do'],
+  'MEMBERS CLUB': ['Drink'],
+  'LIVE MUSIC': ['Do'],
+  'DESIGN GALLERY': ['Do'],
+  'ART GALLERY': ['Do'],
+  'SEASONAL KITCHEN': ['Eat'],
+  'CALIFORNIA CUISINE': ['Eat'],
+  'HANDMADE PASTA': ['Eat'],
+  'LISTENING BAR': ['Drink'],
+  'BLACK BOX THEATER': ['Do'],
+  'FRENCH BRASSERIE': ['Eat'],
   // Added 2026-08 for Happy Seasons (Manchester Chinatown) — a real venue
   // from the daily research pipeline with no existing Eat type/tile fit
   // for a roast-meats specialist. Category-only, so mood filtering still
   // finds it; no onboarding tile targets it specifically yet (see
   // docs/data/venues.json's own _manchesterCheshireResearchSource note).
-  'CANTONESE ROAST': 'Eat',
+  'CANTONESE ROAST': ['Eat'],
   // Added 2026-08 for the Cheshire expansion (see docs/data/venues.json's
   // own _cheshireExpansionSource note). HANDMADE PASTA already existed as a
   // type (see above) — Sugo Pasta Kitchen is its first real venue. ALE HOUSE
   // (The Old Dancer) and GREEK TAVERNA (The Stolen Lamb) are new, left
   // category-only like CANTONESE ROAST since no tile fits either precisely.
   // BRUNCH SPOT (Aldeli) also maps to the real 'Brunch' tile above.
-  'ALE HOUSE': 'Drink',
-  'GREEK TAVERNA': 'Eat',
-  'BRUNCH SPOT': 'Eat',
+  'ALE HOUSE': ['Eat', 'Drink'],
+  'GREEK TAVERNA': ['Eat'],
+  'BRUNCH SPOT': ['Eat'],
   // Added 2026-08 for the Wilmslow density pass (see docs/data/venues.json's
   // own _wilmslowDensitySource note). Most are category-only, same treatment
   // as CANTONESE ROAST/ALE HOUSE/GREEK TAVERNA above — a small town's real
   // venues don't sort neatly into the tile catalog's city-scale categories.
-  'ITALIAN RESTAURANT': 'Eat',
-  'MIDDLE EASTERN': 'Eat',
-  'GASTROPUB': 'Eat',
-  'THAI RESTAURANT': 'Eat',
-  'VIETNAMESE': 'Eat',
-  'LATE-NIGHT LOUNGE': 'Drink',
-  'RIVERSIDE PARK': 'Do',
-  'COOKERY SCHOOL': 'Do',
-  'ARTISAN MARKET': 'Do',
-  'RUGBY CLUB': 'Do',
-  'GOLF CLUB': 'Do',
+  'ITALIAN RESTAURANT': ['Eat'],
+  'MIDDLE EASTERN': ['Eat'],
+  'GASTROPUB': ['Eat', 'Drink'],
+  'THAI RESTAURANT': ['Eat'],
+  'VIETNAMESE': ['Eat'],
+  'LATE-NIGHT LOUNGE': ['Drink'],
+  'RIVERSIDE PARK': ['Do'],
+  'COOKERY SCHOOL': ['Do'],
+  'ARTISAN MARKET': ['Do'],
+  'RUGBY CLUB': ['Do'],
+  'GOLF CLUB': ['Do'],
   // PADEL CLUB / TENNIS CLUB added 2026-09-18 alongside real venues for
   // both (see 'Play sport' above) — same play-it-yourself-sport register
   // as GOLF CLUB.
-  'PADEL CLUB': 'Do',
-  'TENNIS CLUB': 'Do',
-  'WELLNESS STUDIO': 'Do',
-  'WALKING TOUR': 'Do',
-  'FITNESS STUDIO': 'Do',
+  'PADEL CLUB': ['Do'],
+  'TENNIS CLUB': ['Do'],
+  'WELLNESS STUDIO': ['Do'],
+  'WALKING TOUR': ['Do'],
+  'FITNESS STUDIO': ['Do'],
   // Added 2026-09-03 for the Prestbury/Cheadle Hulme/Knutsford first-venue
   // pass (see docs/data/venues.json's own source note). CHAMPAGNE BAR maps
   // to the real 'Champagne bars' tile above; RARE BOOKSHOP and CRICKET CLUB
   // were introduced the same day by the research pipeline itself.
-  'CHAMPAGNE BAR': 'Drink',
-  'INDIAN RESTAURANT': 'Eat',
-  'RARE BOOKSHOP': 'Do',
-  'CRICKET CLUB': 'Do',
+  'CHAMPAGNE BAR': ['Drink'],
+  'INDIAN RESTAURANT': ['Eat'],
+  'RARE BOOKSHOP': ['Do'],
+  'CRICKET CLUB': ['Do'],
   // FARM SHOP found missing 2026-09-03 during the same pass, unrelated to
   // it: introduced by the daily research pipeline's Sept 2 batch (Waugh
   // Brow Farm Shop, Mobberley) but never wired into this map, so mood
   // filtering's category-only bucket silently missed it.
-  'FARM SHOP': 'Eat',
+  'FARM SHOP': ['Eat'],
   // TOWN PARK and DIM SUM found missing 2026-09-04, same pattern: both
   // introduced by the 2026-09-04 promotion (Thorn Grove Park, Cheadle
   // Hulme; Little Yang Sing, Chinatown) but never wired in.
-  'TOWN PARK': 'Do',
-  'DIM SUM': 'Eat',
+  'TOWN PARK': ['Do'],
+  'DIM SUM': ['Eat'],
   // Added 2026-09-05 for the day's four promoted candidates (see
   // docs/data/venues.json's own note). DESIGN GALLERY/ART GALLERY/ITALIAN
   // RESTAURANT/BRUNCH SPOT/COCKTAIL BAR already existed above — only these
@@ -358,20 +370,20 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   // above; BEAUTY SALON maps to 'Spa & wellness' above; JAPANESE RESTAURANT
   // and WINE MERCHANT are category-only, same treatment as CANTONESE
   // ROAST/ALE HOUSE since no existing tile fits either precisely.
-  'POTTERY STUDIO': 'Do',
-  'JAPANESE RESTAURANT': 'Eat',
-  'BEAUTY SALON': 'Do',
-  'WINE MERCHANT': 'Drink',
+  'POTTERY STUDIO': ['Do'],
+  'JAPANESE RESTAURANT': ['Eat'],
+  'BEAUTY SALON': ['Do'],
+  'WINE MERCHANT': ['Drink'],
   // Added 2026-09-07 for White Peak Alpaca Farm (Mobberley) — no existing
   // type fit a pre-booked animal-encounter attraction; category-only (Do),
   // same treatment as RARE BOOKSHOP/CRICKET CLUB above since no onboarding
   // tile targets it specifically yet.
-  'FARM EXPERIENCE': 'Do',
+  'FARM EXPERIENCE': ['Do'],
   // Added 2026-09-09 for Chorlton Bookshop — RARE BOOKSHOP specifically
   // implies antiquarian/secondhand stock, which this general independent
   // new-book shop isn't; category-only (Do), same treatment as RARE
   // BOOKSHOP/FARM EXPERIENCE above since no onboarding tile fits precisely.
-  'BOOKSHOP': 'Do',
+  'BOOKSHOP': ['Do'],
   // Added 2026-09-10 for the day's promoted Heaton Moor/Alderley Edge
   // candidates (see docs/data/venues.json's own _dailyReviewPromotionSource20260910
   // note). FRENCH BISTRO (Cure Bistro) — GASTROPUB is the closest existing
@@ -379,32 +391,32 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   // RESERVE (The Edge) — RIVERSIDE PARK implies a riverside, which this
   // isn't. Both category-only, same treatment as CANTONESE ROAST/GREEK
   // TAVERNA/FARM EXPERIENCE above since no onboarding tile fits precisely.
-  'FRENCH BISTRO': 'Eat',
-  'NATURE RESERVE': 'Do',
+  'FRENCH BISTRO': ['Eat'],
+  'NATURE RESERVE': ['Do'],
   // Added 2026-09-13 for Deadwood Smokehouse (Nantwich) — no existing Eat
   // type fits a dedicated American BBQ smokehouse; category-only, same
   // treatment as CANTONESE ROAST/GREEK TAVERNA above since no onboarding
   // tile fits precisely.
-  'SMOKEHOUSE': 'Eat',
+  'SMOKEHOUSE': ['Eat'],
   // Santorini pass (2026-09) — see docs/data/venues.json's own source note
   // and TileCategory's doc comment (src/types/models.ts). BEACH CLUB,
   // SUNSET BAR, WINERY and BOAT TOUR map to the four Holiday tiles above
   // (the Holiday-catalog expansion, also 2026-09); the rest are
   // category-only, matching real venue types Manchester/Cheshire tiles
   // don't target.
-  'BEACH CLUB': 'Holiday',
-  NIGHTCLUB: 'Drink',
-  'SPORTS BAR': 'Drink',
+  'BEACH CLUB': ['Holiday'],
+  NIGHTCLUB: ['Drink'],
+  'SPORTS BAR': ['Drink'],
   // Caldera-facing sunset-viewing bars (Oia/Imerovigli) — a real, distinct
   // Santorini category, not the same as ROOFTOP.
-  'SUNSET BAR': 'Holiday',
-  WINERY: 'Holiday',
-  'JEWELLERY BOUTIQUE': 'Do',
-  'FASHION BOUTIQUE': 'Do',
-  MUSEUM: 'Do',
-  'BOAT TOUR': 'Holiday',
-  'SOUVLAKI SPOT': 'Eat',
-  'SEAFOOD RESTAURANT': 'Eat',
+  'SUNSET BAR': ['Holiday'],
+  WINERY: ['Holiday'],
+  'JEWELLERY BOUTIQUE': ['Do'],
+  'FASHION BOUTIQUE': ['Do'],
+  MUSEUM: ['Do'],
+  'BOAT TOUR': ['Holiday'],
+  'SOUVLAKI SPOT': ['Eat'],
+  'SEAFOOD RESTAURANT': ['Eat'],
   // London pass (2026-09-15) — see docs/data/venues.json's own
   // _londonVenueSource note. LEBANESE RESTAURANT maps to the real
   // 'Neighbourhood favourite' tile above; BOTANICAL GARDEN maps to 'Parks
@@ -412,15 +424,15 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   // category-only, same treatment as this file's many existing
   // category-only types, since no existing tile fits any of them
   // precisely.
-  'LEBANESE RESTAURANT': 'Eat',
-  'TURKISH RESTAURANT': 'Eat',
-  'BRITISH RESTAURANT': 'Eat',
-  'BOTANICAL GARDEN': 'Do',
-  'TRADITIONAL PUB': 'Drink',
-  BOUTIQUE: 'Do',
-  'INDEPENDENT BOOKSHOP': 'Do',
-  'COOKBOOK SHOP': 'Do',
-  'HISTORIC HOUSE': 'Do',
+  'LEBANESE RESTAURANT': ['Eat'],
+  'TURKISH RESTAURANT': ['Eat'],
+  'BRITISH RESTAURANT': ['Eat'],
+  'BOTANICAL GARDEN': ['Do'],
+  'TRADITIONAL PUB': ['Eat', 'Drink'],
+  BOUTIQUE: ['Do'],
+  'INDEPENDENT BOOKSHOP': ['Do'],
+  'COOKBOOK SHOP': ['Do'],
+  'HISTORIC HOUSE': ['Do'],
   // Riyadh pass (2026-09-15) — see docs/data/venues.json's own
   // _riyadhVenueSource note. SHISHA LOUNGE, DESSERT CAFE and HOTEL LOUNGE
   // map onto real Riyadh Drink tiles above; SAUDI HERITAGE CUISINE and
@@ -428,24 +440,24 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   // EASTERN to warrant their own label; CONTEMPORARY ART MUSEUM is
   // category-only (Do) — a purpose-built national museum is a different
   // register from a commercial ART GALLERY.
-  'SHISHA LOUNGE': 'Drink',
-  'DESSERT CAFE': 'Drink',
-  'HOTEL LOUNGE': 'Drink',
-  'SAUDI HERITAGE CUISINE': 'Eat',
-  'FIRE GRILL': 'Eat',
-  'CONTEMPORARY ART MUSEUM': 'Do',
+  'SHISHA LOUNGE': ['Drink'],
+  'DESSERT CAFE': ['Drink'],
+  'HOTEL LOUNGE': ['Drink'],
+  'SAUDI HERITAGE CUISINE': ['Eat'],
+  'FIRE GRILL': ['Eat'],
+  'CONTEMPORARY ART MUSEUM': ['Do'],
   // Riyadh second pass (2026-09-15). TEA HOUSE maps to the real 'Tea
   // houses' tile above. MOROCCAN LOUNGE is category-only — not hotel-based
   // and not a shisha-only concept, so no existing Drink type fits it.
-  'TEA HOUSE': 'Drink',
-  'MOROCCAN LOUNGE': 'Drink',
+  'TEA HOUSE': ['Drink'],
+  'MOROCCAN LOUNGE': ['Drink'],
   // Manchester Comedy/Whisky & spirits/Beer gardens pass (2026-09-18) — see
   // docs/data/venues.json's own _tileCoverageGapSource note. Three brand
   // new types, one venue each, each wired to the one real tile it exists
   // to close: COMEDY CLUB (Do), WHISKY BAR and BEER GARDEN (both Drink).
-  'COMEDY CLUB': 'Do',
-  'WHISKY BAR': 'Drink',
-  'BEER GARDEN': 'Drink',
+  'COMEDY CLUB': ['Do'],
+  'WHISKY BAR': ['Drink'],
+  'BEER GARDEN': ['Drink'],
   // Chicago campus pass (2026-09-18) — a personal customization of the
   // Chicago metro for the specific member it was built for (a UChicago
   // student), at explicit user request: "lots of libraries and bookstores
@@ -464,18 +476,18 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   // RECORD SHOP, SOUTHERN RESTAURANT, INDIAN-SOUTHERN FUSION and
   // CREOLE-BRAZILIAN are category-only, same treatment as this file's many
   // other US/non-UK types with no precise existing tile fit.
-  CAFETERIA: 'Eat',
-  'DIVE BAR': 'Drink',
-  'RECORD SHOP': 'Do',
-  'CARIBBEAN RESTAURANT': 'Eat',
-  'SOUTHERN RESTAURANT': 'Eat',
-  'INDIAN-SOUTHERN FUSION': 'Eat',
-  'CREOLE-BRAZILIAN': 'Eat',
-  SENEGALESE: 'Eat',
-  DINER: 'Eat',
-  'SOUL FOOD': 'Eat',
-  'ACADEMIC LIBRARY': 'Do',
-  'PUBLIC LIBRARY': 'Do',
-  'CAMPUS DINING HALL': 'Eat',
-  'CAMPUS GYM': 'Do',
+  CAFETERIA: ['Eat'],
+  'DIVE BAR': ['Drink'],
+  'RECORD SHOP': ['Do'],
+  'CARIBBEAN RESTAURANT': ['Eat'],
+  'SOUTHERN RESTAURANT': ['Eat'],
+  'INDIAN-SOUTHERN FUSION': ['Eat'],
+  'CREOLE-BRAZILIAN': ['Eat'],
+  SENEGALESE: ['Eat'],
+  DINER: ['Eat'],
+  'SOUL FOOD': ['Eat'],
+  'ACADEMIC LIBRARY': ['Do'],
+  'PUBLIC LIBRARY': ['Do'],
+  'CAMPUS DINING HALL': ['Eat'],
+  'CAMPUS GYM': ['Do'],
 };

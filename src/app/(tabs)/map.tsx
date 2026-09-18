@@ -13,7 +13,7 @@ import Mapbox, {
   SymbolLayer,
   type MapState,
 } from '@rnmapbox/maps';
-import { Button, Card, ContextStrip, EmblemButton, Kicker, Tag, TopPicksRail, VenueTypeIcon } from '../../components/curia';
+import { Button, Card, ContextStrip, EmblemButton, Kicker, Tag, TopPicksRail, TOP_PICKS_COUNT, VenueTypeIcon } from '../../components/curia';
 import type { TopPickItem } from '../../components/curia';
 import { FLEXIBLE_MATCH_PIN_COUNT_ENABLED, TOP_PICKS_RAIL_ENABLED } from '../../lib/config/features';
 import { haversineMiles, rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
@@ -34,6 +34,7 @@ import {
   getDistrictLocalAreas,
   groupVisibleDistricts,
   isNearHolidayCoverage,
+  MATCH_PIN_MIN_SCORE_RATIO,
   metroForPoint,
   normalizeLiveliness,
   radiusMilesToZoomLevel,
@@ -47,10 +48,11 @@ import type { GeoBounds, GeoPoint, MapLabel } from '../../lib/map/geo';
 import { iconForVenueType, type VenueIconKey } from '../../lib/map/venue-icons';
 import { moodTileOptionsForCategory } from '../../lib/map/mood-tiles';
 import { UCHICAGO_CAMPUS_BOUNDARY, UCHICAGO_CAMPUS_LABEL_POINT } from '../../lib/map/uchicago-campus';
+import { currentClockTime, isVenueOpenAt } from '../../lib/data/opening-hours';
 import { useSession } from '../../lib/state/session';
 import { fetchWeather } from '../../lib/weather/forecast';
 import { color, font, radius, spacing } from '../../theme';
-import type { DayTimeBand, TileCategory, Venue } from '../../types/models';
+import type { DayName, DayTimeBand, TileCategory, Venue } from '../../types/models';
 
 /**
  * Real Map screen. Renders the M3 scoring engine's actual output
@@ -240,10 +242,12 @@ function SavedBadge({ size, fontSize }: { size: number; fontSize: number }) {
 function PulsingMatchIcon({
   icon,
   saved,
+  isClosed,
   onPress,
 }: {
   icon: VenueIconKey;
   saved: boolean;
+  isClosed: boolean;
   onPress: () => void;
 }) {
   const pulse = useRef(new Animated.Value(0)).current;
@@ -267,7 +271,7 @@ function PulsingMatchIcon({
   return (
     <Pressable onPress={onPress} style={styles.matchWrap}>
       <Animated.View style={[styles.matchPulseRing, { transform: [{ scale }], opacity }]} />
-      <View style={styles.matchDot}>
+      <View style={[styles.matchDot, isClosed && styles.matchDotClosed]}>
         <VenueTypeIcon icon={icon} size={16} color={color.goldLight} />
       </View>
       {saved && <SavedBadge size={14} fontSize={8} />}
@@ -386,6 +390,12 @@ export default function Map() {
   );
 
   const resolved = resolveContext(context);
+  // Closed-now pin ring — see map.web.tsx's identical comment on
+  // isVenueClosedNow for why `false` is the only value that ever renders
+  // a red ring.
+  const closedCheckTime = currentClockTime(context.now, resolved.day as DayName, resolved.band);
+  const isVenueClosedNow = (venue: Venue) =>
+    isVenueOpenAt(venue, resolved.day as DayName, closedCheckTime) === false;
   const liveNow = resolveContext({ now: true });
   // The context sheet's "PLANNING FOR" state shows a real-time-now reference
   // line alongside the planned-day forecast (`nowSub` below) — this isn't a
@@ -455,7 +465,7 @@ export default function Map() {
   // show a different answer than what's actually on the map (Hard rule 5).
   const topPicks: TopPickItem[] = useMemo(
     () =>
-      result.ranked.slice(0, 4).flatMap((r) => {
+      result.ranked.slice(0, TOP_PICKS_COUNT).flatMap((r) => {
         const pickVenue = VENUES.find((v) => v.id === r.venueId);
         if (!pickVenue) return [];
         const pickDistrict = DISTRICTS.find((d) => d.id === pickVenue.districtId);
@@ -474,13 +484,23 @@ export default function Map() {
   const ranked = result.ranked;
   // Resolved in full rank order (not pre-sliced) so selectCollisionFreePins
   // below has the whole pool to choose from — it decides the cut itself.
-  const rankedResolved = useMemo(
-    () => ranked.flatMap((r) => {
+  // Filtered to a quality floor first (MATCH_PIN_MIN_SCORE_RATIO) — real
+  // bug fix, 2026-09-18, at direct user report (a fitness studio ranked
+  // ~14th on List was showing as a map pin): without this, collision
+  // avoidance happily walked deep into the ranked list for *anything*
+  // that didn't collide, letting a geographically-isolated but genuinely
+  // mediocre venue out-compete much better matches that just happened to
+  // sit close together and collide with each other. See projection.ts's
+  // own comment on MATCH_PIN_MIN_SCORE_RATIO.
+  const rankedResolved = useMemo(() => {
+    if (ranked.length === 0) return [];
+    const minScore = ranked[0].score * MATCH_PIN_MIN_SCORE_RATIO;
+    return ranked.flatMap((r) => {
+      if (r.score < minScore) return [];
       const venue = VENUES.find((v) => v.id === r.venueId);
       return venue ? [venue] : [];
-    }),
-    [ranked]
-  );
+    });
+  }, [ranked]);
   const topRankedVenues = useMemo(() => {
     const picked = FLEXIBLE_MATCH_PIN_COUNT_ENABLED
       ? selectCollisionFreePins(rankedResolved, (v) => v, center, zoomLevel)
@@ -807,7 +827,11 @@ export default function Map() {
 
         {backgroundVenues.map((venue) => (
           <MarkerView key={venue.id} coordinate={[venue.lon, venue.lat]} anchor={{ x: 0.5, y: 0.5 }}>
-            <Pressable onPress={() => onVenuePinTap(venue)} style={styles.backgroundPin} hitSlop={6}>
+            <Pressable
+              onPress={() => onVenuePinTap(venue)}
+              style={[styles.backgroundPin, isVenueClosedNow(venue) && styles.backgroundPinClosed]}
+              hitSlop={6}
+            >
               <VenueTypeIcon icon={iconForVenueType(venue.type)} size={15} color={color.textSecondary} />
               {session.isVenueSaved(venue.id) && <SavedBadge size={11} fontSize={6.5} />}
             </Pressable>
@@ -819,6 +843,7 @@ export default function Map() {
             <PulsingMatchIcon
               icon={iconForVenueType(venue.type)}
               saved={session.isVenueSaved(venue.id)}
+              isClosed={isVenueClosedNow(venue)}
               onPress={() => onVenuePinTap(venue)}
             />
           </MarkerView>
@@ -1090,6 +1115,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // Closed-now ring (2026-09-18, at explicit user request) — see
+  // map.web.tsx's buildBackgroundPinElement/buildMatchPinElement for the
+  // identical web-side treatment and its own doc comment.
+  backgroundPinClosed: {
+    borderWidth: 1.5,
+    borderColor: color.closedRed,
+  },
   // See SavedBadge's own doc comment above.
   savedBadge: {
     position: 'absolute',
@@ -1125,6 +1157,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(18,16,14,.9)',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  matchDotClosed: {
+    borderWidth: 2,
+    borderColor: color.closedRed,
   },
 
   meWrap: {

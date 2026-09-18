@@ -12,7 +12,10 @@
  * `metersPerPixelAt`/the Web Mercator ground-resolution constants
  * (EARTH_CIRCUMFERENCE_METERS/MILES_TO_METERS/TILE_SIZE_PX) live here too,
  * not duplicated in geo.ts — geo.ts's own zoomLevelToSpanMiles/
- * spanMilesToZoomLevel import them from here instead.
+ * spanMilesToZoomLevel import them from here instead. The radius-clamping
+ * cluster (MIN_RADIUS_MILES/MAX_RADIUS_MILES/clampRadiusMiles/
+ * spanMilesToRadiusMiles) moved here 2026-09-18 for the same testability
+ * reason, alongside the fix that needed a real regression test.
  */
 
 export interface GeoPoint {
@@ -78,6 +81,26 @@ export const MIN_MATCH_PIN_GAP_PX = 36;
 export const MAX_MATCH_PINS = 10;
 
 /**
+ * How far below the single best-ranked venue's score a candidate may fall
+ * and still be eligible for a match pin at all — applied by the caller
+ * (map.tsx/map.web.tsx) as a pre-filter on the ranked list *before*
+ * selectCollisionFreePins runs, not inside it (this module has no concept
+ * of "score," deliberately — see its own doc comment on staying a generic
+ * point/pixel utility). Real bug this fixes, caught by direct user report
+ * with a live example: without a quality floor, once the genuinely good
+ * matches near the top of the ranked list collide with each other (a real
+ * cluster of great venues sitting close together, e.g. central Wilmslow),
+ * collision avoidance happily walked deep into the ranked list looking for
+ * *anything* that didn't collide — which is trivially easy for a
+ * mediocre, geographically isolated venue (nothing nearby to collide
+ * with), so a rank-14/15 gym could out-compete rank-5/6/7 restaurants for
+ * a pin slot simply by being alone in space. Collision avoidance decides
+ * *where* a good match can fit; it must never decide *what counts as
+ * good* — that's this ratio's job, applied first.
+ */
+export const MATCH_PIN_MIN_SCORE_RATIO = 0.7;
+
+/**
  * Picks, in rank order, as many of `candidates` as fit on screen without
  * any two landing within `minGapPx` of each other — real collision
  * avoidance rather than a hand-tuned "N pins per zoom level" table, so the
@@ -114,4 +137,46 @@ export function selectCollisionFreePins<T>(
     kept.push(candidate);
   }
   return kept;
+}
+
+/** Search radius bounds — the prototype's own slider range (CLAUDE.md
+ * Matchmaking contract: "¼ mi to 30 mi"). Shared with List's radius slider
+ * (src/app/(tabs)/list.tsx) so Map's zoom-driven radius and List's dragged
+ * radius can never disagree on what's in-bounds. */
+export const MIN_RADIUS_MILES = 0.25;
+export const MAX_RADIUS_MILES = 30;
+
+export function clampRadiusMiles(miles: number): number {
+  return Math.max(MIN_RADIUS_MILES, Math.min(MAX_RADIUS_MILES, miles));
+}
+
+/**
+ * A real, higher floor than MIN_RADIUS_MILES (0.25mi), applied only where
+ * zoom derives the ranking radius automatically (spanMilesToRadiusMiles
+ * below) — never to MIN_RADIUS_MILES/clampRadiusMiles itself, which stays
+ * exactly 0.25mi for List's own slider (list.tsx). Added 2026-09-18, at
+ * direct user report: zoomed in tight on Wilmslow on a Friday evening, a
+ * fitness studio showed as "the" recommendation over several real, closer
+ * bars — not because it scored well, but because that tight a zoom shrank
+ * the ranking radius down near 0.25mi, and a real town centre's actual
+ * worthwhile venues routinely spread further than that. Whatever survives
+ * a near-empty candidate pool "wins" by default, not by being a good
+ * match — the same root-cause shape as MATCH_PIN_MIN_SCORE_RATIO above,
+ * just at the hard-filter stage instead of the pin-selection stage. A
+ * member who deliberately drags List's slider down to 0.25mi is asking
+ * for exactly that, on purpose; this only guards the automatic,
+ * zoom-driven case they're not consciously setting at all.
+ */
+export const ZOOM_DERIVED_MIN_RADIUS_MILES = 1;
+
+/** Search radius implied by a map viewport's current span — half the visible
+ * width, since "radius" means centre-to-edge, not edge-to-edge. Used to keep
+ * Map's zoom and the shared session.radiusMiles in sync (2026-08, at
+ * explicit user request): zooming the map out widens the search, zooming in
+ * narrows it, the same way List's slider already does — both write the one
+ * shared value (Hard rule 5), neither forks its own copy. Floored at
+ * ZOOM_DERIVED_MIN_RADIUS_MILES, not just MIN_RADIUS_MILES — see that
+ * constant's own doc comment. */
+export function spanMilesToRadiusMiles(spanMiles: number): number {
+  return Math.max(ZOOM_DERIVED_MIN_RADIUS_MILES, clampRadiusMiles(spanMiles / 2));
 }
