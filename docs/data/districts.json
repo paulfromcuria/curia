@@ -20,57 +20,518 @@
   "_londonSource": "London added 2026-09-15 at explicit user request — Curia's first UK-focused market outside Manchester/Cheshire, architecturally simpler than Santorini/Riyadh: London is fully 'uk' HomeRegion, so no onboarding Drink-catalog changes were needed (see HomeRegion's own doc comment, src/types/models.ts). Districts scaffolded first, deliberately with no venues yet, same starting point every new district gets before its own first curation pass — 6 candidates proposed and reviewed with the user before writing this, all 6 confirmed as-is. Six real, distinct districts chosen from London's actual affluent west/central core rather than one undifferentiated 'Chelsea-ish' blob: Knightsbridge (flagship luxury retail, Harrods), Chelsea (old family money, King's Road, long-term ownership over anything flashier), Mayfair (the most expensive address in the city — private members' clubs, hedge funds), Belgravia (Georgian stucco, embassies, the quietest of the six), Notting Hill (a more bohemian/creative flavour of wealth, Portobello Road), and St James's (palaces, gentlemen's clubs, Michelin density). Coordinates verified via WebSearch plus postcodes.io geocoding against each district's real, well-known anchor point rather than invented — the same postcode-geocoding methodology already used for Curia's venue coordinates: Knightsbridge 51.49945/-0.16321 (Harrods, SW1X 7XL), Chelsea 51.49261/-0.15640 (Sloane Square, SW1W 8AS), Mayfair 51.50988/-0.14456 (Berkeley Square, W1J 6BR), Belgravia 51.49817/-0.15426 (Belgrave Square, SW1X 8PZ), Notting Hill 51.50918/-0.19454 (Notting Hill Gate, W11 3JQ), St James's 51.50751/-0.13657 (St James's Square, SW1Y 4LB). accentColor values chosen for perceptual separation within the London cluster itself (the only districts that ever render together, per this file's own established precedent): amber-brass for Knightsbridge's retail energy, brick-terracotta for Chelsea, deep plum for Mayfair's clubland evenings, sage-stone for Belgravia's quiet Georgian elegance, teal-green for Notting Hill's colour and greenery, and slate-blue for St James's institutional formality. All six given kind 'city' — unlike Cheshire's county-town distinction, there's no meaningful 'county' vs 'city' split within inner London, so every district here reads as urban-dense the way Manchester's city districts do, and shares that global bandMultiplier curve rather than Cheshire's quieter county one. base scores are reasoned estimates pending real curation, same convention as every other new district's first pass: Mayfair highest (90 — genuinely the most consistently active address of the six), Knightsbridge next (86), Chelsea (80), Notting Hill (76), St James's (72), Belgravia lowest (60 — real, deliberate quiet: embassies and residential garden squares, not late-night venues). No district group added — six districts is still small enough that the whole-metro 'London' label (metroWholeSetLabel below) covers the zoomed-out case, same reasoning Santorini's four and Riyadh's five already established; worth revisiting if the set grows (Knightsbridge/Belgravia in particular share a real, named ward — 'Knightsbridge and Belgravia').",
   "_hittinBoundaryCorrectionSource": "2026-09-15, at explicit discovery during the district's first venue-curation pass: the _riyadhSource note below describes Hittin as covering 'Riyadh Boulevard/Boulevard City, Via Riyadh, U Walk' — independent research for that pass found this overstates the real boundary. Boulevard City is solidly, consistently confirmed as being in Hittin (Prince Turki Al-Awwal Road, per Wikipedia, Arab News, Saudipedia and the General Entertainment Authority's own materials). Via Riyadh is not in Hittin — it's a separate luxury development in the Al-Hada district, on King Fahd Road. U Walk is also not consistently classified as Hittin — official/retail sources place it in Al Nakheel district (Prince Turki bin Abdulaziz Al Awwal Road), adjacent but distinct. This district's own editorialDescription/coordinates were never wrong (Boulevard City was always the real anchor, independently verified when Hittin was first scaffolded), only the older provenance note's supporting list of landmarks — left uncorrected there rather than rewritten, per this file's own practice of appending corrections instead of rewriting history (see _imerovigliCoordinateCorrectionSource for the same pattern). Practical effect: Hittin's real, verifiable independent venue base is thinner than the original note implied, since two of its three named anchors don't actually belong to this district — see docs/data/venues.json's own _riyadhVenueSource note for how this played out in that pass.",
   "metros": [
-    { "id": "manchester", "name": "Manchester" },
-    { "id": "cheshire", "name": "Cheshire" },
-    { "id": "santorini", "name": "Santorini" },
-    { "id": "riyadh", "name": "Riyadh" },
-    { "id": "london", "name": "London" }
+    {
+      "id": "manchester",
+      "name": "Manchester"
+    },
+    {
+      "id": "cheshire",
+      "name": "Cheshire"
+    },
+    {
+      "id": "santorini",
+      "name": "Santorini"
+    },
+    {
+      "id": "riyadh",
+      "name": "Riyadh"
+    },
+    {
+      "id": "london",
+      "name": "London"
+    },
+    {
+      "id": "chicago",
+      "name": "Chicago"
+    }
   ],
   "districts": [
-    { "id": "northern-quarter", "name": "Northern Quarter", "metro": "manchester", "lat": 53.4840, "lon": -2.2360, "base": 88, "kind": "city", "accentColor": "#8B6FA8", "editorialDescription": "Loudest of the ten, and honest about it. Best treated as a second or third stop rather than the whole evening — the good rooms are upstairs, behind doors with no signage." },
-    { "id": "ancoats", "name": "Ancoats", "metro": "manchester", "lat": 53.4846, "lon": -2.2262, "base": 82, "kind": "city", "accentColor": "#9C5030", "editorialDescription": "Mill brick and low ceilings, run by people who used to cook somewhere more famous and left on purpose. It peaks late and rewards walking — the best of it sits within a few minutes of the canal." },
-    { "id": "spinningfields", "name": "Spinningfields", "metro": "manchester", "lat": 53.4794, "lon": -2.2516, "base": 76, "kind": "city", "accentColor": "#6E8FA6", "editorialDescription": "Glass, height and expense accounts. It empties by eleven on a weeknight, which is either the flaw or the appeal depending on the evening you had in mind." },
-    { "id": "deansgate", "name": "Deansgate", "metro": "manchester", "lat": 53.4762, "lon": -2.2487, "base": 80, "kind": "city", "accentColor": "#D68A3F", "editorialDescription": "The formal spine of the city — hotel bars, height, and service that still wears a jacket. Reliable rather than surprising, which on a Tuesday is the point." },
-    { "id": "chinatown", "name": "Chinatown", "metro": "manchester", "lat": 53.4792, "lon": -2.2400, "base": 68, "kind": "city", "accentColor": "#A73F52", "editorialDescription": "Smaller than its name suggests, and better after dark than at lunch. A handful of rooms worth detouring for, tucked in behind the arch most people only photograph." },
-    { "id": "altrincham", "name": "Altrincham", "metro": "cheshire", "lat": 53.3872, "lon": -2.3506, "base": 66, "kind": "county", "accentColor": "#D4A72C", "editorialDescription": "A market town playing at being a city district, and mostly winning. Independent cinema, small plates, and a pizza queue nobody minds standing in." },
-    { "id": "hale", "name": "Hale", "metro": "cheshire", "lat": 53.3781, "lon": -2.3322, "base": 62, "kind": "county", "accentColor": "#C97F3D", "editorialDescription": "Village high street money — quieter than Altrincham, later than it looks from the outside. Best on a Friday, when the terrace tables fill before the sun goes." },
-    { "id": "wilmslow", "name": "Wilmslow", "metro": "cheshire", "lat": 53.3272, "lon": -2.2300, "base": 55, "kind": "county", "accentColor": "#B85C3E", "editorialDescription": "The polished end of the Golden Triangle. Understated storefronts hiding rooms that assume you already know what you want." },
-    { "id": "alderley-edge", "name": "Alderley Edge", "metro": "cheshire", "lat": 53.3041, "lon": -2.2340, "base": 52, "kind": "county", "accentColor": "#A66B4F", "editorialDescription": "Sandstone and fireplaces, with the actual Edge — the wooded ridge, not a marketing name — a ten-minute walk from most of it. Earlier nights than the city, and no worse for it." },
-    { "id": "mobberley", "name": "Mobberley", "metro": "cheshire", "lat": 53.3110, "lon": -2.3232, "base": 38, "kind": "county", "accentColor": "#7A7048", "editorialDescription": "The quiet edge of the set — fewer rooms, longer drives, and exactly the kind of evening that rewards both." },
-    { "id": "prestbury", "name": "Prestbury", "metro": "cheshire", "lat": 53.2880, "lon": -2.1510, "base": 44, "kind": "county", "accentColor": "#6B4A3D", "editorialDescription": "The actual point of the Golden Triangle's compass — Tudor timber and a Norman chapel two centuries past the silk money that built most of it. Small enough that the whole village still counts as one recommendation." },
-    { "id": "cheadle-hulme", "name": "Cheadle Hulme", "metro": "cheshire", "lat": 53.3761, "lon": -2.1897, "base": 42, "kind": "county", "accentColor": "#9E8B4F", "editorialDescription": "The quieter, greener edge of the set, closer to the city than any of Cheshire's other districts and unbothered by the comparison. A station platform into Manchester and a park worth the walk before dinner." },
-    { "id": "knutsford", "name": "Knutsford", "metro": "cheshire", "lat": 53.3031, "lon": -2.3748, "base": 54, "kind": "county", "accentColor": "#B8935C", "editorialDescription": "A working market town before it's anything else — an indoor hall trading four days a week, a King Street that still closes for its own May Day procession, and Tatton Park's deer a mile up the road for whoever wants the grounds without the crowd." },
-    { "id": "chorlton", "name": "Chorlton", "metro": "manchester", "lat": 53.4390, "lon": -2.2790, "base": 78, "kind": "city", "accentColor": "#6B8F71", "editorialDescription": "Three high streets and a green nobody rushes off of — Beech Road, Manchester Road and Wilbraham Road, each doing its own version of the same thing. More independent restaurants per acre than anywhere else in the city, a beer mile that means something, and the chain pub wave that swallowed everywhere else never quite got a foothold here." },
-    { "id": "didsbury", "name": "Didsbury", "metro": "manchester", "lat": 53.4176, "lon": -2.2310, "base": 80, "kind": "city", "accentColor": "#B98098", "editorialDescription": "Victorian villas and two villages within one — Didsbury Village around School Lane, West Didsbury along Burton Road, half an hour from the city centre by tram and further than that in temperament. The kind of suburb where the fine-dining room and the Sunday jazz pub sit on the same postcode, and neither one apologises for the other." },
-    { "id": "stockport-underbanks", "name": "Stockport (Underbanks)", "metro": "manchester", "lat": 53.4112, "lon": -2.1564, "base": 76, "kind": "city", "accentColor": "#7A3B3E", "editorialDescription": "A Victorian market hall at one end and old bank vaults turned into wine bars at the other, with the steepest street in England running straight between them — the regeneration story every other northern town centre is quietly trying to copy." },
-    { "id": "heaton-moor", "name": "Heaton Moor", "metro": "manchester", "lat": 53.4213, "lon": -2.1857, "base": 68, "kind": "city", "accentColor": "#6B7F94", "editorialDescription": "One of the Four Heatons, and the one with the actual high street — Heaton Moor Road and Shaw Road doing a quieter version of what Chorlton and Didsbury do further south. A 1923 cinema saved twice, most recently by a family who bought it back from the multiplex era, and a producers' market that still runs on a Saturday." },
-    { "id": "bramhall", "name": "Bramhall", "metro": "cheshire", "lat": 53.357874, "lon": -2.165865, "base": 46, "kind": "county", "accentColor": "#7D6B87", "editorialDescription": "A village green with a Tudor manor behind it and a shopping parade in front — the sort of Stockport postcode that would rather be mistaken for Cheshire, and mostly gets away with it." },
-    { "id": "macclesfield", "name": "Macclesfield", "metro": "cheshire", "lat": 53.2611, "lon": -2.1257, "base": 58, "kind": "county", "accentColor": "#4F6B63", "editorialDescription": "The town that funded Prestbury's church and Alderley Edge's stone before either of them meant much — a royal charter in 1261, silk mills worked since into flats and museums both, and streets steep enough that the postcards apologise for them." },
-    { "id": "nantwich", "name": "Nantwich", "metro": "cheshire", "lat": 53.067, "lon": -2.5206, "base": 56, "kind": "county", "accentColor": "#A56A52", "editorialDescription": "A salt town before it was anything else — 'wich' means brine — with more black-and-white Tudor timber per street than the rest of the county put together, a medieval church at its centre, and a market that's run three days a week since long before most of Cheshire's other towns had a charter." },
-    { "id": "chester", "name": "Chester", "metro": "cheshire", "lat": 53.1909, "lon": -2.8888, "base": 76, "kind": "city", "accentColor": "#A6512F", "editorialDescription": "Roman walls two thousand years old still ring the centre, and the Rows stack a second storey of shopfronts above the first — a working city that happens to be standing on its own ruins. The kind of place that earns its queue outside the better rooms, not just its postcard." },
-    { "id": "tarporley", "name": "Tarporley", "metro": "cheshire", "lat": 53.160043, "lon": -2.669352, "base": 48, "kind": "county", "accentColor": "#5E6E4F", "editorialDescription": "The Cheshire village that resisted the chain-store drift entirely — butchers and a bookshop on the high street, a coaching inn that's poured drinks since 1565, and a farm shop a few minutes out that's fed the same family's customers since 1959." },
-    { "id": "northwich", "name": "Northwich", "metro": "cheshire", "lat": 53.26211, "lon": -2.512439, "base": 58, "kind": "county", "accentColor": "#4A6B6E", "editorialDescription": "Another salt town on the same river as Nantwich, rebuilding its own high street on its own terms — a rooftop bar over the water where the old quayside warehouses stood, and a bistro that's been quietly good since 2004." },
-    { "id": "oia", "name": "Oia", "metro": "santorini", "lat": 36.4617, "lon": 25.3753, "base": 88, "kind": "city", "accentColor": "#4A7BA6", "editorialDescription": "Blue domes and a nightly ritual — half the village turns out along the castle path to watch the sun drop into the caldera. Book a table an hour before it does, or don't bother." },
-    { "id": "fira", "name": "Fira", "metro": "santorini", "lat": 36.4166, "lon": 25.4318, "base": 90, "kind": "city", "accentColor": "#C97B4A", "editorialDescription": "The island's actual town, not just its postcard — caldera-view terraces by day give way to the bars along the cliffside steps that stay loud till four." },
-    { "id": "imerovigli", "name": "Imerovigli", "metro": "santorini", "lat": 36.4325579, "lon": 25.4228307, "base": 74, "kind": "city", "accentColor": "#7C93A8", "editorialDescription": "The highest point on the rim, quieter than Oia for the same view, with the island's most serious hotel terraces and none of the crowds that come to watch the sunset elsewhere." },
-    { "id": "perissa-perivolos", "name": "Perissa & Perivolos", "metro": "santorini", "lat": 36.3470, "lon": 25.4600, "base": 82, "kind": "city", "accentColor": "#D4A24C", "editorialDescription": "Black sand and a run of beach clubs that start serving before noon and don't stop — the island's actual daytime, once the caldera villages have gone quiet from the heat." },
-    { "id": "olaya", "name": "Olaya", "metro": "riyadh", "lat": 24.6957, "lon": 46.6811, "base": 85, "kind": "city", "accentColor": "#B8873E", "editorialDescription": "The city's real commercial spine, King Fahd Road running through the middle of it — cafes that don't close before one, and a shisha culture that's older than the towers around it." },
-    { "id": "kafd", "name": "King Abdullah Financial District", "metro": "riyadh", "lat": 24.7628, "lon": 46.6403, "base": 65, "kind": "city", "accentColor": "#4A6478", "editorialDescription": "Riyadh's newest skyline, built for the trading day and increasingly good after it ends — the evening crowd here is younger, and arrived by choice, not just by office." },
-    { "id": "diriyah", "name": "Diriyah", "metro": "riyadh", "lat": 24.7333, "lon": 46.5756, "base": 88, "kind": "city", "accentColor": "#A6472F", "editorialDescription": "Mud-brick walls three centuries old and a terrace of dining rooms that opened in the last five years — At-Turaif's UNESCO listing sits a short walk from some of the country's most serious tables." },
-    { "id": "jax-district", "name": "JAX District", "metro": "riyadh", "lat": 24.7477, "lon": 46.5329, "base": 60, "kind": "city", "accentColor": "#6B4670", "editorialDescription": "An industrial site turned gallery quarter — studios, a contemporary art museum, and the kind of exhibition openings that spill onto the street outside." },
-    { "id": "hittin", "name": "Hittin", "metro": "riyadh", "lat": 24.7503, "lon": 46.6133, "base": 82, "kind": "city", "accentColor": "#3E8E8A", "editorialDescription": "The new strip — towers, terraces, and a boulevard built for exactly this. The closest thing Riyadh has to a district that never quite finished being built, and is better for it." },
-    { "id": "knightsbridge", "name": "Knightsbridge", "metro": "london", "lat": 51.49945, "lon": -0.16321, "base": 86, "kind": "city", "accentColor": "#B8873E", "editorialDescription": "Harrods at one end, the museums at the other, and a density of five-figure handbags per square foot the rest of the country doesn't attempt. The restaurants behind the department stores are better than the ones inside them." },
-    { "id": "chelsea", "name": "Chelsea", "metro": "london", "lat": 51.49261, "lon": -0.15640, "base": 80, "kind": "city", "accentColor": "#A34A31", "editorialDescription": "Old money that never left, running the length of the King's Road from Sloane Square to World's End — long-term ownership over anything flashier, and unbothered by whoever's currently trying to buy their way in." },
-    { "id": "mayfair", "name": "Mayfair", "metro": "london", "lat": 51.50988, "lon": -0.14456, "base": 90, "kind": "city", "accentColor": "#6B4E70", "editorialDescription": "Private members' clubs behind unmarked doors, hedge funds above the shopfronts, and dinner reservations made months out rather than days. The most expensive square on the board, and it still behaves like it." },
-    { "id": "belgravia", "name": "Belgravia", "metro": "london", "lat": 51.49817, "lon": -0.15426, "base": 60, "kind": "city", "accentColor": "#8B8A6A", "editorialDescription": "Stucco terraces and garden squares with their own keys — the quietest kind of wealth, more embassy than nightclub. Fewer rooms than its neighbours, and none of them need to try hard." },
-    { "id": "notting-hill", "name": "Notting Hill", "metro": "london", "lat": 51.50918, "lon": -0.19454, "base": 76, "kind": "city", "accentColor": "#4A7A6B", "editorialDescription": "Pastel houses and a Saturday market that still pulls a crowd, but the real business happens on the quieter streets around it, at tables nobody's advertising." },
-    { "id": "st-james", "name": "St James's", "metro": "london", "lat": 51.50751, "lon": -0.13657, "base": 72, "kind": "city", "accentColor": "#4A5E78", "editorialDescription": "Gentlemen's clubs, one very famous hotel, and a concentration of Michelin stars that outweighs its size by a wide margin. Formal enough that most of it still expects a jacket." }
+    {
+      "id": "northern-quarter",
+      "name": "Northern Quarter",
+      "metro": "manchester",
+      "lat": 53.484,
+      "lon": -2.236,
+      "base": 88,
+      "kind": "city",
+      "accentColor": "#8B6FA8",
+      "editorialDescription": "Loudest of the ten, and honest about it. Best treated as a second or third stop rather than the whole evening — the good rooms are upstairs, behind doors with no signage."
+    },
+    {
+      "id": "ancoats",
+      "name": "Ancoats",
+      "metro": "manchester",
+      "lat": 53.4846,
+      "lon": -2.2262,
+      "base": 82,
+      "kind": "city",
+      "accentColor": "#9C5030",
+      "editorialDescription": "Mill brick and low ceilings, run by people who used to cook somewhere more famous and left on purpose. It peaks late and rewards walking — the best of it sits within a few minutes of the canal."
+    },
+    {
+      "id": "spinningfields",
+      "name": "Spinningfields",
+      "metro": "manchester",
+      "lat": 53.4794,
+      "lon": -2.2516,
+      "base": 76,
+      "kind": "city",
+      "accentColor": "#6E8FA6",
+      "editorialDescription": "Glass, height and expense accounts. It empties by eleven on a weeknight, which is either the flaw or the appeal depending on the evening you had in mind."
+    },
+    {
+      "id": "deansgate",
+      "name": "Deansgate",
+      "metro": "manchester",
+      "lat": 53.4762,
+      "lon": -2.2487,
+      "base": 80,
+      "kind": "city",
+      "accentColor": "#D68A3F",
+      "editorialDescription": "The formal spine of the city — hotel bars, height, and service that still wears a jacket. Reliable rather than surprising, which on a Tuesday is the point."
+    },
+    {
+      "id": "chinatown",
+      "name": "Chinatown",
+      "metro": "manchester",
+      "lat": 53.4792,
+      "lon": -2.24,
+      "base": 68,
+      "kind": "city",
+      "accentColor": "#A73F52",
+      "editorialDescription": "Smaller than its name suggests, and better after dark than at lunch. A handful of rooms worth detouring for, tucked in behind the arch most people only photograph."
+    },
+    {
+      "id": "altrincham",
+      "name": "Altrincham",
+      "metro": "cheshire",
+      "lat": 53.3872,
+      "lon": -2.3506,
+      "base": 66,
+      "kind": "county",
+      "accentColor": "#D4A72C",
+      "editorialDescription": "A market town playing at being a city district, and mostly winning. Independent cinema, small plates, and a pizza queue nobody minds standing in."
+    },
+    {
+      "id": "hale",
+      "name": "Hale",
+      "metro": "cheshire",
+      "lat": 53.3781,
+      "lon": -2.3322,
+      "base": 62,
+      "kind": "county",
+      "accentColor": "#C97F3D",
+      "editorialDescription": "Village high street money — quieter than Altrincham, later than it looks from the outside. Best on a Friday, when the terrace tables fill before the sun goes."
+    },
+    {
+      "id": "wilmslow",
+      "name": "Wilmslow",
+      "metro": "cheshire",
+      "lat": 53.3272,
+      "lon": -2.23,
+      "base": 55,
+      "kind": "county",
+      "accentColor": "#B85C3E",
+      "editorialDescription": "The polished end of the Golden Triangle. Understated storefronts hiding rooms that assume you already know what you want."
+    },
+    {
+      "id": "alderley-edge",
+      "name": "Alderley Edge",
+      "metro": "cheshire",
+      "lat": 53.3041,
+      "lon": -2.234,
+      "base": 52,
+      "kind": "county",
+      "accentColor": "#A66B4F",
+      "editorialDescription": "Sandstone and fireplaces, with the actual Edge — the wooded ridge, not a marketing name — a ten-minute walk from most of it. Earlier nights than the city, and no worse for it."
+    },
+    {
+      "id": "mobberley",
+      "name": "Mobberley",
+      "metro": "cheshire",
+      "lat": 53.311,
+      "lon": -2.3232,
+      "base": 38,
+      "kind": "county",
+      "accentColor": "#7A7048",
+      "editorialDescription": "The quiet edge of the set — fewer rooms, longer drives, and exactly the kind of evening that rewards both."
+    },
+    {
+      "id": "prestbury",
+      "name": "Prestbury",
+      "metro": "cheshire",
+      "lat": 53.288,
+      "lon": -2.151,
+      "base": 44,
+      "kind": "county",
+      "accentColor": "#6B4A3D",
+      "editorialDescription": "The actual point of the Golden Triangle's compass — Tudor timber and a Norman chapel two centuries past the silk money that built most of it. Small enough that the whole village still counts as one recommendation."
+    },
+    {
+      "id": "cheadle-hulme",
+      "name": "Cheadle Hulme",
+      "metro": "cheshire",
+      "lat": 53.3761,
+      "lon": -2.1897,
+      "base": 42,
+      "kind": "county",
+      "accentColor": "#9E8B4F",
+      "editorialDescription": "The quieter, greener edge of the set, closer to the city than any of Cheshire's other districts and unbothered by the comparison. A station platform into Manchester and a park worth the walk before dinner."
+    },
+    {
+      "id": "knutsford",
+      "name": "Knutsford",
+      "metro": "cheshire",
+      "lat": 53.3031,
+      "lon": -2.3748,
+      "base": 54,
+      "kind": "county",
+      "accentColor": "#B8935C",
+      "editorialDescription": "A working market town before it's anything else — an indoor hall trading four days a week, a King Street that still closes for its own May Day procession, and Tatton Park's deer a mile up the road for whoever wants the grounds without the crowd."
+    },
+    {
+      "id": "chorlton",
+      "name": "Chorlton",
+      "metro": "manchester",
+      "lat": 53.439,
+      "lon": -2.279,
+      "base": 78,
+      "kind": "city",
+      "accentColor": "#6B8F71",
+      "editorialDescription": "Three high streets and a green nobody rushes off of — Beech Road, Manchester Road and Wilbraham Road, each doing its own version of the same thing. More independent restaurants per acre than anywhere else in the city, a beer mile that means something, and the chain pub wave that swallowed everywhere else never quite got a foothold here."
+    },
+    {
+      "id": "didsbury",
+      "name": "Didsbury",
+      "metro": "manchester",
+      "lat": 53.4176,
+      "lon": -2.231,
+      "base": 80,
+      "kind": "city",
+      "accentColor": "#B98098",
+      "editorialDescription": "Victorian villas and two villages within one — Didsbury Village around School Lane, West Didsbury along Burton Road, half an hour from the city centre by tram and further than that in temperament. The kind of suburb where the fine-dining room and the Sunday jazz pub sit on the same postcode, and neither one apologises for the other."
+    },
+    {
+      "id": "stockport-underbanks",
+      "name": "Stockport (Underbanks)",
+      "metro": "manchester",
+      "lat": 53.4112,
+      "lon": -2.1564,
+      "base": 76,
+      "kind": "city",
+      "accentColor": "#7A3B3E",
+      "editorialDescription": "A Victorian market hall at one end and old bank vaults turned into wine bars at the other, with the steepest street in England running straight between them — the regeneration story every other northern town centre is quietly trying to copy."
+    },
+    {
+      "id": "heaton-moor",
+      "name": "Heaton Moor",
+      "metro": "manchester",
+      "lat": 53.4213,
+      "lon": -2.1857,
+      "base": 68,
+      "kind": "city",
+      "accentColor": "#6B7F94",
+      "editorialDescription": "One of the Four Heatons, and the one with the actual high street — Heaton Moor Road and Shaw Road doing a quieter version of what Chorlton and Didsbury do further south. A 1923 cinema saved twice, most recently by a family who bought it back from the multiplex era, and a producers' market that still runs on a Saturday."
+    },
+    {
+      "id": "bramhall",
+      "name": "Bramhall",
+      "metro": "cheshire",
+      "lat": 53.357874,
+      "lon": -2.165865,
+      "base": 46,
+      "kind": "county",
+      "accentColor": "#7D6B87",
+      "editorialDescription": "A village green with a Tudor manor behind it and a shopping parade in front — the sort of Stockport postcode that would rather be mistaken for Cheshire, and mostly gets away with it."
+    },
+    {
+      "id": "macclesfield",
+      "name": "Macclesfield",
+      "metro": "cheshire",
+      "lat": 53.2611,
+      "lon": -2.1257,
+      "base": 58,
+      "kind": "county",
+      "accentColor": "#4F6B63",
+      "editorialDescription": "The town that funded Prestbury's church and Alderley Edge's stone before either of them meant much — a royal charter in 1261, silk mills worked since into flats and museums both, and streets steep enough that the postcards apologise for them."
+    },
+    {
+      "id": "nantwich",
+      "name": "Nantwich",
+      "metro": "cheshire",
+      "lat": 53.067,
+      "lon": -2.5206,
+      "base": 56,
+      "kind": "county",
+      "accentColor": "#A56A52",
+      "editorialDescription": "A salt town before it was anything else — 'wich' means brine — with more black-and-white Tudor timber per street than the rest of the county put together, a medieval church at its centre, and a market that's run three days a week since long before most of Cheshire's other towns had a charter."
+    },
+    {
+      "id": "chester",
+      "name": "Chester",
+      "metro": "cheshire",
+      "lat": 53.1909,
+      "lon": -2.8888,
+      "base": 76,
+      "kind": "city",
+      "accentColor": "#A6512F",
+      "editorialDescription": "Roman walls two thousand years old still ring the centre, and the Rows stack a second storey of shopfronts above the first — a working city that happens to be standing on its own ruins. The kind of place that earns its queue outside the better rooms, not just its postcard."
+    },
+    {
+      "id": "tarporley",
+      "name": "Tarporley",
+      "metro": "cheshire",
+      "lat": 53.160043,
+      "lon": -2.669352,
+      "base": 48,
+      "kind": "county",
+      "accentColor": "#5E6E4F",
+      "editorialDescription": "The Cheshire village that resisted the chain-store drift entirely — butchers and a bookshop on the high street, a coaching inn that's poured drinks since 1565, and a farm shop a few minutes out that's fed the same family's customers since 1959."
+    },
+    {
+      "id": "northwich",
+      "name": "Northwich",
+      "metro": "cheshire",
+      "lat": 53.26211,
+      "lon": -2.512439,
+      "base": 58,
+      "kind": "county",
+      "accentColor": "#4A6B6E",
+      "editorialDescription": "Another salt town on the same river as Nantwich, rebuilding its own high street on its own terms — a rooftop bar over the water where the old quayside warehouses stood, and a bistro that's been quietly good since 2004."
+    },
+    {
+      "id": "oia",
+      "name": "Oia",
+      "metro": "santorini",
+      "lat": 36.4617,
+      "lon": 25.3753,
+      "base": 88,
+      "kind": "city",
+      "accentColor": "#4A7BA6",
+      "editorialDescription": "Blue domes and a nightly ritual — half the village turns out along the castle path to watch the sun drop into the caldera. Book a table an hour before it does, or don't bother."
+    },
+    {
+      "id": "fira",
+      "name": "Fira",
+      "metro": "santorini",
+      "lat": 36.4166,
+      "lon": 25.4318,
+      "base": 90,
+      "kind": "city",
+      "accentColor": "#C97B4A",
+      "editorialDescription": "The island's actual town, not just its postcard — caldera-view terraces by day give way to the bars along the cliffside steps that stay loud till four."
+    },
+    {
+      "id": "imerovigli",
+      "name": "Imerovigli",
+      "metro": "santorini",
+      "lat": 36.4325579,
+      "lon": 25.4228307,
+      "base": 74,
+      "kind": "city",
+      "accentColor": "#7C93A8",
+      "editorialDescription": "The highest point on the rim, quieter than Oia for the same view, with the island's most serious hotel terraces and none of the crowds that come to watch the sunset elsewhere."
+    },
+    {
+      "id": "perissa-perivolos",
+      "name": "Perissa & Perivolos",
+      "metro": "santorini",
+      "lat": 36.347,
+      "lon": 25.46,
+      "base": 82,
+      "kind": "city",
+      "accentColor": "#D4A24C",
+      "editorialDescription": "Black sand and a run of beach clubs that start serving before noon and don't stop — the island's actual daytime, once the caldera villages have gone quiet from the heat."
+    },
+    {
+      "id": "olaya",
+      "name": "Olaya",
+      "metro": "riyadh",
+      "lat": 24.6957,
+      "lon": 46.6811,
+      "base": 85,
+      "kind": "city",
+      "accentColor": "#B8873E",
+      "editorialDescription": "The city's real commercial spine, King Fahd Road running through the middle of it — cafes that don't close before one, and a shisha culture that's older than the towers around it."
+    },
+    {
+      "id": "kafd",
+      "name": "King Abdullah Financial District",
+      "metro": "riyadh",
+      "lat": 24.7628,
+      "lon": 46.6403,
+      "base": 65,
+      "kind": "city",
+      "accentColor": "#4A6478",
+      "editorialDescription": "Riyadh's newest skyline, built for the trading day and increasingly good after it ends — the evening crowd here is younger, and arrived by choice, not just by office."
+    },
+    {
+      "id": "diriyah",
+      "name": "Diriyah",
+      "metro": "riyadh",
+      "lat": 24.7333,
+      "lon": 46.5756,
+      "base": 88,
+      "kind": "city",
+      "accentColor": "#A6472F",
+      "editorialDescription": "Mud-brick walls three centuries old and a terrace of dining rooms that opened in the last five years — At-Turaif's UNESCO listing sits a short walk from some of the country's most serious tables."
+    },
+    {
+      "id": "jax-district",
+      "name": "JAX District",
+      "metro": "riyadh",
+      "lat": 24.7477,
+      "lon": 46.5329,
+      "base": 60,
+      "kind": "city",
+      "accentColor": "#6B4670",
+      "editorialDescription": "An industrial site turned gallery quarter — studios, a contemporary art museum, and the kind of exhibition openings that spill onto the street outside."
+    },
+    {
+      "id": "hittin",
+      "name": "Hittin",
+      "metro": "riyadh",
+      "lat": 24.7503,
+      "lon": 46.6133,
+      "base": 82,
+      "kind": "city",
+      "accentColor": "#3E8E8A",
+      "editorialDescription": "The new strip — towers, terraces, and a boulevard built for exactly this. The closest thing Riyadh has to a district that never quite finished being built, and is better for it."
+    },
+    {
+      "id": "knightsbridge",
+      "name": "Knightsbridge",
+      "metro": "london",
+      "lat": 51.49945,
+      "lon": -0.16321,
+      "base": 86,
+      "kind": "city",
+      "accentColor": "#B8873E",
+      "editorialDescription": "Harrods at one end, the museums at the other, and a density of five-figure handbags per square foot the rest of the country doesn't attempt. The restaurants behind the department stores are better than the ones inside them."
+    },
+    {
+      "id": "chelsea",
+      "name": "Chelsea",
+      "metro": "london",
+      "lat": 51.49261,
+      "lon": -0.1564,
+      "base": 80,
+      "kind": "city",
+      "accentColor": "#A34A31",
+      "editorialDescription": "Old money that never left, running the length of the King's Road from Sloane Square to World's End — long-term ownership over anything flashier, and unbothered by whoever's currently trying to buy their way in."
+    },
+    {
+      "id": "mayfair",
+      "name": "Mayfair",
+      "metro": "london",
+      "lat": 51.50988,
+      "lon": -0.14456,
+      "base": 90,
+      "kind": "city",
+      "accentColor": "#6B4E70",
+      "editorialDescription": "Private members' clubs behind unmarked doors, hedge funds above the shopfronts, and dinner reservations made months out rather than days. The most expensive square on the board, and it still behaves like it."
+    },
+    {
+      "id": "belgravia",
+      "name": "Belgravia",
+      "metro": "london",
+      "lat": 51.49817,
+      "lon": -0.15426,
+      "base": 60,
+      "kind": "city",
+      "accentColor": "#8B8A6A",
+      "editorialDescription": "Stucco terraces and garden squares with their own keys — the quietest kind of wealth, more embassy than nightclub. Fewer rooms than its neighbours, and none of them need to try hard."
+    },
+    {
+      "id": "notting-hill",
+      "name": "Notting Hill",
+      "metro": "london",
+      "lat": 51.50918,
+      "lon": -0.19454,
+      "base": 76,
+      "kind": "city",
+      "accentColor": "#4A7A6B",
+      "editorialDescription": "Pastel houses and a Saturday market that still pulls a crowd, but the real business happens on the quieter streets around it, at tables nobody's advertising."
+    },
+    {
+      "id": "st-james",
+      "name": "St James's",
+      "metro": "london",
+      "lat": 51.50751,
+      "lon": -0.13657,
+      "base": 72,
+      "kind": "city",
+      "accentColor": "#4A5E78",
+      "editorialDescription": "Gentlemen's clubs, one very famous hotel, and a concentration of Michelin stars that outweighs its size by a wide margin. Formal enough that most of it still expects a jacket."
+    },
+    {
+      "id": "hyde-park",
+      "name": "Hyde Park",
+      "metro": "chicago",
+      "lat": 41.801,
+      "lon": -87.5872,
+      "base": 82,
+      "kind": "city",
+      "accentColor": "#B8925A",
+      "editorialDescription": "A university town within a city, built around a Gothic quad and the stretch of 53rd and 57th that services it — secondhand bookshops that have outlasted their landlords twice over, a cafeteria line Obama used to queue in, and a Michelin Bib Gourmand two blocks from the lecture halls. Lake Michigan on one side, the Midway on the other, and just enough independent grit left in the storefronts that the neighbourhood still reads as lived-in, not curated."
+    },
+    {
+      "id": "kenwood",
+      "name": "Kenwood",
+      "metro": "chicago",
+      "lat": 41.809,
+      "lon": -87.5965,
+      "base": 68,
+      "kind": "city",
+      "accentColor": "#8C5A52",
+      "editorialDescription": "Chicago's grandest surviving mansion district, and still mostly houses — Muddy Waters kept one here, so did Louis Farrakhan, and the greystones on Greenwood and Woodlawn Avenue don't advertise who's inside. What commercial life there is runs thin and specific along 47th and 43rd: a Senegalese kitchen built on a family recipe from Dakar, a jazz room made out of a father's old TV-repair shop, nothing that needs a queue."
+    },
+    {
+      "id": "woodlawn",
+      "name": "Woodlawn",
+      "metro": "chicago",
+      "lat": 41.781,
+      "lon": -87.599,
+      "base": 72,
+      "kind": "city",
+      "accentColor": "#C17A4E",
+      "editorialDescription": "Ninety years of disinvestment couldn't quite finish Woodlawn off, and the Obama Presidential Center's arrival in Jackson Park hasn't rewritten it so much as given it a reason to be looked at again. What's here now is a real mix: a lunch counter that's fed the neighbourhood since 1892, a coffee shop a handful of regulars bought outright rather than watch it disappear, and a Saturday farmers market that was doing the work long before anyone called it a comeback."
+    }
   ],
   "districtGroups": [
-    { "name": "The Golden Triangle", "of": ["alderley-edge", "prestbury", "wilmslow", "knutsford", "mobberley", "hale"] },
-    { "name": "Hale & Altrincham", "of": ["hale", "altrincham"] },
-    { "name": "Ancoats & the NQ", "of": ["ancoats", "northern-quarter"] },
-    { "name": "The Deansgate Spine", "of": ["deansgate", "spinningfields", "chinatown"] }
+    {
+      "name": "The Golden Triangle",
+      "of": [
+        "alderley-edge",
+        "prestbury",
+        "wilmslow",
+        "knutsford",
+        "mobberley",
+        "hale"
+      ]
+    },
+    {
+      "name": "Hale & Altrincham",
+      "of": [
+        "hale",
+        "altrincham"
+      ]
+    },
+    {
+      "name": "Ancoats & the NQ",
+      "of": [
+        "ancoats",
+        "northern-quarter"
+      ]
+    },
+    {
+      "name": "The Deansgate Spine",
+      "of": [
+        "deansgate",
+        "spinningfields",
+        "chinatown"
+      ]
+    }
   ],
   "metroWholeSetLabel": {
     "manchester": "Central Manchester",
@@ -91,7 +552,17 @@
   },
   "_bandMultiplierSource": "The prototype's BAND_MULT table, keyed by District.kind ('city' vs 'county') — the default every district falls back to. A district can still carry its own per-district `bandMultiplier` override directly on its entry instead (District.bandMultiplier in src/types/models.ts, preferred over the kind-based table by src/lib/data/seed.ts whenever present) when sharing the generic curve would flatten real differences in character — used for Beverly Hills/West Hollywood during the LA metro's lifetime (2026-08, at explicit user request: 'make districts feel alive... different districts... busy at different times'), removed along with the rest of that metro (see _metroScopeNote). No district currently uses an override, but the mechanism stays — a genuine judgment call grounded in real character, not transcribed from the prototype (no per-district curve exists there), worth keeping for whatever district needs it next.",
   "bandMultiplier": {
-    "city": { "morning": 0.34, "afternoon": 0.6, "evening": 1, "late": 1.12 },
-    "county": { "morning": 0.56, "afternoon": 0.96, "evening": 0.9, "late": 0.42 }
+    "city": {
+      "morning": 0.34,
+      "afternoon": 0.6,
+      "evening": 1,
+      "late": 1.12
+    },
+    "county": {
+      "morning": 0.56,
+      "afternoon": 0.96,
+      "evening": 0.9,
+      "late": 0.42
+    }
   }
 }

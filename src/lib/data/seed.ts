@@ -42,6 +42,7 @@ export let METRO_WHOLE_SET_LABEL: Record<string, string> = {
   santorini: 'Santorini',
   riyadh: 'Riyadh',
   london: 'London',
+  chicago: 'Chicago',
 };
 export let VENUES: Venue[] = [];
 export let MOMENTS: Moment[] = [];
