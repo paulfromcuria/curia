@@ -28,6 +28,17 @@ const COLLAPSED_TILE = 26;
 const COLLAPSED_VPAD = spacing.sm;
 const EXPANDED_HEIGHT = 360;
 
+/** Where the rail's own vertical CENTER sits, as a fraction of the window
+ * height — not where its top edge sits. Collapsed and expanded heights
+ * differ a lot (collapsed hugs a handful of icons; expanded is a fixed
+ * 360), so anchoring by a fixed `top` value made the rail visually drift
+ * up/down as it opened and closed, or whenever the collapsed height itself
+ * changed (e.g. moving the chevron beside the tiles instead of under them,
+ * 2026-09-18) — a real bug, caught by direct user report. Anchoring the
+ * center instead means both states stay put around the same point on
+ * screen regardless of how tall either one currently is. */
+const CENTER_Y_RATIO = 0.4;
+
 /** The collapsed rail must hug its own content (a handful of small icon
  * tiles), never a fraction of the screen — computed from the same
  * constants the collapsed styles below use, rather than duplicated as a
@@ -63,8 +74,9 @@ function collapsedHeightFor(count: number): number {
  * phone screen is too tight to read a venue name in.
  */
 export function TopPicksRail({ picks, onSelectVenue }: TopPicksRailProps) {
-  const { width: windowWidth } = useWindowDimensions();
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const expandedWidth = Math.min(Math.max(windowWidth * 0.2, 168), 220);
+  const centerY = windowHeight * CENTER_Y_RATIO;
   const [expanded, setExpanded] = useState(false);
   const anim = useRef(new Animated.Value(0)).current;
 
@@ -92,6 +104,10 @@ export function TopPicksRail({ picks, onSelectVenue }: TopPicksRailProps) {
     inputRange: [0, 1],
     outputRange: [collapsedHeight, EXPANDED_HEIGHT],
   });
+  const railTop = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [centerY - collapsedHeight / 2, centerY - EXPANDED_HEIGHT / 2],
+  });
   const collapsedOpacity = anim.interpolate({
     inputRange: [0, 0.4, 1],
     outputRange: [1, 0, 0],
@@ -106,7 +122,7 @@ export function TopPicksRail({ picks, onSelectVenue }: TopPicksRailProps) {
   });
 
   return (
-    <Animated.View style={[styles.rail, { width: railWidth, height: railHeight }]} pointerEvents="box-none">
+    <Animated.View style={[styles.rail, { width: railWidth, height: railHeight, top: railTop }]} pointerEvents="box-none">
       {/* Collapsed: a quiet stack of icon tiles, one per top pick, fading
           out as the panel expands rather than disappearing abruptly. */}
       <Animated.View
@@ -176,7 +192,6 @@ const styles = StyleSheet.create({
   rail: {
     position: 'absolute',
     left: 0,
-    top: '32%',
     backgroundColor: 'rgba(27,23,20,0.94)',
     borderTopRightRadius: radius.lg,
     borderBottomRightRadius: radius.lg,
