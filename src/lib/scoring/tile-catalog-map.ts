@@ -62,13 +62,15 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // belonged here, it just had nowhere better to go until now.
   'Spectator sport': ['rugby-club', 'cricket-club'],
   // Play sport added 2026-09-18 (22 real Cheshire golf clubs — see
-  // venues.json's own _cheshireGolfClubsSource note). Padel/Tennis have no
-  // real venues yet as of this tile's own creation — real sub-preference
-  // options, kept in full through the same-day tile-simplification pass at
-  // explicit user request ("we should keep padel and tennis but we should
-  // source some venues") — sourcing was already underway when that
-  // decision was made, unlike every other thin tile cut in that pass.
-  'Play sport': ['golf-club'],
+  // venues.json's own _cheshireGolfClubsSource note). Padel/Tennis wired in
+  // the same night, once sourcing (already underway when the tile-
+  // simplification pass kept them at explicit user request — "we should
+  // keep padel and tennis but we should source some venues") landed: 11
+  // real standalone padel/tennis clubs plus real facilities found at 4
+  // existing golf clubs — see venues.json's own _padelTennisVenueSource
+  // note. All three sub-preferences are now genuinely backed by real
+  // venues, not just Golf.
+  'Play sport': ['golf-club', 'padel-club', 'tennis-club'],
   // fitness-studio (Alchemy Personal Training) deliberately left untiled —
   // 2026-09-03 review: one-to-one personal training isn't an evening-plans
   // discovery the way spa/wellness is; CATEGORY_BY_VENUE_TYPE below still
@@ -322,6 +324,11 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   'ARTISAN MARKET': 'Do',
   'RUGBY CLUB': 'Do',
   'GOLF CLUB': 'Do',
+  // PADEL CLUB / TENNIS CLUB added 2026-09-18 alongside real venues for
+  // both (see 'Play sport' above) — same play-it-yourself-sport register
+  // as GOLF CLUB.
+  'PADEL CLUB': 'Do',
+  'TENNIS CLUB': 'Do',
   'WELLNESS STUDIO': 'Do',
   'WALKING TOUR': 'Do',
   'FITNESS STUDIO': 'Do',

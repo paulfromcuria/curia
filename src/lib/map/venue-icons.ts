@@ -181,7 +181,8 @@ export const VENUE_ICON_PRIMITIVES: Record<VenueIconKey, IconPrimitive[]> = {
   // tennis — an open, strung racquet head (hollow circle + crossed
   // strings), deliberately the visual opposite of padel's solid paddle
   // below so the two read as different sports, not variations of one icon.
-  // No live venues yet (2026-09-18) — mapped ahead of real ones landing.
+  // Mapped ahead of real venues 2026-09-18; 7 real ones landed the same
+  // night (see docs/data/venues.json's own _padelTennisVenueSource note).
   tennis: [
     { shape: 'circle', cx: 9, cy: 9, r: 5 },
     { shape: 'line', x1: 9, y1: 4, x2: 9, y2: 14 },
@@ -190,8 +191,9 @@ export const VENUE_ICON_PRIMITIVES: Record<VenueIconKey, IconPrimitive[]> = {
     { shape: 'circle', cx: 18, cy: 17, r: 2, fill: true },
   ],
   // padel — a solid paddle (no strings), the real physical difference from
-  // a tennis racquet. No live venues yet (2026-09-18) — mapped ahead of
-  // real ones landing.
+  // a tennis racquet. Mapped ahead of real venues 2026-09-18; 4 real
+  // standalone ones (plus 3 golf clubs with real padel courts, tagged
+  // rather than added as new venues) landed the same night.
   padel: [
     {
       shape: 'path',
