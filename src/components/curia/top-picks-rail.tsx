@@ -19,18 +19,24 @@ interface TopPicksRailProps {
   onSelectVenue: (venueId: string) => void;
 }
 
-const COLLAPSED_WIDTH = 40;
+// Widened slightly (2026-09-18, at explicit user request) to fit the
+// expand chevron beside the icon stack, vertically centered against it,
+// rather than as its own row underneath — reads more like "there's more
+// this way" than a trailing footnote.
+const COLLAPSED_WIDTH = 56;
 const COLLAPSED_TILE = 26;
 const COLLAPSED_VPAD = spacing.sm;
-const COLLAPSED_CHEVRON_HEIGHT = 24;
 const EXPANDED_HEIGHT = 360;
 
 /** The collapsed rail must hug its own content (a handful of small icon
  * tiles), never a fraction of the screen — computed from the same
  * constants the collapsed styles below use, rather than duplicated as a
- * second hand-tuned number that could quietly drift out of sync. */
+ * second hand-tuned number that could quietly drift out of sync. The
+ * chevron sits beside the tile stack now, not below it, so it no longer
+ * adds its own height — it's vertically centered within whatever height
+ * the tile stack already needs. */
 function collapsedHeightFor(count: number): number {
-  return COLLAPSED_VPAD * 2 + count * COLLAPSED_TILE + count * spacing.xs + COLLAPSED_CHEVRON_HEIGHT;
+  return COLLAPSED_VPAD * 2 + count * COLLAPSED_TILE + Math.max(count - 1, 0) * spacing.xs;
 }
 
 /**
@@ -108,11 +114,13 @@ export function TopPicksRail({ picks, onSelectVenue }: TopPicksRailProps) {
         pointerEvents={expanded ? 'none' : 'auto'}
       >
         <Pressable onPress={toggle} style={styles.collapsedTouchable} accessibilityRole="button" accessibilityLabel="Show top picks">
-          {picks.slice(0, 4).map((p) => (
-            <View key={p.venue.id} style={styles.collapsedTile}>
-              <VenueTypeIcon icon={iconForVenueType(p.venue.type)} size={14} color={color.gold} />
-            </View>
-          ))}
+          <View style={styles.collapsedTiles}>
+            {picks.slice(0, 4).map((p) => (
+              <View key={p.venue.id} style={styles.collapsedTile}>
+                <VenueTypeIcon icon={iconForVenueType(p.venue.type)} size={14} color={color.gold} />
+              </View>
+            ))}
+          </View>
           <Text style={styles.collapsedChevron}>›</Text>
         </Pressable>
       </Animated.View>
@@ -185,8 +193,14 @@ const styles = StyleSheet.create({
     width: COLLAPSED_WIDTH,
   },
   collapsedTouchable: {
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.xs,
+    gap: spacing.xs,
+  },
+  collapsedTiles: {
     gap: spacing.xs,
   },
   collapsedTile: {
@@ -201,7 +215,6 @@ const styles = StyleSheet.create({
     fontFamily: font.sansRegular,
     fontSize: 16,
     color: color.textSecondary,
-    marginTop: 2,
   },
   expandedContent: {
     position: 'absolute',
