@@ -34,13 +34,15 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // above, which already have their own tiles.
   Culture: ['museum', 'contemporary-art-museum', 'heritage-centre', 'historic-house', 'historic-church'],
   'Clothes shopping': ['fashion-boutique', 'boutique'],
-  // comedy-club added 2026-09-18 (The Frog and Bucket, Northern Quarter) —
-  // Comedy's first real venue anywhere in the app.
-  Comedy: ['comedy-club'],
   Markets: ['market-hall', 'artisan-market'],
   'Independent cinema': ['independent-cinema'],
+  // Ballet & opera merged into Theatre 2026-09-18 (tile-simplification pass
+  // — see docs/data/tiles.json's own _tileSimplificationSource note) — the
+  // two tiles mapped to the exact same 8 venues (both real, both
+  // performing-arts) with zero actual differentiation between them; a
+  // second onboarding pick that produced an identical result set wasn't
+  // adding a real choice, just an extra step.
   Theatre: ['performing-arts', 'black-box-theater'],
-  'Ballet & opera': ['performing-arts'],
   // wellness-studio added 2026-09-03 (Wilmslow Pilates & Wellness) — real
   // pampering/relaxation overlap with spa, unlike fitness-studio below.
   // beauty-salon added 2026-09-05 (KLUB, Spinningfields) — one-to-one
@@ -48,24 +50,10 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   'Spa & wellness': ['spa', 'wellness-studio', 'beauty-salon'],
   'Live music': ['live-music'],
   'Art galleries': ['art-gallery'],
-  // rare-bookshop added 2026-09-03 (Manchester Rare Books) — curated,
-  // browsing, collecting is the same real spirit as a design showroom.
-  'Antiques & design': ['design-gallery', 'rare-bookshop'],
-  // Added 2026-08 for the Wilmslow density pass (see docs/data/venues.json's
-  // own _wilmslowDensitySource note) — four more real Do tile-coverage gaps
-  // closed, all previously zero-venue anywhere in the app.
   // botanical-garden added 2026-09-15 (Chelsea Physic Garden, London) — a
   // walled botanic garden is the same real "green space" outing as a
   // riverside park, just a different kind of green.
   'Parks & green space': ['riverside-park', 'botanical-garden'],
-  // pottery-studio added 2026-09-05 (Knutcraft at the Ruskin Rooms,
-  // Knutsford) — hands-on, expert-led glazing sits in the same real spirit
-  // as a cookery class.
-  // cookbook-shop added 2026-09-15 (Books for Cooks, London) — a real
-  // working test kitchen serving recipes straight from the shelves is the
-  // same hands-on spirit as a cookery class, not just retail.
-  'Cookery & craft': ['cookery-school', 'pottery-studio', 'cookbook-shop'],
-  'Walking tours': ['walking-tour'],
   // cricket-club added 2026-09-03 (Mobberley Cricket Club) — same spectator
   // afternoon as rugby, a different pitch. golf-club removed 2026-09-18,
   // at explicit user request adding a real 'Play sport' tile below — a
@@ -75,32 +63,50 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   'Spectator sport': ['rugby-club', 'cricket-club'],
   // Play sport added 2026-09-18 (22 real Cheshire golf clubs — see
   // venues.json's own _cheshireGolfClubsSource note). Padel/Tennis have no
-  // real venues yet — real sub-preference options, not wired to a type
-  // until real ones exist, same as this file's other thin-but-real tiles.
+  // real venues yet as of this tile's own creation — real sub-preference
+  // options, kept in full through the same-day tile-simplification pass at
+  // explicit user request ("we should keep padel and tennis but we should
+  // source some venues") — sourcing was already underway when that
+  // decision was made, unlike every other thin tile cut in that pass.
   'Play sport': ['golf-club'],
   // fitness-studio (Alchemy Personal Training) deliberately left untiled —
   // 2026-09-03 review: one-to-one personal training isn't an evening-plans
   // discovery the way spa/wellness is; CATEGORY_BY_VENUE_TYPE below still
   // has it as 'Do' so mood filtering finds it, it just has no dedicated tile.
+  //
+  // Comedy, Ballet & opera (see Theatre above), Walking tours, Antiques &
+  // design and Cookery & craft were all removed from tiles.json 2026-09-18
+  // (tile-simplification pass) — each had 1-6 real venues, not enough to
+  // justify a dedicated onboarding pick per the user's own "real value
+  // added, not fluff" standard. Their venues (comedy-club, design-gallery,
+  // rare-bookshop, cookery-school, pottery-studio, cookbook-shop,
+  // walking-tour) are untouched in CATEGORY_BY_VENUE_TYPE below, so they
+  // stay fully visible in Map/List and to the mood filter's category-level
+  // matching — cutting the tile only removes the dedicated onboarding pick,
+  // never the venue itself. See docs/data/tiles.json's own
+  // _tileSimplificationSource note for the full reasoning.
 
   // Drink
   // Found 2026-09-18 alongside the Culture/Clothes shopping fix above —
   // Enigma Club and Koo Club (both real, live NIGHTCLUB-type venues)
   // existed but Nightclubs had never been wired to them either.
   Nightclubs: ['nightclub'],
-  // whisky-bar/beer-garden added 2026-09-18 (The Whiskey Jar, Port Street
-  // Beer House, both Northern Quarter) — first real venues anywhere in the
-  // app for either tile.
-  'Whisky & spirits': ['whisky-bar'],
-  'Beer gardens': ['beer-garden'],
-  'Cocktail bars': ['cocktail-bar', 'speakeasy'],
+  // whisky-bar folded in 2026-09-18 (tile-simplification pass — 'Whisky &
+  // spirits' cut, its one real venue, The Whiskey Jar, wasn't enough to
+  // justify its own onboarding pick, but stays reachable here rather than
+  // losing its tile-match signal entirely).
+  'Cocktail bars': ['cocktail-bar', 'speakeasy', 'whisky-bar'],
   'Jazz bars': ['jazz-bar'],
   'Rooftop & scenic': ['rooftop'],
   // gastropub added 2026-09-03 (Wilmslow Tavern, Charlie Brown's Hale) —
   // same fireplace/beer-garden register as a country pub, not a precise fit
   // for both (Charlie Brown's leans more cocktail-bar), but the closer of
-  // the two real Drink tiles available.
-  'Upmarket pubs': ['country-pub', 'gastropub'],
+  // the two real Drink tiles available. beer-garden folded in 2026-09-18
+  // (tile-simplification pass — 'Beer gardens' cut, its one real venue,
+  // Port Street Beer House, stays reachable here instead; its own real
+  // "Beer garden" refinement, kept on this tile, is what a member would
+  // toggle to find it).
+  'Upmarket pubs': ['country-pub', 'gastropub', 'beer-garden'],
   'Hotel bars': ['hotel-bar'],
   'Cafés (late)': ['coffee-room', 'bakery'],
   // Riyadh Drink catalog (region-scoped, see HomeRegion's own doc comment,
@@ -122,7 +128,10 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // anything yet since a mapping with no venue behind it would be
   // premature (same "an empty array is not a bug" convention as every
   // other sparse tile in this file).
-  "Members' clubs": ['members-club'],
+  //
+  // "Members' clubs" cut 2026-09-18 (tile-simplification pass) — its one
+  // real venue (members-club type) stays visible via CATEGORY_BY_VENUE_TYPE
+  // below, just without a dedicated onboarding pick.
   // listening-bar added 2026-09-03 (Nam) — a serious-sound-system basement
   // room after dark is the same late-night register as Symposium.
   'Late-night lounges': ['late-night-lounge', 'listening-bar'],
@@ -156,17 +165,17 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // Added 2026-08 for Aldeli (Cheshire expansion) — the first venue of this
   // type; 'Brunch' previously matched zero venues anywhere in the app.
   Brunch: ['brunch-spot'],
-  // handmade-pasta added 2026-09-03 (Sugo Pasta Kitchen) — "thirty covers
-  // and an open kitchen across from the market" is literally this tile.
-  "Chef's counter": ['handmade-pasta'],
   // italian-restaurant added 2026-09-03 (Cibo) — a hundred-and-sixty-cover
   // room with a retractable roof and an open kitchen is exactly this
   // tile's register, not a quiet neighbourhood table.
   'Lively & loud': ['italian-restaurant'],
-  // sherry-bar added 2026-09-03 (Porta) — "one last sherry standing at the
-  // counter, kitchen closes at midnight" is a real late-night-eats read,
-  // not a sit-down dinner.
-  'Late-night eats': ['sherry-bar'],
+  // "Chef's counter" (handmade-pasta) and "Late-night eats" (sherry-bar)
+  // cut 2026-09-18 (tile-simplification pass) — handmade-pasta had zero
+  // real venues left (Sugo Pasta Kitchen, referenced in this file's own
+  // 2026-09-03 note, is no longer in the live dataset — checked directly
+  // against Supabase, not assumed), and sherry-bar had exactly one. Porta's
+  // sherry-bar venue stays visible via CATEGORY_BY_VENUE_TYPE below, just
+  // without a dedicated onboarding pick.
   // New tile, added 2026-09-03 at explicit user request — deliberately a
   // real mood (honest, no-frills, a fixture rather than a scene), never a
   // cuisine list: "we aren't doing cuisine by country as a category option

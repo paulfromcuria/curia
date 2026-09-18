@@ -218,14 +218,17 @@ export default function Onboarding() {
     [isYou, isRegion, step, session.homeRegion]
   );
 
-  function onTileTap(tileId: string) {
+  function onTileTap(tileId: string, hasRefinements: boolean) {
     const category = step as TileCategory;
     session.toggleTile(category, tileId);
     // First-time onboarding: tapping only selects the tile — no
     // refinement panel to expand. openTileId simply never becomes
     // non-null in this mode, so the {open && ...} render below never
     // fires; nothing else needs to branch on isFirstTimeOnboarding.
-    if (!isFirstTimeOnboarding) {
+    // A tile with no refinements at all (most of them, since the
+    // 2026-09-18 tile-simplification pass — see docs/data/tiles.json's own
+    // _tileSimplificationSource note) has nothing to expand into either way.
+    if (!isFirstTimeOnboarding && hasRefinements) {
       setOpenTileId((current) => (current === tileId ? null : tileId));
     }
   }
@@ -330,20 +333,23 @@ export default function Onboarding() {
               const onCount = tile.subPreferences.filter((s) =>
                 session.isSubPreferenceOn(step as TileCategory, tile.name, s)
               ).length;
-              const meta = open
-                ? onCount === tile.subPreferences.length
-                  ? 'ALL REFINEMENTS ON'
-                  : `${onCount} REFINEMENTS ON`
-                : `${tile.subPreferences.length} REFINEMENTS`;
+              const meta =
+                tile.subPreferences.length === 0
+                  ? ''
+                  : open
+                    ? onCount === tile.subPreferences.length
+                      ? 'ALL REFINEMENTS ON'
+                      : `${onCount} REFINEMENTS ON`
+                    : `${tile.subPreferences.length} REFINEMENTS`;
               return (
                 <Card
                   key={tile.id}
                   tone={selected ? 'default' : 'inset'}
                   style={[styles.tile, selected && styles.tileSelected]}
                 >
-                  <Pressable onPress={() => onTileTap(tile.id)}>
+                  <Pressable onPress={() => onTileTap(tile.id, tile.subPreferences.length > 0)}>
                     <Text style={[styles.tileName, selected && styles.tileNameSelected]}>{tile.name}</Text>
-                    <Text style={styles.tileMeta}>{meta}</Text>
+                    {meta.length > 0 && <Text style={styles.tileMeta}>{meta}</Text>}
                   </Pressable>
                   {open && (
                     <View style={styles.subRow}>
