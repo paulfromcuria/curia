@@ -12,7 +12,14 @@
  * That's gone now that a real Mapbox basemap does real screen<->geo
  * conversion itself — see CLAUDE.md's Tech stack note (Mapbox integration
  * happened 2026-08, previously a credential gap) and this module's git
- * history if the old approach is ever needed for reference.
+ * history if the old approach is ever needed for reference. A narrow,
+ * different-purpose hand-rolled projection came back 2026-09-18
+ * (src/lib/map/projection.ts, re-exported below) — not a reversal of that
+ * decision: it's never used to place a camera or a real marker (mapboxgl/
+ * @rnmapbox still own that), only as an internal heuristic to space out
+ * the "match" pins so they don't overlap, which needs relative pixel
+ * distances neither SDK exposes synchronously (native's only option,
+ * `MapView.getPointInView`, is async and ref-based).
  */
 import buffer from '@turf/buffer';
 import mask from '@turf/mask';
@@ -24,7 +31,11 @@ import type { Feature, FeatureCollection, MultiPolygon, Point, Polygon } from 'g
 import { haversineMiles } from '../scoring/rank-venues';
 import { DEMO_LOCATION } from '../scoring/session-input';
 import { DISTRICTS, VENUES, METRO_WHOLE_SET_LABEL, districtGroupFor } from '../data/seed';
+import { EARTH_CIRCUMFERENCE_METERS, metersPerPixelAt, MILES_TO_METERS, TILE_SIZE_PX } from './projection';
 import type { District, MetroId, Venue } from '../../types/models';
+
+export { projectToPixels, selectCollisionFreePins, MIN_MATCH_PIN_GAP_PX, MAX_MATCH_PINS } from './projection';
+export type { PixelOffset } from './projection';
 
 export interface GeoPoint {
   lat: number;
@@ -71,10 +82,6 @@ export function isNearHolidayCoverage(origin: GeoPoint): boolean {
   }
   return HOLIDAY_METROS.includes(nearest.metro);
 }
-
-const EARTH_CIRCUMFERENCE_METERS = 40075016.686;
-const MILES_TO_METERS = 1609.344;
-const TILE_SIZE_PX = 256;
 
 export const MIN_ZOOM_LEVEL = 3;
 export const MAX_ZOOM_LEVEL = 17;
@@ -129,9 +136,7 @@ export function radiusMilesToZoomLevel(radiusMiles: number, atLat: number, viewp
  * movement itself always goes through zoomLevel/fitBounds directly, never
  * through this. */
 export function zoomLevelToSpanMiles(zoomLevel: number, atLat: number, viewportWidthPx: number): number {
-  const metersPerPixel =
-    (EARTH_CIRCUMFERENCE_METERS * Math.cos((atLat * Math.PI) / 180)) / (TILE_SIZE_PX * 2 ** zoomLevel);
-  return (metersPerPixel * viewportWidthPx) / MILES_TO_METERS;
+  return (metersPerPixelAt(zoomLevel, atLat) * viewportWidthPx) / MILES_TO_METERS;
 }
 
 /** Inverse of the above — the zoom level whose span (at this viewport width)

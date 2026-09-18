@@ -5,7 +5,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import mapboxgl from 'mapbox-gl';
 import { Button, Card, ContextStrip, EmblemButton, Kicker, Tag, TopPicksRail } from '../../components/curia';
 import type { TopPickItem } from '../../components/curia';
-import { TOP_PICKS_RAIL_ENABLED } from '../../lib/config/features';
+import { FLEXIBLE_MATCH_PIN_COUNT_ENABLED, TOP_PICKS_RAIL_ENABLED } from '../../lib/config/features';
 import { haversineMiles, rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
 import {
@@ -36,6 +36,7 @@ import {
   metroForPoint,
   normalizeLiveliness,
   radiusMilesToZoomLevel,
+  selectCollisionFreePins,
   SEVEN_MINUTE_WALK_RADIUS_MILES,
   spanMilesToRadiusMiles,
   venuesInBounds,
@@ -953,17 +954,21 @@ export default function Map() {
     [session.searchOrigin]
   );
   const ranked = result.ranked;
-  const topRanked = ranked.slice(0, 4);
-  const topRankedVenues = useMemo(
-    () =>
-      topRanked
-        .map((r, idx) => {
-          const venue = VENUES.find((v) => v.id === r.venueId);
-          return venue ? { rank: idx + 1, venue } : null;
-        })
-        .filter((v): v is { rank: number; venue: Venue } => !!v),
-    [topRanked]
+  // Resolved in full rank order (not pre-sliced) so selectCollisionFreePins
+  // below has the whole pool to choose from — it decides the cut itself.
+  const rankedResolved = useMemo(
+    () => ranked.flatMap((r) => {
+      const venue = VENUES.find((v) => v.id === r.venueId);
+      return venue ? [venue] : [];
+    }),
+    [ranked]
   );
+  const topRankedVenues = useMemo(() => {
+    const picked = FLEXIBLE_MATCH_PIN_COUNT_ENABLED
+      ? selectCollisionFreePins(rankedResolved, (v) => v, center, zoomLevel)
+      : rankedResolved.slice(0, 4);
+    return picked.map((venue, idx) => ({ rank: idx + 1, venue }));
+  }, [rankedResolved, center, zoomLevel]);
 
   const labels = useMemo<MapLabel[]>(() => {
     if (!bounds) return [];
