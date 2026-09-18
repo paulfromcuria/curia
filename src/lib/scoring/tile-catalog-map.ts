@@ -62,13 +62,15 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // belonged here, it just had nowhere better to go until now.
   'Spectator sport': ['rugby-club', 'cricket-club'],
   // Play sport added 2026-09-18 (22 real Cheshire golf clubs — see
-  // venues.json's own _cheshireGolfClubsSource note). Padel/Tennis have no
-  // real venues yet as of this tile's own creation — real sub-preference
-  // options, kept in full through the same-day tile-simplification pass at
-  // explicit user request ("we should keep padel and tennis but we should
-  // source some venues") — sourcing was already underway when that
-  // decision was made, unlike every other thin tile cut in that pass.
-  'Play sport': ['golf-club'],
+  // venues.json's own _cheshireGolfClubsSource note). Padel/Tennis wired in
+  // the same night, once sourcing (already underway when the tile-
+  // simplification pass kept them at explicit user request — "we should
+  // keep padel and tennis but we should source some venues") landed: 11
+  // real standalone padel/tennis clubs plus real facilities found at 4
+  // existing golf clubs — see venues.json's own _padelTennisVenueSource
+  // note. All three sub-preferences are now genuinely backed by real
+  // venues, not just Golf.
+  'Play sport': ['golf-club', 'padel-club', 'tennis-club'],
   // fitness-studio (Alchemy Personal Training) deliberately left untiled —
   // 2026-09-03 review: one-to-one personal training isn't an evening-plans
   // discovery the way spa/wellness is; CATEGORY_BY_VENUE_TYPE below still
@@ -116,22 +118,23 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // tiles entirely for Riyadh members rather than sitting alongside them.
   // coffee-room already existed (reused above for 'Cafés (late)') — reused
   // again here rather than introducing a second, redundant type.
-  'Specialty coffee': ['coffee-room'],
+  //
+  // Riyadh tile-simplification pass, 2026-09-18 (same user request/standard
+  // as the UK pass the same night — see docs/data/tiles.json's own
+  // _riyadhTileSimplificationSource note): cut 5 of the original 8 tiles
+  // (0-1 real matching venues each — Mocktail lounges/Juice & smoothie
+  // bars/Rooftop cafés were already unwired at 0 venues; Hotel lounges and
+  // Tea houses had exactly 1 each). tea-house folded into Specialty coffee
+  // — its one real venue (HODAJ) stays reachable via the surviving tile
+  // rather than losing it to category-only status, same "fold the
+  // single-venue loser into the closest surviving tile" pattern the UK
+  // pass used for Whisky & spirits/Beer gardens. Hotel lounges had no
+  // comparably-close surviving tile to fold into, so its one venue is
+  // category-only now (CATEGORY_BY_VENUE_TYPE below), same as UK's
+  // "Members' clubs".
+  'Specialty coffee': ['coffee-room', 'tea-house'],
   'Shisha lounges': ['shisha-lounge'],
   'Dessert cafés': ['dessert-cafe'],
-  'Hotel lounges': ['hotel-lounge'],
-  // tea-house added 2026-09-15 (HODAJ, Diriyah) — the second Riyadh venue
-  // pass's first Tea houses match.
-  'Tea houses': ['tea-house'],
-  // 'Mocktail lounges' and 'Juice & smoothie bars' still match zero
-  // venues — a real coverage gap for the next Riyadh pass, not wired to
-  // anything yet since a mapping with no venue behind it would be
-  // premature (same "an empty array is not a bug" convention as every
-  // other sparse tile in this file).
-  //
-  // "Members' clubs" cut 2026-09-18 (tile-simplification pass) — its one
-  // real venue (members-club type) stays visible via CATEGORY_BY_VENUE_TYPE
-  // below, just without a dedicated onboarding pick.
   // listening-bar added 2026-09-03 (Nam) — a serious-sound-system basement
   // room after dark is the same late-night register as Symposium.
   'Late-night lounges': ['late-night-lounge', 'listening-bar'],
@@ -322,6 +325,11 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   'ARTISAN MARKET': 'Do',
   'RUGBY CLUB': 'Do',
   'GOLF CLUB': 'Do',
+  // PADEL CLUB / TENNIS CLUB added 2026-09-18 alongside real venues for
+  // both (see 'Play sport' above) — same play-it-yourself-sport register
+  // as GOLF CLUB.
+  'PADEL CLUB': 'Do',
+  'TENNIS CLUB': 'Do',
   'WELLNESS STUDIO': 'Do',
   'WALKING TOUR': 'Do',
   'FITNESS STUDIO': 'Do',
