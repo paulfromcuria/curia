@@ -1,13 +1,25 @@
 /**
  * Subtle per-venue-type map icons (2026-09, at explicit user request: "use
  * icons based on venue type, e.g a gym has a subtle dumbbell on the map,
- * and a bar has a cocktail glass"). Real venue.type strings (58 distinct
- * ones as of this writing, docs/data/venues.json) are grouped into a
- * compact set of ~16 icon concepts — enough to read as genuinely
- * different at a glance without inventing a bespoke glyph per type, the
- * same "reuse an existing bucket, only add one when nothing fits"
- * discipline src/lib/scoring/tile-catalog-map.ts already applies to
- * category mapping.
+ * and a bar has a cocktail glass"). Real venue.type strings (114 distinct
+ * ones as of this writing, live Supabase `venues` table) are grouped into a
+ * compact set of icon concepts — enough to read as genuinely different at
+ * a glance without inventing a bespoke glyph per type, the same "reuse an
+ * existing bucket, only add one when nothing fits" discipline
+ * src/lib/scoring/tile-catalog-map.ts already applies to category mapping.
+ *
+ * 2026-09-18 rewrite, at explicit user request ("cinema should have its
+ * own [icon], golf and tennis and padel should have different icons") —
+ * auditing against the live database found the real gap was much bigger
+ * than those two examples: 56 of 114 real types had drifted into the
+ * `generic` fallback dot as new venues/types were added throughout the
+ * project without this file being updated alongside them. Re-triaged every
+ * one, added 9 new icon concepts (cinema, golf, tennis, padel, spirits,
+ * shisha, boutique, beach, boat) where nothing existing genuinely fit, and
+ * folded the rest into the closest real match. `tennis`/`padel` have zero
+ * live venues as of this pass — mapped preemptively (TENNIS CLUB/PADEL
+ * CLUB) so real ones render correctly the moment they're added, rather
+ * than needing a second follow-up pass.
  *
  * Icons are defined once, here, as plain geometric primitives — not JSX —
  * so both map renderers can use the same shapes without sharing rendering
@@ -21,6 +33,7 @@
 export type VenueIconKey =
   | 'cocktail'
   | 'wine'
+  | 'spirits'
   | 'beer'
   | 'coffee'
   | 'dining'
@@ -28,12 +41,20 @@ export type VenueIconKey =
   | 'bakery'
   | 'music'
   | 'culture'
+  | 'cinema'
   | 'art'
   | 'fitness'
   | 'wellness'
   | 'park'
   | 'market'
   | 'sport'
+  | 'golf'
+  | 'tennis'
+  | 'padel'
+  | 'shisha'
+  | 'boutique'
+  | 'beach'
+  | 'boat'
   | 'generic';
 
 export type IconPrimitive =
@@ -55,6 +76,13 @@ export const VENUE_ICON_PRIMITIVES: Record<VenueIconKey, IconPrimitive[]> = {
     { shape: 'path', d: 'M7 3 C7 10 8 13 12 13 C16 13 17 10 17 3 Z' },
     { shape: 'line', x1: 12, y1: 13, x2: 12, y2: 19 },
     { shape: 'line', x1: 8, y1: 20, x2: 16, y2: 20 },
+  ],
+  // spirits — whisky/gin/bottle shops: a rocks tumbler with ice, distinct
+  // from the stemmed cocktail/wine glass silhouettes above.
+  spirits: [
+    { shape: 'path', d: 'M6 5 H18 L16 20 H8 Z' },
+    { shape: 'line', x1: 9, y1: 12.5, x2: 13.5, y2: 9 },
+    { shape: 'line', x1: 9.5, y1: 16, x2: 14.5, y2: 12.5 },
   ],
   beer: [
     { shape: 'path', d: 'M7 4 H17 L15.5 20 H8.5 Z' },
@@ -99,6 +127,12 @@ export const VENUE_ICON_PRIMITIVES: Record<VenueIconKey, IconPrimitive[]> = {
     },
     { shape: 'line', x1: 12, y1: 6, x2: 12, y2: 19 },
   ],
+  // cinema — a screen frame with a play mark, split out from `culture`
+  // 2026-09-18 at explicit user request ("cinema should have its own").
+  cinema: [
+    { shape: 'path', d: 'M4 5 H20 V19 H4 Z' },
+    { shape: 'path', d: 'M10 9 L16 12 L10 15 Z', fill: true },
+  ],
   art: [
     { shape: 'path', d: 'M3 4 H21 V19 H3 Z' },
     { shape: 'path', d: 'M5 15 L9 9 L13 13 L16 8 L19 15' },
@@ -123,6 +157,10 @@ export const VENUE_ICON_PRIMITIVES: Record<VenueIconKey, IconPrimitive[]> = {
     { shape: 'path', d: 'M6 8 H18 L17 21 H7 Z' },
     { shape: 'path', d: 'M9 8 C9 3 15 3 15 8' },
   ],
+  // sport — spectator sport specifically (watching, not playing): rugby
+  // and cricket clubs. Golf split out below 2026-09-18 — a private members'
+  // course is somewhere you play, not spectator infrastructure, and its
+  // old shared icon here never distinguished the two registers visually.
   sport: [
     {
       shape: 'path',
@@ -133,14 +171,74 @@ export const VENUE_ICON_PRIMITIVES: Record<VenueIconKey, IconPrimitive[]> = {
     { shape: 'line', x1: 12, y1: 15, x2: 12, y2: 18 },
     { shape: 'line', x1: 9, y1: 19, x2: 15, y2: 19 },
   ],
+  // golf — flag, pole, green. Split out from `sport` 2026-09-18 at explicit
+  // user request ("golf and tennis and padel should have different icons").
+  golf: [
+    { shape: 'line', x1: 8, y1: 20, x2: 8, y2: 4 },
+    { shape: 'path', d: 'M8 4 L17 6.5 L8 9 Z', fill: true },
+    { shape: 'path', d: 'M3 20 C3 17.5 5.5 16 8 16 C10.5 16 13 17.5 13 20 Z' },
+  ],
+  // tennis — an open, strung racquet head (hollow circle + crossed
+  // strings), deliberately the visual opposite of padel's solid paddle
+  // below so the two read as different sports, not variations of one icon.
+  // No live venues yet (2026-09-18) — mapped ahead of real ones landing.
+  tennis: [
+    { shape: 'circle', cx: 9, cy: 9, r: 5 },
+    { shape: 'line', x1: 9, y1: 4, x2: 9, y2: 14 },
+    { shape: 'line', x1: 4, y1: 9, x2: 14, y2: 9 },
+    { shape: 'line', x1: 9, y1: 14, x2: 9, y2: 21 },
+    { shape: 'circle', cx: 18, cy: 17, r: 2, fill: true },
+  ],
+  // padel — a solid paddle (no strings), the real physical difference from
+  // a tennis racquet. No live venues yet (2026-09-18) — mapped ahead of
+  // real ones landing.
+  padel: [
+    {
+      shape: 'path',
+      d: 'M9 3.5 C13.5 3.5 15 7.5 13.8 11 C12.8 13.8 10 14.5 9 14.5 C8 14.5 5.2 13.8 4.2 11 C3 7.5 4.5 3.5 9 3.5 Z',
+      fill: true,
+    },
+    { shape: 'line', x1: 9, y1: 14.5, x2: 9, y2: 21 },
+    { shape: 'circle', cx: 18, cy: 8, r: 2, fill: true },
+  ],
+  // shisha — hookah base, stem, bowl and hose. Distinct enough (Riyadh
+  // Drink catalog) to warrant its own icon rather than folding into
+  // `cocktail`, which reads as an alcohol register this explicitly isn't.
+  shisha: [
+    { shape: 'path', d: 'M8 20 C6 20 5.5 16 7.5 14.5 H16.5 C18.5 16 18 20 16 20 Z' },
+    { shape: 'line', x1: 12, y1: 14.5, x2: 12, y2: 5 },
+    { shape: 'circle', cx: 12, cy: 3.6, r: 1.8 },
+    { shape: 'path', d: 'M12 11 C16 11 18 13 16.5 17' },
+  ],
+  // boutique — a hanger. Retail/fashion is visually distinct from every
+  // food/drink/culture bucket above it, worth its own glyph.
+  boutique: [
+    { shape: 'circle', cx: 12, cy: 4, r: 1.5 },
+    { shape: 'path', d: 'M12 5.5 L4 12.5 H20 Z' },
+    { shape: 'line', x1: 4, y1: 12.5, x2: 20, y2: 12.5 },
+  ],
+  // beach — an umbrella. Santorini/Holiday-catalog specific.
+  beach: [
+    { shape: 'path', d: 'M12 3 C17 3 20 8 20 10 H4 C4 8 7 3 12 3 Z', fill: true },
+    { shape: 'line', x1: 12, y1: 10, x2: 12, y2: 21 },
+    { shape: 'path', d: 'M6 21 C8 19 16 19 18 21' },
+  ],
+  // boat — a hull and sail. Santorini/Holiday-catalog specific.
+  boat: [
+    { shape: 'path', d: 'M4 15 H20 L17 20 H7 Z' },
+    { shape: 'line', x1: 11, y1: 15, x2: 11, y2: 4 },
+    { shape: 'path', d: 'M11 4 L17 14 H11 Z', fill: true },
+  ],
   generic: [{ shape: 'circle', cx: 12, cy: 12, r: 3, fill: true }],
 };
 
 /**
- * Real venue.type -> icon bucket. Every type currently in
- * docs/data/venues.json is mapped explicitly (checked against that file
- * 2026-09-08, 58 distinct types) — `generic` is the fallback for whatever
- * new type the daily research pipeline introduces next, not a dumping
+ * Real venue.type -> icon bucket. Every type live in Supabase as of this
+ * writing is mapped explicitly (audited 2026-09-18 by querying the real
+ * `venues` table directly, not assumed from docs/data/venues.json — 114
+ * distinct types found, 56 were silently falling through to `generic`
+ * before this pass) — `generic` is the fallback for whatever new type the
+ * daily research pipeline or a future pass introduces next, not a dumping
  * ground for types that were simply never checked.
  */
 const ICON_BY_TYPE: Record<string, VenueIconKey> = {
@@ -148,24 +246,40 @@ const ICON_BY_TYPE: Record<string, VenueIconKey> = {
   'COCKTAIL BAR': 'cocktail',
   SPEAKEASY: 'cocktail',
   'HOTEL BAR': 'cocktail',
+  'HOTEL LOUNGE': 'cocktail',
   CELEBRATORY: 'cocktail',
   'LATE-NIGHT LOUNGE': 'cocktail',
   'KARAOKE BAR': 'cocktail',
   ROOFTOP: 'cocktail',
+  NIGHTCLUB: 'cocktail',
+  'MEMBERS CLUB': 'cocktail',
+  'SUNSET BAR': 'cocktail',
 
-  // wine — wine, champagne, sherry
+  // wine — wine, champagne, sherry, winery
   'WINE BAR': 'wine',
   'CHAMPAGNE BAR': 'wine',
   'SHERRY BAR': 'wine',
   'WINE MERCHANT': 'wine',
+  WINERY: 'wine',
+
+  // spirits — whisky, gin, bottle shops (retail/bar, no mixed drink)
+  'WHISKY BAR': 'spirits',
+  'GIN BAR': 'spirits',
+  'BOTTLE SHOP': 'spirits',
 
   // beer — pubs
   'COUNTRY PUB': 'beer',
   GASTROPUB: 'beer',
   'ALE HOUSE': 'beer',
+  'TRADITIONAL PUB': 'beer',
+  'DIVE BAR': 'beer',
+  'IRISH BAR': 'beer',
+  'SPORTS BAR': 'beer',
+  'BEER GARDEN': 'beer',
 
   // coffee
   'COFFEE ROOM': 'coffee',
+  'TEA HOUSE': 'coffee',
 
   // dining — the broad real-food-service bucket
   'SMALL PLATES': 'dining',
@@ -182,33 +296,72 @@ const ICON_BY_TYPE: Record<string, VenueIconKey> = {
   'JAPANESE RESTAURANT': 'dining',
   'MEDITERRANEAN RESTAURANT': 'dining',
   'BRUNCH SPOT': 'dining',
+  BISTRO: 'dining',
+  'FRENCH BISTRO': 'dining',
+  'FRENCH BRASSERIE': 'dining',
+  'BRITISH RESTAURANT': 'dining',
+  'SEAFOOD RESTAURANT': 'dining',
+  'LEBANESE RESTAURANT': 'dining',
+  'TURKISH RESTAURANT': 'dining',
+  'CARIBBEAN RESTAURANT': 'dining',
+  'INDIAN-SOUTHERN FUSION': 'dining',
+  'CREOLE-BRAZILIAN': 'dining',
+  SENEGALESE: 'dining',
+  'SOUL FOOD': 'dining',
+  'SOUTHERN RESTAURANT': 'dining',
+  'SOUVLAKI SPOT': 'dining',
+  'FIRE GRILL': 'dining',
+  SMOKEHOUSE: 'dining',
+  'SAUDI HERITAGE CUISINE': 'dining',
+  DINER: 'dining',
+  CAFETERIA: 'dining',
+  'CAMPUS DINING HALL': 'dining',
 
   // pizza
   PIZZERIA: 'pizza',
 
-  // bakery
+  // bakery — sweet/pastry register
   BAKERY: 'bakery',
+  'DESSERT CAFE': 'bakery',
 
   // music
   'LIVE MUSIC': 'music',
   'JAZZ BAR': 'music',
   'LISTENING BAR': 'music',
   'LIVE MUSIC BAR': 'music',
+  'RECORD SHOP': 'music',
 
-  // culture — performance, screen, learning, heritage
+  // culture — performance, learning, heritage, books (a general
+  // "cultural experience/institution" bucket — see this icon's own note on
+  // why museums/libraries/comedy share one glyph rather than fragmenting
+  // further, same discipline as `dining`'s broad cuisine coverage above)
   'PERFORMING ARTS': 'culture',
-  'INDEPENDENT CINEMA': 'culture',
   'RARE BOOKSHOP': 'culture',
   'HERITAGE CENTRE': 'culture',
   'COOKERY SCHOOL': 'culture',
   'POTTERY STUDIO': 'culture',
+  MUSEUM: 'culture',
+  'CONTEMPORARY ART MUSEUM': 'culture',
+  'HISTORIC HOUSE': 'culture',
+  'HISTORIC CHURCH': 'culture',
+  'ACADEMIC LIBRARY': 'culture',
+  'PUBLIC LIBRARY': 'culture',
+  BOOKSHOP: 'culture',
+  'INDEPENDENT BOOKSHOP': 'culture',
+  'COOKBOOK SHOP': 'culture',
+  'COMEDY CLUB': 'culture',
+
+  // cinema — its own icon, not lumped into `culture` (see that icon above)
+  'INDEPENDENT CINEMA': 'cinema',
 
   // art
   'ART GALLERY': 'art',
   'DESIGN GALLERY': 'art',
+  'ART STUDIO': 'art',
 
   // fitness
   'FITNESS STUDIO': 'fitness',
+  'CAMPUS GYM': 'fitness',
 
   // wellness
   SPA: 'wellness',
@@ -222,15 +375,33 @@ const ICON_BY_TYPE: Record<string, VenueIconKey> = {
   'FARM SHOP': 'park',
   'FARM EXPERIENCE': 'park',
   'WALKING TOUR': 'park',
+  'NATURE RESERVE': 'park',
 
   // market
   'MARKET HALL': 'market',
   'ARTISAN MARKET': 'market',
 
-  // sport
+  // sport — watch, not play (see that icon's own note)
   'RUGBY CLUB': 'sport',
   'CRICKET CLUB': 'sport',
-  'GOLF CLUB': 'sport',
+
+  // golf / tennis / padel — play-it-yourself sport, each with its own icon
+  'GOLF CLUB': 'golf',
+  'TENNIS CLUB': 'tennis',
+  'PADEL CLUB': 'padel',
+
+  // shisha
+  'SHISHA LOUNGE': 'shisha',
+  'MOROCCAN LOUNGE': 'shisha',
+
+  // boutique — retail/fashion
+  BOUTIQUE: 'boutique',
+  'FASHION BOUTIQUE': 'boutique',
+  'JEWELLERY BOUTIQUE': 'boutique',
+
+  // beach / boat — Holiday catalog (Santorini)
+  'BEACH CLUB': 'beach',
+  'BOAT TOUR': 'boat',
 };
 
 export function iconForVenueType(type: string): VenueIconKey {

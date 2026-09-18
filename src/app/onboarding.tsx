@@ -96,9 +96,19 @@ const HEADLINES: Record<Step, string> = {
 const REGION_SUBHEAD =
   "Sets the Drink options you'll see next — everything else is the same wherever you are.";
 
+// Split into three 2026-09-18, at explicit user request, once Chicago made
+// the old two-option picker ('UK (Manchester & Cheshire)' / 'Riyadh')
+// actively stale — that label never covered London, and covered Chicago
+// even less. 'USA' is a distinct HomeRegion value from 'uk' purely so this
+// picker highlights the right button (see HomeRegion's own doc comment,
+// types/models.ts, for why the Drink catalog itself doesn't actually
+// differ yet). 'Middle East' is a relabel of the existing 'riyadh' value,
+// not a new one — Riyadh is still the only real Middle East market, so
+// nothing downstream needed to change for this one.
 const REGION_OPTS: { label: string; value: HomeRegion }[] = [
-  { label: 'UK (Manchester & Cheshire)', value: 'uk' },
-  { label: 'Riyadh', value: 'riyadh' },
+  { label: 'UK', value: 'uk' },
+  { label: 'USA', value: 'usa' },
+  { label: 'Middle East', value: 'riyadh' },
 ];
 
 // 2026-09, at explicit user request, following on from feedback that
@@ -208,14 +218,17 @@ export default function Onboarding() {
     [isYou, isRegion, step, session.homeRegion]
   );
 
-  function onTileTap(tileId: string) {
+  function onTileTap(tileId: string, hasRefinements: boolean) {
     const category = step as TileCategory;
     session.toggleTile(category, tileId);
     // First-time onboarding: tapping only selects the tile — no
     // refinement panel to expand. openTileId simply never becomes
     // non-null in this mode, so the {open && ...} render below never
     // fires; nothing else needs to branch on isFirstTimeOnboarding.
-    if (!isFirstTimeOnboarding) {
+    // A tile with no refinements at all (most of them, since the
+    // 2026-09-18 tile-simplification pass — see docs/data/tiles.json's own
+    // _tileSimplificationSource note) has nothing to expand into either way.
+    if (!isFirstTimeOnboarding && hasRefinements) {
       setOpenTileId((current) => (current === tileId ? null : tileId));
     }
   }
@@ -320,20 +333,23 @@ export default function Onboarding() {
               const onCount = tile.subPreferences.filter((s) =>
                 session.isSubPreferenceOn(step as TileCategory, tile.name, s)
               ).length;
-              const meta = open
-                ? onCount === tile.subPreferences.length
-                  ? 'ALL REFINEMENTS ON'
-                  : `${onCount} REFINEMENTS ON`
-                : `${tile.subPreferences.length} REFINEMENTS`;
+              const meta =
+                tile.subPreferences.length === 0
+                  ? ''
+                  : open
+                    ? onCount === tile.subPreferences.length
+                      ? 'ALL REFINEMENTS ON'
+                      : `${onCount} REFINEMENTS ON`
+                    : `${tile.subPreferences.length} REFINEMENTS`;
               return (
                 <Card
                   key={tile.id}
                   tone={selected ? 'default' : 'inset'}
                   style={[styles.tile, selected && styles.tileSelected]}
                 >
-                  <Pressable onPress={() => onTileTap(tile.id)}>
+                  <Pressable onPress={() => onTileTap(tile.id, tile.subPreferences.length > 0)}>
                     <Text style={[styles.tileName, selected && styles.tileNameSelected]}>{tile.name}</Text>
-                    <Text style={styles.tileMeta}>{meta}</Text>
+                    {meta.length > 0 && <Text style={styles.tileMeta}>{meta}</Text>}
                   </Pressable>
                   {open && (
                     <View style={styles.subRow}>

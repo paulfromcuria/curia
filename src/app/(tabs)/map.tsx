@@ -32,6 +32,7 @@ import {
   getDistrictLocalAreas,
   groupVisibleDistricts,
   isNearHolidayCoverage,
+  metroForPoint,
   normalizeLiveliness,
   radiusMilesToZoomLevel,
   SEVEN_MINUTE_WALK_RADIUS_MILES,
@@ -42,6 +43,7 @@ import {
 import type { GeoBounds, GeoPoint, MapLabel } from '../../lib/map/geo';
 import { iconForVenueType, type VenueIconKey } from '../../lib/map/venue-icons';
 import { moodTileOptionsForCategory } from '../../lib/map/mood-tiles';
+import { UCHICAGO_CAMPUS_BOUNDARY, UCHICAGO_CAMPUS_LABEL_POINT } from '../../lib/map/uchicago-campus';
 import { useSession } from '../../lib/state/session';
 import { fetchWeather } from '../../lib/weather/forecast';
 import { color, font, radius, spacing } from '../../theme';
@@ -550,13 +552,24 @@ export default function Map() {
   // same haversineMiles-against-searchOrigin ordering List's district-browse
   // mode and Moments' pill row both already use. Filtered to districts with
   // at least one real venue, so no pill is a dead end.
-  const nearbyDistricts = useMemo(
-    () =>
-      DISTRICTS.filter((d) => VENUES.some((v) => v.districtId === d.id)).sort(
-        (a, b) => haversineMiles(session.searchOrigin, a) - haversineMiles(session.searchOrigin, b)
-      ),
-    [session.searchOrigin]
-  );
+  // Scoped to the search origin's own metro (2026-09-18, at explicit user
+  // report, real bug — "when in chicago i shouldnt be able to quick nav to
+  // wilmslow, i shouldnt see that option"): this used to sort every
+  // district in every metro by raw haversine distance with no metro filter
+  // at all, so once a metro's own handful of districts ran out, the
+  // next-nearest by pure geography was whatever real-world metro happened
+  // to be least far away (Cheshire genuinely is closer to Chicago than
+  // Riyadh is). Same fix as map.web.tsx's identical `nearbyDistricts`,
+  // adapted for this file not having that one's `focusedMetro` state —
+  // metroForPoint(searchOrigin) directly instead. No metro (camera in
+  // "no man's land" between markets) now shows no chips rather than a
+  // cross-continent guess.
+  const nearbyDistricts = useMemo(() => {
+    const metro = metroForPoint(session.searchOrigin);
+    return DISTRICTS.filter((d) => d.metro === metro && VENUES.some((v) => v.districtId === d.id)).sort(
+      (a, b) => haversineMiles(session.searchOrigin, a) - haversineMiles(session.searchOrigin, b)
+    );
+  }, [session.searchOrigin]);
 
   // Venue pin tap behaviour (2026-09, at explicit user request: "instead of
   // going straight to the venue page, on first tap lets have a pop up
@@ -687,6 +700,24 @@ export default function Map() {
           <LineLayer id="coverage-glow-core" style={{ lineColor: color.goldLight, lineWidth: 2, lineOpacity: 0.9 }} />
         </ShapeSource>
 
+        {/* University of Chicago campus outline (2026-09-18, at explicit
+            user request: "can we highlight his campus in some way, maybe
+            with a subtle boundary and a label?") — a personal touch for the
+            specific member this metro was built for, not a general
+            per-metro mechanism. See src/lib/map/uchicago-campus.ts's own
+            top comment for the real OSM-sourced boundary data. Deliberately
+            thin/low-opacity, nothing like the bold coverage-edge glow above
+            — "subtle" was the explicit ask. */}
+        <ShapeSource id="uchicago-campus-source" shape={UCHICAGO_CAMPUS_BOUNDARY}>
+          <LineLayer id="uchicago-campus-line" style={{ lineColor: color.gold, lineWidth: 1.4, lineOpacity: 0.4 }} />
+        </ShapeSource>
+        <MarkerView
+          coordinate={[UCHICAGO_CAMPUS_LABEL_POINT.lon, UCHICAGO_CAMPUS_LABEL_POINT.lat]}
+          anchor={{ x: 0.5, y: 0.5 }}
+        >
+          <Text style={styles.campusLabel}>University of Chicago</Text>
+        </MarkerView>
+
         {/* "Make districts feel alive" (2026-08): zoomed-out area glow —
             one soft blurred circle per district, coloured by its own
             accentColor, brighter the livelier it is right now. */}
@@ -756,7 +787,7 @@ export default function Map() {
         {backgroundVenues.map((venue) => (
           <MarkerView key={venue.id} coordinate={[venue.lon, venue.lat]} anchor={{ x: 0.5, y: 0.5 }}>
             <Pressable onPress={() => onVenuePinTap(venue)} style={styles.backgroundPin} hitSlop={6}>
-              <VenueTypeIcon icon={iconForVenueType(venue.type)} size={13} color={color.textTertiary} />
+              <VenueTypeIcon icon={iconForVenueType(venue.type)} size={15} color={color.textSecondary} />
               {session.isVenueSaved(venue.id) && <SavedBadge size={11} fontSize={6.5} />}
             </Pressable>
           </MarkerView>
@@ -1007,15 +1038,29 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
+  // University of Chicago campus label — see uchicago-campus-source's own
+  // comment above. Mirrors map.web.tsx's identical inline style.
+  campusLabel: {
+    fontFamily: font.sansMedium,
+    fontSize: 9,
+    letterSpacing: 1.8,
+    textTransform: 'uppercase',
+    color: color.gold,
+    opacity: 0.75,
+  },
+
   // Quiet on purpose (2026-09): every real venue at this zoom, so it has
   // to stay clearly secondary to the bright pulsing `matchDot` style below
-  // — no border, a faint low-opacity fill, and a dim icon color
-  // (color.textTertiary) rather than the gold used everywhere a match is
-  // being highlighted.
+  // — no border, a faint low-opacity fill, a muted icon color rather than
+  // the gold used everywhere a match is being highlighted. Size bumped
+  // 2026-09-18 alongside map.web.tsx's identical fix, at explicit user
+  // report ("chicago is still a sea of dots") — color.textTertiary at 13px
+  // read as an indistinguishable blur regardless of the venue's real icon
+  // shape; see the VenueTypeIcon call site below for the matching color bump.
   backgroundPin: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
     backgroundColor: 'rgba(18,16,14,.55)',
     alignItems: 'center',
     justifyContent: 'center',

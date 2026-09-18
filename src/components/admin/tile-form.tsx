@@ -10,10 +10,16 @@ const CATEGORY_OPTIONS: TileCategory[] = ['Do', 'Drink', 'Eat', 'Holiday'];
 // except Drink — see HomeRegion's own doc comment (types/models.ts). Shown
 // for every category, not just Drink, since a future category could need
 // the same split without this form needing another change.
+// Kept in sync with onboarding.tsx's own REGION_OPTS labels (2026-09-18) —
+// an admin editing a tile should see the same region names a member sees
+// during onboarding. 'USA' has no tile tagged for it yet (see HomeRegion's
+// own doc comment, types/models.ts) — it's here so a future US-specific
+// Drink tile has somewhere to be tagged, not because one exists today.
 const REGION_OPTIONS: { label: string; value: HomeRegion | null }[] = [
   { label: 'Universal', value: null },
   { label: 'UK', value: 'uk' },
-  { label: 'Riyadh', value: 'riyadh' },
+  { label: 'USA', value: 'usa' },
+  { label: 'Middle East', value: 'riyadh' },
 ];
 
 interface TileFormProps {

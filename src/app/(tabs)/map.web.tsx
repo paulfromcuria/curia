@@ -42,6 +42,7 @@ import {
 import type { GeoBounds, GeoPoint, MapLabel } from '../../lib/map/geo';
 import { iconForVenueType, iconSvgMarkup } from '../../lib/map/venue-icons';
 import { moodTileOptionsForCategory } from '../../lib/map/mood-tiles';
+import { UCHICAGO_CAMPUS_BOUNDARY, UCHICAGO_CAMPUS_LABEL_POINT } from '../../lib/map/uchicago-campus';
 import { useSession } from '../../lib/state/session';
 import { fetchWeather } from '../../lib/weather/forecast';
 import { color, font, radius, spacing } from '../../theme';
@@ -317,15 +318,20 @@ function buildMatchPinElement(venue: Venue, saved: boolean, onTap: () => void): 
 
 // Quiet on purpose (2026-09): every real venue at this zoom, so it has to
 // stay clearly secondary to buildMatchPinElement's bright pulsing match
-// pins — no border, a faint low-opacity fill, dim icon color (color.textTertiary)
-// rather than the gold used everywhere a match is highlighted. Mirrors
-// map.tsx's `backgroundPin` style + VenueTypeIcon exactly (same
-// VENUE_ICON_PRIMITIVES, see src/lib/map/venue-icons.ts's own top comment
-// for why there are two renderers).
+// pins — no border, a faint low-opacity fill, a muted icon color rather
+// than the gold used everywhere a match is highlighted. Mirrors map.tsx's
+// `backgroundPin` style + VenueTypeIcon exactly (same VENUE_ICON_PRIMITIVES,
+// see src/lib/map/venue-icons.ts's own top comment for why there are two
+// renderers). Size/color bumped 2026-09-18, at explicit user report against
+// a real Chicago screenshot ("chicago is still a sea of dots") — the icon
+// audit that same night gave every venue type a real distinct shape, but
+// color.textTertiary (#6F6558) at 13px was rendering as an indistinguishable
+// blur regardless of shape; color.textSecondary reads clearly while staying
+// visibly quieter than a gold match pin.
 function buildBackgroundPinElement(venue: Venue, saved: boolean, onTap: () => void): HTMLDivElement {
   const el = document.createElement('div');
-  el.style.cssText = `width:20px;height:20px;border-radius:10px;background:rgba(18,16,14,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;`;
-  el.innerHTML = iconSvgMarkup(iconForVenueType(venue.type), 13, color.textTertiary);
+  el.style.cssText = `width:22px;height:22px;border-radius:11px;background:rgba(18,16,14,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;`;
+  el.innerHTML = iconSvgMarkup(iconForVenueType(venue.type), 15, color.textSecondary);
   if (saved) el.appendChild(buildSavedBadge(11, 6.5));
   // See buildMatchPinElement's identical stopPropagation comment.
   el.addEventListener('click', (e) => {
@@ -442,6 +448,7 @@ export default function Map() {
   const pinMarkersRef = useRef<mapboxgl.Marker[]>([]);
   const backgroundPinMarkersRef = useRef<mapboxgl.Marker[]>([]);
   const meMarkerRef = useRef<mapboxgl.Marker | null>(null);
+  const campusLabelMarkerRef = useRef<mapboxgl.Marker | null>(null);
   const venuePopupRef = useRef<mapboxgl.Popup | null>(null);
   const activePopupVenueIdRef = useRef<string | null>(null);
   const autoLocatedRef = useRef(false);
@@ -752,10 +759,43 @@ export default function Map() {
         }
       });
     };
+    // University of Chicago campus outline + label (2026-09-18, at explicit
+    // user request: "can we highlight his campus in some way, maybe with a
+    // subtle boundary and a label?") — a personal touch for the specific
+    // member this metro was built for, not a general per-metro mechanism
+    // (see src/lib/map/uchicago-campus.ts's own top comment). Deliberately
+    // thin/low-opacity, nothing like the bold coverage-edge glow above —
+    // "subtle" was the explicit ask. The label is a plain always-present
+    // marker (not routed through the labels/groupVisibleDistricts system
+    // above, which exists for district clustering this single fixed point
+    // doesn't need) positioned at Nominatim's own representative point for
+    // the campus relation.
+    const addCampusLayers = () => {
+      if (map.getSource('uchicago-campus-source')) return;
+      map.addSource('uchicago-campus-source', {
+        type: 'geojson',
+        data: UCHICAGO_CAMPUS_BOUNDARY,
+      });
+      map.addLayer({
+        id: 'uchicago-campus-line',
+        type: 'line',
+        source: 'uchicago-campus-source',
+        paint: { 'line-color': color.gold, 'line-width': 1.4, 'line-opacity': 0.4 },
+      });
+      const el = document.createElement('div');
+      el.style.cssText =
+        `font-family:${font.sansMedium};font-size:9px;letter-spacing:1.8px;text-transform:uppercase;` +
+        `color:${color.gold};opacity:.75;white-space:nowrap;pointer-events:none;`;
+      el.textContent = 'University of Chicago';
+      campusLabelMarkerRef.current = new mapboxgl.Marker({ element: el, anchor: 'center' })
+        .setLngLat([UCHICAGO_CAMPUS_LABEL_POINT.lon, UCHICAGO_CAMPUS_LABEL_POINT.lat])
+        .addTo(map);
+    };
     const hideCompetingLabels = () => hideCompetingMapLabels(map);
     map.on('load', syncFromCamera);
     map.on('load', addCoverageLayers);
     map.on('load', addDistrictGlowLayers);
+    map.on('load', addCampusLayers);
     map.on('load', hideCompetingLabels);
     map.on('moveend', syncFromCamera);
 
@@ -764,6 +804,7 @@ export default function Map() {
       map.off('load', syncFromCamera);
       map.off('load', addCoverageLayers);
       map.off('load', addDistrictGlowLayers);
+      map.off('load', addCampusLayers);
       map.off('load', hideCompetingLabels);
       map.off('moveend', syncFromCamera);
       map.remove();
@@ -1072,12 +1113,25 @@ export default function Map() {
   // mode and Moments' pill row both already use. Filtered to districts
   // with at least one real venue, so no pill is a dead end. Mirrors
   // map.tsx's identical addition.
+  //
+  // Scoped to `focusedMetro` (2026-09-18, at explicit user report, real bug
+  // — "when in chicago i shouldnt be able to quick nav to wilmslow, i
+  // shouldnt see that option"): this used to sort every district in every
+  // metro by raw haversine distance with no metro filter at all. That's
+  // fine *within* a metro (a few miles apart), but once a metro's own
+  // handful of districts are exhausted, the next-nearest by pure geography
+  // is whatever real-world metro happens to be least far away — and
+  // Cheshire genuinely is closer to Chicago (~3700mi) than Riyadh
+  // (~6400mi), so Chester/Tarporley were filling the rest of the chip row
+  // for a Chicago member. No metro to filter to (the region-prompt's
+  // 'lost'/'zoomed-out' states) now shows no chips rather than a
+  // cross-continent guess.
   const nearbyDistricts = useMemo(
     () =>
-      DISTRICTS.filter((d) => VENUES.some((v) => v.districtId === d.id)).sort(
+      DISTRICTS.filter((d) => d.metro === focusedMetro && VENUES.some((v) => v.districtId === d.id)).sort(
         (a, b) => haversineMiles(session.searchOrigin, a) - haversineMiles(session.searchOrigin, b)
       ),
-    [session.searchOrigin, contentVersion]
+    [session.searchOrigin, contentVersion, focusedMetro]
   );
 
   const closeVenuePopup = useCallback(() => {
