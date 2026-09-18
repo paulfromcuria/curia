@@ -6,5 +6,6 @@ export * from './emblem-button';
 export * from './kicker';
 export * from './tag';
 export * from './text-field';
+export * from './top-picks-rail';
 export * from './venue-type-icon';
 export * from './wordmark';
