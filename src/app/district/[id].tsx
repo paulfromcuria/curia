@@ -38,6 +38,14 @@ export default function DistrictGuide() {
     () =>
       district
         ? buildMatchmakingInputFromSession(session, {
+            // This screen's "live now" bar means real current time always,
+            // not whatever day/band the member may have planned for on Map
+            // — deliberately not `session.context` here. `weather` borrows
+            // `session.weather` anyway (close enough in practice, since that
+            // only ever differs from "now" while a manual plan is active on
+            // Map) rather than a second live fetch just for this screen —
+            // same fix map.tsx/list.tsx needed for contextNoteFor to work.
+            context: { now: true, weather: session.weather ?? undefined },
             location: { lat: district.lat, lon: district.lon },
             radiusMiles: 999,
           })
@@ -152,6 +160,7 @@ export default function DistrictGuide() {
                   {stats ? ` · ★ ${stats.avg.toFixed(1)} (${stats.count})` : ''}
                 </Text>
                 <Text style={styles.matchReason}>{r.reason}</Text>
+                {r.contextNote && <Text style={styles.matchContextNote}>{r.contextNote}</Text>}
               </View>
             </Pressable>
           );
@@ -336,6 +345,14 @@ const styles = StyleSheet.create({
     fontSize: 12.5,
     lineHeight: 19,
     color: color.textSecondary,
+    maxWidth: 280,
+  },
+  matchContextNote: {
+    fontFamily: font.sans,
+    fontSize: 12,
+    lineHeight: 16,
+    color: color.gold,
+    marginTop: 4,
     maxWidth: 280,
   },
   keptRow: {

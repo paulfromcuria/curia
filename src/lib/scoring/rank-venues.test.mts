@@ -21,6 +21,7 @@ import type { MatchmakingInput } from '../../types/matchmaking';
 import {
   applyHardFilters,
   BASE_WEIGHTS,
+  contextNoteFor,
   haversineMiles,
   passesDietaryFilter,
   passesDistanceFilter,
@@ -432,6 +433,68 @@ test('liveliness: missing multiplier data is neutral, not a penalty', () => {
   assert.equal(scoreLiveliness(undefined, 'late'), 0.5);
   assert.equal(scoreLiveliness(livelyLateDistrict, 'evening'), 0.5);
   assert.equal(scoreLiveliness(livelyLateDistrict, undefined), 0.5);
+});
+
+// ---------------------------------------------------------------------------
+// contextNoteFor — the "why this works right now" line (2026-09-18, at
+// explicit user request, prompted by a real example: Rex Cinema recommended
+// in Wilmslow on a rainy Friday evening was an excellent match, and nothing
+// said why). Real-time weather/liveliness only, never a repeat of the
+// venue's own fixed reasonFor() copy.
+// ---------------------------------------------------------------------------
+
+const eveningNow = { day: 'friday', band: 'evening' as const };
+
+test('contextNoteFor: an indoor venue gets a rain note in wet weather', () => {
+  const note = contextNoteFor(venue({ type: 'CINEMA' }), undefined, eveningNow, 'Light rain, 11°');
+  assert.match(note ?? '', /rain/i);
+  assert.match(note ?? '', /indoors/i);
+});
+
+test('contextNoteFor: an outdoor-leaning venue gets no rain note — it is the wrong call, not a neutral one', () => {
+  const note = contextNoteFor(venue({ type: 'ROOFTOP' }), undefined, eveningNow, 'Light rain, 11°');
+  assert.equal(note, undefined);
+});
+
+test('contextNoteFor: an outdoor venue gets a fair-weather note when it is warm and clear', () => {
+  const note = contextNoteFor(venue({ type: 'ROOFTOP' }), undefined, eveningNow, 'Clear, 22°');
+  assert.match(note ?? '', /outdoor/i);
+});
+
+test('contextNoteFor: an indoor venue gets no fair-weather note — nothing notable to say', () => {
+  const note = contextNoteFor(venue({ type: 'SMALL PLATES' }), undefined, eveningNow, 'Clear, 22°');
+  assert.equal(note, undefined);
+});
+
+test('contextNoteFor: mild/neutral weather (no strong signal either way) yields no note by itself', () => {
+  const note = contextNoteFor(venue({ type: 'SMALL PLATES' }), undefined, eveningNow, 'Overcast, 14°');
+  assert.equal(note, undefined);
+});
+
+test('contextNoteFor: a district that is genuinely lively right now gets a liveliness note when weather has nothing to say', () => {
+  const note = contextNoteFor(venue({ type: 'SMALL PLATES' }), livelyLateDistrict, { day: 'friday', band: 'late' }, undefined);
+  assert.match(note ?? '', new RegExp(livelyLateDistrict.name));
+});
+
+test('contextNoteFor: a district merely at or near neutral liveliness gets no note — "genuinely lively," not just "not dead"', () => {
+  const mildlyLively: District = { ...livelyLateDistrict, bandMultiplier: { late: 1.05 } };
+  assert.equal(contextNoteFor(venue({ type: 'SMALL PLATES' }), mildlyLively, { day: 'friday', band: 'late' }, undefined), undefined);
+});
+
+test('contextNoteFor: weather takes priority over liveliness when both would otherwise qualify', () => {
+  const note = contextNoteFor(venue({ type: 'CINEMA' }), livelyLateDistrict, { day: 'friday', band: 'late' }, 'Heavy rain, 8°');
+  assert.match(note ?? '', /rain/i);
+});
+
+test('contextNoteFor: no weather and no notable liveliness yields no note at all', () => {
+  assert.equal(contextNoteFor(venue({ type: 'SMALL PLATES' }), undefined, eveningNow, undefined), undefined);
+});
+
+test('rankVenues threads contextNote through using the real district/weather it was given', () => {
+  const v = venue({ type: 'CINEMA', districtId: 'wherever' });
+  const input = baseInput({ context: { now: false, day: 'friday', band: 'evening', weather: 'Light rain, 11°' } });
+  const result = rankVenues(input, [v], []);
+  assert.match(result.ranked[0].contextNote ?? '', /rain/i);
 });
 
 // ---------------------------------------------------------------------------
