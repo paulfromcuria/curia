@@ -438,6 +438,15 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   'COMEDY CLUB': 'Do',
   'WHISKY BAR': 'Drink',
   'BEER GARDEN': 'Drink',
+  // Chicago campus pass (2026-09-18) — a personal customization of the
+  // Chicago metro for the specific member it was built for (a UChicago
+  // student), at explicit user request: "lots of libraries and bookstores
+  // as well as college campus venues like the food hall and the library and
+  // the gym... dont let this affect any other regions or districts or the
+  // global onboarding". Deliberately category-only — none of these four
+  // are wired into TILE_NAME_TO_VENUE_TYPE_SLUGS or docs/data/tiles.json,
+  // so no onboarding tile appears for any member anywhere because of this
+  // pass. See docs/data/venues.json's own _chicagoCampusVenueSource note.
   // Chicago pass (2026-09-18) — Curia's first US metro, Hyde Park/Kenwood/
   // Woodlawn. See docs/data/venues.json's own _chicagoVenueSource note.
   // CAFETERIA/CARIBBEAN RESTAURANT/SENEGALESE/DINER/SOUL FOOD map onto the
@@ -457,4 +466,8 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   SENEGALESE: 'Eat',
   DINER: 'Eat',
   'SOUL FOOD': 'Eat',
+  'ACADEMIC LIBRARY': 'Do',
+  'PUBLIC LIBRARY': 'Do',
+  'CAMPUS DINING HALL': 'Eat',
+  'CAMPUS GYM': 'Do',
 };
