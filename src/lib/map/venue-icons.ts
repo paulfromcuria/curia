@@ -21,6 +21,23 @@
  * CLUB) so real ones render correctly the moment they're added, rather
  * than needing a second follow-up pass.
  *
+ * 2026-09-18, second pass the same night, at explicit user report: "all
+ * culture venues... always have a book icon, so i click on one and its a
+ * historic house, i click on the next and its a bookshop, the next is a
+ * museum. can be confusing." `culture` had been deliberately built as a
+ * broad catch-all on the same "reuse one bucket" logic as `dining` — but
+ * that logic doesn't hold here the way it does for `dining`: every Dining
+ * venue really is the same activity (sit down, eat) regardless of cuisine,
+ * so one fork-and-knife icon is honest; a museum, a bookshop and a
+ * historic house are genuinely different activities that only happened to
+ * share a bucket. Split into `museum` (institutional/heritage — walk
+ * through an exhibit or a building with history) and `books` (literally
+ * book-related — the old `culture` glyph, now used only for things that
+ * actually are books), leaving a smaller, more honest `culture` for the
+ * real leftovers: live performance and hands-on workshops (performing
+ * arts, comedy, cookery school, pottery studio) — a coherent "a booked
+ * experience" register, not a dumping ground.
+ *
  * Icons are defined once, here, as plain geometric primitives — not JSX —
  * so both map renderers can use the same shapes without sharing rendering
  * code: map.tsx (native, @rnmapbox/maps MarkerView) renders them via
@@ -41,6 +58,8 @@ export type VenueIconKey =
   | 'bakery'
   | 'music'
   | 'culture'
+  | 'museum'
+  | 'books'
   | 'cinema'
   | 'art'
   | 'fitness'
@@ -120,7 +139,36 @@ export const VENUE_ICON_PRIMITIVES: Record<VenueIconKey, IconPrimitive[]> = {
     { shape: 'line', x1: 11, y1: 18, x2: 11, y2: 4 },
     { shape: 'path', d: 'M11 4 C16 5 17 8 16 11' },
   ],
+  // culture — trimmed 2026-09-18 to a real, coherent register: a booked,
+  // scheduled experience (live performance or a hands-on workshop), not
+  // museums/books anymore (see museum/books below). A ticket stub — a
+  // perforated card with a stub divider — reads as "something you book
+  // into" for both a comedy show and a cookery class.
   culture: [
+    { shape: 'path', d: 'M4 8 H20 V17 H4 Z' },
+    { shape: 'circle', cx: 4, cy: 12.5, r: 1.3 },
+    { shape: 'circle', cx: 20, cy: 12.5, r: 1.3 },
+    { shape: 'line', x1: 9, y1: 8, x2: 9, y2: 17 },
+  ],
+  // museum — a columned, pedimented building front. Split out from the old
+  // broad `culture` bucket 2026-09-18, at explicit user report: "i click on
+  // one and its a historic house, i click on the next and its a bookshop,
+  // the next is a museum. can be confusing." Institutional/heritage venues
+  // (museums, heritage centres, historic houses/churches) — a real, walk-
+  // through-an-exhibit-or-a-building-with-history register, distinct from
+  // `books` below.
+  museum: [
+    { shape: 'path', d: 'M4 10 L12 4 L20 10 Z' },
+    { shape: 'line', x1: 5, y1: 10, x2: 5, y2: 19 },
+    { shape: 'line', x1: 9.5, y1: 10, x2: 9.5, y2: 19 },
+    { shape: 'line', x1: 14.5, y1: 10, x2: 14.5, y2: 19 },
+    { shape: 'line', x1: 19, y1: 10, x2: 19, y2: 19 },
+    { shape: 'line', x1: 3, y1: 20, x2: 21, y2: 20 },
+  ],
+  // books — the exact shape `culture` used to use, now dedicated
+  // exclusively to things that actually are books (bookshops, libraries) —
+  // split out 2026-09-18, same report as `museum` above.
+  books: [
     {
       shape: 'path',
       d: 'M12 6 C9 4 5 4 3 5 V18 C5 17 9 17 12 19 C15 17 19 17 21 18 V5 C19 4 15 4 12 6 Z',
@@ -333,25 +381,30 @@ const ICON_BY_TYPE: Record<string, VenueIconKey> = {
   'LIVE MUSIC BAR': 'music',
   'RECORD SHOP': 'music',
 
-  // culture — performance, learning, heritage, books (a general
-  // "cultural experience/institution" bucket — see this icon's own note on
-  // why museums/libraries/comedy share one glyph rather than fragmenting
-  // further, same discipline as `dining`'s broad cuisine coverage above)
+  // culture — a booked, scheduled experience: live performance or a
+  // hands-on workshop. Trimmed 2026-09-18 from a much broader bucket (see
+  // this icon's own note) — museums/heritage and books split out below.
   'PERFORMING ARTS': 'culture',
-  'RARE BOOKSHOP': 'culture',
-  'HERITAGE CENTRE': 'culture',
   'COOKERY SCHOOL': 'culture',
   'POTTERY STUDIO': 'culture',
-  MUSEUM: 'culture',
-  'CONTEMPORARY ART MUSEUM': 'culture',
-  'HISTORIC HOUSE': 'culture',
-  'HISTORIC CHURCH': 'culture',
-  'ACADEMIC LIBRARY': 'culture',
-  'PUBLIC LIBRARY': 'culture',
-  BOOKSHOP: 'culture',
-  'INDEPENDENT BOOKSHOP': 'culture',
-  'COOKBOOK SHOP': 'culture',
   'COMEDY CLUB': 'culture',
+
+  // museum — institutional/heritage, walk-through-an-exhibit-or-a-
+  // building-with-history. Split out from `culture` 2026-09-18.
+  'HERITAGE CENTRE': 'museum',
+  MUSEUM: 'museum',
+  'CONTEMPORARY ART MUSEUM': 'museum',
+  'HISTORIC HOUSE': 'museum',
+  'HISTORIC CHURCH': 'museum',
+
+  // books — literally book-related (bookshops, libraries). Split out from
+  // `culture` 2026-09-18.
+  'RARE BOOKSHOP': 'books',
+  'ACADEMIC LIBRARY': 'books',
+  'PUBLIC LIBRARY': 'books',
+  BOOKSHOP: 'books',
+  'INDEPENDENT BOOKSHOP': 'books',
+  'COOKBOOK SHOP': 'books',
 
   // cinema — its own icon, not lumped into `culture` (see that icon above)
   'INDEPENDENT CINEMA': 'cinema',
