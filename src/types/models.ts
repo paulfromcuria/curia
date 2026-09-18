@@ -126,7 +126,17 @@ export interface User {
 // 'london' added 2026-09-15, at explicit user request — a second real UK
 // metro alongside Manchester/Cheshire, fully 'uk' HomeRegion (no Drink
 // catalog split needed, unlike Riyadh).
-export type MetroId = 'manchester' | 'cheshire' | 'santorini' | 'riyadh' | 'london';
+// 'chicago' added 2026-09-18, at explicit user request — Curia's first US
+// metro, a real pilot for a specific first member (a UChicago student, high
+// disposable income, testing/showing the app to professors) rather than a
+// market-sizing decision. Scoped to Hyde Park/Kenwood/Woodlawn — the
+// neighbourhoods within ~2mi of the UChicago campus — not the whole city.
+// Alcohol is legal and normal here, so like London this stays fully 'uk'
+// HomeRegion (the shared global Drink catalog, not a UK-specific one despite
+// the label — see HomeRegion's own doc comment). Same two-gate curation
+// rules as everywhere else; the member's own age doesn't change what gets
+// curated.
+export type MetroId = 'manchester' | 'cheshire' | 'santorini' | 'riyadh' | 'london' | 'chicago';
 
 export interface City {
   id: MetroId;

@@ -67,8 +67,17 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   'Cookery & craft': ['cookery-school', 'pottery-studio', 'cookbook-shop'],
   'Walking tours': ['walking-tour'],
   // cricket-club added 2026-09-03 (Mobberley Cricket Club) — same spectator
-  // afternoon as rugby/golf, just a different pitch.
-  'Spectator sport': ['rugby-club', 'golf-club', 'cricket-club'],
+  // afternoon as rugby, a different pitch. golf-club removed 2026-09-18,
+  // at explicit user request adding a real 'Play sport' tile below — a
+  // private members' golf club is somewhere you play, not spectator
+  // infrastructure the way a racecourse or a rugby ground is; it never
+  // belonged here, it just had nowhere better to go until now.
+  'Spectator sport': ['rugby-club', 'cricket-club'],
+  // Play sport added 2026-09-18 (22 real Cheshire golf clubs — see
+  // venues.json's own _cheshireGolfClubsSource note). Padel/Tennis have no
+  // real venues yet — real sub-preference options, not wired to a type
+  // until real ones exist, same as this file's other thin-but-real tiles.
+  'Play sport': ['golf-club'],
   // fitness-studio (Alchemy Personal Training) deliberately left untiled —
   // 2026-09-03 review: one-to-one personal training isn't an evening-plans
   // discovery the way spa/wellness is; CATEGORY_BY_VENUE_TYPE below still
@@ -181,7 +190,18 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // lebanese-restaurant added 2026-09-15 (Ishbilia, London) — 26 years
   // family-run with no scene to speak of, the same honest-fixture register
   // as this tile's other cuisine types.
-  'Neighbourhood favourite': ['cantonese-roast', 'pizzeria', 'vietnamese', 'indian-restaurant', 'thai-restaurant', 'greek-taverna', 'farm-shop', 'lebanese-restaurant'],
+  // cafeteria/caribbean-restaurant/senegalese/diner/soul-food added
+  // 2026-09-18 (Curia's first US metro — Hyde Park/Kenwood/Woodlawn,
+  // Chicago; see docs/data/venues.json's own _chicagoVenueSource note) —
+  // all five are exactly this tile's honest-fixture-not-a-scene register
+  // (Valois' steam table since 1921, Ja' Grill's decade on 53rd, Gorée
+  // Cuisine's family recipe from Dakar, Daley's since 1892, Let's Eat To
+  // Live's free Sunday meals). dive-bar/record-shop/southern-restaurant/
+  // indian-southern-fusion/creole-brazilian (CATEGORY_BY_VENUE_TYPE below)
+  // are left category-only, same as this file's many other unwired US/
+  // non-UK cuisine and register types — no existing tile fits them
+  // precisely.
+  'Neighbourhood favourite': ['cantonese-roast', 'pizzeria', 'vietnamese', 'indian-restaurant', 'thai-restaurant', 'greek-taverna', 'farm-shop', 'lebanese-restaurant', 'cafeteria', 'caribbean-restaurant', 'senegalese', 'diner', 'soul-food'],
 
   // Holiday (added 2026-09 for the Santorini pass — see TileCategory's own
   // doc comment in src/types/models.ts). Started as one tile ('Beach
@@ -409,4 +429,23 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, 'Do' | 'Drink' | 'Eat' | 'Ho
   'COMEDY CLUB': 'Do',
   'WHISKY BAR': 'Drink',
   'BEER GARDEN': 'Drink',
+  // Chicago pass (2026-09-18) — Curia's first US metro, Hyde Park/Kenwood/
+  // Woodlawn. See docs/data/venues.json's own _chicagoVenueSource note.
+  // CAFETERIA/CARIBBEAN RESTAURANT/SENEGALESE/DINER/SOUL FOOD map onto the
+  // real 'Neighbourhood favourite' tile above. DIVE BAR (Jimmy's/Woodlawn
+  // Tap) deliberately doesn't map to 'Upmarket pubs' — that tile is
+  // explicitly upmarket, a dive bar is the opposite register on purpose.
+  // RECORD SHOP, SOUTHERN RESTAURANT, INDIAN-SOUTHERN FUSION and
+  // CREOLE-BRAZILIAN are category-only, same treatment as this file's many
+  // other US/non-UK types with no precise existing tile fit.
+  CAFETERIA: 'Eat',
+  'DIVE BAR': 'Drink',
+  'RECORD SHOP': 'Do',
+  'CARIBBEAN RESTAURANT': 'Eat',
+  'SOUTHERN RESTAURANT': 'Eat',
+  'INDIAN-SOUTHERN FUSION': 'Eat',
+  'CREOLE-BRAZILIAN': 'Eat',
+  SENEGALESE: 'Eat',
+  DINER: 'Eat',
+  'SOUL FOOD': 'Eat',
 };
