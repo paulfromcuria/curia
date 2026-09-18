@@ -3,7 +3,9 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import type { LayoutChangeEvent } from 'react-native';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import mapboxgl from 'mapbox-gl';
-import { Button, Card, ContextStrip, EmblemButton, Kicker, Tag } from '../../components/curia';
+import { Button, Card, ContextStrip, EmblemButton, Kicker, Tag, TopPicksRail } from '../../components/curia';
+import type { TopPickItem } from '../../components/curia';
+import { TOP_PICKS_RAIL_ENABLED } from '../../lib/config/features';
 import { haversineMiles, rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
 import {
@@ -929,6 +931,20 @@ export default function Map() {
     [matchInput, contentVersion]
   );
 
+  // Feeds the Top picks rail (TOP_PICKS_RAIL_ENABLED) — the exact same
+  // `result.ranked` the pins below are built from, so the rail can never
+  // show a different answer than what's actually on the map (Hard rule 5).
+  const topPicks: TopPickItem[] = useMemo(
+    () =>
+      result.ranked.slice(0, 4).flatMap((r) => {
+        const pickVenue = VENUES.find((v) => v.id === r.venueId);
+        if (!pickVenue) return [];
+        const pickDistrict = DISTRICTS.find((d) => d.id === pickVenue.districtId);
+        return [{ venue: pickVenue, districtName: pickDistrict?.name ?? '', reason: r.reason, contextNote: r.contextNote }];
+      }),
+    [result]
+  );
+
   // Only offer the 'Holiday' mood filter near real Holiday coverage
   // (Santorini today) — everywhere else it's a guaranteed-empty tap, since
   // distance is a hard filter and no UK radius reaches Santorini.
@@ -1280,6 +1296,10 @@ export default function Map() {
           <Text style={styles.locateBtnText}>◎</Text>
         </Pressable>
       </View>
+
+      {TOP_PICKS_RAIL_ENABLED && (
+        <TopPicksRail picks={topPicks} onSelectVenue={(venueId) => router.push(`/venue/${venueId}`)} />
+      )}
 
       {/* 2026-09, at explicit user request: this used to be a collapsible
           sheet with a numbered venue list — dropped entirely (that's what

@@ -19,3 +19,17 @@
  * relationship to Santorini-as-a-live-metro or the Holiday tile category.
  */
 export const HOLIDAY_FEATURE_ENABLED = false;
+
+/**
+ * Soft-disable toggle for the Map screen's "Top picks" rail (a collapsed
+ * left-edge tab that expands to show the top 4 currently-ranked venues
+ * without leaving Map). Added 2026-09-18, at explicit user request — "just
+ * go ahead and build it in a cool manner but make sure we can revert it if
+ * we dont like it." A real `git revert` of the commit that introduced it
+ * also works (it's one self-contained component,
+ * src/components/curia/top-picks-rail.tsx, plus a few lines wiring it into
+ * map.tsx/map.web.tsx) — this flag is the faster, no-redeploy-needed lever
+ * for "try it live, then decide," same role HOLIDAY_FEATURE_ENABLED plays
+ * above. Flip to false to hide it instantly; nothing is deleted.
+ */
+export const TOP_PICKS_RAIL_ENABLED = true;
