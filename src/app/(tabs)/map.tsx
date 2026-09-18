@@ -47,10 +47,11 @@ import type { GeoBounds, GeoPoint, MapLabel } from '../../lib/map/geo';
 import { iconForVenueType, type VenueIconKey } from '../../lib/map/venue-icons';
 import { moodTileOptionsForCategory } from '../../lib/map/mood-tiles';
 import { UCHICAGO_CAMPUS_BOUNDARY, UCHICAGO_CAMPUS_LABEL_POINT } from '../../lib/map/uchicago-campus';
+import { currentClockTime, isVenueOpenAt } from '../../lib/data/opening-hours';
 import { useSession } from '../../lib/state/session';
 import { fetchWeather } from '../../lib/weather/forecast';
 import { color, font, radius, spacing } from '../../theme';
-import type { DayTimeBand, TileCategory, Venue } from '../../types/models';
+import type { DayName, DayTimeBand, TileCategory, Venue } from '../../types/models';
 
 /**
  * Real Map screen. Renders the M3 scoring engine's actual output
@@ -240,10 +241,12 @@ function SavedBadge({ size, fontSize }: { size: number; fontSize: number }) {
 function PulsingMatchIcon({
   icon,
   saved,
+  isClosed,
   onPress,
 }: {
   icon: VenueIconKey;
   saved: boolean;
+  isClosed: boolean;
   onPress: () => void;
 }) {
   const pulse = useRef(new Animated.Value(0)).current;
@@ -267,7 +270,7 @@ function PulsingMatchIcon({
   return (
     <Pressable onPress={onPress} style={styles.matchWrap}>
       <Animated.View style={[styles.matchPulseRing, { transform: [{ scale }], opacity }]} />
-      <View style={styles.matchDot}>
+      <View style={[styles.matchDot, isClosed && styles.matchDotClosed]}>
         <VenueTypeIcon icon={icon} size={16} color={color.goldLight} />
       </View>
       {saved && <SavedBadge size={14} fontSize={8} />}
@@ -386,6 +389,12 @@ export default function Map() {
   );
 
   const resolved = resolveContext(context);
+  // Closed-now pin ring — see map.web.tsx's identical comment on
+  // isVenueClosedNow for why `false` is the only value that ever renders
+  // a red ring.
+  const closedCheckTime = currentClockTime(context.now, resolved.day as DayName, resolved.band);
+  const isVenueClosedNow = (venue: Venue) =>
+    isVenueOpenAt(venue, resolved.day as DayName, closedCheckTime) === false;
   const liveNow = resolveContext({ now: true });
   // The context sheet's "PLANNING FOR" state shows a real-time-now reference
   // line alongside the planned-day forecast (`nowSub` below) — this isn't a
@@ -807,7 +816,11 @@ export default function Map() {
 
         {backgroundVenues.map((venue) => (
           <MarkerView key={venue.id} coordinate={[venue.lon, venue.lat]} anchor={{ x: 0.5, y: 0.5 }}>
-            <Pressable onPress={() => onVenuePinTap(venue)} style={styles.backgroundPin} hitSlop={6}>
+            <Pressable
+              onPress={() => onVenuePinTap(venue)}
+              style={[styles.backgroundPin, isVenueClosedNow(venue) && styles.backgroundPinClosed]}
+              hitSlop={6}
+            >
               <VenueTypeIcon icon={iconForVenueType(venue.type)} size={15} color={color.textSecondary} />
               {session.isVenueSaved(venue.id) && <SavedBadge size={11} fontSize={6.5} />}
             </Pressable>
@@ -819,6 +832,7 @@ export default function Map() {
             <PulsingMatchIcon
               icon={iconForVenueType(venue.type)}
               saved={session.isVenueSaved(venue.id)}
+              isClosed={isVenueClosedNow(venue)}
               onPress={() => onVenuePinTap(venue)}
             />
           </MarkerView>
@@ -1090,6 +1104,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // Closed-now ring (2026-09-18, at explicit user request) — see
+  // map.web.tsx's buildBackgroundPinElement/buildMatchPinElement for the
+  // identical web-side treatment and its own doc comment.
+  backgroundPinClosed: {
+    borderWidth: 1.5,
+    borderColor: color.closedRed,
+  },
   // See SavedBadge's own doc comment above.
   savedBadge: {
     position: 'absolute',
@@ -1125,6 +1146,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(18,16,14,.9)',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  matchDotClosed: {
+    borderWidth: 2,
+    borderColor: color.closedRed,
   },
 
   meWrap: {

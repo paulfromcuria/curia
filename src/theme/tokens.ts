@@ -75,6 +75,18 @@ export const color = {
    * pair with gold rather than clashing with it. */
   locationPin: '#B79FD6',
 
+  /** A venue's pin outline when it's confirmed closed right now (2026-09-18,
+   * at explicit user request: "venues that are not currently open had a red
+   * ring around them"). A narrow functional/status color, the same
+   * exception class as `weather`/`locationPin` above, not a palette
+   * addition for decorative use — only ever a real, sourced
+   * Venue.openingHours result (src/lib/data/opening-hours.ts's isOpenAt),
+   * never shown for a venue with no hours data (unknown is not closed). A
+   * warm brick-red rather than a pure stop-sign red, so it still reads as
+   * "this palette's own alert color" rather than a foreign accent dropped
+   * into an otherwise warm, restrained scheme. */
+  closedRed: '#C0524A',
+
   // Map-render-only
   mapWater: '#16262B',
 } as const;

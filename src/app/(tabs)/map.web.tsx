@@ -46,10 +46,11 @@ import type { GeoBounds, GeoPoint, MapLabel } from '../../lib/map/geo';
 import { iconForVenueType, iconSvgMarkup } from '../../lib/map/venue-icons';
 import { moodTileOptionsForCategory } from '../../lib/map/mood-tiles';
 import { UCHICAGO_CAMPUS_BOUNDARY, UCHICAGO_CAMPUS_LABEL_POINT } from '../../lib/map/uchicago-campus';
+import { currentClockTime, isVenueOpenAt } from '../../lib/data/opening-hours';
 import { useSession } from '../../lib/state/session';
 import { fetchWeather } from '../../lib/weather/forecast';
 import { color, font, radius, spacing } from '../../theme';
-import type { DayTimeBand, MetroId, TileCategory, Venue } from '../../types/models';
+import type { DayName, DayTimeBand, MetroId, TileCategory, Venue } from '../../types/models';
 
 /** Below this zoom, more than one of Curia's metros could plausibly be in
  * frame at once — "the country level" (2026-09, at explicit user request)
@@ -292,7 +293,7 @@ function buildSavedBadge(size: number, fontSize: number): HTMLDivElement {
   return badge;
 }
 
-function buildMatchPinElement(venue: Venue, saved: boolean, onTap: () => void): HTMLDivElement {
+function buildMatchPinElement(venue: Venue, saved: boolean, isClosed: boolean, onTap: () => void): HTMLDivElement {
   ensurePulseKeyframes();
   const wrap = document.createElement('div');
   // No `position` set here — see buildMeElement's own comment on why the
@@ -301,7 +302,13 @@ function buildMatchPinElement(venue: Venue, saved: boolean, onTap: () => void): 
   const ring = document.createElement('div');
   ring.style.cssText = `position:absolute;width:28px;height:28px;border-radius:14px;background:${color.gold};animation:curia-match-pulse 1.4s ease-out infinite;`;
   const dot = document.createElement('div');
-  dot.style.cssText = `position:relative;width:28px;height:28px;border-radius:14px;border:1px solid rgba(231,214,176,.8);background:rgba(18,16,14,.9);display:flex;align-items:center;justify-content:center;`;
+  // Closed-now ring (2026-09-18, at explicit user request) overrides the
+  // usual cream-tone border with a thicker red one — still a real match,
+  // just visibly shut right now. Only ever fires from real
+  // Venue.openingHours data (isClosed is computed at the call site via
+  // isVenueOpenAt), never a guess.
+  const border = isClosed ? `2px solid ${color.closedRed}` : '1px solid rgba(231,214,176,.8)';
+  dot.style.cssText = `position:relative;width:28px;height:28px;border-radius:14px;border:${border};background:rgba(18,16,14,.9);display:flex;align-items:center;justify-content:center;`;
   dot.innerHTML = iconSvgMarkup(iconForVenueType(venue.type), 16, color.goldLight);
   wrap.appendChild(ring);
   wrap.appendChild(dot);
@@ -331,9 +338,11 @@ function buildMatchPinElement(venue: Venue, saved: boolean, onTap: () => void): 
 // color.textTertiary (#6F6558) at 13px was rendering as an indistinguishable
 // blur regardless of shape; color.textSecondary reads clearly while staying
 // visibly quieter than a gold match pin.
-function buildBackgroundPinElement(venue: Venue, saved: boolean, onTap: () => void): HTMLDivElement {
+function buildBackgroundPinElement(venue: Venue, saved: boolean, isClosed: boolean, onTap: () => void): HTMLDivElement {
   const el = document.createElement('div');
-  el.style.cssText = `width:22px;height:22px;border-radius:11px;background:rgba(18,16,14,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;`;
+  // Closed-now ring — see buildMatchPinElement's identical comment.
+  const border = isClosed ? `1.5px solid ${color.closedRed}` : 'none';
+  el.style.cssText = `width:22px;height:22px;border-radius:11px;border:${border};background:rgba(18,16,14,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;`;
   el.innerHTML = iconSvgMarkup(iconForVenueType(venue.type), 15, color.textSecondary);
   if (saved) el.appendChild(buildSavedBadge(11, 6.5));
   // See buildMatchPinElement's identical stopPropagation comment.
@@ -852,6 +861,14 @@ export default function Map() {
   }, [session.location, focusDistrictTarget]);
 
   const resolved = resolveContext(context);
+  // Closed-now pin ring (2026-09-18, at explicit user request). `false`
+  // (not `undefined`/`true`) is the only value that ever renders a red
+  // ring — a venue with no researched hours, or one confirmed open, both
+  // render exactly as before. See isVenueOpenAt's own doc comment for why
+  // "unknown" and "closed" are deliberately never conflated.
+  const closedCheckTime = currentClockTime(context.now, resolved.day as DayName, resolved.band);
+  const isVenueClosedNow = (venue: Venue) =>
+    isVenueOpenAt(venue, resolved.day as DayName, closedCheckTime) === false;
 
   // Keep the district glow in sync as context changes (the context sheet,
   // or "now" ticking forward on a re-render) — the layers themselves are
@@ -1024,7 +1041,7 @@ export default function Map() {
     if (!map) return;
     pinMarkersRef.current.forEach((m) => m.remove());
     pinMarkersRef.current = topRankedVenues.map(({ venue }) => {
-      const el = buildMatchPinElement(venue, session.isVenueSaved(venue.id), () => onVenuePinTap(venue));
+      const el = buildMatchPinElement(venue, session.isVenueSaved(venue.id), isVenueClosedNow(venue), () => onVenuePinTap(venue));
       return new mapboxgl.Marker({ element: el, anchor: 'center' })
         .setLngLat([venue.lon, venue.lat])
         .addTo(map);
@@ -1034,7 +1051,7 @@ export default function Map() {
       pinMarkersRef.current = [];
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topRankedVenues]);
+  }, [topRankedVenues, closedCheckTime]);
 
   // Rebuild the subtle "every real venue" markers whenever the visible set
   // changes (pans, zooms across the threshold, or the top-match set shifts).
@@ -1043,7 +1060,7 @@ export default function Map() {
     if (!map) return;
     backgroundPinMarkersRef.current.forEach((m) => m.remove());
     backgroundPinMarkersRef.current = backgroundVenues.map((venue) => {
-      const el = buildBackgroundPinElement(venue, session.isVenueSaved(venue.id), () => onVenuePinTap(venue));
+      const el = buildBackgroundPinElement(venue, session.isVenueSaved(venue.id), isVenueClosedNow(venue), () => onVenuePinTap(venue));
       return new mapboxgl.Marker({ element: el, anchor: 'center' })
         .setLngLat([venue.lon, venue.lat])
         .addTo(map);
@@ -1053,7 +1070,7 @@ export default function Map() {
       backgroundPinMarkersRef.current = [];
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [backgroundVenues]);
+  }, [backgroundVenues, closedCheckTime]);
 
   // "me" marker — only when a real device fix exists (never the demo point).
   useEffect(() => {
