@@ -42,6 +42,7 @@ import {
 import type { GeoBounds, GeoPoint, MapLabel } from '../../lib/map/geo';
 import { iconForVenueType, iconSvgMarkup } from '../../lib/map/venue-icons';
 import { moodTileOptionsForCategory } from '../../lib/map/mood-tiles';
+import { UCHICAGO_CAMPUS_BOUNDARY, UCHICAGO_CAMPUS_LABEL_POINT } from '../../lib/map/uchicago-campus';
 import { useSession } from '../../lib/state/session';
 import { fetchWeather } from '../../lib/weather/forecast';
 import { color, font, radius, spacing } from '../../theme';
@@ -447,6 +448,7 @@ export default function Map() {
   const pinMarkersRef = useRef<mapboxgl.Marker[]>([]);
   const backgroundPinMarkersRef = useRef<mapboxgl.Marker[]>([]);
   const meMarkerRef = useRef<mapboxgl.Marker | null>(null);
+  const campusLabelMarkerRef = useRef<mapboxgl.Marker | null>(null);
   const venuePopupRef = useRef<mapboxgl.Popup | null>(null);
   const activePopupVenueIdRef = useRef<string | null>(null);
   const autoLocatedRef = useRef(false);
@@ -757,10 +759,43 @@ export default function Map() {
         }
       });
     };
+    // University of Chicago campus outline + label (2026-09-18, at explicit
+    // user request: "can we highlight his campus in some way, maybe with a
+    // subtle boundary and a label?") — a personal touch for the specific
+    // member this metro was built for, not a general per-metro mechanism
+    // (see src/lib/map/uchicago-campus.ts's own top comment). Deliberately
+    // thin/low-opacity, nothing like the bold coverage-edge glow above —
+    // "subtle" was the explicit ask. The label is a plain always-present
+    // marker (not routed through the labels/groupVisibleDistricts system
+    // above, which exists for district clustering this single fixed point
+    // doesn't need) positioned at Nominatim's own representative point for
+    // the campus relation.
+    const addCampusLayers = () => {
+      if (map.getSource('uchicago-campus-source')) return;
+      map.addSource('uchicago-campus-source', {
+        type: 'geojson',
+        data: UCHICAGO_CAMPUS_BOUNDARY,
+      });
+      map.addLayer({
+        id: 'uchicago-campus-line',
+        type: 'line',
+        source: 'uchicago-campus-source',
+        paint: { 'line-color': color.gold, 'line-width': 1.4, 'line-opacity': 0.4 },
+      });
+      const el = document.createElement('div');
+      el.style.cssText =
+        `font-family:${font.sansMedium};font-size:9px;letter-spacing:1.8px;text-transform:uppercase;` +
+        `color:${color.gold};opacity:.75;white-space:nowrap;pointer-events:none;`;
+      el.textContent = 'University of Chicago';
+      campusLabelMarkerRef.current = new mapboxgl.Marker({ element: el, anchor: 'center' })
+        .setLngLat([UCHICAGO_CAMPUS_LABEL_POINT.lon, UCHICAGO_CAMPUS_LABEL_POINT.lat])
+        .addTo(map);
+    };
     const hideCompetingLabels = () => hideCompetingMapLabels(map);
     map.on('load', syncFromCamera);
     map.on('load', addCoverageLayers);
     map.on('load', addDistrictGlowLayers);
+    map.on('load', addCampusLayers);
     map.on('load', hideCompetingLabels);
     map.on('moveend', syncFromCamera);
 
@@ -769,6 +804,7 @@ export default function Map() {
       map.off('load', syncFromCamera);
       map.off('load', addCoverageLayers);
       map.off('load', addDistrictGlowLayers);
+      map.off('load', addCampusLayers);
       map.off('load', hideCompetingLabels);
       map.off('moveend', syncFromCamera);
       map.remove();

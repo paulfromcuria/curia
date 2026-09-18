@@ -43,6 +43,7 @@ import {
 import type { GeoBounds, GeoPoint, MapLabel } from '../../lib/map/geo';
 import { iconForVenueType, type VenueIconKey } from '../../lib/map/venue-icons';
 import { moodTileOptionsForCategory } from '../../lib/map/mood-tiles';
+import { UCHICAGO_CAMPUS_BOUNDARY, UCHICAGO_CAMPUS_LABEL_POINT } from '../../lib/map/uchicago-campus';
 import { useSession } from '../../lib/state/session';
 import { fetchWeather } from '../../lib/weather/forecast';
 import { color, font, radius, spacing } from '../../theme';
@@ -699,6 +700,24 @@ export default function Map() {
           <LineLayer id="coverage-glow-core" style={{ lineColor: color.goldLight, lineWidth: 2, lineOpacity: 0.9 }} />
         </ShapeSource>
 
+        {/* University of Chicago campus outline (2026-09-18, at explicit
+            user request: "can we highlight his campus in some way, maybe
+            with a subtle boundary and a label?") — a personal touch for the
+            specific member this metro was built for, not a general
+            per-metro mechanism. See src/lib/map/uchicago-campus.ts's own
+            top comment for the real OSM-sourced boundary data. Deliberately
+            thin/low-opacity, nothing like the bold coverage-edge glow above
+            — "subtle" was the explicit ask. */}
+        <ShapeSource id="uchicago-campus-source" shape={UCHICAGO_CAMPUS_BOUNDARY}>
+          <LineLayer id="uchicago-campus-line" style={{ lineColor: color.gold, lineWidth: 1.4, lineOpacity: 0.4 }} />
+        </ShapeSource>
+        <MarkerView
+          coordinate={[UCHICAGO_CAMPUS_LABEL_POINT.lon, UCHICAGO_CAMPUS_LABEL_POINT.lat]}
+          anchor={{ x: 0.5, y: 0.5 }}
+        >
+          <Text style={styles.campusLabel}>University of Chicago</Text>
+        </MarkerView>
+
         {/* "Make districts feel alive" (2026-08): zoomed-out area glow —
             one soft blurred circle per district, coloured by its own
             accentColor, brighter the livelier it is right now. */}
@@ -1017,6 +1036,17 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     color: 'rgba(200,188,170,.75)',
     textAlign: 'center',
+  },
+
+  // University of Chicago campus label — see uchicago-campus-source's own
+  // comment above. Mirrors map.web.tsx's identical inline style.
+  campusLabel: {
+    fontFamily: font.sansMedium,
+    fontSize: 9,
+    letterSpacing: 1.8,
+    textTransform: 'uppercase',
+    color: color.gold,
+    opacity: 0.75,
   },
 
   // Quiet on purpose (2026-09): every real venue at this zoom, so it has
