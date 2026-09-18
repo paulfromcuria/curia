@@ -228,6 +228,17 @@ test('mood filter: category alone, with no tiles narrowed, still restricts to th
   assert.equal(passesMoodFilter(venue({ type: 'SMALL PLATES' }), moodFilter), false, 'SMALL PLATES is Eat, not Do');
 });
 
+test('mood filter: a real pub passes a category-only filter for both Eat and Drink (regression — a venue type can belong to more than one category, 2026-09-18 direct user report: The Mucky Pup, a GASTROPUB, was invisible under "Go Drink," only findable under "Go Eat")', () => {
+  const gastropub = venue({ type: 'GASTROPUB' });
+  const drinkFilter = { category: 'Drink', tileIds: [], subPreferences: [] };
+  const eatFilter = { category: 'Eat', tileIds: [], subPreferences: [] };
+  assert.equal(passesMoodFilter(gastropub, drinkFilter), true, 'a pub is a real Drink destination too');
+  assert.equal(passesMoodFilter(gastropub, eatFilter), true, 'a pub still serves food');
+  // A venue with only ever had one real category (unaffected by this
+  // change) still correctly excludes the other.
+  assert.equal(passesMoodFilter(schofields, eatFilter), false, 'COCKTAIL BAR is Drink-only, not Eat');
+});
+
 test('mood filter: also accepts real Tile catalog ids, not just bare type-slugs', () => {
   const moodFilter = { category: 'Drink', tileIds: ['Drink|Upmarket pubs'], subPreferences: [] };
   assert.equal(passesMoodFilter(venue({ type: 'COUNTRY PUB' }), moodFilter), true);

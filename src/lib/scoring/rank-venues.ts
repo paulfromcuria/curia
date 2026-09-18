@@ -108,7 +108,11 @@ export function passesMoodFilter(
   moodFilter: MatchmakingInput['moodFilter']
 ): boolean {
   if (!moodFilter) return true;
-  if (CATEGORY_BY_VENUE_TYPE[venue.type] !== moodFilter.category) return false;
+  // A venue type can genuinely belong to more than one category (a real
+  // pub is both a Drink and an Eat destination — see
+  // CATEGORY_BY_VENUE_TYPE's own doc comment), so this checks membership,
+  // not equality.
+  if (!(CATEGORY_BY_VENUE_TYPE[venue.type] ?? []).some((c) => c === moodFilter.category)) return false;
   if (moodFilter.tileIds.length > 0) {
     const matchingSlugs = new Set(moodFilter.tileIds.flatMap(tileIdToVenueTypeSlugs));
     if (!matchingSlugs.has(slugifyType(venue.type))) return false;
