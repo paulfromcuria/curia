@@ -61,9 +61,25 @@ export type TileCategory = 'Do' | 'Drink' | 'Eat' | 'Holiday';
  * narrow, not a fork of the product. Asked once, early in onboarding (see
  * src/app/onboarding.tsx's 'Region' step), before Drink tiles are shown.
  * 'uk' covers Manchester and Cheshire both — they already share one Drink
- * catalog today, so this doesn't split them further.
+ * catalog today, so this doesn't split them further. Also covers London
+ * (2026-09-15) — same reasoning, a second UK metro sharing the identical
+ * catalog.
+ *
+ * 'usa' added 2026-09-18 alongside Chicago (Curia's first US metro) — at
+ * explicit user request, the onboarding Region picker splits into three
+ * real options (UK / USA / Middle East) rather than silently folding a US
+ * member into the 'UK' bucket. There is no separate US Drink catalog today
+ * — alcohol is legal and normal in the US, same as the UK, so 'usa' is a
+ * distinct value purely so the Region picker can highlight the right
+ * button (two options can't share one value without both lighting up as
+ * "selected" — see onboarding.tsx's REGION_OPTS), not because the Drink
+ * tiles actually differ. tilesByCategory() (src/lib/data/seed.ts) treats a
+ * `region: 'uk'` tile as visible to 'usa' members too, so no existing
+ * Drink tile needed re-tagging. If US taste ever genuinely diverges from
+ * UK Drink culture, that's the seam to build a real 'usa'-tagged catalog
+ * against, the same way Riyadh's was.
  */
-export type HomeRegion = 'uk' | 'riyadh';
+export type HomeRegion = 'uk' | 'riyadh' | 'usa';
 
 export interface Tile {
   id: string;

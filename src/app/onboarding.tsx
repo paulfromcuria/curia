@@ -96,9 +96,19 @@ const HEADLINES: Record<Step, string> = {
 const REGION_SUBHEAD =
   "Sets the Drink options you'll see next — everything else is the same wherever you are.";
 
+// Split into three 2026-09-18, at explicit user request, once Chicago made
+// the old two-option picker ('UK (Manchester & Cheshire)' / 'Riyadh')
+// actively stale — that label never covered London, and covered Chicago
+// even less. 'USA' is a distinct HomeRegion value from 'uk' purely so this
+// picker highlights the right button (see HomeRegion's own doc comment,
+// types/models.ts, for why the Drink catalog itself doesn't actually
+// differ yet). 'Middle East' is a relabel of the existing 'riyadh' value,
+// not a new one — Riyadh is still the only real Middle East market, so
+// nothing downstream needed to change for this one.
 const REGION_OPTS: { label: string; value: HomeRegion }[] = [
-  { label: 'UK (Manchester & Cheshire)', value: 'uk' },
-  { label: 'Riyadh', value: 'riyadh' },
+  { label: 'UK', value: 'uk' },
+  { label: 'USA', value: 'usa' },
+  { label: 'Middle East', value: 'riyadh' },
 ];
 
 // 2026-09, at explicit user request, following on from feedback that

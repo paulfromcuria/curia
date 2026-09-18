@@ -381,16 +381,28 @@ export function momentsByDistrict(districtId: string): Moment[] {
   );
 }
 
+/** Whether a tile tagged for `tileRegion` should show to a member whose
+ * Region answer is `memberRegion`. Exact match, plus one deliberate alias:
+ * 'usa' shares the 'uk' Drink catalog wholesale (see HomeRegion's own doc
+ * comment, types/models.ts) — no tile in docs/data/tiles.json is actually
+ * tagged 'usa' today, so without this a US member's Region picker would
+ * gate them into an empty Drink category. */
+function regionMatchesTile(tileRegion: HomeRegion, memberRegion: HomeRegion): boolean {
+  if (tileRegion === memberRegion) return true;
+  return tileRegion === 'uk' && memberRegion === 'usa';
+}
+
 /** `homeRegion` only matters for categories with region-scoped tiles
  * (currently just Drink — see HomeRegion's own doc comment,
  * types/models.ts). A tile with no `region` is universal and always
- * included; a tile with one is only included when it matches. Passing no
+ * included; a tile with one is only included when it matches (see
+ * regionMatchesTile above for the one 'uk'/'usa' alias). Passing no
  * `homeRegion` (or null, the pre-answer state) falls back to 'uk' — every
  * real member before this feature existed is UK-based, and onboarding's
  * own 'Region' step is what actually sets a real value. */
 export function tilesByCategory(category: TileCategory, homeRegion?: HomeRegion | null): Tile[] {
   const effectiveRegion = homeRegion ?? 'uk';
-  return TILES.filter((t) => t.category === category && (!t.region || t.region === effectiveRegion));
+  return TILES.filter((t) => t.category === category && (!t.region || regionMatchesTile(t.region, effectiveRegion)));
 }
 
 export function venuesByDistrict(districtId: string): Venue[] {
