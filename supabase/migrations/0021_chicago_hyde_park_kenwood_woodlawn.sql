@@ -16,6 +16,14 @@
 -- distinctiveness/ownership values (same split as
 -- 0019_cheshire_golf_clubs.sql).
 
+-- cities must be inserted before districts — districts.metro has a foreign
+-- key to cities(id) (see supabase/migrations/0001_init.sql). Original order
+-- here was backwards (caught 2026-09-18 when this actually ran against a
+-- real Postgres instance for the first time — never exercised before, since
+-- nothing had tried to run this migration until now).
+insert into cities (id, name) values ('chicago', 'Chicago')
+on conflict (id) do update set name = excluded.name;
+
 insert into districts (id, name, metro, lat, lon, base, kind, accent_color, editorial_description)
 values
   ('hyde-park', 'Hyde Park', 'chicago', 41.8010, -87.5872, 82, 'city', '#B8925A', 'A university town within a city, built around a Gothic quad and the stretch of 53rd and 57th that services it — secondhand bookshops that have outlasted their landlords twice over, a cafeteria line Obama used to queue in, and a Michelin Bib Gourmand two blocks from the lecture halls. Lake Michigan on one side, the Midway on the other, and just enough independent grit left in the storefronts that the neighbourhood still reads as lived-in, not curated.'),
@@ -25,9 +33,6 @@ on conflict (id) do update set
   name = excluded.name, metro = excluded.metro, lat = excluded.lat, lon = excluded.lon,
   base = excluded.base, kind = excluded.kind, accent_color = excluded.accent_color,
   editorial_description = excluded.editorial_description;
-
-insert into cities (id, name) values ('chicago', 'Chicago')
-on conflict (id) do update set name = excluded.name;
 
 insert into venues (
   id, name, type, sub_preference_tags, spend_level, district_id, metro,
