@@ -10,12 +10,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  clampRadiusMiles,
   MATCH_PIN_MIN_SCORE_RATIO,
   MAX_MATCH_PINS,
+  MAX_RADIUS_MILES,
   MIN_MATCH_PIN_GAP_PX,
+  MIN_RADIUS_MILES,
   metersPerPixelAt,
   projectToPixels,
   selectCollisionFreePins,
+  spanMilesToRadiusMiles,
+  ZOOM_DERIVED_MIN_RADIUS_MILES,
   type GeoPoint,
 } from './projection.ts';
 
@@ -208,4 +213,44 @@ test('quality floor: a genuinely close-scoring venue still gets a fair shot at a
     ['best', 'close-second'],
     '80 is well within 70% of 90 — the floor should never exclude a real near-match'
   );
+});
+
+// ---------------------------------------------------------------------------
+// spanMilesToRadiusMiles / clampRadiusMiles — the ranking-radius floor.
+// Real bug, 2026-09-18 direct user report: zoomed in tight on Wilmslow on a
+// Friday evening, a fitness studio showed as "the" recommendation over
+// several real, closer bars — because that tight a zoom collapsed the
+// ranking radius down to the bare 0.25mi slider floor, and Wilmslow's real
+// bars sit at real distances (0.25-0.4mi) that got hard-excluded, leaving
+// the gym as one of the only survivors. See ZOOM_DERIVED_MIN_RADIUS_MILES's
+// own doc comment for the full story.
+// ---------------------------------------------------------------------------
+
+test('clampRadiusMiles: clamps to the real prototype slider range, ¼mi to 30mi', () => {
+  assert.equal(clampRadiusMiles(0.01), MIN_RADIUS_MILES);
+  assert.equal(clampRadiusMiles(100), MAX_RADIUS_MILES);
+  assert.equal(clampRadiusMiles(5), 5);
+});
+
+test('spanMilesToRadiusMiles: a wide span (zoomed out) is unaffected by the zoom-derived floor', () => {
+  // 8mi span -> 4mi radius, well above the 1mi floor.
+  assert.equal(spanMilesToRadiusMiles(8), 4);
+});
+
+test('spanMilesToRadiusMiles: a tight zoom no longer collapses the ranking radius to the bare 0.25mi slider floor', () => {
+  // A very tight zoom implies a span well under half a mile — half of that
+  // is under MIN_RADIUS_MILES, so clampRadiusMiles alone would floor it at
+  // 0.25mi (the exact bug: Wilmslow's real bars sit at 0.25-0.4mi, outside
+  // that). ZOOM_DERIVED_MIN_RADIUS_MILES (1mi) is the real fix.
+  assert.equal(spanMilesToRadiusMiles(0.1), ZOOM_DERIVED_MIN_RADIUS_MILES);
+  assert.equal(spanMilesToRadiusMiles(0.4), ZOOM_DERIVED_MIN_RADIUS_MILES);
+});
+
+test('spanMilesToRadiusMiles: never returns less than ZOOM_DERIVED_MIN_RADIUS_MILES, whatever the input', () => {
+  for (const span of [0, 0.01, 0.5, 1, 1.9]) {
+    assert.ok(
+      spanMilesToRadiusMiles(span) >= ZOOM_DERIVED_MIN_RADIUS_MILES,
+      `span ${span} produced a radius below the floor`
+    );
+  }
 });
