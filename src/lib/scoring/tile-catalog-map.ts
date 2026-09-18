@@ -67,8 +67,17 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   'Cookery & craft': ['cookery-school', 'pottery-studio', 'cookbook-shop'],
   'Walking tours': ['walking-tour'],
   // cricket-club added 2026-09-03 (Mobberley Cricket Club) — same spectator
-  // afternoon as rugby/golf, just a different pitch.
-  'Spectator sport': ['rugby-club', 'golf-club', 'cricket-club'],
+  // afternoon as rugby, a different pitch. golf-club removed 2026-09-18,
+  // at explicit user request adding a real 'Play sport' tile below — a
+  // private members' golf club is somewhere you play, not spectator
+  // infrastructure the way a racecourse or a rugby ground is; it never
+  // belonged here, it just had nowhere better to go until now.
+  'Spectator sport': ['rugby-club', 'cricket-club'],
+  // Play sport added 2026-09-18 (22 real Cheshire golf clubs — see
+  // venues.json's own _cheshireGolfClubsSource note). Padel/Tennis have no
+  // real venues yet — real sub-preference options, not wired to a type
+  // until real ones exist, same as this file's other thin-but-real tiles.
+  'Play sport': ['golf-club'],
   // fitness-studio (Alchemy Personal Training) deliberately left untiled —
   // 2026-09-03 review: one-to-one personal training isn't an evening-plans
   // discovery the way spa/wellness is; CATEGORY_BY_VENUE_TYPE below still
