@@ -32,6 +32,7 @@ import {
   getDistrictLocalAreas,
   groupVisibleDistricts,
   isNearHolidayCoverage,
+  metroForPoint,
   normalizeLiveliness,
   radiusMilesToZoomLevel,
   SEVEN_MINUTE_WALK_RADIUS_MILES,
@@ -550,13 +551,24 @@ export default function Map() {
   // same haversineMiles-against-searchOrigin ordering List's district-browse
   // mode and Moments' pill row both already use. Filtered to districts with
   // at least one real venue, so no pill is a dead end.
-  const nearbyDistricts = useMemo(
-    () =>
-      DISTRICTS.filter((d) => VENUES.some((v) => v.districtId === d.id)).sort(
-        (a, b) => haversineMiles(session.searchOrigin, a) - haversineMiles(session.searchOrigin, b)
-      ),
-    [session.searchOrigin]
-  );
+  // Scoped to the search origin's own metro (2026-09-18, at explicit user
+  // report, real bug — "when in chicago i shouldnt be able to quick nav to
+  // wilmslow, i shouldnt see that option"): this used to sort every
+  // district in every metro by raw haversine distance with no metro filter
+  // at all, so once a metro's own handful of districts ran out, the
+  // next-nearest by pure geography was whatever real-world metro happened
+  // to be least far away (Cheshire genuinely is closer to Chicago than
+  // Riyadh is). Same fix as map.web.tsx's identical `nearbyDistricts`,
+  // adapted for this file not having that one's `focusedMetro` state —
+  // metroForPoint(searchOrigin) directly instead. No metro (camera in
+  // "no man's land" between markets) now shows no chips rather than a
+  // cross-continent guess.
+  const nearbyDistricts = useMemo(() => {
+    const metro = metroForPoint(session.searchOrigin);
+    return DISTRICTS.filter((d) => d.metro === metro && VENUES.some((v) => v.districtId === d.id)).sort(
+      (a, b) => haversineMiles(session.searchOrigin, a) - haversineMiles(session.searchOrigin, b)
+    );
+  }, [session.searchOrigin]);
 
   // Venue pin tap behaviour (2026-09, at explicit user request: "instead of
   // going straight to the venue page, on first tap lets have a pop up
@@ -756,7 +768,7 @@ export default function Map() {
         {backgroundVenues.map((venue) => (
           <MarkerView key={venue.id} coordinate={[venue.lon, venue.lat]} anchor={{ x: 0.5, y: 0.5 }}>
             <Pressable onPress={() => onVenuePinTap(venue)} style={styles.backgroundPin} hitSlop={6}>
-              <VenueTypeIcon icon={iconForVenueType(venue.type)} size={13} color={color.textTertiary} />
+              <VenueTypeIcon icon={iconForVenueType(venue.type)} size={15} color={color.textSecondary} />
               {session.isVenueSaved(venue.id) && <SavedBadge size={11} fontSize={6.5} />}
             </Pressable>
           </MarkerView>
@@ -1009,13 +1021,16 @@ const styles = StyleSheet.create({
 
   // Quiet on purpose (2026-09): every real venue at this zoom, so it has
   // to stay clearly secondary to the bright pulsing `matchDot` style below
-  // — no border, a faint low-opacity fill, and a dim icon color
-  // (color.textTertiary) rather than the gold used everywhere a match is
-  // being highlighted.
+  // — no border, a faint low-opacity fill, a muted icon color rather than
+  // the gold used everywhere a match is being highlighted. Size bumped
+  // 2026-09-18 alongside map.web.tsx's identical fix, at explicit user
+  // report ("chicago is still a sea of dots") — color.textTertiary at 13px
+  // read as an indistinguishable blur regardless of the venue's real icon
+  // shape; see the VenueTypeIcon call site below for the matching color bump.
   backgroundPin: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
     backgroundColor: 'rgba(18,16,14,.55)',
     alignItems: 'center',
     justifyContent: 'center',
