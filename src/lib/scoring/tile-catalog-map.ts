@@ -118,22 +118,23 @@ export const TILE_NAME_TO_VENUE_TYPE_SLUGS: Record<string, string[]> = {
   // tiles entirely for Riyadh members rather than sitting alongside them.
   // coffee-room already existed (reused above for 'Cafés (late)') — reused
   // again here rather than introducing a second, redundant type.
-  'Specialty coffee': ['coffee-room'],
+  //
+  // Riyadh tile-simplification pass, 2026-09-18 (same user request/standard
+  // as the UK pass the same night — see docs/data/tiles.json's own
+  // _riyadhTileSimplificationSource note): cut 5 of the original 8 tiles
+  // (0-1 real matching venues each — Mocktail lounges/Juice & smoothie
+  // bars/Rooftop cafés were already unwired at 0 venues; Hotel lounges and
+  // Tea houses had exactly 1 each). tea-house folded into Specialty coffee
+  // — its one real venue (HODAJ) stays reachable via the surviving tile
+  // rather than losing it to category-only status, same "fold the
+  // single-venue loser into the closest surviving tile" pattern the UK
+  // pass used for Whisky & spirits/Beer gardens. Hotel lounges had no
+  // comparably-close surviving tile to fold into, so its one venue is
+  // category-only now (CATEGORY_BY_VENUE_TYPE below), same as UK's
+  // "Members' clubs".
+  'Specialty coffee': ['coffee-room', 'tea-house'],
   'Shisha lounges': ['shisha-lounge'],
   'Dessert cafés': ['dessert-cafe'],
-  'Hotel lounges': ['hotel-lounge'],
-  // tea-house added 2026-09-15 (HODAJ, Diriyah) — the second Riyadh venue
-  // pass's first Tea houses match.
-  'Tea houses': ['tea-house'],
-  // 'Mocktail lounges' and 'Juice & smoothie bars' still match zero
-  // venues — a real coverage gap for the next Riyadh pass, not wired to
-  // anything yet since a mapping with no venue behind it would be
-  // premature (same "an empty array is not a bug" convention as every
-  // other sparse tile in this file).
-  //
-  // "Members' clubs" cut 2026-09-18 (tile-simplification pass) — its one
-  // real venue (members-club type) stays visible via CATEGORY_BY_VENUE_TYPE
-  // below, just without a dedicated onboarding pick.
   // listening-bar added 2026-09-03 (Nam) — a serious-sound-system basement
   // room after dark is the same late-night register as Symposium.
   'Late-night lounges': ['late-night-lounge', 'listening-bar'],
