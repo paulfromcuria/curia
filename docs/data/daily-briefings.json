@@ -3,6 +3,25 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-09-18",
+      "synced": false,
+      "title": "17 venues promoted across Chester, Tarporley, Northwich, Heaton Moor and Didsbury; 2 rejected as a real chain and a real closure; 1 naming mix-up still unresolved",
+      "summary": "Independently re-verified all 15 pending candidates with a 2026-09-17/18 suggestedDate (6 Chester, 4 Tarporley, 5 Northwich) plus Eden (Heaton Moor, found unbatched and checked separately), and re-attempted the 4 long-stuck pending-review-queue items. Promoted 17 venues in total. Rejected Olive Tree Brasserie (Chester) — turned out to be a real, currently 4-site group spanning three regions with a director banned for Covid loan fraud, not the tidy 3-site group originally described — and resolved the long-stuck Prana (Altrincham) item to REJECT, since the unit is now being marketed by commercial agents as available premises. Also resolved two other long-stuck items to PROMOTE: Buon Cibo (Heaton Moor, the Companies House entity cluster turned out to be one small operator, not an expanding chain) and Rustik (Didsbury, evening/live-music service confirmed resumed). The Underbank naming mix-up (Stockport (Underbanks)) remains unresolved — fresh research actually contradicts the working theory recorded on 2026-09-16, so no database change was made; left pending with updated notes. Curia Command's pending_review collection had zero decided items to apply this run. The closure-audit rotating slice (Where the Light Gets In, Bruk, Stockport Market Hall, FOLK, Marie Louise Gardens) found no closures.",
+      "items": [
+        { "label": "Craft & Company, Beer Heroes, Huxley's, Paysan, Shrub (Chester)", "detail": "promoted — all re-confirmed real, trading, independent; Huxley's survived a real 2025-26 council seating dispute" },
+        { "label": "Piste Wine Bar & Restaurant, Rose Farm Shop, Beeston Castle, Bonjour Wines (Tarporley)", "detail": "promoted — all confirmed real, open and independent" },
+        { "label": "Board Beans, Turturici, Barons, Northwich Market, HUSH Brewing Tap (Northwich)", "detail": "promoted — all confirmed real and trading; Northwich Market confirmed to have actually opened today (18 Sept 2026) as planned" },
+        { "label": "Eden (Heaton Moor)", "detail": "promoted — found unbatched by the parallel research pass, independently re-verified separately; real, open, single-site" },
+        { "label": "Buon Cibo (Heaton Moor)", "detail": "resolved from the long-stuck pending-review-queue to PROMOTE — Companies House cluster resolved to one small operator, not a chain; claimed Reddish sister site dropped as unconfirmed" },
+        { "label": "Rustik (Didsbury)", "detail": "resolved from the long-stuck pending-review-queue to PROMOTE — evening/live-music service confirmed resumed" },
+        { "label": "Olive Tree Brasserie (Chester)", "detail": "rejected — actually a real, currently 4-site group spanning Cheshire/Lancashire/West Yorkshire; founder banned as company director for 10.5 years over Covid loan fraud (Nov 2024)" },
+        { "label": "Prana (Altrincham)", "detail": "resolved from the long-stuck pending-review-queue to REJECT — the unit is now being marketed by commercial agents as available premises, new evidence of closure" },
+        { "label": "Underbank naming mix-up (Stockport (Underbanks))", "detail": "still unresolved — fresh research contradicts the 2026-09-16 working theory; left pending, no database change made" }
+      ],
+      "createdAt": "2026-09-18T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-16",
       "synced": false,
       "title": "8 venues + Chester (new Cheshire district) promoted; 1 rejected as a real chain, 1 naming mix-up sent for review",
