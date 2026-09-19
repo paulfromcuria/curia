@@ -25,6 +25,16 @@ import { color, font, radius, spacing } from '../theme';
  * src/app/journey/[id].tsx) are still curia-moments-journeys' placeholders
  * for the same reason — once built, they should call
  * `session.toggleSavedVenue` / `session.toggleSavedJourney`.
+ *
+ * 2026-09-19 addition: a venue saved before it closed (status='closed' —
+ * real closures happen, see migrations 0011/0032/0035) stays in a
+ * member's collection forever otherwise, with nothing here to say it's
+ * gone — this screen's own intro copy promises places are "re-ranked
+ * against tonight every time you open them," which a silently-dead
+ * saved venue directly contradicts. A small CLOSED tag next to the name
+ * flags it without removing it from the collection (that's the member's
+ * call, via the existing remove button, not this screen's to make for
+ * them). Same status field venue/[id].tsx's own CLOSED badge reads.
  */
 
 type SavedView = 'places' | 'journeys';
@@ -141,7 +151,12 @@ function PlacesView({
                     <Text style={styles.rowThumbLabel}>{venue.name[0]}</Text>
                   </Pressable>
                   <Pressable onPress={() => router.push(`/venue/${venueId}`)} style={styles.rowText}>
-                    <Text style={styles.rowLabel}>{venue.name}</Text>
+                    <View style={styles.rowLabelRow}>
+                      <Text style={styles.rowLabel}>{venue.name}</Text>
+                      {venue.status === 'closed' && (
+                        <Text style={styles.rowClosedTag}>CLOSED</Text>
+                      )}
+                    </View>
                     <Text style={styles.rowMeta}>{meta}</Text>
                   </Pressable>
                   <Pressable
@@ -308,10 +323,26 @@ const styles = StyleSheet.create({
     minWidth: 0,
     gap: spacing.xs + 4,
   },
+  rowLabelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs + 4,
+  },
   rowLabel: {
     fontFamily: font.serifRegular,
     fontSize: 19,
     color: color.textPrimary,
+  },
+  rowClosedTag: {
+    fontFamily: font.sansMedium,
+    fontSize: 9.5,
+    letterSpacing: 1.4,
+    color: color.closedRed,
+    borderWidth: 1,
+    borderColor: 'rgba(192,82,74,.5)',
+    borderRadius: radius.pill,
+    paddingHorizontal: 7,
+    paddingVertical: 2,
   },
   rowMeta: {
     fontFamily: font.sans,

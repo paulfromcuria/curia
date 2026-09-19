@@ -376,6 +376,7 @@ function isOutdoorLeaning(venue: Venue): boolean {
 
 const WET_OR_COLD = ['rain', 'snow', 'sleet', 'storm', 'cold', 'freezing'];
 const WARM_OR_CLEAR = ['sun', 'clear', 'warm', 'hot'];
+const EXTREME_WEATHER_KEYWORDS = ['storm', 'rain', 'downpour', 'snow', 'gale', 'thunder', 'sleet'];
 
 /**
  * Weather isn't given a precise formula anywhere in CLAUDE.md, just listed as
@@ -391,6 +392,34 @@ export function scoreWeather(venue: Venue, weather: string | undefined): number 
   if (WET_OR_COLD.some((k) => w.includes(k))) return outdoor ? 0.2 : 0.8;
   if (WARM_OR_CLEAR.some((k) => w.includes(k))) return outdoor ? 1 : 0.5;
   return 0.5;
+}
+
+/**
+ * A discount multiplier for the one case scoreWeather's additive treatment
+ * structurally can't catch: a fundamentally outdoor-only venue (a
+ * rooftop, a beer garden) during genuinely extreme weather (a real storm,
+ * not just "a bit cold") — the same shape of bug scoreBandFitFactor fixes
+ * above, just for weather instead of time-of-day. At weather's own base
+ * weight, even weightsFor's existing x3 extreme-weather boost can only
+ * ever separate an ideal indoor pick from a poor outdoor one by about 8
+ * points out of 100 (0.6 point gap x ~0.136 normalized weight) — nowhere
+ * near enough to stop a strongly-based rooftop bar from still winning
+ * during a literal thunderstorm.
+ *
+ * Deliberately narrower than scoreBandFitFactor: only fires for
+ * genuinely extreme conditions (EXTREME_WEATHER_KEYWORDS, the same bar
+ * weightsFor already uses for its own boost, not "a bit cold") AND a
+ * venue that's fundamentally outdoor rather than merely weather-adjacent
+ * (isOutdoorLeaning only flags rooftop/garden/terrace/outdoor/
+ * country-pub types — a restaurant that merely has a few outdoor tables
+ * isn't touched by this at all). 0.4, not 0 — the same never-a-hard-
+ * zero-out principle as every other discount in this file; a genuinely
+ * unique rooftop can still surface as the only real match.
+ */
+export function scoreWeatherFitFactor(venue: Venue, weather: string | undefined): number {
+  if (!weather || !isOutdoorLeaning(venue)) return 1;
+  const w = weather.toLowerCase();
+  return EXTREME_WEATHER_KEYWORDS.some((k) => w.includes(k)) ? 0.4 : 1;
 }
 
 const BAND_PHRASE: Record<NonNullable<MatchContext['band']>, string> = {
@@ -517,8 +546,6 @@ function normalizeWeights(w: ScoreWeights): ScoreWeights {
   return out as ScoreWeights;
 }
 
-const EXTREME_WEATHER_KEYWORDS = ['storm', 'rain', 'downpour', 'snow', 'gale', 'thunder', 'sleet'];
-
 /**
  * Context-dependent weight schedule (2026-09, at explicit user request:
  * "pet weighting is more important in the day time than late night" —
@@ -616,10 +643,11 @@ export function reasonFor(
  * pet fit (scorePetFit), district liveliness (scoreLiveliness), proximity
  * (scoreProximity) and the crowd rating signal (scoreRatings), all weighted
  * contextually by `weightsFor` rather than a fixed set (see that function's
- * own comment) — then discounted by two multipliers rather than additive
- * weighted terms: scoreBandFitFactor (does this venue even run right now)
- * and Gate 2 distinctiveness (scoreDistinctivenessFactor). Pure: same
- * inputs always produce the same output, no I/O,
+ * own comment) — then discounted by three multipliers rather than additive
+ * weighted terms: scoreBandFitFactor (does this venue even run right now),
+ * scoreWeatherFitFactor (an outdoor-only venue in genuinely extreme
+ * weather) and Gate 2 distinctiveness (scoreDistinctivenessFactor). Pure:
+ * same inputs always produce the same output, no I/O,
  * no seed import (see module doc comment). `districts` is optional lookup
  * context for the day-of-week/liveliness signals only; `ratingStats`
  * likewise for scoreRatings — both degrade gracefully (neutral scoring)
@@ -656,12 +684,14 @@ export function rankVenues(
       scoreProximity(venue, input.location, input.radiusMiles) * weights.proximity +
       scoreRatings(venue, ratingStats) * weights.ratings;
 
-    // Two discount multipliers on the summed score, not additive weighted
-    // terms — see each function's own comment for why. Order doesn't
-    // matter (multiplication commutes); band fit first here only because
-    // it's the newer of the two.
+    // Three discount multipliers on the summed score, not additive
+    // weighted terms — see each function's own comment for why. Order
+    // doesn't matter (multiplication commutes); newest first.
     const distinctivenessAdjusted =
-      weighted * scoreBandFitFactor(venue, resolved.band) * scoreDistinctivenessFactor(venue);
+      weighted *
+      scoreBandFitFactor(venue, resolved.band) *
+      scoreWeatherFitFactor(venue, input.context.weather) *
+      scoreDistinctivenessFactor(venue);
 
     return {
       venueId: venue.id,
