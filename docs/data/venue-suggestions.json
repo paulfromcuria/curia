@@ -138,6 +138,75 @@
       "suggestedDate": "2026-09-17",
       "status": "rejected",
       "researchNotes": "Verified via the venue's own site (olivetreebrasserie.co.uk), Tripadvisor (4.2/5, active 2026 reviews) and Facebook (92% recommend, 971 reviews): Olive Tree Brasserie, 39-41 Watergate Row, Chester CH1 2LE — Greek/Mediterranean brasserie, third site opened 2016 for Dean Wilson's small group (Lytham St Annes 2007, Preston 2012, Chester 2016). A genuine 3-town regional group, flagged accurately rather than claimed single-site — within the small-sibling-group allowance already established repeatedly elsewhere in this file (Wallop, The Creameries, Bar Six, all 3-site groups), not treated as a chain. One of several first venues for the newly-seeded Chester district. Coordinates from Watergate Street's own documented street coordinates, postcode-geocoding APIs being network-blocked this session. Reuses the existing GREEK TAVERNA type. Moderate confidence (3-site footprint is a real judgment call for the reviewer, though consistent with standing precedent). REVIEW ATTEMPTED 2026-09-17 (curia-suggestion-review): could not be independently re-verified this run due to a genuine research-tool outage — WebSearch returned 'unavailable' errors on most queries and otherwise surfaced only Wikipedia-indexed content (no Wikipedia coverage exists for this venue), and WebFetch was EGRESS_BLOCKED for every other domain tried (Google, Bing, DuckDuckGo, Instagram, Facebook, Tripadvisor, Companies House, CAMRA/whatpub). This is the highest-priority Chester candidate to re-check once tooling recovers — a claimed 3-site regional group (Lytham St Annes/Preston/Chester) is exactly the multi-region footprint Hard rule 1 exists to catch, and it was never independently confirmed beyond the original researcher's own notes. Left 'pending', unchanged, rather than promoted on trust or rejected without evidence. REJECTED on independent re-verification 2026-09-18 (curia-suggestion-review): the operator, Dean Wilson, actually runs a currently-4-site group spanning three regions — Chester, Lytham (Bank House, replacing the original St Annes site which closed ~2018), Stockton Heath (Warrington, opened 2018) and Leeds (Pearl Chambers, opened December 2023, a genuine out-of-region expansion) — not the tidy 3-site Lancashire group (St Annes/Preston/Chester) the original candidate described; the Preston site also closed August 2021 after a landlord dispute, on top of St Annes closing earlier. This is well past this file's small-sibling-group allowance and reads as a real, currently-expanding regional chain. Separately, and independently disqualifying on its own: Dean Wilson was banned from acting as a company director for 10 years and 6 months (ruling reported November 2024) for exploiting the Covid-19 Bounce Back Loan scheme — two separate £50,000 loans taken against the one-loan-per-business rule, discovered during the Preston entity's insolvency. Sources: Blog Preston and Chester Standard coverage of the director ban, Leeds List's coverage of the Leeds opening, Blackpool Gazette on the St Annes/Lytham move, and the Lancashire Evening Post on the Preston closure. Do not re-suggest unless the group's footprint materially contracts back to a genuine small sibling pair."
-    }
-  ]
+    },
+    {
+      "name": "Zaza Cafe Bar",
+      "district": "northwich",
+      "type": "BRUNCH SPOT",
+      "spend": "££",
+      "lat": 53.2622,
+      "lon": -2.5111,
+      "base": 68,
+      "bands": ["morning", "afternoon"],
+      "reason": "A sixty-seat room on Witton Street running an English-and-Turkish brunch menu built to actually cover dietary asks — halal, gluten-free and vegan orders arrive without an apologetic asterisk — and a 4.6-plus average across every review site that bothers to ask.",
+      "suggestedDate": "2026-09-19",
+      "status": "pending",
+      "researchNotes": "Verified via Companies House (ZAZA CAFE BAR LTD, incorporated 15 March 2022, single registered office at 57 Witton Street, Northwich CW9 5DW, one person with significant control), the Food Hygiene Ratings register and current cross-platform reviews (Restaurantji 4.6/5 across 166 ratings, Google 4.7, Facebook 5.0, Tripadvisor 5.0, all live 2026). A 60-seat breakfast/brunch cafe-bar with outdoor seating, English and Turkish dishes, catering to gluten-free/vegan/vegetarian/halal. Companies House lists only the one registered address — no second site found despite a separate Warrington listing turning up on one aggregator (Wanderlog), which reads as a data artefact rather than a real second branch given the single registered company and no corroborating source; flagged for the reviewer to double-check rather than hidden. Coordinates from the CW9 5DW postcode centroid (Witton Street), matching the same street already used for this queue's pending Board Beans entry. Reuses the existing BRUNCH SPOT type. Northwich's real Eat category was its thinnest (1 venue, Kanya Bistro Bar) before this addition, even counting this queue's own pending Turturici. High confidence."
+    },
+    {
+      "name": "Sali's Souvlaki",
+      "district": "chorlton",
+      "type": "SOUVLAKI SPOT",
+      "spend": "££",
+      "lat": 53.440841,
+      "lon": -2.2761,
+      "base": 72,
+      "bands": ["afternoon", "evening"],
+      "reason": "Sali and Besmira's own grill on Barlow Moor Road, Albanian and Greek between them — souvlaki and imported Greek drinks cooked the way it's cooked at home, not translated for a passing tourist.",
+      "suggestedDate": "2026-09-19",
+      "status": "pending",
+      "researchNotes": "Verified via Companies House (SALI'S SOUVLAKI LTD, registered), Manchester Food Tourist's own review, and current Facebook/Google activity: Sali's Souvlaki, 559a Barlow Moor Road, Chorlton, Manchester M21 8AN — a family-run Greek grill specialising in souvlaki and traditional delicacies, owned by Sali (Albanian) and Besmira (Greek). No second site or group ownership found anywhere. Coordinates from the M21 8AN postcode centroid (Barlow Moor Road). Reuses the existing SOUVLAKI SPOT type (already used once, for Santorini's Perissa & Perivolos) and maps to the real 'Neighbourhood favourite' onboarding tile via the same honest-fixture register as this file's other cuisine-specific Eat venues — closes a real, flagged gap: Manchester/Cheshire's whole Greek-taverna-adjacent coverage was a single Wilmslow venue (The Stolen Lamb) before this. High confidence."
+    },
+    {
+      "name": "Vietnamese Potbellied",
+      "district": "chorlton",
+      "type": "VIETNAMESE",
+      "spend": "££",
+      "lat": 53.442763,
+      "lon": -2.280659,
+      "base": 74,
+      "bands": ["afternoon", "evening"],
+      "reason": "A small BYOB room on Wilbraham Road running a short, genuinely Vietnamese menu — bun cha and a papaya salad that don't need a photo on the wall to sell them.",
+      "suggestedDate": "2026-09-19",
+      "status": "pending",
+      "researchNotes": "Verified via Tripadvisor (current 2026 reviews, consistently praising the pho and bun cha), Manchester's Finest and thatsup.co.uk: Vietnamese Potbellied, 520 Wilbraham Road, Chorlton-cum-Hardy, Manchester M21 9AW — a small, independently and family-run Vietnamese street-food restaurant, BYOB, indoor and outdoor seating. No second site or group ownership found anywhere. Coordinates from the M21 9AW postcode centroid (Wilbraham Road) — the same postcode centroid already used in this file for Chorlton Bookshop, a genuine coincidence of two venues sharing a postcode district, not a duplicate. Reuses the existing VIETNAMESE type, closing the same real gap as Sali's Souvlaki above: Manchester/Cheshire's only prior Vietnamese venue anywhere was a single Wilmslow restaurant (Vietbowl). Considered and deliberately did not suggest Viet Shack (Ancoats) instead/as well — real and well-reviewed, but now a 3-site operation within Manchester (Arndale Market, Ancoats, plus a Manchester Met University outpost reported as opening) with an actively growing footprint, judged too close to the kind of expansion pattern this file has previously rejected (see Mouro Coffee Bar's own rejection note) to include without a clearer single-site picture. High confidence on Vietnamese Potbellied specifically."
+    },
+    {
+      "name": "Salut Wines",
+      "district": "chinatown",
+      "type": "WINE BAR",
+      "spend": "£££",
+      "lat": 53.4793,
+      "lon": -2.2426,
+      "base": 78,
+      "bands": ["afternoon", "evening", "late"],
+      "reason": "Three hundred bottles and an Enomatic wall on Cooper Street, run by the same independent team since 2014 — forty of them by the glass, for anyone who'd rather taste before they commit to the bottle.",
+      "suggestedDate": "2026-09-19",
+      "status": "pending",
+      "researchNotes": "Verified via Companies House (SALUT WINES LTD, company no. 07256419), the operator's own site (salut.co.uk) and current 2026 reviews (Yelp, Tripadvisor): Salut Wines, 11 Cooper Street, Manchester M2 2FW — an independent wine shop and bar founded 2014, 300+ bottles, 40+ by the glass via an Enomatic serving system, self-described as 'still independent and locally owned'. No second site or group ownership found anywhere; single-site, passes Hard rule 1 cleanly. District placement is a genuine judgment call flagged for the reviewer: Cooper Street sits right at Chinatown's northwest edge (Chinatown's own boundary streets are Mosley/Charlotte/Princess/Portland per Wikipedia) rather than deep inside it, but its real coordinates (53.4793, -2.2426) sit closer to this file's existing chinatown centroid than to deansgate's or spinningfields', so placed there on real proximity rather than by name. Reuses the existing WINE BAR type. Chinatown's real Drink category (Bar Shrimp, K2 Karaoke, plus The Seven Oaks' shared Eat/Drink tag) was its thinnest category relative to Do/Eat before this addition. High confidence on the venue itself."
+    },
+    {
+      "name": "La Gitane",
+      "district": "spinningfields",
+      "type": "JAZZ BAR",
+      "spend": "££",
+      "lat": 53.481075,
+      "lon": -2.249108,
+      "base": 76,
+      "bands": ["evening", "late"],
+      "reason": "A candlelit cellar under Cafe Istanbul on Bridge Street, hung with black-and-white jazz photographs since Matt Nickson — the man behind Matt & Phreds — helped launch it; the bill's since widened to Latin and Afrobeat nights, but there's still a trio in the corner most weeks.",
+      "suggestedDate": "2026-09-19",
+      "status": "pending",
+      "researchNotes": "Verified via manchesterwire.co.uk's own launch coverage, ilovemanchester.com, and current 2026 listings (Skiddle, Facebook, Tripadvisor showing ongoing programming): La Gitane, 79-81 Bridge Street, Manchester M3 2RH — a jazz club in the cellar beneath Cafe Istanbul restaurant (a separate, independently owned restaurant, not part of any group), opened with programming curated by Matt Nickson (founder of the already-seeded Matt & Phreds, Northern Quarter). Flagged honestly rather than glossed over: the venue's own current billing has broadened well beyond pure jazz into a rotating calendar of Latin/Afro/world-music and club nights, so it's a genuine but no-longer-exclusive jazz venue — included as JAZZ BAR (the closest and most distinctive real fit) since jazz programming continues alongside the rest, not because it's still jazz-only. No chain footprint — a single venue beneath a single independent restaurant, with the same curator's involvement at Matt & Phreds treated as a real curatorial link rather than common ownership (no evidence Matt Nickson owns or operates Cafe Istanbul itself). District placement: Bridge Street's real coordinates sit closer to this file's spinningfields centroid than deansgate's or chinatown's. Closes a real, near-total gap — Manchester/Cheshire's entire Jazz bars tile matched exactly one venue (Matt & Phreds) before this. Moderate-high confidence — the venue and its independence are solid; the 'jazz bar' label is a fair but not unanimous description of what it is today, worth the reviewer's own look."
+    }]
 }

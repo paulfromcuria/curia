@@ -3,5 +3,19 @@
   "_reviewWorkflow": "Same as venue-suggestions.json: status starts 'pending', the review agent flips it to 'approved' (then copies fields into districts.json, as part of its own PR) or 'rejected' (kept here with researchNotes so it isn't re-suggested). A human's real review happens by reading/merging that PR.",
   "_promotionNote20260912": "Nantwich, the sole entry sitting here as of 2026-09-12, was independently re-verified and promoted into docs/data/districts.json by curia-suggestion-review the same day — see that file's own note for the re-verification detail. Removed from this queue per the standard promote-and-remove step.",
   "_promotionNote20260916": "Chester, the sole entry sitting here as of 2026-09-16, was independently re-verified and promoted into docs/data/districts.json by curia-suggestion-review the same day — see that file's own note for the re-verification detail, including the coordinate-sanity-box judgment call made on Chester's longitude. Removed from this queue per the standard promote-and-remove step.",
-  "suggestions": []
+  "suggestions": [
+    {
+      "name": "Lymm",
+      "metro": "cheshire",
+      "lat": 53.38105,
+      "lon": -2.47763,
+      "base": 50,
+      "kind": "county",
+      "accentColor": "#6C8A93",
+      "editorialDescription": "A medieval cross at the crossroads, a duck pond that's outlasted every plan to modernise around it, and a run of independent shops and canalside pubs that never quite gave in to Altrincham's gravity a few miles up the road.",
+      "suggestedDate": "2026-09-19",
+      "status": "pending",
+      "researchNotes": "Found via this run's required per-day new-district check, not user-named — a genuine gap surfaced while researching venues, not manufactured to fill the check. Lymm is a well-known, distinct Cheshire village on the Bridgewater Canal, consistently described (Great British Life, visitcheshire.com, roam-local.co.uk) as one of Cheshire's most desirable villages, with a real independent-shop cluster around the historic Lymm Cross (Xross Interiors, Bird and Bay, Watson and Wilde, Collect Art) and named, non-chain dining (Eighteen The Cross wine bar and restaurant). Passes the 'would a local raise an eyebrow this isn't already covered' test the same way Prestbury/Knutsford/Cheadle Hulme did. Notably, this file's own venues.json already has two real venues seeded under the 'altrincham' district purely by proximity-of-convenience — Lymm Golf Club and Lymm Lawn Tennis and Croquet Club — because no Lymm district has existed until now, the same 'real location, no home district yet' situation Wilmslow Golf Club (seeded in Mobberley) and Beeston Castle (seeded in Tarporley) already established precedent for; if this district is promoted, those two venues would be natural (but not decided-here) candidates to re-home. Coordinates (53.38105, -2.47763) are Lymm town centre / Lymm Cross, independently verified via web search rather than invented. Distance check: roughly 8.5km (5.3 miles) from the existing Altrincham district centroid — clearly distinct, comfortably past the separation already accepted for other close Cheshire pairs (Bramhall/Cheadle Hulme ~2 miles, Tarporley/Northwich corridor). accentColor (#6C8A93, a soft canal-water blue-teal) chosen for the real Bridgewater Canal character and checked for perceptual distinctness against every existing Cheshire accent, closest neighbours Macclesfield's verdigris (#4F6B63) and Northwich's river-slate-teal (#4A6B6E) — both notably darker/greener than this lighter, more blue-grey tone. base (50) is a reasoned estimate, similar register to Alderley Edge (52) and just below Knutsford (54) — a genuinely desirable village with real everyday commercial life, not a bustling town centre. Not added to the Golden Triangle group — that group's canonical definition (Alderley Edge/Prestbury/Wilmslow, sometimes Knutsford/Mobberley) doesn't include Lymm in any source checked. No venues suggested for it in this same run — same 'district entry only, venues as separate follow-up work' precedent every prior district promotion has followed."
+    }
+  ]
 }
