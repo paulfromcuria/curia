@@ -29,6 +29,7 @@ import {
   rankVenues,
   reasonFor,
   resolveContext,
+  scoreBandFitFactor,
   scoreBaseQuality,
   scoreDayOfWeek,
   scoreDistinctivenessFactor,
@@ -39,7 +40,6 @@ import {
   scoreSpendFit,
   scoreSubPreferenceMatch,
   scoreTileMatch,
-  scoreTimeOfDay,
   scoreWeather,
   slugifyType,
   weightsFor,
@@ -344,16 +344,53 @@ test('spend fit: closer spend levels always score higher than further ones', () 
 });
 
 // ---------------------------------------------------------------------------
-// Weighted signal: time of day (band)
+// scoreBandFitFactor — a discount multiplier (not an additive weighted
+// term, see its own doc comment for why that distinction is the whole
+// point) for whether a venue actually runs during the current band.
+// Added 2026-09-19, at direct user report with a live example: a padel
+// club (real bands ['morning','afternoon','evening'], correctly no
+// 'late') was recommended at Saturday late night in central Manchester,
+// with real open bars right next to it — the old additive-term version
+// of this signal (scoreTimeOfDay, since removed) could only ever cost a
+// venue 7 points out of 100 at its weight, nowhere near enough to
+// overcome a strong base score and tile match.
 // ---------------------------------------------------------------------------
 
-test('time of day: scores higher when the context band is one the venue runs', () => {
-  const morningOnly = venue({ bands: ['morning'] });
-  assert.ok(scoreTimeOfDay(morningOnly, 'morning') > scoreTimeOfDay(morningOnly, 'late'));
+test('scoreBandFitFactor: no discount when the venue runs during the current band', () => {
+  assert.equal(scoreBandFitFactor(venue({ bands: ['late'] }), 'late'), 1);
 });
 
-test('time of day: with no band context, score is neutral', () => {
-  assert.equal(scoreTimeOfDay(venue({ bands: ['morning'] }), undefined), 0.5);
+test('scoreBandFitFactor: a real, meaningful discount when it does not — never a hard zero-out', () => {
+  const factor = scoreBandFitFactor(venue({ bands: ['morning', 'afternoon', 'evening'] }), 'late');
+  assert.equal(factor, 0.35);
+  assert.ok(factor > 0, 'a genuine mismatch can still surface as the only real option, never fully excluded');
+});
+
+test('scoreBandFitFactor: with no band context, no discount (nothing to mismatch against)', () => {
+  assert.equal(scoreBandFitFactor(venue({ bands: ['morning'] }), undefined), 1);
+});
+
+test('rankVenues: a venue outside its own operating bands can no longer beat a real open match on base score alone (the padel-club-at-2am bug)', () => {
+  // Mirrors the real report: a high-base, high-distinctiveness "padel
+  // club" with no late-night hours, versus a real open bar with a more
+  // modest base score — the bar must win at 'late', not the padel club.
+  const padelClub = venue({
+    id: 'padel-club-fixture',
+    type: 'PADEL CLUB',
+    base: 82,
+    distinctiveness: 4,
+    bands: ['morning', 'afternoon', 'evening'],
+  });
+  const openBar = venue({
+    id: 'open-bar-fixture',
+    type: 'COCKTAIL BAR',
+    base: 70,
+    distinctiveness: 4,
+    bands: ['evening', 'late'],
+  });
+  const input = baseInput({ context: { now: false, day: 'saturday', band: 'late' } });
+  const result = rankVenues(input, [padelClub, openBar], []);
+  assert.equal(result.ranked[0].venueId, 'open-bar-fixture', 'the venue that is actually open right now must rank first');
 });
 
 // ---------------------------------------------------------------------------
@@ -419,7 +456,7 @@ test('weather: unknown/absent weather is neutral', () => {
 
 // ---------------------------------------------------------------------------
 // Weighted signal: liveliness (District.bandMultiplier — how alive the
-// district is right now, distinct from scoreTimeOfDay's venue-own-hours check)
+// district is right now, distinct from scoreBandFitFactor's venue-own-hours check)
 // ---------------------------------------------------------------------------
 
 const livelyLateDistrict: District = {
@@ -662,8 +699,12 @@ test('weightsFor: with no band and no weather, no contextual rule fires — matc
 });
 
 test('rankVenues: a pet-friendly venue outranks an otherwise-identical non-pet-friendly one more decisively in the daytime than late at night', () => {
-  const petsOk = venue({ id: 'pets-ok', base: 80, petFriendly: true });
-  const noPets = venue({ id: 'no-pets', base: 80, petFriendly: false });
+  // bands cover both tested bands (afternoon and late) identically for
+  // both fixtures, so scoreBandFitFactor's discount is a no-op here —
+  // this test isolates weightsFor's pet-weight flex, not band fit.
+  const bandsCoveringBoth = ['morning', 'afternoon', 'evening', 'late'] as const;
+  const petsOk = venue({ id: 'pets-ok', base: 80, petFriendly: true, bands: [...bandsCoveringBoth] });
+  const noPets = venue({ id: 'no-pets', base: 80, petFriendly: false, bands: [...bandsCoveringBoth] });
   const you: MatchmakingInput['you'] = { spendLevel: 3, dietary: ['none'], pet: 'small-dog' };
 
   const afternoonResult = rankVenues(
