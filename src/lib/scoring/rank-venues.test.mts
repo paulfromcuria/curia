@@ -42,6 +42,7 @@ import {
   scoreSubPreferenceMatch,
   scoreTileMatch,
   scoreWeather,
+  scoreWeatherFitFactor,
   slugifyType,
   weightsFor,
 } from './rank-venues.ts';
@@ -504,6 +505,41 @@ test('weather: a rooftop venue is favored over an indoor venue in clear/warm wea
 
 test('weather: unknown/absent weather is neutral', () => {
   assert.equal(scoreWeather(venue({}), undefined), 0.5);
+});
+
+// ---------------------------------------------------------------------------
+// scoreWeatherFitFactor — a discount multiplier for the one case
+// scoreWeather's additive treatment structurally can't catch: an
+// outdoor-only venue in genuinely extreme weather. Same shape of fix as
+// scoreBandFitFactor above, added the same day, proactively (found by
+// re-auditing the ranking engine for the same bug class after the
+// padel-club fix, at direct user request — "apply that across the app").
+// ---------------------------------------------------------------------------
+
+test('scoreWeatherFitFactor: no discount for an indoor venue, however extreme the weather', () => {
+  assert.equal(scoreWeatherFitFactor(venue({ type: 'SMALL PLATES' }), 'Severe thunderstorm'), 1);
+});
+
+test('scoreWeatherFitFactor: no discount for an outdoor venue in merely mild weather', () => {
+  assert.equal(scoreWeatherFitFactor(venue({ type: 'ROOFTOP' }), 'Partly cloudy, 15°'), 1);
+});
+
+test('scoreWeatherFitFactor: a real, meaningful discount for an outdoor venue in genuinely extreme weather — never a hard zero-out', () => {
+  const factor = scoreWeatherFitFactor(venue({ type: 'ROOFTOP' }), 'Severe thunderstorm');
+  assert.equal(factor, 0.4);
+  assert.ok(factor > 0, 'a genuinely unique rooftop can still surface as the only real match');
+});
+
+test('scoreWeatherFitFactor: unknown weather is never penalized', () => {
+  assert.equal(scoreWeatherFitFactor(venue({ type: 'ROOFTOP' }), undefined), 1);
+});
+
+test('rankVenues: an outdoor-only venue can no longer beat a real indoor match during a genuine storm on base score alone', () => {
+  const rooftopInAStorm = venue({ id: 'rooftop-fixture', type: 'ROOFTOP', base: 88, distinctiveness: 4 });
+  const decentIndoorSpot = venue({ id: 'indoor-fixture', type: 'SMALL PLATES', base: 68, distinctiveness: 4 });
+  const input = baseInput({ context: { now: false, day: 'saturday', band: 'evening', weather: 'Severe thunderstorm' } });
+  const result = rankVenues(input, [rooftopInAStorm, decentIndoorSpot], []);
+  assert.equal(result.ranked[0].venueId, 'indoor-fixture', 'the indoor venue must win during a real storm');
 });
 
 // ---------------------------------------------------------------------------
