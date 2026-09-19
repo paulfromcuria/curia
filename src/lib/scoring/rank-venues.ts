@@ -14,7 +14,7 @@
  * plain `node --test` without import-attribute syntax — keeping this module
  * JSON-free means the unit tests can run with zero extra tooling.
  */
-import type { District, DietaryRequirement, PetPreference, Venue } from '../../types/models';
+import type { DayName, District, DietaryRequirement, PetPreference, Venue } from '../../types/models';
 import type {
   MatchContext,
   MatchmakingInput,
@@ -26,6 +26,7 @@ import type {
 // see that test file's header comment for why plain extensionless relative
 // imports don't work under Node's loader even though tsc/Metro accept them.
 import { CATEGORY_BY_VENUE_TYPE, tileIdToVenueTypeSlugs } from './tile-catalog-map.ts';
+import { currentClockTime, isOpenAt } from '../data/opening-hours.ts';
 
 const EARTH_RADIUS_MILES = 3958.8;
 
@@ -126,7 +127,33 @@ export function passesMoodFilter(
   return true;
 }
 
+/**
+ * A confirmed-closed-right-now venue must never rank — the same
+ * "genuine impossibility" logic distance and dietary requirement are
+ * hard filters for (CLAUDE.md Hard rule 3): a member literally cannot
+ * walk into a venue with a locked door, the same way they can't eat
+ * there if nothing on the menu is safe or drive there in ten minutes
+ * from fifty miles away. `undefined` (no real hours researched — true
+ * for most of the catalog right now) always passes, same as everywhere
+ * else this data is used (Map's closed-now ring, src/lib/data/
+ * opening-hours.ts's isOpenAt) — only an explicit, confirmed `false`
+ * excludes.
+ *
+ * Added 2026-09-19, at direct user follow-up after the padel-club-at-2am
+ * fix ("apply that across the app... what else is shit"): a real,
+ * sourced opening-hours dataset (43 Chicago venues, several Wilmslow
+ * ones) existed this whole time but had only ever been wired into Map's
+ * decorative pin ring — a venue confirmed closed right now could still
+ * be the #1 List recommendation with no indication at all. This is what
+ * actually connects that research to what gets recommended.
+ */
+export function passesOpenNowFilter(venue: Venue, day: DayName, time: string): boolean {
+  return isOpenAt(venue.openingHours, day, time) !== false;
+}
+
 export function applyHardFilters(venues: Venue[], input: MatchmakingInput): Venue[] {
+  const resolved = resolveContext(input.context);
+  const clockTime = currentClockTime(input.context.now, resolved.day as DayName, resolved.band);
   return venues.filter(
     (v) =>
       // 'closed' (migration 0011, alongside the growth-engine promotion
@@ -135,7 +162,8 @@ export function applyHardFilters(venues: Venue[], input: MatchmakingInput): Venu
       v.status !== 'closed' &&
       passesDistanceFilter(v, input.location, input.radiusMiles) &&
       passesDietaryFilter(v, input.you.dietary) &&
-      passesMoodFilter(v, input.moodFilter)
+      passesMoodFilter(v, input.moodFilter) &&
+      passesOpenNowFilter(v, resolved.day as DayName, clockTime)
   );
 }
 
@@ -232,12 +260,6 @@ export function scoreRatings(venue: Venue, ratingStats: Record<string, { avg: nu
   return 0.5 + (normalized - 0.5) * confidence;
 }
 
-/** 1 if the current context band is one the venue actually runs during, else a low-but-nonzero base. */
-export function scoreTimeOfDay(venue: Venue, band: MatchContext['band']): number {
-  if (!band) return 0.5;
-  return venue.bands.includes(band) ? 1 : 0.3;
-}
-
 /**
  * `District.dayMultiplier` is the modeled home for the prototype's `DAY_MULT`
  * liveliness-by-day-of-week table (see CLAUDE.md "Data model" / models.ts).
@@ -262,7 +284,7 @@ export function scoreDayOfWeek(district: District | undefined, day: string | und
  * "how alive is this district" glow (src/lib/map/geo.ts's
  * districtLiveliness), but was never fed into venue ranking itself until
  * now (2026-09, part of the matchmaking-smartness pass). Distinct from
- * scoreTimeOfDay, which asks whether THIS venue runs during this band —
+ * scoreBandFitFactor, which asks whether THIS venue runs during this band —
  * this asks whether the district around it is generally busy at this hour.
  * Same neutral-0.5-when-unknown and 0..2-clamped-then-halved shape as
  * scoreDayOfWeek, for the same reason (values are centered on 1.0).
@@ -307,6 +329,42 @@ export function scoreProximity(
 export function scoreDistinctivenessFactor(venue: Venue): number {
   const distinctiveness = clamp(venue.distinctiveness ?? 4, 1, 5);
   return 0.3125 + 0.1375 * distinctiveness;
+}
+
+/**
+ * A venue whose own operating bands don't include the current one isn't
+ * "a slightly worse match" — it's very likely the wrong thing to
+ * recommend at all (a padel club at 2am, a lunch-only bakery at 9pm). A
+ * discount-only multiplier on the final weighted score, the same shape as
+ * scoreDistinctivenessFactor above — deliberately NOT another additive
+ * weighted term (which is what this replaced, as scoreTimeOfDay, until
+ * 2026-09-19).
+ *
+ * Real bug this fixes, found by direct user report with a live example:
+ * a padel club (real bands ['morning','afternoon','evening'], correctly
+ * no 'late') was recommended at Saturday late night in central
+ * Manchester, with real open bars right next to it. The old
+ * scoreTimeOfDay was an additive term at 0.1 weight — its worst possible
+ * score (0.3) could only ever cost a venue 7 points out of 100, nowhere
+ * near enough to overcome an 82 base score plus a tile-match hit. No
+ * single term among 10 that sum to 1 can ever meaningfully outweigh a
+ * strong base score, whatever its own value — the mechanism was
+ * structurally incapable of catching this, not just tuned wrong.
+ *
+ * 0.35, not 0 — never a hard zero-out, the same "discount, never
+ * exclude" principle Gate 2 already established: a genuinely singular
+ * late-night specialist (bands correctly include 'late') pays no
+ * penalty at all, and even a real mismatch can still surface as the
+ * only real option in a narrow filter. This is about band *fit*, not
+ * whether a venue is confirmed open right now (Venue.openingHours,
+ * src/lib/data/opening-hours.ts) — that's a separate, narrower real-data
+ * signal, currently only wired into Map's visual closed indicator, not
+ * ranking; most venues don't have it populated yet, so it couldn't have
+ * caught this case on its own.
+ */
+export function scoreBandFitFactor(venue: Venue, band: MatchContext['band']): number {
+  if (!band) return 1;
+  return venue.bands.includes(band) ? 1 : 0.35;
 }
 
 const OUTDOOR_TYPE_HINTS = ['rooftop', 'garden', 'terrace', 'outdoor', 'country pub'];
@@ -422,13 +480,26 @@ export function contextNoteFor(
  * what keeps a thin sample from dominating before then). Sums to 1 so the
  * final score lands in 0..100 — `weightsFor` below must preserve that (it
  * does, via normalizeWeights), not just this base set.
+ *
+ * No `timeOfDay` entry (2026-09-19, removed) — whether a venue actually
+ * runs during the current band used to be just another additive term
+ * here, and that was the bug: at any weight small enough to sit
+ * comfortably among ten others, it can never outweigh a strong base
+ * score, so a padel club that doesn't open at 2am still won on a strong
+ * base + tile match. Promoted to scoreBandFitFactor, a discount
+ * multiplier on the final score (same shape as Gate 2 distinctiveness)
+ * — see that function's own comment for the full story. Its freed 0.1
+ * split evenly onto `base` and `tile` (0.15->0.2, 0.2->0.25) rather than
+ * left to normalizeWeights to quietly redistribute — same manual,
+ * deliberate rebalancing this file has always done when a weight moves
+ * (see `subPreference`/`base`'s own history above), so BASE_WEIGHTS
+ * keeps summing to 1 on its own, not just after normalization.
  */
 export const BASE_WEIGHTS = {
-  base: 0.15,
-  tile: 0.2,
+  base: 0.2,
+  tile: 0.25,
   subPreference: 0.15,
   spend: 0.1,
-  timeOfDay: 0.1,
   dayOfWeek: 0.05,
   liveliness: 0.05,
   weather: 0.05,
@@ -545,9 +616,10 @@ export function reasonFor(
  * pet fit (scorePetFit), district liveliness (scoreLiveliness), proximity
  * (scoreProximity) and the crowd rating signal (scoreRatings), all weighted
  * contextually by `weightsFor` rather than a fixed set (see that function's
- * own comment) — then discounted by Gate 2 distinctiveness
- * (scoreDistinctivenessFactor), a multiplier rather than another additive
- * weighted term. Pure: same inputs always produce the same output, no I/O,
+ * own comment) — then discounted by two multipliers rather than additive
+ * weighted terms: scoreBandFitFactor (does this venue even run right now)
+ * and Gate 2 distinctiveness (scoreDistinctivenessFactor). Pure: same
+ * inputs always produce the same output, no I/O,
  * no seed import (see module doc comment). `districts` is optional lookup
  * context for the day-of-week/liveliness signals only; `ratingStats`
  * likewise for scoreRatings — both degrade gracefully (neutral scoring)
@@ -577,7 +649,6 @@ export function rankVenues(
       scoreTileMatch(venue, input.preferences) * weights.tile +
       scoreSubPreferenceMatch(venue, input.preferences) * weights.subPreference +
       scoreSpendFit(venue, input.you.spendLevel) * weights.spend +
-      scoreTimeOfDay(venue, resolved.band) * weights.timeOfDay +
       scoreDayOfWeek(district, resolved.day) * weights.dayOfWeek +
       scoreLiveliness(district, resolved.band) * weights.liveliness +
       scoreWeather(venue, input.context.weather) * weights.weather +
@@ -585,10 +656,12 @@ export function rankVenues(
       scoreProximity(venue, input.location, input.radiusMiles) * weights.proximity +
       scoreRatings(venue, ratingStats) * weights.ratings;
 
-    // Gate 2 (distinctiveness) is a discount multiplier on the summed
-    // score, not another additive weighted term — see
-    // scoreDistinctivenessFactor's own comment for why.
-    const distinctivenessAdjusted = weighted * scoreDistinctivenessFactor(venue);
+    // Two discount multipliers on the summed score, not additive weighted
+    // terms — see each function's own comment for why. Order doesn't
+    // matter (multiplication commutes); band fit first here only because
+    // it's the newer of the two.
+    const distinctivenessAdjusted =
+      weighted * scoreBandFitFactor(venue, resolved.band) * scoreDistinctivenessFactor(venue);
 
     return {
       venueId: venue.id,

@@ -1,0 +1,34 @@
+-- Three Wilmslow venues found to have actually closed, as a side effect
+-- of a second opening-hours research pass (they were held back from
+-- migration 0029 for unresolved hours conflicts — turns out the real
+-- issue was that the venues themselves aren't trading anymore, not that
+-- their hours were merely unclear). Same status='closed' hard-exclusion
+-- mechanism as migration 0032 (Bob's Pizza, Chicago) — never ranks or
+-- appears anywhere in the app from here.
+--
+-- caramello: confirmed closed, high confidence. Replaced by a different,
+-- named business ("Sip 'n' Spice") at the same address (80 Water Lane),
+-- per real local news (wilmslow.co.uk, 28 July 2025, covering Sip n
+-- Spice's own licensing application) plus a HappyCow listing explicitly
+-- marked "CLOSED: Caramello Wilmslow" and the operator's own site
+-- (caramellocafes.com) no longer listing a Wilmslow location at all —
+-- three independent, converging signals.
+--
+-- ricardo-van-parmar-gallery: strong evidence of closure. Google Maps
+-- marks it "Permanently closed"; its own site (rvp.gallery) has sat as a
+-- non-functional "Coming soon" placeholder across two research passes;
+-- its Facebook page's last visible activity is from December 2024, over
+-- a year stale.
+--
+-- heddy-s: strong evidence it's no longer a walk-in restaurant. Google
+-- Maps marks it "Permanently closed"; the site's own current copy
+-- describes a pivot to appointment-only "Private Dining Experience"
+-- made during COVID-era lockdown, never updated since; most recent
+-- reviews are 7-8 years old. Marked closed rather than left as a normal
+-- live listing, since a member being shown this as a walk-in
+-- recommendation — with dietary tags, a spend level, the works — would
+-- be misled regardless of whether the business technically still exists
+-- in some private-catering form; Curia's whole model assumes "a member
+-- can walk in."
+
+update venues set status = 'closed' where id in ('caramello', 'ricardo-van-parmar-gallery', 'heddy-s');
