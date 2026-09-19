@@ -226,9 +226,16 @@ export function districtsInBounds(bounds: GeoBounds, districts: District[] = DIS
 /** Venues whose lat/lon falls within the map's current real visible bounds
  * — same idea as districtsInBounds above, for the "show every real venue,
  * subtly, once zoomed in enough" layer (2026-09, at explicit user
- * request). */
+ * request). Excludes `status === 'closed'` (2026-09-19, at the same
+ * "apply that across the app" audit as rank-venues.ts's passesOpenNowFilter)
+ * — this layer bypasses rankVenues/applyHardFilters entirely, so a
+ * permanently-closed venue (Bob's Pizza, Caramello, ...) was still landing
+ * as a fully tappable background pin, leading straight to a completely
+ * normal-looking venue detail page with no indication it's shut. Same hard
+ * exclusion rankVenues already applies, just needed repeating here since
+ * this code path never calls it. */
 export function venuesInBounds(bounds: GeoBounds, venues: Venue[] = VENUES): Venue[] {
-  return venues.filter((v) => inBounds({ lat: v.lat, lon: v.lon }, bounds));
+  return venues.filter((v) => v.status !== 'closed' && inBounds({ lat: v.lat, lon: v.lon }, bounds));
 }
 
 /** Zoom level at which individual venue pins start rendering for every
