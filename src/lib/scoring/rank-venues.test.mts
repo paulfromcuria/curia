@@ -26,6 +26,7 @@ import {
   passesDietaryFilter,
   passesDistanceFilter,
   passesMoodFilter,
+  passesOpenNowFilter,
   rankVenues,
   reasonFor,
   resolveContext,
@@ -264,6 +265,57 @@ test('rankVenues excludes a high-scoring venue outside the active mood filter', 
     result.ranked.map((r) => r.venueId),
     ['v2']
   );
+});
+
+// ---------------------------------------------------------------------------
+// Hard filter: a confirmed-closed-right-now venue must never rank (2026-09-19,
+// at direct user follow-up: a real, sourced opening-hours dataset existed
+// but was only ever wired into Map's decorative pin ring — a venue we
+// know for a fact is shut right now could still be the #1 List
+// recommendation with no indication at all).
+// ---------------------------------------------------------------------------
+
+test('passesOpenNowFilter: a venue confirmed closed at this exact time fails', () => {
+  const shutRightNow = venue({ openingHours: { monday: [{ open: '09:00', close: '17:00' }] } });
+  assert.equal(passesOpenNowFilter(shutRightNow, 'monday', '20:00'), false);
+});
+
+test('passesOpenNowFilter: the same venue passes during its real open hours', () => {
+  const openNow = venue({ openingHours: { monday: [{ open: '09:00', close: '17:00' }] } });
+  assert.equal(passesOpenNowFilter(openNow, 'monday', '12:00'), true);
+});
+
+test('passesOpenNowFilter: no researched hours (the common case today) always passes — unknown is never treated as closed', () => {
+  assert.equal(passesOpenNowFilter(venue({ openingHours: undefined }), 'monday', '03:00'), true);
+});
+
+test('rankVenues never surfaces a venue confirmed closed right now, however strong its other signals', () => {
+  // Mirrors the real gap: a venue with real, sourced hours data showing
+  // it's shut right now, versus a merely-decent open alternative — the
+  // closed one must not appear in the ranked list at all, not just rank
+  // lower.
+  const confirmedClosed = venue({
+    id: 'confirmed-closed',
+    base: 95,
+    // A real researched week (matching how every real migration this
+    // project has shipped actually shapes this data) — Friday
+    // specifically closed, not just an isolated empty day with no other
+    // real data (which isOpenAt correctly treats as "unresearched," not
+    // "confirmed closed" — see its own hasAnyRealData check).
+    openingHours: {
+      monday: [{ open: '09:00', close: '17:00' }],
+      tuesday: [{ open: '09:00', close: '17:00' }],
+      wednesday: [{ open: '09:00', close: '17:00' }],
+      thursday: [{ open: '09:00', close: '17:00' }],
+      friday: [],
+      saturday: [{ open: '09:00', close: '17:00' }],
+      sunday: [],
+    },
+  });
+  const decentAndOpen = venue({ id: 'decent-and-open', base: 60 });
+  const input = baseInput({ context: { now: false, day: 'friday', band: 'evening' } });
+  const result = rankVenues(input, [confirmedClosed, decentAndOpen], []);
+  assert.deepEqual(result.ranked.map((r) => r.venueId), ['decent-and-open']);
 });
 
 test('rankVenues.empty is true once hard filters eliminate the entire candidate pool', () => {

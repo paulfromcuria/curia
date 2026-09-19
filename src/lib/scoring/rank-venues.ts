@@ -14,7 +14,7 @@
  * plain `node --test` without import-attribute syntax — keeping this module
  * JSON-free means the unit tests can run with zero extra tooling.
  */
-import type { District, DietaryRequirement, PetPreference, Venue } from '../../types/models';
+import type { DayName, District, DietaryRequirement, PetPreference, Venue } from '../../types/models';
 import type {
   MatchContext,
   MatchmakingInput,
@@ -26,6 +26,7 @@ import type {
 // see that test file's header comment for why plain extensionless relative
 // imports don't work under Node's loader even though tsc/Metro accept them.
 import { CATEGORY_BY_VENUE_TYPE, tileIdToVenueTypeSlugs } from './tile-catalog-map.ts';
+import { currentClockTime, isOpenAt } from '../data/opening-hours.ts';
 
 const EARTH_RADIUS_MILES = 3958.8;
 
@@ -126,7 +127,33 @@ export function passesMoodFilter(
   return true;
 }
 
+/**
+ * A confirmed-closed-right-now venue must never rank — the same
+ * "genuine impossibility" logic distance and dietary requirement are
+ * hard filters for (CLAUDE.md Hard rule 3): a member literally cannot
+ * walk into a venue with a locked door, the same way they can't eat
+ * there if nothing on the menu is safe or drive there in ten minutes
+ * from fifty miles away. `undefined` (no real hours researched — true
+ * for most of the catalog right now) always passes, same as everywhere
+ * else this data is used (Map's closed-now ring, src/lib/data/
+ * opening-hours.ts's isOpenAt) — only an explicit, confirmed `false`
+ * excludes.
+ *
+ * Added 2026-09-19, at direct user follow-up after the padel-club-at-2am
+ * fix ("apply that across the app... what else is shit"): a real,
+ * sourced opening-hours dataset (43 Chicago venues, several Wilmslow
+ * ones) existed this whole time but had only ever been wired into Map's
+ * decorative pin ring — a venue confirmed closed right now could still
+ * be the #1 List recommendation with no indication at all. This is what
+ * actually connects that research to what gets recommended.
+ */
+export function passesOpenNowFilter(venue: Venue, day: DayName, time: string): boolean {
+  return isOpenAt(venue.openingHours, day, time) !== false;
+}
+
 export function applyHardFilters(venues: Venue[], input: MatchmakingInput): Venue[] {
+  const resolved = resolveContext(input.context);
+  const clockTime = currentClockTime(input.context.now, resolved.day as DayName, resolved.band);
   return venues.filter(
     (v) =>
       // 'closed' (migration 0011, alongside the growth-engine promotion
@@ -135,7 +162,8 @@ export function applyHardFilters(venues: Venue[], input: MatchmakingInput): Venu
       v.status !== 'closed' &&
       passesDistanceFilter(v, input.location, input.radiusMiles) &&
       passesDietaryFilter(v, input.you.dietary) &&
-      passesMoodFilter(v, input.moodFilter)
+      passesMoodFilter(v, input.moodFilter) &&
+      passesOpenNowFilter(v, resolved.day as DayName, clockTime)
   );
 }
 
