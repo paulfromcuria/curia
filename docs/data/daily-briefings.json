@@ -277,6 +277,36 @@
         { "label": "Closure audit (indices 28-32: Wiltons, Franco's, Chris Beetles Gallery, Spencer House, The Globe)", "detail": "not completed — could not find real evidence either way, so nothing written rather than guessing" }
       ],
       "createdAt": "2026-09-17T09:20:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-09-20",
+      "synced": false,
+      "title": "30 venues + Lymm (new Cheshire district) promoted; 1 rejected as a real multi-region chain; 4 sent/kept for human review",
+      "summary": "Independently re-verified all 35 pending candidates across venue-suggestions.json (a backlog spanning several research batches from 2026-09-11 through 2026-09-20, several previously stuck by a now-resolved tool outage) plus the sole pending district candidate. Promoted 30 venues spanning Chester, Tarporley, Northwich, Chorlton, the Northern Quarter/Ancoats/Deansgate/Chinatown/Spinningfields, Heaton Moor, Didsbury, Hale, Macclesfield and Stockport (Underbanks), plus Lymm as a new Cheshire district — Lymm Golf Club and Lymm Lawn Tennis and Croquet Club, previously seeded under 'altrincham' by proximity-of-convenience, were re-homed to the new district as its own researchNotes anticipated. Two promoted entries had factual corrections made to their reason/site-count claims during re-verification (Sali's Souvlaki's unverified co-owner name removed; Kambuja's site count corrected from 2 to its real 3, adding the previously-missed Altrincham site). Olive Tree Brasserie (Chester) was rejected — re-verification found its real footprint is 4 sites across 3 counties (Lytham St Annes/Preston/Chester/Leeds) with a stated expansion strategy, not the 3-town group originally described, plus an unrelated director-fraud disqualification for its owner. Four items remain in Pending Review for a human call: Buon Cibo (Heaton Moor — corrected sister-site finding, Hazel Grove not Reddish, but an unresolved Companies House expansion signal), Underbank (Stockport Underbanks — a real naming mix-up with this app's own existing 'The Underbank' entry, reconfirmed unchanged), Prana (Altrincham — still genuinely unresolved trading status, unchanged since 2026-09-11), and The Coast (Tarporley — a new finding: OpenTable flags it 'Permanently Closed' while every other current signal says it's trading normally). The closure-audit rotating slice (Manchester Art Gallery, Royal Exchange Theatre, The Wine Cellar Wilmslow, Altrincham Market, The Stolen Lamb) found no real closures — The Stolen Lamb's own stale Yelp/Foursquare 'CLOSED' listings turned out to reference its old Grove Street address; the app's existing entry already correctly reflects its current Water Lane location and current trading.",
+      "items": [
+        { "label": "Rustik (Didsbury)", "detail": "promoted — confirmed reopened and trading, single-site, no chain signal" },
+        { "label": "Craft & Company, Beer Heroes, Huxley's, Paysan, Shrub (Chester)", "detail": "promoted — all confirmed trading, independent or within the small-sibling-group allowance" },
+        { "label": "Olive Tree Brasserie (Chester)", "detail": "rejected — real footprint is a 4-site, 3-county chain with a stated expansion strategy; owner also has a director-fraud ban" },
+        { "label": "Eden (Heaton Moor)", "detail": "promoted — confirmed current trading name and status" },
+        { "label": "Piste, Rose Farm Shop, Beeston Castle, Bonjour Wines (Tarporley)", "detail": "promoted — all confirmed independent and trading" },
+        { "label": "The Coast (Tarporley)", "detail": "sent to Pending Review — OpenTable shows 'Permanently Closed' against otherwise-live signals" },
+        { "label": "Board Beans, Turturici, Barons, Northwich Market, HUSH Brewing Tap, Zaza Cafe Bar (Northwich)", "detail": "promoted — Northwich Market's opening-day launch (18 Sept 2026) independently confirmed via local radio coverage" },
+        { "label": "Sali's Souvlaki, Vietnamese Potbellied (Chorlton)", "detail": "promoted — Sali's Souvlaki's reason text lightly corrected to drop an unverified co-owner name" },
+        { "label": "Salut Wines, Higher Ground (Chinatown)", "detail": "promoted — both confirmed trading, small precedent-consistent sibling groups" },
+        { "label": "La Gitane (Spinningfields)", "detail": "promoted — confirmed trading; ownership link to Cafe Istanbul is closer than originally framed but doesn't change the verdict" },
+        { "label": "Idle Hands, Beaumont Organic, SOUP (Northern Quarter)", "detail": "promoted — all confirmed single-site and trading" },
+        { "label": "Blossom Street Social (Ancoats)", "detail": "promoted — confirmed a genuine 2-concept small group, not a wider chain" },
+        { "label": "Dimitris (Deansgate)", "detail": "promoted — confirmed single physical footprint despite 5 internal units" },
+        { "label": "La Dulce Vendimia (Macclesfield)", "detail": "promoted — no closure signal found on a second independent check; thin review freshness isn't itself a closure signal" },
+        { "label": "Sigiriya (Hale)", "detail": "promoted — confirmed real 2-site pair (Hale + Knutsford), both trading" },
+        { "label": "Kambuja (Stockport Underbanks)", "detail": "promoted, reason text corrected — real footprint is 3 sites (Marple, Altrincham, Stockport), not the 2 originally claimed; still within precedent" },
+        { "label": "Buon Cibo (Heaton Moor)", "detail": "left in Pending Review — corrected sister-site finding (Hazel Grove, not Reddish), but a Companies House expansion signal is still unresolved" },
+        { "label": "Underbank (Stockport Underbanks)", "detail": "left in Pending Review — naming mix-up with this app's existing 'The Underbank' entry reconfirmed, unchanged, still needs a human call" },
+        { "label": "Prana (Altrincham)", "detail": "left in Pending Review — still genuinely unresolved trading status, unchanged since 2026-09-11" },
+        { "label": "Lymm (new Cheshire district)", "detail": "promoted — confirmed genuinely distinct desirable canal village, independent-shop cluster verified, distance from Altrincham independently checked; two proximity-seeded venues re-homed to it from Altrincham" }
+      ],
+      "createdAt": "2026-09-20T00:00:00Z"
     }
   ]
 }
