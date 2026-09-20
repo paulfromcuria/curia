@@ -26,9 +26,11 @@ import {
   passesDietaryFilter,
   passesDistanceFilter,
   passesMoodFilter,
+  passesOpenNowFilter,
   rankVenues,
   reasonFor,
   resolveContext,
+  scoreBandFitFactor,
   scoreBaseQuality,
   scoreDayOfWeek,
   scoreDistinctivenessFactor,
@@ -39,8 +41,8 @@ import {
   scoreSpendFit,
   scoreSubPreferenceMatch,
   scoreTileMatch,
-  scoreTimeOfDay,
   scoreWeather,
+  scoreWeatherFitFactor,
   slugifyType,
   weightsFor,
 } from './rank-venues.ts';
@@ -266,6 +268,57 @@ test('rankVenues excludes a high-scoring venue outside the active mood filter', 
   );
 });
 
+// ---------------------------------------------------------------------------
+// Hard filter: a confirmed-closed-right-now venue must never rank (2026-09-19,
+// at direct user follow-up: a real, sourced opening-hours dataset existed
+// but was only ever wired into Map's decorative pin ring — a venue we
+// know for a fact is shut right now could still be the #1 List
+// recommendation with no indication at all).
+// ---------------------------------------------------------------------------
+
+test('passesOpenNowFilter: a venue confirmed closed at this exact time fails', () => {
+  const shutRightNow = venue({ openingHours: { monday: [{ open: '09:00', close: '17:00' }] } });
+  assert.equal(passesOpenNowFilter(shutRightNow, 'monday', '20:00'), false);
+});
+
+test('passesOpenNowFilter: the same venue passes during its real open hours', () => {
+  const openNow = venue({ openingHours: { monday: [{ open: '09:00', close: '17:00' }] } });
+  assert.equal(passesOpenNowFilter(openNow, 'monday', '12:00'), true);
+});
+
+test('passesOpenNowFilter: no researched hours (the common case today) always passes — unknown is never treated as closed', () => {
+  assert.equal(passesOpenNowFilter(venue({ openingHours: undefined }), 'monday', '03:00'), true);
+});
+
+test('rankVenues never surfaces a venue confirmed closed right now, however strong its other signals', () => {
+  // Mirrors the real gap: a venue with real, sourced hours data showing
+  // it's shut right now, versus a merely-decent open alternative — the
+  // closed one must not appear in the ranked list at all, not just rank
+  // lower.
+  const confirmedClosed = venue({
+    id: 'confirmed-closed',
+    base: 95,
+    // A real researched week (matching how every real migration this
+    // project has shipped actually shapes this data) — Friday
+    // specifically closed, not just an isolated empty day with no other
+    // real data (which isOpenAt correctly treats as "unresearched," not
+    // "confirmed closed" — see its own hasAnyRealData check).
+    openingHours: {
+      monday: [{ open: '09:00', close: '17:00' }],
+      tuesday: [{ open: '09:00', close: '17:00' }],
+      wednesday: [{ open: '09:00', close: '17:00' }],
+      thursday: [{ open: '09:00', close: '17:00' }],
+      friday: [],
+      saturday: [{ open: '09:00', close: '17:00' }],
+      sunday: [],
+    },
+  });
+  const decentAndOpen = venue({ id: 'decent-and-open', base: 60 });
+  const input = baseInput({ context: { now: false, day: 'friday', band: 'evening' } });
+  const result = rankVenues(input, [confirmedClosed, decentAndOpen], []);
+  assert.deepEqual(result.ranked.map((r) => r.venueId), ['decent-and-open']);
+});
+
 test('rankVenues.empty is true once hard filters eliminate the entire candidate pool', () => {
   const input = baseInput({ radiusMiles: 0.1 });
   const result = rankVenues(input, [theWizard], []);
@@ -344,16 +397,53 @@ test('spend fit: closer spend levels always score higher than further ones', () 
 });
 
 // ---------------------------------------------------------------------------
-// Weighted signal: time of day (band)
+// scoreBandFitFactor — a discount multiplier (not an additive weighted
+// term, see its own doc comment for why that distinction is the whole
+// point) for whether a venue actually runs during the current band.
+// Added 2026-09-19, at direct user report with a live example: a padel
+// club (real bands ['morning','afternoon','evening'], correctly no
+// 'late') was recommended at Saturday late night in central Manchester,
+// with real open bars right next to it — the old additive-term version
+// of this signal (scoreTimeOfDay, since removed) could only ever cost a
+// venue 7 points out of 100 at its weight, nowhere near enough to
+// overcome a strong base score and tile match.
 // ---------------------------------------------------------------------------
 
-test('time of day: scores higher when the context band is one the venue runs', () => {
-  const morningOnly = venue({ bands: ['morning'] });
-  assert.ok(scoreTimeOfDay(morningOnly, 'morning') > scoreTimeOfDay(morningOnly, 'late'));
+test('scoreBandFitFactor: no discount when the venue runs during the current band', () => {
+  assert.equal(scoreBandFitFactor(venue({ bands: ['late'] }), 'late'), 1);
 });
 
-test('time of day: with no band context, score is neutral', () => {
-  assert.equal(scoreTimeOfDay(venue({ bands: ['morning'] }), undefined), 0.5);
+test('scoreBandFitFactor: a real, meaningful discount when it does not — never a hard zero-out', () => {
+  const factor = scoreBandFitFactor(venue({ bands: ['morning', 'afternoon', 'evening'] }), 'late');
+  assert.equal(factor, 0.35);
+  assert.ok(factor > 0, 'a genuine mismatch can still surface as the only real option, never fully excluded');
+});
+
+test('scoreBandFitFactor: with no band context, no discount (nothing to mismatch against)', () => {
+  assert.equal(scoreBandFitFactor(venue({ bands: ['morning'] }), undefined), 1);
+});
+
+test('rankVenues: a venue outside its own operating bands can no longer beat a real open match on base score alone (the padel-club-at-2am bug)', () => {
+  // Mirrors the real report: a high-base, high-distinctiveness "padel
+  // club" with no late-night hours, versus a real open bar with a more
+  // modest base score — the bar must win at 'late', not the padel club.
+  const padelClub = venue({
+    id: 'padel-club-fixture',
+    type: 'PADEL CLUB',
+    base: 82,
+    distinctiveness: 4,
+    bands: ['morning', 'afternoon', 'evening'],
+  });
+  const openBar = venue({
+    id: 'open-bar-fixture',
+    type: 'COCKTAIL BAR',
+    base: 70,
+    distinctiveness: 4,
+    bands: ['evening', 'late'],
+  });
+  const input = baseInput({ context: { now: false, day: 'saturday', band: 'late' } });
+  const result = rankVenues(input, [padelClub, openBar], []);
+  assert.equal(result.ranked[0].venueId, 'open-bar-fixture', 'the venue that is actually open right now must rank first');
 });
 
 // ---------------------------------------------------------------------------
@@ -418,8 +508,43 @@ test('weather: unknown/absent weather is neutral', () => {
 });
 
 // ---------------------------------------------------------------------------
+// scoreWeatherFitFactor — a discount multiplier for the one case
+// scoreWeather's additive treatment structurally can't catch: an
+// outdoor-only venue in genuinely extreme weather. Same shape of fix as
+// scoreBandFitFactor above, added the same day, proactively (found by
+// re-auditing the ranking engine for the same bug class after the
+// padel-club fix, at direct user request — "apply that across the app").
+// ---------------------------------------------------------------------------
+
+test('scoreWeatherFitFactor: no discount for an indoor venue, however extreme the weather', () => {
+  assert.equal(scoreWeatherFitFactor(venue({ type: 'SMALL PLATES' }), 'Severe thunderstorm'), 1);
+});
+
+test('scoreWeatherFitFactor: no discount for an outdoor venue in merely mild weather', () => {
+  assert.equal(scoreWeatherFitFactor(venue({ type: 'ROOFTOP' }), 'Partly cloudy, 15°'), 1);
+});
+
+test('scoreWeatherFitFactor: a real, meaningful discount for an outdoor venue in genuinely extreme weather — never a hard zero-out', () => {
+  const factor = scoreWeatherFitFactor(venue({ type: 'ROOFTOP' }), 'Severe thunderstorm');
+  assert.equal(factor, 0.4);
+  assert.ok(factor > 0, 'a genuinely unique rooftop can still surface as the only real match');
+});
+
+test('scoreWeatherFitFactor: unknown weather is never penalized', () => {
+  assert.equal(scoreWeatherFitFactor(venue({ type: 'ROOFTOP' }), undefined), 1);
+});
+
+test('rankVenues: an outdoor-only venue can no longer beat a real indoor match during a genuine storm on base score alone', () => {
+  const rooftopInAStorm = venue({ id: 'rooftop-fixture', type: 'ROOFTOP', base: 88, distinctiveness: 4 });
+  const decentIndoorSpot = venue({ id: 'indoor-fixture', type: 'SMALL PLATES', base: 68, distinctiveness: 4 });
+  const input = baseInput({ context: { now: false, day: 'saturday', band: 'evening', weather: 'Severe thunderstorm' } });
+  const result = rankVenues(input, [rooftopInAStorm, decentIndoorSpot], []);
+  assert.equal(result.ranked[0].venueId, 'indoor-fixture', 'the indoor venue must win during a real storm');
+});
+
+// ---------------------------------------------------------------------------
 // Weighted signal: liveliness (District.bandMultiplier — how alive the
-// district is right now, distinct from scoreTimeOfDay's venue-own-hours check)
+// district is right now, distinct from scoreBandFitFactor's venue-own-hours check)
 // ---------------------------------------------------------------------------
 
 const livelyLateDistrict: District = {
@@ -662,8 +787,12 @@ test('weightsFor: with no band and no weather, no contextual rule fires — matc
 });
 
 test('rankVenues: a pet-friendly venue outranks an otherwise-identical non-pet-friendly one more decisively in the daytime than late at night', () => {
-  const petsOk = venue({ id: 'pets-ok', base: 80, petFriendly: true });
-  const noPets = venue({ id: 'no-pets', base: 80, petFriendly: false });
+  // bands cover both tested bands (afternoon and late) identically for
+  // both fixtures, so scoreBandFitFactor's discount is a no-op here —
+  // this test isolates weightsFor's pet-weight flex, not band fit.
+  const bandsCoveringBoth = ['morning', 'afternoon', 'evening', 'late'] as const;
+  const petsOk = venue({ id: 'pets-ok', base: 80, petFriendly: true, bands: [...bandsCoveringBoth] });
+  const noPets = venue({ id: 'no-pets', base: 80, petFriendly: false, bands: [...bandsCoveringBoth] });
   const you: MatchmakingInput['you'] = { spendLevel: 3, dietary: ['none'], pet: 'small-dog' };
 
   const afternoonResult = rankVenues(

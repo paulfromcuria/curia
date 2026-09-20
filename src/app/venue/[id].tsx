@@ -122,6 +122,19 @@ const DIETARY_MISMATCH_LABEL: Record<Exclude<DietaryRequirement, 'none'>, string
  * category — and deliberately not a repeat of the blurb: the blurb is the
  * venue's fixed character, this is what today specifically adds to it.
  * Absent (not a filler line) when neither signal is notable right now.
+ *
+ * 2026-09-19 addition, found continuing the "apply that across the app"
+ * audit (rank-venues.ts's passesOpenNowFilter/scoreBandFitFactor,
+ * geo.ts's venuesInBounds): this screen reads a venue directly by id, so
+ * a permanently-closed one (status='closed' — the real hard-exclusion
+ * mechanism migrations 0011/0032/0035 use) is still fully reachable here
+ * via a saved place, an old deep link, or (until the geo.ts fix landed
+ * the same day) a background map pin — and used to render as a totally
+ * normal listing: SAVE button, travel CTA, the works, no indication at
+ * all that the door's locked. Now shows a CLOSED badge next to the name
+ * and swaps the walking/ride CTA for a plain notice — sending someone to
+ * request a car to a venue that isn't there anymore is actively harmful,
+ * not just a missing label.
  */
 export default function VenueDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -219,6 +232,11 @@ export default function VenueDetail() {
                 <Text style={styles.newBadgeText}>NEW</Text>
               </View>
             )}
+            {venue.status === 'closed' && (
+              <View style={styles.closedBadge}>
+                <Text style={styles.closedBadgeText}>CLOSED</Text>
+              </View>
+            )}
           </View>
         </View>
       </View>
@@ -300,8 +318,14 @@ export default function VenueDetail() {
           <Text style={styles.districtButtonArrow}>→</Text>
         </Pressable>
 
-        <Button label={travelLabel} onPress={goTravel} style={styles.travelButton} />
-        {!!travelNote && <Text style={styles.travelNote}>{travelNote}</Text>}
+        {venue.status === 'closed' ? (
+          <Text style={styles.closedNote}>This venue has closed and isn't being recommended.</Text>
+        ) : (
+          <>
+            <Button label={travelLabel} onPress={goTravel} style={styles.travelButton} />
+            {!!travelNote && <Text style={styles.travelNote}>{travelNote}</Text>}
+          </>
+        )}
       </View>
     </ScrollView>
   );
@@ -361,6 +385,27 @@ const styles = StyleSheet.create({
     fontSize: 9.5,
     letterSpacing: 1.6,
     color: color.goldLight,
+  },
+  closedBadge: {
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: 'rgba(192,82,74,.6)',
+    backgroundColor: 'rgba(192,82,74,.14)',
+    paddingHorizontal: 9,
+    paddingVertical: 3,
+  },
+  closedBadgeText: {
+    fontFamily: font.sansMedium,
+    fontSize: 9.5,
+    letterSpacing: 1.6,
+    color: color.closedRed,
+  },
+  closedNote: {
+    fontFamily: font.sans,
+    fontSize: 13,
+    lineHeight: 19,
+    color: color.closedRed,
+    marginTop: spacing.md,
   },
   saveButton: {
     position: 'absolute',
