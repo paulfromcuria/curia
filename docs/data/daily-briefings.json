@@ -277,6 +277,39 @@
         { "label": "Closure audit (indices 28-32: Wiltons, Franco's, Chris Beetles Gallery, Spencer House, The Globe)", "detail": "not completed — could not find real evidence either way, so nothing written rather than guessing" }
       ],
       "createdAt": "2026-09-17T09:20:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-09-21",
+      "synced": false,
+      "title": "40 venues + Lymm (new Cheshire district) promoted; 3 rejected (1 chain, 2 duplicates); Prana/Underbank still awaiting a human call",
+      "summary": "Independently re-verified all pending candidates in venue-suggestions.json (the 2026-09-17 through 2026-09-21 batches, plus retrying the tooling-outage-blocked Chester batch and the long-stuck Prana/Buon Cibo/Rustik/Underbank items now that WebSearch has recovered) and the sole pending district candidate, Lymm. Promoted 40 venues across Chester, Tarporley, Northwich, Chorlton, Chinatown, Spinningfields, Northern Quarter, Ancoats, Deansgate, Macclesfield, Hale, Stockport (Underbanks), Alderley Edge, Altrincham, Knutsford, Heaton Moor and Didsbury, plus Lymm as a new Cheshire district. Olive Tree Brasserie (Chester) was rejected, reversing the original 'genuine 3-site regional group' framing: fresh verification found it actually trades at Lytham, Stockton Heath, Chester and Leeds — a real 4+ site, multi-region operation, past this file's small-sibling-group allowance. Two candidates, The Nest Nantwich and Amici, turned out to be exact duplicates of already-promoted venues and were rejected on that basis. Buon Cibo and Rustik, both stuck 'pending' since 2026-09-14 on genuinely conflicting signals, resolved cleanly this run: Buon Cibo's previously-unconfirmed Reddish sister site is now independently confirmed (alongside a third site in Hazel Grove), a real 3-site local group within the standing allowance; Rustik's current 2026 listings show full evening/late trading hours, resolving the brunch-only uncertainty flagged after its October 2025 reopening. Prana and Underbank remain genuinely unresolved and stay in docs/data/pending-review-queue.json: Prana's CAMRA listing still reads 'Closed Long Term' against a newly-found active-looking Instagram/events page, still no dated proof either way; Underbank is a data-correction call (a naming mix-up with the app's existing 'The Underbank' entry), not a simple approve/reject. Curia Command's pending_review collection (checked via read_db) had zero decided items to apply this run. The closure-audit rotating slice (Suburban Green, Smoke Wilmslow, Symposium, Cibo, Cibo Gran Cafe — all Wilmslow) found no closures, all five re-confirmed still trading with active 2026 reviews.",
+      "items": [
+        { "label": "Craft & Company, Beer Heroes, Huxley's, Paysan, Shrub, Chester Zoo (Chester)", "detail": "promoted — Chester batch, retried after a 2026-09-17 tooling outage; single-site or small local-group (iKO Projects, single-city), no closure signals" },
+        { "label": "Olive Tree Brasserie (Chester)", "detail": "rejected — re-verification found a real 4+ site group (Lytham, Stockton Heath, Chester, Leeds), a multi-region chain, not the 3-site group originally reported" },
+        { "label": "Piste Wine Bar & Restaurant, Rose Farm Shop, Beeston Castle, Bonjour Wines, The Coast (Tarporley)", "detail": "promoted — single-site or confirmed 2-site pairs, heritage/independent, no chain signal" },
+        { "label": "Board Beans, Turturici, Barons, Northwich Market, HUSH Brewing Tap, Zaza Cafe Bar (Northwich)", "detail": "promoted — Northwich Market's opening-day timing independently confirmed as having gone ahead on 18 Sept 2026 as planned" },
+        { "label": "Sali's Souvlaki, Vietnamese Potbellied (Chorlton)", "detail": "promoted — single-site, closes a real Greek/Vietnamese coverage gap" },
+        { "label": "Salut Wines, Higher Ground, Bali Health Lounge (Chinatown)", "detail": "promoted — single-site or small 2-site sibling pair, district-boundary placements re-checked against real coordinates" },
+        { "label": "La Gitane (Spinningfields)", "detail": "promoted — single venue beneath an independent restaurant, curatorial (not ownership) link to Matt & Phreds" },
+        { "label": "Idle Hands, Beaumont Organic, SOUP, This & That (Northern Quarter)", "detail": "promoted — single-site, no chain signal" },
+        { "label": "Blossom Street Social, Social Refuge (Ancoats)", "detail": "promoted — single-site or confirmed 2-site pair (Hanging Ditch/Blossom Street Social)" },
+        { "label": "Dimitris, John Rylands Library (Deansgate)", "detail": "promoted — single physical footprint and a University of Manchester heritage site respectively" },
+        { "label": "La Dulce Vendimia (Macclesfield)", "detail": "promoted — single-site wine bar, no chain signal" },
+        { "label": "Sigiriya (Hale)", "detail": "promoted — confirmed real 2-site pair (Hale, Knutsford)" },
+        { "label": "Kambuja (Stockport (Underbanks))", "detail": "promoted — confirmed real 2-site pair (Produce Hall, Marple)" },
+        { "label": "Tuula (Alderley Edge)", "detail": "promoted — single-site fashion boutique, closes a whole-metro tile gap" },
+        { "label": "Nostro Grande (Altrincham)", "detail": "promoted — very fresh opening (19 Sept 2026), independently confirmed as a real, deliberate second site with no negative signal" },
+        { "label": "Tatton Park (Knutsford)", "detail": "promoted — National Trust heritage estate, non-commercial" },
+        { "label": "Buon Cibo (Heaton Moor)", "detail": "promoted — previously pending since 2026-09-14; Reddish sister site now independently confirmed, plus a third Hazel Grove site, a real 3-site local group" },
+        { "label": "Eden (Heaton Moor)", "detail": "promoted — retried after a 2026-09-17 tooling outage; single-site, actively trading, no closure signal" },
+        { "label": "Rustik (Didsbury)", "detail": "promoted — previously pending since 2026-09-14; current listings confirm full evening/late trading hours resumed" },
+        { "label": "The Nest Nantwich (Nantwich), Amici (Bramhall)", "detail": "rejected — both exact duplicates of already-promoted venues in docs/data/venues.json" },
+        { "label": "Prana (Altrincham)", "detail": "left pending in docs/data/pending-review-queue.json — genuinely conflicting closure/reopening signals, unresolved since 2026-09-11" },
+        { "label": "Underbank (Stockport (Underbanks))", "detail": "left pending in docs/data/pending-review-queue.json — a naming/identity mix-up with the existing 'The Underbank' entry, needs a human data-correction call, not a new-venue approval" },
+        { "label": "Lymm (new Cheshire district)", "detail": "promoted — real, distinct canal-side village with an independent-shop cluster, ~8.5km from Altrincham" }
+      ],
+      "createdAt": "2026-09-21T09:15:00Z"
     }
   ]
 }
