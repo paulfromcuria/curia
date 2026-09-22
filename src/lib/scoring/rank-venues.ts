@@ -167,12 +167,37 @@ export function isVenueClosed(venue: Venue): boolean {
   return venue.status === 'closed';
 }
 
+/**
+ * Excludes a venue that doesn't run on a normal daily/weekly schedule at
+ * all (`Venue.occasional` — see that field's own doc comment, models.ts).
+ * Direct user report, 2026-09-22: "why am i being recomended the wilmslow
+ * artisan market on a tuesday when that is only open on certain saturdays."
+ * `bands`/`openingHours` both structurally assume a venue's schedule
+ * repeats every day or every week — neither can express "the third
+ * Saturday of the month," so a monthly market was scoring exactly like a
+ * normal daily afternoon venue and could win a top recommendation on any
+ * of the ~29 days a month it's actually shut. This is the same "genuine
+ * impossibility" reasoning as passesOpenNowFilter/passesDistanceFilter,
+ * not a scoring tweak: recommending a venue with false day-to-day
+ * confidence when there is structurally no way to know if today is one of
+ * its handful of real operating dates is a worse failure than just not
+ * recommending it algorithmically at all. A hard exclusion, not a
+ * discount — unlike scoreBandFitFactor's 0.35 multiplier, there's no
+ * "still surfaces as the only real option" case here worth preserving:
+ * an occasional venue being the sole match for a filter would still be
+ * confidently wrong most days.
+ */
+export function passesRegularScheduleFilter(venue: Venue): boolean {
+  return !venue.occasional;
+}
+
 export function applyHardFilters(venues: Venue[], input: MatchmakingInput): Venue[] {
   const resolved = resolveContext(input.context);
   const clockTime = currentClockTime(input.context.now, resolved.day as DayName, resolved.band);
   return venues.filter(
     (v) =>
       !isVenueClosed(v) &&
+      passesRegularScheduleFilter(v) &&
       passesDistanceFilter(v, input.location, input.radiusMiles) &&
       passesDietaryFilter(v, input.you.dietary) &&
       passesMoodFilter(v, input.moodFilter) &&
