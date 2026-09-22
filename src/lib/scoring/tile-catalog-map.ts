@@ -490,4 +490,20 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, ('Do' | 'Drink' | 'Eat' | 'H
   'PUBLIC LIBRARY': ['Do'],
   'CAMPUS DINING HALL': ['Eat'],
   'CAMPUS GYM': ['Do'],
+  // Manchester/Cheshire core backlog review (2026-09-22) — 11 new types
+  // from the daily research pipeline's own suggestions, promoted after
+  // re-verification. Category-only, same treatment as this file's many
+  // other precise-fit-doesn't-exist types; each note below is the
+  // promoting research's own stated category, not a fresh guess.
+  'HISTORIC CASTLE': ['Do'],
+  'GAMES CAFE': ['Do'],
+  'BREWERY TAP': ['Drink'],
+  'SRI LANKAN RESTAURANT': ['Eat'],
+  'CAMBODIAN RESTAURANT': ['Eat'],
+  'HISTORIC LIBRARY': ['Do'],
+  'HISTORIC ESTATE': ['Do'],
+  ZOO: ['Do'],
+  'HONG KONG CAFE': ['Eat'],
+  'FISH AND CHIPS': ['Eat'],
+  'PAN-ASIAN RESTAURANT': ['Eat'],
 };
