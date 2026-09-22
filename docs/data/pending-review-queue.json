@@ -86,7 +86,10 @@
         "lat": 53.3837,
         "lon": -2.3526,
         "base": 78,
-        "bands": ["evening", "late"],
+        "bands": [
+          "evening",
+          "late"
+        ],
         "reason": "Two floors of proper acoustics on Ashley Road from the team behind Stockport's Amp — order the cocktail, but the stage is the reason to stay past nine."
       }
     },
@@ -105,17 +108,20 @@
         "lat": 53.423255,
         "lon": -2.185411,
         "base": 74,
-        "bands": ["afternoon", "evening"],
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
         "reason": "A family kitchen on Shaw Road doing proper Italian without the tablecloth theatre."
       }
     },
     {
       "itemType": "add_venue",
-      "status": "pending",
+      "status": "resolved",
       "syncedToPortal": false,
       "proposedDate": "2026-09-14",
       "reason": "Genuinely independent and non-chain, but its recent history is a closure announced 17 September 2025, a partial (initially daytime-only) reopening 15 October 2025 after community support, and its original operating company dissolved 12 November 2025 — unclear whether it's trading today, and whether the evening/live-music programme central to its 'Irish bar' identity has come back.",
-      "researchNotes": "Ownership checks out cleanly as genuinely independent, family-run, no chain signal found. The trading-status timeline (closure announcement, community-backed reopening, dissolved operating company) comes from Manchester World and The Manc's own coverage plus a live Companies House record for RUSTIK LTD — real events, but not enough to say whether the venue trades today as described. A direct check of its current Instagram/Google listing would resolve this faster than another web search.",
+      "researchNotes": "Ownership checks out cleanly as genuinely independent, family-run, no chain signal found. The trading-status timeline (closure announcement, community-backed reopening, dissolved operating company) comes from Manchester World and The Manc's own coverage plus a live Companies House record for RUSTIK LTD — real events, but not enough to say whether the venue trades today as described. A direct check of its current Instagram/Google listing would resolve this faster than another web search. RESOLVED 2026-09-22 (curia-suggestion-review, independently, not via a Curia Command decision): fresh re-verification found themanc.com's own coverage confirming Rustik stayed open after its initial closure plans, with April 2026 sourcing confirming full weekly operating hours through midnight on Fri/Sat — the ambiguity this entry was sent here for is resolved. Promoted directly into docs/data/venues.json and removed from docs/data/venue-suggestions.json. This entry is left here, dimmed/read-only per the standard practice, rather than deleted (write_db is off-limits; git-tracked file deletions are fine, but the file's own header note says a human doing the periodic sync can tidy decided entries out — left for that pass).",
       "payload": {
         "name": "Rustik",
         "district": "didsbury",
@@ -124,7 +130,11 @@
         "lat": 53.427674,
         "lon": -2.241957,
         "base": 72,
-        "bands": ["morning", "afternoon", "evening"],
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening"
+        ],
         "reason": "Burton Road's own Irish corner — brunch by day, a proper session by night, family-run without a single chain tell in the fit-out."
       }
     },
@@ -143,8 +153,23 @@
         "lat": 53.41095,
         "lon": -2.1589,
         "base": 68,
-        "bands": ["evening", "late"],
+        "bands": [
+          "evening",
+          "late"
+        ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-22",
+      "reason": "Two independent signals agree Caramello (Wilmslow) has closed: HappyCow's own listing is headed 'CLOSED: Caramello Wilmslow', and a separate source reports the closure dated January 2026.",
+      "researchNotes": "Web search 2026-09-22, routine closure-audit rotating slice (indices 92-96 of docs/data/venues.json, the day-of-year-265 slice: Piccolino Grande, Heddy's, Caramello, Wilmslow Tavern, Phanthong Thai — all in Wilmslow). Caramello, 80 Water Lane, Wilmslow: HappyCow's listing title itself reads 'CLOSED: Caramello Wilmslow', and a separate source states the closure occurred in January 2026. Not independently corroborated by a direct check of the venue's own current Instagram/Google listing this run, so flagged for a human glance per the closure-audit rule rather than auto-removed. The other four venues in this run's slice (Piccolino Grande, Heddy's, Wilmslow Tavern, Phanthong Thai) were all re-confirmed still trading, no closure signal on any of them.",
+      "payload": {
+        "name": "Caramello",
+        "district": "wilmslow"
       }
     }
   ]
