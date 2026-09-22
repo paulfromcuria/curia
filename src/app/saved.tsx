@@ -15,16 +15,14 @@ import { color, font, radius, spacing } from '../theme';
  *
  * This screen reads/writes the shared `savedCollections`/`savedJourneyIds`
  * session state added in src/lib/state/session.tsx for M7 — see that
- * file's comments. IMPORTANT, flagged rather than silently worked around:
- * Map (src/app/(tabs)/map.tsx) and List (src/app/(tabs)/list.tsx) currently
- * have their own local, unpersisted per-screen save-star toggles that are
- * NOT wired to this shared store yet — so a venue starred there won't (yet)
- * appear here. Wiring them up is left as follow-up work for curia-map /
- * curia-list, per this agent's brief not to rewire another subagent's
- * screens. Venue/journey detail (src/app/venue/[id].tsx,
- * src/app/journey/[id].tsx) are still curia-moments-journeys' placeholders
- * for the same reason — once built, they should call
- * `session.toggleSavedVenue` / `session.toggleSavedJourney`.
+ * file's comments. Historical note, corrected 2026-09-22: this used to flag
+ * Map/List as having their own local, unpersisted save-star toggles not
+ * wired to this shared store — no longer true. Map (map.tsx/map.web.tsx)
+ * reads `session.isVenueSaved` for a read-only SavedBadge on pins (tapping a
+ * pin navigates to venue detail, where the actual save toggle lives, rather
+ * than duplicating a second save control on the pin itself); List and venue/
+ * journey detail all call `session.toggleSavedVenue`/`toggleSavedJourney`
+ * directly. A venue or journey saved from anywhere in the app shows up here.
  *
  * 2026-09-19 addition: a venue saved before it closed (status='closed' —
  * real closures happen, see migrations 0011/0032/0035) stays in a
