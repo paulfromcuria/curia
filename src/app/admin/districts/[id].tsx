@@ -3,7 +3,6 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import { AdminHeader } from '../../../components/admin/admin-header';
 import { DistrictForm } from '../../../components/admin/district-form';
 import { useAdminData } from '../../../lib/admin/admin-data';
-import { CITIES } from '../../../lib/data/seed';
 import { color, font, spacing } from '../../../theme';
 
 /**
@@ -11,11 +10,17 @@ import { color, font, spacing } from '../../../theme';
  * Replaces the earlier editorial-only editor — see district-form.tsx's doc
  * comment for why. Delete warns (not blocks) if venues still reference this
  * district, matching chain-denylist.ts's warn-don't-overengineer approach.
+ *
+ * `cities` comes from useAdminData() (admin-scoped, unfiltered), not
+ * seed.ts's member-facing CITIES singleton — see admin-data.tsx's own
+ * 2026-09-22 doc-comment addition for why (Santorini was unselectable
+ * here while HOLIDAY_FEATURE_ENABLED is off, same root cause as the
+ * "venues by metro graph doesn't add up" bug).
  */
 export default function EditDistrict() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { getDistrict, venues, upsertDistrict, deleteDistrict } = useAdminData();
+  const { getDistrict, venues, cities, upsertDistrict, deleteDistrict } = useAdminData();
   const district = getDistrict(id);
 
   if (!district) {
@@ -51,7 +56,7 @@ export default function EditDistrict() {
       <AdminHeader title={district.name} subtitle={`${district.metro} · ${district.kind}`} />
       <DistrictForm
         initial={district}
-        cities={CITIES}
+        cities={cities}
         onSave={(updated) => {
           upsertDistrict(updated);
           router.back();

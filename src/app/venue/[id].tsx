@@ -205,7 +205,7 @@ export default function VenueDetail() {
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.hero}>
         <Image
-          source={{ uri: venue.photos[0] ?? placeholderPhotoFor(venue.type) }}
+          source={{ uri: venue.photos[0] ?? placeholderPhotoFor(venue.type, venue.id) }}
           style={styles.heroImage}
           resizeMode="cover"
         />

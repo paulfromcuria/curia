@@ -76,6 +76,7 @@ export default function AdminLogin() {
             autoCorrect={false}
             keyboardType="email-address"
             textContentType="emailAddress"
+            autoComplete="email"
           />
           <TextField
             label="Password"
@@ -84,6 +85,7 @@ export default function AdminLogin() {
             placeholder="Your password"
             secureTextEntry
             textContentType="password"
+            autoComplete="current-password"
           />
           {error ? <Text style={styles.errorBanner}>{error}</Text> : null}
         </View>
