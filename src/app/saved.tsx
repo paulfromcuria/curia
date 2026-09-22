@@ -2,7 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { BackButton, Button, Kicker } from '../components/curia';
-import { DISTRICTS, JOURNEYS, VENUES } from '../lib/data/seed';
+import { DISTRICTS, JOURNEYS, VENUES, journeyHasClosedStop } from '../lib/data/seed';
 import { useSession } from '../lib/state/session';
 import { color, font, radius, spacing } from '../theme';
 
@@ -35,6 +35,10 @@ import { color, font, radius, spacing } from '../theme';
  * flags it without removing it from the collection (that's the member's
  * call, via the existing remove button, not this screen's to make for
  * them). Same status field venue/[id].tsx's own CLOSED badge reads.
+ *
+ * 2026-09-22 addition: same gap existed for saved journeys — a "CLOSED
+ * STOP" tag now shows when journeyHasClosedStop (seed.ts) finds one of a
+ * saved journey's stops has shut, mirroring the venue-row treatment above.
  */
 
 type SavedView = 'places' | 'journeys';
@@ -205,7 +209,12 @@ function JourneysView() {
           {savedJourneys.map((journey) => (
             <View key={journey.id} style={styles.row}>
               <Pressable onPress={() => router.push(`/journey/${journey.id}`)} style={styles.rowText}>
-                <Text style={styles.rowLabel}>{journey.title}</Text>
+                <View style={styles.rowLabelRow}>
+                  <Text style={styles.rowLabel}>{journey.title}</Text>
+                  {journeyHasClosedStop(journey) && (
+                    <Text style={styles.rowClosedTag}>CLOSED STOP</Text>
+                  )}
+                </View>
                 <Text style={styles.rowMeta}>{journey.momentType.replace(/-/g, ' ').toUpperCase()}</Text>
               </Pressable>
               <Pressable

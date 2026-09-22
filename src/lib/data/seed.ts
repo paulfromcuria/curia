@@ -13,6 +13,7 @@
 import { useEffect, useReducer } from 'react';
 import { supabase } from './supabase-client';
 import { HOLIDAY_FEATURE_ENABLED } from '../config/features';
+import { isVenueClosed } from '../scoring/rank-venues';
 import type {
   City,
   Destination,
@@ -370,15 +371,43 @@ export function journeyDistricts(journey: Journey): District[] {
   return DISTRICTS.filter((d) => districtIds.has(d.id));
 }
 
-/** Journeys with at least one stop in the given district. */
-export function journeysByDistrict(districtId: string): Journey[] {
-  return JOURNEYS.filter((j) => journeyDistricts(j).some((d) => d.id === districtId));
+/**
+ * True if any of a Journey's stops resolves to a permanently-closed venue.
+ * Added 2026-09-22, continuing the same audit as rank-venues.ts's
+ * isVenueClosed: Journeys/Moments read venues directly by id, bypassing
+ * rankVenues/applyHardFilters entirely, so a closed stop used to still
+ * appear completely normally everywhere a Journey is listed or opened.
+ * Excludes the whole journey rather than just dropping the closed stop —
+ * a walking sequence with a stop silently removed would have wrong
+ * walk-time-to-next connectors and a broken "start this journey" route,
+ * worse than not listing it at all; a real fix needs an editor to rebuild
+ * it without the dead venue, not a client-side patch. journey/[id].tsx
+ * still handles the direct-link case (e.g. from a previously-saved
+ * journey) with its own in-place CLOSED flag, since this only controls
+ * whether a journey gets *listed*.
+ */
+export function journeyHasClosedStop(journey: Journey): boolean {
+  return journey.stops.some((stop) => {
+    const venue = VENUES.find((v) => v.id === stop.venueId);
+    return venue ? isVenueClosed(venue) : false;
+  });
 }
 
-/** Moments with at least one pick in the given district. */
+/** Journeys with at least one stop in the given district, excluding any
+ * journey with a closed stop (see journeyHasClosedStop above). */
+export function journeysByDistrict(districtId: string): Journey[] {
+  return JOURNEYS.filter(
+    (j) => !journeyHasClosedStop(j) && journeyDistricts(j).some((d) => d.id === districtId)
+  );
+}
+
+/** Moments with at least one live (non-closed) pick in the given district. */
 export function momentsByDistrict(districtId: string): Moment[] {
   return MOMENTS.filter((m) =>
-    m.venueIds.some((id) => VENUES.find((v) => v.id === id)?.districtId === districtId)
+    m.venueIds.some((id) => {
+      const v = VENUES.find((vv) => vv.id === id);
+      return v && !isVenueClosed(v) && v.districtId === districtId;
+    })
   );
 }
 

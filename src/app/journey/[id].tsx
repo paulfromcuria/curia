@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Kicker } from '../../components/curia';
 import { JOURNEYS, VENUES, journeyDistricts } from '../../lib/data/seed';
+import { isVenueClosed } from '../../lib/scoring/rank-venues';
 import { useSession } from '../../lib/state/session';
 import { estimateTrip } from '../../lib/travel/trip';
 import { color, font, radius, spacing } from '../../theme';
@@ -28,6 +29,18 @@ interface ResolvedStop {
  * an M9 QA pass found this button was still using its own `useState`
  * despite the shared session actions already existing, so a journey saved
  * here never actually showed up on the Saved screen.
+ *
+ * 2026-09-22 addition: this screen resolves stops straight by id, same as
+ * every other closed-venue gap found this session (rank-venues.ts's
+ * isVenueClosed, geo.ts's venuesInBounds, moments.tsx) — moments.tsx now
+ * excludes a journey with any closed stop from its own listing, but a
+ * previously-saved journey (saved.tsx) still links straight here, so a
+ * closed stop still needs handling at this level too. Doesn't try to
+ * renumber the sequence or drop the dead stop (that would desync the real
+ * walk-time-to-next data) — flags the closed stop in place and swaps
+ * "Start this journey" for a plain notice, since routing someone to a
+ * venue that isn't there anymore is the same real harm venue/[id].tsx's
+ * own CLOSED handling exists to prevent.
  */
 export default function JourneyDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -50,6 +63,7 @@ export default function JourneyDetail() {
   }, [journey]);
 
   const districts = journey ? journeyDistricts(journey) : [];
+  const hasClosedStop = stops.some(({ venue }) => isVenueClosed(venue));
 
   if (!journey) {
     return (
@@ -112,7 +126,10 @@ export default function JourneyDetail() {
                 <View style={styles.stopPhoto} />
                 <View style={styles.stopText}>
                   <Text style={styles.stopIndex}>STOP {idx + 1}</Text>
-                  <Text style={styles.stopName}>{venue.name}</Text>
+                  <View style={styles.stopNameRow}>
+                    <Text style={styles.stopName}>{venue.name}</Text>
+                    {isVenueClosed(venue) && <Text style={styles.stopClosedTag}>CLOSED</Text>}
+                  </View>
                   <Text style={styles.stopKind}>{venue.type}</Text>
                   <Text style={styles.stopNote}>{venue.description}</Text>
                 </View>
@@ -127,7 +144,13 @@ export default function JourneyDetail() {
           ))}
         </View>
 
-        <Button label="Start this journey" onPress={startJourney} style={styles.startButton} />
+        {hasClosedStop ? (
+          <Text style={styles.closedNote}>
+            This journey includes a stop that has closed — it isn't being recommended as-is.
+          </Text>
+        ) : (
+          <Button label="Start this journey" onPress={startJourney} style={styles.startButton} />
+        )}
       </View>
     </ScrollView>
   );
@@ -234,10 +257,22 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     color: color.textTertiary,
   },
+  stopNameRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   stopName: {
     fontFamily: font.serifRegular,
     fontSize: 20,
     color: color.textPrimary,
+  },
+  stopClosedTag: {
+    fontFamily: font.sansMedium,
+    fontSize: 9,
+    letterSpacing: 1.4,
+    color: color.closedRed,
+    borderWidth: 1,
+    borderColor: 'rgba(192,82,74,.5)',
+    borderRadius: radius.pill,
+    paddingHorizontal: 7,
+    paddingVertical: 2,
   },
   stopKind: {
     fontFamily: font.sans,
@@ -269,4 +304,11 @@ const styles = StyleSheet.create({
     color: color.textTertiary,
   },
   startButton: { marginTop: spacing.sm },
+  closedNote: {
+    fontFamily: font.sans,
+    fontSize: 13,
+    lineHeight: 19,
+    color: color.closedRed,
+    marginTop: spacing.sm,
+  },
 });
