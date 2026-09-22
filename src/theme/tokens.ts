@@ -89,6 +89,18 @@ export const color = {
 
   // Map-render-only
   mapWater: '#16262B',
+  /** Found live 2026-09-22: the real Mapbox integration (map.web.tsx/
+   * map.tsx) never actually applies this file's own map-render-only
+   * colors — it just uses Mapbox's stock 'dark-v11' style as-is, whose
+   * default road color is a bright, saturated pink/mauve that clashes
+   * hard with this palette's warm gold/brown register everywhere else
+   * in the app. mapWater above has the exact same problem (defined,
+   * never wired in) — this was lost in the migration off the old
+   * hand-rolled SVG map, not a deliberate choice. Reuses mutedSurface's
+   * existing warm dark olive-brown rather than inventing a new hex —
+   * recedes into the near-black basemap the way real infrastructure
+   * should, leaving gold venue pins/UI as the only thing that pops. */
+  mapRoad: '#4F483E',
 } as const;
 
 /** Per-district accent colors — confirmed 1:1 from the prototype's DISTRICTS
