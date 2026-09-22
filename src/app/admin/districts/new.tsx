@@ -4,7 +4,6 @@ import { StyleSheet, View } from 'react-native';
 import { AdminHeader } from '../../../components/admin/admin-header';
 import { DistrictForm } from '../../../components/admin/district-form';
 import { slugifyDistrictName, useAdminData } from '../../../lib/admin/admin-data';
-import { CITIES } from '../../../lib/data/seed';
 import { color } from '../../../theme';
 import type { District } from '../../../types/models';
 
@@ -13,16 +12,25 @@ import type { District } from '../../../types/models';
  * district-form.tsx's doc comment for why this exists). Mirrors
  * venues/new.tsx exactly: a blank draft with conservative defaults, id
  * only finalized on save via slugifyDistrictName.
+ *
+ * `cities` comes from useAdminData() (admin-scoped, unfiltered), not
+ * seed.ts's member-facing CITIES singleton — found live 2026-09-22
+ * alongside the "venues by metro graph doesn't add up" bug: that
+ * singleton has Santorini's row removed whenever HOLIDAY_FEATURE_ENABLED
+ * is off, which meant an admin literally could not select Santorini as a
+ * new district's metro, even though 52 real Santorini venues already
+ * exist in the database. See admin-data.tsx's own doc comment for the
+ * full story.
  */
 export default function NewDistrict() {
   const router = useRouter();
-  const { districts, upsertDistrict } = useAdminData();
+  const { districts, cities, upsertDistrict } = useAdminData();
 
   const draft: District = useMemo(() => {
     return {
       id: '', // replaced on save
       name: '',
-      metro: CITIES[0]?.id ?? 'manchester',
+      metro: cities[0]?.id ?? 'manchester',
       lat: 0,
       lon: 0,
       base: 60,
@@ -42,7 +50,7 @@ export default function NewDistrict() {
       <AdminHeader title="Add district" />
       <DistrictForm
         initial={draft}
-        cities={CITIES}
+        cities={cities}
         saveLabel="Add district"
         onSave={(district) => {
           const id = slugifyDistrictName(district.name, districts.map((d) => d.id));
