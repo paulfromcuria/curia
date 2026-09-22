@@ -84,7 +84,14 @@ export default function Signup() {
         </View>
 
         <View style={styles.fields}>
-          <TextField label="Name" value={name} onChangeText={setName} placeholder="Alexandra Vance" textContentType="name" />
+          <TextField
+            label="Name"
+            value={name}
+            onChangeText={setName}
+            placeholder="Alexandra Vance"
+            textContentType="name"
+            autoComplete="name"
+          />
           <TextField
             label="Email"
             value={email}
@@ -94,6 +101,7 @@ export default function Signup() {
             autoCorrect={false}
             keyboardType="email-address"
             textContentType="emailAddress"
+            autoComplete="email"
           />
           <TextField
             label="Password"
@@ -102,6 +110,7 @@ export default function Signup() {
             placeholder="At least eight characters"
             secureTextEntry
             textContentType="newPassword"
+            autoComplete="new-password"
           />
           {error ? <Text style={styles.errorBanner}>{error}</Text> : null}
         </View>
