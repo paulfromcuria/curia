@@ -66,14 +66,17 @@ export async function discoverForTarget(
     return [];
   }
 
+  console.log(`[Discover] ${target.districtId}: fetching district brief...`);
   const brief = await fetchDistrictBrief(target.districtId);
   if (!brief) return [];
+  console.log(`[Discover] ${target.districtId}: brief fetched, loading known types/dedupe keys/feedback...`);
 
   const [knownTypes, existingKeys, feedback] = await Promise.all([
     fetchKnownVenueTypes(),
     fetchExistingDedupeKeys(),
     fetchRecentReviewFeedback(200),
   ]);
+  console.log(`[Discover] ${target.districtId}: prefetch done (${knownTypes.size} types, ${existingKeys.size} dedupe keys, ${feedback.length} feedback rows)`);
 
   const feedbackSummary = feedback.length
     ? feedback
@@ -120,7 +123,10 @@ ${languageNote}
 Find up to ${maxCandidates} real, currently-operating, non-chain venues in
 this district that would genuinely fit Curia's catalogue.`;
 
+  console.log(`[Discover] ${target.districtId}: calling model (web search enabled)...`);
+  const callStart = Date.now();
   const response = await callModel({ system, prompt, useWebSearch: true, maxTokens: 8192 });
+  console.log(`[Discover] ${target.districtId}: model call returned after ${Math.round((Date.now() - callStart) / 1000)}s`);
   const raw = parseJsonResponse<RawCandidate[]>(response);
 
   const drafts: VenueCandidateDraft[] = [];
