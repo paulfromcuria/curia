@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { mapVenueRow } from '../data/seed';
 import { supabase } from '../data/supabase-client';
-import type { District, Tile, Venue } from '../../types/models';
+import type { City, District, Tile, Venue } from '../../types/models';
 
 /**
  * Admin data store for the curation surface (M8, extended 2026-08 for the
@@ -17,6 +17,23 @@ import type { District, Tile, Venue } from '../../types/models';
  * undercounting by whatever wasn't lazy-loaded yet — found live 2026-09-18
  * ("my admin portal is showing 219 venues total, is that correct?" — real
  * answer was 329, London/Riyadh/Santorini missing entirely).
+ *
+ * That 2026-09-18 fix missed `cities`, though — found live 2026-09-22
+ * ("the venues by metro graph doesnt add up to 413"): src/app/admin/
+ * index.tsx was still passing the member-app's own `CITIES` singleton
+ * (src/lib/data/seed.ts) into GrowthInsights' "Venues by metro" chart
+ * instead of an admin-scoped fetch. That singleton has Santorini's row
+ * surgically removed whenever HOLIDAY_FEATURE_ENABLED is off (seed.ts's
+ * own loadContentData, `if (!HOLIDAY_FEATURE_ENABLED) CITIES =
+ * CITIES.filter(...)`) — correct for the member app, which is deliberately
+ * hiding that market, but wrong for an internal curation tool that should
+ * see every real row regardless of what's currently member-facing. The
+ * chart's own bars (bucketed against that Santorini-less array) summed to
+ * 413 − 52 = 361, while the adjacent "Total venues" stat tile (this
+ * provider's own unscoped venues.length) correctly showed 413 — same
+ * "admin should never inherit a member-facing scoping decision" bug as
+ * the original venues/districts/tiles one, just one field it missed.
+ * `cities` now gets the exact same unscoped-fetch treatment below.
  *
  * WRITE side is NOT fixed here — still real scope, not done: upsert/delete
  * below only mutate this in-memory copy, exactly as the original M8 brief
@@ -36,6 +53,11 @@ export interface AdminDataContextValue {
   venues: Venue[];
   districts: District[];
   tiles: Tile[];
+  /** Every real city/metro row, unscoped — see this file's own 2026-09-22
+   * doc-comment addition above for the exact bug this exists to prevent
+   * (a member-facing scoping decision, e.g. Santorini hidden behind
+   * HOLIDAY_FEATURE_ENABLED, leaking into what an admin can see). */
+  cities: City[];
   /** True until the initial Supabase fetch resolves — every count/coverage
    * stat computed from venues/districts/tiles is 0/empty until this flips,
    * not a real "nothing here" answer. */
@@ -90,20 +112,23 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [districts, setDistricts] = useState<District[]>([]);
   const [tiles, setTiles] = useState<Tile[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const [venuesRes, districtsRes, tilesRes] = await Promise.all([
+      const [venuesRes, districtsRes, tilesRes, citiesRes] = await Promise.all([
         supabase.from('venues').select('*'),
         supabase.from('districts').select('*'),
         supabase.from('tiles').select('*'),
+        supabase.from('cities').select('*'),
       ]);
       if (cancelled) return;
       setVenues((venuesRes.data ?? []).map(mapVenueRow));
       setDistricts((districtsRes.data ?? []).map(mapDistrictRow));
       setTiles((tilesRes.data ?? []).map(mapTileRow));
+      setCities((citiesRes.data ?? []).map((c) => ({ id: c.id as City['id'], name: c.name as string })));
       setLoading(false);
     })();
     return () => {
@@ -153,6 +178,7 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
       venues,
       districts,
       tiles,
+      cities,
       loading,
       getVenue,
       getDistrict,
@@ -168,6 +194,7 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
       venues,
       districts,
       tiles,
+      cities,
       loading,
       getVenue,
       getDistrict,

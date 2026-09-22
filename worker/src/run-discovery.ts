@@ -88,6 +88,16 @@ async function runOnce(): Promise<void> {
   let copyPassed = 0;
   let submitted = 0;
   const perTargetBudget = Math.ceil(maxCandidates / targets.length);
+  // A single target's failure (a malformed model response, a transient
+  // network error) must never crash the whole run — found live 2026-09-22:
+  // one bad JSON response from a single district was an UNCAUGHT throw,
+  // which per main()'s own catch handler kills the process immediately,
+  // skipping finishWorkerRun entirely. On a real unattended daily cron
+  // across many districts, that means one flaky response = zero worker_runs
+  // row and zero visibility into what actually happened, not just one
+  // district's loss. Each target's own body is isolated so the rest of the
+  // run keeps going and a partial-failure summary still gets recorded.
+  const failedTargets: string[] = [];
 
   for (const target of targets) {
     if (getAccumulatedCostUsd() >= config.dailyUsdBudget) {
@@ -95,27 +105,33 @@ async function runOnce(): Promise<void> {
       break;
     }
 
-    if (target.isNewMetro) {
-      const districtCandidate = await discoverNewDistrict(target);
-      if (districtCandidate) {
-        await insertDistrictCandidate(runId, districtCandidate);
-        console.log(`[Discover] proposed new district "${districtCandidate.name}" for ${target.metro}`);
+    try {
+      if (target.isNewMetro) {
+        const districtCandidate = await discoverNewDistrict(target);
+        if (districtCandidate) {
+          await insertDistrictCandidate(runId, districtCandidate);
+          console.log(`[Discover] proposed new district "${districtCandidate.name}" for ${target.metro}`);
+        }
+        continue;
       }
-      continue;
-    }
 
-    const drafts = await discoverForTarget(target, perTargetBudget);
-    discovered += drafts.length;
-    console.log(`[Discover] ${target.districtId}: ${drafts.length} candidates found`);
+      const drafts = await discoverForTarget(target, perTargetBudget);
+      discovered += drafts.length;
+      console.log(`[Discover] ${target.districtId}: ${drafts.length} candidates found`);
 
-    for (const draft of drafts) {
-      if (getAccumulatedCostUsd() >= config.dailyUsdBudget) break;
-      const outcome = await processCandidate(runId, draft);
-      if (outcome === 'submitted' || outcome === 'needs_new_type') {
-        verified += 1;
-        copyPassed += 1;
-        submitted += 1;
+      for (const draft of drafts) {
+        if (getAccumulatedCostUsd() >= config.dailyUsdBudget) break;
+        const outcome = await processCandidate(runId, draft);
+        if (outcome === 'submitted' || outcome === 'needs_new_type') {
+          verified += 1;
+          copyPassed += 1;
+          submitted += 1;
+        }
       }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(`[Error] ${target.districtId} failed, continuing to the next target: ${message}`);
+      failedTargets.push(target.districtId);
     }
   }
 
@@ -130,11 +146,17 @@ async function runOnce(): Promise<void> {
     copyPassed,
     submittedForReview: submitted,
     apiCostUsd: getAccumulatedCostUsd(),
-    notes: dryRun ? 'CURATOR_DRY_RUN=true — test run, not a real production pass.' : undefined,
+    notes: [
+      dryRun ? 'CURATOR_DRY_RUN=true — test run, not a real production pass.' : null,
+      failedTargets.length ? `Failed targets (see logs for the real error): ${failedTargets.join(', ')}` : null,
+    ]
+      .filter(Boolean)
+      .join(' ') || undefined,
   });
 
   console.log(
-    `[Done] discovered=${discovered} submitted=${submitted} cost=$${getAccumulatedCostUsd().toFixed(2)}`
+    `[Done] discovered=${discovered} submitted=${submitted} cost=$${getAccumulatedCostUsd().toFixed(2)}` +
+      (failedTargets.length ? ` failed=${failedTargets.join(',')}` : '')
   );
 }
 

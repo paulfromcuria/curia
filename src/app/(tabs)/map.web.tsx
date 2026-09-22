@@ -144,6 +144,40 @@ function hideCompetingMapLabels(map: mapboxgl.Map) {
   }
 }
 
+/**
+ * Recolors the basemap's own road lines to match Curia's brand palette.
+ * Found live 2026-09-22 walking through the real app: Mapbox's stock
+ * 'dark-v11' style (DARK_STYLE_URL above) was never re-themed after the
+ * migration off the old hand-rolled SVG map — its default road color is a
+ * bright, saturated pink that clashes hard with the gold/warm-brown
+ * palette everywhere else (see color.mapRoad's own doc comment,
+ * theme/tokens.ts). Same "verify against the loaded style, don't guess
+ * exact layer ids" approach as hideCompetingMapLabels above: filters by
+ * type/source-layer (documented, stable across every core Mapbox style),
+ * not by hardcoding dark-v11's specific layer-id strings, which could
+ * drift. Recolors every real road line layer found this way, including
+ * bridge/tunnel casing variants — anything Mapbox itself classifies as
+ * road data gets the same treatment, not just the most common layers.
+ */
+function recolorMapRoads(map: mapboxgl.Map) {
+  try {
+    const layers = map.getStyle()?.layers ?? [];
+    layers.forEach((l) => {
+      if (l.type !== 'line') return;
+      if ((l as { 'source-layer'?: string })['source-layer'] !== 'road') return;
+      try {
+        map.setPaintProperty(l.id, 'line-color', color.mapRoad);
+      } catch {
+        // A handful of road-adjacent line layers (e.g. dashed overlays)
+        // don't expose a line-color paint property at all — skip those
+        // rather than let one failure stop the rest from recoloring.
+      }
+    });
+  } catch {
+    // Best-effort — worst case the stock Mapbox road color stays.
+  }
+}
+
 function ensureMapboxCss() {
   if (typeof document === 'undefined') return;
   if (document.querySelector(`link[data-curia-mapbox-css]`)) return;
@@ -805,11 +839,13 @@ export default function Map() {
         .addTo(map);
     };
     const hideCompetingLabels = () => hideCompetingMapLabels(map);
+    const recolorRoads = () => recolorMapRoads(map);
     map.on('load', syncFromCamera);
     map.on('load', addCoverageLayers);
     map.on('load', addDistrictGlowLayers);
     map.on('load', addCampusLayers);
     map.on('load', hideCompetingLabels);
+    map.on('load', recolorRoads);
     map.on('moveend', syncFromCamera);
 
     return () => {
@@ -819,6 +855,7 @@ export default function Map() {
       map.off('load', addDistrictGlowLayers);
       map.off('load', addCampusLayers);
       map.off('load', hideCompetingLabels);
+      map.off('load', recolorRoads);
       map.off('moveend', syncFromCamera);
       map.remove();
       mapRef.current = null;

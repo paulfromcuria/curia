@@ -188,7 +188,7 @@ export function TopPicksRail({ picks, onSelectVenue }: TopPicksRailProps) {
               <View style={styles.cardTop}>
                 <Text style={styles.rank}>{i + 1}</Text>
                 <Image
-                  source={{ uri: p.venue.photos[0] ?? placeholderPhotoFor(p.venue.type) }}
+                  source={{ uri: p.venue.photos[0] ?? placeholderPhotoFor(p.venue.type, p.venue.id) }}
                   style={styles.thumb}
                   resizeMode="cover"
                 />

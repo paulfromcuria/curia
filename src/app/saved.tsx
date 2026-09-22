@@ -2,7 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { BackButton, Button, Kicker } from '../components/curia';
-import { DISTRICTS, JOURNEYS, VENUES } from '../lib/data/seed';
+import { DISTRICTS, JOURNEYS, VENUES, journeyHasClosedStop } from '../lib/data/seed';
 import { useSession } from '../lib/state/session';
 import { color, font, radius, spacing } from '../theme';
 
@@ -15,16 +15,14 @@ import { color, font, radius, spacing } from '../theme';
  *
  * This screen reads/writes the shared `savedCollections`/`savedJourneyIds`
  * session state added in src/lib/state/session.tsx for M7 — see that
- * file's comments. IMPORTANT, flagged rather than silently worked around:
- * Map (src/app/(tabs)/map.tsx) and List (src/app/(tabs)/list.tsx) currently
- * have their own local, unpersisted per-screen save-star toggles that are
- * NOT wired to this shared store yet — so a venue starred there won't (yet)
- * appear here. Wiring them up is left as follow-up work for curia-map /
- * curia-list, per this agent's brief not to rewire another subagent's
- * screens. Venue/journey detail (src/app/venue/[id].tsx,
- * src/app/journey/[id].tsx) are still curia-moments-journeys' placeholders
- * for the same reason — once built, they should call
- * `session.toggleSavedVenue` / `session.toggleSavedJourney`.
+ * file's comments. Historical note, corrected 2026-09-22: this used to flag
+ * Map/List as having their own local, unpersisted save-star toggles not
+ * wired to this shared store — no longer true. Map (map.tsx/map.web.tsx)
+ * reads `session.isVenueSaved` for a read-only SavedBadge on pins (tapping a
+ * pin navigates to venue detail, where the actual save toggle lives, rather
+ * than duplicating a second save control on the pin itself); List and venue/
+ * journey detail all call `session.toggleSavedVenue`/`toggleSavedJourney`
+ * directly. A venue or journey saved from anywhere in the app shows up here.
  *
  * 2026-09-19 addition: a venue saved before it closed (status='closed' —
  * real closures happen, see migrations 0011/0032/0035) stays in a
@@ -35,6 +33,10 @@ import { color, font, radius, spacing } from '../theme';
  * flags it without removing it from the collection (that's the member's
  * call, via the existing remove button, not this screen's to make for
  * them). Same status field venue/[id].tsx's own CLOSED badge reads.
+ *
+ * 2026-09-22 addition: same gap existed for saved journeys — a "CLOSED
+ * STOP" tag now shows when journeyHasClosedStop (seed.ts) finds one of a
+ * saved journey's stops has shut, mirroring the venue-row treatment above.
  */
 
 type SavedView = 'places' | 'journeys';
@@ -205,7 +207,12 @@ function JourneysView() {
           {savedJourneys.map((journey) => (
             <View key={journey.id} style={styles.row}>
               <Pressable onPress={() => router.push(`/journey/${journey.id}`)} style={styles.rowText}>
-                <Text style={styles.rowLabel}>{journey.title}</Text>
+                <View style={styles.rowLabelRow}>
+                  <Text style={styles.rowLabel}>{journey.title}</Text>
+                  {journeyHasClosedStop(journey) && (
+                    <Text style={styles.rowClosedTag}>CLOSED STOP</Text>
+                  )}
+                </View>
                 <Text style={styles.rowMeta}>{journey.momentType.replace(/-/g, ' ').toUpperCase()}</Text>
               </Pressable>
               <Pressable

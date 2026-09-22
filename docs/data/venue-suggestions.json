@@ -77,7 +77,10 @@
       "lat": 53.260779,
       "lon": -2.128924,
       "base": 78,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Amy and Rick Armstrong crowdfunded their way into Charles Roe House's Grade II* rooms — steak and seafood cooked properly, in a silk merchant's own dining room on Chestergate.",
       "suggestedDate": "2026-09-14",
       "status": "rejected",
@@ -88,28 +91,17 @@
       "district": "altrincham",
       "type": "COCKTAIL BAR",
       "spend": "£££",
-      "lat": 53.383700,
-      "lon": -2.352600,
+      "lat": 53.3837,
+      "lon": -2.3526,
       "base": 78,
-      "bands": ["evening", "late"],
+      "bands": [
+        "evening",
+        "late"
+      ],
       "reason": "Two floors of proper acoustics on Ashley Road from the team behind Stockport's Amp — order the cocktail, but the stage is the reason to stay past nine.",
       "suggestedDate": "2026-09-11",
-      "status": "pending",
-      "researchNotes": "Verified via CAMRA (camra.org.uk), whatpub.com and Altrincham Today: Prana, 14-16 Ashley Road, Altrincham WA14 2DW, an independent live-music venue and cocktail bar opened November 2023, run by the same team as Amp in Stockport — a real 2-site sibling pair, not a chain, same precedent as Bramhall/Cheadle Hulme's Mounting Stone/Chiverton Tap pair in this batch. RE-VERIFICATION 2026-09-11 (curia-suggestion-review) found the original researcher's 'CAMRA-listed and actively promoted' claim was incomplete: CAMRA and whatpub.com both actually list Prana as 'Closed Long Term' (last updated 28/05/2024), following a reported 'closing until further notice' Facebook announcement from Altrincham Today around the same date — a real closure signal the original pass missed. However, a new company, PRANA F&B LIMITED, was incorporated 13 September 2024 at the same 14-16 Ashley Road address and remains active per Companies House, and a Food Hygiene Ratings record exists for 'Prana - Altrincham' — both consistent with a reopening or change of hands rather than the site sitting empty, but no direct evidence of current 2025/2026 trading (a recent event listing, an active social post) was found either way. Genuinely conflicting signals rather than a clean pass or fail — left pending here and sent to docs/data/pending-review-queue.json for a human call rather than promoted or rejected outright. RE-CHECKED 2026-09-12 (curia-suggestion-review): Curia Command's pending_review collection had no decision recorded yet; still no direct 2026 trading evidence found either way. Left as-is. RE-CHECKED 2026-09-13 (curia-suggestion-review): still no direct 2025/2026 trading evidence either way despite fresh searches (Instagram/Skiddle listings exist for the venue but show no current events; two of this run's source URLs, altrincham.co.uk's own listing and a Skiddle venue page, were blocked by this session's network egress policy and couldn't be checked directly). One new detail surfaced: a Facebook report from around the 2024 closure mentions the owner's intent to convert the venue into an events space, which doesn't resolve whether it's trading today. Curia Command's pending_review collection was empty again this run — no human decision yet. This file previously carried an accidental duplicate of this exact entry (identical content, same 2026-09-11 suggestedDate) — deduplicated down to one today; no information was lost, the surviving entry already carried the fuller, more recently updated research notes. Left pending, unchanged in verdict, same as every prior run since 2026-09-11. RE-CHECKED 2026-09-14 (curia-suggestion-review): fresh search specifically for anything dated 2026 or late 2025 (recent reviews, active social media, current event listings, local news) found nothing new confirming current trading, and nothing new confirming a permanent closure/re-let either — the CAMRA/whatpub 'Closed Long Term' record and the active PRANA F&B LIMITED company/food hygiene registration both stand unchanged. Curia Command's pending_review collection was checked and had no decision recorded yet. Genuinely unresolved, unchanged in verdict since 2026-09-11. RE-CHECKED 2026-09-15 (curia-suggestion-review): Curia Command's pending_review collection still empty, no decision recorded. No new search performed this run beyond the standing checks — unchanged since 2026-09-11, still sitting in docs/data/pending-review-queue.json for a human call. RE-CHECKED 2026-09-17 (curia-suggestion-review): no re-check was actually possible this run — a genuine research-tool outage (WebSearch returning 'unavailable' on most queries or surfacing only Wikipedia noise; WebFetch EGRESS_BLOCKED for Google/Bing/DuckDuckGo/Instagram/Facebook/Tripadvisor/Companies House/CAMRA/whatpub/even plain Wikipedia) meant no new evidence could be found either way. This is a tooling gap, not a fresh 'still unresolved' finding — left pending, unchanged, same status as every prior run. RE-CHECKED 2026-09-19 (curia-suggestion-review): fresh search found the same unresolved picture as every prior run, with one new wrinkle rather than a resolution — the venue now has a live-looking operator site (prana-life.co.uk) and a YouTube 'first look' video, plus a Skiddle venue page with an events-promotion function, all of which read as consistent with current operation, but none could be directly confirmed (prana-life.co.uk and the Food Hygiene Ratings page were both network-egress-blocked this session) and none showed an actual dated, current 2026 event. Against that, CAMRA's own listing was re-checked directly and still reads 'Closed Long Term' — the same status as every check since May 2024, sixteen months on, with no visible update despite CAMRA being a live, volunteer-maintained database. Genuinely still balanced between 'quietly reopened, undocumented on CAMRA' and 'still not really trading as a live-music venue despite an active holding company' — left pending rather than forced either way. Curia Command's pending_review collection was checked (via ArtifactData query, functionally the same as read_db) and had no decision recorded."
-    },
-    {
-      "name": "Buon Cibo",
-      "district": "heaton-moor",
-      "type": "ITALIAN RESTAURANT",
-      "spend": "££",
-      "lat": 53.423255,
-      "lon": -2.185411,
-      "base": 74,
-      "bands": ["afternoon", "evening"],
-      "reason": "A family kitchen on Shaw Road doing proper Italian without the tablecloth theatre — the sister site over in Reddish hasn't thinned out what lands on the plate here.",
-      "suggestedDate": "2026-09-14",
       "status": "rejected",
-      "researchNotes": "Verified via OpenTable (4.5-star, active current bookings), Tripadvisor and the venue's own Instagram/Facebook: Buon Cibo, 17 Shaw Road, Heaton Moor, Stockport SK4 4AG, described as family-run on its own social presence. A second site trading under the same name exists in nearby Reddish (79a-81 Broadstone Road, Stockport SK5 7AS) — both within the same borough, a real 2-site local sibling pair consistent with this file's existing precedent (Cibo/Heddy's/Caramello, Wallop). Owner's name not independently confirmed beyond the 'family run' descriptor both sites use, so flagged as moderate rather than high confidence on the ownership-link specifically, though the chain-footprint check itself (2 sites, same borough, same brand) is solid. Coordinates from doogal.co.uk's postcode geocode for SK4 4AG. Reuses the existing ITALIAN RESTAURANT type. Heaton Moor was at 6 venues (2 Do, 2 Drink, 2 Eat) before this addition, the thinnest district in this run's tally. RE-VERIFICATION 2026-09-14 (curia-suggestion-review): the Heaton Moor restaurant itself is real and actively trading (Tripadvisor/OpenTable 2026 activity, FHRS rating updated June 2026), but the claimed Reddish sister site could not be independently confirmed this run — a fresh search of that address turned up only unrelated businesses. More concerning, Companies House shows a cluster of similarly-named entities: a dissolved 'Buon Cibo Cheshire Ltd' (2021-2023), a 'Buon Cibo Milano Ltd', and a newly incorporated (September 2025) 'Buon Cibo Group Ltd' carrying an active licensed-restaurant SIC code — a pattern that reads more like an operator scaling up than the simple family-run 2-site pair this candidate was originally framed as. Confirmed unrelated to both the existing app-database 'Cibo' group (Adam Karim's Didsbury/Chorlton restaurants) and a separate celebrity-owned 'Cibo' chain currently in a High Court trademark dispute, so no name-collision issue — but the real ownership footprint needs pinning down before this can be promoted or rejected outright. Sent to docs/data/pending-review-queue.json for a human call; left 'pending' here rather than decided either way. RE-CHECKED 2026-09-15 (curia-suggestion-review): Curia Command's pending_review collection still empty, no decision recorded. Unchanged since 2026-09-14, still sitting in docs/data/pending-review-queue.json for a human call. RE-CHECKED 2026-09-17 (curia-suggestion-review): no re-check was actually possible this run — a genuine research-tool outage (WebSearch returning 'unavailable' on most queries or surfacing only Wikipedia noise; WebFetch EGRESS_BLOCKED for Google/Bing/DuckDuckGo/Instagram/Facebook/Tripadvisor/Companies House/CAMRA/whatpub/even plain Wikipedia) meant no new evidence could be found either way. This is a tooling gap, not a fresh 'still unresolved' finding — left pending, unchanged, same status as every prior run. REJECTED on independent re-verification 2026-09-19 (curia-suggestion-review), resolving the ambiguity this candidate had sat in since 2026-09-14: Companies House now shows 'BUON CIBO GROUP LTD' (company no. 16692464), incorporated 3 September 2025, registered at 9 Fiveways Parade, Hazel Grove, Stockport SK7 6DG — a THIRD town distinct from both Heaton Moor (17 Shaw Road) and the originally-claimed Reddish sister site (which still could not be independently confirmed to exist). Combined with the already-noted dissolved 'Buon Cibo Cheshire Ltd' and separate 'Buon Cibo Milano Ltd' entities, this reads as a real, actively-scaling multi-site operator building a group under the Buon Cibo brand, not the simple 2-site family pair this candidate was originally framed as. The Heaton Moor restaurant itself remains real and actively trading, but the ownership-group footprint no longer clears Hard rule 1. Do not re-suggest under the Buon Cibo Group umbrella; a genuinely single-site, unaffiliated Heaton Moor restaurant under a different name would need its own fresh candidacy."
+      "researchNotes": "REJECTED on independent re-verification 2026-09-22: Google Maps marks it 'Permanently closed' (posting disabled), its own site returns a dead Cloudflare error, Instagram/Facebook are gone, Skiddle shows zero events ever listed, and its sister venue (Amp, Stockport) also closed and reopened under an unrelated name/concept. The property itself (14-16 Ashley Road) is listed for sale as former restaurant premises. Companies House shows an 'Active' shell (PRANA F&B LIMITED) with overdue first accounts — not evidence of an operating business. Do not re-suggest."
     },
     {
       "name": "Mouro Coffee Bar",
@@ -119,7 +111,10 @@
       "lat": 53.4235,
       "lon": -2.1831,
       "base": 62,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "Moroccan tile underfoot and a La Marzocco machine doing the actual work — focaccia sandwiches, matcha and affogato for a stretch of Heaton Moor Road that doesn't need to shout about any of it.",
       "suggestedDate": "2026-09-16",
       "status": "rejected",
@@ -133,11 +128,14 @@
       "lat": 53.41095,
       "lon": -2.1589,
       "base": 68,
-      "bands": ["evening", "late"],
+      "bands": [
+        "evening",
+        "late"
+      ],
       "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten.",
       "suggestedDate": "2026-09-16",
       "status": "rejected",
-      "researchNotes": "Verified via CAMRA (camra.org.uk), manchesterwire.co.uk and themanc.com coverage of its 30-31 May 2025 grand opening: Underbank, 27 Great Underbank, Stockport SK1 1LN — a beer hall/soundsystem bar in a former RBS branch, opened by Des and Nina O'Malley (also behind Heaton Moor's Nook, a 2-site sibling pair within this file's existing small-group precedent). Explicitly confirmed as a distinct venue from the already-seeded 'The Underbank' (a separate bar/gig venue at a different address, founded by Benji Taylor) — same immediate street, different business, different owners; named 'Underbank' (no 'The') here to keep the two clearly distinguishable and avoid any implied duplicate. Coordinates approximated from the Great Underbank cluster of postcodes already used for neighbouring seeded venues (By Yon Orange, Sticky Fingers Bakery), since SK1 1LN itself didn't resolve to a precise lookup this session. Reuses the existing LIVE MUSIC BAR type (already used for MASH, Macclesfield) for a second venue. Stockport (Underbanks) was at 9 venues (3 Do, 3 Drink, 3 Eat) before this addition — one of ten districts currently under the 10-venue standing target. Moderate-high confidence (ownership/opening well-documented; exact coordinate is a close approximation). RE-VERIFICATION 2026-09-16 (curia-suggestion-review) found this candidate's own 'distinct from The Underbank' claim is more complicated than it reads: this file's already-promoted 'The Underbank' entry (2026-09-11) describes 'a former Cheshire bank... Pomona Island and Runaway on tap... the same husband-and-wife team behind Heaton Moor's Nook' — which is, fact for fact, the real venue actually branded 'Underbank' (no 'The'), i.e. this candidate's own subject, not a different business. A separate, third search independently confirms the real 'The Underbank' (with 'The') is instead Benji Taylor's live-music venue in the Syndikat building, which doesn't appear to have ever actually been seeded under that description. This reads as a naming/identity mix-up between two real, similarly-named venues on the same street — not a clean duplicate (the candidate and the existing entry aren't literally the same submission) and not a clean distinct-venue pass either. Sent to docs/data/pending-review-queue.json for a human call on how to resolve the mislabelling (rename the existing entry, add the Benji Taylor venue under the correct name, or something else); left 'pending' here rather than decided either way. RE-CHECKED 2026-09-17 (curia-suggestion-review): no re-check was actually possible this run — a genuine research-tool outage (WebSearch returning 'unavailable' on most queries or surfacing only Wikipedia noise; WebFetch EGRESS_BLOCKED for Google/Bing/DuckDuckGo/Instagram/Facebook/Tripadvisor/Companies House/CAMRA/whatpub/even plain Wikipedia) meant no new evidence could be found either way. This is a tooling gap, not a fresh 'still unresolved' finding — left pending, unchanged, same status as every prior run. RESOLVED on independent re-verification 2026-09-19 (curia-suggestion-review): the 2026-09-16 naming-mix-up flag is stood down. Fresh, more targeted search establishes that 'Syndikat' is the name of the building/events space at the corner of Great Underbank and Little Underbank (the former RBS Bank unit) — not a second, distinct 'The Underbank' venue founded by Benji Taylor. Eight independent sources (CAMRA, Confidentials, Manchester's Finest, I Love Manchester, Manchester Wire, Taste of Manchester, Creative Tourist, MONDO-DR) consistently and specifically describe ONE real venue at this address — Des and Nina O'Malley's beer hall/soundsystem bar, Pomona Island and Runaway on tap, opened Friday 30 May 2025 — with sources splitting roughly evenly on whether to call it 'Underbank' or 'The Underbank'. The two Stockport Nub News/TheManc pieces naming Benji Taylor appear to describe the same physical premises and opening date, not a competing business; the 'Benji Taylor' attribution could not be corroborated by any other source and is most likely a mix-up between the O'Malleys' new bar and Syndikat, the pre-existing events space in the same building. Conclusion: this candidate is the same real venue as this file's already-promoted 'The Underbank' entry, not a distinct business — rejected as a duplicate rather than promoted a second time. No change made to the existing venues.json entry's name; a human with direct, on-the-ground knowledge of the venue's own current branding (or its own signage/Companies House filing) could still resolve the 'Underbank' vs 'The Underbank' spelling if it matters, but that's a copy-accuracy nicety, not a missing-venue problem."
+      "researchNotes": "REJECTED on independent re-verification 2026-09-22: investigated as a suspected name/identity mismatch with the existing 'The Underbank' catalog entry (same building, 27 Great Underbank). Found no evidence a second real venue exists — the theory traced to a January 2025 Instagram announcement (Benji Taylor's own plan for a live-music venue in the same building) that appears to have been superseded by what actually opened in May 2025 (the O'Malleys' 'The Underbank', which itself runs gigs/comedy/quiz nights, not just a beer hall). The existing catalog entry's name and core facts are correct as-is. Do not re-suggest as a separate venue without direct on-the-ground confirmation."
     },
     {
       "name": "Olive Tree Brasserie",
@@ -145,223 +143,16 @@
       "type": "GREEK TAVERNA",
       "spend": "££",
       "lat": 53.1898,
-      "lon": -2.8930,
+      "lon": -2.893,
       "base": 70,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Meze and a bottomless brunch on Watergate Row since 2016 — Dean Wilson's third room, not his first draft, and it still runs on a Greek kitchen's own instincts.",
       "suggestedDate": "2026-09-17",
       "status": "rejected",
-      "researchNotes": "Verified via the venue's own site (olivetreebrasserie.co.uk), Tripadvisor (4.2/5, active 2026 reviews) and Facebook (92% recommend, 971 reviews): Olive Tree Brasserie, 39-41 Watergate Row, Chester CH1 2LE — Greek/Mediterranean brasserie, third site opened 2016 for Dean Wilson's small group (Lytham St Annes 2007, Preston 2012, Chester 2016). A genuine 3-town regional group, flagged accurately rather than claimed single-site — within the small-sibling-group allowance already established repeatedly elsewhere in this file (Wallop, The Creameries, Bar Six, all 3-site groups), not treated as a chain. One of several first venues for the newly-seeded Chester district. Coordinates from Watergate Street's own documented street coordinates, postcode-geocoding APIs being network-blocked this session. Reuses the existing GREEK TAVERNA type. Moderate confidence (3-site footprint is a real judgment call for the reviewer, though consistent with standing precedent). REVIEW ATTEMPTED 2026-09-17 (curia-suggestion-review): could not be independently re-verified this run due to a genuine research-tool outage — WebSearch returned 'unavailable' errors on most queries and otherwise surfaced only Wikipedia-indexed content (no Wikipedia coverage exists for this venue), and WebFetch was EGRESS_BLOCKED for every other domain tried (Google, Bing, DuckDuckGo, Instagram, Facebook, Tripadvisor, Companies House, CAMRA/whatpub). This is the highest-priority Chester candidate to re-check once tooling recovers — a claimed 3-site regional group (Lytham St Annes/Preston/Chester) is exactly the multi-region footprint Hard rule 1 exists to catch, and it was never independently confirmed beyond the original researcher's own notes. Left 'pending', unchanged, rather than promoted on trust or rejected without evidence. REJECTED on independent re-verification 2026-09-19 (curia-suggestion-review): fresh search resolved the '3-site regional group' the original researcher flagged into a materially larger footprint — Olive Tree Brasserie in fact trades at FIVE sites (St Annes 2007, Preston 2014, Chester 2016, Stockton Heath 2018, plus a further branch in Leeds), per blogpreston.co.uk and the operator's own site — spanning Lancashire, Cheshire and Yorkshire, not a single-region small group. Separately and independently disqualifying: Companies House and Blog Preston/Chester and District Standard both confirm director Dean Edward Wilson was banned from running any business for 10.5 years (Nov 2024) after fraudulently claiming Bounce Back Loans for each of his four Olive Tree Brasserie companies and diverting the funds to himself. A genuine multi-region chain by Hard rule 1's own standard, compounded by a real governance/fraud finding against its director. Do not re-suggest any Olive Tree Brasserie site."
-    },
-    {
-      "name": "Idle Hands",
-      "district": "northern-quarter",
-      "type": "BRUNCH SPOT",
-      "spend": "££",
-      "lat": 53.481228,
-      "lon": -2.232857,
-      "base": 78,
-      "bands": ["morning", "afternoon"],
-      "reason": "Dave and Lucy's own red-brick corner on Dale Street — a rotating cast of third-wave roasters, a pie case that turns over by lunch, and Oatly on tap for whoever doesn't want dairy in it.",
-      "suggestedDate": "2026-09-20",
-      "status": "pending",
-      "researchNotes": "Verified via Tripadvisor (current 2026 listing/reviews), the venue's own site (idlehandscoffee.com), Manchester's Finest and confidentials.com's own opening/history coverage: Idle Hands, Dale House, 35 Dale Street, Manchester M1 2HF — a specialty-coffee cafe and brunch spot in the Northern Quarter, co-owned by Dave Wolinski and Lucy Phillips, trading from this Dale Street unit since finding it after an earlier pop-up let-down (per Brian's Coffee Spot's own history piece). No second site or group ownership found anywhere; single-site, passes Hard rule 1 cleanly. Coordinates from the M1 2HF postcode centroid. Reuses the existing BRUNCH SPOT type. Manchester/Cheshire's Eat category tally: Northern Quarter had only 2 real Eat-category venues (Happy Seasons-equivalent gap — actually BAB NQ/Middle Eastern is its only other Eat-mapped venue) before this addition, the single thinnest Do/Drink/Eat combination found in this run's district-by-category tally (cross-referenced against src/lib/scoring/tile-catalog-map.ts's CATEGORY_BY_VENUE_TYPE, filtered to Manchester/Cheshire districts only). High confidence."
-    },
-    {
-      "name": "Blossom Street Social",
-      "district": "ancoats",
-      "type": "WINE BAR",
-      "spend": "£££",
-      "lat": 53.48494,
-      "lon": -2.228206,
-      "base": 80,
-      "bands": ["afternoon", "evening", "late"],
-      "reason": "Ben Stephenson built this out of the same wine list he already runs at Hanging Ditch in town — a retail wall and a collaborative-dining room on the marina, morning coffee through to a last glass.",
-      "suggestedDate": "2026-09-20",
-      "status": "pending",
-      "researchNotes": "Verified via confidentials.com's own launch coverage, CAMRA (camra.org.uk), manchesterwire.co.uk and the venue's own site (blossomstreetsocial.co.uk): Blossom Street Social, 51 Blossom Street, Ancoats, Manchester M4 6AJ — a wine bar/collaborative-dining space within the Smith's Yard development, opened by Ben Stephenson (owner of Hanging Ditch wine merchants, Victoria Street) with his father, architect Roger Stephenson OBE. A real 2-site sibling pair (retail wine shop + bar/dining room, both Manchester city centre/inner-city, one owner) — within the small-operator precedent already established elsewhere in this file (e.g. Piste/Cibo), not a chain. Coordinates from the M4 6AJ postcode centroid. Reuses the existing WINE BAR type. Ancoats' real Drink category (Flawd Wine, The Jane Eyre, Nam) was already reasonable but this adds a genuinely distinct wine-retail-plus-bar format not otherwise represented. High confidence — active CAMRA listing and current press coverage, no closure signal found."
-    },
-    {
-      "name": "Dimitris",
-      "district": "deansgate",
-      "type": "GREEK TAVERNA",
-      "spend": "£££",
-      "lat": 53.47614,
-      "lon": -2.251226,
-      "base": 78,
-      "bands": ["afternoon", "evening"],
-      "reason": "Thirty years deep into Campfield Arcade and now spread across five units of it, still run by the family Dimitri built it for — meze that doesn't perform for whoever's just come from the Bridgewater Hall.",
-      "suggestedDate": "2026-09-20",
-      "status": "pending",
-      "researchNotes": "Verified via the venue's own site (dimitris.co.uk, including its About Us page), Yelp (current 2026 reviews, Campfield Arcade address) and Time Out: Dimitri's, 1 Campfield Arcade, 322-326 Deansgate, Manchester M3 4FH — an independent, family-run Greek and Mediterranean restaurant trading over 30 years, expanded from a single unit to five units within the same Campfield Arcade building (not separate branch locations) — no second site or group ownership found anywhere beyond this one physical footprint. Passes Hard rule 1 cleanly. Coordinates from the M3 4FH postcode centroid (Campfield Avenue Arcade, Castlefield/Deansgate). Reuses the existing GREEK TAVERNA type (already used once, The Stolen Lamb, Wilmslow). Deansgate's real Eat category (Podium Restaurant, Pip, Another Hand) was its joint-thinnest alongside Do before this addition. High confidence."
-    },
-    {
-      "name": "La Dulce Vendimia",
-      "district": "macclesfield",
-      "type": "WINE BAR",
-      "spend": "££",
-      "lat": 53.259805,
-      "lon": -2.124364,
-      "base": 72,
-      "bands": ["afternoon", "evening"],
-      "reason": "Emily poured wine at Laithwaite's before she decided to pour her own — twenty-five seats on Church Street's cobbles and a list built entirely around Spain, sweet vintage in the name and no apology for the focus.",
-      "suggestedDate": "2026-09-20",
-      "status": "pending",
-      "researchNotes": "Verified via Macclesfield Nub News's own opening coverage, Tripadvisor (5.0/5 rating), the Food Hygiene Ratings register and Instagram (@ladulcevendimia): La Dulce Vendimia, 19 Church Street, Macclesfield SK11 6LB — an independent Spanish-focused wine bar founded by Emily Wilson, a former Laithwaite's Wine (Alderley Edge) employee, opened in the former Wreckless Vape Company unit. No second site or group ownership found anywhere; single-site, passes Hard rule 1 cleanly. Coordinates from the SK11 6LB postcode centroid. Reuses the existing WINE BAR type. Macclesfield's real Drink category (Diversion Bar & Kitchen, MASH) was its thinnest category before this addition — a second candidate found on the same search, No.8 Dukes, was deliberately not suggested instead: its owner's Dukes Hospitality Group has already closed one sibling venue (Duchess Fizz Cocktail Bar, in the same Duke's Court complex, per Macclesfield Nub News) and runs a wide, partly non-hospitality portfolio (tanning/aesthetics businesses alongside bars), read as a less stable footprint than this candidate's clean single-site picture. Moderate-high confidence — trading status confirmed via Food Hygiene Ratings and an active Instagram/events presence, though no review dated later than 2024/2025 was found in this session's searches, flagged for the reviewer to give one more current check."
-    },
-    {
-      "name": "Sigiriya",
-      "district": "hale",
-      "type": "SRI LANKAN RESTAURANT",
-      "spend": "£££",
-      "lat": 53.377613,
-      "lon": -2.346371,
-      "base": 75,
-      "bands": ["afternoon", "evening"],
-      "reason": "Don Buddhika's second room after Knutsford, still eighty percent Sri Lankan on the menu — hoppers, kottu and curries that don't get simplified for an Ashley Road crowd used to Italian.",
-      "suggestedDate": "2026-09-20",
-      "status": "pending",
-      "researchNotes": "Verified via confidentials.com's own restaurant review, halebarns.com, the venue's own site (sigiriya.co.uk) and Sluurpy's current listing: Sigiriya, 173 Ashley Road, Hale, Altrincham WA15 9SD — a Sri Lankan restaurant led by restaurateur Don Buddhika (previously managed the Jumeirah Beach restaurant in Dubai), menu roughly 80% Sri Lankan dishes. A second Sigiriya site exists in Knutsford — a real 2-site sibling pair, both within Cheshire, within the small-operator precedent already established elsewhere in this file (e.g. Cibo, Fire Station Social Cucina). No name/venue collision with anything already in docs/data/venues.json or this queue. Coordinates from the WA15 9SD postcode centroid. Introduces a new venue type, SRI LANKAN RESTAURANT — no existing type (INDIAN RESTAURANT, THAI RESTAURANT) precisely fits a dedicated Sri Lankan kitchen; left category-only (Eat), same precedent as LEBANESE RESTAURANT/VIETNAMESE elsewhere in this file. Hale's real Eat category (The Garden Eatery, Victors, The Elk of Hale) was its thinnest category before this addition. High confidence."
-    },
-    {
-      "name": "Beaumont Organic",
-      "district": "northern-quarter",
-      "type": "FASHION BOUTIQUE",
-      "spend": "£££",
-      "lat": 53.4817,
-      "lon": -2.232,
-      "base": 70,
-      "bands": ["morning", "afternoon"],
-      "reason": "The only shop anywhere carrying the full collection, because Hannah Beaumont's own studio sits on the floors above it — everything made or sourced in England, most of it made in Manchester.",
-      "suggestedDate": "2026-09-20",
-      "status": "pending",
-      "researchNotes": "Verified via confidentials.com's own opening coverage, the venue's own site (beaumontorganic.com's '49 Hilton Street' page), Northern Quarter Manchester's own directory and Visit Manchester: Beaumont Organic, 49 Hilton Street, Manchester (Northern Quarter) — designer Hannah Beaumont-Laurencia's first bricks-and-mortar shop for her own fashion label (founded 2008), doubling as the brand's HQ (design team works from the upper floors) — explicitly the only physical location worldwide displaying the full collection, so genuinely single-site, not a retail chain. Passes Hard rule 1 cleanly. Coordinates approximated from nearby listed-building records on Hilton Street (precise postcode lookup blocked this session) — street-level precision. Introduces a new venue type, FASHION BOUTIQUE — already exists in src/lib/scoring/tile-catalog-map.ts, mapped to the real 'Clothes shopping' onboarding tile, which currently matches zero real venues anywhere in Manchester/Cheshire (a genuine, whole-metro gap found in this run's tile-coverage tally) — this is the first. High confidence."
-    },
-    {
-      "name": "Kambuja",
-      "district": "stockport-underbanks",
-      "type": "CAMBODIAN RESTAURANT",
-      "spend": "££",
-      "lat": 53.411709,
-      "lon": -2.157274,
-      "base": 74,
-      "bands": ["afternoon", "evening"],
-      "reason": "A Cambodian-American dinner-party hostess and her English record-collector husband, running one stall in the Produce Hall and a second out in Marple — modern Khmer cooking that never got simplified for a food-court crowd.",
-      "suggestedDate": "2026-09-20",
-      "status": "pending",
-      "researchNotes": "Verified via Tripadvisor (current listings for both sites), the operator's own site (kambujamarple.co.uk's own Stockport Market page), thatsup.co.uk and Facebook (Kambuja - The Produce Hall page): Kambuja (formerly Angkor Soul), 24A Market Place, Stockport SK1 1EU — an independent kitchen within the Produce Hall food hall serving modern Cambodian cuisine, founded by chef Y Sok and her husband (an English record collector who also sells records from their original Marple site's basement). A real 2-site pair, both within the Stockport borough — within the small-operator precedent already established elsewhere in this file. Distinct from the already-seeded 'Stockport Market Hall' (the separate, traditional retail Victorian Market Hall building opposite) — independently confirmed via Stockport Council's own heritage pages that the Produce Hall and the Market Hall are two different buildings on Market Place. Coordinates from the SK1 1EU postcode centroid. Introduces a new venue type, CAMBODIAN RESTAURANT — no existing type fits precisely; left category-only (Eat), same precedent as LEBANESE RESTAURANT/VIETNAMESE/SRI LANKAN RESTAURANT (this batch) elsewhere in this file. Stockport (Underbanks)'s real Eat category (Where the Light Gets In, Bar Caput, Sticky Fingers Bakery) was thin before this addition. High confidence."
-    },
-    {
-      "name": "SOUP",
-      "district": "northern-quarter",
-      "type": "NIGHTCLUB",
-      "spend": "££",
-      "lat": 53.482851,
-      "lon": -2.234599,
-      "base": 79,
-      "bands": ["evening", "late"],
-      "reason": "Sixteen years under the same Spear Street roof, the name shortened from Soup Kitchen but not the booking policy — a 260-capacity basement that still runs on touring DJs rather than anything a playlist could do instead.",
-      "suggestedDate": "2026-09-20",
-      "status": "pending",
-      "researchNotes": "Verified via manchesterfinest.com's own venue history, Yelp/Tripadvisor (current 2026 listings), Skiddle and Gigseekr's own event listings: SOUP (formerly Soup Kitchen, renamed 2020, same ownership throughout), 31-33 Spear Street, Manchester M1 1JF — an independent canteen, bar and 260-capacity basement club/live-music venue in the Northern Quarter, trading since 2010. No chain or group ownership found anywhere; single-site, passes Hard rule 1 cleanly. Coordinates from the M1 1JF postcode centroid. Reuses the existing NIGHTCLUB type (already used for Enigma Club/Koo Club elsewhere in this file, but previously zero real matches anywhere in Manchester/Cheshire specifically — a genuine, real whole-region gap found in this run's tile-coverage tally, since the UK 'Nightclubs' tile currently only matches venues outside Manchester/Cheshire). High confidence — long-running, independently verified, current event listings active."
-    },
-    {
-      "name": "The Coast",
-      "district": "tarporley",
-      "type": "ITALIAN RESTAURANT",
-      "spend": "£££",
-      "lat": 53.1595,
-      "lon": -2.6687,
-      "base": 76,
-      "bands": ["afternoon", "evening"],
-      "reason": "Blair Glen's Mediterranean room on the High Street, with a second only over in Prestbury — a kitchen run by a chef who left San Carlo's Cicchetti to cook this one properly instead.",
-      "suggestedDate": "2026-09-20",
-      "status": "pending",
-      "researchNotes": "Verified via Great British Life's own restaurant review, the operator's own site (thecoast.uk.com's location page) and Yelp (current 2025/2026 listing): The Coast, 67 High Street, Tarporley CW6 0AY — an Italian-influenced Mediterranean restaurant and bar owned by Blair Glen, executive chef John Thompson (previously at 39 Steps, Manchester, and involved in launching San Carlo's Cicchetti concept). A real 2-site sibling pair (Tarporley and Prestbury), both existing Cheshire districts in this file — within the small-operator precedent already established elsewhere (e.g. Cibo, Sigiriya, this same batch). Coordinates approximated from nearby listed-building records on Tarporley High Street (precise postcode lookup for number 67 specifically was not resolved this session; 59-61 High Street sits at 53.1596/-2.6686, used as the closest reliable anchor) — street-level precision, flagged for the reviewer to tighten if a more exact geocode becomes available. Reuses the existing ITALIAN RESTAURANT type. Tarporley's real Eat category (The Swan, Ginger and Pickles Bakehouse, The Hollies Farm Shop) was thin before this addition, with zero Eat candidates already pending in this queue despite four other Tarporley candidates sitting here. Moderate-high confidence — the venue and ownership are solid, coordinate precision is the one flagged caveat."
-    },
-    {
-      "name": "Higher Ground",
-      "district": "chinatown",
-      "type": "FINE DINING",
-      "spend": "££££",
-      "lat": 53.479563,
-      "lon": -2.238574,
-      "base": 90,
-      "bands": ["evening"],
-      "reason": "The Flawd team's follow-up on Faulkner Street, farmed partly from their own plot out in Cheshire — a tasting-led menu that changes with whatever actually came off that land this week, not a fixed script.",
-      "suggestedDate": "2026-09-20",
-      "status": "pending",
-      "researchNotes": "Verified via the Michelin Guide's own listing (guide.michelin.com), confidentials.com's own review, Manchester's Finest's opening coverage and the venue's own site (highergroundmcr.co.uk): Higher Ground, Faulkner House, New York Street, Manchester M1 4DY — opened as a permanent restaurant February 2023 (after an early-2020 pop-up), founded by the same three owners (including former Where the Light Gets In head chef) behind Flawd, the already-seeded Ancoats wine bar, and Cinderwood Market Garden, their own 1.5-acre organic farm in Cheshire that supplies both. A real, small 2-site sibling pair (Flawd + Higher Ground, both Manchester, one ownership group, plus a supplying farm rather than a third commercial venue) — within the small-operator precedent already established elsewhere in this file. District placement is a deliberate real-proximity call, not a name-based default: the M1 4DY postcode centroid (53.479563, -2.238574) sits roughly 150m from this file's chinatown centroid (53.4792, -2.2400) versus roughly 550m from the northern-quarter centroid, and Faulkner Street is itself one of Chinatown's own named streets (already home to Wong Wong Bakery's near-neighbours and Ho's Bakery) — placed in chinatown on that basis, same 'real coordinates over name/assumption' precedent this file already used for Salut Wines. Coordinates from the M1 4DY postcode centroid. Reuses the existing FINE DINING type. High confidence — Michelin Guide listed, extensively reviewed, no closure signal found; note it is a Michelin Guide entry (included, reviewed), not a confirmed Michelin star, and researchNotes/reason deliberately don't overstate that distinction."
-    },
-    {
-      "name": "John Rylands Library",
-      "district": "deansgate",
-      "type": "HISTORIC LIBRARY",
-      "spend": "£",
-      "lat": 53.480335,
-      "lon": -2.248963,
-      "base": 84,
-      "bands": ["morning", "afternoon"],
-      "reason": "Neo-Gothic reading rooms built by a widow on cotton money, free to walk into on Deansgate — the Cottonopolis room does the hard history of that fortune properly, and nobody hurries you past the manuscripts.",
-      "suggestedDate": "2026-09-21",
-      "status": "pending",
-      "researchNotes": "Verified via the University of Manchester Library's own site (library.manchester.ac.uk/rylands) and Wikipedia: John Rylands Research Institute and Library, 150 Deansgate, Manchester M3 3EH — a working Victorian Gothic research library and exhibition space, free admission, no booking required, open Wednesday-Saturday 10am-5pm, current 2026 exhibitions confirmed (Cottonopolis, a new Collections Gallery, The Secret Public). Owned and run by the University of Manchester — a public university, not a commercial chain; passes Hard rule 1 cleanly on the same non-commercial-heritage-organisation precedent already used for English Heritage's Beeston Castle and the National Trust's Tatton Park (this same batch). Coordinates from the M3 3EH postcode centroid. Introduces a new venue type, HISTORIC LIBRARY — no existing type (HISTORIC HOUSE, MUSEUM) precisely fits a working reading-room library building open as a visitor attraction; left category-only (Do), same precedent as HISTORIC CASTLE/FARM EXPERIENCE elsewhere in this file. Deansgate's real Do category (3 venues: HOME, Royal Exchange Theatre, Lions Den) was its thinnest before this addition, part of this run's district-by-category tally. High confidence — nationally significant, actively open, no closure risk."
-    },
-    {
-      "name": "Tuula",
-      "district": "alderley-edge",
-      "type": "FASHION BOUTIQUE",
-      "spend": "£££",
-      "lat": 53.302439,
-      "lon": -2.23607,
-      "base": 68,
-      "bands": ["morning", "afternoon"],
-      "reason": "Nicki Moreton named the shop after her own dog and stocked the rails almost entirely from Denmark — eighty percent of what's here you won't find anywhere else on London Road.",
-      "suggestedDate": "2026-09-21",
-      "status": "pending",
-      "researchNotes": "Verified via Drapers (draperonline.com's own independents profile), the Alderley Edge business directory (alderleyedge.com) and the shop's own site (tuula.co.uk): Tuula, 39 London Road, Alderley Edge SK9 7JT — an independent ladies' fashion boutique owned by Nicki Moreton, roughly 80% of stock sourced from Danish brands, named after Moreton's own dog. No second site or group ownership found anywhere; single-site, passes Hard rule 1 cleanly. Coordinates from the SK9 7JT postcode centroid. Reuses the existing FASHION BOUTIQUE type — closes a real, whole-Manchester/Cheshire tile gap found in this run's tally: the 'Clothes shopping' tile currently matches zero real venues (one candidate, Beaumont Organic, already sits pending elsewhere in this queue for Northern Quarter); this is a second, geographically distinct candidate rather than a duplicate concept. Note: a same-name-pattern boutique found nearby, 'Willow Boutiques' (Knutsford), was researched and deliberately not suggested instead — it has expanded to Hale and a further branch in Newcastle-under-Lyme, Staffordshire, a real multi-region footprint that fails Hard rule 1's chain-footprint check, unlike Tuula's clean single-site picture. High confidence."
-    },
-    {
-      "name": "This & That",
-      "district": "northern-quarter",
-      "type": "INDIAN RESTAURANT",
-      "spend": "£",
-      "lat": 53.484561,
-      "lon": -2.238195,
-      "base": 74,
-      "bands": ["morning", "afternoon"],
-      "reason": "Rice and three for a fiver since 1984, the curries changing by the day and the queue down Soap Street still forming before half twelve — the Northern Quarter's original, and the one everything since has been measured against.",
-      "suggestedDate": "2026-09-21",
-      "status": "pending",
-      "researchNotes": "Verified via Tripadvisor (current 2026 reviews), the Mancunion's own history piece, Manchester's Finest and the venue's own site (thisandthatcafe.co.uk): This & That, 3 Soap Street, Manchester M4 1EW — a family-run Indian curry cafe trading since 1984, credited as the Northern Quarter's original 'rice and three' institution. No second site or group ownership found anywhere; single-site, passes Hard rule 1 cleanly. Coordinates from the M4 1EW postcode centroid. Reuses the existing INDIAN RESTAURANT type, matching the same honest-fixture 'Neighbourhood favourite' register as this file's other long-established cuisine-specific Eat venues (Delhi Dream, Happy Seasons). Northern Quarter's real Eat category (2 venues: BAB NQ, Evelyn's Cafe Bar) was the single thinnest Do/Drink/Eat combination found in this run's district-by-category tally, filtered to Manchester/Cheshire districts only, even accounting for this queue's own pending Idle Hands candidate. High confidence."
-    },
-    {
-      "name": "Nostro Grande",
-      "district": "altrincham",
-      "type": "ITALIAN RESTAURANT",
-      "spend": "££",
-      "lat": 53.385387,
-      "lon": -2.34941,
-      "base": 76,
-      "bands": ["afternoon", "evening"],
-      "reason": "Neapolitan pizza from an oven shipped over from Naples, and a carbonara finished tableside under a whole wheel of Parmesan — the second site for the family behind Hale Road's Nostro Cafe, in the old Frankie & Benny's unit they've made unrecognisable.",
-      "suggestedDate": "2026-09-21",
-      "status": "pending",
-      "researchNotes": "Verified via altrincham.todaynews.co.uk's own dedicated opening-date coverage and the operator's existing site (nostro-cafe.co.uk): Nostro Grande, Denmark Street, Altrincham (the former Frankie & Benny's unit next to the Vue cinema) — opened to the public Saturday 19 September 2026 (two days before this research run, following an invitation-only soft launch the day before), the second Altrincham venture for the family behind Nostro Cafe, 41 Hale Road (opened 2024). A real 2-site local sibling pair, both Altrincham, within the small-operator precedent already established elsewhere in this file (e.g. Cibo, Piste). Coordinates from the WA14 2WG postcode centroid (Denmark Street, immediately by the Vue Cinema — the confirmed unit). Flagged for the reviewer: an extremely fresh opening — worth a quick re-check that it's trading smoothly day-to-day before promotion, the same caution this file already flagged for Northwich Market's opening-week entry. Reuses the existing ITALIAN RESTAURANT type. Altrincham's real Eat category (3 venues) was its thinnest before this addition. Moderate-high confidence — the opening itself and ownership are well-documented; only the freshness is a genuine caveat."
-    },
-    {
-      "name": "Social Refuge",
-      "district": "ancoats",
-      "type": "BOOKSHOP",
-      "spend": "£",
-      "lat": 53.484215,
-      "lon": -2.231337,
-      "base": 70,
-      "bands": ["morning", "afternoon", "evening"],
-      "reason": "Europe's largest LGBTQ+ bookshop moved into a coffee bar and co-working room on Great Ancoats Street — four and a half thousand titles, and nobody's rushing you past the till to make room for the next customer.",
-      "suggestedDate": "2026-09-21",
-      "status": "pending",
-      "researchNotes": "Verified via the venue's own site (socialrefuge.com), Canal Street's own coverage, Creative Tourist and Nonchalant Magazine: Social Refuge, 27 Great Ancoats Street, Manchester M4 5AJ — a cafe, co-working space, event space and bar built around Queer Lit, described as Europe's largest LGBTQ+ bookshop (4,500+ titles). No second site or group ownership found anywhere; single-site, independent, passes Hard rule 1 cleanly. Coordinates from the M4 5AJ postcode centroid. Reuses the existing BOOKSHOP type (already used once, Chorlton Bookshop). Ancoats' real Do category (3 venues: Hallé St Peter's, Hope Mill Theatre, The Horsfall) was its thinnest before this addition, part of this run's district-by-category tally. High confidence."
+      "researchNotes": "REJECTED on independent re-verification 2026-09-22: the original candidate's '3rd site, Lytham/Preston/Chester' framing understated the real scale — the group's own site today lists FOUR active locations (Chester, Leeds, Lytham, Stockton Heath) across three counties, plus a closed 5th site (Preston, liquidated 2021). Founder/director Dean Wilson was disqualified from running any company for 10.5 years in Nov 2024 after fraudulently claiming ~£200k in COVID Bounce Back Loans across the group's per-site companies. A genuine multi-city regional chain, not a small group — do not re-suggest."
     },
     {
       "name": "Bali Health Lounge",
@@ -371,25 +162,14 @@
       "lat": 53.479047,
       "lon": -2.24056,
       "base": 66,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Three floors above George Street built around ELEMIS facials and a tea lounge — Chinatown's actual quiet room, one flight up from everything loud below it.",
       "suggestedDate": "2026-09-21",
-      "status": "pending",
-      "researchNotes": "Verified via confidentials.com's own review ('Chinatown's hidden oasis'), current 2026 Yelp (updated September 2026, 51 photos) and Tripadvisor listings, plus a Yell/Companies House registration (Bali Health Lounge Ltd): Bali Health Lounge, 1st floor, 48 George Street, Manchester M1 4HF — a day spa and tea lounge across three floors (massage, facials, nail treatments). A stale 2014 blog post flagging a 'permanently closed' status was found and checked, then weighed against the much more recent (September 2026) Yelp/Tripadvisor activity and the current confidentials.com review, all showing live, current trading — the same stale-vs-current-source weighing this file has already applied elsewhere (e.g. Eden, Heaton Moor's promoted entry). No second site or group ownership found; single-site, passes Hard rule 1 cleanly. Coordinates from the M1 4HF postcode centroid. Reuses the existing SPA type. Chinatown's real Do category (3 venues, all art galleries) was thin on variety before this addition. Moderate-high confidence given the one flagged, resolved discrepancy — worth the reviewer's own quick current-trading check given that history."
-    },
-    {
-      "name": "Tatton Park",
-      "district": "knutsford",
-      "type": "HISTORIC ESTATE",
-      "spend": "££",
-      "lat": 53.330523,
-      "lon": -2.383496,
-      "base": 86,
-      "bands": ["morning", "afternoon"],
-      "reason": "A Neo-Classical mansion, a medieval old hall, and a thousand acres of deer park a mile up Ashley Road — the National Trust runs it jointly with the council, and neither seems in any hurry to modernise it.",
-      "suggestedDate": "2026-09-21",
-      "status": "pending",
-      "researchNotes": "Verified via the National Trust's own site (nationaltrust.org.uk) and Wikipedia: Tatton Park, Knutsford WA16 6QN — a historic estate comprising Tatton Hall (a Neo-Classical mansion), Tatton Old Hall (a medieval manor house), 50 acres of landscaped gardens, a rare-breed farm and 1,000 acres of deer park. Owned by the National Trust, jointly administered with Cheshire East Council — a national heritage charity, not a commercial chain; passes Hard rule 1 cleanly on the same precedent already established for English Heritage's Beeston Castle elsewhere in this file. Coordinates from the WA16 6QN postcode centroid, roughly 3.5km north of Knutsford's own district centroid — consistent with the district's own existing editorial description, which already references 'Tatton Park's deer a mile up the road,' and the same real-location-over-centroid precedent already used for Beeston Castle/Rose Farm Shop elsewhere in this file. Introduces a new venue type, HISTORIC ESTATE — no existing type (HISTORIC HOUSE, NATURE RESERVE) captures the combined mansion-plus-deer-park-plus-farm scale of the real place; left category-only (Do), same precedent as HISTORIC CASTLE/FARM EXPERIENCE elsewhere in this file. High confidence — nationally significant, actively open, no closure risk. Genuinely surprising this wasn't already seeded given how directly Knutsford's own existing editorial copy points at it."
+      "status": "rejected",
+      "researchNotes": "REJECTED on independent re-verification 2026-09-22, overturning an earlier 'moderate-high confidence, still trading' read: the operating company (Bali Health Lounge Limited, #07411581, same address) passed a creditors' voluntary liquidation resolution in Dec 2022 and was formally dissolved 4 Dec 2024 (The Gazette, Companies House). The 'live' Yelp/Tripadvisor activity that misled the earlier pass is uncurated listing pages carrying stale marketing copy with auto-generated 'Updated' headers regardless of actual status — no genuinely-dated 2023-2026 review or evidence of a relaunch was found. Do not re-suggest unless a new operator/relaunch is confirmed."
     },
     {
       "name": "The Nest Nantwich",
@@ -399,11 +179,15 @@
       "lat": 53.06789,
       "lon": -2.521548,
       "base": 74,
-      "bands": ["afternoon", "evening", "late"],
+      "bands": [
+        "afternoon",
+        "evening",
+        "late"
+      ],
       "reason": "Nick Wadeson's own copper still, Valerie, still runs on Pepper Street — the family behind Three Wrens Gin poured their production room into a proper cocktail bar rather than settling for a tasting counter.",
       "suggestedDate": "2026-09-21",
-      "status": "pending",
-      "researchNotes": "Verified via Nantwich Nub News's own opening coverage, the operator's own site (thenestnantwich.uk) and Muddy Stilettos: The Nest Nantwich by Three Wrens Gin, 16-18 Pepper Street, Nantwich CW5 5AB — a working gin distillery and cocktail bar. Second site for the family-run Three Wrens Gin (founded 2019 by Nick Wadeson, a former cocktail bartender), whose main production distillery sits five miles away in Combermere. A real 2-site pair (a production distillery plus this public bar/tasting room), the same small-operator precedent already established elsewhere in this file (e.g. Blossom Street Social/Hanging Ditch, Bonjour Wines). Coordinates from the CW5 5AB postcode centroid. Reuses the existing GIN BAR type (already used once, Chester's pending Craft & Company). Nantwich's real Drink category (4 venues) gets a genuinely distinctive addition here — a working distillery's own bar, not just another pub or wine bar. High confidence."
+      "status": "rejected",
+      "researchNotes": "REJECTED — exact duplicate of a venue already live in docs/data/venues.json under the identical name and coordinates (a different real venue on Pepper Street, Nantwich, already catalogued as a cocktail bar with its own working still). The pipeline's dedup logic only checks this suggestions file, not venues.json itself, so it missed the collision. Do not re-suggest."
     },
     {
       "name": "Amici",
@@ -413,39 +197,14 @@
       "lat": 53.358026,
       "lon": -2.166287,
       "base": 68,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Italian-Greek tapas in the Village Square, run by Andrea, Giovanni and Chris on a menu that never quite picks a country — steak and seafood mains for whoever wants to stop sharing.",
       "suggestedDate": "2026-09-21",
-      "status": "pending",
-      "researchNotes": "Verified via Tripadvisor (current 2026 reviews), the venue's own site (amicibramhall.com), Bramhall Village Square's own listing and Companies House (AMICI (BRAMHALL) LIMITED, incorporated April 2023): Amici, 14-15 The Bramhall Centre, Bramhall, Stockport SK7 1AW — an Italian-Greek tapas restaurant and grill run by Andrea, Giovanni and Chris, Giovanni previously associated with the Piccolino brand (a personal chef/management credential, not corporate ownership — no evidence found that Piccolino's parent company has any stake in this restaurant). No second 'Amici' site under the same ownership found despite a direct search (a similarly-named 'Due Amici' in Walkden and 'Tre Amici' in Bury are unrelated, differently-owned restaurants); the '(Bramhall)' suffix in the company name reads as standard single-entity company-naming rather than evidence of sibling sites. Coordinates from the SK7 1AW postcode centroid. Reuses the existing SMALL PLATES type (its own tapas framing, closer than either ITALIAN RESTAURANT or GREEK TAVERNA alone). Bramhall's real Eat category (4 venues) gets a genuinely distinct addition. Moderate confidence — the Piccolino-adjacent credential and single-entity company naming are both real judgment calls, flagged for the reviewer, though neither points to an actual chain footprint on the evidence found."
-    },
-    {
-      "name": "Chester Zoo",
-      "district": "chester",
-      "type": "ZOO",
-      "spend": "£££",
-      "lat": 53.224118,
-      "lon": -2.879437,
-      "base": 90,
-      "bands": ["morning", "afternoon"],
-      "reason": "Thirty-five thousand animals and a conservation charity's actual working headquarters behind the turnstiles — the zoo the rest of the country's zoos still get compared to, a few miles north of the Rows.",
-      "suggestedDate": "2026-09-21",
-      "status": "pending",
-      "researchNotes": "Verified via the Charity Commission register and Chester Zoo's own site (chesterzoo.org): Chester Zoo, Caughall Road, Upton-by-Chester CH2 1LH — owned and run by the North of England Zoological Society, a single registered charity (no sister zoo elsewhere; the Society's only site is this one). Genuinely singular, non-commercial, non-chain — passes Hard rule 1 cleanly on the same charitable-organisation precedent already used for the National Trust's Tatton Park and English Heritage's Beeston Castle elsewhere in this batch/file. Coordinates from the CH2 1LH postcode centroid, roughly 3.7km north of Chester's own district centroid — consistent with the zoo's real, well-documented location a short drive from the city centre, same real-location-over-centroid precedent already used repeatedly in this file. Introduces a new venue type, ZOO — no existing type fits; left category-only (Do), same precedent as HISTORIC ESTATE/HISTORIC CASTLE this batch. Chester's real Do category (5 venues, 2 of them golf clubs) was thin on variety before this addition, and Chester overall (5 real venues before this run's pending queue) remains one of the districts furthest under the 10-venue standing target. High confidence — nationally significant, actively open, no closure risk."
-    },
-    {
-      "name": "Temple Street Claypot Rice",
-      "district": "altrincham",
-      "type": "HONG KONG CAFE",
-      "spend": "£",
-      "lat": 53.394997,
-      "lon": -2.35188,
-      "base": 70,
-      "bands": ["afternoon", "evening"],
-      "reason": "A Kowloon cha chaan teng shrunk onto Manchester Road, sister to Cheetham Hill's Happy Valley — claypot rice bubbling at the table, and a menu that never once simplifies for the room it's in.",
-      "suggestedDate": "2026-09-22",
-      "status": "pending",
-      "researchNotes": "Verified via Manchester's Finest's own feature, Tripadvisor (4.0/5, current 2026 reviews), Deliveroo/Uber Eats live listings and the Food Hygiene Ratings register: Temple Street Claypot Rice, 68 Manchester Road, Altrincham WA14 4PJ (Broadheath) — a small independent Hong Kong-style cha chaan teng specialising in claypot rice and noodle dishes. Opened by the same owner as Happy Valley (Bury New Road, Cheetham Hill) — a real 2-site sibling pair, both Greater Manchester, one owner, within the small-operator precedent already established elsewhere in this file (e.g. Craig's, Ivy Spinningfields). No third site found. Coordinates from the WA14 4PJ postcode centroid (via WebSearch, direct postcode-API access blocked this session). Introduces a new venue type, HONG KONG CAFE — no existing type (CANTONESE ROAST, DIM SUM) precisely fits a cha chaan teng's claypot-rice-and-noodles format; left category-only (Eat), same precedent as SRI LANKAN RESTAURANT/CAMBODIAN RESTAURANT elsewhere in this file. Altrincham's real Eat category (Rudy's, Bar Etna — both pizza/Italian) was its thinnest and least varied category in this run's tally, even counting this queue's own pending Nostro Grande (also Italian) — this closes a real cuisine-variety gap rather than adding a third Italian option. High confidence."
+      "status": "rejected",
+      "researchNotes": "REJECTED — exact duplicate of a venue already live in docs/data/venues.json under the identical name, district and coordinates (Bramhall, Italian-Greek tapas, Andrea/Giovanni/Chris). Same dedup gap as The Nest Nantwich/Amazing India in this same batch. Do not re-suggest."
     },
     {
       "name": "Amazing India",
@@ -455,53 +214,14 @@
       "lat": 53.2574,
       "lon": -2.1237,
       "base": 72,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Joby Joy's South Indian room on Pickford Street, the only one of its kind in town — dosas and a party hall that means the celebration doesn't have to end when the curry does.",
       "suggestedDate": "2026-09-22",
-      "status": "pending",
-      "researchNotes": "Verified via Macclesfield Nub News's own opening coverage (two separate pieces), Tripadvisor (current 2026 reviews) and the venue's own site/ordering platform (amazingindia.uk): Amazing India, 2-5 Marlborough Court, Pickford Street, Macclesfield SK11 6JD — an independent South Indian restaurant and party hall opened 19 June 2025 by owner Joby Joy, self-described (and locally reported) as the town's only South Indian restaurant. No second site or group ownership found anywhere despite a direct search. Coordinates from the SK11 6JD postcode centroid. Reuses the existing INDIAN RESTAURANT type — Macclesfield already has one other Indian restaurant, but this is a distinct South Indian specialist rather than a duplicate concept, and Macclesfield's real Eat category (2 Bistros, 1 Indian) was its thinnest before this addition even counting this queue's own pending La Dulce Vendimia (Drink, not Eat). High confidence."
-    },
-    {
-      "name": "Basmati",
-      "district": "nantwich",
-      "type": "INDIAN RESTAURANT",
-      "spend": "££",
-      "lat": 53.063845,
-      "lon": -2.519589,
-      "base": 74,
-      "bands": ["evening"],
-      "reason": "A working Victorian station house on Pillory Street, trains still audible through dinner — halal Bangladeshi and Indian cooking that's outlasted the platform it's built on.",
-      "suggestedDate": "2026-09-22",
-      "status": "pending",
-      "researchNotes": "Verified via the venue's own site (basmatinantwich.co.uk), Tripadvisor, Facebook and the Food Hygiene Ratings register: Basmati, the Railway Station building, Pillory Street, Nantwich CW5 5SS — an independent Bangladeshi/Indian restaurant trading since 2013 inside Nantwich's historic railway station building, halal, with vegetarian/vegan/gluten-free options. No second site or group ownership found anywhere despite a direct search for one. Coordinates from the CW5 5SS postcode centroid. Reuses the existing INDIAN RESTAURANT type. Nantwich's real Eat category (2 Bistros, 1 Smokehouse) was its thinnest before this addition, even counting this queue's own pending The Nest Nantwich (Drink, not Eat). High confidence."
-    },
-    {
-      "name": "Underbanks Gallery",
-      "district": "stockport-underbanks",
-      "type": "ART GALLERY",
-      "spend": "£",
-      "lat": 53.4111,
-      "lon": -2.1572,
-      "base": 66,
-      "bands": ["morning", "afternoon"],
-      "reason": "Ann-Marie Fowler spotted the empty shop on Little Underbank and filled it herself — new names on the wall most months, and none of the Market Place's queue for the coffee next door.",
-      "suggestedDate": "2026-09-22",
-      "status": "pending",
-      "researchNotes": "Verified via Facebook (Underbanks Gallery), Visit Manchester's own Underbanks feature and Stockport Council's regeneration coverage: Underbanks Gallery, 9 Little Underbank, Stockport SK1 1LA — an independent art gallery and shop opened by owner Ann-Marie Fowler (a property-finance specialist turned illustrator) in a previously empty Underbanks shop unit. No second site or group ownership found anywhere; single-site, passes Hard rule 1 cleanly. Coordinates from the SK1 1LA postcode centroid. Reuses the existing ART GALLERY type (already used once in this district, The Warren, a separate venue a short walk away — two independent galleries on the same regenerated street reads as real texture, not duplication). Stockport (Underbanks)'s real Do category (Stockport Market Hall, Staircase House, The Warren) was its thinnest before this addition, part of this run's district-by-category tally. High confidence."
-    },
-    {
-      "name": "Art Club",
-      "district": "heaton-moor",
-      "type": "ART GALLERY",
-      "spend": "££",
-      "lat": 53.4232,
-      "lon": -2.1855,
-      "base": 68,
-      "bands": ["morning", "afternoon", "evening"],
-      "reason": "A former dress shop on Shaw Road, now easel space by day and a proper drink by night — life drawing on a Tuesday, and nobody minds if you just came for the coffee.",
-      "suggestedDate": "2026-09-22",
-      "status": "pending",
-      "researchNotes": "Verified via CAMRA (camra.org.uk) and whatpub.com (both list it as a licensed cafe/gallery/bar), the venue's own site (ukartclub.com) and ilovemanchester.com's own feature: Art Club, 25 Shaw Road, Heaton Moor, Stockport SK4 4AG — an independent creative-community cafe, gallery and bar opened 2023 by owner Angela Lock in a former dress shop, running life-drawing and art classes alongside food, coffee and drink. Searched specifically for a second site given the 'UK Art Club' branding on its own domain and social handles — found none; every reference traces back to this one Heaton Moor address, so treated as single-site pending any contrary evidence. Coordinates from the SK4 4AG postcode centroid. No existing type precisely fits this hybrid cafe/gallery/bar format; reused the existing ART GALLERY type as the closest fit (the venue's own public identity leads with the art/gallery side) rather than introduce a new type for a genuinely rare hybrid — flagged for the reviewer's own judgment. Heaton Moor's real Do category (Heaton Moor Producers Market, Savoy Cinema, Heaton Moor Park) was its thinnest before this addition, part of this run's district-by-category tally. Moderate-high confidence — the venue itself is solid, the type-mapping is the one flagged judgment call."
+      "status": "rejected",
+      "researchNotes": "REJECTED — exact duplicate of a venue already live in docs/data/venues.json under the identical name, district and near-identical coordinates (Macclesfield, South Indian, Pickford Street). Same dedup gap as The Nest Nantwich/Amici in this same batch. Do not re-suggest."
     },
     {
       "name": "King Street Kitchen",
@@ -511,11 +231,15 @@
       "lat": 53.3049,
       "lon": -2.3738,
       "base": 70,
-      "bands": ["morning", "afternoon", "evening"],
+      "bands": [
+        "morning",
+        "afternoon",
+        "evening"
+      ],
       "reason": "Small, family-run, and on King Street since long before the brunch queue started forming outside it — a plant-based option on every course, not just the one everyone else bothers with.",
       "suggestedDate": "2026-09-22",
-      "status": "pending",
-      "researchNotes": "Verified via Tripadvisor (4.4/5, current 2026 reviews), Companies House (KING STREET KITCHEN LTD, company no. 11751996, single registered address) and the venue's own site: King Street Kitchen, 84 King Street, Knutsford WA16 6ED — a small, independent, family-run breakfast/brunch/dinner restaurant with a full plant-based menu alongside Californian-inspired dishes and a traditional Sunday lunch. No second site or group ownership found anywhere. Coordinates from the WA16 6ED postcode centroid. Reuses the existing BRUNCH SPOT type — Knutsford already has one other brunch spot (Neki), but this is a genuinely distinct, more dinner-capable room, and Knutsford's real Eat category (Neki, Giovanni's, LI~LY's tasting menu) was its thinnest relative to Do/Drink before this addition, even counting this queue's own pending Tatton Park (Do, not Eat). High confidence."
+      "status": "rejected",
+      "researchNotes": "REJECTED — this venue was already investigated, confirmed closed (two independent listing sites marking it CLOSED, corroborated by a local Facebook post) and removed from docs/data/venues.json on 2026-09-08 (see docs/data/pending-review-queue.json's own record of that decision). The daily research pipeline re-suggested it again on 2026-09-22 without checking that history — a real dedup gap (this file's own dedup logic only checks entries within this file, not venues.json's removal/closure history). Do not re-suggest; if the pipeline's dedup logic gets fixed, this is the case that should have caught it."
     },
     {
       "name": "Coco Tang",
@@ -525,53 +249,16 @@
       "lat": 53.4796,
       "lon": -2.2493,
       "base": 82,
-      "bands": ["morning", "afternoon", "evening", "late"],
+      "bands": [
+        "morning",
+        "afternoon",
+        "evening",
+        "late"
+      ],
       "reason": "Eighteen years of running Nottingham's Byard Lane before Manchester got a look — Vietnamese café by day, a cocktail room and late kitchen once the Bridge Street lights come on.",
       "suggestedDate": "2026-09-22",
       "status": "pending",
       "researchNotes": "Verified via restaurantonline.co.uk and premierconstructionnews.com's own coverage of the Manchester opening, plus Tripadvisor/Instagram for the original Nottingham site: Coco Tang, taking over the former SakkuSamba/Artisan unit at 1 The Avenue, Bridge Street, Spinningfields, opening autumn 2026 — an independent Vietnamese café, restaurant, private dining space and late-night cocktail bar/club, run by the same owners as the 18-year-old original Coco Tang in Nottingham (Byard Lane). A real 2-site pair across two cities, industry press explicitly describing it as 'independent' rather than a chain expansion — within the same 'single sibling in another city' precedent already established in this file (e.g. Craig's, Ivy Spinningfields). No third site found. District placement: industry coverage explicitly calls the address 'Spinningfields'/'Bridge Street in Spinningfields' despite 1 The Avenue sitting right at the Deansgate boundary; coordinates approximated from the John Rylands Library/1 The Avenue building's known location (postcode-geocoding blocked this session) since the exact unit number wasn't published at time of writing — flagged for the reviewer to tighten once the venue is trading and a precise address is published. Reuses the existing VIETNAMESE type. Spinningfields' real Eat category (Celebratory, Fine Dining, Small Plates) was its thinnest before this addition. Moderate-high confidence — the venue and ownership are well-documented; the exact coordinate and the opening date (announced, not yet independently confirmed as trading) are the flagged caveats."
-    },
-    {
-      "name": "Peppery Rose",
-      "district": "alderley-edge",
-      "type": "PAN-ASIAN RESTAURANT",
-      "spend": "££",
-      "lat": 53.302439,
-      "lon": -2.23607,
-      "base": 72,
-      "bands": ["afternoon", "evening"],
-      "reason": "Aric Leung sold his three Peking Gardens to spend more time at home, then opened this one anyway — pan-Asian plates named for an uncle's old restaurant on the same road.",
-      "suggestedDate": "2026-09-22",
-      "status": "pending",
-      "researchNotes": "Verified via wilmslow.co.uk/alderleyedge.com's own opening coverage, Tripadvisor (current 2026 reviews) and the Food Hygiene Ratings register: Peppery Rose, 7 London Road, Alderley Edge SK9 7JT — an independent pan-Asian restaurant (Japanese, Thai, Korean, Vietnamese, Taiwanese dishes) opened 9 December 2024 by owner Aric Leung, named for his uncle's earlier Alderley Rose restaurant on the same road. Leung previously owned three Peking Gardens restaurants (Wilmslow, Poynton, Bramhall) but sold that group two years before opening this one — a real, checked chain-footprint question that resolves clean: this is a fresh single-site venture under a different ownership structure, not a fourth site of the old group. Coordinates from the SK9 7JT postcode centroid (the same postcode already used in this file for Tuula, a different London Road venue a few doors along). Introduces a new venue type, PAN-ASIAN RESTAURANT — no existing type (THAI RESTAURANT, VIETNAMESE, JAPANESE RESTAURANT) captures a genuinely pan-Asian-fusion menu without picking one cuisine over the others; left category-only (Eat), same precedent as SRI LANKAN RESTAURANT/CAMBODIAN RESTAURANT elsewhere in this file. Alderley Edge's real Eat category (Brunch Spot, Italian Restaurant, Pizzeria) was tied-thinnest before this addition. High confidence."
-    },
-    {
-      "name": "Indian Affair",
-      "district": "ancoats",
-      "type": "INDIAN RESTAURANT",
-      "spend": "££",
-      "lat": 53.4848,
-      "lon": -2.2277,
-      "base": 74,
-      "bands": ["evening"],
-      "reason": "Blossom Street's second site for Chorlton's own Dilli-style kitchen — the tandoor's the same, the room's just newer.",
-      "suggestedDate": "2026-09-22",
-      "status": "pending",
-      "researchNotes": "Verified via Manchester's Finest and Taste of Manchester's own opening coverage, the operator's own site (indian-affair.co.uk) and Tripadvisor/Hardens listings: Indian Affair, 46 Blossom Street, Ancoats, Manchester M4 6BF — a North Indian, Dilli-style restaurant opened September 2024 as the second site for the Chorlton original (362 Barlow Moor Road, opened autumn 2022). A real 2-site sibling pair, both within Manchester, one operator — within the small-operator precedent already established elsewhere in this file. No third site found. Coordinates from the M4 6BF postcode centroid. Reuses the existing INDIAN RESTAURANT type. Ancoats' real Eat category (Bakery, Small Plates, Tasting Menu) was its thinnest before this addition, even counting this queue's own pending Blossom Street Social/Social Refuge (both Drink/Do, not Eat). High confidence."
-    },
-    {
-      "name": "Hooked",
-      "district": "hale",
-      "type": "FISH AND CHIPS",
-      "spend": "£",
-      "lat": 53.3785,
-      "lon": -2.349,
-      "base": 68,
-      "bands": ["afternoon", "evening"],
-      "reason": "Knutsford's own chip shop moved south to a former WA14 unit on Ashley Road — proper batter, and the same fryer standard that built the following in the first place.",
-      "suggestedDate": "2026-09-22",
-      "status": "pending",
-      "researchNotes": "Verified via altrincham.todaynews.co.uk's own opening coverage, Facebook (Hooked In Hale) and Deliveroo's live listing: Hooked, 120a Ashley Road, Hale, Altrincham WA14 2UN — an independent fish and chip shop that opened in Hale in a former WA14 Fish & Chips unit, expanding from an established, award-winning original site in Knutsford (trading since 2019). A real 2-site sibling pair, both Cheshire towns, one operator — within the small-operator precedent already established elsewhere in this file. No third site found. Coordinates from the WA14 2UN postcode centroid. Introduces a new venue type, FISH AND CHIPS — no existing type fits a dedicated chip shop; left category-only (Eat), same precedent as FARM SHOP/SMOKEHOUSE elsewhere in this file, and maps naturally to the real 'Neighbourhood favourite' onboarding tile's honest-fixture register. Hale's real Eat category (Victors, The Garden Eatery) was its thinnest before this addition, even counting this queue's own pending Sigiriya. High confidence."
     }
   ]
 }

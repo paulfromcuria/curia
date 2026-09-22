@@ -12,8 +12,18 @@
  * source of truth for exact cost), so `costUsd` is a close estimate for
  * budget-pacing purposes, not an invoice-accurate figure.
  */
+import dns from 'node:dns';
 import Anthropic from '@anthropic-ai/sdk';
 import { config } from './config.js';
+
+// Found 2026-09-22 diagnosing a real local dry-run failure: Node's default
+// DNS result order tried api.anthropic.com's IPv6 address first and hung
+// (curl/nslookup resolved fine immediately — this host's IPv6 route is the
+// broken part, not DNS itself). `ipv4first` is the standard fix for this
+// exact class of intermittent ENOTFOUND/hang on a dual-stack host with
+// unreliable IPv6 — safe on Railway too, it only reorders Node's own
+// preference, never disables IPv6 outright.
+dns.setDefaultResultOrder('ipv4first');
 
 const anthropic = new Anthropic({ apiKey: config.anthropicApiKey });
 
@@ -48,13 +58,23 @@ export async function callModel(opts: ModelCallOptions): Promise<string> {
     ? [WEB_SEARCH_TOOL]
     : undefined;
 
-  const message = await anthropic.messages.create({
-    model: config.anthropicModel,
-    max_tokens: opts.maxTokens ?? 4096,
-    system: opts.system,
-    messages: [{ role: 'user', content: opts.prompt }],
-    tools,
-  });
+  // Streaming, not a plain .create() call — found live 2026-09-22: once
+  // maxTokens got raised (fixing a separate truncation bug), the SDK
+  // started refusing the request outright ("Streaming is required for
+  // operations that may take longer than 10 minutes"), since a real
+  // 24576-token web-search-heavy response can legitimately run past that.
+  // .stream().finalMessage() gives back the exact same Message shape
+  // (.usage, .content) a plain .create() would, so nothing below this
+  // needed to change — only how the response is fetched.
+  const message = await anthropic.messages
+    .stream({
+      model: config.anthropicModel,
+      max_tokens: opts.maxTokens ?? 4096,
+      system: opts.system,
+      messages: [{ role: 'user', content: opts.prompt }],
+      tools,
+    })
+    .finalMessage();
 
   const usage = message.usage;
   costUsd +=

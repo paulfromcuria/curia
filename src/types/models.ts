@@ -241,6 +241,44 @@ export interface Venue {
   /** Base attractiveness score before ranking weights are applied. */
   base: number;
   /**
+   * True only for a venue that doesn't run on a normal daily/weekly
+   * schedule at all — a monthly street market, a pop-up, a seasonal event
+   * space — where `bands`/`openingHours` structurally cannot express the
+   * real constraint (there's no "which Saturday" concept anywhere in this
+   * model). Found live 2026-09-22, direct user report: Wilmslow Artisan
+   * Market ("close to traffic once a month... check the date before
+   * building an evening around it" — the venue's own curated copy already
+   * said this) was being confidently recommended on an ordinary Tuesday
+   * because `bands: ["afternoon"]` only encodes time-of-day, nothing about
+   * which day, let alone which Saturday of which month. A hard filter
+   * (`passesRegularScheduleFilter`, rank-venues.ts) excludes an occasional
+   * venue from ranked results entirely — recommending it with false
+   * day-to-day confidence is the same "genuine impossibility" class of
+   * error passesOpenNowFilter/scoreBandFitFactor already exist to prevent,
+   * not a tuning problem. Optional/defaults to `false` (a normal venue) —
+   * same "absent means normal" convention as distinctiveness/copyStatus
+   * above; only ever set `true` by deliberate curation, never inferred.
+   */
+  occasional?: boolean;
+  /**
+   * True only for a venue you genuinely cannot walk into without arranging
+   * it first — a pre-booked-only farm experience, a private class with a
+   * capped group size — as distinct from `occasional` above: this venue
+   * likely DOES run on a normal schedule, the problem is that showing up
+   * unannounced doesn't work regardless. Found live 2026-09-22, same
+   * session as `occasional`, while auditing the catalog for anything else
+   * with the same "recommended as if you can just show up" problem: White
+   * Peak Alpaca Farm's own copy says "pre-booked walks only" outright.
+   * `passesWalkInFilter` (rank-venues.ts) hard-excludes it from ranked
+   * "right now" results for the same reason as `occasional` — a real
+   * concierge doesn't send someone to a door they can't get through today.
+   * Optional/defaults to `false` — only ever set `true` on explicit
+   * evidence in the venue's own copy, never inferred from venue type (a
+   * cookery class or a farm experience isn't assumed booking-only just
+   * because that's plausible; this only reflects what's actually stated).
+   */
+  bookingRequired?: boolean;
+  /**
    * 'coming-soon' marks a venue Curia isn't fully committing to as a
    * long-term catalog pick yet (e.g. a new venue whose parent operator has
    * stated multi-site expansion plans that could later tip it into Hard

@@ -8,7 +8,7 @@ import { useAdminData } from '../../lib/admin/admin-data';
 import { useAdminMembers } from '../../lib/admin/admin-members';
 import { useAdminSession } from '../../lib/admin/admin-session';
 import { supabaseAdmin } from '../../lib/data/supabase-admin-client';
-import { CITIES, JOURNEYS, MOMENTS } from '../../lib/data/seed';
+import { JOURNEYS, MOMENTS } from '../../lib/data/seed';
 import { color, font, spacing } from '../../theme';
 
 /**
@@ -25,7 +25,7 @@ import { color, font, spacing } from '../../theme';
 export default function AdminHome() {
   const router = useRouter();
   const { admin, logout } = useAdminSession();
-  const { venues, districts, tiles, loading } = useAdminData();
+  const { venues, districts, tiles, cities, loading } = useAdminData();
   const { members } = useAdminMembers();
   const [pendingReviewCount, setPendingReviewCount] = useState(0);
 
@@ -97,7 +97,7 @@ export default function AdminHome() {
       {loading ? (
         <Text style={styles.note}>Loading real venue/district/tile counts from Supabase…</Text>
       ) : (
-        <GrowthInsights venues={venues} districts={districts} tiles={tiles} cities={CITIES} members={members} />
+        <GrowthInsights venues={venues} districts={districts} tiles={tiles} cities={cities} members={members} />
       )}
 
       <View style={styles.grid}>
