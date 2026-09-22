@@ -119,18 +119,52 @@ export async function fetchExistingDedupeKeys(): Promise<Set<string>> {
 
 /** The last N review_feedback rows, in reverse-chronological order — the
  * learning-loop input to Discover's next-run prompt (see the worker plan's
- * own description of this feedback loop). */
+ * own description of this feedback loop).
+ *
+ * `candidate_id` is deliberately not a real foreign key (0010_growth_engine.sql)
+ * — a single review_feedback row can point at either venue_candidates or
+ * district_candidates, disambiguated by `candidate_table`, and Postgres can't
+ * FK one column to two tables. That means PostgREST has no relationship to
+ * embed here, so names are joined in application code instead of via
+ * `.select('*, venue_candidates(name)')` (which fails with "Could not find a
+ * relationship" against a column with no real FK — found running the first
+ * real dry run, 2026-09-18). */
 export async function fetchRecentReviewFeedback(limit = 200): Promise<ReviewFeedbackEntry[]> {
   const { data, error } = await client()
     .from('review_feedback')
-    .select('decision, reason, venue_candidates(name)')
+    .select('candidate_id, candidate_table, decision, reason')
     .order('created_at', { ascending: false })
     .limit(limit);
   if (error) throw new Error(`fetchRecentReviewFeedback: ${error.message}`);
-  return (data ?? []).map((r: any) => ({
-    candidateName: r.venue_candidates?.name ?? 'unknown',
-    decision: r.decision,
-    reason: r.reason ?? undefined,
+  const rows = data ?? [];
+
+  const venueIds = rows.filter((r) => r.candidate_table === 'venue_candidates').map((r) => r.candidate_id);
+  const districtIds = rows
+    .filter((r) => r.candidate_table === 'district_candidates')
+    .map((r) => r.candidate_id);
+
+  const namesById = new Map<string, string>();
+  if (venueIds.length > 0) {
+    const { data: venues, error: venueErr } = await client()
+      .from('venue_candidates')
+      .select('id, name')
+      .in('id', venueIds);
+    if (venueErr) throw new Error(`fetchRecentReviewFeedback (venue names): ${venueErr.message}`);
+    for (const v of venues ?? []) namesById.set(v.id as string, v.name as string);
+  }
+  if (districtIds.length > 0) {
+    const { data: districts, error: districtErr } = await client()
+      .from('district_candidates')
+      .select('id, name')
+      .in('id', districtIds);
+    if (districtErr) throw new Error(`fetchRecentReviewFeedback (district names): ${districtErr.message}`);
+    for (const d of districts ?? []) namesById.set(d.id as string, d.name as string);
+  }
+
+  return rows.map((r) => ({
+    candidateName: namesById.get(r.candidate_id as string) ?? 'unknown',
+    decision: r.decision as ReviewFeedbackEntry['decision'],
+    reason: (r.reason as string | null) ?? undefined,
   }));
 }
 
