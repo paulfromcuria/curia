@@ -66,14 +66,17 @@ export async function discoverForTarget(
     return [];
   }
 
+  console.log(`[Discover] ${target.districtId}: fetching district brief...`);
   const brief = await fetchDistrictBrief(target.districtId);
   if (!brief) return [];
+  console.log(`[Discover] ${target.districtId}: brief fetched, loading known types/dedupe keys/feedback...`);
 
   const [knownTypes, existingKeys, feedback] = await Promise.all([
     fetchKnownVenueTypes(),
     fetchExistingDedupeKeys(),
     fetchRecentReviewFeedback(200),
   ]);
+  console.log(`[Discover] ${target.districtId}: prefetch done (${knownTypes.size} types, ${existingKeys.size} dedupe keys, ${feedback.length} feedback rows)`);
 
   const feedbackSummary = feedback.length
     ? feedback
@@ -109,7 +112,16 @@ editorial brand voice — specific and earned, never generic directory-speak,
 never the banned words vibrant/hidden gem/nestled/boasts/must-try/foodie/
 delicious/stunning/cosy), gate1Reasoning, distinctivenessProposed (1-5),
 distinctivenessReasoning, ownership, ownershipEvidence (a short string
-citing what you found), sources (array of URLs)}.`;
+citing what you found), sources (array of URLs)}.
+
+Every reasoning/evidence field must be plain prose with NO inline citation
+markup (no <cite>, no [1]-style markers, no index tags of any kind) — the
+"sources" array is where citations belong, once per candidate, not inline
+in every sentence. Found live 2026-09-22: web-search grounding was wrapping
+almost every clause in <cite index="...">...</cite> tags, which both makes
+the reasoning fields unreadable to a human reviewer and burns enough output
+tokens that a real 10-candidate response was cut off mid-way through
+candidate 2, breaking the JSON entirely.`;
 
   const prompt = `District: ${brief.name} (${brief.metro}), centred roughly
 at ${brief.lat}, ${brief.lon}. Character: ${brief.character ?? '(no editorial description yet — this is a fresh district)'}.
@@ -120,7 +132,15 @@ ${languageNote}
 Find up to ${maxCandidates} real, currently-operating, non-chain venues in
 this district that would genuinely fit Curia's catalogue.`;
 
-  const response = await callModel({ system, prompt, useWebSearch: true, maxTokens: 8192 });
+  console.log(`[Discover] ${target.districtId}: calling model (web search enabled)...`);
+  const callStart = Date.now();
+  // 8192 wasn't enough — a real 10-candidate response with even plain-prose
+  // reasoning per candidate (no citation markup, see the prompt above) runs
+  // well past that once you add gate1Reasoning/distinctivenessReasoning/
+  // ownershipEvidence for each one. 24576 gives real headroom without
+  // guessing at an exact per-candidate token cost.
+  const response = await callModel({ system, prompt, useWebSearch: true, maxTokens: 24576 });
+  console.log(`[Discover] ${target.districtId}: model call returned after ${Math.round((Date.now() - callStart) / 1000)}s`);
   const raw = parseJsonResponse<RawCandidate[]>(response);
 
   const drafts: VenueCandidateDraft[] = [];

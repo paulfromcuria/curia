@@ -12,8 +12,18 @@
  * source of truth for exact cost), so `costUsd` is a close estimate for
  * budget-pacing purposes, not an invoice-accurate figure.
  */
+import dns from 'node:dns';
 import Anthropic from '@anthropic-ai/sdk';
 import { config } from './config.js';
+
+// Found 2026-09-22 diagnosing a real local dry-run failure: Node's default
+// DNS result order tried api.anthropic.com's IPv6 address first and hung
+// (curl/nslookup resolved fine immediately — this host's IPv6 route is the
+// broken part, not DNS itself). `ipv4first` is the standard fix for this
+// exact class of intermittent ENOTFOUND/hang on a dual-stack host with
+// unreliable IPv6 — safe on Railway too, it only reorders Node's own
+// preference, never disables IPv6 outright.
+dns.setDefaultResultOrder('ipv4first');
 
 const anthropic = new Anthropic({ apiKey: config.anthropicApiKey });
 
