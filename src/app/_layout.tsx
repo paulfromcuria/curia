@@ -10,8 +10,17 @@ import { AdminMembersProvider } from '../lib/admin/admin-members';
 import { AdminSessionProvider } from '../lib/admin/admin-session';
 import { AdminTargetsProvider } from '../lib/admin/admin-targets';
 import { configureMapbox } from '../lib/map/mapbox-config';
-import { SessionProvider } from '../lib/state/session';
+import { SessionProvider, resolveDeviceLocation } from '../lib/state/session';
 import { color, font } from '../theme';
+
+/** Cap on how long the boot gate waits for a real device fix before giving
+ * up and opening with DEMO_LOCATION — see the loadInitialLocation effect
+ * below for the bug this exists to fix. Long enough to cover the common
+ * case (permission already granted from a prior visit, a quick wifi-based
+ * fix) without meaningfully delaying first paint for someone who denies or
+ * ignores the permission prompt; short enough that the slow/denied case
+ * still feels like a normal app load, not a hang. */
+const INITIAL_LOCATION_TIMEOUT_MS = 1500;
 
 /**
  * Root stack. Curia is dark-mode-only end to end (CLAUDE.md) — the base
@@ -30,9 +39,41 @@ export default function RootLayout() {
   const [fontsLoaded] = useCuriaFonts();
   const [dataState, setDataState] = useState<'loading' | 'ready' | 'error'>('loading');
   const [dataError, setDataError] = useState<string | null>(null);
+  const [initialLocation, setInitialLocation] = useState<{ lat: number; lon: number } | null | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     configureMapbox();
+  }, []);
+
+  // Real bug, found live 2026-09-22 ("every time i hard refresh the app it
+  // places me in northern quarter before figuring out my location and
+  // snapping to it"): the old geolocation effect lived inside
+  // SessionProvider, which only mounted once loadContentData() below had
+  // already resolved — so geolocation couldn't even start until the
+  // content fetch finished, and Map always painted its first frame at
+  // DEMO_LOCATION (central Manchester/Northern Quarter) regardless, then
+  // visibly flew to the real fix a moment later. Racing this in parallel
+  // with loadContentData(), capped at INITIAL_LOCATION_TIMEOUT_MS, means
+  // the common case (permission already granted, a fast fix) resolves
+  // before the gate below even opens — SessionProvider mounts already
+  // knowing where the member is, so Map's first frame is the right one,
+  // never a flash-then-snap. The slow/denied case (a hesitated-on
+  // permission prompt, no GPS provider) still falls back to DEMO_LOCATION
+  // and self-corrects later via SessionProvider's own fallback effect —
+  // same as before this fix, just no longer the common case.
+  useEffect(() => {
+    let cancelled = false;
+    Promise.race([
+      resolveDeviceLocation(),
+      new Promise<null>((resolve) => setTimeout(() => resolve(null), INITIAL_LOCATION_TIMEOUT_MS)),
+    ]).then((location) => {
+      if (!cancelled) setInitialLocation(location);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // Real content (venues/districts/tiles/moments/journeys) now lives in
@@ -50,7 +91,7 @@ export default function RootLayout() {
       });
   }, []);
 
-  if (!fontsLoaded || dataState === 'loading') {
+  if (!fontsLoaded || dataState === 'loading' || initialLocation === undefined) {
     return <View style={{ flex: 1, backgroundColor: color.base }} />;
   }
 
@@ -78,7 +119,7 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: color.base }}>
-      <SessionProvider>
+      <SessionProvider initialLocation={initialLocation}>
         {/* 2026-09, bug fix at explicit user report ("nothing happens when
             clicking sign in" on /admin): AdminSessionProvider/AdminDataProvider
             used to live inside admin/_layout.tsx, nested alongside the same
