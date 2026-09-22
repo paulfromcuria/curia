@@ -73,11 +73,11 @@
     },
     {
       "itemType": "add_venue",
-      "status": "denied",
+      "status": "rejected",
       "syncedToPortal": false,
       "proposedDate": "2026-09-11",
       "reason": "CAMRA and whatpub.com both list Prana as 'Closed Long Term' since a 28/05/2024 update, but a new company (PRANA F&B LIMITED) was incorporated at the same address four months later and remains active today, and a Food Hygiene Ratings record exists for the venue — genuinely conflicting signals about whether it's trading now, not a clean pass or fail.",
-      "researchNotes": "Independently re-verified 2026-09-11, re-checking the original candidate's 'CAMRA-listed and actively promoted' claim: Prana, 14-16 Ashley Road, Altrincham WA14 2DW, opened November 2023 as an independent live-music venue and cocktail bar (sister venue to Amp in Stockport, a real 2-site pair, not a chain footprint issue). CAMRA's own listing and whatpub.com both read 'Closed Long Term', last updated 28/05/2024, and a since-deleted-content Altrincham Today Facebook post headline ('Very sad news - Prana has announced it will be closing until further notice while...') corroborates a real closure around that date. Against that: Companies House shows PRANA F&B LIMITED incorporated 13 September 2024 at the same 14-16 Ashley Road address, status Active as of this search, and a Food Hygiene Ratings record exists under 'Prana - Altrincham' — both signals consistent with the venue reopening or changing hands rather than the unit sitting empty for two years, but no direct 2025/2026 evidence of actual trading (a dated event listing, a recent social media post, a current review) was found either way despite searching Skiddle, Instagram and Tripadvisor. Coordinates, spend, bands and type all otherwise pass the usual checks. Sent here rather than promoted or rejected outright — its suggestion-queue entry in docs/data/venue-suggestions.json stays 'pending' pending this decision. RESOLVED 2026-09-18 (curia-suggestion-review's own fresh re-verification, not via Curia Command — read_db was checked at the start of this run and had zero decided items): new decisive evidence found this run — the unit at 14-16 Ashley Road is currently being marketed by two independent commercial agents (LoopNet, WT Gunson) as available 'fitted restaurant premises', which doesn't happen while a tenant is trading. Treated as the first real positive evidence of closure rather than just absence of evidence of trading. Rejected in docs/data/venue-suggestions.json accordingly; see that file's own updated researchNotes for the full citation.",
+      "researchNotes": "RESOLVED 2026-09-22: independently re-verified and confirmed permanently/indefinitely closed. Google Maps marks it 'Permanently closed' (posting disabled), its own site returns a dead Cloudflare error, Instagram/Facebook are gone, Skiddle shows zero events ever listed, and its sister venue (Amp, Stockport) also closed and reopened under an unrelated name. The property (14-16 Ashley Road) is listed for sale as former restaurant premises. The Companies House 'Active' status that made this genuinely uncertain in the first pass is a shell company with overdue first accounts, not evidence of an operating business. Not promoted.",
       "payload": {
         "name": "Prana",
         "district": "altrincham",
@@ -86,7 +86,10 @@
         "lat": 53.3837,
         "lon": -2.3526,
         "base": 78,
-        "bands": ["evening", "late"],
+        "bands": [
+          "evening",
+          "late"
+        ],
         "reason": "Two floors of proper acoustics on Ashley Road from the team behind Stockport's Amp — order the cocktail, but the stage is the reason to stay past nine."
       }
     },
@@ -96,7 +99,7 @@
       "syncedToPortal": false,
       "proposedDate": "2026-09-14",
       "reason": "Companies House shows a cluster of similarly-named entities (a dissolved 'Buon Cibo Cheshire Ltd', a 'Buon Cibo Milano Ltd', and a newly incorporated September 2025 'Buon Cibo Group Ltd' with an active restaurant SIC code) that reads more like an operator scaling up than the simple 2-site family pair this candidate was framed as, and the claimed Reddish sister site couldn't be independently confirmed at all.",
-      "researchNotes": "The Heaton Moor restaurant itself (17 Shaw Road, SK4 4AG) is real and actively trading. The Reddish 'sister site' the original candidate named couldn't be found on a fresh search of that street. Confirmed unrelated to the app's existing 'Cibo' venues (a different Didsbury/Chorlton group) and to a separate celebrity-owned 'Cibo' chain in an unrelated trademark dispute, so no name-collision problem — the concern is specifically the Companies House entity cluster suggesting active expansion, not a settled small-group precedent like Cibo/Suburban Green/Smoke Wilmslow elsewhere in this app. RESOLVED 2026-09-18 (curia-suggestion-review's own fresh re-verification, not via Curia Command): director-level Companies House cross-checks resolved the entity cluster to one small family operator's own holding vehicle (Love Buon Cibo Ltd, operating both the Hazel Grove and Heaton Moor sites) plus two earlier abandoned expansion attempts (both dissolved) and one modest 2025 holding company sharing the same director — reads as a small operator, not an active multi-site chain. The claimed Reddish sister site could not be confirmed on a fresh, targeted search and is likely incorrect, so it was dropped from the promoted reason text rather than carried forward. Promoted into docs/data/venues.json.",
+      "researchNotes": "RESOLVED 2026-09-22: independently re-verified. The flagged Companies House 'expansion cluster' traces to one family (the Ibrahims) — sole director of both the original trading company and the new holding company — folding a messy multi-year company history (repeated compulsory strike-off notices for late filing, not growth) into one entity in Sept 2025. Two real sites confirmed (Hazel Grove takeaway since 2017-19, Heaton Moor sit-down restaurant), no press, franchise language or multi-site hiring found. A genuine small family operation. Promoted (docs/data/venues.json, migration 0038).",
       "payload": {
         "name": "Buon Cibo",
         "district": "heaton-moor",
@@ -105,7 +108,10 @@
         "lat": 53.423255,
         "lon": -2.185411,
         "base": 74,
-        "bands": ["afternoon", "evening"],
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
         "reason": "A family kitchen on Shaw Road doing proper Italian without the tablecloth theatre."
       }
     },
@@ -115,7 +121,7 @@
       "syncedToPortal": false,
       "proposedDate": "2026-09-14",
       "reason": "Genuinely independent and non-chain, but its recent history is a closure announced 17 September 2025, a partial (initially daytime-only) reopening 15 October 2025 after community support, and its original operating company dissolved 12 November 2025 — unclear whether it's trading today, and whether the evening/live-music programme central to its 'Irish bar' identity has come back.",
-      "researchNotes": "Ownership checks out cleanly as genuinely independent, family-run, no chain signal found. The trading-status timeline (closure announcement, community-backed reopening, dissolved operating company) comes from Manchester World and The Manc's own coverage plus a live Companies House record for RUSTIK LTD — real events, but not enough to say whether the venue trades today as described. A direct check of its current Instagram/Google listing would resolve this faster than another web search. RESOLVED 2026-09-18 (curia-suggestion-review's own fresh re-verification, not via Curia Command): current listed hours (Wed-Sun, into the evening/midnight) and an active weekly live-music lineup post both confirm evening/live-music service has resumed, resolving the 'still daytime/brunch-only?' ambiguity that had stalled this candidate since the October 2025 reopening. Promoted into docs/data/venues.json, reason text unchanged.",
+      "researchNotes": "RESOLVED 2026-09-22: independently re-verified. Confirmed trading today, but as a daytime-only brunch café-bar (Wed-Sun 9am-4pm) — the evening/live-music Irish-bar identity in the original candidate copy has not visibly returned in the ~11 months since its Oct 2025 reopening (Google/Instagram both show this as the stable steady state). Ownership has a new wrinkle: the original operating company (RUSTIK LTD, the Ahmeds) dissolved Nov 2025; a new same-named company incorporated Jul 2026 under three different directors — flagged honestly rather than carrying over the 'family-run, the Ahmeds' framing uncritically. Promoted with corrected copy/bands/real opening hours (docs/data/venues.json, migration 0038) — not the original 'brunch by day, a proper session by night' framing.",
       "payload": {
         "name": "Rustik",
         "district": "didsbury",
@@ -124,17 +130,21 @@
         "lat": 53.427674,
         "lon": -2.241957,
         "base": 72,
-        "bands": ["morning", "afternoon", "evening"],
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening"
+        ],
         "reason": "Burton Road's own Irish corner — brunch by day, a proper session by night, family-run without a single chain tell in the fit-out."
       }
     },
     {
       "itemType": "add_venue",
-      "status": "pending",
+      "status": "rejected",
       "syncedToPortal": false,
       "proposedDate": "2026-09-16",
       "reason": "A new candidate named 'Underbank' (no 'The') appears to describe the same real venue as this file's own already-promoted 'The Underbank' entry (added 2026-09-11) — the existing entry's reason text (former bank, Des and Nina O'Malley, Pomona Island/Runaway on tap, a basement sound system) matches this candidate fact for fact, while a separate, genuinely different venue on the same street (Benji Taylor's Syndikat-building live-music venue) appears to be the real 'The Underbank' and has apparently never been seeded. This is a naming/identity mix-up between two real venues, not a clean duplicate or a clean distinct-venue case, so it needs a human call rather than a guess.",
-      "researchNotes": "Independently re-verified 2026-09-16: 'Underbank', 27 Great Underbank, Stockport SK1 1LN, opened 30 May 2025 by Des and Nina O'Malley (also behind Heaton Moor's Nook) in a former bank branch — beer hall, margarita bar, Pomona Island/Runaway on tap, basement sound system (manchesterwire.co.uk, manchestersfinest.com, camra.org.uk, themanc.com all independently confirm the same facts). This file's existing venues.json entry 'The Underbank' (stockport-underbanks, promoted 2026-09-11) carries the identical description almost verbatim: 'A former Cheshire bank on Great Underbank turned beer hall, Pomona Island and Runaway on tap and Stockport's first proper sound system in the basement — the same husband-and-wife team behind Heaton Moor's Nook.' A third, separate search confirms a genuinely different venue, also called 'The Underbank', founded by Benji Taylor (of Bask) in the Syndikat building, a live-music/comedy/quiz venue with no O'Malley or beer-hall connection — this appears to be the venue the app's existing entry's *name* actually belongs to, even though its *description* belongs to the O'Malley venue. A human familiar with both venues (or a site visit / direct Google Maps check) would resolve this fastest: options include renaming the existing entry from 'The Underbank' to 'Underbank' (matching its real description), adding a new, correctly-described entry for Benji Taylor's actual 'The Underbank', or some combination. Not promoted or rejected outright — the underlying candidate ('Underbank', O'Malley's venue) is real and well-documented on its own facts; the issue is purely the collision with this file's existing data. RE-CHECKED 2026-09-18 (curia-suggestion-review): fresh research actually contradicts the working theory recorded above — the O'Malleys' venue self-brands as 'The Underbank' (with 'The') on its own site/social channels, the opposite of the 'no The' framing this candidate and the 2026-09-16 note both assumed; press/council sources more often drop the 'The' informally. No reliable evidence was found that Benji Taylor currently operates a second, separate venue under any 'Underbank' name at all — his documented 2024-2026 timeline has him stepping away from his own existing venue, Bask, on sick leave in 2024, Bask rebranding as an Irish pub ('Fitzpatrick's'), and Taylor returning specifically to Bask around April 2026, not to any Underbank-named venue; his only namesake Companies House entity is an unrelated dissolved London ad agency. See docs/data/venue-suggestions.json's own updated note on this same candidate for the full detail. Left pending, no database change made — closing this out needs a direct read of the two Stockport Nub News articles that seeded the mix-up theory, or Brook Underbank Ltd's (Companies House #14669490) officers list, neither reachable this run.",
+      "researchNotes": "RESOLVED 2026-09-22: independently re-verified. Found no evidence the suspected second venue (Benji Taylor's Syndikat-building 'The Underbank') exists today — the theory traced to a January 2025 Instagram announcement of his plan, which appears to have been superseded by what actually opened in May 2025 (the O'Malleys' 'The Underbank', same building, which itself runs gigs/comedy/quiz nights alongside its beer-hall concept — not purely the narrow 'beer hall' the existing catalog description implies, worth a copy update separately). The existing catalog entry's name is correct as-is; no rename or second entry needed. Not promoted as a new venue.",
       "payload": {
         "name": "Underbank",
         "district": "stockport-underbanks",
@@ -143,7 +153,10 @@
         "lat": 53.41095,
         "lon": -2.1589,
         "base": 68,
-        "bands": ["evening", "late"],
+        "bands": [
+          "evening",
+          "late"
+        ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
     }
