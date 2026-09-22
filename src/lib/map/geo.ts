@@ -28,7 +28,7 @@ import union from '@turf/union';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import { featureCollection, multiPoint, point } from '@turf/helpers';
 import type { Feature, FeatureCollection, MultiPolygon, Point, Polygon } from 'geojson';
-import { haversineMiles } from '../scoring/rank-venues';
+import { haversineMiles, isVenueClosed } from '../scoring/rank-venues';
 import { DEMO_LOCATION } from '../scoring/session-input';
 import { DISTRICTS, VENUES, METRO_WHOLE_SET_LABEL, districtGroupFor } from '../data/seed';
 import { EARTH_CIRCUMFERENCE_METERS, metersPerPixelAt, MILES_TO_METERS, TILE_SIZE_PX } from './projection';
@@ -235,7 +235,7 @@ export function districtsInBounds(bounds: GeoBounds, districts: District[] = DIS
  * exclusion rankVenues already applies, just needed repeating here since
  * this code path never calls it. */
 export function venuesInBounds(bounds: GeoBounds, venues: Venue[] = VENUES): Venue[] {
-  return venues.filter((v) => v.status !== 'closed' && inBounds({ lat: v.lat, lon: v.lon }, bounds));
+  return venues.filter((v) => !isVenueClosed(v) && inBounds({ lat: v.lat, lon: v.lon }, bounds));
 }
 
 /** Zoom level at which individual venue pins start rendering for every

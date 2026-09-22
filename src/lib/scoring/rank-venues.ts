@@ -151,15 +151,28 @@ export function passesOpenNowFilter(venue: Venue, day: DayName, time: string): b
   return isOpenAt(venue.openingHours, day, time) !== false;
 }
 
+/**
+ * `status === 'closed'` (migration 0011, alongside the growth-engine
+ * promotion cron's closure-audit flow) — pulled out to a standalone export
+ * (2026-09-22) rather than left inlined only in applyHardFilters below,
+ * since it turned out to need repeating at every OTHER place a venue gets
+ * looked up directly by id instead of through rankVenues: geo.ts's
+ * venuesInBounds (Map's background-pin layer), moments.tsx's Moment picks
+ * and Journey stops, journey/[id].tsx — none of those go through hard
+ * filters at all, so each one independently needed this same check or a
+ * permanently-closed venue would still show up fully normally. 'coming-soon'
+ * still passes, deliberately (see Venue.status's own doc comment).
+ */
+export function isVenueClosed(venue: Venue): boolean {
+  return venue.status === 'closed';
+}
+
 export function applyHardFilters(venues: Venue[], input: MatchmakingInput): Venue[] {
   const resolved = resolveContext(input.context);
   const clockTime = currentClockTime(input.context.now, resolved.day as DayName, resolved.band);
   return venues.filter(
     (v) =>
-      // 'closed' (migration 0011, alongside the growth-engine promotion
-      // cron's closure-audit flow) must never rank — 'coming-soon' still
-      // does, deliberately (see Venue.status's own doc comment).
-      v.status !== 'closed' &&
+      !isVenueClosed(v) &&
       passesDistanceFilter(v, input.location, input.radiusMiles) &&
       passesDietaryFilter(v, input.you.dietary) &&
       passesMoodFilter(v, input.moodFilter) &&

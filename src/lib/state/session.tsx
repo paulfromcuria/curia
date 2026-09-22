@@ -421,8 +421,47 @@ async function hydrateFromDatabase(userId: string, email: string): Promise<Parti
   };
 }
 
-export function SessionProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<SessionState>(INITIAL_STATE);
+/**
+ * Requests permission and resolves one real device fix, or `null` on
+ * denial/error/unavailability — the exact logic the old inline geolocation
+ * effect below used to own alone. Pulled out to a standalone export
+ * (2026-09-22) so `_layout.tsx` can kick this off in parallel with
+ * `loadContentData()`, before `SessionProvider` even mounts — see that
+ * file's own comment on the real bug this fixes (every cold load painting
+ * Map's camera at DEMO_LOCATION/Northern Quarter first, then visibly
+ * snapping to the real fix a moment later, found live 2026-09-22).
+ */
+export async function resolveDeviceLocation(): Promise<{ lat: number; lon: number } | null> {
+  try {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') return null;
+    const pos = await Location.getCurrentPositionAsync({});
+    return { lat: pos.coords.latitude, lon: pos.coords.longitude };
+  } catch {
+    return null;
+  }
+}
+
+export function SessionProvider({
+  children,
+  initialLocation = null,
+}: {
+  children: ReactNode;
+  /**
+   * A device fix already resolved by `_layout.tsx` before this provider
+   * mounted (see `resolveDeviceLocation` above) — seeds `location`/
+   * `searchOrigin` directly instead of the DEMO_LOCATION-then-snap sequence
+   * every consumer used to go through on a cold load. `null` (the default)
+   * preserves the old behavior exactly: fall back to DEMO_LOCATION, resolve
+   * for real in the background effect below.
+   */
+  initialLocation?: { lat: number; lon: number } | null;
+}) {
+  const [state, setState] = useState<SessionState>(() => ({
+    ...INITIAL_STATE,
+    location: initialLocation,
+    searchOrigin: initialLocation ?? DEMO_LOCATION,
+  }));
   const [authReady, setAuthReady] = useState(false);
   // Guards the profile/preferences sync effects below from immediately
   // writing straight back the exact values a hydrate just read — harmless
@@ -677,29 +716,26 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, weather }));
   }, []);
 
-  // Real device geolocation. expo-location supports web via the browser
-  // Geolocation API as well as native, so this one effect covers every
-  // platform without a separate branch. Silent no-op on denial/error/
+  // Real device geolocation — skipped entirely when `initialLocation` (from
+  // _layout.tsx's own earlier, parallel resolution, see that file's own
+  // comment) already answered this before SessionProvider even mounted.
+  // Only still needed here as the slow-path fallback: first-time permission
+  // prompts the member hesitates on, or a slow GPS/wifi-location fix that
+  // missed _layout.tsx's short window. Silent no-op on denial/error/
   // unavailability — `location` simply stays null and every consumer
   // already falls back to DEMO_LOCATION.
   useEffect(() => {
+    if (state.location) return;
     let cancelled = false;
-    (async () => {
-      try {
-        const { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted' || cancelled) return;
-        const pos = await Location.getCurrentPositionAsync({});
-        if (!cancelled) {
-          const resolved = { lat: pos.coords.latitude, lon: pos.coords.longitude };
-          setState((s) => ({ ...s, location: resolved, searchOrigin: resolved }));
-        }
-      } catch {
-        // Permission denied, no provider, timeout, etc. — stay on DEMO_LOCATION.
+    resolveDeviceLocation().then((resolved) => {
+      if (resolved && !cancelled) {
+        setState((s) => ({ ...s, location: resolved, searchOrigin: resolved }));
       }
-    })();
+    });
     return () => {
       cancelled = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Real forecast weather. Refetches whenever the resolved day/band or the

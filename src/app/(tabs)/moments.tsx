@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Card, Kicker } from '../../components/curia';
-import { DISTRICTS, JOURNEYS, MOMENTS, VENUES, journeyDistricts } from '../../lib/data/seed';
-import { haversineMiles } from '../../lib/scoring/rank-venues';
+import { DISTRICTS, JOURNEYS, MOMENTS, VENUES, journeyDistricts, journeyHasClosedStop } from '../../lib/data/seed';
+import { haversineMiles, isVenueClosed } from '../../lib/scoring/rank-venues';
 import { useSession } from '../../lib/state/session';
 import type { Journey, MomentType } from '../../types/models';
 import { color, font, radius, spacing } from '../../theme';
@@ -138,10 +138,12 @@ export default function Moments() {
     MOMENTS.forEach((m) =>
       m.venueIds.forEach((id) => {
         const v = VENUES.find((vv) => vv.id === id);
-        if (v) ids.add(v.districtId);
+        if (v && !isVenueClosed(v)) ids.add(v.districtId);
       })
     );
-    JOURNEYS.forEach((j) => journeyDistricts(j).forEach((d) => ids.add(d.id)));
+    JOURNEYS.filter((j) => !journeyHasClosedStop(j)).forEach((j) =>
+      journeyDistricts(j).forEach((d) => ids.add(d.id))
+    );
     return DISTRICTS.filter((d) => ids.has(d.id)).sort(
       (a, b) => haversineMiles(session.searchOrigin, a) - haversineMiles(session.searchOrigin, b)
     );
@@ -176,7 +178,7 @@ export default function Moments() {
         .map((m) => {
           const venues = m.venueIds
             .map((id) => VENUES.find((v) => v.id === id))
-            .filter((v): v is NonNullable<typeof v> => !!v)
+            .filter((v): v is NonNullable<typeof v> => !!v && !isVenueClosed(v))
             .filter((v) => !district || v.districtId === district.id);
           return { moment: m, venues };
         })
@@ -189,7 +191,8 @@ export default function Moments() {
   // (unlike Moments) no subheading grouping is needed here.
   const journeys = useMemo(() => {
     const filtered = JOURNEYS.filter(
-      (j) => !district || journeyDistricts(j).some((d) => d.id === district.id)
+      (j) =>
+        !journeyHasClosedStop(j) && (!district || journeyDistricts(j).some((d) => d.id === district.id))
     );
     const nearest = (j: Journey) =>
       Math.min(...journeyDistricts(j).map((d) => haversineMiles(session.searchOrigin, d)));
