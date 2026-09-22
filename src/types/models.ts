@@ -261,6 +261,24 @@ export interface Venue {
    */
   occasional?: boolean;
   /**
+   * True only for a venue you genuinely cannot walk into without arranging
+   * it first — a pre-booked-only farm experience, a private class with a
+   * capped group size — as distinct from `occasional` above: this venue
+   * likely DOES run on a normal schedule, the problem is that showing up
+   * unannounced doesn't work regardless. Found live 2026-09-22, same
+   * session as `occasional`, while auditing the catalog for anything else
+   * with the same "recommended as if you can just show up" problem: White
+   * Peak Alpaca Farm's own copy says "pre-booked walks only" outright.
+   * `passesWalkInFilter` (rank-venues.ts) hard-excludes it from ranked
+   * "right now" results for the same reason as `occasional` — a real
+   * concierge doesn't send someone to a door they can't get through today.
+   * Optional/defaults to `false` — only ever set `true` on explicit
+   * evidence in the venue's own copy, never inferred from venue type (a
+   * cookery class or a farm experience isn't assumed booking-only just
+   * because that's plausible; this only reflects what's actually stated).
+   */
+  bookingRequired?: boolean;
+  /**
    * 'coming-soon' marks a venue Curia isn't fully committing to as a
    * long-term catalog pick yet (e.g. a new venue whose parent operator has
    * stated multi-site expansion plans that could later tip it into Hard

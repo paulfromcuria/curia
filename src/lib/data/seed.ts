@@ -164,6 +164,7 @@ export function mapVenueRow(v: Record<string, unknown>): Venue {
     // mapper already has one documented incident of a migration landing a
     // new column that nothing here read for months).
     occasional: (v.occasional as boolean | null) ?? false,
+    bookingRequired: (v.booking_required as boolean | null) ?? false,
     tier: v.tier as Venue['tier'],
     sourceConfidence: v.source_confidence as number,
     notes: (v.notes as string | null) ?? undefined,

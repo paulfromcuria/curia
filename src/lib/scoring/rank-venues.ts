@@ -191,6 +191,24 @@ export function passesRegularScheduleFilter(venue: Venue): boolean {
   return !venue.occasional;
 }
 
+/**
+ * Excludes a venue you genuinely cannot walk into without arranging it
+ * first (`Venue.bookingRequired` — see that field's own doc comment,
+ * models.ts). Found 2026-09-22, same audit pass as passesRegularSchedule
+ * Filter above, at direct user follow-up ("do we have other venues similar
+ * to that"): White Peak Alpaca Farm's own copy says "pre-booked walks
+ * only" outright — a different mechanism from an occasional venue (this
+ * one likely does run a normal weekly schedule), but the same real harm:
+ * recommending it as a confident "go now" match when a member showing up
+ * unannounced simply cannot get in. Same hard-exclusion treatment as
+ * passesRegularScheduleFilter, for the same reason — there's no "still the
+ * only real option" case worth preserving when the option isn't actually
+ * available today.
+ */
+export function passesWalkInFilter(venue: Venue): boolean {
+  return !venue.bookingRequired;
+}
+
 export function applyHardFilters(venues: Venue[], input: MatchmakingInput): Venue[] {
   const resolved = resolveContext(input.context);
   const clockTime = currentClockTime(input.context.now, resolved.day as DayName, resolved.band);
@@ -198,6 +216,7 @@ export function applyHardFilters(venues: Venue[], input: MatchmakingInput): Venu
     (v) =>
       !isVenueClosed(v) &&
       passesRegularScheduleFilter(v) &&
+      passesWalkInFilter(v) &&
       passesDistanceFilter(v, input.location, input.radiusMiles) &&
       passesDietaryFilter(v, input.you.dietary) &&
       passesMoodFilter(v, input.moodFilter) &&

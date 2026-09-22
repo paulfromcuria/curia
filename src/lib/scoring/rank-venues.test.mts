@@ -28,6 +28,7 @@ import {
   passesMoodFilter,
   passesOpenNowFilter,
   passesRegularScheduleFilter,
+  passesWalkInFilter,
   rankVenues,
   reasonFor,
   resolveContext,
@@ -349,6 +350,35 @@ test('rankVenues never surfaces an occasional venue, however strong its base sco
   const input = baseInput({ context: { now: false, day: 'tuesday', band: 'afternoon' } });
   const result = rankVenues(input, [monthlyMarket, normalAndOpen], []);
   assert.deepEqual(result.ranked.map((r) => r.venueId), ['normal-and-open']);
+});
+
+// ---------------------------------------------------------------------------
+// Hard filter: a booking-required venue (a pre-booked-only farm experience,
+// a capped private class) must never rank as a confident "go now" match
+// (2026-09-22, at direct user follow-up: "do we have other venues similar
+// to that" — White Peak Alpaca Farm's own copy says "pre-booked walks
+// only," a different mechanism from occasional/monthly but the same real
+// harm).
+// ---------------------------------------------------------------------------
+
+test('passesWalkInFilter: a booking-required venue fails', () => {
+  assert.equal(passesWalkInFilter(venue({ bookingRequired: true })), false);
+});
+
+test('passesWalkInFilter: a normal walk-in venue passes', () => {
+  assert.equal(passesWalkInFilter(venue({ bookingRequired: false })), true);
+});
+
+test('passesWalkInFilter: unset (the common case) passes — never inferred, only ever deliberately flagged', () => {
+  assert.equal(passesWalkInFilter(venue({ bookingRequired: undefined })), true);
+});
+
+test('rankVenues never surfaces a booking-required venue, however strong its base score', () => {
+  const preBookedOnly = venue({ id: 'white-peak-alpaca-farm', base: 90, bookingRequired: true });
+  const normalAndWalkIn = venue({ id: 'normal-and-walk-in', base: 60 });
+  const input = baseInput();
+  const result = rankVenues(input, [preBookedOnly, normalAndWalkIn], []);
+  assert.deepEqual(result.ranked.map((r) => r.venueId), ['normal-and-walk-in']);
 });
 
 test('rankVenues.empty is true once hard filters eliminate the entire candidate pool', () => {
