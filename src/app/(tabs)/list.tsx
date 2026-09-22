@@ -558,7 +558,7 @@ export default function List() {
                 <View key={city.id} style={styles.metroGroup}>
                   <Kicker style={styles.metroKicker}>{city.name}</Kicker>
                   {districts.map(({ district, topVenue, distanceMiles }) => {
-                    const photoUri = topVenue?.photos[0] ?? placeholderPhotoFor(topVenue?.type ?? '');
+                    const photoUri = topVenue?.photos[0] ?? placeholderPhotoFor(topVenue?.type ?? '', topVenue?.id);
                     return (
                       <Pressable
                         key={district.id}
@@ -613,7 +613,7 @@ export default function List() {
                 <Pressable onPress={() => router.push(`/venue/${venue.id}`)}>
                   <View style={styles.photo}>
                     <Image
-                      source={{ uri: venue.photos[0] ?? placeholderPhotoFor(venue.type) }}
+                      source={{ uri: venue.photos[0] ?? placeholderPhotoFor(venue.type, venue.id) }}
                       style={styles.photoImage}
                       resizeMode="cover"
                     />
