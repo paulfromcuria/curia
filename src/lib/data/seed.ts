@@ -157,6 +157,14 @@ export function mapVenueRow(v: Record<string, unknown>): Venue {
     ownershipNotes: (v.ownership_notes as string | null) ?? undefined,
     copyStatus: (v.copy_status as Venue['copyStatus']) ?? undefined,
     openingHours: (v.opening_hours as Venue['openingHours']) ?? undefined,
+    // occasional (2026-09-22): defaults to false/undefined, both meaning
+    // "runs on a normal schedule" — deliberately wired here in the SAME
+    // change that adds the column and the hard filter that reads it (see
+    // models.ts's own doc comment on this field for why: this exact row
+    // mapper already has one documented incident of a migration landing a
+    // new column that nothing here read for months).
+    occasional: (v.occasional as boolean | null) ?? false,
+    bookingRequired: (v.booking_required as boolean | null) ?? false,
     tier: v.tier as Venue['tier'],
     sourceConfidence: v.source_confidence as number,
     notes: (v.notes as string | null) ?? undefined,

@@ -27,6 +27,8 @@ import {
   passesDistanceFilter,
   passesMoodFilter,
   passesOpenNowFilter,
+  passesRegularScheduleFilter,
+  passesWalkInFilter,
   rankVenues,
   reasonFor,
   resolveContext,
@@ -317,6 +319,66 @@ test('rankVenues never surfaces a venue confirmed closed right now, however stro
   const input = baseInput({ context: { now: false, day: 'friday', band: 'evening' } });
   const result = rankVenues(input, [confirmedClosed, decentAndOpen], []);
   assert.deepEqual(result.ranked.map((r) => r.venueId), ['decent-and-open']);
+});
+
+// ---------------------------------------------------------------------------
+// Hard filter: an "occasional" venue (a monthly market, a pop-up — no
+// bands/openingHours concept can express "which Saturday") must never rank
+// (2026-09-22, direct user report: Wilmslow Artisan Market, which really
+// does only run once a month, was recommended on an ordinary Tuesday).
+// ---------------------------------------------------------------------------
+
+test('passesRegularScheduleFilter: an occasional venue fails', () => {
+  assert.equal(passesRegularScheduleFilter(venue({ occasional: true })), false);
+});
+
+test('passesRegularScheduleFilter: a normal venue passes', () => {
+  assert.equal(passesRegularScheduleFilter(venue({ occasional: false })), true);
+});
+
+test('passesRegularScheduleFilter: unset (the common case) passes — never inferred, only ever deliberately flagged', () => {
+  assert.equal(passesRegularScheduleFilter(venue({ occasional: undefined })), true);
+});
+
+test('rankVenues never surfaces an occasional venue, however strong its base score, on an ordinary day', () => {
+  // Mirrors the real report exactly: a monthly artisan market with a
+  // strong base score and a matching band, versus a merely-decent normal
+  // venue open every day — the occasional one must not appear at all, on
+  // an arbitrary Tuesday it has no real chance of actually being open.
+  const monthlyMarket = venue({ id: 'wilmslow-artisan-market', base: 90, occasional: true, bands: ['afternoon'] });
+  const normalAndOpen = venue({ id: 'normal-and-open', base: 60 });
+  const input = baseInput({ context: { now: false, day: 'tuesday', band: 'afternoon' } });
+  const result = rankVenues(input, [monthlyMarket, normalAndOpen], []);
+  assert.deepEqual(result.ranked.map((r) => r.venueId), ['normal-and-open']);
+});
+
+// ---------------------------------------------------------------------------
+// Hard filter: a booking-required venue (a pre-booked-only farm experience,
+// a capped private class) must never rank as a confident "go now" match
+// (2026-09-22, at direct user follow-up: "do we have other venues similar
+// to that" — White Peak Alpaca Farm's own copy says "pre-booked walks
+// only," a different mechanism from occasional/monthly but the same real
+// harm).
+// ---------------------------------------------------------------------------
+
+test('passesWalkInFilter: a booking-required venue fails', () => {
+  assert.equal(passesWalkInFilter(venue({ bookingRequired: true })), false);
+});
+
+test('passesWalkInFilter: a normal walk-in venue passes', () => {
+  assert.equal(passesWalkInFilter(venue({ bookingRequired: false })), true);
+});
+
+test('passesWalkInFilter: unset (the common case) passes — never inferred, only ever deliberately flagged', () => {
+  assert.equal(passesWalkInFilter(venue({ bookingRequired: undefined })), true);
+});
+
+test('rankVenues never surfaces a booking-required venue, however strong its base score', () => {
+  const preBookedOnly = venue({ id: 'white-peak-alpaca-farm', base: 90, bookingRequired: true });
+  const normalAndWalkIn = venue({ id: 'normal-and-walk-in', base: 60 });
+  const input = baseInput();
+  const result = rankVenues(input, [preBookedOnly, normalAndWalkIn], []);
+  assert.deepEqual(result.ranked.map((r) => r.venueId), ['normal-and-walk-in']);
 });
 
 test('rankVenues.empty is true once hard filters eliminate the entire candidate pool', () => {
