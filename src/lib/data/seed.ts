@@ -199,6 +199,37 @@ export async function loadVenuesForMetro(metro: MetroId): Promise<void> {
   notifyContentChanged();
 }
 
+/**
+ * Tops up VENUES with specific venue ids it doesn't have yet, without
+ * touching loadedMetros — the shared implementation behind loadContentData()'s
+ * own Moments/Journeys top-up and hydrateFromDatabase()'s equivalent for a
+ * member's saved places (session.tsx), both fixing the same real bug class
+ * (2026-09-23): any metro-agnostic feature that resolves venues by id
+ * against this module-scoped, DEFAULT_METROS-limited VENUES silently drops
+ * whatever isn't loaded yet, even though the real row exists in Supabase
+ * either way. Deliberately doesn't call loadedMetros.add() — that flag
+ * means "the FULL catalog for this metro is loaded" (what ranking/search
+ * need), and this only ever pulls the specific ids asked for, not a whole
+ * metro; loadVenuesForMetro's own dedupe-by-id merge is what makes a later
+ * real load for the same metro supersede these rows instead of duplicating
+ * them. `label` is just for the thrown error message, so a fetch failure
+ * here is traceable to which caller's top-up broke.
+ */
+export async function ensureVenuesLoaded(ids: string[], label: string): Promise<void> {
+  const loadedVenueIds = new Set(VENUES.map((v) => v.id));
+  const missingIds = [...new Set(ids)].filter((id) => !loadedVenueIds.has(id));
+  if (missingIds.length === 0) return;
+
+  const { data, error } = await supabase.from('venues').select('*').in('id', missingIds);
+  if (error) throw new Error(`Failed to load ${label}: ${error.message}`);
+  VENUES = [...VENUES, ...(data ?? []).map(mapVenueRow)];
+  // Unlike loadContentData()'s own call (nothing has rendered yet, so
+  // nothing needs telling), hydrateFromDatabase() runs after the app is
+  // already up — any mounted screen reading VENUES (Saved, Profile) needs
+  // this to know new rows just landed.
+  notifyContentChanged();
+}
+
 /** Fetches every content table once and populates the exports above.
  * Safe to call more than once — later callers just await the same promise. */
 export function loadContentData(): Promise<void> {
@@ -305,31 +336,13 @@ export function loadContentData(): Promise<void> {
     // in moment_venues/journey_stops either way) but because the venue it
     // points at hadn't been fetched yet. Top up VENUES here with just the
     // specific venues Moments/Journeys actually reference but VENUES
-    // doesn't have yet — small (a few dozen rows across every non-default
-    // metro combined, not a whole extra catalog) and metro-agnostic, so
-    // Moments/Journeys work from a cold load with no map interaction at
-    // all. Deliberately does NOT call loadedMetros.add() for these metros
-    // — that flag means "the FULL catalog for this metro is loaded" (what
-    // ranking/search need), and this fetch only ever pulls the handful of
-    // venues Moments/Journeys reference, not every real venue in that
-    // metro; loadVenuesForMetro's own merge step (below) is what makes a
-    // later real load for the same metro supersede these rows instead of
-    // duplicating them.
+    // doesn't have yet — see ensureVenuesLoaded's own doc comment for why
+    // this is a targeted top-up rather than loadVenuesForMetro for every
+    // metro touched.
     const referencedVenueIds = new Set<string>();
     for (const mv of momentVenuesRes.data ?? []) referencedVenueIds.add(mv.venue_id as string);
     for (const s of journeyStopsRes.data ?? []) referencedVenueIds.add(s.venue_id as string);
-    const loadedVenueIds = new Set(VENUES.map((v) => v.id));
-    const missingVenueIds = [...referencedVenueIds].filter((id) => !loadedVenueIds.has(id));
-    if (missingVenueIds.length > 0) {
-      const { data: extraVenuesData, error: extraVenuesError } = await supabase
-        .from('venues')
-        .select('*')
-        .in('id', missingVenueIds);
-      if (extraVenuesError) {
-        throw new Error(`Failed to load Moments/Journeys' referenced venues: ${extraVenuesError.message}`);
-      }
-      VENUES = [...VENUES, ...(extraVenuesData ?? []).map(mapVenueRow)];
-    }
+    await ensureVenuesLoaded([...referencedVenueIds], "Moments/Journeys' referenced venues");
 
     const venueIdsByMoment = new Map<string, string[]>();
     for (const mv of momentVenuesRes.data ?? []) {
