@@ -624,7 +624,7 @@ export default function List() {
                 </Pressable>
                 <View style={styles.rowBody}>
                   <Pressable style={styles.rowNameCol} onPress={() => router.push(`/venue/${venue.id}`)}>
-                    <Text style={styles.name} numberOfLines={1}>
+                    <Text style={styles.name} numberOfLines={2}>
                       {venue.name}
                     </Text>
                     <View style={styles.typeRow}>
@@ -1040,9 +1040,15 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
   },
+  // Was fontSize 23, numberOfLines 1 — a longer venue name (e.g. "The
+  // Northern Lawn Tennis & Squash Club") truncated to "The Northern ..."
+  // after only a few characters, at real user report ("venue names are cut
+  // off very quickly making it hard to read them"). Slightly smaller and
+  // wraps to 2 lines instead, so most names show in full.
   name: {
     fontFamily: font.serifRegular,
-    fontSize: 23,
+    fontSize: 19,
+    lineHeight: 23,
     color: color.textPrimary,
   },
   type: {
