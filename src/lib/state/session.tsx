@@ -12,6 +12,7 @@ import type {
   YouProfile,
 } from '../../types/models';
 import type { MatchContext } from '../../types/matchmaking';
+import { ensureVenuesLoaded } from '../data/seed';
 import { resolveContext } from '../scoring/rank-venues';
 import { DEMO_LOCATION } from '../scoring/session-input';
 import { fetchWeather } from '../weather/forecast';
@@ -396,6 +397,22 @@ async function hydrateFromDatabase(userId: string, email: string): Promise<Parti
     name: c.name,
     venueIds: (c.saved_collection_venues ?? []).map((v: { venue_id: string }) => v.venue_id),
   }));
+
+  // A saved venue is a member's own data, not a "near me" query — it has to
+  // resolve regardless of which metro's venues happen to be loaded into
+  // seed.ts's own VENUES (DEFAULT_METROS only, until something loads the
+  // rest). Real bug, found live 2026-09-23, same audit pass as the Moments/
+  // Journeys metro-scoping fix: a member who saved a London/Chicago venue
+  // saw it silently vanish from Saved Places (src/app/saved.tsx's own
+  // VENUES.find) and the Profile screen's saved-places count/summary
+  // (src/app/profile.tsx) on any later session where that venue hadn't
+  // otherwise been loaded. Tops VENUES up with exactly this member's saved
+  // venue ids, same targeted approach as loadContentData()'s own Moments/
+  // Journeys top-up — see ensureVenuesLoaded's doc comment (seed.ts).
+  const savedVenueIds = savedCollections.flatMap((c) => c.venueIds);
+  if (savedVenueIds.length > 0) {
+    await ensureVenuesLoaded(savedVenueIds, "this member's saved venues");
+  }
 
   const myRatings: Record<string, number> = {};
   for (const r of ratingsRes.data ?? []) myRatings[r.venue_id] = r.rating;

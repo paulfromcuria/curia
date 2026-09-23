@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Kicker } from '../../components/curia';
@@ -7,7 +7,9 @@ import {
   DISTRICTS,
   RATING_STATS,
   journeysByDistrict,
+  loadVenuesForMetro,
   momentsByDistrict,
+  useContentVersion,
   venuesByDistrict,
 } from '../../lib/data/seed';
 import { districtLiveliness } from '../../lib/map/geo';
@@ -23,15 +25,42 @@ import { color, font, radius, spacing } from '../../theme';
  * touch this district, with a link into the Moments tab pre-filtered to it.
  * Only real districts route here — grouped map labels never do (Hard rule 6,
  * already enforced at the call site in map.tsx).
+ *
+ * `venuesByDistrict` reads straight from seed.ts's own VENUES, which only
+ * ever holds DEFAULT_METROS (manchester+cheshire) until something actually
+ * loads the rest (map.web.tsx's region switcher, or loadContentData()'s own
+ * top-up of whichever specific venues Moments/Journeys reference — see that
+ * file's doc comment). This screen is reachable for ANY real district,
+ * including one in a metro nothing has loaded yet (a district pill on
+ * Moments only needs one of that metro's venues loaded to appear, not the
+ * whole roster) — found live 2026-09-23, same audit pass as the Moments/
+ * Journeys metro-scoping fix: opening a London/Chicago district straight
+ * from a Moments pill showed a quietly incomplete "TOP MATCHES" (whatever
+ * subset happened to already be loaded), not the real, complete one. Kicks
+ * off the same full-metro load map.web.tsx's region switcher does, so this
+ * screen's ranking is always against the real, complete roster regardless
+ * of how a member arrived here.
  */
 export default function DistrictGuide() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const session = useSession();
+  const contentVersion = useContentVersion();
 
   const district = DISTRICTS.find((d) => d.id === id);
   const metroName = CITIES.find((c) => c.id === district?.metro)?.name ?? '';
-  const districtVenues = useMemo(() => (district ? venuesByDistrict(district.id) : []), [district]);
+
+  useEffect(() => {
+    if (district) loadVenuesForMetro(district.metro);
+  }, [district]);
+
+  const districtVenues = useMemo(
+    () => (district ? venuesByDistrict(district.id) : []),
+    // contentVersion: recompute once loadVenuesForMetro() above resolves and
+    // adds this district's real venues, the same dependency map.web.tsx's
+    // own VENUES-derived useMemos already include.
+    [district, contentVersion]
+  );
   const districtVenueIds = useMemo(() => new Set(districtVenues.map((v) => v.id)), [districtVenues]);
 
   const matchInput = useMemo(

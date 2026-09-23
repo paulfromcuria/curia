@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { BackButton, Button, Kicker } from '../components/curia';
-import { VENUES } from '../lib/data/seed';
+import { CITIES, VENUES } from '../lib/data/seed';
 import { useSession } from '../lib/state/session';
 import { color, font, spacing } from '../theme';
 
@@ -54,6 +54,12 @@ export default function Profile() {
 
   const savedJourneyCount = session.savedJourneyIds.length;
   const notificationsOnCount = Object.values(session.notificationPrefs).filter(Boolean).length;
+
+  // Real, current coverage (CITIES, unlike a hardcoded string, never goes
+  // stale as new metros launch — found live 2026-09-23, same audit pass as
+  // the Moments/Journeys metro-scoping fix: this footer still said "CURIA ·
+  // MANCHESTER · CHESHIRE" after London/Chicago/Riyadh had real venues).
+  const footerLabel = ['CURIA', ...CITIES.map((c) => c.name.toUpperCase())].join(' · ');
 
   function summarize(names: string[]): string {
     if (names.length === 0) return 'Nothing saved yet';
@@ -162,7 +168,7 @@ export default function Profile() {
       ))}
 
       <Button label="Log out" variant="secondary" onPress={handleLogout} />
-      <Text style={styles.footer}>CURIA · MANCHESTER · CHESHIRE</Text>
+      <Text style={styles.footer}>{footerLabel}</Text>
     </ScrollView>
   );
 }
