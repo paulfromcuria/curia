@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button, Kicker, Tag } from '../../components/curia';
-import { DISTRICTS, MOMENTS, RATING_STATS, VENUES } from '../../lib/data/seed';
+import { DISTRICTS, MOMENTS, RATING_STATS, VENUES, ensureVenuesLoaded, useContentVersion } from '../../lib/data/seed';
 import { placeholderPhotoFor } from '../../lib/data/placeholder-photos';
 import { DEMO_LOCATION } from '../../lib/scoring/session-input';
 import { useSession } from '../../lib/state/session';
@@ -140,8 +141,24 @@ export default function VenueDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const session = useSession();
+  // Re-renders this screen once the effect below adds a missing venue to
+  // VENUES — VENUES is a plain module-level array, not React state, so
+  // nothing else would tell this component to look again.
+  useContentVersion();
 
   const venue = VENUES.find((v) => v.id === id);
+
+  // Self-healing fallback for a venue this session's VENUES doesn't have
+  // yet — found live 2026-09-23, same audit as the Moments/Journeys/Saved
+  // metro-scoping fixes: every real in-app path to this screen (Map, List,
+  // Moments, Saved) already resolves through a venue that's already
+  // loaded, but nothing stops a future share link, marketing campaign or
+  // stale bookmark landing here first. One targeted fetch for just this id
+  // (ensureVenuesLoaded, seed.ts) rather than a whole metro load, since a
+  // single venue's own page has no use for the rest of its city's roster.
+  useEffect(() => {
+    if (id && !VENUES.some((v) => v.id === id)) void ensureVenuesLoaded([id], `venue ${id}`);
+  }, [id]);
   const saved = venue ? session.isVenueSaved(venue.id) : false;
   const myRating = venue ? session.myRatingFor(venue.id) : undefined;
   const ratingStats = venue ? RATING_STATS[venue.id] : undefined;
