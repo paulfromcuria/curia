@@ -154,6 +154,49 @@ const COMPETING_LABEL_LAYER_IDS = [
   'poi-label',
 ];
 
+/**
+ * Road recolor (native port of map.web.tsx's recolorMapRoads, 2026-09-23 —
+ * that fix only ever shipped to web; this was left open pending a way to
+ * verify the real layer ids without a running map to introspect, since
+ * @rnmapbox/maps has no `map.getStyle()` equivalent this file can call the
+ * way map.web.tsx does). Unlike that TODO's original assumption, these ids
+ * aren't guessed — fetched directly from the real dark-v11 style JSON
+ * (`api.mapbox.com/styles/v1/mapbox/dark-v11`) and filtered the same way
+ * map.web.tsx does at runtime (`type === 'line' && source-layer === 'road'`),
+ * so this list is exactly what a live `map.getStyle()` call would return
+ * today. Every one of these 21 layers currently paints a flat neutral grey
+ * (`hsl(0, 0%, 12-24%)`), not the "bright pink/mauve" color.mapRoad's own
+ * doc comment describes — either Mapbox has revised dark-v11's palette
+ * since that comment was written, or the clash was a contrast illusion
+ * (true achromatic grey against this app's warm near-black reads with a
+ * cool cast). Recoloring to color.mapRoad is applied regardless, same as
+ * web: it's a genuine brand-consistency improvement either way, and gets
+ * native to the same place web already is.
+ */
+const ROAD_LAYER_IDS = [
+  'tunnel-path-trail',
+  'tunnel-path-cycleway-piste',
+  'tunnel-path',
+  'tunnel-steps',
+  'tunnel-pedestrian',
+  'tunnel-simple',
+  'road-path-trail',
+  'road-path-cycleway-piste',
+  'road-path',
+  'road-steps',
+  'road-pedestrian',
+  'road-simple',
+  'road-rail',
+  'bridge-path-trail',
+  'bridge-path-cycleway-piste',
+  'bridge-path',
+  'bridge-steps',
+  'bridge-pedestrian',
+  'bridge-case-simple',
+  'bridge-simple',
+  'bridge-rail',
+];
+
 function capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
@@ -716,6 +759,12 @@ export default function Map() {
             COMPETING_LABEL_LAYER_IDS's doc comment. */}
         {COMPETING_LABEL_LAYER_IDS.map((id) => (
           <SymbolLayer key={id} id={id} existing style={{ visibility: 'none' }} />
+        ))}
+
+        {/* Recolor the basemap's own road layers to match Curia's palette —
+            see ROAD_LAYER_IDS's doc comment. */}
+        {ROAD_LAYER_IDS.map((id) => (
+          <LineLayer key={id} id={id} existing style={{ lineColor: color.mapRoad }} />
         ))}
 
         {/* BEYOND THE EDGE (2026-08): a real coverage boundary instead of a
