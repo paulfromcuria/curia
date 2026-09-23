@@ -10,7 +10,7 @@ import { color, font, spacing } from '../../../theme';
  * districts its stops touch"). */
 export default function JourneyDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { getVenue } = useAdminData();
+  const { getVenue, venues } = useAdminData();
   const journey = JOURNEYS.find((j) => j.id === id);
 
   if (!journey) {
@@ -22,7 +22,12 @@ export default function JourneyDetail() {
     );
   }
 
-  const districts = journeyDistricts(journey).map((d) => d.name).join(', ');
+  // venues from useAdminData() (admin-scoped, unfiltered) — see
+  // journeys/index.tsx's identical doc comment for why this isn't seed.ts's
+  // own scoped VENUES. Only matters as journey.meta's fallback here (the
+  // header subtitle prefers the real stored meta string), but Stops below
+  // already correctly use admin's own getVenue.
+  const districts = journeyDistricts(journey, venues).map((d) => d.name).join(', ');
 
   return (
     <View style={styles.flex}>

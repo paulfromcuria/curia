@@ -187,7 +187,14 @@ export async function loadVenuesForMetro(metro: MetroId): Promise<void> {
   const { data, error } = await supabase.from('venues').select('*').eq('metro', metro);
   if (error) throw new Error(`Failed to load venues for ${metro}: ${error.message}`);
 
-  VENUES = [...VENUES, ...(data ?? []).map(mapVenueRow)];
+  // Dedupe by id rather than a plain concat — loadContentData() may have
+  // already top-up-fetched a handful of this metro's venues for Moments/
+  // Journeys (see its own doc comment) before this ever runs. This full
+  // fetch is the authoritative one; its rows replace any of those instead
+  // of sitting alongside them as duplicates.
+  const newVenues = (data ?? []).map(mapVenueRow);
+  const newIds = new Set(newVenues.map((v) => v.id));
+  VENUES = [...VENUES.filter((v) => !newIds.has(v.id)), ...newVenues];
   loadedMetros.add(metro);
   notifyContentChanged();
 }
@@ -211,6 +218,7 @@ export function loadContentData(): Promise<void> {
       journeyStopsRes,
       destinationsRes,
       ratingStatsRes,
+      santoriniVenuesRes,
     ] = await Promise.all([
       supabase.from('cities').select('*'),
       supabase.from('districts').select('*'),
@@ -224,6 +232,10 @@ export function loadContentData(): Promise<void> {
       supabase.from('journey_stops').select('*').order('stop_order'),
       supabase.from('destinations').select('*'),
       supabase.from('venue_rating_stats').select('*'),
+      // Dedicated, unscoped-by-DEFAULT_METROS fetch of just Santorini's own
+      // venue ids — see the Soft-hide block below's doc comment for why
+      // this exists as its own query rather than reusing VENUES.
+      supabase.from('venues').select('id').eq('metro', 'santorini'),
     ]);
 
     const firstError = [
@@ -243,6 +255,7 @@ export function loadContentData(): Promise<void> {
       // same as if nobody had rated anything, which is also the genuinely
       // correct real state on a fresh install) — not worth blocking the
       // entire app's load over, unlike every other table above.
+      santoriniVenuesRes,
     ].find((r) => r.error)?.error;
     if (firstError) throw new Error(`Failed to load content data: ${firstError.message}`);
 
@@ -276,6 +289,47 @@ export function loadContentData(): Promise<void> {
 
     VENUES = (venuesRes.data ?? []).map(mapVenueRow);
     DEFAULT_METROS.forEach((m) => loadedMetros.add(m));
+
+    // Moments/Journeys are real, editorial, metro-independent content
+    // ("chosen by people, not by your history" — moments.tsx's own
+    // headline) — but they resolve their picks by looking venue ids up
+    // against this same VENUES array, which by design only holds
+    // DEFAULT_METROS until a member's map camera actually pans into
+    // another region (loadVenuesForMetro, only ever called from
+    // map.web.tsx). Real bug, found live 2026-09-23 ("i dont see the
+    // moment and journeys for london and chicago in the admin page" —
+    // reproduced in the member app too, moments.tsx's own venues.find
+    // hitting the same scoped VENUES): anyone who opens Moments without
+    // first panning Map into that metro silently lost every pick outside
+    // Manchester/Cheshire, not because the pick didn't exist (it's real,
+    // in moment_venues/journey_stops either way) but because the venue it
+    // points at hadn't been fetched yet. Top up VENUES here with just the
+    // specific venues Moments/Journeys actually reference but VENUES
+    // doesn't have yet — small (a few dozen rows across every non-default
+    // metro combined, not a whole extra catalog) and metro-agnostic, so
+    // Moments/Journeys work from a cold load with no map interaction at
+    // all. Deliberately does NOT call loadedMetros.add() for these metros
+    // — that flag means "the FULL catalog for this metro is loaded" (what
+    // ranking/search need), and this fetch only ever pulls the handful of
+    // venues Moments/Journeys reference, not every real venue in that
+    // metro; loadVenuesForMetro's own merge step (below) is what makes a
+    // later real load for the same metro supersede these rows instead of
+    // duplicating them.
+    const referencedVenueIds = new Set<string>();
+    for (const mv of momentVenuesRes.data ?? []) referencedVenueIds.add(mv.venue_id as string);
+    for (const s of journeyStopsRes.data ?? []) referencedVenueIds.add(s.venue_id as string);
+    const loadedVenueIds = new Set(VENUES.map((v) => v.id));
+    const missingVenueIds = [...referencedVenueIds].filter((id) => !loadedVenueIds.has(id));
+    if (missingVenueIds.length > 0) {
+      const { data: extraVenuesData, error: extraVenuesError } = await supabase
+        .from('venues')
+        .select('*')
+        .in('id', missingVenueIds);
+      if (extraVenuesError) {
+        throw new Error(`Failed to load Moments/Journeys' referenced venues: ${extraVenuesError.message}`);
+      }
+      VENUES = [...VENUES, ...(extraVenuesData ?? []).map(mapVenueRow)];
+    }
 
     const venueIdsByMoment = new Map<string, string[]>();
     for (const mv of momentVenuesRes.data ?? []) {
@@ -343,21 +397,35 @@ export function loadContentData(): Promise<void> {
 
     // Soft-hide Santorini + Holiday — see features.ts's doc comment. Real
     // rows stay untouched in the database; this just filters what the app
-    // exposes. Order matters: VENUES is filtered before MOMENTS/JOURNEYS so
-    // their dangling-reference filters below can check against it directly.
-    // The VENUES line is now mostly defensive — DEFAULT_METROS never
+    // exposes. The VENUES line is mostly defensive — DEFAULT_METROS never
     // includes 'santorini', so its rows aren't fetched here in the first
     // place, and loadVenuesForMetro() refuses it too — but CITIES/DISTRICTS
     // still need real filtering, they load unconditionally for every metro.
+    //
+    // MOMENTS/JOURNEYS used to filter picks/stops against VENUES.some(...)
+    // as a stand-in for "is this a Santorini venue" — real bug, found live
+    // 2026-09-23 ("i dont see the moment and journeys for london and
+    // chicago in the admin page"): VENUES only ever holds DEFAULT_METROS
+    // (manchester+cheshire) at this point, so that check silently excluded
+    // every London/Chicago/Riyadh pick too, not just Santorini's — the
+    // exact same "admin/every-metro surface inherits a DEFAULT_METROS
+    // scoping decision meant only for Santorini" bug class as admin-
+    // data.tsx's own 2026-09-18/09-22 fixes, except this one hit every
+    // consumer of MOMENTS/JOURNEYS (member app included), not just admin.
+    // Fixed by checking against santoriniVenueIds (a small, dedicated,
+    // unscoped fetch of just Santorini's own venue ids) instead — an
+    // explicit denylist for the one metro actually meant to be hidden,
+    // rather than an allowlist that happened to only cover two metros.
     if (!HOLIDAY_FEATURE_ENABLED) {
       CITIES = CITIES.filter((c) => c.id !== 'santorini');
       DISTRICTS = DISTRICTS.filter((d) => d.metro !== 'santorini');
       VENUES = VENUES.filter((v) => v.metro !== 'santorini');
+      const santoriniVenueIds = new Set((santoriniVenuesRes.data ?? []).map((v) => v.id as string));
       MOMENTS = MOMENTS.map((m) => ({
         ...m,
-        venueIds: m.venueIds.filter((id) => VENUES.some((v) => v.id === id)),
+        venueIds: m.venueIds.filter((id) => !santoriniVenueIds.has(id)),
       }));
-      JOURNEYS = JOURNEYS.filter((j) => j.stops.every((s) => VENUES.some((v) => v.id === s.venueId)));
+      JOURNEYS = JOURNEYS.filter((j) => j.stops.every((s) => !santoriniVenueIds.has(s.venueId)));
       TILES = TILES.filter((t) => t.category !== 'Holiday');
     }
 
@@ -370,10 +438,21 @@ export function loadContentData(): Promise<void> {
 /** The set of districts a journey's stops touch (CLAUDE.md: a Journey "can
  * span multiple districts — a Journey's displayed location is the set of
  * districts its stops touch"). Derived, not stored. */
-export function journeyDistricts(journey: Journey): District[] {
+/**
+ * `venues` defaults to this module's own VENUES (correct for every
+ * member-facing call site — the member app only ever shows a Journey once
+ * its metro is already loaded). Admin passes its own unscoped venues list
+ * explicitly (see src/app/admin/journeys/index.tsx and [id].tsx) — VENUES
+ * here only holds DEFAULT_METROS (manchester+cheshire) until a member
+ * actually browses another region, so an admin session that's never
+ * loaded London/Chicago would otherwise resolve zero districts for any
+ * Journey touching them, same scoping bug admin-data.tsx's own doc
+ * comment already documents for venues/districts/tiles/cities.
+ */
+export function journeyDistricts(journey: Journey, venues: Venue[] = VENUES): District[] {
   const districtIds = new Set(
     journey.stops
-      .map((s) => VENUES.find((v) => v.id === s.venueId)?.districtId)
+      .map((s) => venues.find((v) => v.id === s.venueId)?.districtId)
       .filter((id): id is string => !!id)
   );
   return DISTRICTS.filter((d) => districtIds.has(d.id));
