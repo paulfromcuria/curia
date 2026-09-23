@@ -3,6 +3,28 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-09-23",
+      "synced": false,
+      "title": "10 venues + 2 new districts (Lymm, Ramsbottom) promoted; nothing rejected, nothing sent for review",
+      "summary": "Independently re-verified all 10 pending venue candidates (Coco Tang, Stile Napoletano, Chez Jules, Barlounge, Thom's Bar & Kitchen, Little Tap, RedWillow, Serenity Booksellers, Chapel Holistics, Saul Hay Gallery) and both pending district candidates (Lymm, Ramsbottom) — every one passed a fresh Hard rule 1 chain check, a name-collision check against the live venues.json/districts.json plus every other suggestion regardless of status, a coordinate sanity check and a brand-voice read, so all 12 were promoted rather than queued. Note for a future pass: none of the 10 new venues had petFriendly/dietaryOptions independently researched this run (the source suggestions only carried the 8 core fields) — defaulted to false/['none'], the same neutral default most of the existing catalog uses, rather than guessing. Curia Command's pending_review collection (checked via read_db) had zero decided items to apply this run — no prior human decisions were waiting. The closure-audit rotating slice (Gerald Ratner Athletics Center, Henry Crown Field House, Blackstone Branch, Bessie Coleman Branch, John Crerar Library — all Chicago) found no active closures; Bessie Coleman Branch has a publicly announced future replacement/closure with no date set yet, not an active closure, so it wasn't sent to pending-review-queue.json.",
+      "items": [
+        { "label": "Coco Tang (Spinningfields)", "detail": "promoted — confirmed real 2-site pair (18-year Nottingham original plus this new Manchester site), independent, no 3rd site found" },
+        { "label": "Stile Napoletano (Chester)", "detail": "promoted — confirmed single-site Neapolitan pizzeria on Watergate Street" },
+        { "label": "Chez Jules (Chester)", "detail": "promoted — confirmed single-site French bistro trading since 1997" },
+        { "label": "Barlounge (Chester)", "detail": "promoted — confirmed single-site cocktail bar, 25+ years on Watergate Street" },
+        { "label": "Thom's Bar & Kitchen (Heaton Moor)", "detail": "promoted — confirmed single-site, family-run (Thom Collins with parents Derek and Sally)" },
+        { "label": "Little Tap (Tarporley)", "detail": "promoted — confirmed real 2-site pair with Terrarium, same owner, across the road" },
+        { "label": "RedWillow (Macclesfield)", "detail": "promoted — confirmed real 2-site taproom pair (Macclesfield, Buxton), production brewery elsewhere" },
+        { "label": "Serenity Booksellers (Stockport (Underbanks))", "detail": "promoted — confirmed real 2-site family sibling pair (Stockport, Romiley)" },
+        { "label": "Chapel Holistics (Cheadle Hulme)", "detail": "promoted — confirmed single-site award-winning holistic retreat" },
+        { "label": "Saul Hay Gallery (Deansgate)", "detail": "promoted — confirmed single-site contemporary art gallery, Castlefield" },
+        { "label": "Lymm (new Cheshire district)", "detail": "promoted — genuine, distinct Cheshire canal village with a real independent-shop cluster around Lymm Cross" },
+        { "label": "Ramsbottom (new Manchester-metro district)", "detail": "promoted — genuine, distinct Irwell-valley former mill town with a real, well-documented independent food/drink scene; coordinate sits ~0.05° past the usual sanity-box edge, same category of judgment call already made for Chester" }
+      ],
+      "createdAt": "2026-09-23T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-16",
       "synced": false,
       "title": "8 venues + Chester (new Cheshire district) promoted; 1 rejected as a real chain, 1 naming mix-up sent for review",
@@ -91,7 +113,7 @@
       "date": "2026-09-10",
       "synced": false,
       "title": "10 promoted, 1 district promoted, 0 rejected, 0 closures",
-      "summary": "All 10 pending venue candidates (Savoy Cinema, Heaton Social, Cure Bistro in Heaton Moor; Bar Caput, Stockport Underbanks; Trattoria D'Agostino, Cheadle Hulme; Sip Wine Bar, Didsbury; Prestbury Golf Club; The Beer House, Chorlton; The Garden Eatery, Hale; The Edge, Alderley Edge) plus the one pending district candidate (Bramhall, Cheshire) independently re-verified via fresh parallel web research and promoted straight into venues.json/districts.json. No rejections this run — every candidate cleared Hard rule 1, duplicate, schema, coordinate and brand-voice checks. Two factual corrections folded into the copy (The Beer House's CAMRA streak is 5 years not 4; The Garden Eatery has two founders, Kate and Amy, not one). Real petFriendly/dietaryOptions researched for all 10. Curia Command's pending_review collection was empty (nothing to apply from a prior human decision). The day's closure-audit slice (5 venues) found no closure signals.",
+      "summary": "All 10 pending venue candidates (Savoy Cinema, Heaton Social and Cure Bistro in Heaton Moor; Bar Caput, Stockport Underbanks; Trattoria D'Agostino, Cheadle Hulme; Sip Wine Bar, Didsbury; Prestbury Golf Club; The Beer House, Chorlton; The Garden Eatery, Hale; The Edge, Alderley Edge) plus the one pending district candidate (Bramhall, Cheshire) independently re-verified via fresh parallel web research and promoted straight into venues.json/districts.json. No rejections this run — every candidate cleared Hard rule 1, duplicate, schema, coordinate and brand-voice checks. Two factual corrections folded into the copy (The Beer House's CAMRA streak is 5 years not 4; The Garden Eatery has two founders, Kate and Amy, not one). Real petFriendly/dietaryOptions researched for all 10. Curia Command's pending_review collection was empty (nothing to apply from a prior human decision). The day's closure-audit slice (5 venues) found no closure signals.",
       "items": [
         { "label": "Savoy Cinema (Heaton Moor)", "detail": "promoted — Mundin family's 3rd cinema (Belper, Melton Mowbray), still trading" },
         { "label": "Heaton Social (Heaton Moor)", "detail": "promoted — single-site, dog-friendly, still trading" },
