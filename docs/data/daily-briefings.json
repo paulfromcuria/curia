@@ -3,6 +3,34 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-09-24",
+      "synced": false,
+      "title": "18 venues + Lymm and Ramsbottom (new districts) promoted; 1 rejected as closed, 1 sent for review, 1 closure-audit note",
+      "summary": "Independently re-verified all 20 pending candidates in venue-suggestions.json (suggestedDates 2026-09-22 through 2026-09-24) and both pending district-suggestions.json candidates, promoting 18 venues across Chester, Macclesfield, Heaton Moor, Stockport (Underbanks), Cheadle Hulme, Deansgate, Didsbury, Chinatown, Bramhall, Northern Quarter, Ancoats and Mobberley, plus Lymm and Ramsbottom as new districts. Little Tap (Tarporley) was rejected — it and its sister site closed permanently 22 June 2026, reversing the original candidate's 'still trading' framing. Coco Tang (Spinningfields) is real and credible but not yet confirmed as actually trading despite its announced autumn 2026 opening — sent to pending-review-queue.json rather than guessed either way. Curia Command's pending_review collection had zero decided items to apply this run. The closure-audit rotating slice found 4 of 5 still trading cleanly; Northwich Market shows a real partial-decline signal (not a closure) — sent to pending-review-queue.json as a note for a human rather than a removal proposal.",
+      "items": [
+        { "label": "Stile Napoletano, Chez Jules, Barlounge, Nichols & Co (Chester)", "detail": "promoted — all single-site, fresh search confirmed each still trading" },
+        { "label": "RedWillow (Macclesfield)", "detail": "promoted — real 2-taproom pair (Macclesfield + Buxton) for one small production brewery, within the small-sibling-group Gate 1 allowance" },
+        { "label": "Thom's Bar & Kitchen (Heaton Moor)", "detail": "promoted — single-site, family-run" },
+        { "label": "Serenity Booksellers (Stockport (Underbanks))", "detail": "promoted — genuine 2-site family pair with its Romiley sibling" },
+        { "label": "Chapel Holistics (Cheadle Hulme)", "detail": "promoted — single-site, confirmed" },
+        { "label": "Saul Hay Gallery (Deansgate), Next Door Gallery (Didsbury)", "detail": "promoted — both single-site independents" },
+        { "label": "Siamease Thai Spa (Chinatown)", "detail": "promoted with a corrected reason string — treatment rooms are at street level, not 'one flight up' as originally claimed" },
+        { "label": "Tempranillo (Macclesfield), The Bottle Stop (Bramhall)", "detail": "promoted — both single-site, confirmed" },
+        { "label": "Smaak (Northern Quarter)", "detail": "promoted — genuinely new opening, introduces the DUTCH FRY HOUSE type (wired into tile-catalog-map.ts)" },
+        { "label": "Structure Wellness (Northern Quarter)", "detail": "promoted — confirmed a single studio with two entrances, not two separate sites" },
+        { "label": "Egg & Co (Deansgate)", "detail": "promoted — confirmed still a single standalone site" },
+        { "label": "Rubber Ducky Records (Ancoats)", "detail": "promoted with bookingRequired: true — genuinely appointment-only floating record shop" },
+        { "label": "The Beauty Barn Mobberley", "detail": "promoted — single-site, confirmed" },
+        { "label": "Little Tap (Tarporley)", "detail": "rejected — both it and its sister site closed permanently 22 June 2026" },
+        { "label": "Coco Tang (Spinningfields)", "detail": "sent for review — real and credible, but not yet confirmed as actually trading despite an announced autumn 2026 opening" },
+        { "label": "Lymm (new Cheshire district)", "detail": "promoted — genuine, distinct Bridgewater Canal village" },
+        { "label": "Ramsbottom (new Manchester-metro district)", "detail": "promoted — genuine former cotton-mill town; copy corrected (intermediate East Lancashire Railway stop, not the terminus)" },
+        { "label": "Northwich Market", "detail": "closure-audit note — real partial-decline signal (not a closure), sent to pending-review-queue.json for a human look" }
+      ],
+      "createdAt": "2026-09-24T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-16",
       "synced": false,
       "title": "8 venues + Chester (new Cheshire district) promoted; 1 rejected as a real chain, 1 naming mix-up sent for review",
