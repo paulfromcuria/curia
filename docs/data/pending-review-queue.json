@@ -159,6 +159,87 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-25",
+      "reason": "Coco Tang is real and well-documented (an 18-year-old independent Nottingham restaurant's first Manchester site), but every source found still describes its Spinningfields opening as scheduled for 'this autumn 2026' with nothing yet confirming it has actually opened and is trading today — and the exact unit/coordinates are still an approximation pending a published address.",
+      "researchNotes": "Verified via restaurantonline.co.uk, premierconstructionnews.com and Yahoo News UK: Coco Tang, taking over the former Artisan unit on Bridge Street, Spinningfields, from the family behind the 18-year-old original in Nottingham (Byard Lane) — a genuine independent 2-city pair, not a chain, within the same precedent already accepted for Craig's/Ivy Spinningfields elsewhere in this file. A premises licence application (Panama Estate Limited) was filed in January 2026 for hours up to 3am. No source found confirms it has opened as of 25 Sept 2026 — 'this autumn' could mean anywhere from September to November. Given the app would be actively recommending it as a walk-in venue, that's a real enough gap to want a second opinion rather than guess whether it's trading yet.",
+      "payload": {
+        "name": "Coco Tang",
+        "district": "spinningfields",
+        "type": "VIETNAMESE",
+        "spend": "£££",
+        "lat": 53.4796,
+        "lon": -2.2493,
+        "base": 82,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Eighteen years of running Nottingham's Byard Lane before Manchester got a look — Vietnamese café by day, a cocktail room and late kitchen once the Bridge Street lights come on."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-25",
+      "reason": "Rubber Ducky Records is a real, well-documented, genuinely one-of-a-kind venue (the UK's only floating record shop), but its whole premise is a specific physical mooring in Islington Marina, Ancoats — and the most recent coverage found describes the owner as currently based in Liverpool more often than not, with only a hope of sailing back to Manchester. Recommending it as a walk-up venue when it may not currently be where the catalogue says it is felt like a real risk, not a chain or duplicate question.",
+      "researchNotes": "Verified via GigPig, The Vinyl Factory, Clash Magazine and MusicTech: a genuine single-owner floating record shop, appointment-only, currently the only one of its kind in the UK — passes Hard rule 1 cleanly on ownership grounds. An April 2026 piece (the most recent coverage found) says the owner 'is technically based over in Liverpool most regularly nowadays' with 'hopes he'll sail back down the Mersey and Manchester canals for a comeback sometime soon' — no more recent source confirms whether that comeback happened. Given a boat's position is the entire point of the recommendation, this is a genuine 'is it actually there' uncertainty a human should glance at rather than a guess either way.",
+      "payload": {
+        "name": "Rubber Ducky Records",
+        "district": "ancoats",
+        "type": "RECORD SHOP",
+        "spend": "£",
+        "lat": 53.483318,
+        "lon": -2.225666,
+        "base": 62,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "A record shop that lives on a narrowboat moored in Islington Marina — mostly secondhand electronic vinyl, a turntable to test it on before you buy, and a genuine appointment required before you're allowed aboard."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-25",
+      "reason": "Ōdiobā is currently listed as trading and well-reviewed, but its own Facebook page posted 'THEY'RE BACK!!' on 9 September 2026 with no findable explanation of what preceded it, and this exact building already has a real history of closing on short notice (it shut in 2023 when its previous occupant's premises were sold out from under it). That's enough of a live question mark on a venue about to be actively recommended that it's worth a second opinion rather than a guess.",
+      "researchNotes": "Verified via Manchester Wire, The Cheshire Magazine, Tripadvisor and Creative Tourist: a genuine, well-regarded hi-fi listening bar and coffee shop from the team behind Nam (already live in this catalogue, Ancoats), built into the same building that previously housed 'Town Bar' until it closed in June 2023 when the premises were sold. No chain or duplicate concern — the one flag is the unexplained 9 Sept 2026 'THEY'RE BACK!!' post, which could be a routine short break (refurbishment, a holiday) or something more; nothing found either confirms or rules out a serious interruption.",
+      "payload": {
+        "name": "Ōdiobā",
+        "district": "stockport-underbanks",
+        "type": "LISTENING BAR",
+        "spend": "£££",
+        "lat": 53.4103,
+        "lon": -2.1562,
+        "base": 74,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Nam's old sound system rebuilt over three floors on Lower Hillgate — specialty coffee and Worker Bee beans by day, the UMA kitchen's ramen and gyoza once the Friday and Saturday DJs take the turntables after dark."
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-25",
+      "reason": "themanc.com's own coverage ('Trendy Ancoats wine bar Blossom Street Social to close after six years') confirms Blossom Street Social closed for good in June 2026, after nearly seven years trading.",
+      "researchNotes": "Web search 2026-09-25, routine closure-audit rotating slice (indices 424-428 of docs/data/venues.json, day-of-year 268: Eden, Salut Wines, La Gitane, Idle Hands, Blossom Street Social). themanc.com and the venue's own Facebook announcement both confirm the closure ('danced our last dance, played our last record, and poured our last glass of wine in Ancoats'); the venue's own CAMRA listing page now appears to describe a successor business ('Mielle') at the same address. The other four venues in this run's slice (Eden, Salut Wines, La Gitane, Idle Hands) all re-confirmed still trading with no closure signal.",
+      "payload": {
+        "name": "Blossom Street Social",
+        "district": "ancoats"
+      }
     }
   ]
 }
