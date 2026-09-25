@@ -277,6 +277,47 @@
         { "label": "Closure audit (indices 28-32: Wiltons, Franco's, Chris Beetles Gallery, Spencer House, The Globe)", "detail": "not completed — could not find real evidence either way, so nothing written rather than guessing" }
       ],
       "createdAt": "2026-09-17T09:20:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-09-25",
+      "synced": false,
+      "title": "21 venues + 2 districts (Lymm, Ramsbottom) promoted; 4 rejected, 3 sent for review, 1 closure flagged",
+      "summary": "Independently re-verified all 28 pending candidates in venue-suggestions.json and both pending district candidates in district-suggestions.json. Promoted 21 venues across Chester, Macclesfield, Stockport (Underbanks), Cheadle Hulme, Didsbury, Chinatown, Bramhall, Northern Quarter, Deansgate, Mobberley, Chorlton, Hale, Ancoats and Knutsford, plus Lymm and Ramsbottom as two new, genuinely distinct districts. Rejected 4 candidates on fresh evidence the original research missed (an address that's rebranded twice since, a confirmed June 2026 closure, a gallery that's gone mobile/online-only, and a tap & shop whose building is now a different, already-catalogued venue). 3 were genuinely uncertain and sent to pending-review-queue.json rather than guessed at (an opening date not yet confirmed as trading, a floating record shop whose current physical mooring is itself in question, and an unexplained 'they're back' reopening post on a building with a history of short-notice closures). The closure audit's rotating slice caught one real closure (Blossom Street Social, Ancoats, confirmed shut since June 2026) sent to pending review rather than auto-removed. Curia Command's pending_review collection was checked via read_db and had zero decided items to apply this run.",
+      "items": [
+        { "label": "Stile Napoletano (Chester)", "detail": "promoted — single evolving site (moved from the old Chester Market to Watergate Street in 2018), no chain risk" },
+        { "label": "Chez Jules (Chester)", "detail": "promoted — 29 years single-site, clearly labelled vegan/gluten-free menu" },
+        { "label": "Barlounge (Chester)", "detail": "promoted — 25-year single-site, confirmed dog-friendly (heated terrace)" },
+        { "label": "Nichols & Co (Chester)", "detail": "promoted — 23-year single-site family boutique" },
+        { "label": "RedWillow (Macclesfield)", "detail": "promoted — real 2-site pair with Buxton, within the small-sibling-group allowance; confirmed dog-friendly" },
+        { "label": "Tempranillo (Macclesfield)", "detail": "promoted — single-site, confirmed dog-friendly and vegetarian; some reviews flag inconsistent opening but no closure signal" },
+        { "label": "Serenity Booksellers (Stockport (Underbanks))", "detail": "promoted — confirmed real 2-site pair with Romiley, within precedent" },
+        { "label": "The Spinn Off (Stockport (Underbanks))", "detail": "promoted — single-site, real 2-site sibling in Gatley noted but within precedent" },
+        { "label": "Chapel Holistics (Cheadle Hulme)", "detail": "promoted — single-site, award-recognised, no chain risk" },
+        { "label": "Egg & Co (Deansgate)", "detail": "promoted — first standalone site after stall residencies, confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "Next Door Gallery (Didsbury)", "detail": "promoted — single-site family fine-art publisher's gallery, no closure signal found" },
+        { "label": "Siamease Thai Spa (Chinatown)", "detail": "promoted — single-site, 12+ years trading" },
+        { "label": "The Bottle Stop (Bramhall)", "detail": "promoted — single-site independent bottle shop; postal-town inconsistency (Cheadle/Cheadle Hulme vs Bramhall) resolved by real geographic proximity, same precedent already established in this file" },
+        { "label": "The Bubble Room Bramhall (Bramhall)", "detail": "promoted, provenance corrected — actually a confirmed 3-site group (Alderley Edge, Bramhall, Sale opened Nov 2024), not the 2-site pair originally claimed; still within this file's 2-3-site small-sibling-group allowance, confirmed dog-friendly and vegetarian/vegan/gluten-free" },
+        { "label": "Smaak (Northern Quarter)", "detail": "promoted — genuinely new (2026), single-site, Manchester's first Dutch fry house" },
+        { "label": "Structure Wellness (Northern Quarter)", "detail": "promoted — single-operator studio, closes a real citywide Spa & wellness tile gap" },
+        { "label": "The Beauty Barn Mobberley (Mobberley)", "detail": "promoted — single-site salon and training academy, no chain risk" },
+        { "label": "The Dulcimer (Chorlton)", "detail": "promoted — single-site folk/live-music room since 2007, confirmed dog-friendly and vegan options" },
+        { "label": "By AdiVa (Hale)", "detail": "promoted — single-site boutique, fills a real Clothes-shopping gap on Hale's high street" },
+        { "label": "Butter Bird (Ancoats)", "detail": "promoted — single-site, genuinely new (Jan 2026) rotisserie concept, confirmed dog-friendly" },
+        { "label": "Linden Stores (Knutsford)", "detail": "promoted — a single restaurant that has relocated over time (Highbury → Audlem → Knutsford), never two concurrent sites; confirmed dog-friendly and vegetarian" },
+        { "label": "Lymm (new Cheshire district)", "detail": "promoted — genuine, distinct Bridgewater Canal village ~8.5km from Altrincham with a real independent-shop cluster; no venues seeded yet" },
+        { "label": "Ramsbottom (new Manchester-metro district)", "detail": "promoted — genuine, distinct former cotton-mill town in the Irwell valley with a real independent food scene and its own heritage railway terminus; latitude sits just past this file's usual sanity-box edge, judged a real documented location rather than a research error, same reasoning already applied to Chester's longitude; no venues seeded yet" },
+        { "label": "Thom's Bar & Kitchen (Heaton Moor)", "detail": "rejected — the address has rebranded twice since (Scarlet Door, then Eden); Eden is already live in this catalogue at the same coordinates" },
+        { "label": "Little Tap (Tarporley)", "detail": "rejected — confirmed permanently closed June 2026" },
+        { "label": "Saul Hay Gallery (Deansgate)", "detail": "rejected — its Castlefield premises closed for good June 2026; the gallery has gone mobile/online-only, no walk-in address remains" },
+        { "label": "Mobberley Brewhouse Tap & Shop (Mobberley)", "detail": "rejected — its Dairy Farm/Church Lane building is now occupied by this file's own already-promoted Mobberley Ice Cream Coffee House" },
+        { "label": "Coco Tang (Spinningfields)", "detail": "sent for review — still described as opening 'this autumn 2026', not yet confirmed as actually trading" },
+        { "label": "Rubber Ducky Records (Ancoats)", "detail": "sent for review — a floating record shop whose owner is reported currently based in Liverpool more often than Manchester; genuinely unclear whether it's actually moored in Ancoats right now" },
+        { "label": "Ōdiobā (Stockport (Underbanks))", "detail": "sent for review — an unexplained 'THEY'RE BACK!!' reopening post on a building with a real history of short-notice closures" },
+        { "label": "Blossom Street Social (Ancoats)", "detail": "sent to pending review as a closure candidate — confirmed permanently closed June 2026 (closure-audit rotating slice)" }
+      ],
+      "createdAt": "2026-09-25T00:00:00Z"
     }
   ]
 }

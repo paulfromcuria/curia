@@ -258,49 +258,7 @@
       "reason": "Eighteen years of running Nottingham's Byard Lane before Manchester got a look — Vietnamese café by day, a cocktail room and late kitchen once the Bridge Street lights come on.",
       "suggestedDate": "2026-09-22",
       "status": "pending",
-      "researchNotes": "Verified via restaurantonline.co.uk and premierconstructionnews.com's own coverage of the Manchester opening, plus Tripadvisor/Instagram for the original Nottingham site: Coco Tang, taking over the former SakkuSamba/Artisan unit at 1 The Avenue, Bridge Street, Spinningfields, opening autumn 2026 — an independent Vietnamese café, restaurant, private dining space and late-night cocktail bar/club, run by the same owners as the 18-year-old original Coco Tang in Nottingham (Byard Lane). A real 2-site pair across two cities, industry press explicitly describing it as 'independent' rather than a chain expansion — within the same 'single sibling in another city' precedent already established in this file (e.g. Craig's, Ivy Spinningfields). No third site found. District placement: industry coverage explicitly calls the address 'Spinningfields'/'Bridge Street in Spinningfields' despite 1 The Avenue sitting right at the Deansgate boundary; coordinates approximated from the John Rylands Library/1 The Avenue building's known location (postcode-geocoding blocked this session) since the exact unit number wasn't published at time of writing — flagged for the reviewer to tighten once the venue is trading and a precise address is published. Reuses the existing VIETNAMESE type. Spinningfields' real Eat category (Celebratory, Fine Dining, Small Plates) was its thinnest before this addition. Moderate-high confidence — the venue and ownership are well-documented; the exact coordinate and the opening date (announced, not yet independently confirmed as trading) are the flagged caveats."
-    },
-    {
-      "name": "Stile Napoletano",
-      "district": "chester",
-      "type": "PIZZERIA",
-      "spend": "££",
-      "lat": 53.1898,
-      "lon": -2.8936,
-      "base": 78,
-      "bands": ["afternoon", "evening"],
-      "reason": "Giacomo's dough gets its own slow Neapolitan ferment on Watergate Street — one of Europe's fifty best pizzerias by outside reckoning, and still just the one room to prove it in.",
-      "suggestedDate": "2026-09-23",
-      "status": "pending",
-      "researchNotes": "Verified via the operator's own site (stilenapoletanopizzeria.co.uk), Tripadvisor (current, active listing) and visitcheshire.com: Stile Napoletano, 49 Watergate Street, Chester CH1 2LB — an independent Neapolitan pizzeria, listed among Europe's top 50 pizza restaurants per multiple press mentions. No second site found anywhere in searches for the name; single-site, passes Hard rule 1 cleanly. Coordinates (53.1898/-2.8936) from britishlistedbuildings.co.uk's own geocode for the 49 Watergate Street building itself, not a district centroid. Reuses the existing PIZZERIA type (Pix Pizza, Rudy's). Closes Chester's most acute real gap found this run: only 2 Eat-category venues (Paysan, Shrub) against 5 Do venues before this addition. High confidence — well-documented, single-site, no closure signals."
-    },
-    {
-      "name": "Chez Jules",
-      "district": "chester",
-      "type": "FRENCH BISTRO",
-      "spend": "££",
-      "lat": 53.193451,
-      "lon": -2.893359,
-      "base": 74,
-      "bands": ["afternoon", "evening"],
-      "reason": "Rustic French cooking in Chester's old fire station since 1997 — steak frites and a wine list that has never once chased a trend to stay full.",
-      "suggestedDate": "2026-09-23",
-      "status": "pending",
-      "researchNotes": "Verified via the operator's own site (chezjules.com), Yelp (21 reviews, active 2026 listing) and chester360.co.uk: Chez Jules, 71 Northgate Street, Chester CH1 2HQ, in the city's former fire station — trading since 1997, described consistently as Chester's only independent French restaurant. No second site found anywhere in searches. Coordinates (53.193451/-2.893359) from Apple Maps' own place geocode for this exact address. Reuses the existing FRENCH BISTRO type (Paysan, also in Chester — a second, distinct French room is a real and reasonable overlap, not a duplicate). Second of two candidates closing Chester's acute Eat gap this run. High confidence — 29 years of continuous trading, no closure signals found."
-    },
-    {
-      "name": "Barlounge",
-      "district": "chester",
-      "type": "COCKTAIL BAR",
-      "spend": "£££",
-      "lat": 53.1895,
-      "lon": -2.8947,
-      "base": 76,
-      "bands": ["evening", "late"],
-      "reason": "Twenty-five years on Watergate Street and only just reimagined this February — Chester's actual late room, not a hotel bar playing at being one.",
-      "suggestedDate": "2026-09-23",
-      "status": "pending",
-      "researchNotes": "Verified via thecheshiremagazine.co.uk ('Spotlight On: Barlounge, Chester'), thechesterblog.com (Feb 2026 'Reimagined Barlounge now open' piece confirming current trading) and chesterbid.co.uk: Barlounge, 75 Watergate Street, Chester CH1 2LB, opened 2000 by Neil McDonnell (later joined by Jason Bligh), celebrating 25 years as an independent Chester bar and restaurant. No second Barlounge site found anywhere in searches — single-site, passes Hard rule 1 cleanly. Coordinates extrapolated from britishlistedbuildings.co.uk's geocode for the nearby 73 Watergate Street building (53.1896/-2.8946), since 75 itself wasn't individually listed — flagged for the reviewer to tighten if an exact geocode becomes available, but both buildings sit on the same short block. Reuses the existing COCKTAIL BAR type — the district currently has no venue mapped to the 'Cocktail bars' onboarding tile at all despite three Drink-adjacent venues (Huxley's wine bar, Craft & Company gin bar, Beer Heroes bottle shop), a real tile-coverage gap this closes. High confidence — long-established, independently confirmed still trading via a Feb 2026 refurbishment reopening, not just stale listing pages."
+      "researchNotes": "Verified via restaurantonline.co.uk and premierconstructionnews.com's own coverage of the Manchester opening, plus Tripadvisor/Instagram for the original Nottingham site: Coco Tang, taking over the former SakkuSamba/Artisan unit at 1 The Avenue, Bridge Street, Spinningfields, opening autumn 2026 — an independent Vietnamese café, restaurant, private dining space and late-night cocktail bar/club, run by the same owners as the 18-year-old original Coco Tang in Nottingham (Byard Lane). A real 2-site pair across two cities, industry press explicitly describing it as 'independent' rather than a chain expansion — within the same 'single sibling in another city' precedent already established in this file (e.g. Craig's, Ivy Spinningfields). No third site found. District placement: industry coverage explicitly calls the address 'Spinningfields'/'Bridge Street in Spinningfields' despite 1 The Avenue sitting right at the Deansgate boundary; coordinates approximated from the John Rylands Library/1 The Avenue building's known location (postcode-geocoding blocked this session) since the exact unit number wasn't published at time of writing — flagged for the reviewer to tighten once the venue is trading and a precise address is published. Reuses the existing VIETNAMESE type. Spinningfields' real Eat category (Celebratory, Fine Dining, Small Plates) was its thinnest before this addition. Moderate-high confidence — the venue and ownership are well-documented; the exact coordinate and the opening date (announced, not yet independently confirmed as trading) are the flagged caveats. FOLLOW-UP 2026-09-25 (curia-suggestion-review): re-checked — still described everywhere as opening 'this autumn 2026' with no source yet confirming it has actually opened and is trading, and the exact address/coordinates remain an approximation per the original note. Genuinely too uncertain to promote or reject today; sent to docs/data/pending-review-queue.json rather than decided outright. Left pending here."
     },
     {
       "name": "Thom's Bar & Kitchen",
@@ -310,11 +268,15 @@
       "lat": 53.4235,
       "lon": -2.1833,
       "base": 74,
-      "bands": ["afternoon", "evening", "late"],
+      "bands": [
+        "afternoon",
+        "evening",
+        "late"
+      ],
       "reason": "Thom Collins runs the wine and cocktail list, his parents run the room — a family concern on Heaton Moor Road that's never needed a rebrand to stay full.",
       "suggestedDate": "2026-09-23",
-      "status": "pending",
-      "researchNotes": "Verified via Stockport Council's own planning register (DC070486, 'Thom's Wine Bar and Restaurant at the Orangery, 54 Heaton Moor Road'), squaremeal.co.uk and Facebook (@ThomsBarHM, current 2026 activity): Thom's Bar & Kitchen (trading name variously as Thom's Wine Bar & Restaurant / Thom's Bar & Kitchen), 54 Heaton Moor Road, Stockport SK4 4NZ — owned and run by Thom Collins with his parents Derek and Sally, long-time Heatons residents. No second site found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates from the SK4 4NZ postcode centroid (53.4235/-2.1833) — same street as the district's existing Cork of the North wine bar, a few doors along. Reuses the existing WINE BAR type. Heaton Moor's Drink category (Heaton Social, Cork of the North) was its thinnest before this addition, once Beer Shop (a bottle shop, not a bar) is set aside. Moderate-high confidence — well-documented, family-run, no closure signals; note this is a different venue from the previously-rejected 'Mouro Coffee Bar' candidate at a different number on the same road (that one failed on an unrelated multi-site chain finding)."
+      "status": "rejected",
+      "researchNotes": "Verified via Stockport Council's own planning register (DC070486, 'Thom's Wine Bar and Restaurant at the Orangery, 54 Heaton Moor Road'), squaremeal.co.uk and Facebook (@ThomsBarHM, current 2026 activity): Thom's Bar & Kitchen (trading name variously as Thom's Wine Bar & Restaurant / Thom's Bar & Kitchen), 54 Heaton Moor Road, Stockport SK4 4NZ — owned and run by Thom Collins with his parents Derek and Sally, long-time Heatons residents. No second site found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates from the SK4 4NZ postcode centroid (53.4235/-2.1833) — same street as the district's existing Cork of the North wine bar, a few doors along. Reuses the existing WINE BAR type. Heaton Moor's Drink category (Heaton Social, Cork of the North) was its thinnest before this addition, once Beer Shop (a bottle shop, not a bar) is set aside. Moderate-high confidence — well-documented, family-run, no closure signals; note this is a different venue from the previously-rejected 'Mouro Coffee Bar' candidate at a different number on the same road (that one failed on an unrelated multi-site chain finding). REJECTED on independent re-verification 2026-09-25: the address described (54 Heaton Moor Road / the former Orangery) has changed hands twice since this candidate's own research — it became 'Scarlet Door' (a Malaysian kitchen and cocktail bar), closed 7 Sept 2024, then reopened 18 Nov 2024 as 'Eden', which is already live in docs/data/venues.json under that name with its own reason text explicitly confirming the same site ('The old Scarlet Door unit on Heaton Moor Road...') and near-identical coordinates. Thom Collins' family wine bar no longer trades at this address today. Do not re-suggest at this address."
     },
     {
       "name": "Little Tap",
@@ -324,53 +286,15 @@
       "lat": 53.160155,
       "lon": -2.668666,
       "base": 74,
-      "bands": ["afternoon", "evening", "late"],
+      "bands": [
+        "afternoon",
+        "evening",
+        "late"
+      ],
       "reason": "A former butcher's shop turned craft beer and cocktail den on Tarporley's high street — Myles Carr split the kitchen off across the road once the bar itself got too busy to also cook.",
       "suggestedDate": "2026-09-23",
-      "status": "pending",
-      "researchNotes": "Verified via CAMRA/whatpub.com, the Chester and District Standard's own coverage of the owner's second site, and the operator's own site (littletaptarporley.co.uk): Little Tap, 69 High Street, Tarporley CW6 0DP — opened 2016 in a former butcher's shop, owner Myles Carr, serving craft beer, wine, cocktails and gin. Myles opened a second site, Terrarium by Little Tap, directly across the road in 2024 to separate the food side of the business — a real 2-site pair, both in the same village under one owner, a smaller and less risky version of the 'single sibling elsewhere' precedent already accepted in this file (Craig's, Ivy Spinningfields, Fire Station Social Cucina). No third site found. Coordinates from the CW6 0DP postcode centroid, verified via postcodes.io-derived search — note this postcode sits close to, but is distinct from, the CW6 0DX postcode used for the Tarporley district centroid itself. Reuses the existing COCKTAIL BAR type. Tarporley's Drink category (The Swan gastropub, Piste Wine Bar, Bonjour Wines merchant) was its thinnest before this addition. High confidence — long-established, well-documented, no closure signals."
-    },
-    {
-      "name": "RedWillow",
-      "district": "macclesfield",
-      "type": "BREWERY TAP",
-      "spend": "£",
-      "lat": 53.255591,
-      "lon": -2.122718,
-      "base": 68,
-      "bands": ["afternoon", "evening"],
-      "reason": "Macclesfield's own brewery pouring straight from the tank on Park Green — five cask lines, fifteen keg, and nothing on them that was brewed anywhere but the Lodge up at Sutton Garrison.",
-      "suggestedDate": "2026-09-23",
-      "status": "pending",
-      "researchNotes": "Verified via CAMRA (brewery listing), pintpoint.co.uk (live, current tap list) and the brewery's own site (redwillowbrewery.com/pages/macclesfield): RedWillow, 32a Park Green, Macclesfield SK11 6TN — the taproom for RedWillow Brewery (production site at The Lodge, Sutton Garrison, Byrons Lane). RedWillow runs one other bar, in Buxton, Derbyshire — flagged for the reviewer as a 2-site pair across two towns, the same small-sibling-group scale already accepted elsewhere in this file (e.g. Fire Station Social Cucina's 2 sites), not a wider chain. Coordinates approximated from a nearby Park Green building's geocode (59 Park Green, SK11 7NH: 53.255591/-2.122718) since 32a itself wasn't individually listed — same street, flagged for the reviewer to tighten if a precise geocode becomes available. Reuses the existing BREWERY TAP type (see tile-catalog-map.ts's 2026-09-22 note introducing it). Macclesfield's Drink category was its thinnest alongside Eat before this addition. Moderate-high confidence — well-documented, currently pouring per live tap-list sources; the Buxton sibling is the one flag worth a second look at promotion time."
-    },
-    {
-      "name": "Serenity Booksellers",
-      "district": "stockport-underbanks",
-      "type": "BOOKSHOP",
-      "spend": "£",
-      "lat": 53.412667,
-      "lon": -2.157474,
-      "base": 68,
-      "bands": ["morning", "afternoon"],
-      "reason": "A family-run shop of books, gifts and local art a few minutes off the Market Place — wide aisles, and nothing on the shelves an algorithm put there.",
-      "suggestedDate": "2026-09-23",
-      "status": "pending",
-      "researchNotes": "Verified via manchestercityofliterature.com, nationalbooktokens.com's own stockist listing and Facebook (current 2026 posts): Serenity Booksellers, 11 Warren Street, Stockport SK1 1UD — a family-owned independent bookshop opened December 2024, selling books, gifts, handmade art and crafts. A second site exists in Romiley (a few miles away, same family) — a genuine small 2-site sibling pair, within the precedent already accepted elsewhere in this file. Coordinates (53.412667/-2.157474) from the SK1 1UD postcode centroid — roughly 250m from the Underbanks/Market Place district centroid itself, comfortably within the district's real footprint alongside its other venues. Reuses the existing BOOKSHOP type (Simply Books, Chorlton Bookshop). Stockport (Underbanks)'s Do category (Stockport Market Hall, Staircase House, two art galleries) had no bookshop before this addition. High confidence — recently opened, well-documented, no closure signals."
-    },
-    {
-      "name": "Chapel Holistics",
-      "district": "cheadle-hulme",
-      "type": "SPA",
-      "spend": "£££",
-      "lat": 53.377758,
-      "lon": -2.189151,
-      "base": 74,
-      "bands": ["morning", "afternoon"],
-      "reason": "An award-winning holistic retreat tucked into The Precinct — facials and massage at the unhurried pace of somewhere that's never had to chase footfall.",
-      "suggestedDate": "2026-09-23",
-      "status": "pending",
-      "researchNotes": "Verified via Stockport Mumbler, the operator's own site (chapelholisticsltd.co.uk) and Tripadvisor (active reviews): Chapel Holistics Beauty Retreat, 21c The Precinct, Cheadle Hulme SK8 5BB — a multi-award-winning independent beauty salon and holistic retreat offering facials, massage and complementary therapies. No second site found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates from the SK8 5BB postcode centroid. Reuses the existing SPA type (Base & Boon, Hale Country Club & Spa). Cheadle Hulme had zero Do-category wellness/spa venue before this addition. High confidence — well-documented, no closure signals."
+      "status": "rejected",
+      "researchNotes": "Verified via CAMRA/whatpub.com, the Chester and District Standard's own coverage of the owner's second site, and the operator's own site (littletaptarporley.co.uk): Little Tap, 69 High Street, Tarporley CW6 0DP — opened 2016 in a former butcher's shop, owner Myles Carr, serving craft beer, wine, cocktails and gin. Myles opened a second site, Terrarium by Little Tap, directly across the road in 2024 to separate the food side of the business — a real 2-site pair, both in the same village under one owner, a smaller and less risky version of the 'single sibling elsewhere' precedent already accepted in this file (Craig's, Ivy Spinningfields, Fire Station Social Cucina). No third site found. Coordinates from the CW6 0DP postcode centroid, verified via postcodes.io-derived search — note this postcode sits close to, but is distinct from, the CW6 0DX postcode used for the Tarporley district centroid itself. Reuses the existing COCKTAIL BAR type. Tarporley's Drink category (The Swan gastropub, Piste Wine Bar, Bonjour Wines merchant) was its thinnest before this addition. High confidence — long-established, well-documented, no closure signals. REJECTED on independent re-verification 2026-09-25: confirmed permanently closed with immediate effect in June 2026 (Morning Advertiser, 'Independent Cheshire bar closes with immediate effect') — owner Myles Carr cited rising costs and wider pressure on independent businesses. The candidate's own note that a second venue (Terrarium) had opened across the road to take over the restaurant side didn't anticipate this: the original Little Tap & Terrarium unit itself has since closed outright. Do not re-suggest unless it demonstrably reopens."
     },
     {
       "name": "Saul Hay Gallery",
@@ -380,123 +304,13 @@
       "lat": 53.474461,
       "lon": -2.254742,
       "base": 72,
-      "bands": ["afternoon"],
+      "bands": [
+        "afternoon"
+      ],
       "reason": "A railway cottage behind the old Bass Warehouse, hung with contemporary painting and sculpture nobody's pitching as an investment — Castlefield's actual private-dealer gallery.",
       "suggestedDate": "2026-09-23",
-      "status": "pending",
-      "researchNotes": "Verified via the gallery's own site (saulhayfineart.co.uk), Tripadvisor and Yelp (both active 2026 listings): Saul Hay Gallery, Railway Cottage, Castle Street, Manchester M3 4LZ, a contemporary art gallery a few minutes' walk from Deansgate-Castlefield tram station, selling original paintings, sculpture and limited-edition prints. No second site found anywhere in searches; single-site, independently owned, passes Hard rule 1 cleanly. Coordinates (53.474461/-2.254742) from the M3 4LZ postcode centroid, within the Deansgate ward per the same source. Reuses the existing ART GALLERY type. Deansgate's Do category was its thinnest alongside Drink and Eat (4 each) before this addition — no venue there currently offers a gallery visit. High confidence — long-established, well-documented, no closure signals. Checked against docs/data/venues.json before writing this: not a duplicate of The Horsfall (Ancoats, already live) or any other existing gallery entry."
-    },
-    {
-      "name": "Next Door Gallery",
-      "district": "didsbury",
-      "type": "ART GALLERY",
-      "spend": "£",
-      "lat": 53.426422,
-      "lon": -2.243274,
-      "base": 68,
-      "bands": ["afternoon"],
-      "reason": "A family fine-art publisher's own retail gallery on Burton Road, forty years in the trade before they hung a show under their own name — local and UK/European artists priced to actually buy, not just admire.",
-      "suggestedDate": "2026-09-24",
-      "status": "pending",
-      "researchNotes": "Verified via the gallery's own site (thegallerynextdoor.co.uk), Companies House (THE GALLERY NEXT DOOR LTD, #13465607, active, incorporated 2021), Facebook and creativetourist.com: Next Door Gallery, 238 Burton Road, West Didsbury, Manchester M20 2LW — a retail gallery run by a family fine-art publishing business with 40+ years in the trade, showing and selling original paintings, prints and sculpture from local and wider UK/European artists. No second site found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates from the M20 2LW postcode centroid (doogal.co.uk). Reuses the existing ART GALLERY type. Didsbury's Do category was its thinnest before this addition (2 real Do-mapped venues — Fletcher Moss Botanical Garden, Marie Louise Gardens — Sett174 Art Cafe's ART STUDIO type isn't currently wired into CATEGORY_BY_VENUE_TYPE). High confidence — established, well-documented, no closure signals."
-    },
-    {
-      "name": "Siamease Thai Spa",
-      "district": "chinatown",
-      "type": "SPA",
-      "spend": "££",
-      "lat": 53.478211,
-      "lon": -2.240405,
-      "base": 68,
-      "bands": ["afternoon", "evening"],
-      "reason": "Five treatment rooms above Faulkner Street, run by therapists trained the traditional way in Thailand since 2013 — Chinatown's actual quiet hour, one flight up from the karaoke and the dim sum queue.",
-      "suggestedDate": "2026-09-24",
-      "status": "pending",
-      "researchNotes": "Verified via the operator's own site (siamease.co.uk), Tripadvisor and Treatwell (both active 2026 listings with recent reviews): Siamease Thai Spa, 48 Faulkner Street, Manchester M1 4FH, Chinatown — founded by Sally in 2013, Thai-trained therapists, 5 treatment rooms, open daily. No second site found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates from the M1 4FH postcode centroid (doogal.co.uk). Reuses the existing SPA type. Deliberately not the same venue as the already-rejected Bali Health Lounge (dissolved, see this file's own record) — a different address, operator and company. Chinatown's Do category (3 real venues, all art galleries — Contemporary Six, Manchester Art Gallery, T.La Art & Craft) had no spa/wellness variety before this addition. Moderate-high confidence — long-established (12+ years trading), well-documented; reviews are mixed on service consistency but show no closure signal."
-    },
-    {
-      "name": "Tempranillo",
-      "district": "macclesfield",
-      "type": "SMALL PLATES",
-      "spend": "££",
-      "lat": 53.259408,
-      "lon": -2.124962,
-      "base": 70,
-      "bands": ["afternoon", "evening"],
-      "reason": "Spanish tapas and sherry in a cobbled Back Wallgate cottage that's been pouring Rioja since long before small plates were a trend anywhere else in town.",
-      "suggestedDate": "2026-09-24",
-      "status": "pending",
-      "researchNotes": "Verified via the operator's own site (tempranillobar.co.uk), CAMRA's own pub listing, OpenTable and the Food Standards Agency ratings register: Tempranillo, 17 Back Wallgate, Macclesfield SK11 6LQ — a long-established independent Spanish wine and tapas bar in a historic cobbled-street building. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates from the SK11 6LQ postcode centroid (doogal.co.uk). Reuses the existing SMALL PLATES type (Shrub, Bar San Juan). Closes Macclesfield's most acute real gap this run: only 1 category-mapped Eat venue (Amazing India — BeefnBerry Bistro and Chestergate Bistro's BISTRO type isn't wired into CATEGORY_BY_VENUE_TYPE) against 4 Do and 4 Drink venues before this addition. Moderate-high confidence — long-established and well-documented across multiple independent sources; reviews are mixed on service consistency on any given night but show no closure signal."
-    },
-    {
-      "name": "The Bottle Stop",
-      "district": "bramhall",
-      "type": "BOTTLE SHOP",
-      "spend": "£",
-      "lat": 53.358578,
-      "lon": -2.177273,
-      "base": 64,
-      "bands": ["afternoon", "evening"],
-      "reason": "An independent bottle shop on Acre Lane stocked deeper in Belgian and German imports than anywhere else nearby bothers with — a couple of taps out front for whoever can't wait to get home to open one.",
-      "suggestedDate": "2026-09-24",
-      "status": "pending",
-      "researchNotes": "Verified via Facebook (@thebottlestopbramhall, active), Yelp/ratebeer/Wheree listings (consistent current details) and the venue's own contact number: The Bottle Stop, 136 Acre Lane, SK8 7PD — an independent wine, beer and spirits shop with a couple of beer taps to drink in or take away. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Postal-town listings inconsistently give this postcode as 'Cheadle' or 'Cheadle Hulme', but its geocode (53.358578/-2.177273, doogal.co.uk) sits roughly 0.8km from Bramhall's district centroid versus roughly 2.1km from Cheadle Hulme's — placed in Bramhall as the closer, better-fitting district, the same real-geography judgment call this file's own districts.json notes already apply to borderline postcodes. Reuses the existing BOTTLE SHOP type (Beer Heroes, Chester; Beer Shop, Heaton Moor). Fills Bramhall's real Drink gap — only 2 category-mapped Drink venues (Long Bar & Kitchen, The Mounting Stone) against 5 Do and 4 Eat before this addition, since 78 Degrees (GIN BAR) and The Blarney Barrel (IRISH BAR) aren't currently wired into CATEGORY_BY_VENUE_TYPE. High confidence — well-established, well-documented, no closure signals."
-    },
-    {
-      "name": "Smaak",
-      "district": "northern-quarter",
-      "type": "DUTCH FRY HOUSE",
-      "spend": "£",
-      "lat": 53.483791,
-      "lon": -2.23694,
-      "base": 70,
-      "bands": ["morning", "afternoon", "evening"],
-      "reason": "Manchester's first Dutch fry house, tucked down Back Turner Street — Amsterdam-style fries and breakfast buns from a kitchen that's never once tried to be a chip shop.",
-      "suggestedDate": "2026-09-24",
-      "status": "pending",
-      "researchNotes": "Verified via themanc.com's own opening coverage, secretmanchester.com, manchestersfinest.com and the operator's own site (smaak.co.uk): Smaak, 42 Back Turner Street, Manchester M4 1FR — billed as Manchester's first Dutch 'Het Friethuis', serving Amsterdam-style fries, breakfast buns, waffles, beers and cocktails; a genuinely new opening (2026). No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates from the M4 1FR postcode centroid (doogal.co.uk). New type introduced — DUTCH FRY HOUSE — since no existing Eat type captures a dedicated Dutch fries-and-brunch concept precisely (BRUNCH SPOT is the closest fit but would flatten the genuinely distinct Dutch-street-food identity that's the actual reason to go); same precedent as SOUVLAKI SPOT/SMOKEHOUSE/CANTONESE ROAST elsewhere in this catalog. Northern Quarter's Eat category (4 venues: BAB NQ, Evelyn's, Idle Hands, This & That) was its thinnest relative to Do (6) and Drink (7) before this addition. Moderate-high confidence — very recently opened, so less of a review history than an established venue, but well-documented by multiple independent local outlets with no closure signal (there being nothing yet to close)."
-    },
-    {
-      "name": "Structure Wellness",
-      "district": "northern-quarter",
-      "type": "WELLNESS STUDIO",
-      "spend": "££",
-      "lat": 53.482871,
-      "lon": -2.233936,
-      "base": 66,
-      "bands": ["morning", "afternoon"],
-      "reason": "A movement studio off Stevenson Square from a trainer who got tired of gyms that didn't care — reformer, breathwork and a retreat room upstairs, nothing about it franchised.",
-      "suggestedDate": "2026-09-24",
-      "status": "pending",
-      "researchNotes": "Verified via ClassPass, Tagvenue's own venue-hire listing and LinkedIn (Sean Boyd, founder): Structure Wellness, 8 Stevenson Square, Manchester, Northern Quarter (M1 1DN postcode area) — a movement and wellbeing studio founded by Sean Boyd in 2021, offering pilates/reformer, breathwork and wellness classes plus a retreat/venue-hire space. No evidence of a second site or franchise structure found anywhere in searches (a separate Lever Street address referenced in some listings appears to be the same studio's alternate/venue-hire entrance, not a second location); single operator, passes Hard rule 1 cleanly. Coordinates from the M1 1DN postcode centroid (doogal.co.uk). Reuses the existing WELLNESS STUDIO type (Wilmslow Pilates & Wellness). Closes a real citywide gap, not just a district one: before this addition, Northern Quarter had zero Spa & wellness-tile venue, and the tile itself had only 6 real matches across the whole Manchester/Cheshire catalogue. Moderate-high confidence — well-documented, currently operating; the two-address detail is the one flag worth a second look at promotion time."
-    },
-    {
-      "name": "Nichols & Co",
-      "district": "chester",
-      "type": "FASHION BOUTIQUE",
-      "spend": "£££",
-      "lat": 53.189414,
-      "lon": -2.89106,
-      "base": 70,
-      "bands": ["afternoon"],
-      "reason": "Three floors on Bridge Street Row, run by the same couple since 2002 — European labels curated by people who actually wear them, a few doors from the Cross.",
-      "suggestedDate": "2026-09-24",
-      "status": "pending",
-      "researchNotes": "Verified via the operator's own site (nicholstyle.co.uk), Drapers Online, Facebook and Companies House (NICHOLS & CO (CHESTER) LIMITED): Nichols & Co, 5 Bridge Street Row East, Chester CH1 1NW — an independent lifestyle boutique established 2002, owned and run by Ronnie and Rachael Nichols, spanning three floors of womenswear, jewellery, accessories and homeware from UK/European designers. No second site found anywhere in searches; single-site, family-owned, passes Hard rule 1 cleanly. Coordinates from the CH1 1NW postcode centroid (doogal.co.uk). New type introduced — FASHION BOUTIQUE already exists elsewhere in the catalogue (Beaumont Organic, Northern Quarter; Tuula, Alderley Edge) and is reused here, not new. Closes a real citywide gap: only 2 Clothes-shopping-tile venues existed anywhere in Manchester/Cheshire before this addition, and Chester itself had none. High confidence — 23+ years of continuous trading, well-documented, no closure signals."
-    },
-    {
-      "name": "Egg & Co",
-      "district": "deansgate",
-      "type": "BRUNCH SPOT",
-      "spend": "£",
-      "lat": 53.477374,
-      "lon": -2.249832,
-      "base": 66,
-      "bands": ["morning", "afternoon"],
-      "reason": "Started as a stall inside Ancoats General Store before it earned its own address on Deansgate — an egg sandwich taken as seriously as anything with a tasting menu.",
-      "suggestedDate": "2026-09-24",
-      "status": "pending",
-      "researchNotes": "Verified via themanc.com's own opening coverage, manchestersfinest.com and the Food Standards Agency ratings register: Egg & Co, 247 Deansgate, Manchester M3 4EN — an egg-sandwich specialist that built its name through residencies at Ancoats General Store, Stretford Foodhall and Kargo (Salford) before opening this, its first standalone bricks-and-mortar restaurant and takeaway. Since the prior residencies were stalls inside other venues' kitchens rather than separate leased sites, this reads as a first single site rather than an expansion — passes Hard rule 1 cleanly; flagged for the reviewer to re-check whether a second standalone site has opened since, given the residency model shows real appetite to grow. Coordinates from the M3 4EN postcode centroid (doogal.co.uk). Reuses the existing BRUNCH SPOT type (Idle Hands, Aldeli, Caramello). Deansgate's Eat category (Pip, Podium Restaurant, Dimitri's, Another Hand — no brunch-specific venue) gets real variety from this addition rather than another fine-dining room. Moderate-high confidence — well-documented, recently opened, no closure signal; the residency-to-standalone history is the one thing worth re-checking at promotion time."
+      "status": "rejected",
+      "researchNotes": "Verified via the gallery's own site (saulhayfineart.co.uk), Tripadvisor and Yelp (both active 2026 listings): Saul Hay Gallery, Railway Cottage, Castle Street, Manchester M3 4LZ, a contemporary art gallery a few minutes' walk from Deansgate-Castlefield tram station, selling original paintings, sculpture and limited-edition prints. No second site found anywhere in searches; single-site, independently owned, passes Hard rule 1 cleanly. Coordinates (53.474461/-2.254742) from the M3 4LZ postcode centroid, within the Deansgate ward per the same source. Reuses the existing ART GALLERY type. Deansgate's Do category was its thinnest alongside Drink and Eat (4 each) before this addition — no venue there currently offers a gallery visit. High confidence — long-established, well-documented, no closure signals. Checked against docs/data/venues.json before writing this: not a duplicate of The Horsfall (Ancoats, already live) or any other existing gallery entry. REJECTED on independent re-verification 2026-09-25: the gallery's own site and press coverage confirm its final exhibition at Railway Cottage, Castle Street/Collier Street closed 28 June 2026, after which the gallery moved to a mobile/online-only model rather than a new fixed premises — there is no walk-in gallery at this address (or any confirmed new physical address) as of today. A real, well-regarded gallery, but not a venue a member can currently visit at the address this candidate describes. Do not re-suggest unless it opens a new fixed physical space."
     },
     {
       "name": "Rubber Ducky Records",
@@ -506,25 +320,13 @@
       "lat": 53.483318,
       "lon": -2.225666,
       "base": 62,
-      "bands": ["afternoon"],
+      "bands": [
+        "afternoon"
+      ],
       "reason": "A record shop that lives on a narrowboat moored in Islington Marina — mostly secondhand electronic vinyl, a turntable to test it on before you buy, and a genuine appointment required before you're allowed aboard.",
       "suggestedDate": "2026-09-24",
       "status": "pending",
-      "researchNotes": "Verified via manchestersfinest.com, The Vinyl Factory, Mixmag, The Northern Quota and GigPig: Rubber Ducky Records, moored at Islington Marina, Ancoats, Manchester (correspondence address 10 Redhill Street, M4 6EY) — a floating, appointment-only secondhand electronic-vinyl record shop that opened October 2022, run by a single owner (Myles), genuinely one-of-a-kind ('the UK's first and only floating record store'). No second site possible or found — passes Hard rule 1 cleanly. Coordinates from the M4 6EY postcode centroid (doogal.co.uk), the nearest fixed address to the marina mooring; flagged for the reviewer since a boat's exact position can shift within the marina. Reuses the existing RECORD SHOP type (introduced for the Chicago pass). Suggested with `bookingRequired: true` in mind for promotion — the shop is genuinely appointment-based, a real 'can't walk in without arranging it first' case per CLAUDE.md's Matchmaking contract, not an inferred guess. Ancoats' Do category (Hallé St Peter's, Hope Mill Theatre, The Horsfall, Social Refuge) gets a genuinely distinctive addition rather than more of the same. Moderate confidence — real and well-documented, but the appointment-only/floating nature is unusual enough to warrant the reviewer's own look before promotion."
-    },
-    {
-      "name": "The Beauty Barn Mobberley",
-      "district": "mobberley",
-      "type": "BEAUTY SALON",
-      "spend": "££",
-      "lat": 53.33118,
-      "lon": -2.325872,
-      "base": 64,
-      "bands": ["morning", "afternoon"],
-      "reason": "A converted farm building at Owen House, run as both a working salon and its own training academy — the kind of unhurried facial that only makes sense this far outside the city.",
-      "suggestedDate": "2026-09-24",
-      "status": "pending",
-      "researchNotes": "Verified via the operator's own site (thebeautybarnmobberley.co.uk), Facebook, Yell and Birdeye (115 reviews, 5-star average): The Beauty Barn Mobberley, Salon & Training Academy, Owen House Farm Offices, Wood Lane, Mobberley WA16 7NY — an independent beauty salon and training academy in converted farm buildings, over 19 years of combined staff experience. Owen House Farm itself also runs as a separate wedding/accommodation business on the same site, but the salon is run as its own named, independently bookable operation; no second Beauty Barn site found anywhere in searches. Passes Hard rule 1 cleanly. Coordinates from the WA16 7NY postcode centroid (doogal.co.uk), roughly 2.3km from the Mobberley district centroid, well within the village's real footprint alongside its other rural venues. Reuses the existing BEAUTY SALON type (KLUB, Spinningfields). Mobberley sits at exactly 10 real venues (this file's standing floor target) with only 3 Do-mapped venues (Mobberley Cricket Club, White Peak Alpaca Farm, Wilmslow Golf Club) before this addition — real Do variety beyond sport/farm, not just a bigger number. Moderate-high confidence — well-documented, long-operating, no closure signals."
+      "researchNotes": "Verified via manchestersfinest.com, The Vinyl Factory, Mixmag, The Northern Quota and GigPig: Rubber Ducky Records, moored at Islington Marina, Ancoats, Manchester (correspondence address 10 Redhill Street, M4 6EY) — a floating, appointment-only secondhand electronic-vinyl record shop that opened October 2022, run by a single owner (Myles), genuinely one-of-a-kind ('the UK's first and only floating record store'). No second site possible or found — passes Hard rule 1 cleanly. Coordinates from the M4 6EY postcode centroid (doogal.co.uk), the nearest fixed address to the marina mooring; flagged for the reviewer since a boat's exact position can shift within the marina. Reuses the existing RECORD SHOP type (introduced for the Chicago pass). Suggested with `bookingRequired: true` in mind for promotion — the shop is genuinely appointment-based, a real 'can't walk in without arranging it first' case per CLAUDE.md's Matchmaking contract, not an inferred guess. Ancoats' Do category (Hallé St Peter's, Hope Mill Theatre, The Horsfall, Social Refuge) gets a genuinely distinctive addition rather than more of the same. Moderate confidence — real and well-documented, but the appointment-only/floating nature is unusual enough to warrant the reviewer's own look before promotion. FOLLOW-UP 2026-09-25 (curia-suggestion-review): re-checked — the shop's own physical presence in Ancoats/Islington Marina is itself uncertain right now: an April 2026 piece describes the owner as 'based over in Liverpool most regularly nowadays' with 'hopes he'll sail back down... sometime soon', not a confirmed current Manchester mooring. Since this is a floating shop whose whole premise is a specific physical location, that's a genuine uncertainty about whether it's actually there to recommend today, not just a chain/duplicate question. Sent to docs/data/pending-review-queue.json rather than decided outright. Left pending here."
     },
     {
       "name": "Mobberley Brewhouse Tap & Shop",
@@ -534,25 +336,14 @@
       "lat": 53.3186,
       "lon": -2.3177,
       "base": 62,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "The brewery's original building on Church Lane, kept on as a tap and shop once production moved up the road to bigger premises — sample the cans standing among the old fermenters, then take a few home for whoever couldn't make the drive.",
       "suggestedDate": "2026-09-25",
-      "status": "pending",
-      "researchNotes": "Verified via CAMRA/whatpub.com, Great British Life ('Local life — Mobberley Tap & Shop') and Untappd (check-ins as recent as August 2026, confirming current trading): Mobberley Brewhouse Tap & Shop, Dairy Farm, Church Lane, Mobberley WA16 7RA — the original site of Mobberley Brewhouse, kept running as a taproom and bottle/can shop after brewing production relocated to larger premises on Woodend Lane. Open tap nights are held the first Tuesday of each month. No second tap/shop site found anywhere in searches; single independent brewery, passes Hard rule 1 cleanly. Coordinates from the WA16 7RA postcode centroid (web geocode search, doogal.co.uk blocked this session). Reuses the existing BREWERY TAP type (introduced same-day for the RedWillow, Macclesfield candidate elsewhere in this file). Real Drink gap this closes: Mobberley's three real Drink-mapped venues (The Bull's Head, Church Inn, Railway Inn) are all COUNTRY PUB — this is a genuinely different register (a working brewery's own taproom, not a pub kitchen). Note for the reviewer: two other well-known Mobberley pubs (Church Inn, Bull's Head) already live in venues.json are, per fresh research this run, both actually part of the 7-strong Cheshire Cat Pubs & Bars group (Tim Bird/Mary McLaughlin) — flagging for awareness/spot-check since that group's scale sits at the edge of this file's own precedent, though not something this candidate depends on. High confidence on Mobberley Brewhouse itself — small, single-site, well-documented, current 2026 activity confirmed."
-    },
-    {
-      "name": "The Spinn Off",
-      "district": "stockport-underbanks",
-      "type": "WINE BAR",
-      "spend": "££",
-      "lat": 53.41117,
-      "lon": -2.157422,
-      "base": 68,
-      "bands": ["afternoon", "evening", "late"],
-      "reason": "Craft beer, organic wine picked by the Market Hall's own resident wine merchant and pies brought in from Patel's next door — a room the size of a pop-up on Little Underbank that never bothered growing past the size that made it good.",
-      "suggestedDate": "2026-09-25",
-      "status": "pending",
-      "researchNotes": "Verified via Totally Stockport, Stop in Stockport and Instagram (@thespinnoff, current activity): The Spinn Off, 19 Little Underbank, Stockport SK1 1LA — an independent neighbourhood bar serving craft beers, organic wine curated by Stockport Market's own 'Wineboy', and pies from Stockport's Patel's Pies. Owned by two friends (one an actor, one a local chef) who also run a bar & kitchen in Gatley — a real 2-site pair across two towns, within the same small-sibling precedent already accepted elsewhere in this file (Craig's, Ivy Spinningfields, Fire Station Social Cucina). No third site found. Coordinates from the SK1 1LA postcode centroid (web geocode search). Reuses the existing WINE BAR type. Stockport (Underbanks)'s real Drink category (Bruk, The Underbank, By Yon Orange) was tied for the district's thinnest cell in this run's tally before this addition. Moderate-high confidence — well-documented, currently trading, no closure signals; the Gatley sibling is the one flag worth a second look at promotion time."
+      "status": "rejected",
+      "researchNotes": "Verified via CAMRA/whatpub.com, Great British Life ('Local life — Mobberley Tap & Shop') and Untappd (check-ins as recent as August 2026, confirming current trading): Mobberley Brewhouse Tap & Shop, Dairy Farm, Church Lane, Mobberley WA16 7RA — the original site of Mobberley Brewhouse, kept running as a taproom and bottle/can shop after brewing production relocated to larger premises on Woodend Lane. Open tap nights are held the first Tuesday of each month. No second tap/shop site found anywhere in searches; single independent brewery, passes Hard rule 1 cleanly. Coordinates from the WA16 7RA postcode centroid (web geocode search, doogal.co.uk blocked this session). Reuses the existing BREWERY TAP type (introduced same-day for the RedWillow, Macclesfield candidate elsewhere in this file). Real Drink gap this closes: Mobberley's three real Drink-mapped venues (The Bull's Head, Church Inn, Railway Inn) are all COUNTRY PUB — this is a genuinely different register (a working brewery's own taproom, not a pub kitchen). Note for the reviewer: two other well-known Mobberley pubs (Church Inn, Bull's Head) already live in venues.json are, per fresh research this run, both actually part of the 7-strong Cheshire Cat Pubs & Bars group (Tim Bird/Mary McLaughlin) — flagging for awareness/spot-check since that group's scale sits at the edge of this file's own precedent, though not something this candidate depends on. High confidence on Mobberley Brewhouse itself — small, single-site, well-documented, current 2026 activity confirmed. REJECTED on independent re-verification 2026-09-25: the Dairy Farm/Church Lane building this candidate describes is the same address (53.3186/-2.3177, within metres of 53.318663/-2.317686) already catalogued in docs/data/venues.json as 'Mobberley Ice Cream Coffee House' — that business now occupies the converted barn the brewery tap & shop used to run from. No current evidence the Brewhouse tap/shop itself still operates from this site. Do not re-suggest at this address; a genuine still-trading Mobberley Brewhouse retail point elsewhere would need its own fresh verification."
     },
     {
       "name": "Ōdiobā",
@@ -562,81 +353,16 @@
       "lat": 53.4103,
       "lon": -2.1562,
       "base": 74,
-      "bands": ["morning", "afternoon", "evening", "late"],
+      "bands": [
+        "morning",
+        "afternoon",
+        "evening",
+        "late"
+      ],
       "reason": "Nam's old sound system rebuilt over three floors on Lower Hillgate — specialty coffee and Worker Bee beans by day, the UMA kitchen's ramen and gyoza once the Friday and Saturday DJs take the turntables after dark.",
       "suggestedDate": "2026-09-25",
       "status": "pending",
-      "researchNotes": "Verified via Manchester's Finest, The Cheshire Magazine, Taste of Manchester and Tripadvisor (active 2026 listing): Ōdiobā, 26 Lower Hillgate, Stockport SK1 1JE — a hi-fi listening bar and coffee shop opened by the team behind Nam (the listening bar already live in this catalogue under Ancoats), carrying over Nam's original sound system. Coffee house by day, audiophile cocktail/listening bar by night with a rotating Friday/Saturday DJ programme; UMA, its in-house ramen kitchen, is the only place serving traditional ramen in Stockport town centre. Same-owner sibling of an already-catalogued venue in a different Manchester-metro district — the precedent already established for Craig's/Ivy Spinningfields, applied here to two districts within the same metro rather than two cities. No third site found for either Nam or Ōdiobā. Coordinates from the SK1 1JE postcode centroid (web geocode search; one source places this specific postcode on 'Common Road' rather than Lower Hillgate — flagged for the reviewer to tighten, though it sits well within the Underbanks footprint regardless). Reuses the existing LISTENING BAR type (Nam). High confidence on the venue's currency and ownership; the postcode-to-street precision is the one flag."
-    },
-    {
-      "name": "The Dulcimer",
-      "district": "chorlton",
-      "type": "LIVE MUSIC",
-      "spend": "££",
-      "lat": 53.4428,
-      "lon": -2.2735,
-      "base": 70,
-      "bands": ["evening", "late"],
-      "reason": "Chorlton's own folk room since 2007, a former art shop on Wilbraham Road with cask ales on and a stage that still fills for an open mic nobody around here has outgrown.",
-      "suggestedDate": "2026-09-25",
-      "status": "pending",
-      "researchNotes": "Verified via Manchester Confidential ('Ten years and still a hit: Chorlton's Dulcimer'), CAMRA/whatpub.com and Yelp (active listing with reviews dated September 2026): The Dulcimer, 567 Wilbraham Road, Chorlton-cum-Hardy, Manchester (postcode given inconsistently across sources as M21 4AE/M21 0AE) — opened 2007 in a former art shop, described by The Guardian at the time as 'the hippest new music venue in Manchester', now a long-running independent live-music bar known for folk and folk-crossover programming plus cask ales and craft ciders. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates are an approximation (53.4428/-2.2735, the nearby Chorlton tram stop/Chorlton Cross landmark) since a precise postcode geocode wasn't obtainable this session (postcode lookup sites blocked) — sources describe the venue as 'yards from Chorlton Cross', so this should be within ~100m of the real address; flagged for the reviewer to tighten. Reuses the existing LIVE MUSIC type. Chorlton's real Do category (The Edge Theatre & Arts Centre, Chorlton Bookshop, Chorlton Water Park, Pottery Corner) had no live-music venue before this addition despite Chorlton's own district description already citing 'more independent restaurants per acre than anywhere else in the city' — a real, distinct addition rather than a fourth gallery. Moderate-high confidence — long-established, well-documented, current reviews; the coordinate approximation is the one flag."
-    },
-    {
-      "name": "By AdiVa",
-      "district": "hale",
-      "type": "FASHION BOUTIQUE",
-      "spend": "£££",
-      "lat": 53.377037,
-      "lon": -2.346064,
-      "base": 66,
-      "bands": ["afternoon"],
-      "reason": "Adi Joseph's own edit of European labels and considered gifts on Ashley Road, enough of a fixture on the village high street that regulars have long since dropped the 'By'.",
-      "suggestedDate": "2026-09-25",
-      "status": "pending",
-      "researchNotes": "Verified via Instagram (@by_adiva, current posted hours), Facebook and business directory listings (clothes-shops.co.uk, hale-eng.business-dir.co.uk): By AdiVa, 192 Ashley Road, Hale, Altrincham WA15 9SF — an independent women's fashion and luxury gift boutique run by Adi Joseph, described in local coverage as a long-standing fixture of Hale village high street. A related 'Adiva Interiors' Facebook page exists under what appears to be the same owner/brand, but no second fashion-boutique site was found; single-site, passes Hard rule 1 cleanly. Coordinates from the WA15 9SF postcode centroid (web geocode search) — WA15 is Hale's own postcode district (WA14 covers Altrincham/Bowdon), and 192 Ashley Road sits closer to Hale's district centroid than Altrincham's. Reuses the existing FASHION BOUTIQUE type (Beaumont Organic, Northern Quarter; Tuula, Alderley Edge). Closes a real gap: Hale's Do category (Contemporary Six Hale, Hale Country Club & Spa, InHale Yoga, Hale Lawn Tennis Club) had no Clothes-shopping-tile venue despite Hale's own high street being widely and specifically documented for exactly this. Moderate-high confidence — well-documented, current social activity, no closure signals."
-    },
-    {
-      "name": "Butter Bird",
-      "district": "ancoats",
-      "type": "ROTISSERIE",
-      "spend": "££",
-      "lat": 53.48494,
-      "lon": -2.228206,
-      "base": 72,
-      "bands": ["afternoon", "evening"],
-      "reason": "Ancoats' first proper rotisserie oven, on Blossom Street — whole birds finished to order in tarragon, chermoula or preserved-lemon butter and carved at the table, not held under a heat lamp.",
-      "suggestedDate": "2026-09-25",
-      "status": "pending",
-      "researchNotes": "Verified via restaurantonline.co.uk, Manchester Confidential ('review: Butter Bird'), Northern Soul and I Love Manchester's own review: Butter Bird, 35 Blossom Street, Ancoats, Manchester M4 6AJ — a 'neighBIRDhood rotisserie' from owner Joe Akka, launched January 2026, built around Ancoats' first traditional rotisserie oven, cooking whole chickens over open flame finished with a choice of signature butters. No second site or group ownership found in any search (one piece speculates about a future 'chicken franchise' but confirms nothing operating); single-site, passes Hard rule 1 cleanly. Coordinates from the M4 6AJ postcode centroid (web geocode search). New type introduced — ROTISSERIE — since no existing Eat type captures a dedicated whole-bird rotisserie concept precisely (SMOKEHOUSE is the closest register but implies low-and-slow BBQ rather than a rotisserie oven); same precedent as SMOKEHOUSE/DUTCH FRY HOUSE/CANTONESE ROAST elsewhere in this catalogue. Ancoats' real Eat category (Erst, Mana, Pollen Bakery, Indian Affair) gets genuine variety from this addition. Moderate-high confidence — very recently opened so less review history than an established venue, but well-documented by multiple independent local outlets with no closure signal."
-    },
-    {
-      "name": "The Bubble Room Bramhall",
-      "district": "bramhall",
-      "type": "GASTROPUB",
-      "spend": "££",
-      "lat": 53.3594,
-      "lon": -2.1672,
-      "base": 70,
-      "bands": ["morning", "afternoon", "evening", "late"],
-      "reason": "The Alderley Edge original's Village Square sibling since 2008 — Steak Wednesday and a resident DJ carried over intact, just with Bramhall's own crowd filling the Monkey Lounge instead.",
-      "suggestedDate": "2026-09-25",
-      "status": "pending",
-      "researchNotes": "Verified via OpenTable, SquareMeal and Companies House (THE BUBBLE ROOM BAR & RESTAURANT LIMITED): The Bubble Room, 2-4 Ack Lane East, Bramhall SK7 2BY — the second site (opened 2008) of The Bubble Room, whose original Alderley Edge location (est. 2005) is already live in docs/data/venues.json under this exact name. A real, already-precedented 2-site pair within this file's own catalogue, not a fresh chain-footprint judgment call — the Alderley Edge entry's own reason line ('Est. 2005... The Monkey Lounge in the back seats forty') confirms the same concept. No third site found anywhere in searches. Named 'The Bubble Room Bramhall' (rather than the bare 'The Bubble Room') specifically to avoid an exact-name collision with the existing Alderley Edge entry, the same disambiguation precedent already used for 'Contemporary Six' vs 'Contemporary Six Hale' elsewhere in this catalogue — these are two distinct physical venues, not a duplicate suggestion. Coordinates from the SK7 2BY postcode centroid (web geocode search). Reuses the existing GASTROPUB type, matching the Alderley Edge entry. Closes Bramhall's real Eat gap (Pix Pizza, Amici, Plumcake Cafe) with a genuinely different register — a late-running bar-restaurant rather than another Italian table. High confidence — long-established, well-documented, directly tied to an already-verified sibling."
-    },
-    {
-      "name": "Linden Stores",
-      "district": "knutsford",
-      "type": "SMALL PLATES",
-      "spend": "£££",
-      "lat": 53.305589,
-      "lon": -2.374733,
-      "base": 76,
-      "bands": ["afternoon", "evening"],
-      "reason": "Laura Christie and Chris Boustead's third address for the same restaurant — Highbury, then Audlem, now Minshull Street — an AA Rosette earned on a wine list that still changes with whatever they've just found.",
-      "suggestedDate": "2026-09-25",
-      "status": "pending",
-      "researchNotes": "Verified via The Caterer, Great British Life ('Meet the chef: Laura Christie and Chris Boustead'), Hardens and Tripadvisor (active 2026 listing, 1 AA Rosette awarded March 2025): Linden Stores, 15 Minshull Street, Knutsford WA16 6HG — a relaxed bistro, wine bar and bottle shop run by chef-owners Laura Christie (ex-Oklava, Kyseri) and Chris Boustead (ex-Opera Tavern). Genuinely a single restaurant that has relocated over time rather than a chain with concurrent sites: launched in Highbury, London in 2017, moved to Audlem, Cheshire in 2021, then to this Knutsford address in November 2023 — only ever one site trading at once. Passes Hard rule 1 cleanly on that basis. Coordinates from the WA16 6HG postcode centroid (web geocode search). Reuses the existing SMALL PLATES type (LI~LY is TASTING MENU, a different register). Knutsford's real Eat category (LI~LY, Giovanni's, Neki, The Stolen Lamb) gets a genuinely distinct small-plates/wine-bar-hybrid addition. High confidence — well-documented history, current AA Rosette, active reviews, no closure signals."
+      "researchNotes": "Verified via Manchester's Finest, The Cheshire Magazine, Taste of Manchester and Tripadvisor (active 2026 listing): Ōdiobā, 26 Lower Hillgate, Stockport SK1 1JE — a hi-fi listening bar and coffee shop opened by the team behind Nam (the listening bar already live in this catalogue under Ancoats), carrying over Nam's original sound system. Coffee house by day, audiophile cocktail/listening bar by night with a rotating Friday/Saturday DJ programme; UMA, its in-house ramen kitchen, is the only place serving traditional ramen in Stockport town centre. Same-owner sibling of an already-catalogued venue in a different Manchester-metro district — the precedent already established for Craig's/Ivy Spinningfields, applied here to two districts within the same metro rather than two cities. No third site found for either Nam or Ōdiobā. Coordinates from the SK1 1JE postcode centroid (web geocode search; one source places this specific postcode on 'Common Road' rather than Lower Hillgate — flagged for the reviewer to tighten, though it sits well within the Underbanks footprint regardless). Reuses the existing LISTENING BAR type (Nam). High confidence on the venue's currency and ownership; the postcode-to-street precision is the one flag. FOLLOW-UP 2026-09-25 (curia-suggestion-review): re-checked — the venue is currently listed as trading, but its own Facebook page posted 'THEY'RE BACK!!' on 9 September 2026 with no findable explanation of what preceded it; this building has a real history of closing on short notice (it closed in 2023 when its previous occupant's premises were sold). Genuinely unclear whether this was a routine short break or something more, so not confident enough to promote outright. Sent to docs/data/pending-review-queue.json rather than decided outright. Left pending here."
     }
   ]
 }
