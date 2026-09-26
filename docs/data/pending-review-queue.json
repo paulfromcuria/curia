@@ -159,6 +159,42 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-24",
+      "reason": "Real, credible, non-chain (an 18-year-old Nottingham original opening a genuine Manchester sibling, not a chain expansion), but no independent evidence found that it has actually opened as of today despite the announced 'autumn 2026' date — every source checked (trade press, the operator's own channels) still frames it as upcoming, not yet trading.",
+      "researchNotes": "Independently re-verified 2026-09-24: Coco Tang, taking over the former SakkuSamba/Artisan unit at 1 The Avenue, Bridge Street, Spinningfields — confirmed via restaurantonline.co.uk, premierconstructionnews.com and TheBusinessDesk (all describing the Nottingham original, 8 Byard Lane, trading ~18 years) as a real, credible expansion, genuinely independent rather than chain growth. No evidence found that it has opened yet. Recommend re-checking in a future run and promoting once a source confirms it's actually trading (or applying `status: 'coming-soon'` at that point if any residual chain-expansion-confidence caveat remains, per the field's established use for Fire Station Social Cucina).",
+      "payload": {
+        "name": "Coco Tang",
+        "district": "spinningfields",
+        "type": "VIETNAMESE",
+        "spend": "£££",
+        "lat": 53.4796,
+        "lon": -2.2493,
+        "base": 82,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Eighteen years of running Nottingham's Byard Lane before Manchester got a look — Vietnamese café by day, a cocktail room and late kitchen once the Bridge Street lights come on."
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-24",
+      "reason": "Not confirmed closed — still operating on its scheduled days — but multiple 2026 reviews describe a genuinely declining market hall (most stalls gone, a 'sad decline', only a few loyal stallholders left) plus a fire that closed the separate outdoor market section. Not a clean closure signal, so not proposed for straight removal — flagged for a human to look at and decide whether it still belongs in the catalogue, per the closure-audit rule that removal risk always gets a human glance rather than an auto-decision either way.",
+      "researchNotes": "Routine closure-audit spot-check, 2026-09-24 (rotating slice, indices 419-423 of docs/data/venues.json). Web search for 'Northwich Market closed OR permanently closed OR reviews 2026' surfaced two current Tripadvisor reviews ('Little to offer', 'Sad decline') describing the indoor hall now half-empty with only a few remaining stallholders, and one review mentioning the outdoor market section burned down and hasn't reopened. The indoor hall itself is still trading on its scheduled days — this is a decline signal, not a closure signal, so left as a note for a human rather than a remove_venue proposal made in confidence either way.",
+      "payload": {
+        "name": "Northwich Market",
+        "district": "northwich"
+      }
     }
   ]
 }
