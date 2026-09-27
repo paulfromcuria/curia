@@ -3,6 +3,26 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-09-27",
+      "synced": false,
+      "title": "36 venues + 4 new districts promoted; 4 rejected on fresh evidence; 2 sent for review; 2 closure signals flagged",
+      "summary": "Independently re-verified all 42 pending venue candidates and all 4 pending district candidates in the suggestions queues (fresh web research per candidate, not the prior researchNotes). Promoted 36 venues across Chester, Northern Quarter, Stockport (Underbanks), Bramhall, Chorlton, Ancoats, Mobberley, Deansgate, Spinningfields, Macclesfield, Knutsford, Cheadle Hulme, Didsbury, Chinatown, Heaton Moor, Tarporley, Northwich, Hale, Altrincham and Nantwich, plus all 4 pending districts (Lymm, Ramsbottom, Rusholme (Curry Mile), Monton — Rusholme's accentColor corrected to avoid clashing with Ancoats). Rejected 4 on fresh evidence the original research missed or that has since changed: Saul Hay Gallery (closed its physical gallery June 2026), Mobberley Brewhouse Tap & Shop (site now occupied by a different business per an independent source), Mint Lounge (closed/reopened as Kahiki Soundhouse; Funkademia moved to The Deaf Institute years ago), Crissan (address/identity mismatch — the real 28-year shop is in Cheadle Hulme, outside Curia's district scope, and has itself changed hands). Sent 2 genuinely uncertain venue candidates to Pending Review rather than deciding either way: Coco Tang (real expansion, but not yet confirmed trading) and No.8 Dukes (a genuine Gate 1 concentration judgment call on one operator's Macclesfield footprint). Curia Command's pending_review collection had zero decided items to apply this run. The closure-audit rotating slice (SOUP, The Coast, Higher Ground, John Rylands Library, Tuula) found 4 clean and 1 conflicting signal (The Coast) sent to Pending Review rather than dismissed or actioned. A second closure signal (Nam, Ancoats) surfaced incidentally while verifying an unrelated candidate and was also sent to Pending Review.",
+      "items": [
+        { "label": "36 venues (Chester ×6, Northern Quarter ×5, Stockport Underbanks ×4, Bramhall ×3, Ancoats ×2, Chorlton ×2, Deansgate ×2, Macclesfield ×2, Knutsford ×2, and one each elsewhere)", "detail": "promoted — see docs/data/venues.json's own 2026-09-27 provenance note for the full list and per-venue research" },
+        { "label": "Lymm, Ramsbottom, Rusholme (Curry Mile), Monton (new districts)", "detail": "promoted — see docs/data/districts.json's own 2026-09-27 provenance note" },
+        { "label": "Saul Hay Gallery (Deansgate)", "detail": "rejected — closed its physical Castlefield gallery June 2026, now pop-up/online only" },
+        { "label": "Mobberley Brewhouse Tap & Shop (Mobberley)", "detail": "rejected — an independent source names the exact address as now home to a different business" },
+        { "label": "Mint Lounge (Northern Quarter)", "detail": "rejected — closed/reopened as Kahiki Soundhouse; Funkademia left years ago" },
+        { "label": "Crissan (Wilmslow)", "detail": "rejected — real business is a Cheadle Hulme shop at a different address, outside Curia's district scope" },
+        { "label": "Coco Tang (Spinningfields)", "detail": "sent for review — real expansion, but not yet confirmed actually trading" },
+        { "label": "No.8 Dukes (Macclesfield)", "detail": "sent for review — genuine Gate 1 concentration judgment call on one operator's footprint" },
+        { "label": "The Coast (Tarporley)", "detail": "sent for review — conflicting OpenTable closure tag vs. stronger current evidence, from the closure audit" },
+        { "label": "Nam (Ancoats)", "detail": "sent for review — appears to have closed around April 2024, found incidentally while verifying Ōdiobā" }
+      ],
+      "createdAt": "2026-09-27T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-16",
       "synced": false,
       "title": "8 venues + Chester (new Cheshire district) promoted; 1 rejected as a real chain, 1 naming mix-up sent for review",

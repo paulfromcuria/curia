@@ -159,6 +159,68 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-27",
+      "reason": "Real 18-year Nottingham-to-Manchester expansion (a genuine 2-site sibling pair, well within Hard rule 1 precedent), but independent re-verification could not confirm it has actually opened and started trading yet — every source still frames the Spinningfields site in future tense ('will launch', 'set to open'), and the exact unit address is still unpublished, so lat/lon remain an approximation rather than a geocode.",
+      "researchNotes": "Confirmed via restaurantonline.co.uk (25 Aug 2026) and premierconstructionnews.com (27 Aug 2026): Coco Tang is taking over the former SakkuSamba/Artisan unit on Bridge Street, Spinningfields, 'opening this autumn' — run by the same owners as the genuine 18-year-old original in Nottingham (8 Byard Lane, still trading, confirmed via Tripadvisor/Facebook). As of 2026-09-27, no press, review or social post confirms it has actually opened. Recommend re-checking in a few weeks once local press/reviews confirm a trading date and precise address.",
+      "payload": {
+        "name": "Coco Tang",
+        "district": "spinningfields",
+        "type": "VIETNAMESE",
+        "spend": "£££",
+        "lat": 53.4796,
+        "lon": -2.2493,
+        "base": 82,
+        "bands": ["morning", "afternoon", "evening", "late"],
+        "reason": "Eighteen years of running Nottingham's Byard Lane before Manchester got a look — Vietnamese café by day, a cocktail room and late kitchen once the Bridge Street lights come on."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-27",
+      "reason": "A genuine Gate 1 concentration judgment call: single-town, no stated expansion ambition, but one operator's footprint (Kyle Frost-Morgan's Dukes Hospitality Group) now runs roughly 4 bars (Dukebox, The White Lion, The Ivy Leaf, No.8 Dukes — Duchess/Duchess Fizz has since closed) plus several non-hospitality units, nearly all packed into one small Macclesfield courtyard (Duke's Court) — closer to one person dominating one location's nightlife than the cleaner multi-address small-sibling-group cases this catalogue has already accepted (e.g. Bull Ring NW's 3-site Northwich group, promoted this same run).",
+      "researchNotes": "Confirmed currently trading (own site no8dukes.com, active Facebook/Instagram, Companies House NO.8 DUKES LIMITED #13034680 still active), no duplicate in venues.json, coordinates and schema check out. The open question is purely Gate 1 scale/concentration, not existence or trading status — reserved for a human call per the task's own guidance on this exact comparison.",
+      "payload": {
+        "name": "No.8 Dukes",
+        "district": "macclesfield",
+        "type": "COCKTAIL BAR",
+        "spend": "£££",
+        "lat": 53.257233,
+        "lon": -2.125601,
+        "base": 76,
+        "bands": ["evening", "late"],
+        "reason": "Duke's Court stays lit long after the rest of Macclesfield has gone home — doors open to 3am, seven nights, in a room that doesn't bother pretending it's anything but the town's last stop."
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-27",
+      "reason": "Conflicting closure signal from this run's routine closure-audit rotating slice: OpenTable's UK listing for The Coast explicitly labels it 'Permanently Closed', but stronger, more current evidence (its own live site, a 22 May 2026 Food Hygiene Rating inspection, and an active Tripadvisor listing with reviews into July 2026) points the other way — likely a stale/erroneous directory listing rather than a real closure, but flagged for a human glance per the 'closures always go to Pending Review' rule rather than dismissed.",
+      "researchNotes": "OpenTable: 'Permanently Closed'. Countervailing: thecoasttarporley.co.uk (live site), UK Food Hygiene Rating inspection dated 2026-05-22, Tripadvisor (~508 reviews, 4.3/5, ranked #6 of 42 in Tarporley as of July 2026), address Wright House, 67 High Street, Tarporley.",
+      "payload": {
+        "name": "The Coast",
+        "district": "tarporley"
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-27",
+      "reason": "Surfaced incidentally while independently verifying a new candidate (Ōdiobā, Stockport (Underbanks), whose own copy references Nam's sound system as a still-live sibling) — Nam, the existing Ancoats LISTENING BAR entry, appears to have permanently closed around April 2024, with the unit left vacant since.",
+      "researchNotes": "ilovemanchester.com's own Ancoats closures coverage reports Nam shut around April 2024 and the unit has sat vacant since. Not independently re-confirmed beyond this one source this run — flagged for a human decision rather than removed outright, per the closure-audit rule.",
+      "payload": {
+        "name": "Nam",
+        "district": "ancoats"
+      }
     }
   ]
 }
