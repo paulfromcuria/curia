@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Card, Kicker } from '../../components/curia';
 import { DISTRICTS, JOURNEYS, MOMENTS, VENUES, journeyDistricts, journeyHasClosedStop } from '../../lib/data/seed';
+import { placeholderPhotoFor } from '../../lib/data/placeholder-photos';
 import { haversineMiles, isVenueClosed } from '../../lib/scoring/rank-venues';
 import { useSession } from '../../lib/state/session';
 import type { Journey, MomentType } from '../../types/models';
@@ -36,6 +37,102 @@ function groupVenuesByDistrict(
     .sort((a, b) => haversineMiles(origin, a.district) - haversineMiles(origin, b.district));
 }
 
+/**
+ * A moment's venue pick, rendered as a photo-topped card (2026-09-29, at
+ * explicit user request — "redo the UX on moments and journeys to be
+ * imagery led," brainstormed against a competitor's rail-of-photos
+ * pattern but built in Curia's own voice, not copied). Reuses the exact
+ * photo treatment already shipped on List's ranked rows
+ * (src/app/(tabs)/list.tsx's photo/photoImage) rather than inventing a
+ * third card style — same placeholderPhotoFor fallback, same rounded
+ * photo, just sized for a horizontal rail instead of a vertical stack.
+ * Replaces the old text-only chip (name + type, no photo) that stood
+ * here before. `venue.description`, when a venue has real curated copy,
+ * shows the same way `reasonFor()` already surfaces it elsewhere — never
+ * a second, separate reasoning block (Presentation layer rule,
+ * CLAUDE.md), just the venue's own line.
+ */
+function MomentVenueCard({ venue, onPress }: { venue: SeedVenue; onPress: () => void }) {
+  return (
+    <Pressable onPress={onPress} style={styles.venueCard}>
+      <View style={styles.venuePhotoWrap}>
+        <Image
+          source={{ uri: venue.photos[0] ?? placeholderPhotoFor(venue.type, venue.id) }}
+          style={styles.venuePhoto}
+          resizeMode="cover"
+        />
+        <View style={styles.venuePriceBadge}>
+          <Text style={styles.venuePriceBadgeText}>{'£'.repeat(venue.spendLevel)}</Text>
+        </View>
+      </View>
+      <Text style={styles.venueChipName} numberOfLines={1}>
+        {venue.name}
+      </Text>
+      <Text style={styles.venueChipType} numberOfLines={1}>
+        {venue.type}
+      </Text>
+      {venue.description ? (
+        <Text style={styles.venueChipReason} numberOfLines={2}>
+          {venue.description}
+        </Text>
+      ) : null}
+    </Pressable>
+  );
+}
+
+/**
+ * A journey's real stops, in sequence, connected by the journey's own
+ * real walk times — the "imagery-led" pass's second half (2026-09-29):
+ * Journeys previously showed zero imagery at all (meta/title/blurb only).
+ * Deliberately not the same big single-photo treatment MomentVenueCard
+ * uses — a Journey is a sequence, not one venue, so this previews the
+ * *shape* of the evening (small stop thumbnails + walk time between each)
+ * rather than picking one stop to stand in for the whole thing. Stops
+ * stay non-interactive (a plain View, not a Pressable) so the journey
+ * card keeps the one-tap-target contract this file's own top comment
+ * documents ("a journey card's whole surface does navigate") — tapping
+ * anywhere, stop photos included, opens the journey, not a venue.
+ */
+function JourneyStopFilmstrip({ journey }: { journey: Journey }) {
+  const stops = journey.stops
+    .slice()
+    .sort((a, b) => a.order - b.order)
+    .flatMap((s) => {
+      const venue = VENUES.find((v) => v.id === s.venueId);
+      return venue ? [{ venue, walkToNextMinutes: s.walkTimeToNextMinutes }] : [];
+    });
+  if (stops.length === 0) return null;
+  return (
+    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.stopRow}>
+      {stops.map((s, i) => (
+        <Fragment key={s.venue.id}>
+          <View style={styles.stopCard}>
+            <View style={styles.stopPhotoWrap}>
+              <Image
+                source={{ uri: s.venue.photos[0] ?? placeholderPhotoFor(s.venue.type, s.venue.id) }}
+                style={styles.stopPhoto}
+                resizeMode="cover"
+              />
+              <View style={styles.stopIndexBadge}>
+                <Text style={styles.stopIndexText}>{i + 1}</Text>
+              </View>
+            </View>
+            <Text style={styles.stopName} numberOfLines={2}>
+              {s.venue.name}
+            </Text>
+          </View>
+          {s.walkToNextMinutes != null && (
+            <View style={styles.stopWalk}>
+              <Text style={styles.stopWalkArrow}>→</Text>
+              <Text style={styles.stopWalkText}>{s.walkToNextMinutes} min</Text>
+            </View>
+          )}
+        </Fragment>
+      ))}
+    </ScrollView>
+  );
+}
+
 /** A list of full Journey cards, each linking to journey/[id] — the whole
  * content of the Journeys view below. */
 function JourneyCards({ journeys }: { journeys: Journey[] }) {
@@ -48,6 +145,7 @@ function JourneyCards({ journeys }: { journeys: Journey[] }) {
             <Text style={styles.journeyMeta}>{j.meta}</Text>
             <Text style={styles.journeyTitle}>{j.title}</Text>
             {j.blurb && <Text style={styles.journeyBlurb}>{j.blurb}</Text>}
+            <JourneyStopFilmstrip journey={j} />
           </Card>
         </Pressable>
       ))}
@@ -288,18 +386,7 @@ export default function Moments() {
                         contentContainerStyle={styles.chipRow}
                       >
                         {districtVenues.map((v) => (
-                          <Pressable
-                            key={v.id}
-                            onPress={() => router.push(`/venue/${v.id}`)}
-                            style={styles.venueChip}
-                          >
-                            <Text style={styles.venueChipName} numberOfLines={1}>
-                              {v.name}
-                            </Text>
-                            <Text style={styles.venueChipType} numberOfLines={1}>
-                              {v.type}
-                            </Text>
-                          </Pressable>
+                          <MomentVenueCard key={v.id} venue={v} onPress={() => router.push(`/venue/${v.id}`)} />
                         ))}
                       </ScrollView>
                     </View>
@@ -311,14 +398,7 @@ export default function Moments() {
                     contentContainerStyle={styles.chipRow}
                   >
                     {venues.map((v) => (
-                      <Pressable key={v.id} onPress={() => router.push(`/venue/${v.id}`)} style={styles.venueChip}>
-                        <Text style={styles.venueChipName} numberOfLines={1}>
-                          {v.name}
-                        </Text>
-                        <Text style={styles.venueChipType} numberOfLines={1}>
-                          {v.type}
-                        </Text>
-                      </Pressable>
+                      <MomentVenueCard key={v.id} venue={v} onPress={() => router.push(`/venue/${v.id}`)} />
                     ))}
                   </ScrollView>
                 )}
@@ -452,26 +532,56 @@ const styles = StyleSheet.create({
     paddingTop: spacing.sm,
     paddingBottom: 2,
   },
-  venueChip: {
-    minWidth: 150,
-    maxWidth: 200,
-    paddingVertical: 12,
-    paddingHorizontal: 14,
+  // Option B from the imagery-led brainstorm (2026-09-29) — the scale that
+  // won out: same photo/rounded-corner treatment as List's ranked rows,
+  // shrunk to fit a rail instead of a vertical stack. See
+  // MomentVenueCard's own doc comment for the full reasoning.
+  venueCard: {
+    width: 190,
+    gap: 6,
+  },
+  venuePhotoWrap: {
+    width: 190,
+    height: 136,
     borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: color.hairlineMax,
+    overflow: 'hidden',
     backgroundColor: color.surface,
-    gap: 4,
+  },
+  venuePhoto: {
+    ...StyleSheet.absoluteFill,
+  },
+  venuePriceBadge: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    paddingVertical: 3,
+    paddingHorizontal: 8,
+    borderRadius: radius.pill,
+    backgroundColor: 'rgba(12,10,9,.72)',
+  },
+  venuePriceBadgeText: {
+    fontFamily: font.sans,
+    fontSize: 9,
+    letterSpacing: 1,
+    color: color.goldLight,
   },
   venueChipName: {
     fontFamily: font.serifRegular,
-    fontSize: 16,
+    fontSize: 17,
     color: color.textPrimary,
+    marginTop: 2,
   },
   venueChipType: {
     fontFamily: font.sans,
     fontSize: 9.5,
-    letterSpacing: 1.2,
+    letterSpacing: 1.3,
+    textTransform: 'uppercase',
+    color: color.textSecondary,
+  },
+  venueChipReason: {
+    fontFamily: font.sans,
+    fontSize: 11,
+    lineHeight: 15,
     color: color.textSecondary,
   },
   journeyList: {
@@ -496,5 +606,65 @@ const styles = StyleSheet.create({
     fontSize: 12.5,
     lineHeight: 19,
     color: color.textSecondary,
+  },
+  // Journeys' own imagery pass (2026-09-29) — see JourneyStopFilmstrip's
+  // doc comment for why this stays small and non-interactive rather than
+  // reusing venueCard's bigger, tappable treatment.
+  stopRow: {
+    marginTop: 10,
+    alignItems: 'flex-start',
+  },
+  stopCard: {
+    width: 72,
+  },
+  stopPhotoWrap: {
+    width: 72,
+    height: 72,
+    borderRadius: radius.md,
+    overflow: 'hidden',
+    backgroundColor: color.surface,
+  },
+  stopPhoto: {
+    ...StyleSheet.absoluteFill,
+  },
+  stopIndexBadge: {
+    position: 'absolute',
+    top: 5,
+    left: 5,
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    backgroundColor: 'rgba(12,10,9,.72)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  stopIndexText: {
+    fontFamily: font.sansMedium,
+    fontSize: 8,
+    color: color.goldLight,
+  },
+  stopName: {
+    fontFamily: font.serifRegular,
+    fontSize: 11.5,
+    lineHeight: 13,
+    color: color.textPrimary,
+    marginTop: 5,
+  },
+  stopWalk: {
+    width: 34,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 26,
+  },
+  stopWalkArrow: {
+    fontFamily: font.sans,
+    fontSize: 11,
+    color: color.gold,
+  },
+  stopWalkText: {
+    fontFamily: font.sans,
+    fontSize: 8,
+    color: color.textTertiary,
+    marginTop: 1,
   },
 });
