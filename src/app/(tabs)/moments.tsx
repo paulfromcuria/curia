@@ -1,4 +1,4 @@
-import { Fragment, useMemo } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Card, Kicker } from '../../components/curia';
@@ -11,31 +11,6 @@ import { color, font, radius, spacing } from '../../theme';
 
 type SeedVenue = (typeof VENUES)[number];
 type SeedDistrict = (typeof DISTRICTS)[number];
-
-/** Groups a moment's venues by district, nearest district to the user first
- * — the "Date Night in Wilmslow" reading, reusing the same
- * haversineMiles-against-searchOrigin approach List's district-browse mode
- * uses. Only called when browsing "all districts": once a district filter
- * is active every venue already belongs to that one district, so
- * regrouping would just produce a single redundant subheading. */
-function groupVenuesByDistrict(
-  venues: SeedVenue[],
-  origin: { lat: number; lon: number }
-): { district: SeedDistrict; venues: SeedVenue[] }[] {
-  const byDistrict = new Map<string, SeedVenue[]>();
-  venues.forEach((v) => {
-    const list = byDistrict.get(v.districtId) ?? [];
-    list.push(v);
-    byDistrict.set(v.districtId, list);
-  });
-  return Array.from(byDistrict.entries())
-    .map(([districtId, vs]) => {
-      const d = DISTRICTS.find((dd) => dd.id === districtId);
-      return d ? { district: d, venues: vs } : null;
-    })
-    .filter((g): g is { district: SeedDistrict; venues: SeedVenue[] } => !!g)
-    .sort((a, b) => haversineMiles(origin, a.district) - haversineMiles(origin, b.district));
-}
 
 /**
  * A moment's venue pick, rendered as a photo-topped card (2026-09-29, at
@@ -51,8 +26,23 @@ function groupVenuesByDistrict(
  * shows the same way `reasonFor()` already surfaces it elsewhere — never
  * a second, separate reasoning block (Presentation layer rule,
  * CLAUDE.md), just the venue's own line.
+ *
+ * District name is now printed on every card, not just a once-per-group
+ * subheading (2026-09-29, at explicit user request, the same pass that
+ * replaced exact-district filtering with an area-radius one below) —
+ * once a rail can span several real districts at once, a subheading
+ * above the whole rail stops being able to say which district any one
+ * card is actually in.
  */
-function MomentVenueCard({ venue, onPress }: { venue: SeedVenue; onPress: () => void }) {
+function MomentVenueCard({
+  venue,
+  district,
+  onPress,
+}: {
+  venue: SeedVenue;
+  district: SeedDistrict | undefined;
+  onPress: () => void;
+}) {
   return (
     <Pressable onPress={onPress} style={styles.venueCard}>
       <View style={styles.venuePhotoWrap}>
@@ -69,6 +59,7 @@ function MomentVenueCard({ venue, onPress }: { venue: SeedVenue; onPress: () => 
         {venue.name}
       </Text>
       <Text style={styles.venueChipType} numberOfLines={1}>
+        {district ? `${district.name} · ` : ''}
         {venue.type}
       </Text>
       {venue.description ? (
@@ -170,26 +161,35 @@ function JourneyCards({ journeys }: { journeys: Journey[] }) {
  * flagged here as a bigger restructure than the original M6 milestone
  * asked for. That gap is closed now, without abandoning the moment-first
  * structure entirely (moments stay the real, fixed 4 types — CLAUDE.md's
- * "do not add without a product decision"): the persistent district pill
- * row below (`filterableDistricts`, ordered nearest-to-the-user-first,
- * reusing List's own haversineMiles-against-searchOrigin approach) lets
- * anyone set the same `district` param District Guide's "ALL MOMENTS IN
- * {DISTRICT}" button already deep-links with, and when no district is
- * picked, each moment's own venues are grouped into per-district
- * subsections (`groupVenuesByDistrict` above) — the "Date Night in
- * Wilmslow" reading, without inventing a whole second browsable
- * moment-detail screen. The same district pill row now filters whichever
- * of the two views below is active, Moments or Journeys.
+ * "do not add without a product decision").
+ *
+ * 2026-09-29 update, at explicit user request ("loosen the criteria for
+ * being good for a date night when filtered by district... nudge user
+ * behaviour towards using a search radius, and instead of choosing
+ * specific districts, let them filter by area instead"): the pill row
+ * used to filter to an EXACT district id match, which read fine for a
+ * dense district but went thin or duplicate-looking for a small one — a
+ * real report: filtering Date Night to Knutsford surfaced exactly one
+ * pick, LI-LY, and it was *also* the only Entertaining a Client pick, so
+ * the same photo showed twice in a row. Tapping a pill now sets an AREA
+ * CENTER (`district` — the param name stays, District Guide's "ALL
+ * MOMENTS IN {DISTRICT}" link is unchanged) rather than an exact filter;
+ * a second pill row (`areaRadiusMiles`, shown once a center is picked)
+ * sets how far around it counts, same haversineMiles-from-a-point model
+ * List's own radius slider already uses, just a fixed small preset row
+ * here rather than a full drag slider. Because an area can now
+ * genuinely span several real districts at once, a once-per-group
+ * subheading can no longer say which district a given card is in —
+ * every `MomentVenueCard` now prints its own district name instead (see
+ * that component's doc comment), and the old subheading-grouping
+ * (`groupVenuesByDistrict`) is gone; every rail is flat.
  *
  * 2026-09-14/15 updates, at explicit user request: the curator byline ("BY
  * ELENA M.") is hidden here and in District Guide's "Kept by our editors"
  * list — `Moment.curator` stays in the data model/admin so a real one can
  * be set later, it's just not rendered to members; these were recycled
  * placeholder initials from the design prototype, not a real, named
- * curator. A district subgroup's heading is also just the district name
- * ("Wilmslow"), not "{Moment title} in {district}" — repeating the
- * Moment's own title (already the section heading above) under every
- * subgroup read as repetitive.
+ * curator.
  *
  * Journeys and Moments are two fully separate views, switched by the
  * `view` toggle below. First attempt ("journeys are buried at the
@@ -198,18 +198,18 @@ function JourneyCards({ journeys }: { journeys: Journey[] }) {
  * randomly interjected"). Neither landed ("still shit... they should be
  * separated") — mixing journey cards into a Moment's own venue chips, no
  * matter how it was grouped, always read as one content type interrupting
- * another. Splitting them into MOMENTS (the moment-type + district-grouped
- * chips above) and JOURNEYS (a flat list of full Journey cards, nearest
- * district first — a journey's own meta line already states its district,
- * so unlike Moments it needs no subheading grouping) settles that: neither
- * view ever interrupts the other.
+ * another. Splitting them into MOMENTS and JOURNEYS (a flat list of full
+ * Journey cards, nearest district first — a journey's own meta line
+ * already states its district) settles that: neither view ever
+ * interrupts the other. The same area pill rows now filter whichever of
+ * the two is active.
  *
  * An optional `moment` param (a `MomentType`) narrows the Moments view to
  * that one moment's section only — added so Venue detail's "GOOD FOR"
  * chips (a venue can be a pick in more than one Moment) can deep-link
  * straight to the relevant section instead of dumping the visitor into
- * every moment active in that district. It has no effect on the Journeys
- * view. Selecting "ALL DISTRICTS" clears only `district`, preserving
+ * every moment active nearby. It has no effect on the Journeys view.
+ * Selecting "EVERYWHERE" clears `district`/`areaRadiusMiles`, preserving
  * `moment` and `view` if set — the params narrow independently.
  */
 export default function Moments() {
@@ -224,13 +224,23 @@ export default function Moments() {
   const view: 'moments' | 'journeys' = viewParam === 'journeys' ? 'journeys' : 'moments';
   const district = districtId ? DISTRICTS.find((d) => d.id === districtId) : undefined;
 
-  // District filter row (2026-09, at explicit user request: "the moments
-  // should have a district filter"). Previously a district could only be
-  // set by deep-linking in from District Guide's "ALL MOMENTS IN {DISTRICT}"
+  // Area radius (2026-09-29) — see the file's own doc comment above for
+  // the real report this replaces exact-district matching for. Only has
+  // an effect once `district` (the area's center) is set; local state,
+  // not session.radiusMiles — this is a separate, editorial-browse
+  // concept from List/Map's shared "what am I ranking against" radius,
+  // same way the rest of this screen has always been independent of
+  // List/Map's own filtering.
+  const [areaRadiusMiles, setAreaRadiusMiles] = useState(6);
+  const AREA_RADIUS_PRESETS = [3, 6, 12, 25];
+
+  // Area-center pill row (2026-09, extended 2026-09-29 from an exact
+  // filter to an area center). Previously a district could only be set by
+  // deep-linking in from District Guide's "ALL MOMENTS IN {DISTRICT}"
   // button — this makes the same `district` param pickable directly here.
-  // Scoped to districts that actually have something to show (a moment pick
-  // or a journey stop), ordered nearest-to-the-user-first, same as List's
-  // district-browse mode.
+  // Scoped to districts that actually have something to show (a moment
+  // pick or a journey stop), ordered nearest-to-the-user-first, same as
+  // List's district-browse mode.
   const filterableDistricts = useMemo(() => {
     const ids = new Set<string>();
     MOMENTS.forEach((m) =>
@@ -270,6 +280,15 @@ export default function Moments() {
     });
   }
 
+  // Within-area check, real distance from the venue's own coordinates to
+  // the chosen center (not routed through the venue's own district's
+  // centroid — more accurate, and the only way a venue whose own district
+  // isn't itself in range can still show up because it's genuinely close
+  // to the chosen center).
+  function withinArea(point: { lat: number; lon: number }): boolean {
+    return !district || haversineMiles(district, point) <= areaRadiusMiles;
+  }
+
   const momentSections = useMemo(
     () =>
       MOMENTS.filter((m) => !momentType || m.type === momentType)
@@ -277,26 +296,29 @@ export default function Moments() {
           const venues = m.venueIds
             .map((id) => VENUES.find((v) => v.id === id))
             .filter((v): v is NonNullable<typeof v> => !!v && !isVenueClosed(v))
-            .filter((v) => !district || v.districtId === district.id);
+            .filter((v) => withinArea(v));
           return { moment: m, venues };
         })
         .filter((sec) => sec.venues.length > 0),
-    [district, momentType]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [district, areaRadiusMiles, momentType]
   );
 
-  // Nearest-district-first, same reading as filterableDistricts/venue
-  // grouping — a journey's own meta line already states its district, so
-  // (unlike Moments) no subheading grouping is needed here.
+  // Nearest-district-first, same reading as filterableDistricts — a
+  // journey's own meta line already states its district, so (unlike
+  // Moments) no per-card district label is needed here.
   const journeys = useMemo(() => {
     const filtered = JOURNEYS.filter(
-      (j) =>
-        !journeyHasClosedStop(j) && (!district || journeyDistricts(j).some((d) => d.id === district.id))
+      (j) => !journeyHasClosedStop(j) && (!district || j.stops.some((s) => {
+        const v = VENUES.find((vv) => vv.id === s.venueId);
+        return v && withinArea(v);
+      }))
     );
     const nearest = (j: Journey) =>
       Math.min(...journeyDistricts(j).map((d) => haversineMiles(session.searchOrigin, d)));
     return [...filtered].sort((a, b) => nearest(a) - nearest(b));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [district, session.searchOrigin]);
+  }, [district, areaRadiusMiles, session.searchOrigin]);
 
   const nothingHere =
     district !== undefined && (view === 'moments' ? momentSections.length === 0 : journeys.length === 0);
@@ -339,7 +361,7 @@ export default function Moments() {
           style={[styles.districtPill, !district && styles.districtPillActive]}
         >
           <Text style={[styles.districtPillText, !district && styles.districtPillTextActive]}>
-            ALL DISTRICTS
+            EVERYWHERE
           </Text>
         </Pressable>
         {filterableDistricts.map((d) => (
@@ -357,54 +379,55 @@ export default function Moments() {
         ))}
       </ScrollView>
 
+      {district && (
+        <View style={styles.radiusRow}>
+          <Text style={styles.radiusLabel}>WITHIN</Text>
+          {AREA_RADIUS_PRESETS.map((mi) => (
+            <Pressable
+              key={mi}
+              onPress={() => setAreaRadiusMiles(mi)}
+              style={[styles.districtPill, areaRadiusMiles === mi && styles.districtPillActive]}
+            >
+              <Text
+                style={[styles.districtPillText, areaRadiusMiles === mi && styles.districtPillTextActive]}
+              >
+                {mi} MI
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+      )}
+
       {nothingHere && (
         <Card tone="inset" style={styles.emptyCard}>
-          <Text style={styles.emptyTitle}>Our editors have not been to {district?.name} yet.</Text>
+          <Text style={styles.emptyTitle}>Nothing within {areaRadiusMiles} mi of {district?.name} yet.</Text>
           <Text style={styles.emptyBody}>
-            They are working through Cheshire this season. In the meantime, everything else is a
-            short drive.
+            Widen the radius above, or our editors are working through Cheshire this season.
           </Text>
         </Card>
       )}
 
       {view === 'moments'
-        ? momentSections.map(({ moment, venues }) => {
-            // Only regroup when browsing every district at once — see
-            // groupVenuesByDistrict's own doc comment.
-            const grouped = district ? null : groupVenuesByDistrict(venues, session.searchOrigin);
-            return (
-              <View key={moment.id} style={styles.section}>
-                <Text style={styles.title}>{moment.title}</Text>
-                <Text style={styles.blurb}>{moment.blurb}</Text>
-                {grouped ? (
-                  grouped.map(({ district: d, venues: districtVenues }) => (
-                    <View key={d.id} style={styles.districtSubgroup}>
-                      <Text style={styles.districtSubheading}>{d.name}</Text>
-                      <ScrollView
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={styles.chipRow}
-                      >
-                        {districtVenues.map((v) => (
-                          <MomentVenueCard key={v.id} venue={v} onPress={() => router.push(`/venue/${v.id}`)} />
-                        ))}
-                      </ScrollView>
-                    </View>
-                  ))
-                ) : (
-                  <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.chipRow}
-                  >
-                    {venues.map((v) => (
-                      <MomentVenueCard key={v.id} venue={v} onPress={() => router.push(`/venue/${v.id}`)} />
-                    ))}
-                  </ScrollView>
-                )}
-              </View>
-            );
-          })
+        ? momentSections.map(({ moment, venues }) => (
+            <View key={moment.id} style={styles.section}>
+              <Text style={styles.title}>{moment.title}</Text>
+              <Text style={styles.blurb}>{moment.blurb}</Text>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.chipRow}
+              >
+                {venues.map((v) => (
+                  <MomentVenueCard
+                    key={v.id}
+                    venue={v}
+                    district={DISTRICTS.find((d) => d.id === v.districtId)}
+                    onPress={() => router.push(`/venue/${v.id}`)}
+                  />
+                ))}
+              </ScrollView>
+            </View>
+          ))
         : journeys.length > 0 && <JourneyCards journeys={journeys} />}
     </ScrollView>
   );
@@ -463,6 +486,22 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     paddingBottom: 2,
   },
+  // Area radius row (2026-09-29) — same pill visuals as the district row
+  // above, reused rather than a new style, only shown once an area
+  // center (`district`) is picked. See the file's own top doc comment.
+  radiusRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    marginTop: -spacing.sm,
+  },
+  radiusLabel: {
+    fontFamily: font.sansMedium,
+    fontSize: 10,
+    letterSpacing: 1.6,
+    color: color.textTertiary,
+  },
   districtPill: {
     paddingVertical: 9,
     paddingHorizontal: 14,
@@ -482,16 +521,6 @@ const styles = StyleSheet.create({
   },
   districtPillTextActive: {
     color: color.goldLight,
-  },
-  districtSubgroup: {
-    marginTop: spacing.sm,
-    gap: 2,
-  },
-  districtSubheading: {
-    fontFamily: font.serifRegular,
-    fontStyle: 'italic',
-    fontSize: 13,
-    color: color.textSecondaryAlt,
   },
   emptyCard: {
     alignItems: 'center',
