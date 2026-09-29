@@ -1,18 +1,7 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'expo-router';
-import {
-  Image,
-  Modal,
-  PanResponder,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  type AccessibilityActionEvent,
-  type GestureResponderEvent,
-} from 'react-native';
-import { Card, EmblemButton, Kicker, Tag } from '../../components/curia';
+import { Image, Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Card, EmblemButton, Kicker, RadiusSlider, Tag } from '../../components/curia';
 import { rankVenues, haversineMiles, resolveContext, slugifyType } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession, DEMO_LOCATION } from '../../lib/scoring/session-input';
 import {
@@ -25,7 +14,7 @@ import {
   venuesByDistrict,
 } from '../../lib/data/seed';
 import { placeholderPhotoFor } from '../../lib/data/placeholder-photos';
-import { MAX_RADIUS_MILES, MIN_RADIUS_MILES, clampRadiusMiles } from '../../lib/map/geo';
+import { MAX_RADIUS_MILES, MIN_RADIUS_MILES } from '../../lib/map/geo';
 import { useSession } from '../../lib/state/session';
 import { color, font, radius, spacing } from '../../theme';
 import type { TileCategory } from '../../types/models';
@@ -187,66 +176,6 @@ function coveredTiles(category: TileCategory) {
 }
 
 const MOOD_CATEGORIES: TileCategory[] = ['Do', 'Drink', 'Eat'];
-
-function RadiusSlider({ value, onChange }: { value: number; onChange: (value: number) => void }) {
-  const trackRef = useRef<View>(null);
-  const [layout, setLayout] = useState({ pageX: 0, width: 1 });
-
-  const measure = useCallback(() => {
-    const node = trackRef.current;
-    node?.measure((_x, _y, width, _height, pageX) => {
-      setLayout({ pageX, width: Math.max(1, width) });
-    });
-  }, []);
-
-  const valueFromPageX = useCallback(
-    (pageX: number) => {
-      const ratio = Math.min(1, Math.max(0, (pageX - layout.pageX) / layout.width));
-      return clampRadius(MIN_RADIUS_MILES + ratio * (MAX_RADIUS_MILES - MIN_RADIUS_MILES));
-    },
-    [layout]
-  );
-
-  const panResponder = useMemo(
-    () =>
-      PanResponder.create({
-        onStartShouldSetPanResponder: () => true,
-        onMoveShouldSetPanResponder: () => true,
-        onPanResponderGrant: (evt: GestureResponderEvent) => onChange(valueFromPageX(evt.nativeEvent.pageX)),
-        onPanResponderMove: (evt: GestureResponderEvent) => onChange(valueFromPageX(evt.nativeEvent.pageX)),
-      }),
-    [onChange, valueFromPageX]
-  );
-
-  const ratio = (value - MIN_RADIUS_MILES) / (MAX_RADIUS_MILES - MIN_RADIUS_MILES);
-
-  const onAccessibilityAction = useCallback(
-    (event: AccessibilityActionEvent) => {
-      if (event.nativeEvent.actionName === 'increment') onChange(clampRadius(value + RADIUS_STEP));
-      if (event.nativeEvent.actionName === 'decrement') onChange(clampRadius(value - RADIUS_STEP));
-    },
-    [onChange, value]
-  );
-
-  return (
-    <View
-      ref={trackRef}
-      onLayout={measure}
-      {...panResponder.panHandlers}
-      style={styles.sliderTrack}
-      accessible
-      accessibilityRole="adjustable"
-      accessibilityLabel="Search radius"
-      accessibilityValue={{ min: MIN_RADIUS_MILES, max: MAX_RADIUS_MILES, now: value, text: formatMiles(value) }}
-      accessibilityActions={[{ name: 'increment' }, { name: 'decrement' }]}
-      onAccessibilityAction={onAccessibilityAction}
-    >
-      <View style={styles.sliderRail} />
-      <View style={[styles.sliderFill, { width: `${ratio * 100}%` }]} />
-      <View style={[styles.sliderThumb, { left: `${ratio * 100}%` }]} />
-    </View>
-  );
-}
 
 export default function List() {
   const router = useRouter();
@@ -945,34 +874,9 @@ const styles = StyleSheet.create({
     letterSpacing: 0.6,
     color: color.gold,
   },
-  sliderTrack: {
-    height: 24,
-    justifyContent: 'center',
-    marginTop: 12,
-  },
-  sliderRail: {
-    height: 2,
-    borderRadius: 1,
-    backgroundColor: color.hairlineMax,
-  },
-  sliderFill: {
-    position: 'absolute',
-    left: 0,
-    height: 2,
-    borderRadius: 1,
-    backgroundColor: color.gold,
-  },
-  sliderThumb: {
-    position: 'absolute',
-    top: 3,
-    marginLeft: -9,
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    backgroundColor: color.goldLight,
-    borderWidth: 1,
-    borderColor: color.gold,
-  },
+  // sliderTrack/sliderRail/sliderFill/sliderThumb moved to
+  // src/components/curia/radius-slider.tsx (2026-09-29) — Moments needed
+  // the same real drag slider, not a second copy of it.
   radiusEndpoints: {
     flexDirection: 'row',
     justifyContent: 'space-between',

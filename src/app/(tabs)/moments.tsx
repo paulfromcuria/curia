@@ -1,13 +1,44 @@
 import { Fragment, useMemo, useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Card, Kicker } from '../../components/curia';
+import { Card, formatRadiusMiles, Kicker, RadiusSlider } from '../../components/curia';
 import { DISTRICTS, JOURNEYS, MOMENTS, VENUES, journeyDistricts, journeyHasClosedStop } from '../../lib/data/seed';
 import { placeholderPhotoFor } from '../../lib/data/placeholder-photos';
+import { centroid, MAX_RADIUS_MILES, metroForPoint, MIN_RADIUS_MILES } from '../../lib/map/geo';
 import { haversineMiles, isVenueClosed } from '../../lib/scoring/rank-venues';
 import { useSession } from '../../lib/state/session';
-import type { Journey, MomentType } from '../../types/models';
+import type { Journey, MetroId, MomentType } from '../../types/models';
 import { color, font, radius, spacing } from '../../theme';
+
+/**
+ * Real regions to browse by (2026-09-29, replacing the area-radius-from-a-
+ * tapped-district model above with a real region concept — see the file's
+ * own doc comment for the direct user report this fixes: an unscoped
+ * "EVERYWHERE" mixed in venues from every metro at once with nothing
+ * saying so — Chicago's Hyde Park/Kenwood showed up looking like local
+ * Cheshire picks). Manchester+Cheshire stay one combined "home" region,
+ * matching every other browsing surface in the app (DEFAULT_METROS,
+ * the old district pill row) — they were never distinguished from each
+ * other anywhere else, so splitting them apart only here would be new
+ * inconsistency, not a fix.
+ */
+const REGIONS: { id: string; label: string; metros: MetroId[] }[] = [
+  { id: 'home', label: 'Manchester & Cheshire', metros: ['manchester', 'cheshire'] },
+  { id: 'london', label: 'London', metros: ['london'] },
+  { id: 'chicago', label: 'Chicago', metros: ['chicago'] },
+  { id: 'riyadh', label: 'Riyadh', metros: ['riyadh'] },
+];
+
+/** Local, home-region default — generous enough to comfortably span a real
+ * cluster (Alderley Edge/Wilmslow/Mobberley/Hale/Knutsford are all within
+ * this of each other) without needing to touch the slider on a first
+ * visit. A non-home region defaults to MAX_RADIUS_MILES instead (see
+ * `setRegion` below) — "distance from yourself" has no real meaning once
+ * yourself is a different city, so that case defaults to showing the
+ * whole region rather than a number of miles that would exclude
+ * everything.
+ */
+const DEFAULT_HOME_RADIUS_MILES = 8;
 
 type SeedVenue = (typeof VENUES)[number];
 type SeedDistrict = (typeof DISTRICTS)[number];
@@ -163,26 +194,41 @@ function JourneyCards({ journeys }: { journeys: Journey[] }) {
  * structure entirely (moments stay the real, fixed 4 types — CLAUDE.md's
  * "do not add without a product decision").
  *
- * 2026-09-29 update, at explicit user request ("loosen the criteria for
- * being good for a date night when filtered by district... nudge user
- * behaviour towards using a search radius, and instead of choosing
+ * 2026-09-29 update #1, at explicit user request ("loosen the criteria
+ * for being good for a date night when filtered by district... nudge
+ * user behaviour towards using a search radius, and instead of choosing
  * specific districts, let them filter by area instead"): the pill row
  * used to filter to an EXACT district id match, which read fine for a
  * dense district but went thin or duplicate-looking for a small one — a
  * real report: filtering Date Night to Knutsford surfaced exactly one
  * pick, LI-LY, and it was *also* the only Entertaining a Client pick, so
- * the same photo showed twice in a row. Tapping a pill now sets an AREA
- * CENTER (`district` — the param name stays, District Guide's "ALL
- * MOMENTS IN {DISTRICT}" link is unchanged) rather than an exact filter;
- * a second pill row (`areaRadiusMiles`, shown once a center is picked)
- * sets how far around it counts, same haversineMiles-from-a-point model
- * List's own radius slider already uses, just a fixed small preset row
- * here rather than a full drag slider. Because an area can now
- * genuinely span several real districts at once, a once-per-group
- * subheading can no longer say which district a given card is in —
- * every `MomentVenueCard` now prints its own district name instead (see
- * that component's doc comment), and the old subheading-grouping
- * (`groupVenuesByDistrict`) is gone; every rail is flat.
+ * the same photo showed twice in a row. Because a rail can now span
+ * several real districts at once, a once-per-group subheading can no
+ * longer say which district a given card is in — every `MomentVenueCard`
+ * now prints its own district name instead (see that component's doc
+ * comment), and the old subheading-grouping (`groupVenuesByDistrict`) is
+ * gone; every rail is flat.
+ *
+ * 2026-09-29 update #2, direct follow-up user report ("i shouldnt be
+ * seeing london businesses but i am"): update #1's own first cut let a
+ * tapped district set a bare radius-from-that-point with no metro
+ * boundary at all — harmless near home, but the *default*, unfiltered
+ * "EVERYWHERE" state mixed every real metro into one flat rail with
+ * nothing distinguishing them (Chicago's Hyde Park/Kenwood read as local
+ * Cheshire picks). Proposed and built the way the user asked for it: a
+ * real three-level filter — REGION first (`REGIONS` above, a hard
+ * pre-filter on `venue.metro`, always resolved to a real region, never
+ * "every metro at once"), a `RadiusSlider` measuring real distance from
+ * yourself *within* that region, and a small secondary district row to
+ * narrow to one exact district when you want precision over breadth.
+ * `district` (still the same param District Guide's "ALL MOMENTS IN
+ * {DISTRICT}" link sets) is now that exact override again, not an area
+ * center — when set, it ignores the radius entirely. The slider's
+ * reference point is real device location while the selected region is
+ * genuinely the one the member is standing in; otherwise it's that
+ * region's own centroid ("distance from yourself" has no meaning once
+ * yourself is a different city) — see `setRegion`'s own comment for why
+ * the default radius also depends on which of those two is true.
  *
  * 2026-09-14/15 updates, at explicit user request: the curator byline ("BY
  * ELENA M.") is hidden here and in District Guide's "Kept by our editors"
@@ -209,39 +255,25 @@ function JourneyCards({ journeys }: { journeys: Journey[] }) {
  * chips (a venue can be a pick in more than one Moment) can deep-link
  * straight to the relevant section instead of dumping the visitor into
  * every moment active nearby. It has no effect on the Journeys view.
- * Selecting "EVERYWHERE" clears `district`/`areaRadiusMiles`, preserving
- * `moment` and `view` if set — the params narrow independently.
+ * `region`/`district`/`view`/`moment` all narrow independently.
  */
 export default function Moments() {
   const router = useRouter();
   const session = useSession();
   const {
+    region: regionParam,
     district: districtId,
     moment: momentType,
     view: viewParam,
-  } = useLocalSearchParams<{ district?: string; moment?: MomentType; view?: string }>();
+  } = useLocalSearchParams<{ region?: string; district?: string; moment?: MomentType; view?: string }>();
 
   const view: 'moments' | 'journeys' = viewParam === 'journeys' ? 'journeys' : 'moments';
-  const district = districtId ? DISTRICTS.find((d) => d.id === districtId) : undefined;
 
-  // Area radius (2026-09-29) — see the file's own doc comment above for
-  // the real report this replaces exact-district matching for. Only has
-  // an effect once `district` (the area's center) is set; local state,
-  // not session.radiusMiles — this is a separate, editorial-browse
-  // concept from List/Map's shared "what am I ranking against" radius,
-  // same way the rest of this screen has always been independent of
-  // List/Map's own filtering.
-  const [areaRadiusMiles, setAreaRadiusMiles] = useState(6);
-  const AREA_RADIUS_PRESETS = [3, 6, 12, 25];
-
-  // Area-center pill row (2026-09, extended 2026-09-29 from an exact
-  // filter to an area center). Previously a district could only be set by
-  // deep-linking in from District Guide's "ALL MOMENTS IN {DISTRICT}"
-  // button — this makes the same `district` param pickable directly here.
-  // Scoped to districts that actually have something to show (a moment
-  // pick or a journey stop), ordered nearest-to-the-user-first, same as
-  // List's district-browse mode.
-  const filterableDistricts = useMemo(() => {
+  // Every real district with at least one moment pick or journey stop —
+  // same discipline the old filterableDistricts used, now the basis for
+  // both which regions are worth offering and which districts populate
+  // the small district row within whichever region is selected.
+  const districtsWithContent = useMemo(() => {
     const ids = new Set<string>();
     MOMENTS.forEach((m) =>
       m.venueIds.forEach((id) => {
@@ -252,18 +284,78 @@ export default function Moments() {
     JOURNEYS.filter((j) => !journeyHasClosedStop(j)).forEach((j) =>
       journeyDistricts(j).forEach((d) => ids.add(d.id))
     );
-    return DISTRICTS.filter((d) => ids.has(d.id)).sort(
-      (a, b) => haversineMiles(session.searchOrigin, a) - haversineMiles(session.searchOrigin, b)
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session.searchOrigin]);
+    return DISTRICTS.filter((d) => ids.has(d.id));
+  }, []);
 
-  function goToDistrict(id: string | undefined) {
+  const availableRegions = useMemo(
+    () => REGIONS.filter((r) => districtsWithContent.some((d) => r.metros.includes(d.metro))),
+    [districtsWithContent]
+  );
+
+  // Real metro the member is actually standing in, where resolvable —
+  // session.location first (real device GPS), session.searchOrigin
+  // otherwise (the shared "what am I browsing" point — see CLAUDE.md's
+  // Presentation layer section for why these two are deliberately not
+  // the same field). Decides both the default region on first load and
+  // whether the radius slider below measures from a real self or a
+  // region's own centroid.
+  const homeMetro = metroForPoint(session.location ?? session.searchOrigin);
+  const defaultRegionId =
+    (homeMetro && REGIONS.find((r) => r.metros.includes(homeMetro))?.id) ?? availableRegions[0]?.id ?? 'home';
+  const regionId = regionParam ?? defaultRegionId;
+  const selectedRegion = REGIONS.find((r) => r.id === regionId) ?? REGIONS[0];
+
+  const regionDistricts = useMemo(
+    () => DISTRICTS.filter((d) => selectedRegion.metros.includes(d.metro)),
+    [selectedRegion]
+  );
+  const isHomeRegion = !!homeMetro && selectedRegion.metros.includes(homeMetro);
+  const referencePoint = isHomeRegion ? (session.location ?? session.searchOrigin) : centroid(regionDistricts);
+
+  // The small, secondary "narrow to one district" row — scoped to
+  // whichever region is currently selected, nearest-first.
+  const districtChoices = useMemo(
+    () =>
+      regionDistricts
+        .filter((d) => districtsWithContent.some((dc) => dc.id === d.id))
+        .sort((a, b) => haversineMiles(session.searchOrigin, a) - haversineMiles(session.searchOrigin, b)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [regionDistricts, districtsWithContent]
+  );
+
+  const district = districtId ? DISTRICTS.find((d) => d.id === districtId) : undefined;
+
+  // Radius (2026-09-29) — local state, not session.radiusMiles; a
+  // separate, editorial-browse concept from Map/List's shared ranking
+  // radius, same as the rest of this screen has always been independent
+  // of them. See DEFAULT_HOME_RADIUS_MILES's own doc comment for the
+  // home-vs-other-region default split.
+  const [radiusMiles, setRadiusMiles] = useState(() => (isHomeRegion ? DEFAULT_HOME_RADIUS_MILES : MAX_RADIUS_MILES));
+
+  function setRegion(id: string) {
     router.replace({
       pathname: '/(tabs)/moments',
       params: {
         ...(momentType ? { moment: momentType } : {}),
         ...(view === 'journeys' ? { view } : {}),
+        region: id,
+        // district deliberately dropped — a district from the old region
+        // would be meaningless (or, worse, coincidentally real but wrong)
+        // once the region itself has changed.
+      },
+    });
+    const r = REGIONS.find((rr) => rr.id === id);
+    const home = !!homeMetro && !!r?.metros.includes(homeMetro);
+    setRadiusMiles(home ? DEFAULT_HOME_RADIUS_MILES : MAX_RADIUS_MILES);
+  }
+
+  function setExactDistrict(id: string | undefined) {
+    router.replace({
+      pathname: '/(tabs)/moments',
+      params: {
+        ...(momentType ? { moment: momentType } : {}),
+        ...(view === 'journeys' ? { view } : {}),
+        region: regionId,
         ...(id ? { district: id } : {}),
       },
     });
@@ -274,19 +366,21 @@ export default function Moments() {
       pathname: '/(tabs)/moments',
       params: {
         ...(momentType ? { moment: momentType } : {}),
+        region: regionId,
         ...(districtId ? { district: districtId } : {}),
         ...(v === 'journeys' ? { view: v } : {}),
       },
     });
   }
 
-  // Within-area check, real distance from the venue's own coordinates to
-  // the chosen center (not routed through the venue's own district's
-  // centroid — more accurate, and the only way a venue whose own district
-  // isn't itself in range can still show up because it's genuinely close
-  // to the chosen center).
-  function withinArea(point: { lat: number; lon: number }): boolean {
-    return !district || haversineMiles(district, point) <= areaRadiusMiles;
+  // Region is always a hard pre-filter on the venue's own metro; within
+  // it, an exact district (the small row) overrides the radius entirely
+  // rather than combining with it — see this file's 2026-09-29 update #2
+  // doc comment for the reasoning.
+  function withinFilter(venue: SeedVenue): boolean {
+    if (!selectedRegion.metros.includes(venue.metro)) return false;
+    if (district) return venue.districtId === district.id;
+    return haversineMiles(referencePoint, venue) <= radiusMiles;
   }
 
   const momentSections = useMemo(
@@ -296,32 +390,33 @@ export default function Moments() {
           const venues = m.venueIds
             .map((id) => VENUES.find((v) => v.id === id))
             .filter((v): v is NonNullable<typeof v> => !!v && !isVenueClosed(v))
-            .filter((v) => withinArea(v));
+            .filter((v) => withinFilter(v));
           return { moment: m, venues };
         })
         .filter((sec) => sec.venues.length > 0),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [district, areaRadiusMiles, momentType]
+    [selectedRegion, district, radiusMiles, momentType]
   );
 
-  // Nearest-district-first, same reading as filterableDistricts — a
-  // journey's own meta line already states its district, so (unlike
-  // Moments) no per-card district label is needed here.
+  // Nearest-district-first, same reading as districtChoices — a journey's
+  // own meta line already states its district, so (unlike Moments) no
+  // per-card district label is needed here.
   const journeys = useMemo(() => {
     const filtered = JOURNEYS.filter(
-      (j) => !journeyHasClosedStop(j) && (!district || j.stops.some((s) => {
-        const v = VENUES.find((vv) => vv.id === s.venueId);
-        return v && withinArea(v);
-      }))
+      (j) =>
+        !journeyHasClosedStop(j) &&
+        j.stops.some((s) => {
+          const v = VENUES.find((vv) => vv.id === s.venueId);
+          return v && withinFilter(v);
+        })
     );
     const nearest = (j: Journey) =>
       Math.min(...journeyDistricts(j).map((d) => haversineMiles(session.searchOrigin, d)));
     return [...filtered].sort((a, b) => nearest(a) - nearest(b));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [district, areaRadiusMiles, session.searchOrigin]);
+  }, [selectedRegion, district, radiusMiles, session.searchOrigin]);
 
-  const nothingHere =
-    district !== undefined && (view === 'moments' ? momentSections.length === 0 : journeys.length === 0);
+  const nothingHere = view === 'moments' ? momentSections.length === 0 : journeys.length === 0;
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
@@ -351,58 +446,82 @@ export default function Moments() {
         </Pressable>
       </View>
 
+      <Text style={styles.filterKicker}>REGION</Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.districtFilterRow}
       >
-        <Pressable
-          onPress={() => goToDistrict(undefined)}
-          style={[styles.districtPill, !district && styles.districtPillActive]}
-        >
-          <Text style={[styles.districtPillText, !district && styles.districtPillTextActive]}>
-            EVERYWHERE
-          </Text>
-        </Pressable>
-        {filterableDistricts.map((d) => (
+        {availableRegions.map((r) => (
           <Pressable
-            key={d.id}
-            onPress={() => goToDistrict(d.id)}
-            style={[styles.districtPill, district?.id === d.id && styles.districtPillActive]}
+            key={r.id}
+            onPress={() => setRegion(r.id)}
+            style={[styles.districtPill, regionId === r.id && styles.districtPillActive]}
           >
-            <Text
-              style={[styles.districtPillText, district?.id === d.id && styles.districtPillTextActive]}
-            >
-              {d.name}
+            <Text style={[styles.districtPillText, regionId === r.id && styles.districtPillTextActive]}>
+              {r.label.toUpperCase()}
             </Text>
           </Pressable>
         ))}
       </ScrollView>
 
-      {district && (
-        <View style={styles.radiusRow}>
-          <Text style={styles.radiusLabel}>WITHIN</Text>
-          {AREA_RADIUS_PRESETS.map((mi) => (
+      {!district && (
+        <View style={styles.radiusBlock}>
+          <View style={styles.radiusHeaderRow}>
+            <Text style={styles.filterKicker}>WITHIN</Text>
+            <Text style={styles.radiusValue}>{formatRadiusMiles(radiusMiles)}</Text>
+          </View>
+          <RadiusSlider value={radiusMiles} onChange={setRadiusMiles} />
+        </View>
+      )}
+
+      {districtChoices.length > 0 && (
+        <View style={styles.districtNarrowBlock}>
+          <Text style={styles.filterKicker}>OR NARROW TO A DISTRICT</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.districtNarrowRow}
+          >
             <Pressable
-              key={mi}
-              onPress={() => setAreaRadiusMiles(mi)}
-              style={[styles.districtPill, areaRadiusMiles === mi && styles.districtPillActive]}
+              onPress={() => setExactDistrict(undefined)}
+              style={[styles.districtNarrowPill, !district && styles.districtNarrowPillActive]}
             >
               <Text
-                style={[styles.districtPillText, areaRadiusMiles === mi && styles.districtPillTextActive]}
+                style={[styles.districtNarrowPillText, !district && styles.districtNarrowPillTextActive]}
               >
-                {mi} MI
+                ANY DISTRICT
               </Text>
             </Pressable>
-          ))}
+            {districtChoices.map((d) => (
+              <Pressable
+                key={d.id}
+                onPress={() => setExactDistrict(d.id)}
+                style={[styles.districtNarrowPill, district?.id === d.id && styles.districtNarrowPillActive]}
+              >
+                <Text
+                  style={[
+                    styles.districtNarrowPillText,
+                    district?.id === d.id && styles.districtNarrowPillTextActive,
+                  ]}
+                >
+                  {d.name}
+                </Text>
+              </Pressable>
+            ))}
+          </ScrollView>
         </View>
       )}
 
       {nothingHere && (
         <Card tone="inset" style={styles.emptyCard}>
-          <Text style={styles.emptyTitle}>Nothing within {areaRadiusMiles} mi of {district?.name} yet.</Text>
+          <Text style={styles.emptyTitle}>
+            {district ? `Nothing kept in ${district.name} yet.` : `Nothing within ${formatRadiusMiles(radiusMiles)} yet.`}
+          </Text>
           <Text style={styles.emptyBody}>
-            Widen the radius above, or our editors are working through Cheshire this season.
+            {district
+              ? 'Try Any District above for the rest of the region, or check back as our editors keep going.'
+              : 'Widen the radius above, or our editors are still working through this region.'}
           </Text>
         </Card>
       )}
@@ -482,25 +601,18 @@ const styles = StyleSheet.create({
   viewToggleTextActive: {
     color: color.goldLight,
   },
-  districtFilterRow: {
-    gap: spacing.sm,
-    paddingBottom: 2,
-  },
-  // Area radius row (2026-09-29) — same pill visuals as the district row
-  // above, reused rather than a new style, only shown once an area
-  // center (`district`) is picked. See the file's own top doc comment.
-  radiusRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: spacing.sm,
-    marginTop: -spacing.sm,
-  },
-  radiusLabel: {
+  // Small section label shared by all three filter rows (REGION / WITHIN /
+  // OR NARROW TO A DISTRICT) — one style, three headings, same register.
+  filterKicker: {
     fontFamily: font.sansMedium,
     fontSize: 10,
     letterSpacing: 1.6,
     color: color.textTertiary,
+    marginBottom: spacing.xs,
+  },
+  districtFilterRow: {
+    gap: spacing.sm,
+    paddingBottom: 2,
   },
   districtPill: {
     paddingVertical: 9,
@@ -521,6 +633,53 @@ const styles = StyleSheet.create({
   },
   districtPillTextActive: {
     color: color.goldLight,
+  },
+  // Real drag slider (2026-09-29, RadiusSlider — components/curia) — how
+  // far to look within the selected region, measured from a real self or
+  // a region centroid depending on which region is picked (see the
+  // screen's own doc comment).
+  radiusBlock: {
+    marginTop: -spacing.xs,
+  },
+  radiusHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+  },
+  radiusValue: {
+    fontFamily: font.serifRegular,
+    fontSize: 13,
+    color: color.textPrimary,
+  },
+  // The small, secondary "or just this one district" row (2026-09-29) —
+  // deliberately smaller/dimmer than the region pills above, so it reads
+  // as an optional precision override, not a second primary control.
+  districtNarrowBlock: {
+    marginTop: -spacing.xs,
+  },
+  districtNarrowRow: {
+    gap: 6,
+    paddingBottom: 2,
+  },
+  districtNarrowPill: {
+    paddingVertical: 6,
+    paddingHorizontal: 11,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: color.hairlineMin,
+  },
+  districtNarrowPillActive: {
+    borderColor: 'rgba(192,160,98,.45)',
+    backgroundColor: 'rgba(192,160,98,.1)',
+  },
+  districtNarrowPillText: {
+    fontFamily: font.sans,
+    fontSize: 9.5,
+    letterSpacing: 1,
+    color: color.textTertiary,
+  },
+  districtNarrowPillTextActive: {
+    color: color.gold,
   },
   emptyCard: {
     alignItems: 'center',
