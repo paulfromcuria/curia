@@ -1,17 +1,19 @@
 import { useEffect, useMemo } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Kicker } from '../../components/curia';
 import {
   CITIES,
   DISTRICTS,
   RATING_STATS,
+  VENUES,
   journeysByDistrict,
   loadVenuesForMetro,
   momentsByDistrict,
   useContentVersion,
   venuesByDistrict,
 } from '../../lib/data/seed';
+import { placeholderPhotoFor } from '../../lib/data/placeholder-photos';
 import { districtLiveliness } from '../../lib/map/geo';
 import { haversineMiles, rankVenues, resolveContext } from '../../lib/scoring/rank-venues';
 import { buildMatchmakingInputFromSession } from '../../lib/scoring/session-input';
@@ -40,6 +42,12 @@ import { color, font, radius, spacing } from '../../theme';
  * off the same full-metro load map.web.tsx's region switcher does, so this
  * screen's ranking is always against the real, complete roster regardless
  * of how a member arrived here.
+ *
+ * 2026-09-29, at explicit user request ("update district guide to match"
+ * the imagery-led pass on Moments/Journeys): TOP MATCHES rows and KEPT BY
+ * OUR EDITORS rows both now show a real photo (same placeholderPhotoFor
+ * fallback as everywhere else) instead of plain text / an empty grey box
+ * — see the `kept` array's own comment below for KEPT's specific case.
  */
 export default function DistrictGuide() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -90,21 +98,36 @@ export default function DistrictGuide() {
 
   const journeys = district ? journeysByDistrict(district.id) : [];
   const moments = district ? momentsByDistrict(district.id) : [];
+  // A representative photo per kept item (2026-09-29, at explicit user
+  // request — "update district guide to match" the imagery-led pass on
+  // Moments/Journeys): a Journey's is its own first stop's; a Moment has
+  // no single venue to stand for it, so its first real pick in this
+  // district stands in. `keptPhoto` used to be a permanently empty grey
+  // box (styles.keptPhoto had a background color and nothing else — no
+  // <Image> was ever rendered inside it), not a placeholder that was
+  // simply hard to notice.
   const kept = [
-    ...journeys.map((j) => ({
-      kicker: 'JOURNEY',
-      title: j.title,
-      sub: j.meta ?? '',
-      onTap: () => router.push(`/journey/${j.id}`),
-    })),
+    ...journeys.map((j) => {
+      const firstStop = j.stops.slice().sort((a, b) => a.order - b.order)[0];
+      const stopVenue = firstStop ? VENUES.find((v) => v.id === firstStop.venueId) : undefined;
+      return {
+        kicker: 'JOURNEY',
+        title: j.title,
+        sub: j.meta ?? '',
+        photoUri: stopVenue ? stopVenue.photos[0] ?? placeholderPhotoFor(stopVenue.type, stopVenue.id) : undefined,
+        onTap: () => router.push(`/journey/${j.id}`),
+      };
+    }),
     ...moments.map((m) => {
-      const pickCount = m.venueIds.filter((vid) => districtVenueIds.has(vid)).length;
+      const pickIds = m.venueIds.filter((vid) => districtVenueIds.has(vid));
+      const repVenue = districtVenues.find((v) => v.id === pickIds[0]);
       return {
         kicker: 'MOMENT',
         title: m.title,
         // Mirrors a Journey's "N STOPS" meta line above — no curator byline
         // here either, see moments.tsx's own doc comment for why.
-        sub: `${pickCount} PICK${pickCount === 1 ? '' : 'S'}`,
+        sub: `${pickIds.length} PICK${pickIds.length === 1 ? '' : 'S'}`,
+        photoUri: repVenue ? repVenue.photos[0] ?? placeholderPhotoFor(repVenue.type, repVenue.id) : undefined,
         onTap: () => router.push({ pathname: '/(tabs)/moments', params: { district: district?.id } }),
       };
     }),
@@ -174,6 +197,13 @@ export default function DistrictGuide() {
           const stats = RATING_STATS[venue.id];
           return (
             <Pressable key={venue.id} onPress={() => router.push(`/venue/${venue.id}`)} style={styles.matchRow}>
+              <View style={styles.matchPhotoWrap}>
+                <Image
+                  source={{ uri: venue.photos[0] ?? placeholderPhotoFor(venue.type, venue.id) }}
+                  style={styles.matchPhoto}
+                  resizeMode="cover"
+                />
+              </View>
               <View style={styles.matchText}>
                 <Text style={styles.matchRank}>NO. {idx + 1}</Text>
                 <View style={styles.matchNameRow}>
@@ -206,7 +236,9 @@ export default function DistrictGuide() {
         )}
         {keptShown.map((k, idx) => (
           <Pressable key={`${k.kicker}-${idx}`} onPress={k.onTap} style={styles.keptRow}>
-            <View style={styles.keptPhoto} />
+            <View style={styles.keptPhoto}>
+              {k.photoUri && <Image source={{ uri: k.photoUri }} style={styles.keptPhotoImage} resizeMode="cover" />}
+            </View>
             <View style={styles.keptText}>
               <Text style={styles.keptKicker}>{k.kicker}</Text>
               <Text style={styles.keptTitle}>{k.title}</Text>
@@ -336,6 +368,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: color.hairlineMin,
   },
+  matchPhotoWrap: {
+    width: 84,
+    height: 84,
+    borderRadius: radius.md,
+    overflow: 'hidden',
+    backgroundColor: color.surface,
+  },
+  matchPhoto: {
+    ...StyleSheet.absoluteFill,
+  },
   matchText: { flex: 1, gap: 6 },
   // Same "NO. N" gold-kicker convention as the map's venue popup
   // (buildVenuePopupElement in map.web.tsx) — an ordinal position, not a
@@ -396,7 +438,11 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: radius.md,
+    overflow: 'hidden',
     backgroundColor: color.surface,
+  },
+  keptPhotoImage: {
+    ...StyleSheet.absoluteFill,
   },
   keptText: { flex: 1, gap: 5 },
   keptKicker: {
