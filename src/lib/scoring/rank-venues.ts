@@ -432,8 +432,17 @@ function isOutdoorLeaning(venue: Venue): boolean {
 }
 
 const WET_OR_COLD = ['rain', 'snow', 'sleet', 'storm', 'cold', 'freezing'];
-const WARM_OR_CLEAR = ['sun', 'clear', 'warm', 'hot'];
-const EXTREME_WEATHER_KEYWORDS = ['storm', 'rain', 'downpour', 'snow', 'gale', 'thunder', 'sleet'];
+/** Exported — reused by src/lib/weather/forecast.ts's isExtremeWeather() to
+ * decide whether "clear" weather is genuinely sunny enough to matter, the
+ * same "nice weather" vocabulary this file's own scoring already keys off. */
+export const WARM_OR_CLEAR = ['sun', 'clear', 'warm', 'hot'];
+/** Exported — the one canonical "genuinely extreme, not just unpleasant"
+ * keyword list, reused by isExtremeWeather() (src/lib/weather/forecast.ts)
+ * for the Moments screen's weather-led category bump, so "extreme" means
+ * the same thing there as it already does for this file's own weight
+ * boost/outdoor-venue discount — one definition, two independent
+ * consumers, not two definitions that can quietly drift apart. */
+export const EXTREME_WEATHER_KEYWORDS = ['storm', 'rain', 'downpour', 'snow', 'gale', 'thunder', 'sleet'];
 
 /**
  * Weather isn't given a precise formula anywhere in CLAUDE.md, just listed as

@@ -7,6 +7,7 @@ import { placeholderPhotoFor } from '../../lib/data/placeholder-photos';
 import { centroid, MAX_RADIUS_MILES, metroForPoint, MIN_RADIUS_MILES } from '../../lib/map/geo';
 import { haversineMiles, isVenueClosed } from '../../lib/scoring/rank-venues';
 import { useSession } from '../../lib/state/session';
+import { isExtremeWeather } from '../../lib/weather/forecast';
 import type { Journey, MetroId, MomentCategory, MomentType } from '../../types/models';
 import { MOMENT_CATEGORIES } from '../../types/models';
 import { color, font, radius, spacing } from '../../theme';
@@ -259,10 +260,12 @@ function JourneyCards({ journeys }: { journeys: Journey[] }) {
  * An optional `category` param (a `MomentCategory`, added 2026-09-30 when
  * Moments widened from 4 to 17 types) narrows to one category's sections;
  * with neither `moment` nor `category` set, every category renders as its
- * own labeled group, in `MOMENT_CATEGORIES` order — the natural
- * continuation of the old "just show all 4" behavior at 17-type scale,
- * not a new paradigm. `region`/`district`/`view`/`moment`/`category` all
- * narrow independently.
+ * own labeled group, in `orderedMomentCategories` order — `MOMENT_CATEGORIES`'
+ * own fixed order, unless genuinely extreme weather bumps Weather-Led to
+ * the front (see that memo's own doc comment) — the natural continuation
+ * of the old "just show all 4" behavior at 17-type scale, not a new
+ * paradigm. `region`/`district`/`view`/`moment`/`category` all narrow
+ * independently.
  */
 export default function Moments() {
   const router = useRouter();
@@ -435,26 +438,54 @@ export default function Moments() {
     [selectedRegion, district, radiusMiles, momentType, categoryParam]
   );
 
-  // Groups momentSections under their MOMENT_CATEGORIES header, in display
-  // order, dropping any category with nothing to show here (same "only
-  // real content, never an empty section" discipline as momentSections
-  // itself). When a single category is already selected via the pill row,
-  // the per-group heading is redundant with the active pill and skipped at
-  // render time below, not filtered out here — groupedMomentSections stays
-  // the one shared shape for both states.
+  // Context-aware category order (2026-09-30, at explicit user request:
+  // "figure out a context aware way of reordering the list of moment...
+  // during extremes aka super sunny or snowing etc it should be bumped").
+  // MOMENT_CATEGORIES' own order is the base case; genuinely extreme
+  // weather (isExtremeWeather — a real storm/snow, same bar rank-venues.ts
+  // already uses, or a properly hot clear day) bumps Weather-Led to the
+  // front instead. One rule today, but written as an ordered list of
+  // independent bump checks — the same "documented, extensible rule set"
+  // shape weightsFor (rank-venues.ts) already uses for context-dependent
+  // ranking weights — so a future signal (e.g. a real event/fixture feed
+  // for Sport & Spectating) adds a new entry here rather than a rewrite.
+  // Deliberately not day-of-week-based for anything else yet: nothing in
+  // this app has real fixture/event data to justify bumping Sport &
+  // Spectating "because it's Saturday," and this file's own notification-
+  // prefs precedent (session.tsx) already cut a feature for promising a
+  // signal the app couldn't actually back.
+  const weatherExtreme = isExtremeWeather(session.weather);
+  const orderedMomentCategories = useMemo(() => {
+    if (!weatherExtreme) return MOMENT_CATEGORIES;
+    const weatherLed = MOMENT_CATEGORIES.find((c) => c.id === 'weather-led');
+    if (!weatherLed) return MOMENT_CATEGORIES;
+    return [weatherLed, ...MOMENT_CATEGORIES.filter((c) => c.id !== 'weather-led')];
+  }, [weatherExtreme]);
+
+  // Groups momentSections under their orderedMomentCategories header, in
+  // display order, dropping any category with nothing to show here (same
+  // "only real content, never an empty section" discipline as
+  // momentSections itself). When a single category is already selected via
+  // the pill row, the per-group heading is redundant with the active pill
+  // and skipped at render time below, not filtered out here —
+  // groupedMomentSections stays the one shared shape for both states.
   const groupedMomentSections = useMemo(
     () =>
-      MOMENT_CATEGORIES.map((cat) => ({
-        category: cat,
-        sections: momentSections.filter((sec) => sec.moment.category === cat.id),
-      })).filter((g) => g.sections.length > 0),
-    [momentSections]
+      orderedMomentCategories
+        .map((cat) => ({
+          category: cat,
+          sections: momentSections.filter((sec) => sec.moment.category === cat.id),
+        }))
+        .filter((g) => g.sections.length > 0),
+    [orderedMomentCategories, momentSections]
   );
 
   // Which categories actually have real content anywhere in the currently
   // selected region/district/radius (independent of the category filter
   // itself) — the same "only offer a pill that leads somewhere real" rule
-  // districtChoices/availableRegions already follow.
+  // districtChoices/availableRegions already follow. Ordered the same way
+  // groupedMomentSections is, so the pill row and the content below never
+  // disagree about what's first.
   const availableCategories = useMemo(() => {
     const ids = new Set<string>();
     MOMENTS.filter((m) => !momentType || m.type === momentType).forEach((m) => {
@@ -464,9 +495,9 @@ export default function Moments() {
       });
       if (hasVisible) ids.add(m.category);
     });
-    return MOMENT_CATEGORIES.filter((c) => ids.has(c.id));
+    return orderedMomentCategories.filter((c) => ids.has(c.id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedRegion, district, radiusMiles, momentType]);
+  }, [orderedMomentCategories, selectedRegion, district, radiusMiles, momentType]);
 
   // Nearest-district-first, same reading as districtChoices — a journey's
   // own meta line already states its district, so (unlike Moments) no

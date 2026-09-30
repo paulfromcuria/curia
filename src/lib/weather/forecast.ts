@@ -16,6 +16,7 @@
  * scoring engine at all.
  */
 import type { DayTimeBand } from '../../types/models';
+import { EXTREME_WEATHER_KEYWORDS, WARM_OR_CLEAR } from '../scoring/rank-venues.ts';
 
 const OPEN_METEO_URL = 'https://api.open-meteo.com/v1/forecast';
 
@@ -146,4 +147,36 @@ export async function fetchWeather(
   } catch {
     return null;
   }
+}
+
+/** A genuinely hot day in this app's real, live markets (UK/Cheshire/
+ * Manchester weather, the only region real forecasts are wired up for) —
+ * not just "a mild clear afternoon." Deliberately separate from
+ * EXTREME_WEATHER_KEYWORDS, which only covers the wet/cold side (storm,
+ * snow, etc.) — nothing in that list, or in WARM_OR_CLEAR's own "nice
+ * weather" vocabulary, previously distinguished a pleasant 18° day from a
+ * genuine 28° one, and "super sunny" needs that distinction to mean
+ * anything. */
+const EXTREME_HOT_THRESHOLD_C = 25;
+
+/**
+ * True for weather genuinely extreme enough to be worth surfacing, not
+ * just "a bit off" — a real storm/snow/downpour (EXTREME_WEATHER_KEYWORDS,
+ * the same bar rank-venues.ts's own weight boost and outdoor-venue
+ * discount already use) or a properly hot, clear day (temperature parsed
+ * straight out of this module's own "24° Clear" format, not a second
+ * fetch). Built for src/app/(tabs)/moments.tsx's context-aware category
+ * ordering (2026-09-30, at explicit user request: "during extremes aka
+ * super sunny or snowing etc it should be bumped") — kept here, next to
+ * the format it parses, rather than in moments.tsx, so a future change to
+ * that format only needs updating in one place.
+ */
+export function isExtremeWeather(weather: string | null | undefined): boolean {
+  if (!weather) return false;
+  const w = weather.toLowerCase();
+  if (EXTREME_WEATHER_KEYWORDS.some((k) => w.includes(k))) return true;
+
+  const tempMatch = w.match(/^(-?\d+)°/);
+  const temp = tempMatch ? Number(tempMatch[1]) : null;
+  return temp !== null && temp >= EXTREME_HOT_THRESHOLD_C && WARM_OR_CLEAR.some((k) => w.includes(k));
 }
