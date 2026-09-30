@@ -23,6 +23,19 @@ const MOMENT_LABEL: Record<MomentType, string> = {
   'entertaining-a-client': 'Entertaining a Client',
   'big-group-of-friends': 'Big Group of Friends',
   'solo-reset': 'Solo Reset',
+  'watch-the-football': 'Watch the Football',
+  'big-fight-night': 'Big Fight Night',
+  'pub-crawl': 'Pub Crawl',
+  'sunday-session': 'Sunday Session',
+  'quiz-night': 'Quiz Night',
+  'birthday-blowout': 'Birthday Blowout',
+  'leaving-do': 'Leaving Do',
+  'hen-stag-send-off': 'Hen & Stag Send-Off',
+  'after-work-unwind': 'After-Work Unwind',
+  'sunday-roast': 'Sunday Roast',
+  'brunch-not-rushed': "Brunch That Isn't Rushed",
+  'first-sunny-evening': 'First Sunny Evening',
+  'cosy-winter-warm-up': 'Cosy Winter Warm-Up',
 };
 
 const DIETARY_LABEL: Record<Exclude<DietaryRequirement, 'none'>, string> = {

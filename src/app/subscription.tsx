@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { BackButton, Button, Kicker } from '../components/curia';
 import { useSession } from '../lib/state/session';
@@ -46,13 +46,28 @@ const PERKS = [
  */
 export default function Subscription() {
   const router = useRouter();
-  const { isSubscribed, enterOpenBeta } = useSession();
+  const { isSubscribed, enterOpenBeta, authReady, isAuthenticated, onboardingComplete } = useSession();
 
   function onEnter() {
     enterOpenBeta();
     // Route through "/" rather than hardcoding a tab path so the redirect
     // chain in index.tsx stays the single source of truth for "what's next".
     router.replace('/');
+  }
+
+  // Same missing-guard bug as onboarding.tsx (found live 2026-09-30) — this
+  // screen is a standalone route too, so a refresh lands here directly
+  // without passing through index.tsx's redirect chain. Mirrors the same
+  // authReady/isAuthenticated/onboardingComplete guard (tabs)/_layout.tsx
+  // already enforces before letting anyone reach this gate.
+  if (!authReady) {
+    return <View style={styles.container} />;
+  }
+  if (!isAuthenticated) {
+    return <Redirect href="/(auth)/login" />;
+  }
+  if (!onboardingComplete) {
+    return <Redirect href="/onboarding" />;
   }
 
   if (!isSubscribed) {
