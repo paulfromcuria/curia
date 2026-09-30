@@ -46,7 +46,7 @@ const MOMENT_TYPE_BY_TITLE = {
   'Watch the Football': 'watch-the-football',
   'Big Fight Night': 'big-fight-night',
   'Pub Crawl': 'pub-crawl',
-  'Sunday Session': 'sunday-session',
+  'Pubby Sunday': 'sunday-session',
   'Quiz Night': 'quiz-night',
   'Birthday Blowout': 'birthday-blowout',
   'Leaving Do': 'leaving-do',
