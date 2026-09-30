@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Redirect, useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState, type ReactNode } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Card, Kicker, Tag, Wordmark } from '../components/curia';
@@ -242,6 +242,22 @@ export default function Onboarding() {
     }
     setStep(STEPS[stepIndex + 1]);
     setOpenTileId(null);
+  }
+
+  // Real bug found live 2026-09-30 ("sometimes when refreshing i get forced
+  // into onboarding instead of log in"): unlike (tabs)/_layout.tsx,
+  // (auth)/_layout.tsx and admin/_layout.tsx, this screen had no auth guard
+  // at all. A refresh lands the web router directly on whatever path is in
+  // the address bar (e.g. /onboarding, left there by an earlier legitimate
+  // redirect) without ever passing through index.tsx's centralized
+  // authReady/isAuthenticated/onboardingComplete chain — so a signed-out or
+  // still-restoring visitor saw the onboarding flow instead of being sent to
+  // login. Mirrors the same guard pattern those three already use.
+  if (!session.authReady) {
+    return <View style={styles.container} />;
+  }
+  if (!session.isAuthenticated) {
+    return <Redirect href="/(auth)/login" />;
   }
 
   return (
