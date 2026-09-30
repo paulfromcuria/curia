@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Card, formatRadiusMiles, Kicker, RadiusSlider } from '../../components/curia';
@@ -6,8 +6,22 @@ import { DISTRICTS, JOURNEYS, MOMENTS, VENUES, journeyDistricts, journeyHasClose
 import { placeholderPhotoFor } from '../../lib/data/placeholder-photos';
 import { centroid, MAX_RADIUS_MILES, metroForPoint, MIN_RADIUS_MILES } from '../../lib/map/geo';
 import { haversineMiles, isVenueClosed } from '../../lib/scoring/rank-venues';
+import {
+  BIG_EVENT_BUMP_LOOKAHEAD_HOURS,
+  BIG_EVENT_DURATION_HOURS,
+  BIG_EVENT_SHOW_LOOKAHEAD_HOURS,
+  describeFixtureTiming,
+  fetchNextBigEventFixture,
+  fetchNextFootballFixture,
+  type Fixture,
+  FOOTBALL_BUMP_LOOKAHEAD_HOURS,
+  FOOTBALL_DURATION_HOURS,
+  FOOTBALL_SHOW_LOOKAHEAD_HOURS,
+  isWithinFixtureWindow,
+} from '../../lib/sports/fixtures';
 import { useSession } from '../../lib/state/session';
-import { isExtremeWeather } from '../../lib/weather/forecast';
+import { fetchExtremeWeatherOutlook, isExtremeWeather } from '../../lib/weather/forecast';
+import { DEMO_LOCATION } from '../../lib/scoring/session-input';
 import type { Journey, MetroId, MomentCategory, MomentType } from '../../types/models';
 import { MOMENT_CATEGORIES } from '../../types/models';
 import { color, font, radius, spacing } from '../../theme';
@@ -422,10 +436,128 @@ export default function Moments() {
     return haversineMiles(referencePoint, venue) <= radiusMiles;
   }
 
+  // Context-aware Moments (2026-09-30, at explicit user request: "figure
+  // out a context aware way of reordering the list of moment... during
+  // extremes aka super sunny or snowing etc it should be bumped", then
+  // extended twice the same day: "watch the football and big fight night
+  // should be context aware too", and "if a category isnt relevant
+  // currently, dont even show it... dont show boxing if there isnt a
+  // televised good bocing fight within the next 2 weeks... maybe we could
+  // list the events too". Three real signals, each independent:
+  //
+  // 1. Weather outlook (src/lib/weather/forecast.ts) — a multi-day scan,
+  //    not just the single resolved day+band session.weather already is,
+  //    since "is it worth showing Weather-Led at all" needs to know about
+  //    the next few days, not just right now. Split hot vs cold/wet so
+  //    First Sunny Evening and Cosy Winter Warm-Up can show independently
+  //    — showing a cosy-fire moment during a hot week just because a
+  //    storm is also forecast would be exactly the kind of irrelevant
+  //    clutter this exists to remove.
+  // 2. Real Premier League/Champions League/FA Cup fixtures — Watch the
+  //    Football.
+  // 3. Real Boxing/F1 fixtures — Big Fight Night (Ryder Cup and Sky
+  //    Sports' own schedule were researched and deliberately dropped, see
+  //    src/lib/sports/fixtures.ts's own top comment).
+  //
+  // Each of the 4 context-gated Moment types (the two weather ones, the
+  // two sport ones) gets both a wide SHOW window (is this worth surfacing
+  // at all) and, for the sport pair, a narrower BUMP window (is this
+  // worth leading with) — the "documented, extensible rule set" shape
+  // weightsFor (rank-venues.ts) already uses for context-dependent
+  // ranking weights, not a one-off hardcoded check. Deliberately not
+  // day-of-week-based for anything beyond real fetched data: nothing in
+  // this app has real fixture/forecast data to justify hiding or bumping
+  // a category "because it's Saturday" on its own, and this file's own
+  // notification-prefs precedent (session.tsx) already cut a feature for
+  // promising a signal the app couldn't actually back.
+  const [weatherOutlook, setWeatherOutlook] = useState<{ hotExtreme: boolean; coldWetExtreme: boolean }>({
+    hotExtreme: false,
+    coldWetExtreme: false,
+  });
+  const [nextFootballFixture, setNextFootballFixture] = useState<Fixture | null>(null);
+  const [nextBigEventFixture, setNextBigEventFixture] = useState<Fixture | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    fetchExtremeWeatherOutlook(session.location ?? DEMO_LOCATION, 4).then((outlook) => {
+      if (!cancelled) setWeatherOutlook(outlook);
+    });
+    fetchNextFootballFixture().then((f) => {
+      if (!cancelled) setNextFootballFixture(f);
+    });
+    fetchNextBigEventFixture().then((f) => {
+      if (!cancelled) setNextBigEventFixture(f);
+    });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // "now" is read fresh on every render inside each isWithinFixtureWindow
+  // call below (no Date frozen at fetch time), so the whole show/bump
+  // state stays live between fetches — the "once event ends, it should
+  // adjust accordingly, unless more events are coming up" requirement
+  // falls out of this for free (see isWithinFixtureWindow's own comment).
+  const footballShow = isWithinFixtureWindow(nextFootballFixture, FOOTBALL_SHOW_LOOKAHEAD_HOURS, FOOTBALL_DURATION_HOURS);
+  const footballBumped = isWithinFixtureWindow(nextFootballFixture, FOOTBALL_BUMP_LOOKAHEAD_HOURS, FOOTBALL_DURATION_HOURS);
+  const bigEventShow = isWithinFixtureWindow(nextBigEventFixture, BIG_EVENT_SHOW_LOOKAHEAD_HOURS, BIG_EVENT_DURATION_HOURS);
+  const bigEventBumped = isWithinFixtureWindow(nextBigEventFixture, BIG_EVENT_BUMP_LOOKAHEAD_HOURS, BIG_EVENT_DURATION_HOURS);
+
+  // Which context-gated Moment types are genuinely worth showing right
+  // now — everything else in MOMENTS (Date Night, Pub Crawl, ...) is
+  // always shown, same as before this feature existed.
+  const hiddenMomentTypes = useMemo(() => {
+    const hidden = new Set<MomentType>();
+    if (!weatherOutlook.hotExtreme) hidden.add('first-sunny-evening');
+    if (!weatherOutlook.coldWetExtreme) hidden.add('cosy-winter-warm-up');
+    if (!footballShow) hidden.add('watch-the-football');
+    if (!bigEventShow) hidden.add('big-fight-night');
+    return hidden;
+  }, [weatherOutlook, footballShow, bigEventShow]);
+
+  // Which shown Moment types are "hot" enough to lead with — a real match
+  // or fight/race within its narrower bump window, not just present
+  // somewhere in the next fortnight. Used below to put the live one first
+  // within its category and to bump that category to the front of the
+  // whole list.
+  const hotMomentTypes = useMemo(() => {
+    const set = new Set<MomentType>();
+    if (footballBumped) set.add('watch-the-football');
+    if (bigEventBumped) set.add('big-fight-night');
+    // Weather has no separate "bump" window — showing First Sunny Evening
+    // or Cosy Winter Warm-Up at all already means the outlook found a
+    // genuine extreme somewhere in the next few days; isExtremeWeather
+    // (a stricter, right-now-only check) decides whether that also earns
+    // Weather-Led a spot at the front of the whole category list, below.
+    return set;
+  }, [footballBumped, bigEventBumped]);
+
+  // The real fixture line to show under a context-gated moment's blurb
+  // ("maybe we could list the events too... e.g premier league live now,
+  // or x vs y on at 11pm thursday for boxing") — only populated for
+  // moment types that are actually being shown.
+  const momentFixtureLine = useMemo(() => {
+    const lines: Partial<Record<MomentType, string>> = {};
+    if (!hiddenMomentTypes.has('watch-the-football') && nextFootballFixture) {
+      lines['watch-the-football'] = describeFixtureTiming(nextFootballFixture, FOOTBALL_DURATION_HOURS);
+    }
+    if (!hiddenMomentTypes.has('big-fight-night') && nextBigEventFixture) {
+      lines['big-fight-night'] = describeFixtureTiming(nextBigEventFixture, BIG_EVENT_DURATION_HOURS);
+    }
+    return lines;
+  }, [hiddenMomentTypes, nextFootballFixture, nextBigEventFixture]);
+
+  const weatherExtreme = isExtremeWeather(session.weather);
+
   const momentSections = useMemo(
     () =>
       MOMENTS.filter((m) => !momentType || m.type === momentType)
         .filter((m) => !categoryParam || m.category === categoryParam)
+        // An explicit ?moment= deep link (Venue detail's GOOD FOR chips)
+        // always wins over the ambient hide — a member who tapped a chip
+        // for Cosy Winter Warm-Up wants to see it, whether or not real
+        // cold weather happens to be forecast this visit.
+        .filter((m) => momentType || !hiddenMomentTypes.has(m.type))
         .map((m) => {
           const venues = m.venueIds
             .map((id) => VENUES.find((v) => v.id === id))
@@ -435,49 +567,47 @@ export default function Moments() {
         })
         .filter((sec) => sec.venues.length > 0),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedRegion, district, radiusMiles, momentType, categoryParam]
+    [selectedRegion, district, radiusMiles, momentType, categoryParam, hiddenMomentTypes]
   );
 
-  // Context-aware category order (2026-09-30, at explicit user request:
-  // "figure out a context aware way of reordering the list of moment...
-  // during extremes aka super sunny or snowing etc it should be bumped").
-  // MOMENT_CATEGORIES' own order is the base case; genuinely extreme
-  // weather (isExtremeWeather — a real storm/snow, same bar rank-venues.ts
-  // already uses, or a properly hot clear day) bumps Weather-Led to the
-  // front instead. One rule today, but written as an ordered list of
-  // independent bump checks — the same "documented, extensible rule set"
-  // shape weightsFor (rank-venues.ts) already uses for context-dependent
-  // ranking weights — so a future signal (e.g. a real event/fixture feed
-  // for Sport & Spectating) adds a new entry here rather than a rewrite.
-  // Deliberately not day-of-week-based for anything else yet: nothing in
-  // this app has real fixture/event data to justify bumping Sport &
-  // Spectating "because it's Saturday," and this file's own notification-
-  // prefs precedent (session.tsx) already cut a feature for promising a
-  // signal the app couldn't actually back.
-  const weatherExtreme = isExtremeWeather(session.weather);
+  const bumpedCategoryIds = useMemo(() => {
+    const ids: MomentCategory[] = [];
+    if (weatherExtreme) ids.push('weather-led');
+    if (hotMomentTypes.size > 0) ids.push('sport-spectating');
+    return ids;
+  }, [weatherExtreme, hotMomentTypes]);
+
   const orderedMomentCategories = useMemo(() => {
-    if (!weatherExtreme) return MOMENT_CATEGORIES;
-    const weatherLed = MOMENT_CATEGORIES.find((c) => c.id === 'weather-led');
-    if (!weatherLed) return MOMENT_CATEGORIES;
-    return [weatherLed, ...MOMENT_CATEGORIES.filter((c) => c.id !== 'weather-led')];
-  }, [weatherExtreme]);
+    if (bumpedCategoryIds.length === 0) return MOMENT_CATEGORIES;
+    const bumped = bumpedCategoryIds
+      .map((id) => MOMENT_CATEGORIES.find((c) => c.id === id))
+      .filter((c): c is (typeof MOMENT_CATEGORIES)[number] => !!c);
+    const rest = MOMENT_CATEGORIES.filter((c) => !bumpedCategoryIds.includes(c.id));
+    return [...bumped, ...rest];
+  }, [bumpedCategoryIds]);
 
   // Groups momentSections under their orderedMomentCategories header, in
   // display order, dropping any category with nothing to show here (same
   // "only real content, never an empty section" discipline as
-  // momentSections itself). When a single category is already selected via
-  // the pill row, the per-group heading is redundant with the active pill
-  // and skipped at render time below, not filtered out here —
-  // groupedMomentSections stays the one shared shape for both states.
+  // momentSections itself — a category left with zero visible sections
+  // once hiddenMomentTypes has done its work drops out here the same way
+  // an empty region/district match always has) — and within a group, a
+  // hot moment type (e.g. Watch the Football with a real match on) sorts
+  // first. When a single category is already selected via the pill row,
+  // the per-group heading is redundant with the active pill and skipped
+  // at render time below, not filtered out here — groupedMomentSections
+  // stays the one shared shape for both states.
   const groupedMomentSections = useMemo(
     () =>
       orderedMomentCategories
         .map((cat) => ({
           category: cat,
-          sections: momentSections.filter((sec) => sec.moment.category === cat.id),
+          sections: momentSections
+            .filter((sec) => sec.moment.category === cat.id)
+            .sort((a, b) => Number(hotMomentTypes.has(b.moment.type)) - Number(hotMomentTypes.has(a.moment.type))),
         }))
         .filter((g) => g.sections.length > 0),
-    [orderedMomentCategories, momentSections]
+    [orderedMomentCategories, momentSections, hotMomentTypes]
   );
 
   // Which categories actually have real content anywhere in the currently
@@ -488,16 +618,18 @@ export default function Moments() {
   // disagree about what's first.
   const availableCategories = useMemo(() => {
     const ids = new Set<string>();
-    MOMENTS.filter((m) => !momentType || m.type === momentType).forEach((m) => {
-      const hasVisible = m.venueIds.some((id) => {
-        const v = VENUES.find((vv) => vv.id === id);
-        return v && !isVenueClosed(v) && withinFilter(v);
+    MOMENTS.filter((m) => !momentType || m.type === momentType)
+      .filter((m) => momentType || !hiddenMomentTypes.has(m.type))
+      .forEach((m) => {
+        const hasVisible = m.venueIds.some((id) => {
+          const v = VENUES.find((vv) => vv.id === id);
+          return v && !isVenueClosed(v) && withinFilter(v);
+        });
+        if (hasVisible) ids.add(m.category);
       });
-      if (hasVisible) ids.add(m.category);
-    });
     return orderedMomentCategories.filter((c) => ids.has(c.id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orderedMomentCategories, selectedRegion, district, radiusMiles, momentType]);
+  }, [orderedMomentCategories, selectedRegion, district, radiusMiles, momentType, hiddenMomentTypes]);
 
   // Nearest-district-first, same reading as districtChoices — a journey's
   // own meta line already states its district, so (unlike Moments) no
@@ -670,6 +802,9 @@ export default function Moments() {
                 <View key={moment.id} style={styles.section}>
                   <Text style={styles.title}>{moment.title}</Text>
                   <Text style={styles.blurb}>{moment.blurb}</Text>
+                  {momentFixtureLine[moment.type] && (
+                    <Text style={styles.fixtureLine}>{momentFixtureLine[moment.type]}</Text>
+                  )}
                   <ScrollView
                     horizontal
                     showsHorizontalScrollIndicator={false}
@@ -865,6 +1000,11 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     color: color.textSecondary,
     maxWidth: 320,
+  },
+  fixtureLine: {
+    fontFamily: font.sansMedium,
+    fontSize: 11.5,
+    color: color.gold,
   },
   chipRow: {
     gap: spacing.sm,

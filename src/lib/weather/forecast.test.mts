@@ -10,7 +10,7 @@
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { isExtremeWeather, resolveTargetDate } from './forecast.ts';
+import { isExtremeColdWetWeather, isExtremeHotWeather, isExtremeWeather, resolveTargetDate } from './forecast.ts';
 
 // A fixed Wednesday for deterministic "days ahead" math.
 const WEDNESDAY = new Date(2026, 7, 12, 15, 0, 0); // 2026-08-12 is a Wednesday
@@ -78,4 +78,19 @@ test('isExtremeWeather: no weather data is never extreme', () => {
   assert.equal(isExtremeWeather(undefined), false);
   assert.equal(isExtremeWeather(null), false);
   assert.equal(isExtremeWeather(''), false);
+});
+
+test('isExtremeHotWeather/isExtremeColdWetWeather: the two halves of isExtremeWeather stay independent', () => {
+  // A hot clear day is the hot half only — First Sunny Evening should
+  // show, Cosy Winter Warm-Up should not.
+  assert.equal(isExtremeHotWeather('28° Clear'), true);
+  assert.equal(isExtremeColdWetWeather('28° Clear'), false);
+
+  // Snow is the cold/wet half only, regardless of temperature.
+  assert.equal(isExtremeHotWeather('1° Heavy snow'), false);
+  assert.equal(isExtremeColdWetWeather('1° Heavy snow'), true);
+
+  // A mild day trips neither.
+  assert.equal(isExtremeHotWeather('18° Clear'), false);
+  assert.equal(isExtremeColdWetWeather('18° Clear'), false);
 });

@@ -159,6 +159,28 @@ export async function fetchWeather(
  * anything. */
 const EXTREME_HOT_THRESHOLD_C = 25;
 
+/** The "super sunny" half of isExtremeWeather, split out (2026-09-30) so
+ * Moments (First Sunny Evening vs Cosy Winter Warm-Up) can show/hide each
+ * independently rather than as one combined Weather-Led toggle — showing
+ * a "cosy fire" moment on a genuinely hot week, just because a storm is
+ * also forecast, would be exactly the kind of irrelevant clutter the
+ * category-level hide is meant to remove. */
+export function isExtremeHotWeather(weather: string | null | undefined): boolean {
+  if (!weather) return false;
+  const w = weather.toLowerCase();
+  const tempMatch = w.match(/^(-?\d+)°/);
+  const temp = tempMatch ? Number(tempMatch[1]) : null;
+  return temp !== null && temp >= EXTREME_HOT_THRESHOLD_C && WARM_OR_CLEAR.some((k) => w.includes(k));
+}
+
+/** The storm/snow/downpour half of isExtremeWeather, split out for the
+ * same reason as isExtremeHotWeather above. */
+export function isExtremeColdWetWeather(weather: string | null | undefined): boolean {
+  if (!weather) return false;
+  const w = weather.toLowerCase();
+  return EXTREME_WEATHER_KEYWORDS.some((k) => w.includes(k));
+}
+
 /**
  * True for weather genuinely extreme enough to be worth surfacing, not
  * just "a bit off" — a real storm/snow/downpour (EXTREME_WEATHER_KEYWORDS,
@@ -169,14 +191,68 @@ const EXTREME_HOT_THRESHOLD_C = 25;
  * ordering (2026-09-30, at explicit user request: "during extremes aka
  * super sunny or snowing etc it should be bumped") — kept here, next to
  * the format it parses, rather than in moments.tsx, so a future change to
- * that format only needs updating in one place.
+ * that format only needs updating in one place. Used for the "is it
+ * extreme right now" bump-to-front-of-category signal; the per-moment
+ * show/hide decision uses the two split predicates above plus
+ * fetchExtremeWeatherOutlook below, since that needs to know *which*
+ * extreme, not just whether one exists.
  */
 export function isExtremeWeather(weather: string | null | undefined): boolean {
-  if (!weather) return false;
-  const w = weather.toLowerCase();
-  if (EXTREME_WEATHER_KEYWORDS.some((k) => w.includes(k))) return true;
+  return isExtremeHotWeather(weather) || isExtremeColdWetWeather(weather);
+}
 
-  const tempMatch = w.match(/^(-?\d+)°/);
-  const temp = tempMatch ? Number(tempMatch[1]) : null;
-  return temp !== null && temp >= EXTREME_HOT_THRESHOLD_C && WARM_OR_CLEAR.some((k) => w.includes(k));
+/**
+ * Scans the next `days` days of real hourly forecast (not just one
+ * resolved day+band point, unlike fetchWeather above) and reports whether
+ * a genuine hot extreme or cold/wet extreme shows up anywhere in that
+ * window — built for the Moments screen's "don't show Weather-Led at all
+ * if nothing's actually coming" rule (2026-09-30, at explicit user
+ * request: "dont show the weather one if its overcast for the next few
+ * days"). Reuses the same Open-Meteo hourly endpoint fetchWeather already
+ * calls and the same isExtremeHotWeather/isExtremeColdWetWeather
+ * predicates — one data source and one definition of "extreme", not a
+ * second one invented for the outlook case. A separate network call from
+ * fetchWeather's own (both request overlapping hourly data but for
+ * different purposes — one point-in-time string for scoring/copy, one
+ * whole-window scan for a screen-level show/hide decision) — accepted as
+ * a minor, deliberate duplication rather than restructuring session.tsx's
+ * existing weather fetch to share raw hourly data it doesn't otherwise
+ * need.
+ */
+export async function fetchExtremeWeatherOutlook(
+  location: { lat: number; lon: number },
+  days: number
+): Promise<{ hotExtreme: boolean; coldWetExtreme: boolean }> {
+  const none = { hotExtreme: false, coldWetExtreme: false };
+  try {
+    const url =
+      `${OPEN_METEO_URL}?latitude=${location.lat}&longitude=${location.lon}` +
+      `&hourly=temperature_2m,weather_code&temperature_unit=celsius` +
+      `&forecast_days=${Math.min(Math.max(days, 1) + 1, 10)}&timezone=auto`;
+    const res = await fetch(url);
+    if (!res.ok) return none;
+    const data = (await res.json()) as OpenMeteoResponse;
+    const times = data.hourly?.time;
+    const temps = data.hourly?.temperature_2m;
+    const codes = data.hourly?.weather_code;
+    if (!times || !temps || !codes) return none;
+
+    const now = Date.now();
+    const horizon = now + days * 24 * 60 * 60 * 1000;
+    let hotExtreme = false;
+    let coldWetExtreme = false;
+    for (let i = 0; i < times.length && (!hotExtreme || !coldWetExtreme); i++) {
+      const t = new Date(times[i]).getTime();
+      if (t < now || t > horizon) continue;
+      const temp = temps[i];
+      const code = codes[i];
+      if (temp === undefined || code === undefined) continue;
+      const description = `${Math.round(temp)}° ${describeWeatherCode(code)}`;
+      if (isExtremeHotWeather(description)) hotExtreme = true;
+      if (isExtremeColdWetWeather(description)) coldWetExtreme = true;
+    }
+    return { hotExtreme, coldWetExtreme };
+  } catch {
+    return none;
+  }
 }
