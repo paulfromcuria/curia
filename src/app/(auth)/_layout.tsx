@@ -21,7 +21,7 @@ export default function AuthLayout() {
   if (authReady && isAuthenticated) {
     if (!onboardingComplete) return <Redirect href="/onboarding" />;
     if (!isSubscribed) return <Redirect href="/subscription" />;
-    return <Redirect href="/(tabs)/map" />;
+    return <Redirect href="/(tabs)/moments" />;
   }
 
   return <Stack screenOptions={{ headerShown: false }} />;

@@ -4,7 +4,7 @@
     {
       "itemType": "remove_venue",
       "status": "approved",
-      "syncedToPortal": false,
+      "syncedToPortal": true,
       "proposedDate": "2026-09-05",
       "reason": "Two independent listing sites (Tripadvisor and HappyCow) both explicitly mark King Street Kitchen as CLOSED, and a local Facebook group post laments its closing.",
       "researchNotes": "Web search 2026-09-05: Tripadvisor's own listing title reads 'King Street Kitchen Knutsford - CLOSED' and HappyCow's review page is headed 'CLOSED: King Street Kitchen - Knutsford Restaurant'. A Facebook group post ('Sad to see King Street Kitchen close, need to make sure...') corroborates. Could not independently confirm an exact closure date or find a same-site successor business. The venue's own Instagram/Facebook pages were not conclusively checked for a contradicting recent 'still open' post, so this is flagged for a human glance rather than auto-removed, per the closure-audit rule. DECIDED 2026-09-08 by direct user instruction, in an interactive session (not synced through Curia Command — applied straight to venues.json, same effect).",
@@ -16,7 +16,7 @@
     {
       "itemType": "remove_venue",
       "status": "approved",
-      "syncedToPortal": false,
+      "syncedToPortal": true,
       "proposedDate": "2026-09-05",
       "reason": "A Tripadvisor review reports arriving to find Riva Bar & Restaurant (Hale) closed and 'appears to have closed down' — the second independent closure signal on this venue, after 2026-09-04's dietary/pet research pass already flagged 'recent reviews suggest it closed a few weeks ago' without acting on it.",
       "researchNotes": "Web search 2026-09-05, following up on the open flag left in docs/data/venues.json's own _dietaryPetSource note (2026-09-04: 'recent reviews suggest it closed a few weeks ago', not acted on at the time). A Tripadvisor review of Riva Bar & Restaurant, 4 Cecil Road, Hale describes turning up to a closed restaurant. Other listings (the venue's own site rivahale.uk, OpenTable-style aggregators) still show it as a going concern with normal weekly closed days (Mon/Tue), so the signal is real but not unanimous — exactly the kind of borderline case this queue exists for rather than an auto-removal. DECIDED 2026-09-08 by direct user instruction, in an interactive session (not synced through Curia Command — applied straight to venues.json, same effect).",
@@ -28,7 +28,7 @@
     {
       "itemType": "remove_venue",
       "status": "approved",
-      "syncedToPortal": false,
+      "syncedToPortal": true,
       "proposedDate": "2026-09-05",
       "reason": "alderleyedge.com's own headline ('The times they are a-changin as The Yard closes cafe and shop') confirms the greengrocer/bakery/juice-bar Front Yard that this venue's reason text describes has closed — the second flag on this venue, after 2026-09-04's dietary/pet pass already raised it without acting.",
       "researchNotes": "Web search 2026-09-05, following up on the open flag left in docs/data/venues.json's own _dietaryPetSource note (2026-09-04: 'one source... describes its cafe/shop as having closed at some point', not acted on at the time). alderleyedge.com's own article confirms the Front Yard's organic bakery, artisan butchers and greengrocers — the exact 'market-hall energy' this venue's reason text is built on — closed as a cafe/shop; the Back Yard creative/events space may continue separately, so this reads as the venue's real character changing rather than the whole site vanishing, still a call for a human rather than an auto-removal. DECIDED 2026-09-08 by direct user instruction, in an interactive session (not synced through Curia Command — applied straight to venues.json, same effect).",
@@ -40,7 +40,7 @@
     {
       "itemType": "add_venue",
       "status": "approved",
-      "syncedToPortal": false,
+      "syncedToPortal": true,
       "proposedDate": "2026-09-06",
       "reason": "Only 2 confirmed sites today (Tarporley + Alderley Edge), within the small-sibling-group allowance, but the parent operator publicly states intent to grow this exact brand across Cheshire and the wider North West — the one candidate in today's batch most likely to tip into chain territory soon, so it's a judgment call rather than a clean pass or fail.",
       "researchNotes": "Independently re-verified 2026-09-06: Fire Station Social Cucina, 75 London Road, Alderley Edge SK9 7DY, opened 10 June 2026 in the former Gusto unit — confirmed real, currently trading, non-chain by site count alone (its own site, firestationsocial.co.uk/locations/, lists exactly two locations: Tarporley and Alderley Edge; no third site found anywhere). However, the parent, Cheshire Pub Company (via its 'Project Social Cucina Ltd' restaurant division), publicly describes itself as actively 'growing their portfolio of individual pubs and inns throughout affluent areas of Cheshire' (cheshirepubco.com/we-are-growing/), and press coverage (thebusinessdesk.com) frames the Alderley Edge opening as 'expansion' with stated ambitions to expand the Fire Station Social Cucina brand across the North West. This is a corporate multi-property operator explicitly building this specific concept toward multi-region rollout, not a single family running two local sites — different in kind from the app's existing 2-3-site sibling-group precedents (Cibo/Suburban Green/Smoke Wilmslow/Heddy's/Caramello), which are all family- or chef-owned pairs with no stated expansion plan. Left pending in docs/data/venue-suggestions.json rather than rejected, since today it still technically passes the site-count bar. DECIDED 2026-09-08 by direct user instruction, in an interactive session (not synced through Curia Command — applied straight to venues.json, same effect).",
@@ -62,7 +62,7 @@
     {
       "itemType": "remove_venue",
       "status": "approved",
-      "syncedToPortal": false,
+      "syncedToPortal": true,
       "proposedDate": "2026-09-08",
       "reason": "Les Deux Pizza Bar's own Deliveroo listing currently reads as closed/inactive, and no reopening or 'still trading' signal was found to contradict it.",
       "researchNotes": "Web search 2026-09-08, routine closure-audit rotating slice (indices 121-125 of docs/data/venues.json): Les Deux Pizza Bar (Alderley Edge) shows as closed on its own Deliveroo page. Older opening coverage (Manchester's Finest, ilovemanchester) is still findable but predates this signal and doesn't confirm current trading. Tripadvisor/food-hygiene/Facebook pages still exist, but that's expected for a recently-closed venue too, not proof it's still open. Not corroborated by a second independent source, so flagged for a human glance per the closure-audit rule rather than auto-removed. The other four venues in this run's slice (The Blind Pig, InHale Yoga, Lions Den, Australasia) all re-confirmed still trading with no closure signal. DECIDED 2026-09-08 by direct user instruction, in an interactive session (not synced through Curia Command — applied straight to venues.json, same effect).",
@@ -74,7 +74,7 @@
     {
       "itemType": "add_venue",
       "status": "rejected",
-      "syncedToPortal": false,
+      "syncedToPortal": true,
       "proposedDate": "2026-09-11",
       "reason": "CAMRA and whatpub.com both list Prana as 'Closed Long Term' since a 28/05/2024 update, but a new company (PRANA F&B LIMITED) was incorporated at the same address four months later and remains active today, and a Food Hygiene Ratings record exists for the venue — genuinely conflicting signals about whether it's trading now, not a clean pass or fail.",
       "researchNotes": "RESOLVED 2026-09-22: independently re-verified and confirmed permanently/indefinitely closed. Google Maps marks it 'Permanently closed' (posting disabled), its own site returns a dead Cloudflare error, Instagram/Facebook are gone, Skiddle shows zero events ever listed, and its sister venue (Amp, Stockport) also closed and reopened under an unrelated name. The property (14-16 Ashley Road) is listed for sale as former restaurant premises. The Companies House 'Active' status that made this genuinely uncertain in the first pass is a shell company with overdue first accounts, not evidence of an operating business. Not promoted.",
@@ -96,7 +96,7 @@
     {
       "itemType": "add_venue",
       "status": "approved",
-      "syncedToPortal": false,
+      "syncedToPortal": true,
       "proposedDate": "2026-09-14",
       "reason": "Companies House shows a cluster of similarly-named entities (a dissolved 'Buon Cibo Cheshire Ltd', a 'Buon Cibo Milano Ltd', and a newly incorporated September 2025 'Buon Cibo Group Ltd' with an active restaurant SIC code) that reads more like an operator scaling up than the simple 2-site family pair this candidate was framed as, and the claimed Reddish sister site couldn't be independently confirmed at all.",
       "researchNotes": "RESOLVED 2026-09-22: independently re-verified. The flagged Companies House 'expansion cluster' traces to one family (the Ibrahims) — sole director of both the original trading company and the new holding company — folding a messy multi-year company history (repeated compulsory strike-off notices for late filing, not growth) into one entity in Sept 2025. Two real sites confirmed (Hazel Grove takeaway since 2017-19, Heaton Moor sit-down restaurant), no press, franchise language or multi-site hiring found. A genuine small family operation. Promoted (docs/data/venues.json, migration 0038).",
@@ -118,7 +118,7 @@
     {
       "itemType": "add_venue",
       "status": "approved",
-      "syncedToPortal": false,
+      "syncedToPortal": true,
       "proposedDate": "2026-09-14",
       "reason": "Genuinely independent and non-chain, but its recent history is a closure announced 17 September 2025, a partial (initially daytime-only) reopening 15 October 2025 after community support, and its original operating company dissolved 12 November 2025 — unclear whether it's trading today, and whether the evening/live-music programme central to its 'Irish bar' identity has come back.",
       "researchNotes": "RESOLVED 2026-09-22: independently re-verified. Confirmed trading today, but as a daytime-only brunch café-bar (Wed-Sun 9am-4pm) — the evening/live-music Irish-bar identity in the original candidate copy has not visibly returned in the ~11 months since its Oct 2025 reopening (Google/Instagram both show this as the stable steady state). Ownership has a new wrinkle: the original operating company (RUSTIK LTD, the Ahmeds) dissolved Nov 2025; a new same-named company incorporated Jul 2026 under three different directors — flagged honestly rather than carrying over the 'family-run, the Ahmeds' framing uncritically. Promoted with corrected copy/bands/real opening hours (docs/data/venues.json, migration 0038) — not the original 'brunch by day, a proper session by night' framing.",
@@ -141,7 +141,7 @@
     {
       "itemType": "add_venue",
       "status": "rejected",
-      "syncedToPortal": false,
+      "syncedToPortal": true,
       "proposedDate": "2026-09-16",
       "reason": "A new candidate named 'Underbank' (no 'The') appears to describe the same real venue as this file's own already-promoted 'The Underbank' entry (added 2026-09-11) — the existing entry's reason text (former bank, Des and Nina O'Malley, Pomona Island/Runaway on tap, a basement sound system) matches this candidate fact for fact, while a separate, genuinely different venue on the same street (Benji Taylor's Syndikat-building live-music venue) appears to be the real 'The Underbank' and has apparently never been seeded. This is a naming/identity mix-up between two real venues, not a clean duplicate or a clean distinct-venue case, so it needs a human call rather than a guess.",
       "researchNotes": "RESOLVED 2026-09-22: independently re-verified. Found no evidence the suspected second venue (Benji Taylor's Syndikat-building 'The Underbank') exists today — the theory traced to a January 2025 Instagram announcement of his plan, which appears to have been superseded by what actually opened in May 2025 (the O'Malleys' 'The Underbank', same building, which itself runs gigs/comedy/quiz nights alongside its beer-hall concept — not purely the narrow 'beer hall' the existing catalog description implies, worth a copy update separately). The existing catalog entry's name is correct as-is; no rename or second entry needed. Not promoted as a new venue.",

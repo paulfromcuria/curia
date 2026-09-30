@@ -25,7 +25,7 @@ Supplementary background docs live in `/docs` (`curia-product-spec.md`, `curia-r
 - `District` — name, city/metro FK, boundary geometry, editorial description, liveliness curve (day-of-week × time-of-day — the prototype's `DAY_MULT`/`BAND_MULT` tables are a real, working implementation of this), group/cluster FK (for zoom-level grouping), a distinct accent color per district (see Design tokens)
 - `DistrictGroup` — cluster label (e.g. "The Golden Triangle"), member district FKs, applicable zoom range. Naming rule confirmed by the prototype: a cluster takes a group's own name only when *every* member district is visible; a partial subset of a metro's districts is labelled for the subset (e.g. "Hale & Altrincham"), not the metro name — only the complete set of a metro's districts may carry the metro's own name (e.g. "Central Manchester")
 - `City`/metro — name, region/launch-phase, boundary geometry (for the "unexplored territory"/"BEYOND THE EDGE" boundary — confirmed real feature, copy: *"Curia hasn't arrived here yet... We open a place only once we know it well enough to recommend it."*)
-- `Moment` — exactly **4** types, confirmed by the prototype's own moments data (see Moments below): Date Night, Entertaining a Client, Big Group of Friends, Solo Reset. Each has a curated venue list and an admin curator byline (prototype shows real curator initials, e.g. "ELENA M.", "JAMES O.", "PRIYA N.")
+- `Moment` — **17** types grouped under **7** `MomentCategory` values (see Moments below; widened 2026-09-30 from the original fixed-4, at explicit user request). Each has a curated venue list and an admin curator byline (prototype shows real curator initials, e.g. "ELENA M.", "JAMES O.", "PRIYA N.")
 - `Journey` — moment type, ordered list of `JourneyStop` (venue FK, order, walk-time-to-next); can span multiple districts — a Journey's displayed location is the set of districts its stops touch. Prototype confirms real journeys exist, e.g. "Date Night in Altrincham" (3 stops, 4 hours), "A Client, Well Handled" (Spinningfields, 2 stops, 3 hours)
 - `SavedCollection` — user FK, name (user-defined, e.g. "My Fave Places in Manchester"), list of venue FKs — a venue can be in multiple collections
 - `SavedJourney` — user FK, journey FK
@@ -70,21 +70,26 @@ Fetched and read directly (not transcribed from a moodboard) on 2026-07-30. The 
 General aesthetic: Soho House-inspired — dark, warm neutral palette, editorial typography, generous whitespace. Avoid bright primary colors, gamification, cluttered directory-style UI.
 
 ## Navigation shell — confirmed from the prototype's own state machine
-- **Bottom tab bar has exactly 3 tabs: MAP, LIST, MOMENTS.** (`nav: [['map','MAP'],['list','LIST'],['moments','MOMENTS']]` in the prototype's own render logic.) Do not add a 4th tab for Profile — profile is reached via a circular avatar "emblem" button (user initials, gold border) top-right on Map/List, not a tab.
+- **Bottom tab bar has exactly 3 tabs: MOMENTS, MAP, LIST.** The prototype's own order was `nav: [['map','MAP'],['list','LIST'],['moments','MOMENTS']]`; reordered 2026-09-29 at explicit user request to lead with Moments. Do not add a 4th tab for Profile — profile is reached via a circular avatar "emblem" button (user initials, gold border) top-right on Map/List, not a tab.
 - Screens reached by push (not tabs), each with its own back button via a `stack` array in prototype state: Login/Signup (auth), Onboarding, Venue detail, District guide, Journey detail, Walk directions, Ride-to-venue, Profile, Saved places, Subscription/Membership, Notifications.
-- New members: Login → Signup → Onboarding (Do → Drink → Eat → You) → Map. Returning members land directly on Map.
+- New members: Login → Signup → Onboarding (Do → Drink → Eat → You) → Moments. Returning members land directly on Moments. (Was Map until 2026-09-29, at explicit user request, "have the app open up to the moments tab" — `src/app/index.tsx`/`(auth)/_layout.tsx` both now redirect explicitly to `/(tabs)/moments`. A separate mechanism from the tab bar's own left-to-right order above; the two happen to agree today, but changing one doesn't change the other.)
 - Map and List are peers reachable via the tab bar at any time once past onboarding + subscription gate; both always render the same ranked result set (hard rule 5) — confirmed in the prototype's own description text: *"Map and List share one radius and one context, so switching tabs never changes the answer."*
 
 ## Onboarding model — resolved (was a conflict between docs; the prototype is a real, working implementation, not a text spec — it governs)
 Do → Drink → Eat → You, each gated on **3-tile minimum per category** (`counts[cat] >= 3`), tabs shown as a 4-step progress strip. Sub-preferences within a tile default **on** and can be toggled off (see Hard rule 2). "You" is the 4th step, not tile-gated — it captures spend level, dietary, pet, religious observance, gender, age, relationship (see Data model). **Do not build the taxonomy doc's 3-level chip-tree model** (`curia-onboarding-taxonomy.md`) — the real prototype implements the tile-grid model from `curia-product-spec.md` §3 instead, and that's what ships.
 
-## Moments — resolved to exactly 4 (confirmed in the prototype's own `MOMENTS` data, not the 6+ list in `curia-requirements.md`/the taxonomy doc)
-1. **Date Night**
-2. **Entertaining a Client**
-3. **Big Group of Friends**
-4. **Solo Reset**
+## Moments — 17 types grouped under 7 categories (widened 2026-09-30, at explicit user request, from the original fixed-4 "do not add without a product decision" rule)
+The original 4 (below, unchanged in character) are now wrapped into categories alongside 13 new types rather than sitting as flat siblings — a flat list of 17 filter chips was never going to be usable in one row. `MomentCategory` is the new top-level grouping (`src/types/models.ts`); `MomentType` still identifies the individual Moment (still doubles as `moments.id`, the primary key).
 
-Each Moment is a curated venue list with a named curator byline and a short editorial blurb (brand-voice examples straight from the prototype: *"Rooms that can take eight at short notice without a sigh from the host."* / *"Counter seats, a book, and nobody asking whether you're waiting for someone."*). Do not add wellness/family/custom moment types without a product decision.
+1. **Romantic** — Date Night
+2. **Entertaining & Business** — Entertaining a Client
+3. **Sport & Spectating** — Watch the Football, Big Fight Night
+4. **Big Nights Out** — Big Group of Friends, Pub Crawl, Pubby Sunday (only shown Saturdays and Sundays — 2026-09-30, at explicit user request), Quiz Night
+5. **Celebrations** — Birthday Blowout, Leaving Do, Hen & Stag Send-Off
+6. **Everyday** — Solo Reset, After-Work Unwind, Sunday Roast, Brunch That Isn't Rushed
+7. **Weather-Led** — First Sunny Evening, Cosy Winter Warm-Up
+
+Each Moment is a curated venue list with a named curator byline and a short editorial blurb (brand-voice examples straight from the prototype: *"Rooms that can take eight at short notice without a sigh from the host."* / *"Counter seats, a book, and nobody asking whether you're waiting for someone."*). A Moment's `venueIds` are always a hand-curated editorial list — there is no tag/type/band-based matching anywhere for Moments, same as before this change. Do not add a category or type without real curated content behind it.
 
 ## Districts — resolved to the prototype's real 10, across two metros
 **Manchester:** Northern Quarter, Ancoats, Spinningfields, Deansgate, Chinatown.
