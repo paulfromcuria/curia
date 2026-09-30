@@ -32,7 +32,7 @@
     {
       "agentType": "review",
       "date": "2026-09-16",
-      "synced": false,
+      "synced": true,
       "title": "8 venues + Chester (new Cheshire district) promoted; 1 rejected as a real chain, 1 naming mix-up sent for review",
       "summary": "Independently re-verified all 10 pending candidates in venue-suggestions.json with a 2026-09-16 suggestedDate and the sole pending district candidate (Chester), promoting 8 venues (Pottery Corner, Chorlton; The Damson Tree Cafe, Cheadle Hulme; Ebenezer's Craft Beer Emporium, Nantwich; St Peter's Church & Norman Chapel, Prestbury; BeefnBerry Bistro, Macclesfield; The Blarney Barrel, Bramhall; The Old Bakery Didsbury; Runway Pilates, Alderley Edge) and Chester itself. Mouro Coffee Bar (Heaton Moor) was rejected, reversing the original researcher's own finding — fresh search found it's actually a real, actively expanding four-site coffee brand (Heaton Moor plus two Altrincham sites plus a fourth opened May 2026 in the Northern Quarter), past this file's small-sibling-group allowance. Underbank (Stockport (Underbanks)) needed a genuine human call rather than a promote/reject guess: it appears to describe the same real venue as this file's own already-promoted 'The Underbank' entry, while a separate, different venue with a near-identical name (Benji Taylor's live-music venue) seems to be the one that name actually belongs to — a naming mix-up, sent to pending-review-queue.json. Curia Command's pending_review collection (checked via read_db) had zero decided items to apply this run. Prana, Buon Cibo and Rustik remain unchanged in pending-review-queue.json, still awaiting a human decision. The closure-audit rotating slice (Manchester Craft and Design Centre, The Horsfall, Bar Etna, Knutcraft at the Ruskin Rooms, Mobberley Ice Cream Coffee House) found no closures — all five re-confirmed still trading.",
       "items": [
@@ -54,7 +54,7 @@
     {
       "agentType": "review",
       "date": "2026-09-14",
-      "synced": false,
+      "synced": true,
       "title": "7 venues promoted across Nantwich, Bramhall, Stockport (Underbanks), Mobberley, Altrincham and Knutsford; 1 rejected, 2 sent for review",
       "summary": "Independently re-verified all 10 pending candidates in venue-suggestions.json and promoted 7 (Nantwich Museum, Bench Bistro Bar, Plumcake Cafe, The Warren, Railway Inn, Gin Can, Rose & Crown), with real petFriendly/dietaryOptions researched for each and one stale reason string (Bench Bistro Bar's now-closed Congleton sibling) rewritten. The Copper Room (Macclesfield) was rejected — the chef-owned concept it described no longer trades at the given address, which is now occupied by an unrelated pub venture. Two candidates were genuinely uncertain rather than a clean pass/reject and were sent to pending-review-queue.json: Buon Cibo (a suspicious Companies House entity cluster suggesting active expansion, and an unconfirmable sister site) and Rustik (real but a contradictory recent closure/reopening/dissolution history). Prana (Altrincham) was re-checked again with no new evidence either way, unchanged since 2026-09-11. Curia Command's pending_review collection was empty, so nothing to apply from a prior human decision. The closure-audit rotating slice (20 Stories, The Jane Eyre, Blinker, Matt & Phreds, The Ivy Spinningfields) found no real closures.",
       "items": [
@@ -75,7 +75,7 @@
     {
       "agentType": "review",
       "date": "2026-09-13",
-      "synced": false,
+      "synced": true,
       "title": "10 venues promoted across Nantwich, Macclesfield and Bramhall; Prana still waiting on a human call",
       "summary": "Independently re-verified and promoted all 10 pending candidates in venue-suggestions.json — five closing out Nantwich's real zero-venue gap, three rounding out Macclesfield, two rounding out Bramhall — with real petFriendly/dietaryOptions researched for each. Nothing rejected today. Curia Command's pending_review collection was empty, so nothing to apply from a prior human decision. Prana (Altrincham) was re-checked again: still no direct 2025/2026 trading evidence either way, though one new detail (a reported plan to convert it into an events space after its 2024 closure) surfaced without resolving anything; it stays in docs/data/pending-review-queue.json unchanged. Also fixed an accidental literal duplicate of the Prana entry in venue-suggestions.json (same content appended twice) down to one. The closure-audit slice (Bar Shrimp, Manchester Rare Books, Charlie Brown's Hale, esea contemporary, Mobberley Cricket Club) found no real closures — Bar Shrimp's Uber Eats delisting is the same stale-delivery-aggregator pattern already dismissed elsewhere in this file, and esea contemporary's 'closed' note traced to a routine exhibition changeover.",
       "items": [
@@ -96,7 +96,7 @@
     {
       "agentType": "review",
       "date": "2026-09-11",
-      "synced": false,
+      "synced": true,
       "title": "9 venues + 1 district promoted, 1 sent for review, 0 rejected, 0 closures",
       "summary": "9 of the 10 pending venue candidates (Bramall Hall, The Mounting Stone and Pix Pizza in Bramhall; The Chiverton Tap and Dos Hermanos in Cheadle Hulme; Staircase House and The Underbank in Stockport (Underbanks); Sett174 Art Cafe, Didsbury; The Creameries, Chorlton) and the sole pending district candidate (Macclesfield, a genuine new Cheshire market town) independently re-verified and promoted straight into venues.json/districts.json, with real petFriendly/dietaryOptions researched for each venue. The tenth candidate, Prana (Altrincham), was held back: CAMRA and whatpub.com list it 'Closed Long Term' since May 2024, but a new company was incorporated at the same address that September and remains active today, plus a food hygiene record exists — genuinely conflicting signals, so it's sent to the pending-review queue for a human call rather than promoted or rejected. No Curia Command decisions were waiting to apply this run (pending_review collection was empty). The closure audit's rotating slice (Rex Cinema, The Carrs, Wilmslow Kitchen, Ricardo Van Parmar Gallery, Wilmslow Artisan Market) found no closure signals — all five re-confirmed still trading.",
       "items": [
@@ -117,7 +117,7 @@
     {
       "agentType": "review",
       "date": "2026-09-10",
-      "synced": false,
+      "synced": true,
       "title": "10 promoted, 1 district promoted, 0 rejected, 0 closures",
       "summary": "All 10 pending venue candidates (Savoy Cinema, Heaton Social, Cure Bistro in Heaton Moor; Bar Caput, Stockport Underbanks; Trattoria D'Agostino, Cheadle Hulme; Sip Wine Bar, Didsbury; Prestbury Golf Club; The Beer House, Chorlton; The Garden Eatery, Hale; The Edge, Alderley Edge) plus the one pending district candidate (Bramhall, Cheshire) independently re-verified via fresh parallel web research and promoted straight into venues.json/districts.json. No rejections this run — every candidate cleared Hard rule 1, duplicate, schema, coordinate and brand-voice checks. Two factual corrections folded into the copy (The Beer House's CAMRA streak is 5 years not 4; The Garden Eatery has two founders, Kate and Amy, not one). Real petFriendly/dietaryOptions researched for all 10. Curia Command's pending_review collection was empty (nothing to apply from a prior human decision). The day's closure-audit slice (5 venues) found no closure signals.",
       "items": [
@@ -138,7 +138,7 @@
     {
       "agentType": "review",
       "date": "2026-09-05",
-      "synced": false,
+      "synced": true,
       "title": "10 promoted, 0 rejected, 3 closures flagged for review",
       "summary": "All 10 pending candidates in venue-suggestions.json (Northern Quarter, Ancoats, Altrincham, Knutsford, Mobberley, Chinatown, and two in Deansgate, Spinningfields, Hale) independently re-verified and promoted straight into venues.json, with real petFriendly/dietaryOptions researched for each. No Curia Command decisions were waiting to apply this run. The closure audit's rotating slice caught King Street Kitchen (Knutsford) as genuinely closed, and a follow-up on two closure signals left open since 2026-09-04 (Riva Bar & Restaurant, Hale; The Yard, Alderley Edge) corroborated both — all three sent to pending-review-queue.json as remove_venue candidates rather than auto-removed.",
       "items": [
@@ -161,7 +161,7 @@
     {
       "agentType": "review",
       "date": "2026-09-06",
-      "synced": false,
+      "synced": true,
       "title": "9 venues + 1 district promoted, 1 sent for review, 0 rejected, 0 closures",
       "summary": "9 of the 10 pending candidates in venue-suggestions.json (Chinatown x2, Deansgate, Spinningfields, Altrincham, Hale, Knutsford, Mobberley, Ancoats) and the sole pending district candidate (Chorlton, a genuine new Manchester district) independently re-verified and promoted, with real petFriendly/dietaryOptions researched for each venue. No Curia Command decisions were waiting to apply this run. The tenth venue candidate, Fire Station Social Cucina (Alderley Edge), was held back — still only 2 sites but its operator has stated expansion plans for the brand — and sent to pending-review-queue.json for a human call rather than promoted or rejected. The closure audit's rotating slice (Riddles, Speak In Code, Bar Shrimp, Manchester Rare Books, Charlie Brown's Hale) found no closure signals.",
       "items": [
@@ -182,7 +182,7 @@
     {
       "agentType": "review",
       "date": "2026-09-07",
-      "synced": false,
+      "synced": true,
       "title": "10 venues + 1 district promoted, 0 rejected, 0 sent for review, 0 closures",
       "summary": "All 10 pending candidates in venue-suggestions.json (three in Chorlton, plus Mobberley, Altrincham, Knutsford, Alderley Edge, Hale, Deansgate, Spinningfields) and the sole pending district candidate (Didsbury, a genuine new south Manchester suburb) independently re-verified and promoted, with real petFriendly/dietaryOptions researched for each venue. No Curia Command decisions were waiting to apply this run (pending_review collection was empty). Fire Station Social Cucina (Alderley Edge), already sitting in pending-review-queue.json since 2026-09-06 awaiting a human call, had no decision yet and was left as-is. The closure audit's rotating slice landed on the five venues promoted this same run (The Edge Theatre & Arts Centre, The Chorlton Tap, Bar San Juan, White Peak Alpaca Farm, Inch Arts) — already freshly verified as currently trading minutes earlier, so nothing further to flag.",
       "items": [
@@ -203,7 +203,7 @@
     {
       "agentType": "review",
       "date": "2026-09-08",
-      "synced": false,
+      "synced": true,
       "title": "10 venues + 1 district promoted, 1 sent for review, 0 rejected, 1 closure flagged",
       "summary": "10 of the 11 pending candidates in venue-suggestions.json (four in Didsbury including the district's first venues, two in Chorlton, plus Prestbury, Knutsford, Altrincham and Alderley Edge) and the sole pending district candidate (Stockport's Underbanks quarter, a genuine new Manchester-metro district) independently re-verified and promoted, with real petFriendly/dietaryOptions researched for each venue. No Curia Command decisions were waiting to apply this run (pending_review collection was empty). Fire Station Social Cucina (Alderley Edge) was re-checked specifically for a rumoured third site — none found — and stays pending, already sitting in pending-review-queue.json since 2026-09-06. Two factual corrections surfaced during re-verification and were folded into the promoted copy: Lime Tree in fact has a second site in Bollington (still promoted, small personally-run pair, not a chain), and Casa de Moor's Heaton Moor sibling has rebranded to 'Casa De Casa' since it was first researched (reason text updated). The closure audit's rotating slice caught Les Deux Pizza Bar (Alderley Edge) showing as closed on its own Deliveroo listing — sent to pending-review-queue.json rather than auto-removed; the other four in the slice (The Blind Pig, InHale Yoga, Lions Den, Australasia) re-confirmed still trading.",
       "items": [
@@ -226,7 +226,7 @@
     {
       "agentType": "review",
       "date": "2026-09-09",
-      "synced": false,
+      "synced": true,
       "title": "10 venues + 1 district promoted, 0 rejected, 0 sent for review, 0 closures",
       "summary": "All 10 pending candidates in venue-suggestions.json (Where the Light Gets In, Bruk and Stockport Market Hall in the new Stockport (Underbanks) district; FOLK and Marie Louise Gardens, Didsbury; Chorlton Bookshop and Chorlton Water Park, Chorlton; Giovanni's, Knutsford; Corks Out, Alderley Edge; The Seven Oaks, Chinatown) and the sole pending district candidate (Heaton Moor, a genuine new south Manchester/Stockport suburb) independently re-verified and promoted, with real petFriendly/dietaryOptions researched for each venue. No Curia Command decisions were waiting to apply this run (pending_review collection was empty). Introduces one new venue type, BOOKSHOP, mapped category-only (Do) in tile-catalog-map.ts. The closure audit's rotating slice (Smolensky Gallery, Podium Restaurant, Hale Country Club & Spa, Barnshaw Smithy, Nam) found no closure signals — all five re-confirmed still trading.",
       "items": [
@@ -247,7 +247,7 @@
     {
       "agentType": "review",
       "date": "2026-09-12",
-      "synced": false,
+      "synced": true,
       "title": "10 venues and a new Cheshire district promoted; Prana still waiting on a human call",
       "summary": "Re-verified all 11 pending candidates in the suggestion queues and promoted 10 venues (across Macclesfield, Bramhall, Heaton Moor, Stockport (Underbanks) and Didsbury) plus the new Nantwich district straight to master — nothing rejected today. Curia Command's pending_review collection was empty, so nothing to apply from prior human decisions; Prana (Altrincham) stays in docs/data/pending-review-queue.json awaiting a decision, unchanged this run. The closure-audit slice (Where the Light Gets In, Bruk, Stockport Market Hall, FOLK, Marie Louise Gardens) found no real closures — a stale Michelin 'closed' tag on Where the Light Gets In was traced to a 2025 renovation closure that ended with a confirmed April 2025 reopening.",
       "items": [
@@ -269,7 +269,7 @@
     {
       "agentType": "review",
       "date": "2026-09-15",
-      "synced": false,
+      "synced": true,
       "title": "10 venues promoted across Macclesfield, Nantwich, Prestbury, Stockport (Underbanks), Bramhall, Chinatown and Heaton Moor; 0 rejected, 0 newly sent for review",
       "summary": "Independently re-verified all 10 pending candidates in venue-suggestions.json with a 2026-09-15 suggestedDate and promoted all 10 (Cinemac and Amazing India, Macclesfield; Bar Six and Drift Art Gallery, Nantwich; Prestbury Cricket Club; Sticky Fingers Bakery, Stockport (Underbanks); 78 Degrees, Bramhall; T.La Art & Craft Gallery, Chinatown; Heaton Moor Park and Beer Shop, Heaton Moor) via two parallel fresh web-research passes, coordinates tightened against real postcode centroids for most, reason copy checked against Brand voice and left unchanged. Two needed real judgment rather than a clean pass: Bar Six turned out to be a genuine 3-site family group (Sandbach/Nantwich/Knutsford), judged within the same small-sibling-group allowance already set by Wallop and The Creameries elsewhere in the database; T.La Art & Craft Gallery's possible second 'Wing Yip Centre' location couldn't be conclusively resolved, but even a real 2-site outcome would still clear the same allowance, so it was promoted rather than queued. An unconfirmed single-source rumour of a closure at Amazing India's address was weighed and judged not credible (no primary source, contradicted by an active company registration and 2025 reviews) — not acted on, but flagged here for a future closure-audit look. The three items already sitting in pending-review-queue.json (Prana/Altrincham, Buon Cibo/Heaton Moor, Rustik/Didsbury) were checked against Curia Command's pending_review collection (still empty, no decision recorded) and left unchanged — no new evidence this run. The closure-audit rotating slice (Prestbury Golf Club, The Beer House, The Garden Eatery, The Edge, Bramall Hall) found no closures.",
       "items": [
@@ -292,7 +292,7 @@
     {
       "agentType": "review",
       "date": "2026-09-17",
-      "synced": false,
+      "synced": true,
       "title": "Research-tool outage limited today's pass to 3 promotions; 11 items left pending, untouched",
       "summary": "A genuine research-tool outage hit for most of this run — WebSearch mostly returned 'unavailable' errors or surfaced only Wikipedia-indexed content, and WebFetch was blocked (EGRESS_BLOCKED) for essentially every other domain tried (Google, Bing, DuckDuckGo, Instagram, Facebook, Tripadvisor, Companies House, CAMRA/whatpub, even plain Wikipedia). Only 3 of the 10 new pending candidates (all in the Chester district) had enough Wikipedia coverage to be genuinely independently re-verified and were promoted: Storyhouse, Chester Cathedral, Grosvenor Museum. The other 7 new candidates (6 in Chester plus Eden in Heaton Moor), all 4 long-stuck pending-review-queue items (Prana, Buon Cibo, Rustik, the Underbank naming mix-up), and today's closure-audit slice could not be honestly verified one way or the other, so nothing was promoted, rejected, or newly queued for any of them — they remain exactly as they were, pending a re-run once tooling recovers. Curia Command's pending_review collection was checked via read_db (unaffected by the outage) and had zero decided items to apply.",
       "items": [
