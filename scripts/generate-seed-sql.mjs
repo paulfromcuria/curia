@@ -34,12 +34,39 @@ function slugify(name) {
     .replace(/(^-|-$)/g, '');
 }
 
+// Widened 2026-09-30 from the original 4 (CLAUDE.md "Moments" — the
+// 4-to-17-type moment-category expansion). Each moments.json entry also now
+// carries its own `category` field (a MomentCategory id), read directly
+// rather than derived from this map.
 const MOMENT_TYPE_BY_TITLE = {
   'Best for Date Night': 'date-night',
   'Entertaining a Client': 'entertaining-a-client',
   'Big Group of Friends': 'big-group-of-friends',
   'Solo Reset': 'solo-reset',
+  'Watch the Football': 'watch-the-football',
+  'Big Fight Night': 'big-fight-night',
+  'Pub Crawl': 'pub-crawl',
+  'Sunday Session': 'sunday-session',
+  'Quiz Night': 'quiz-night',
+  'Birthday Blowout': 'birthday-blowout',
+  'Leaving Do': 'leaving-do',
+  'Hen & Stag Send-Off': 'hen-stag-send-off',
+  'After-Work Unwind': 'after-work-unwind',
+  'Sunday Roast': 'sunday-roast',
+  "Brunch That Isn't Rushed": 'brunch-not-rushed',
+  'First Sunny Evening': 'first-sunny-evening',
+  'Cosy Winter Warm-Up': 'cosy-winter-warm-up',
 };
+
+const MOMENT_CATEGORIES = [
+  { id: 'romantic', title: 'Romantic', sort_order: 1 },
+  { id: 'entertaining', title: 'Entertaining & Business', sort_order: 2 },
+  { id: 'sport-spectating', title: 'Sport & Spectating', sort_order: 3 },
+  { id: 'big-nights-out', title: 'Big Nights Out', sort_order: 4 },
+  { id: 'celebrations', title: 'Celebrations', sort_order: 5 },
+  { id: 'everyday', title: 'Everyday', sort_order: 6 },
+  { id: 'weather-led', title: 'Weather-Led', sort_order: 7 },
+];
 
 // --- SQL literal helpers ---------------------------------------------------
 
@@ -215,15 +242,29 @@ sql += insertStatement(
 );
 sql += '\n';
 
+// moment_categories (fixed 7, not sourced from venues.json)
+sql += insertStatement(
+  'moment_categories',
+  ['id', 'title', 'sort_order'],
+  MOMENT_CATEGORIES.map((c) => ({
+    id: sqlStr(c.id),
+    title: sqlStr(c.title),
+    sort_order: sqlNum(c.sort_order),
+  })),
+  ['id']
+);
+sql += '\n';
+
 // moments
 sql += insertStatement(
   'moments',
-  ['id', 'title', 'curator', 'blurb'],
+  ['id', 'title', 'curator', 'blurb', 'category_id'],
   venuesRaw.moments.map((m) => ({
     id: sqlStr(MOMENT_TYPE_BY_TITLE[m.title]),
     title: sqlStr(m.title),
     curator: sqlStr(m.curator),
     blurb: sqlStr(m.blurb),
+    category_id: sqlStr(m.category),
   })),
   ['id']
 );

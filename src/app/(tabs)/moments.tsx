@@ -7,7 +7,8 @@ import { placeholderPhotoFor } from '../../lib/data/placeholder-photos';
 import { centroid, MAX_RADIUS_MILES, metroForPoint, MIN_RADIUS_MILES } from '../../lib/map/geo';
 import { haversineMiles, isVenueClosed } from '../../lib/scoring/rank-venues';
 import { useSession } from '../../lib/state/session';
-import type { Journey, MetroId, MomentType } from '../../types/models';
+import type { Journey, MetroId, MomentCategory, MomentType } from '../../types/models';
+import { MOMENT_CATEGORIES } from '../../types/models';
 import { color, font, radius, spacing } from '../../theme';
 
 /**
@@ -255,7 +256,13 @@ function JourneyCards({ journeys }: { journeys: Journey[] }) {
  * chips (a venue can be a pick in more than one Moment) can deep-link
  * straight to the relevant section instead of dumping the visitor into
  * every moment active nearby. It has no effect on the Journeys view.
- * `region`/`district`/`view`/`moment` all narrow independently.
+ * An optional `category` param (a `MomentCategory`, added 2026-09-30 when
+ * Moments widened from 4 to 17 types) narrows to one category's sections;
+ * with neither `moment` nor `category` set, every category renders as its
+ * own labeled group, in `MOMENT_CATEGORIES` order — the natural
+ * continuation of the old "just show all 4" behavior at 17-type scale,
+ * not a new paradigm. `region`/`district`/`view`/`moment`/`category` all
+ * narrow independently.
  */
 export default function Moments() {
   const router = useRouter();
@@ -264,8 +271,15 @@ export default function Moments() {
     region: regionParam,
     district: districtId,
     moment: momentType,
+    category: categoryParam,
     view: viewParam,
-  } = useLocalSearchParams<{ region?: string; district?: string; moment?: MomentType; view?: string }>();
+  } = useLocalSearchParams<{
+    region?: string;
+    district?: string;
+    moment?: MomentType;
+    category?: MomentCategory;
+    view?: string;
+  }>();
 
   const view: 'moments' | 'journeys' = viewParam === 'journeys' ? 'journeys' : 'moments';
 
@@ -337,6 +351,7 @@ export default function Moments() {
       pathname: '/(tabs)/moments',
       params: {
         ...(momentType ? { moment: momentType } : {}),
+        ...(categoryParam ? { category: categoryParam } : {}),
         ...(view === 'journeys' ? { view } : {}),
         region: id,
         // district deliberately dropped — a district from the old region
@@ -354,9 +369,29 @@ export default function Moments() {
       pathname: '/(tabs)/moments',
       params: {
         ...(momentType ? { moment: momentType } : {}),
+        ...(categoryParam ? { category: categoryParam } : {}),
         ...(view === 'journeys' ? { view } : {}),
         region: regionId,
         ...(id ? { district: id } : {}),
+      },
+    });
+  }
+
+  // Moment-category pill row (2026-09-30, the 4-to-17-type moment
+  // expansion) — narrows which category's sections render below, same
+  // route-param-driven pattern as setRegion/setExactDistrict rather than
+  // local component state, so a deep link can land directly on one
+  // category. Only meaningful for the Moments view (Journeys aren't
+  // grouped by category), but harmless to carry through view switches —
+  // setView below preserves it the same way it preserves `moment`.
+  function setCategory(id: MomentCategory | undefined) {
+    router.replace({
+      pathname: '/(tabs)/moments',
+      params: {
+        ...(momentType ? { moment: momentType } : {}),
+        region: regionId,
+        ...(districtId ? { district: districtId } : {}),
+        ...(id ? { category: id } : {}),
       },
     });
   }
@@ -366,6 +401,7 @@ export default function Moments() {
       pathname: '/(tabs)/moments',
       params: {
         ...(momentType ? { moment: momentType } : {}),
+        ...(categoryParam ? { category: categoryParam } : {}),
         region: regionId,
         ...(districtId ? { district: districtId } : {}),
         ...(v === 'journeys' ? { view: v } : {}),
@@ -386,6 +422,7 @@ export default function Moments() {
   const momentSections = useMemo(
     () =>
       MOMENTS.filter((m) => !momentType || m.type === momentType)
+        .filter((m) => !categoryParam || m.category === categoryParam)
         .map((m) => {
           const venues = m.venueIds
             .map((id) => VENUES.find((v) => v.id === id))
@@ -395,8 +432,41 @@ export default function Moments() {
         })
         .filter((sec) => sec.venues.length > 0),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedRegion, district, radiusMiles, momentType]
+    [selectedRegion, district, radiusMiles, momentType, categoryParam]
   );
+
+  // Groups momentSections under their MOMENT_CATEGORIES header, in display
+  // order, dropping any category with nothing to show here (same "only
+  // real content, never an empty section" discipline as momentSections
+  // itself). When a single category is already selected via the pill row,
+  // the per-group heading is redundant with the active pill and skipped at
+  // render time below, not filtered out here — groupedMomentSections stays
+  // the one shared shape for both states.
+  const groupedMomentSections = useMemo(
+    () =>
+      MOMENT_CATEGORIES.map((cat) => ({
+        category: cat,
+        sections: momentSections.filter((sec) => sec.moment.category === cat.id),
+      })).filter((g) => g.sections.length > 0),
+    [momentSections]
+  );
+
+  // Which categories actually have real content anywhere in the currently
+  // selected region/district/radius (independent of the category filter
+  // itself) — the same "only offer a pill that leads somewhere real" rule
+  // districtChoices/availableRegions already follow.
+  const availableCategories = useMemo(() => {
+    const ids = new Set<string>();
+    MOMENTS.filter((m) => !momentType || m.type === momentType).forEach((m) => {
+      const hasVisible = m.venueIds.some((id) => {
+        const v = VENUES.find((vv) => vv.id === id);
+        return v && !isVenueClosed(v) && withinFilter(v);
+      });
+      if (hasVisible) ids.add(m.category);
+    });
+    return MOMENT_CATEGORIES.filter((c) => ids.has(c.id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedRegion, district, radiusMiles, momentType]);
 
   // Nearest-district-first, same reading as districtChoices — a journey's
   // own meta line already states its district, so (unlike Moments) no
@@ -513,6 +583,39 @@ export default function Moments() {
         </View>
       )}
 
+      {view === 'moments' && availableCategories.length > 0 && (
+        <View style={styles.districtNarrowBlock}>
+          <Text style={styles.filterKicker}>MOMENT CATEGORY</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.districtFilterRow}
+          >
+            <Pressable
+              onPress={() => setCategory(undefined)}
+              style={[styles.districtPill, !categoryParam && styles.districtPillActive]}
+            >
+              <Text style={[styles.districtPillText, !categoryParam && styles.districtPillTextActive]}>
+                ALL
+              </Text>
+            </Pressable>
+            {availableCategories.map((cat) => (
+              <Pressable
+                key={cat.id}
+                onPress={() => setCategory(cat.id)}
+                style={[styles.districtPill, categoryParam === cat.id && styles.districtPillActive]}
+              >
+                <Text
+                  style={[styles.districtPillText, categoryParam === cat.id && styles.districtPillTextActive]}
+                >
+                  {cat.title.toUpperCase()}
+                </Text>
+              </Pressable>
+            ))}
+          </ScrollView>
+        </View>
+      )}
+
       {nothingHere && (
         <Card tone="inset" style={styles.emptyCard}>
           <Text style={styles.emptyTitle}>
@@ -527,24 +630,31 @@ export default function Moments() {
       )}
 
       {view === 'moments'
-        ? momentSections.map(({ moment, venues }) => (
-            <View key={moment.id} style={styles.section}>
-              <Text style={styles.title}>{moment.title}</Text>
-              <Text style={styles.blurb}>{moment.blurb}</Text>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.chipRow}
-              >
-                {venues.map((v) => (
-                  <MomentVenueCard
-                    key={v.id}
-                    venue={v}
-                    district={DISTRICTS.find((d) => d.id === v.districtId)}
-                    onPress={() => router.push(`/venue/${v.id}`)}
-                  />
-                ))}
-              </ScrollView>
+        ? groupedMomentSections.map(({ category, sections }) => (
+            <View key={category.id} style={styles.categoryGroup}>
+              {/* Redundant with the active pill once a single category is
+                  already selected — only shown in the "ALL" grouped view. */}
+              {!categoryParam && <Text style={styles.categoryGroupTitle}>{category.title.toUpperCase()}</Text>}
+              {sections.map(({ moment, venues }) => (
+                <View key={moment.id} style={styles.section}>
+                  <Text style={styles.title}>{moment.title}</Text>
+                  <Text style={styles.blurb}>{moment.blurb}</Text>
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.chipRow}
+                  >
+                    {venues.map((v) => (
+                      <MomentVenueCard
+                        key={v.id}
+                        venue={v}
+                        district={DISTRICTS.find((d) => d.id === v.districtId)}
+                        onPress={() => router.push(`/venue/${v.id}`)}
+                      />
+                    ))}
+                  </ScrollView>
+                </View>
+              ))}
             </View>
           ))
         : journeys.length > 0 && <JourneyCards journeys={journeys} />}
@@ -698,6 +808,16 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     color: color.textSecondary,
     textAlign: 'center',
+  },
+  categoryGroup: {
+    gap: spacing.sm,
+    marginTop: spacing.lg,
+  },
+  categoryGroupTitle: {
+    fontFamily: font.sansMedium,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: color.gold,
   },
   section: {
     gap: 6,
