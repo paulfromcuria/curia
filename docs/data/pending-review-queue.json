@@ -159,6 +159,30 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-30",
+      "reason": "Gate 1 (inclusion) passes cleanly — a genuine small independent operator, one family, one other site (Nottingham, 18 years trading), no franchise ambition anywhere in the record. But it isn't confirmed to be actually open and trading yet: every source as of late August 2026 describes the Manchester site as 'opening this autumn' and still recruiting, with no source confirming doors open as of today. The Nottingham original was also listed for sale via Savills (£91,000) around the same period, which the operator publicly denies means anything ('not closing, it's a thriving business') but adds real uncertainty about operator stability worth a second look before committing a not-yet-open venue to the catalogue.",
+      "researchNotes": "Independently re-verified 2026-09-30 (fresh web search, not just the original research pass's notes): restaurantonline.co.uk (25 Aug 2026), premierconstructionnews.com (27 Aug 2026) and thebusinessdesk.com all describe a real, specific Manchester build-out (former Artisan unit, Bridge Street, Spinningfields) with a defined multi-concept format (café/restaurant/cocktail club), but none confirms it has actually opened. Separately, nottinghamworld.com covers the Nottingham flagship (8 Byard Lane) being listed for sale via Savills around the same period, with the operator insisting it isn't closing. Both facts are genuine and independently sourced; the ambiguity is real, not a research gap on my part.",
+      "payload": {
+        "name": "Coco Tang",
+        "district": "spinningfields",
+        "type": "VIETNAMESE",
+        "spend": "£££",
+        "lat": 53.4796,
+        "lon": -2.2493,
+        "base": 82,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Eighteen years of running Nottingham's Byard Lane before Manchester got a look — Vietnamese café by day, a cocktail room and late kitchen once the Bridge Street lights come on."
+      }
     }
   ]
 }
