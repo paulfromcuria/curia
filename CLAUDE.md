@@ -84,7 +84,7 @@ The original 4 (below, unchanged in character) are now wrapped into categories a
 1. **Romantic** — Date Night
 2. **Entertaining & Business** — Entertaining a Client
 3. **Sport & Spectating** — Watch the Football, Big Fight Night
-4. **Big Nights Out** — Big Group of Friends, Pub Crawl, Sunday Session, Quiz Night
+4. **Big Nights Out** — Big Group of Friends, Pub Crawl, Pubby Sunday (only shown Saturdays and Sundays — 2026-09-30, at explicit user request), Quiz Night
 5. **Celebrations** — Birthday Blowout, Leaving Do, Hen & Stag Send-Off
 6. **Everyday** — Solo Reset, After-Work Unwind, Sunday Roast, Brunch That Isn't Rushed
 7. **Weather-Led** — First Sunny Evening, Cosy Winter Warm-Up

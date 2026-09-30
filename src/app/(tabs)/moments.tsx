@@ -506,14 +506,24 @@ export default function Moments() {
   // Which context-gated Moment types are genuinely worth showing right
   // now — everything else in MOMENTS (Date Night, Pub Crawl, ...) is
   // always shown, same as before this feature existed.
+  // Pubby Sunday (was "Sunday Session" until 2026-09-30, at explicit user
+  // request — same day, renamed alongside the same day's context-aware
+  // hide/show work) only shows on the two days it's actually true: a
+  // plain day-of-week check, not a fetched signal, so unlike every other
+  // entry in hiddenMomentTypes below it needs no network call and no
+  // separate bump window — real calendar data the app already has for
+  // free, same standard as the fetched signals, not a fake one.
+  const isWeekend = [0, 6].includes(new Date().getDay());
+
   const hiddenMomentTypes = useMemo(() => {
     const hidden = new Set<MomentType>();
     if (!weatherOutlook.hotExtreme) hidden.add('first-sunny-evening');
     if (!weatherOutlook.coldWetExtreme) hidden.add('cosy-winter-warm-up');
     if (!footballShow) hidden.add('watch-the-football');
     if (!bigEventShow) hidden.add('big-fight-night');
+    if (!isWeekend) hidden.add('sunday-session');
     return hidden;
-  }, [weatherOutlook, footballShow, bigEventShow]);
+  }, [weatherOutlook, footballShow, bigEventShow, isWeekend]);
 
   // Which shown Moment types are "hot" enough to lead with — a real match
   // or fight/race within its narrower bump window, not just present
