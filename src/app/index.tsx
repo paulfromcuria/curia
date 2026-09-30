@@ -19,7 +19,8 @@ import { color, font } from '../theme';
  *   onboarding complete, not subscribed -> subscription gate (must sit
  *     between onboarding and Map/List; completing onboarding alone must
  *     never grant access)
- *   otherwise -> Map (the tab shell)
+ *   otherwise -> Moments (the tab shell — was Map until 2026-09-29, at
+ *     explicit user request: "have the app open up to the moments tab")
  *
  * hydrateError checked before isAuthenticated/onboardingComplete, not
  * after — found live 2026-09-18 ("why have i been logged out... it was as
@@ -69,5 +70,5 @@ export default function Index() {
   if (!isAuthenticated) return <Redirect href="/(auth)/login" />;
   if (!onboardingComplete) return <Redirect href="/onboarding" />;
   if (!isSubscribed) return <Redirect href="/subscription" />;
-  return <Redirect href="/(tabs)/map" />;
+  return <Redirect href="/(tabs)/moments" />;
 }

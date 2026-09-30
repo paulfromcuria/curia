@@ -4,9 +4,19 @@ import { useSession } from '../../lib/state/session';
 import { color, font } from '../../theme';
 
 /**
- * The home tab shell — exactly 3 tabs (Hard rule 9): Map, List, Moments.
+ * The home tab shell — exactly 3 tabs (Hard rule 9): Moments, Map, List.
  * Profile/Saved/Notifications/Subscription are pushed screens reached via
  * the avatar emblem, never added here. See CLAUDE.md "Navigation shell".
+ *
+ * Order was Map/List/Moments (the prototype's own order) until 2026-09-29,
+ * at explicit user request, reordered to Moments/Map/List. Landing screen
+ * after auth/onboarding/subscription changed the same day, same request
+ * ("have the app open up to the moments tab") — `src/app/index.tsx` and
+ * `(auth)/_layout.tsx` both now redirect explicitly to `/(tabs)/moments`.
+ * That's a separate mechanism from this file's own `Tabs.Screen` order
+ * (which only controls the bottom bar's left-to-right layout, not the
+ * initial route), so if the two ever need to disagree again, each is its
+ * own edit.
  *
  * Guard duplicates `src/app/index.tsx`'s redirect chain so a deep link or
  * back-navigation straight into (tabs) can't skip auth/onboarding/the
@@ -33,16 +43,16 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen
+        name="moments"
+        options={{ title: 'Moments', tabBarIcon: ({ focused }) => <TabMark focused={focused} /> }}
+      />
+      <Tabs.Screen
         name="map"
         options={{ title: 'Map', tabBarIcon: ({ focused }) => <TabMark focused={focused} /> }}
       />
       <Tabs.Screen
         name="list"
         options={{ title: 'List', tabBarIcon: ({ focused }) => <TabMark focused={focused} /> }}
-      />
-      <Tabs.Screen
-        name="moments"
-        options={{ title: 'Moments', tabBarIcon: ({ focused }) => <TabMark focused={focused} /> }}
       />
     </Tabs>
   );
