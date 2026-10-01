@@ -331,16 +331,68 @@ export interface Venue {
   notes?: string;
 }
 
-/** Exactly 4 moment types per CLAUDE.md — do not add more without a product decision. */
+/**
+ * 17 moment types grouped under 7 `MomentCategory` values (CLAUDE.md
+ * "Moments", widened 2026-09-30 from the original fixed-4 at explicit user
+ * request). Still doubles as `moments.id` (the DB primary key) — adding a
+ * value here means a real migration widening that table's check constraint,
+ * not just a type edit; do not add one without real curated content behind
+ * it (CLAUDE.md's own rule, carried forward from the old "exactly 4" note).
+ */
 export type MomentType =
   | 'date-night'
   | 'entertaining-a-client'
   | 'big-group-of-friends'
-  | 'solo-reset';
+  | 'solo-reset'
+  | 'watch-the-football'
+  | 'big-fight-night'
+  | 'pub-crawl'
+  | 'sunday-session'
+  | 'quiz-night'
+  | 'birthday-blowout'
+  | 'leaving-do'
+  | 'hen-stag-send-off'
+  | 'after-work-unwind'
+  | 'sunday-roast'
+  | 'brunch-not-rushed'
+  | 'first-sunny-evening'
+  | 'cosy-winter-warm-up';
+
+/** The top-level grouping a MomentType belongs to — see CLAUDE.md "Moments". */
+export type MomentCategory =
+  | 'romantic'
+  | 'entertaining'
+  | 'sport-spectating'
+  | 'big-nights-out'
+  | 'celebrations'
+  | 'everyday'
+  | 'weather-led';
+
+/** Ordered for display — matches `moment_categories.sort_order`. */
+export const MOMENT_CATEGORIES: { id: MomentCategory; title: string }[] = [
+  { id: 'romantic', title: 'Romantic' },
+  { id: 'entertaining', title: 'Entertaining & Business' },
+  { id: 'sport-spectating', title: 'Sport & Spectating' },
+  { id: 'big-nights-out', title: 'Big Nights Out' },
+  { id: 'celebrations', title: 'Celebrations' },
+  { id: 'everyday', title: 'Everyday' },
+  { id: 'weather-led', title: 'Weather-Led' },
+];
+
+export const MOMENT_CATEGORY_LABEL: Record<MomentCategory, string> = {
+  romantic: 'Romantic',
+  entertaining: 'Entertaining & Business',
+  'sport-spectating': 'Sport & Spectating',
+  'big-nights-out': 'Big Nights Out',
+  celebrations: 'Celebrations',
+  everyday: 'Everyday',
+  'weather-led': 'Weather-Led',
+};
 
 export interface Moment {
   id: string;
   type: MomentType;
+  category: MomentCategory;
   title: string;
   curator: string;
   blurb: string;

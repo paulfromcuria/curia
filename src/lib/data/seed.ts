@@ -24,6 +24,7 @@ import type {
   JourneyStop,
   MetroId,
   Moment,
+  MomentCategory,
   MomentType,
   Tile,
   TileCategory,
@@ -357,6 +358,7 @@ export function loadContentData(): Promise<void> {
     MOMENTS = (momentsRes.data ?? []).map((m) => ({
       id: slugify(m.title),
       type: m.id as MomentType,
+      category: m.category_id as MomentCategory,
       title: m.title === 'Best for Date Night' ? 'Date Night' : m.title,
       curator: m.curator,
       blurb: m.blurb,
