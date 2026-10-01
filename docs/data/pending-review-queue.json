@@ -159,6 +159,96 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-01",
+      "reason": "A real, well-documented 2-site Vietnamese brand (Nottingham + this new Manchester site) with industry press coverage, but as of this run it's still only an announced autumn-2026 opening, not independently confirmed as actually trading yet — and its coordinates are a building-level approximation, not an exact unit geocode, since the precise unit number inside 1 The Avenue hadn't been published.",
+      "researchNotes": "Fresh re-check 2026-10-01 (WebSearch): coverage from restaurantonline.co.uk and premierconstructionnews.com still describes the venue as opening 'this autumn' with no independent confirmation found that it has actually opened and started trading as of today. The underlying facts (real operator, 18-year Nottingham original, independent, not a chain by Hard rule 1) check out cleanly — the only open question is whether it exists as a going concern yet, which is a trading-status question a human spot-check (or next week's re-run) can resolve more reliably than a guess today.",
+      "payload": {
+        "name": "Coco Tang",
+        "district": "spinningfields",
+        "type": "VIETNAMESE",
+        "spend": "£££",
+        "lat": 53.4796,
+        "lon": -2.2493,
+        "base": 82,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Eighteen years of running Nottingham's Byard Lane before Manchester got a look — Vietnamese café by day, a cocktail room and late kitchen once the Bridge Street lights come on."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-01",
+      "reason": "A genuinely well-reviewed, clearly non-chain Spinningfields cocktail bar, but its ownership is only ever described by a first name ('Christian') across every source checked — no full name, no registered company found, no sole proprietor confirmed — which is thinner ownership verification than every other promoted entry this run had.",
+      "researchNotes": "Fresh re-check 2026-10-01 (WebSearch): manchestersfinest.com, themanc.com, Bar Magazine and CLASS magazine all cover the bar's concept and atmosphere in detail but none names a full owner or operating company; the bar deliberately avoided press releases pre-opening ('the whisper of the town'), which explains but doesn't resolve the gap. Nothing found suggests a chain or group tie (no Revel Collective/Deltic/Mitchells & Butlers affiliation), so this isn't a Hard rule 1 concern — it's simply that 'independent in spirit' hasn't been confirmed to the same evidentiary standard (a named owner, a Companies House record) as this run's other promotions, worth a human glance rather than a guess either way.",
+      "payload": {
+        "name": "Dear Sailor",
+        "district": "spinningfields",
+        "type": "COCKTAIL BAR",
+        "spend": "£££",
+        "lat": 53.480116,
+        "lon": -2.249547,
+        "base": 80,
+        "bands": [
+          "evening",
+          "late"
+        ],
+        "reason": "A 1930s Tokyo drinking den dropped into Spinningfields Square, with its own strict list of house rules and a terrace that empties into DJ-led lock-ins once the sun's gone."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-01",
+      "reason": "A small, real, currently-operating coffee counter, but it trades from a shared unit inside a food court rather than its own standalone address, and the research agent's own confidence rating (moderate) reflects genuinely thinner documentation than a dedicated bricks-and-mortar venue would have.",
+      "researchNotes": "Relied on the research agent's own sourcing (macclesfield.nub.news opening/first-birthday coverage, the operator's own site, active Instagram/TikTok) rather than a fresh independent search this run, given this run's batch size — nothing found contradicts it, but a shared food-court unit is a genuinely different verification shape (shorter trading history visible, harder to confirm it isn't itself one of several concessions under a bigger operator) than this run was able to fully close out with confidence.",
+      "payload": {
+        "name": "Pronto Caffé",
+        "district": "macclesfield",
+        "type": "COFFEE ROOM",
+        "spend": "£",
+        "lat": 53.26025,
+        "lon": -2.128353,
+        "base": 58,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A former barista's own counter inside the new food court on Castle Street, run with her mother — the kind of coffee that has never needed a loyalty app to explain itself."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-01",
+      "reason": "The research agent's own notes flag a recent change of ownership ('new management' mentioned in a Tripadvisor review) plus a real district-boundary question (the venue sits noticeably south of the Cheadle Hulme cluster, close enough to Cheadle proper to be a genuine judgment call) — two separate open questions stacked on one candidate.",
+      "researchNotes": "Relied on the research agent's own sourcing this run given batch size; it self-rated 'moderate confidence' specifically because of the ownership-change detail and the daytime-only trading pattern, and separately flagged the coordinate as sitting toward the edge of Cheadle Hulme's known venue spread. Neither issue is disqualifying on its own, but together they're exactly the kind of stacked, non-trivial uncertainty Pending Review exists for rather than a coin flip.",
+      "payload": {
+        "name": "One Thirty Cafe & Bar",
+        "district": "cheadle-hulme",
+        "type": "COFFEE ROOM",
+        "spend": "££",
+        "lat": 53.3667,
+        "lon": -2.19,
+        "base": 60,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A family-run counter on Hulme Hall Road that pours prosecco and bottled beer alongside the flat whites — Cheadle Hulme's daytime answer to a proper bar, gone by mid-afternoon rather than staying open just to prove a point."
+      }
     }
   ]
 }
