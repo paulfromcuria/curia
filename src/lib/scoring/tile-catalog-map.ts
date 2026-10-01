@@ -506,4 +506,11 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, ('Do' | 'Drink' | 'Eat' | 'H
   'HONG KONG CAFE': ['Eat'],
   'FISH AND CHIPS': ['Eat'],
   'PAN-ASIAN RESTAURANT': ['Eat'],
+  // Added 2026-09-24 for Smaak (Northern Quarter) — Manchester's first
+  // dedicated Dutch fries-and-brunch concept; BRUNCH SPOT is the closest
+  // existing type but would flatten the genuinely distinct Dutch-street-food
+  // identity that's the actual reason to go, same precedent as SOUVLAKI
+  // SPOT/SMOKEHOUSE/CANTONESE ROAST elsewhere in this catalog. Category-only,
+  // no onboarding tile fits it precisely yet.
+  'DUTCH FRY HOUSE': ['Eat'],
 };
