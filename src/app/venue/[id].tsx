@@ -26,7 +26,7 @@ const MOMENT_LABEL: Record<MomentType, string> = {
   'watch-the-football': 'Watch the Football',
   'big-fight-night': 'Big Fight Night',
   'pub-crawl': 'Pub Crawl',
-  'sunday-session': 'Sunday Session',
+  'sunday-session': 'Pubby Sunday',
   'quiz-night': 'Quiz Night',
   'birthday-blowout': 'Birthday Blowout',
   'leaving-do': 'Leaving Do',
