@@ -159,6 +159,86 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-28",
+      "reason": "Not yet independently confirmed as currently trading (industry press as of the original research still described the opening in future tense, 'later this year'; a fresh re-check today found the same — no independent source yet confirms it has actually opened), plus the exact unit number/coordinates are still an approximation rather than a real address.",
+      "researchNotes": "Re-checked via fresh web search 2026-09-28: restaurantonline.co.uk and premierconstructionnews.com both still describe the Bridge Street/Spinningfields opening as upcoming ('will open', 'later this year') rather than confirming it has traded yet. Ownership (Nottingham's 18-year Coco Tang, a real 2-site pair) checks out and passes Hard rule 1 cleanly, so the ownership question isn't the issue — whether the venue physically exists and is open for a member to walk into today is.",
+      "payload": {
+        "name": "Coco Tang",
+        "district": "spinningfields",
+        "type": "VIETNAMESE",
+        "spend": "£££",
+        "lat": 53.4796,
+        "lon": -2.2493,
+        "base": 82,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Eighteen years of running Nottingham's Byard Lane before Manchester got a look — Vietnamese café by day, a cocktail room and late kitchen once the Bridge Street lights come on."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-28",
+      "reason": "A fresh search surfaced a second address referencing 'Egg & Co at General Store, Deansgate Towers' alongside the main 247 Deansgate site, which the original research's 'first standalone site' framing didn't account for — genuinely unclear whether this is a second concurrent site, a listing artifact, or the same address described two ways.",
+      "researchNotes": "Re-checked via fresh web search 2026-09-28: results reference an 'additional location with Egg & Co at General Store in Deansgate Towers' distinct from the 247 Deansgate address in the original candidate. Could be a second site, a market-stall-style residency (matching the brand's known residency history), or a directory duplication — not resolved by search alone. The core venue (247 Deansgate) is real and well-documented; the open question is purely site count.",
+      "payload": {
+        "name": "Egg & Co",
+        "district": "deansgate",
+        "type": "BRUNCH SPOT",
+        "spend": "£",
+        "lat": 53.477374,
+        "lon": -2.249832,
+        "base": 66,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "Started as a stall inside Ancoats General Store before it earned its own address on Deansgate — an egg sandwich taken as seriously as anything with a tasting menu."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-28",
+      "reason": "The operator (Dukes Hospitality Group) runs five bars/venues concentrated in one small town (Macclesfield) under one owner — a bigger local footprint than the 'three or four sites' example CLAUDE.md's own two-gate amendment uses, and the original research explicitly flagged this scale as worth a second look rather than a clean single-sibling case.",
+      "researchNotes": "Re-verified via Companies House and macclesfield.nub.news: Kyle Frost-Morgan's Dukes Hospitality Group runs No.8 Dukes, Dukebox, The White Lion, Duchess and The Ivy Leaf, all in or around Duke's Court, Macclesfield — a real, current 5-venue local footprint. Passes Gate 1 (not a mass-market high-street brand, genuinely a local operator's own venues) on the same reasoning as Bull Ring NW's smaller 3-site Northwich footprint, but the larger scale here is a real judgment call on where 'small premium group' stops and 'local chain' starts — not a call this pass is confident making alone.",
+      "payload": {
+        "name": "No.8 Dukes",
+        "district": "macclesfield",
+        "type": "COCKTAIL BAR",
+        "spend": "£££",
+        "lat": 53.257233,
+        "lon": -2.125601,
+        "base": 76,
+        "bands": [
+          "evening",
+          "late"
+        ],
+        "reason": "Duke's Court stays lit long after the rest of Macclesfield has gone home — doors open to 3am, seven nights, in a room that doesn't bother pretending it's anything but the town's last stop."
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-09-28",
+      "reason": "Temple Street Claypot Rice's own Deliveroo listing currently shows the restaurant as closed, with no independent source confirming whether this is temporary or permanent.",
+      "researchNotes": "Closure-audit rotating slice, 2026-09-28 (indices 439-443 of docs/data/venues.json at the start of this run: This & That, Social Refuge, Tatton Park, Chester Zoo, Temple Street Claypot Rice). Web search 2026-09-28: Deliveroo's own menu page for Temple Street Claypot Rice, 68 Manchester Road, Altrincham WA14 4PJ, shows it as closed. Tripadvisor still lists it as active (4.0/5, #151 of 173 Altrincham restaurants) and its Food Hygiene Rating was last updated 21/10/2025 — no second source corroborates a permanent closure, and no reopening/still-trading signal was found either. Genuinely ambiguous rather than confirmed either way, so flagged per the closure-audit rule rather than auto-removed. The other four venues in this run's slice (This & That, Social Refuge, Tatton Park, Chester Zoo) all re-confirmed still trading with no closure signal — Chester Zoo's aquarium closing permanently in 2026 is a partial-exhibit change, not a venue closure, and not acted on.",
+      "payload": {
+        "name": "Temple Street Claypot Rice",
+        "district": "altrincham"
+      }
     }
   ]
 }
