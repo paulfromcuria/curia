@@ -277,6 +277,42 @@
         { "label": "Closure audit (indices 28-32: Wiltons, Franco's, Chris Beetles Gallery, Spencer House, The Globe)", "detail": "not completed — could not find real evidence either way, so nothing written rather than guessing" }
       ],
       "createdAt": "2026-09-17T09:20:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-09-19",
+      "synced": false,
+      "title": "21 venues + Lymm (new Cheshire district) promoted; 2 rejected as chains, 1 duplicate resolved, 1 approved from the git queue; Prana still unresolved",
+      "summary": "Independently re-verified every pending candidate across venue-suggestions.json and district-suggestions.json, including the entire 2026-09-17 tool-outage backlog now that WebSearch/WebFetch are working again. Promoted 21 venues (5 in Chester: Craft & Company, Beer Heroes, Huxley's, Paysan, Shrub; Eden in Heaton Moor; 4 in Tarporley: Piste Wine Bar & Restaurant, Rose Farm Shop, Beeston Castle, Bonjour Wines; 5 in Northwich: Board Beans, Turturici, Barons, Northwich Market, HUSH Brewing Tap; Zaza Cafe Bar in Northwich; Sali's Souvlaki and Vietnamese Potbellied in Chorlton; Salut Wines in Chinatown; La Gitane in Spinningfields) plus Lymm as a new Cheshire district. Rejected Olive Tree Brasserie (a real 5-site chain across Lancashire/Cheshire/Yorkshire, plus its director's 10.5-year business ban for Bounce Back Loan fraud) and Buon Cibo (a newly-incorporated 'Buon Cibo Group Ltd' at a third town resolved its ambiguity into a real, actively-scaling multi-site operator). The 'Underbank' naming-mix-up that had sat in pending-review-queue.json since 2026-09-16 was resolved on fresh search: 'Syndikat' is the building/events-space name, not a second venue — this candidate is the same real venue as the already-promoted 'The Underbank' entry, so it was rejected as a duplicate rather than added again. Rustik (Didsbury), also long-stuck in pending-review-queue.json, was promoted: current live-music social-media activity confirms its evening programme has fully resumed after 2025's closure/reopening saga. Prana (Altrincham) remains genuinely unresolved after a sixth check — new signals (a live-looking operator site, an active Skiddle events page) are consistent with reopening but unconfirmed, while CAMRA still shows 'Closed Long Term' unchanged since May 2024 — left pending. Curia Command's pending_review collection was checked via ArtifactData query (functionally the same as read_db) and had zero decided items to apply. Closure-audit rotating slice (Porta, Altrincham; Happy Seasons, Chinatown; The Bull's Head, Mobberley; HOME, Deansgate; Band on the Wall, Northern Quarter) found no closure signals.",
+      "items": [
+        { "label": "Craft & Company (Chester)", "detail": "promoted — real, trading since 2017, iKO Projects' Chester-only small group within existing precedent" },
+        { "label": "Beer Heroes (Chester)", "detail": "promoted — confirmed genuine 2-site Cheshire-only pair (Chester + Helsby)" },
+        { "label": "Huxley's (Chester)", "detail": "promoted — single-site, confirmed dog-friendly" },
+        { "label": "Paysan (Chester)", "detail": "promoted — single-site wine bar/rotisserie, confirmed vegetarian option" },
+        { "label": "Shrub (Chester)", "detail": "promoted — single-site, AA Rosette plant-based restaurant, confirmed vegan/vegetarian/gluten-free" },
+        { "label": "Eden (Heaton Moor)", "detail": "promoted — single-site, independent, re-confirmed trading" },
+        { "label": "Piste Wine Bar & Restaurant (Tarporley)", "detail": "promoted — single-site (Sandbach sibling sold off years ago), owner-run" },
+        { "label": "Rose Farm Shop (Tarporley)", "detail": "promoted — single working farm, no chain signal" },
+        { "label": "Beeston Castle (Tarporley)", "detail": "promoted — English Heritage site, new type HISTORIC CASTLE" },
+        { "label": "Bonjour Wines (Tarporley)", "detail": "promoted — single-site mother-daughter wine and cheese shop" },
+        { "label": "Board Beans (Northwich)", "detail": "promoted — single-site board-game cafe, new type GAMES CAFE" },
+        { "label": "Turturici (Northwich)", "detail": "promoted — single-site Sicilian restaurant since 2006, confirmed dietary options" },
+        { "label": "Barons (Northwich)", "detail": "promoted — single-site pub; owner's Real Ale Shack stall in Warrington judged a side business, not a chain" },
+        { "label": "Northwich Market (Northwich)", "detail": "promoted — confirmed it actually opened on schedule, 18 September 2026" },
+        { "label": "HUSH Brewing Tap (Northwich)", "detail": "promoted — single-site brewery taproom, real but limited monthly trading hours flagged" },
+        { "label": "Zaza Cafe Bar (Northwich)", "detail": "promoted — single-site confirmed; a Warrington aggregator hit is an unrelated business, Zaza Mediterranean Turkish BBQ" },
+        { "label": "Sali's Souvlaki (Chorlton)", "detail": "promoted — single-site family-run Greek grill" },
+        { "label": "Vietnamese Potbellied (Chorlton)", "detail": "promoted — single-site family-run Vietnamese, confirmed vegetarian option" },
+        { "label": "Salut Wines (Chinatown)", "detail": "promoted — single-site since 2014, real postcode coordinates independently confirmed" },
+        { "label": "La Gitane (Spinningfields)", "detail": "promoted — confirmed still trading in 2026, single-site beneath an independent restaurant" },
+        { "label": "Lymm (new Cheshire district)", "detail": "promoted — genuine, distinct canal village, ~8.5km from Altrincham, real independent-shop cluster confirmed" },
+        { "label": "Olive Tree Brasserie (Chester)", "detail": "rejected — actually a real 5-site chain across Lancashire/Cheshire/Yorkshire, plus its director's 10.5-year business ban for Bounce Back Loan fraud" },
+        { "label": "Buon Cibo (Heaton Moor)", "detail": "rejected, resolving 2026-09-14's pending-review-queue.json entry — a newly-incorporated 'Buon Cibo Group Ltd' at a third town confirms real multi-site scaling" },
+        { "label": "Underbank (Stockport (Underbanks))", "detail": "rejected as a duplicate, resolving 2026-09-16's naming-mix-up — 'Syndikat' is the building's name, not a second venue; same real venue as the already-promoted 'The Underbank'" },
+        { "label": "Rustik (Didsbury)", "detail": "promoted, resolving 2026-09-14's pending-review-queue.json entry — current live-music social activity confirms the evening programme has fully resumed" },
+        { "label": "Prana (Altrincham)", "detail": "left pending — still genuinely unresolved after a sixth check; new but unconfirmable reopening signals against CAMRA's unchanged 'Closed Long Term' status" }
+      ],
+      "createdAt": "2026-09-19T14:00:00Z"
     }
   ]
 }
