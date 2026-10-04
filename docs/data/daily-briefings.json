@@ -3,6 +3,21 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-10-04",
+      "synced": false,
+      "title": "98 venues + 6 new districts promoted from a cleared backlog; 1 duplicate rejected, 1 sent for review",
+      "summary": "Processed the full 100-entry pending backlog that had accumulated in venue-suggestions.json (2026-09-02 through today) plus all 6 pending district-suggestions.json candidates. After automated schema/duplicate/coordinate checks and targeted fresh WebSearch re-verification (weighted toward every multi-site/chain-footprint flag, newly-opened or single-practitioner businesses, and the two Michelin Guide claims), promoted 98 venues and 6 new districts (Lymm, Ramsbottom, Rusholme (Curry Mile), Monton, Frodsham, Sale) directly into the real data. Rejected one exact duplicate ('Board Beans Cafe', Northwich — the same venue as the already-catalogued 'Board Beans'). One venue (Temple Bar, Northwich) was held back to Pending Review over genuinely conflicting signals about whether it's currently trading. Applied the two-gate model (CLAUDE.md Hard rule 1) consistently: several candidates flagged in their own research notes as small local multi-site operators (Dukes Hospitality's Macclesfield bars, WANT Studios' Manchester venues, the Elk Bars, Salt House's Northwich sites, etc.) all pass Gate 1 cleanly — none are mass-market high-street chains, so site count alone was never grounds for rejection. Closure audit (5 Mayfair venues) found nothing amiss. This run's PR went out on branch promote/2026-10-04 rather than straight to master — a platform-level guardrail blocked a direct push for this specific run; see the PR description for the fuller writeup.",
+      "items": [
+        { "label": "98 venues (Chester, Northern Quarter, Chorlton, Macclesfield, Ancoats, Hale, Stockport (Underbanks), Heaton Moor, Bramhall, Tarporley, Knutsford, Deansgate, Didsbury, Spinningfields, Altrincham, Chinatown, Northwich, Mobberley, Nantwich, Prestbury, Cheadle Hulme, Wilmslow)", "detail": "promoted — full list in venues.json's own _dailyReviewPromotionSource20261004 note" },
+        { "label": "Lymm, Ramsbottom, Rusholme (Curry Mile), Monton, Frodsham, Sale (new districts)", "detail": "promoted — all 6 independently re-confirmed as real, distinct, non-overlapping places" },
+        { "label": "Board Beans Cafe (Northwich)", "detail": "rejected — exact duplicate of the already-live 'Board Beans', same coordinates" },
+        { "label": "Temple Bar (Northwich)", "detail": "sent for review — one listing marks it 'Temporarily Closed' while other current reviews describe an actively-run pub; genuinely conflicting, left pending" },
+        { "label": "Closure audit (5 Mayfair venues: Kitty Fisher's, Bellamy's, 5 Hertford Street, Hedonism Wines, Connaught Brown)", "detail": "clean — all five re-confirmed currently trading, nothing written to pending-review-queue.json" }
+      ],
+      "createdAt": "2026-10-04T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-16",
       "synced": true,
       "title": "8 venues + Chester (new Cheshire district) promoted; 1 rejected as a real chain, 1 naming mix-up sent for review",

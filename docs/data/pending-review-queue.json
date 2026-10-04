@@ -159,6 +159,28 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-04",
+      "reason": "Genuinely conflicting signals on whether this is currently trading: one aggregator (Wanderlog) tags it 'Temporarily Closed', while a Feb 2025 Tripadvisor review described a dirty, disorganised venue, yet Charlotte Mills's own Facebook and other current reviews describe an actively-run, well-regarded community pub with a 'traditional pub culture' relaunch from December 2025 — not a clean pass or reject either way.",
+      "researchNotes": "Independently re-verified 2026-10-04 (the original suggestion's own researchNotes already flagged this as 'worth a quick re-check at promotion time'): Temple Bar, 34-36 Witton Street, Northwich CW9 5AH, reopened December 2025 under new sole owner Charlotte Mills (Fortitude Pubs Ltd, company 16143576, registered at the venue's own address) after trading as Temple Cafe Bar. Fresh web search found a direct contradiction rather than a resolution — one listing explicitly reads 'Temporarily Closed', a Feb 2025 review (predating the relaunch) describes dirty glasses/ashtrays and boxes piled up, but other current reviews praise Charlotte's 'community pub' relaunch and 'amazing customer service'. Could not independently confirm via phone/email (contact details found but not callable from this session) whether it is actually trading today. Single-site, independently owned, passes Hard rule 1 cleanly if it is open — the uncertainty is purely about current trading status, not chain/duplicate/schema concerns. Left 'pending' in docs/data/venue-suggestions.json rather than promoted or rejected.",
+      "payload": {
+        "name": "Temple Bar",
+        "district": "northwich",
+        "type": "ALE HOUSE",
+        "spend": "££",
+        "lat": 53.2622,
+        "lon": -2.5115,
+        "base": 68,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Charlotte Mills came home to open the bar Northwich's high street was missing — cask ale and a proper cocktail list behind a front door that used to belong to someone else's chain."
+      }
     }
   ]
 }
