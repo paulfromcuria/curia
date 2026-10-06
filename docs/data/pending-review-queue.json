@@ -159,6 +159,34 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-06",
+      "reason": "Multiple independent trade-press sources confirm Coco Tang (Spinningfields) is real and genuinely planned to open this autumn, but nobody has independently confirmed it has actually opened and is trading yet — a real 'does it exist as a going concern today' uncertainty, not a chain or duplicate question.",
+      "researchNotes": "Checked again 2026-10-06 (restaurantonline.co.uk, premierconstructionnews.com, a fresh web search for 'Coco Tang Manchester now open'): consistent, credible coverage of a genuine independent 2-site expansion from the 18-year-old Nottingham original (Byard Lane) into the former Artisan/SakkuSamba unit at 1 The Avenue, Bridge Street, Spinningfields -- Vietnamese cafe by day, late cocktail bar/club by night, 'scheduled to open Autumn 2026'. No source found (as of this run) confirming it has actually opened its doors and is trading -- the same caveat the original 2026-09-22 researchNotes flagged, still unresolved two weeks later. The venue/ownership/non-chain facts are solid (within the established single-sibling-in-another-city precedent, e.g. Craig's, Ivy Spinningfields); the only open question is whether it exists as a tradeable venue yet, which neither promoting nor rejecting honestly resolves -- hence Pending Review rather than a guess either way.",
+      "payload": {
+        "name": "Coco Tang",
+        "district": "spinningfields",
+        "type": "VIETNAMESE",
+        "spend": "£££",
+        "lat": 53.4796,
+        "lon": -2.2493,
+        "base": 82,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Eighteen years of running Nottingham's Byard Lane before Manchester got a look — Vietnamese cafe by day, a cocktail room and late kitchen once the Bridge Street lights come on.",
+        "petFriendly": false,
+        "dietaryOptions": [
+          "none"
+        ]
+      }
     }
   ]
 }
