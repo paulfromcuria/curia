@@ -159,6 +159,50 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-07",
+      "reason": "The original research pass already rated this its own lowest confidence tier (a small, low-profile business inside a shared food-court unit), and a fresh independent search today couldn't find any trace of it at all beyond unrelated Pronto Caffe businesses in other cities — not a contradiction (no closure signal either), just a genuine inability to independently corroborate a very small, very new venue.",
+      "researchNotes": "Re-searched 2026-10-07 (queries: 'Pronto Caffe Macclesfield Castle Street Lusso food court', 'Pronto Caffe Macclesfield Marilena Oakes') — found zero results matching this specific venue; every hit was an unrelated Pronto Caffe/Cafe elsewhere (Vancouver, Toronto, Newton Aycliffe) or other, unrelated Macclesfield cafes. The original suggestion (docs/data/venue-suggestions.json, left 'pending' there — not rejected, since nothing confirms it's wrong either) cited Macclesfield Nub News and the operator's own site/Instagram/TikTok, which this session's search tool simply didn't surface. Left genuinely unresolved rather than guessed either way.",
+      "payload": {
+        "name": "Pronto Caffé",
+        "district": "macclesfield",
+        "type": "COFFEE ROOM",
+        "spend": "£",
+        "lat": 53.26025,
+        "lon": -2.128353,
+        "base": 58,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A former barista's own counter inside the new food court on Castle Street, run with her mother — the kind of coffee that has never needed a loyalty app to explain itself."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-07",
+      "reason": "Same shape as Pronto Caffe above: the original research pass already flagged this as its own lowest confidence tier, and today's fresh search found zero trace of a venue by this name on Hulme Hall Road, Cheadle Hulme — only an unrelated pub (The Hesketh) and NHS clinics at nearby addresses on the same road.",
+      "researchNotes": "Re-searched 2026-10-07 (queries: '\"One Thirty Cafe\" Cheadle Hulme Hulme Hall Road', '\"One Thirty\" cafe bar Cheadle Hulme prosecco coffee') — no matching business found; the search tool itself suggested this is consistent with 'a very new, not yet widely indexed' small local business rather than evidence it doesn't exist. The original suggestion (docs/data/venue-suggestions.json, left 'pending' there) cited current Tripadvisor reviews and a noted recent change of ownership, neither of which this session could independently re-surface. Left genuinely unresolved rather than guessed either way.",
+      "payload": {
+        "name": "One Thirty Cafe & Bar",
+        "district": "cheadle-hulme",
+        "type": "COFFEE ROOM",
+        "spend": "££",
+        "lat": 53.3667,
+        "lon": -2.19,
+        "base": 60,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A family-run counter on Hulme Hall Road that pours prosecco and bottled beer alongside the flat whites — Cheadle Hulme's daytime answer to a proper bar, gone by mid-afternoon rather than staying open just to prove a point."
+      }
     }
   ]
 }
