@@ -2024,6 +2024,76 @@
       "suggestedDate": "2026-10-07",
       "status": "pending",
       "researchNotes": "Verified via Companies House (HALE GOLF CLUB LIMITED, #13625648, active), 1golf.eu's club listing and greenfee365: Hale Golf Club, Rappax Road, Hale, Altrincham WA15 0NU — a private 9-hole golf club founded in 1903 with roughly 500 members, distinct from Hale Country Club & Spa (Clay Lane, already live in this district's catalogue as a SPA) — confirmed two separate clubs via Companies House and both clubs' own sites, not a naming collision. No chain/group ownership found; a single private members' club, passes Hard rule 1 cleanly. Coordinates (53.366430/-2.327118) are the ONS centre-point for postcode WA15 0NU (web search; api.postcodes.io/doogal.co.uk both returned EGRESS_BLOCKED this session). Reuses the existing GOLF CLUB type (already extensive in this catalogue via the 2026-09-18 Cheshire golf pass) — fits the real 'Play sport' onboarding tile. Hale's real Do category (Contemporary Six Hale, InHale Yoga, Hale Lawn Tennis Club) had no golf-club venue despite Hale Country Club's own grounds including golf elsewhere in Cheshire's catalogue — closes a real, specific gap. High confidence — long-established, independently confirmed via company registry, no closure signals."
+    },
+    {
+      "name": "Six Knutsford",
+      "district": "knutsford",
+      "type": "COCKTAIL BAR",
+      "spend": "£££",
+      "lat": 53.303995,
+      "lon": -2.372844,
+      "base": 72,
+      "bands": ["afternoon", "evening", "late"],
+      "reason": "Steve Mitchell poured a new bar into the old Freemasons' hall on Silk Mill Street rather than let it sit empty — craft beer and a cocktail list deep enough to survive the live band that takes over most nights.",
+      "suggestedDate": "2026-10-08",
+      "status": "pending",
+      "researchNotes": "Verified via Knutsford Town Council's own site (two separate articles: Six Knutsford joining the Taste Knutsford food tours, and owner Steve Mitchell quoted on the venue's summer alfresco dining) and CAMRA/whatpub.com's listing for the building's history (Freemasons' hall, Grade II listed, converted to Six by the Mitchell family): Six Knutsford, Silk Mill Street, Knutsford WA16 6DT — a bar with a curated craft beer selection, cocktails and wine, regular live music nights, an outdoor bar and a private room for hire, opened September by the Mitchell family. Both Town Council articles are dated within the last 12 months (one explicitly 17 October 2025) and describe current participation in town-wide events, not a stale opening announcement. No second site or group ownership found anywhere searched; single-site, independently owned by Steve Mitchell, passes Hard rule 1 cleanly. Coordinates (53.303995/-2.372844) are the web-geocoded centroid for WA16 6DT (api.postcodes.io/doogal.co.uk both returned EGRESS_BLOCKED this session, so this is a web-search-derived figure rather than a direct API geocode — flagged for the reviewer to tighten if a precise geocode becomes available). Reuses the existing COCKTAIL BAR type — Knutsford currently has no venue mapped to the 'Cocktail bars' onboarding tile at all despite two wine bars (Wallop, Dexter & Jones) and a speakeasy (The Blind Pig), a real tile-coverage gap this closes; Knutsford's real Drink category also remains its thinnest even after every other currently-pending Knutsford candidate in this file is accounted for. High confidence — independently corroborated by the town council across two separate dated articles, current trading activity, no closure signals found despite a direct search for one."
+    },
+    {
+      "name": "The Stolen Lamb (Knutsford)",
+      "district": "knutsford",
+      "type": "GREEK TAVERNA",
+      "spend": "£££",
+      "lat": 53.3039,
+      "lon": -2.3722,
+      "base": 78,
+      "bands": ["afternoon", "evening"],
+      "reason": "Saphina Hadjiyianni's own room in the old Botanist shell on King Street — the same family's Kleftiko instincts as the Water Lane original, just run to Knutsford's own clock rather than Wilmslow's.",
+      "suggestedDate": "2026-10-08",
+      "status": "pending",
+      "researchNotes": "IMPORTANT FOR REVIEWER: this is NOT a duplicate of 'The Stolen Lamb' already live in docs/data/venues.json (Water Lane, Wilmslow, lat 53.326219/-2.233619) — it is a second, physically distinct restaurant at a different address in a different district, named identically here as '(Knutsford)' specifically to avoid an automatic name-match rejection. Verified via Knutsford Town Council (24 Oct 2025 piece on the family-run Greek restaurant that opened in August in the former Botanist premises on King Street, owner named as Saphina Hadjiyianni), CAMRA/whatpub.com (listing for 41a King Street, Knutsford WA16 6DW, explicitly noting 'Now converted to Greek restaurant Stolen Lamb' at the former Botanist/pub site) and wilmslow.co.uk's own coverage of the Wilmslow original (owned by Wilmslow residents Panicos and George Hadjiyiannis — the shared Hadjiyiannis/Hadjiyianni surname across both venues' ownership is strong circumstantial evidence this is the same family's second site, not a coincidental namesake). A genuine 2-site pair, same family, two different Cheshire towns — within the established 'single sibling in another town' precedent already accepted elsewhere in this file (Craig's, Ivy Spinningfields, Fire Station Social Cucina, Little Tap/Terrarium). No third site found anywhere searched. Coordinates (53.3039/-2.3722) are interpolated from two nearby listed-building geocodes on King Street (8-14 King Street at 53.3027/-2.3712 and 108-116 King Street at 53.3067/-2.3743, britishlistedbuildings.co.uk) proportioned against the 41a house number, since WA16 6DW itself wasn't directly geocodable this session (api.postcodes.io/doogal.co.uk both returned EGRESS_BLOCKED) — flagged for the reviewer to tighten with a precise geocode once available. Reuses the existing GREEK TAVERNA type. High confidence on the venue's existence and current trading (two independent sources — a town council article and a CAMRA listing — agree it opened and is operating); the family-ownership link is strong circumstantial evidence rather than a confirmed company-register match, flagged as the one caveat worth a second look at promotion time."
+    },
+    {
+      "name": "Upstairs at the Grill",
+      "district": "chester",
+      "type": "FINE DINING",
+      "spend": "£££",
+      "lat": 53.1898,
+      "lon": -2.8949,
+      "base": 82,
+      "bands": ["evening", "late"],
+      "reason": "Five-week dry-aged steaks above the old Custom House on Watergate Street since 2002 — Neil McDonnell's sister room to Barlounge across the road, and the only queue on the street that's lasted as long as the building's been open.",
+      "suggestedDate": "2026-10-08",
+      "status": "pending",
+      "researchNotes": "Verified via the Michelin Guide's own listing (prime steaks including porterhouse, bone-in fillet and rib-eye, 5-week dry-aged Welsh beef and rare-breed cuts sourced internationally), Historic England's listed-building record (Number 70 Watergate Street, Old Custom House, Chester, explicitly naming 'Upstairs at the Grill' as the current occupant, lat/lon 53.1898/-2.8949) and chester.com (opened 2002 in the former Customs House on the Rows, New-York-steakhouse-inspired, closed through much of the pandemic and reopened after a refit in late 2021). Tripadvisor shows 3,239 reviews at 4.7/5, ranked #35 of 468 Chester restaurants — high volume, current, no closure signal. Ownership: multiple sources (an Airbnb local tip, corroborated by Chester press coverage of its sister venue) describe it as BarLounge's sister restaurant, same owners Neil McDonnell and Jason Bligh, both at 70/75 Watergate Street on opposite sides of the same short block — a 2-site pair under one ownership group, both within Chester itself, the same 'single sibling' precedent already accepted elsewhere in this file (Craig's, Ivy Spinningfields) but even tighter since both sites are in the same city. No third site found anywhere searched. Coordinates are Historic England's own listed-building geocode for this exact address, not a district centroid or estimate. Reuses the existing FINE DINING type (Podium, Pip, The Ivy Spinningfields) — the closest fit for a Michelin-Guide-listed, dinner-led steakhouse; no dedicated STEAKHOUSE type currently exists in the catalogue, noted here rather than invented without cause. Closes a real gap: Chester's real Eat category (Paysan, Shrub) was its thinnest before this addition, only 2 mapped venues against 5 Do. High confidence — long-established, high review volume, independently corroborated ownership and address, no closure signals found."
+    },
+    {
+      "name": "Sariska",
+      "district": "alderley-edge",
+      "type": "INDIAN RESTAURANT",
+      "spend": "££",
+      "lat": 53.300964,
+      "lon": -2.236437,
+      "base": 64,
+      "bands": ["afternoon", "evening"],
+      "reason": "A contemporary Indian room in the old Giggling Squid shell on London Road, under its own name rather than a borrowed one — the butter chicken is already the thing locals mention first.",
+      "suggestedDate": "2026-10-08",
+      "status": "pending",
+      "researchNotes": "Verified via wilmslow.co.uk and alderleyedge.com (identical article on both, 'Alderley Edge's new Indian restaurant Sariska opens to positive reception'), eatible.co.uk and spinach.guide (consistent address and offering): Sariska, 50 London Road, Alderley Edge SK9 7DZ — a contemporary Indian restaurant, bar and takeaway, opened recently in a unit that previously housed Giggling Squid (a Thai chain) and, before that, the Alderley Edge Bar and Grill. The restaurant's own name (after the Sariska Tiger Reserve in Rajasthan) and a dedicated search for a wider group turned up no sibling sites or parent company anywhere — single-site, independently run, passes Hard rule 1 cleanly (and is itself replacing a chain tenant on this specific unit, not becoming one). Early reviews are genuinely mixed but consistent with a brand-new opening finding its feet (praise for the food, specifically the butter chicken, alongside normal first-week service/delivery-time teething complaints) rather than any closure or quality-failure signal. Coordinates (53.300964/-2.236437) from the SK9 7DZ postcode geocode (web search). Reuses the existing INDIAN RESTAURANT type (Delhi Dream, Amazing India, Basmati). Alderley Edge had zero pending candidates in this file before this run despite real Drink/Eat categories both sitting below Do's — this closes part of that gap. Moderate confidence — very recently opened (within the last research window), so trading history is short; no closure or chain-footprint concerns found on an active search for either."
+    },
+    {
+      "name": "Admiral Rodney",
+      "district": "prestbury",
+      "type": "COUNTRY PUB",
+      "spend": "££",
+      "lat": 53.290688,
+      "lon": -2.149087,
+      "base": 64,
+      "bands": ["afternoon", "evening"],
+      "reason": "A whitewashed Grade II coaching inn on New Road, named for a Nelson-era admiral and decorated accordingly — cask ale and a lunchtime kitchen that never bothered with a gastro refit.",
+      "suggestedDate": "2026-10-08",
+      "status": "pending",
+      "researchNotes": "Verified via CAMRA/whatpub.com (Grade II listed building, cask ale with a rotating guest beer, lunchtime food daily including vegetarian/vegan options, nautical-themed interior, explicitly noted as having avoided a gastro refurbishment), Historic England's listed-building register (Admiral Rodney Inn, New Road, Prestbury, listed 14 April 1967) and Cheshire East Council's Food Standards Agency inspection record (5/5 'Very Good', last inspected 14 Nov 2023). No ownership/tenancy details or branding were found anywhere searched — no Brunning & Price, Robinsons, Timpson Taverns or other named pub-company tie turned up despite a direct search for one, and the building's long, unchanged, traditional-pub character argues against a recent corporate takeover, though this is an absence-of-evidence read rather than a confirmed-independent one, flagged honestly as the one caveat here. No chain footprint of any kind found. Coordinates (53.290688/-2.149087) are the web-geocoded centroid for postcode SK10 4HP, which the pub's own listings give as its address. Reuses the existing COUNTRY PUB type (The Legh Arms, also Prestbury) — fits the real gap that Prestbury's existing Drink-mapped venues (Bacchus, The Foxhole, The Legh Arms) skew polished/boutique, with nothing at this plainer, more traditional cask-ale register. Moderate confidence — the building, listing and food-hygiene record are all independently confirmed, but the most recent hygiene inspection is from November 2023 and no 2025/2026-dated review or social post was found despite several attempts; no closure signal was found either, and the venue's 300-year trading history as a recognisable village institution weighs against a quiet closure going unreported, but the reviewer should do one more current-status check before promoting."
     }
   ]
 }
