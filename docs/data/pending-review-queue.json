@@ -159,6 +159,96 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-08",
+      "reason": "Real, well-documented and widely covered by trade press, but not yet confirmed as actually trading — a premises licence application was still in progress as of the most recent coverage found, so this could be promoting a venue that hasn't opened yet.",
+      "researchNotes": "Checked restaurantonline.co.uk, manchestersfinest.com and a direct fresh search for an opening date: the operator (Panama Estate Limited) applied in January for a premises licence for the Bridge Street, Spinningfields site; no source found confirms it has actually opened and started trading as of 2026-10-08. The venue, ownership (the 18-year-old Nottingham original) and site are all real and well-sourced — the uncertainty is purely about whether it's live yet, which this job can't respond to by rejecting (it may be a perfectly good promotion in a week) or promoting (it may not exist to a member walking in today).",
+      "payload": {
+        "name": "Coco Tang",
+        "district": "spinningfields",
+        "type": "VIETNAMESE",
+        "spend": "£££",
+        "lat": 53.4796,
+        "lon": -2.2493,
+        "base": 82,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Eighteen years of running Nottingham's Byard Lane before Manchester got a look — Vietnamese café by day, a cocktail room and late kitchen once the Bridge Street lights come on."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-08",
+      "reason": "A recent, undocumented change of ownership plus a real question over which district it's actually in (it sits toward the Cheadle Hulme/Cheadle boundary) — two separate uncertainties stacking on one candidate.",
+      "researchNotes": "Tripadvisor reviews note a change of ownership 'in December' with the business continuing to trade under new management, but no source names the new owner or confirms the venue's current offer is unchanged. Separately, its coordinates (53.3667/-2.19) sit toward the southern edge of Cheadle Hulme's known venue spread, closer to Thorn Grove Park than to the district's other catalogued venues, raising a real question of whether it's genuinely in Cheadle Hulme or actually in Cheadle proper (no Cheadle district exists in Curia). Neither issue alone would block promotion; together they're enough to want a second opinion.",
+      "payload": {
+        "name": "One Thirty Cafe & Bar",
+        "district": "cheadle-hulme",
+        "type": "COFFEE ROOM",
+        "spend": "££",
+        "lat": 53.3667,
+        "lon": -2.19,
+        "base": 60,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A family-run counter on Hulme Hall Road that pours prosecco and bottled beer alongside the flat whites — Cheadle Hulme's daytime answer to a proper bar, gone by mid-afternoon rather than staying open just to prove a point."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-08",
+      "reason": "Too recently opened for a settled review record, and carries a double ownership question — a multi-venue chef (Madre, Belzan, Medlock Canteen) running a restaurant inside a 3-location international boutique hotel brand (Treehouse Hotels).",
+      "researchNotes": "Verified via the operator's own site and trade press that this is a real, currently-trading 14th-floor restaurant at Treehouse Hotel Manchester, led by chef Sam Grainger. The restaurant itself reads as a one-off, chef-led concept rather than a repeated hotel in-house format, matching how this catalogue already treats other hotel-housed venues (e.g. Refuge at Kimpton Clocktower) — but it opened September 2026, so there's no real review history yet, and the combination of a multi-venue chef plus a multi-location hotel brand is a genuinely thicker ownership picture than this file's usual single-sibling cases. Worth a second look once it has a few months of trading behind it.",
+      "payload": {
+        "name": "Sister Moon",
+        "district": "deansgate",
+        "type": "PAN-ASIAN RESTAURANT",
+        "spend": "££££",
+        "lat": 53.4845,
+        "lon": -2.2493,
+        "base": 82,
+        "bands": [
+          "evening",
+          "late"
+        ],
+        "reason": "Sam Grainger's fourth Manchester room, fourteen floors above Blackfriars — Southeast Asian fire and fragrance instead of a view of the kitchen pass, and the whole city laid out past the glass."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-08",
+      "reason": "Conflicting evidence on whether it's actually open right now — an old CAMRA listing shows it closed, a separate undated listing shows current-looking hours, and the most recent confirmed food-hygiene inspection on record is from November 2023.",
+      "researchNotes": "The pub itself (a genuine Grade II-listed 17th-century coaching inn on New Road, Prestbury) and its building history are solidly confirmed via Historic England and Cheshire East Council's hygiene register. A fresh 2026-10-08 search found an undated CAMRA page showing Noon-Midnight opening hours alongside other, older CAMRA entries marking it closed (dated 2020) — neither resolves whether it's trading today, and no 2025/2026-dated review, social post or local news item was found either confirming or denying current trading. The original candidate's own researchNotes flagged exactly this and asked for one more current-status check before promoting; this run's check didn't resolve it either, so it goes to a human rather than a guess.",
+      "payload": {
+        "name": "Admiral Rodney",
+        "district": "prestbury",
+        "type": "COUNTRY PUB",
+        "spend": "££",
+        "lat": 53.290688,
+        "lon": -2.149087,
+        "base": 64,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "A whitewashed Grade II coaching inn on New Road, named for a Nelson-era admiral and decorated accordingly — cask ale and a lunchtime kitchen that never bothered with a gastro refit."
+      }
     }
   ]
 }
