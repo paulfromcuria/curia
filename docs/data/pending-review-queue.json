@@ -159,6 +159,360 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "Real, well-documented operator (18-year Nottingham original, genuine 2-site pair, passes Gate 1/2 cleanly) but independent sources only confirm an 'autumn 2026' plan to take the former Artisan/SakkuSamba/Raft unit on Bridge Street — no source found confirms it has actually opened and is trading as of today (2026-10-09), and the exact unit/coordinates are still approximated rather than from a published address.",
+      "researchNotes": "Checked restaurantonline.co.uk (25 Aug 2026) and premierconstructionnews.com (27 Aug 2026), both say Coco Tang is taking over the Bridge Street, Spinningfields unit (most recently traded as Raft, before that SakkuSamba) and opening 'this autumn 2026'; a jobtoday.com listing for the Manchester launch team suggests pre-opening hiring was still underway. No tripadvisor/Google/social listing found yet for a trading Manchester site, and no second search turned up an opening announcement. Ownership (same owners as the 18-year Nottingham Coco Tang, Byard Lane) is a genuine single-sibling pair, consistent with Gate 1/2 and the file's own Craig's/Ivy Spinningfields precedent — no issue there. The only open question is whether the doors are actually open yet; worth a second pass once that's confirmed, at which point the approximate coordinates should also be tightened to the real unit address.",
+      "payload": {
+        "name": "Coco Tang",
+        "district": "spinningfields",
+        "type": "VIETNAMESE",
+        "spend": "£££",
+        "lat": 53.4796,
+        "lon": -2.2493,
+        "base": 82,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Eighteen years of running Nottingham's Byard Lane before Manchester got a look — Vietnamese café by day, a cocktail room and late kitchen once the Bridge Street lights come on."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "Could not find any independent corroboration at all (no directory listing, press mention, or social presence) for a boutique called \"By AdiVa\" on Ashley Road in Hale, despite the researcher's claim that it's a long-standing high-street fixture.",
+      "researchNotes": "Ran two separate searches (\"By AdiVa Ashley Road Hale boutique Adi Joseph\" and a follow-up for the bare \"AdiVa\" spelling, the latter cut short by a session search-budget limit) and found zero hits for this business — only unrelated Hale-named venues in the US and a handful of other Ashley Road beauty/hair businesses, none matching. The researcher's cited sources (Instagram @by_adiva, Facebook, clothes-shops.co.uk, hale-eng.business-dir.co.uk) are all the kind of listing that can be weak in general web search, so this absence isn't conclusive proof the business doesn't exist, but it's also not the kind of venue I'd expect zero trace of if it really is a known village fixture. Recommend a second pass with a direct Instagram/Maps check before promoting.",
+      "payload": {
+        "name": "By AdiVa",
+        "district": "hale",
+        "type": "FASHION BOUTIQUE",
+        "spend": "£££",
+        "lat": 53.377037,
+        "lon": -2.346064,
+        "base": 66,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "Adi Joseph's own edit of European labels and considered gifts on Ashley Road, enough of a fixture on the village high street that regulars have long since dropped the 'By'."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "Ownership footprint (5 bars plus non-hospitality sidelines — a deli, two aesthetics/tanning businesses — all reportedly under one Macclesfield operator per the original researcher's cited local press) sits well above the 2-4 site 'small premium group' guideline, and I exhausted this session's search budget before I could independently confirm or rule out scaling/franchise ambition beyond the town.",
+      "researchNotes": "Independently re-confirmed No.8 Dukes itself is real and currently trading at 8 Dukes Court, Mill Street, Macclesfield SK11 6NN — a plush, independent-feeling late-night cocktail bar (10pm-3am), no closure signals found. Could not independently verify or refute the claimed 5-venue 'Dukes Hospitality Group' ownership (Dukebox, White Lion, Duchess, Ivy Leaf) before running out of search budget. The original researcher's own notes already flag this as a bigger local footprint than the baseline single-sibling case and explicitly ask for a second look — I agree that's warranted rather than a confident promote or reject.",
+      "payload": {
+        "name": "No.8 Dukes",
+        "district": "macclesfield",
+        "type": "COCKTAIL BAR",
+        "spend": "£££",
+        "lat": 53.257233,
+        "lon": -2.125601,
+        "base": 76,
+        "bands": [
+          "evening",
+          "late"
+        ],
+        "reason": "Duke's Court stays lit long after the rest of Macclesfield has gone home — doors open to 3am, seven nights, in a room that doesn't bother pretending it's anything but the town's last stop."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "An Uber Eats listing for this exact address (177 School Lane, Didsbury) is marked 'Closed' as of November 2024, and a similarly-named 'EK's Thai Kitchen' shows up instead under Withington on Deliveroo with a strong rating — genuine doubt about whether the Didsbury site is still trading under this name, a signal the original researchNotes didn't surface at all.",
+      "researchNotes": "Confirmed the restaurant has a real editorial footprint (Wanderlog reviews describing a small, family-run Thai spot with a chef of 30 years' experience, fried chicken and banana-fritter mentions) but could not find a dated, current (2025/2026) review confirming it's still open at 177 School Lane, and found an active closure signal on a delivery platform instead. Also still live is the district-boundary flag the original researcher already raised (the M19 1GN postcode geocodes closer to Ladybarn/Burnage than Didsbury Village).",
+      "payload": {
+        "name": "Ek's Kitchen",
+        "district": "didsbury",
+        "type": "THAI RESTAURANT",
+        "spend": "££",
+        "lat": 53.415407,
+        "lon": -2.217513,
+        "base": 76,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Twenty covers on School Lane and a chef with thirty years behind the wok — order the specials a day ahead, or take your chances in the queue with everyone else."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "Could not independently confirm the business has actually opened or verify the specific claims in the research (exact 21 March 2026 opening date, owner names Megan Nicolaides/Megan Yapp); the only corroborating source found was a thin, pre-opening Limely Chester blog post describing it as an upcoming bookshop/wine bar with no address or launch date given.",
+      "researchNotes": "Searched 'Chapters bookshop wine bar Chester Watergate Street' and 'Chapters Chester nub.news bookshop wine bar opens Watergate' (and a dedicated owner-name query). Found only limely.co.uk's 'new Chester businesses' post, which frames Chapters Book Bar as still upcoming and points readers to Instagram for launch details -- no opening date, address, or owner names given. Could not locate the chester.nub.news, chesterstandard.co.uk, or Yahoo News UK articles the original research cites, nor any independent confirmation it is currently trading. No evidence it's closed or fabricated either -- genuinely couldn't resolve current status within this search session's budget.",
+      "payload": {
+        "name": "Chapters",
+        "district": "chester",
+        "type": "WINE BAR",
+        "spend": "££",
+        "lat": 53.1903,
+        "lon": -2.8912,
+        "base": 72,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening"
+        ],
+        "reason": "A bookshop with a wine list on Watergate Row, run by two childhood best friends who'd rather host a book club than a happy hour — browse first, then stay for the glass."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "Found zero independent corroboration across multiple search queries for a 'RAW Studios' pilates/sauna/ice-bath venue on Radium Street, Ancoats, or founders Katie and Tom; a 'Manchester's first' claim like this would usually leave some press or social trace, so the total absence is a real flag, though it could also be a very new business with a thin footprint.",
+      "researchNotes": "Ran 'RAW Studios Radium Street Ancoats pilates sauna ice bath' and 'RAW Studios Manchester Katie Tom pilates contrast therapy opening' -- neither returned any matching result (one hit was an unrelated Melbourne yoga studio sharing the name). Attempted to fetch rawstudios.uk directly but it was blocked by the session's network egress proxy -- the same proxy also blocked several other small-business domains checked this session (including ones for items I did promote), so that block alone isn't conclusive either way, but combined with the search silence I can't independently confirm this venue.",
+      "payload": {
+        "name": "RAW Studios",
+        "district": "ancoats",
+        "type": "WELLNESS STUDIO",
+        "spend": "£££",
+        "lat": 53.4838,
+        "lon": -2.2255,
+        "base": 70,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "Manchester's first pilates-sauna-ice-bath room, on Radium Street — Katie and Tom built the contrast-therapy circuit the city didn't have yet, not a gym bolting a cold plunge on as an afterthought."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "The gallery and founder Nick Betney are clearly real and well-documented (running since 1998), but sources conflict on the CURRENT address: older sources (a 2017-dated Artrabbit listing, Confidentials) give Old Granada Studios, Quay Street M3 4PR (the suggested coordinates), while other listings (Time Out, Culture Trip) give Quay House, Hardman Square, Spinningfields M3 3JE instead, describing a relocation -- a real location difference, not just a rounding error, and I couldn't find a source clearly dated recently enough to resolve which is current.",
+      "researchNotes": "Confirmed via Confidentials, Time Out, Culture Trip, Wanderlog and Artrabbit that the gallery and its single long-standing owner are genuine. The Quay Street/Old Granada Studios address traces to a listing dated to a 2017 exhibition that itself describes a move FROM a prior Quay Street address; Time Out and Culture Trip instead place it at Hardman Square, Spinningfields. If Hardman Square is in fact current, the Spinningfields district placement is still correct (arguably more clearly so than Quay Street/Old Granada Studios, which sits closer to the Deansgate/Castlefield edge) but the submitted lat/lon would need correcting to Hardman Square rather than being promoted as-is.",
+      "payload": {
+        "name": "Artzu Gallery",
+        "district": "spinningfields",
+        "type": "ART GALLERY",
+        "spend": "£",
+        "lat": 53.478879,
+        "lon": -2.255808,
+        "base": 72,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "Nick Betney's own gallery since 1998, now inside the old Granada TV studios on Quay Street — Manchester's most progressive independent, still picking the artists itself rather than renting the walls out."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "Found zero independent corroboration for a 'Church Street Gallery' or owner Oliver Collins in Macclesfield; the only Church Street result in search was an unrelated listed-building record, and the gallery's claimed own site/Instagram could not be reached to check directly.",
+      "researchNotes": "Searched 'Church Street Gallery Macclesfield Oliver Collins' and a site/handle-targeted follow-up; neither returned anything matching -- only a Historic England-style listing for the Church Street terrace building itself. This doesn't prove it's fake: a single-artist, single-room gallery that (per the original research) opened as recently as Christmas Eve 2024 could plausibly have a thin footprint beyond local press and Instagram that general web search doesn't surface well. But I have no independent confirmation either way, and couldn't fetch churchstreetgallery.co.uk (blocked by the session's network proxy) to check directly.",
+      "payload": {
+        "name": "Church Street Gallery",
+        "district": "macclesfield",
+        "type": "ART GALLERY",
+        "spend": "£",
+        "lat": 53.259805,
+        "lon": -2.124364,
+        "base": 64,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "Oliver Collins hung his own paintings on Church Street on Christmas Eve and never took them down — a former decorator's gallery with nobody else's name over the door."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "The address (1A Moorside Road, Heaton Moor, SK4 4DT, above Avanti) is independently confirmed, but under a different, single-practitioner business name ('Art of Pilates', run solely by instructor Tracy Purdy) rather than the claimed shared multi-practitioner 'The Heatons Studio' brand hosting several named providers (JustBe Pilates/Belinda Bramwell, hypnotherapy, massage, nutritional therapy).",
+      "researchNotes": "Confirmed the exact address and that it sits above Avanti Restaurant & Grill (already live in the catalogue). Found 'Art of Pilates' (Tracy Purdy) operating at that address, and separately-listed Heaton Moor pilates studios (JustBe Pilates among them), but no source using the name 'The Heatons Studio' itself or describing a single shared-roof brand covering all of them under one name. Could not fetch the claimed theheatons.studio site directly (blocked by the session's network proxy) to resolve the naming discrepancy.",
+      "payload": {
+        "name": "The Heatons Studio",
+        "district": "heaton-moor",
+        "type": "WELLNESS STUDIO",
+        "spend": "££",
+        "lat": 53.416916,
+        "lon": -2.189553,
+        "base": 62,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A first-floor room above Avanti where two Pilates instructors and a hypnotherapist share the same timetable — reformer classes stacked against a rejuvenating facial massage, nothing about it franchised."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "Could not independently corroborate this specific Macclesfield restaurant beyond one ambiguous food-hygiene-directory entry — the generic, widely-reused name makes it a genuine search-verification problem, not a clear existence or chain finding either way.",
+      "researchNotes": "Searched for the operator's claimed sources (Macclesfield Nub News opening piece, visitmacclesfield.co.uk, mammamiamacc.co.uk, Facebook) repeatedly and found none of them — every search was swamped by unrelated 'Mamma Mia' results (the stage show, restaurants in other UK towns, Madeira, Bradford). The one genuine local hit was an Eatible food-hygiene-directory snippet placing a 'Mamma Mia' at 70 Sunderland Street, Macclesfield, next to the already-known Lazeez and The Snow Goose — consistent with the claimed 68-70 Sunderland Street address, but it's a bare directory entry, not confirmation of current trading, ownership, or that it isn't a stale listing. The operator website (mammamiamacc.co.uk) is blocked from this session's fetch tool, so it couldn't be checked directly. Not confident enough to promote (too little independent corroboration for a restaurant, which would normally have a real review/social footprint) or reject (a plausible address match exists and the name's genericness plausibly explains the search noise) — needs a human check of the Sunderland Street address directly (in person, Google Maps, or a direct Companies House lookup) before a call is made.",
+      "payload": {
+        "name": "Mamma Mia",
+        "district": "macclesfield",
+        "type": "ITALIAN RESTAURANT",
+        "spend": "££",
+        "lat": 53.2577,
+        "lon": -2.1226,
+        "base": 72,
+        "bands": [
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "A family kitchen on Sunderland Street doing proper Italian and a cocktail list that doesn't feel bolted on — Park Green's answer to the trattoria everyone wishes was round the corner."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "Zero independent corroboration found for this specific Macclesfield coffee counter despite multiple targeted searches — the claimed Nub News article, operator site, and social accounts could not be located at all.",
+      "researchNotes": "Searched for 'Pronto Caffè Macclesfield', the claimed operator (Marilena Oakes), the claimed location (Lusso Food Court / Castle Street / Churchill Way), and the claimed Nub News coverage — none surfaced anything. Search results were dominated by unrelated 'Pronto Caffè'-type businesses elsewhere (Newton Aycliffe, London) and other real Macclesfield cafés (Rustic Coffee Co. on Churchill Way, Caffè AB, Caffè Nero), none of which is this venue. The operator site (prontocaffemacclesfield.co.uk) is blocked from this session's fetch tool. The original researcher flagged this as only 'moderate confidence' already, citing it as a very new business inside a shared food-court unit rather than its own address — my independent search adds no corroboration at all, which is more concerning than the researcher's own caveat suggested. Needs a human on-the-ground check (Google Maps/Instagram/a visit) before promotion; not confident enough to reject outright since a brand-new, very small unit genuinely could have this thin a digital footprint.",
+      "payload": {
+        "name": "Pronto Caffé",
+        "district": "macclesfield",
+        "type": "COFFEE ROOM",
+        "spend": "£",
+        "lat": 53.26025,
+        "lon": -2.128353,
+        "base": 58,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A former barista's own counter inside the new food court on Castle Street, run with her mother — the kind of coffee that has never needed a loyalty app to explain itself."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "Could not find this venue anywhere independently, despite the researcher citing specific current TripAdvisor reviews and a clear address — a real gap between the sourcing claimed and what I could reproduce.",
+      "researchNotes": "Searched variations of 'One Thirty' + Cheadle Hulme + cafe/bar + Hulme Hall Road + TripAdvisor and found nothing matching — only unrelated nearby pubs (Hesketh, Archive Bar, Chiverton Tap) and a Cheadle Hulme NHS health centre also on Hulme Hall Road. The researcher's own confidence was already only 'moderate' given a recent ownership change and lower profile; my independent search adds no corroboration at all for either the business's existence or its current trading status. Possible the business is real but has essentially no indexed web presence beyond TripAdvisor (which I couldn't independently load), or possible it has since closed/rebranded after the ownership change mentioned. Needs a human check (a direct TripAdvisor/Google Maps look, or a call) before promoting or rejecting.",
+      "payload": {
+        "name": "One Thirty Cafe & Bar",
+        "district": "cheadle-hulme",
+        "type": "COFFEE ROOM",
+        "spend": "££",
+        "lat": 53.3667,
+        "lon": -2.19,
+        "base": 60,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A family-run counter on Hulme Hall Road that pours prosecco and bottled beer alongside the flat whites — Cheadle Hulme's daytime answer to a proper bar, gone by mid-afternoon rather than staying open just to prove a point."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "Confirmed the business is real, independently operated and currently trading at 220 Burton Road (rebranded from 'West Village' to 'Elk' on 11 May 2024), so it clears Gate 1 — but CAMRA's own listing describes it as a keg sports bar with no cask ale, which sits oddly against the proposed COCKTAIL BAR type and the 'craft beer and proper cocktails' framing, and no independent source corroborates the researchNotes' claimed shared 'Elk Bars' ownership group with The Elk of Hale.",
+      "researchNotes": "CAMRA listing for 220 Burton Road, M20 2LW confirms the address, independent-operator status, and the West Village -> Elk rebrand date (11/5/2024); no website found, no cask ale, described as an Alpine-style keg sports bar — no mention of cocktails either way. Checked for a documented 'Elk Bars' 3-site group (Hale/Didsbury/Westgate): not corroborated independently. The Elk of Hale's own documented history (opened 2013 as 'The Moose' by the team behind The Little Deli Company, renamed 'The Elk' in Sept 2015 after a trademark complaint from a coffee company) is a different, separate rebrand story from Didsbury's 2024 West Village->Elk change, which doesn't on its own establish common ownership beyond the coincidental shared name. Existence and independence are solid; the specific editorial claims (cocktail-forward, 'sibling... run the same unfussy way') and the COCKTAIL BAR typing are the open questions worth a second look.",
+      "payload": {
+        "name": "The Elk of Didsbury",
+        "district": "didsbury",
+        "type": "COCKTAIL BAR",
+        "spend": "££",
+        "lat": 53.4264,
+        "lon": -2.2433,
+        "base": 76,
+        "bands": [
+          "evening",
+          "late"
+        ],
+        "reason": "A smartly converted corner pub on Burton Road where craft beer and proper cocktails share the same short list — the quieter sibling to the original on Ashley Road, run the same unfussy way."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "Independent re-verification found a direct conflict: a CAMRA listing for 15 Minshull Street, Knutsford (the exact address proposed) shows 'Tap & Bottle' as a historical, since-superseded name at that address — it was replaced by 'Project 53' there, and the current CAMRA entry describes the building as now more of a restaurant than a pub — while the researcher's own cited sources (Companies House, Tripadvisor, tasteknutsford.co.uk) claim a currently-trading bottle shop/bar under this exact name at this exact address. Could not resolve which is correct; egress restrictions blocked direct Companies House/Tripadvisor verification this session.",
+      "researchNotes": "Confirmed via web search that a venue named 'Tap & Bottle' existed historically at 15 Minshull Street, Knutsford, but a CAMRA record implies it was renamed (to 'Project 53') years ago and the building's current use leans more restaurant than pub/bottle shop. Could not independently reach Companies House (company 09468974), Tripadvisor, or tasteknutsford.co.uk to confirm current trading status under this name — all three domains were blocked by this session's network egress proxy. Recommend the research agent re-verify with a direct, dated source (e.g. a live Google Maps listing or the operator's own current social media) before resubmission, since the address-match with a known-renamed venue is a real closure/stale-listing risk, not a trivial one.",
+      "payload": {
+        "name": "Tap and Bottle",
+        "district": "knutsford",
+        "type": "BOTTLE SHOP",
+        "spend": "£",
+        "lat": 53.305589,
+        "lon": -2.374733,
+        "base": 66,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Richard's fridges on Minshull Street run deeper into cask and specialist bottled beer than anywhere else in town — a bottle shop first, a bar only because people kept asking to open what they'd just bought."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "Independent search could not corroborate the specific claims (venue name 'Six', owner Steve Mitchell) for the Freemasons'-hall building on Silk Mill Street; it instead surfaced that same building being redeveloped as 'The Silk Rooms' (Aneto Properties / Kath Gibb) with an as-yet-unnamed bar/restaurant tenant, which conflicts with the researcher's account rather than confirming it.",
+      "researchNotes": "Searched 'Six Knutsford bar Silk Mill Street Steve Mitchell' and a follow-up on the Freemasons building. Results: Knutsford Town Council pages on 'The Silk Rooms at Freemasons Inn' describing Aneto Properties/Kath Gibb converting the former Freemasons' building into a boutique Airbnb with a downstairs bar/restaurant space, with a later council notice saying that space was still being let to a tenant — no operator named 'Six' or 'Steve Mitchell' turned up anywhere in these results. A restaurant called 'Six' appeared only once, in a hotel booking site's listing as being roughly two minutes' walk from Silk Rooms, with no address or owner given, so it isn't confirmed to be the same building or business the suggestion describes. I was not able to run a further targeted query to resolve this before the session's web-search budget for this turn was exhausted. The building/location plausibly is real and becoming a bar of some kind, but the specific name and ownership in the suggestion are unconfirmed and partially contradicted by what I found.",
+      "payload": {
+        "name": "Six Knutsford",
+        "district": "knutsford",
+        "type": "COCKTAIL BAR",
+        "spend": "£££",
+        "lat": 53.303995,
+        "lon": -2.372844,
+        "base": 72,
+        "bands": [
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Steve Mitchell poured a new bar into the old Freemasons' hall on Silk Mill Street rather than let it sit empty — craft beer and a cocktail list deep enough to survive the live band that takes over most nights."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-09",
+      "reason": "The only sourcing found (two business-directory listings, apparently syndicated from one shared original rather than genuinely independent) establishes the shop's founding and character but gives no 2024/2025/2026-dated confirmation it is still trading, and a small family garden centre is exactly the kind of business that can close quietly without that being reported anywhere searchable.",
+      "researchNotes": "Could not run a fresh independent search this turn (web-search budget exhausted after other items). Relying on the original research's own sourcing description: two directory listings (Grimsby Telegraph-network and Pendle Today-network) carrying identical copy about a 1984-founded, independent family garden centre on London Road, Prestbury — plausible and not a chain by any account found, but with no recent-trading confirmation and no primary source (e.g. the business's own site or a dated local-press piece). Flagging for a second pass with fresh search capacity before promoting a brand-new venue TYPE (GARDEN CENTRE) on this thin a footing.",
+      "payload": {
+        "name": "Prestbury Plant and Garden",
+        "district": "prestbury",
+        "type": "GARDEN CENTRE",
+        "spend": "£",
+        "lat": 53.284,
+        "lon": -2.149,
+        "base": 52,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "An independent family's own nursery on London Road since 1984 — plants grown or sourced as close to home as the Cheshire soil allows, a flower shop alongside it, and no loyalty scheme standing in for actually knowing the regulars."
+      }
     }
   ]
 }
