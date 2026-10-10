@@ -159,6 +159,584 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Existence corroborated but only via sources from 2016 or earlier; can't confirm still trading 2024-2026.",
+      "researchNotes": "Original suggestion researchNotes: Verified via the operator's own site (nicholstyle.co.uk), Drapers Online, Facebook and Companies House (NICHOLS & CO (CHESTER) LIMITED): Nichols & Co, 5 Bridge Street Row East, Chester CH1 1NW — an independent lifestyle boutique established 2002, owned and run by Ronnie and Rachael Nichols, spanning three floors of womenswear, jewellery, accessories and homeware from UK/European designers. No second site found anywhere in searches; single-site, family-owned, passes Hard rule 1 cleanly. Coordinates from the CH1 1NW postcode centroid (doogal.co.uk). New type introduced — FASHION BOUTIQUE already exists elsewhere in the catalogue (Beaumont Organic, Northern Quarter; Tuula, Alderley Edge) and is reused here, not new. Closes a real citywide gap: only 2 Clothes-shopping-tile venues existed anywhere in Manchester/Cheshire before this addition, and Chester itself had none. High confidence — 23+ years of continuous trading, well-documented, no closure signals. | Independent re-verification 2026-10-10: Existence corroborated but only via sources from 2016 or earlier; can't confirm still trading 2024-2026.",
+      "payload": {
+        "name": "Nichols & Co",
+        "district": "chester",
+        "type": "FASHION BOUTIQUE",
+        "spend": "£££",
+        "lat": 53.189414,
+        "lon": -2.89106,
+        "base": 70,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "Three floors on Bridge Street Row, run by the same couple since 2002 — European labels curated by people who actually wear them, a few doors from the Cross."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Genuine concept but no source confirms stable current mooring location as of 2026 - too unstable to pin on a map.",
+      "researchNotes": "Original suggestion researchNotes: Verified via manchestersfinest.com, The Vinyl Factory, Mixmag, The Northern Quota and GigPig: Rubber Ducky Records, moored at Islington Marina, Ancoats, Manchester (correspondence address 10 Redhill Street, M4 6EY) — a floating, appointment-only secondhand electronic-vinyl record shop that opened October 2022, run by a single owner (Myles), genuinely one-of-a-kind ('the UK's first and only floating record store'). No second site possible or found — passes Hard rule 1 cleanly. Coordinates from the M4 6EY postcode centroid (doogal.co.uk), the nearest fixed address to the marina mooring; flagged for the reviewer since a boat's exact position can shift within the marina. Reuses the existing RECORD SHOP type (introduced for the Chicago pass). Suggested with `bookingRequired: true` in mind for promotion — the shop is genuinely appointment-based, a real 'can't walk in without arranging it first' case per CLAUDE.md's Matchmaking contract, not an inferred guess. Ancoats' Do category (Hallé St Peter's, Hope Mill Theatre, The Horsfall, Social Refuge) gets a genuinely distinctive addition rather than more of the same. Moderate confidence — real and well-documented, but the appointment-only/floating nature is unusual enough to warrant the reviewer's own look before promotion. | Independent re-verification 2026-10-10: Genuine concept but no source confirms stable current mooring location as of 2026 - too unstable to pin on a map.",
+      "payload": {
+        "name": "Rubber Ducky Records",
+        "district": "ancoats",
+        "type": "RECORD SHOP",
+        "spend": "£",
+        "lat": 53.483318,
+        "lon": -2.225666,
+        "base": 62,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "A record shop that lives on a narrowboat moored in Islington Marina — mostly secondhand electronic vinyl, a turntable to test it on before you buy, and a genuine appointment required before you're allowed aboard."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Boutique real but only source dates to 2010; no 2020s corroboration of current trading.",
+      "researchNotes": "Original suggestion researchNotes: Verified via Instagram (@by_adiva, current posted hours), Facebook and business directory listings (clothes-shops.co.uk, hale-eng.business-dir.co.uk): By AdiVa, 192 Ashley Road, Hale, Altrincham WA15 9SF — an independent women's fashion and luxury gift boutique run by Adi Joseph, described in local coverage as a long-standing fixture of Hale village high street. A related 'Adiva Interiors' Facebook page exists under what appears to be the same owner/brand, but no second fashion-boutique site was found; single-site, passes Hard rule 1 cleanly. Coordinates from the WA15 9SF postcode centroid (web geocode search) — WA15 is Hale's own postcode district (WA14 covers Altrincham/Bowdon), and 192 Ashley Road sits closer to Hale's district centroid than Altrincham's. Reuses the existing FASHION BOUTIQUE type (Beaumont Organic, Northern Quarter; Tuula, Alderley Edge). Closes a real gap: Hale's Do category (Contemporary Six Hale, Hale Country Club & Spa, InHale Yoga, Hale Lawn Tennis Club) had no Clothes-shopping-tile venue despite Hale's own high street being widely and specifically documented for exactly this. Moderate-high confidence — well-documented, current social activity, no closure signals. | Independent re-verification 2026-10-10: Boutique real but only source dates to 2010; no 2020s corroboration of current trading.",
+      "payload": {
+        "name": "By AdiVa",
+        "district": "hale",
+        "type": "FASHION BOUTIQUE",
+        "spend": "£££",
+        "lat": 53.377037,
+        "lon": -2.346064,
+        "base": 66,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "Adi Joseph's own edit of European labels and considered gifts on Ashley Road, enough of a fixture on the village high street that regulars have long since dropped the 'By'."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Real venue but could not verify claimed 'Dukes Hospitality Group' 5-bar footprint.",
+      "researchNotes": "Original suggestion researchNotes: Verified via creativetourist.com, Companies House (NO.8 DUKES LIMITED, company 13034680), macclesfield.nub.news (multiple articles on owner Kyle Frost-Morgan/Dukes Hospitality Group), pubsgalore.co.uk and restaurantguru.com: No.8 Dukes, 8 Dukes Court, Mill Street, Macclesfield SK11 6NN — a plush, exposed-brick cocktail bar open 10pm-3am seven nights, Macclesfield's self-described 'exclusive late night venue'. Ownership: Kyle Frost-Morgan's Dukes Hospitality Group, which also runs Dukebox, The White Lion, Duchess and The Ivy Leaf (bars) plus Duke's Deli, Total Aesthetics and Total Tanning — a genuine 5-bar local footprint, but every single one sits in or around Duke's Court, Macclesfield town centre; no venue found anywhere outside the town. Flagged explicitly for the review agent: this is a bigger local footprint than a single sibling, but reads as one operator building out one small town's nightlife (the same shape as The Salt House Ltd's 3 Northwich sites, see Bull Ring NW above), not a multi-city chain. Coordinates from the SK11 6NN postcode centroid (doogal.co.uk/checkmypostcode, 53.257233/-2.125601). Reuses the existing COCKTAIL BAR type. Closes Macclesfield's real late-night Drink gap — its one existing Drink venue in this register (Diversion Bar & Kitchen) is typed LATE-NIGHT LOUNGE, not COCKTAIL BAR. Moderate confidence given the ownership footprint noted above — genuinely current and well-documented, no closure signals. | Independent re-verification 2026-10-10: Real venue but could not verify claimed 'Dukes Hospitality Group' 5-bar footprint.",
+      "payload": {
+        "name": "No.8 Dukes",
+        "district": "macclesfield",
+        "type": "COCKTAIL BAR",
+        "spend": "£££",
+        "lat": 53.257233,
+        "lon": -2.125601,
+        "base": 76,
+        "bands": [
+          "evening",
+          "late"
+        ],
+        "reason": "Duke's Court stays lit long after the rest of Macclesfield has gone home — doors open to 3am, seven nights, in a room that doesn't bother pretending it's anything but the town's last stop."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Closed-as-of-2024 signal on one platform; conflicting location; unconfirmed specific claims in copy.",
+      "researchNotes": "Original suggestion researchNotes: Verified via Tripadvisor (active 2026 listing and reviews), Wanderlog, the venue's own site (ekskitchen.co.uk, copyright 2026) and its own social presence: Ek's Kitchen, 177 School Lane, Didsbury, Manchester M19 1GN — a small (roughly 20-cover), family-run, halal Thai restaurant, Chef Ek credited with 30 years' experience, reservations and 1-day-ahead pre-orders recommended given limited seating. Flagged for the review agent: the M19 1GN postcode geocodes to 53.415407/-2.217513, about 1km south-east of the Didsbury district centroid (53.4176/-2.2310) and technically nearer Ladybarn/Burnage than Didsbury Village or West Didsbury's Burton Road — however the venue's own branding, social handles and every independent listing found consistently self-identify it as 'Didsbury', and the coordinate still sits closer to Didsbury than to any other Curia district, so it's suggested under didsbury rather than left out; genuinely worth a second look given the postcode's own ward. No other locations of this specific restaurant found anywhere in searches — a single, small, independent site. Reuses the existing THAI RESTAURANT type (Phanthong Thai, Ancoats). Closes a real gap: Didsbury has no Neighbourhood-favourite-register Eat venue distinct from its existing fine-dining/small-plates/gastropub lineup (Lime Tree, Volta, FOLK). Moderate-high confidence — well-reviewed, current, no closure signals, only caveat is the borderline district-boundary geocode noted above. | Independent re-verification 2026-10-10: Closed-as-of-2024 signal on one platform; conflicting location; unconfirmed specific claims in copy.",
+      "payload": {
+        "name": "Ek's Kitchen",
+        "district": "didsbury",
+        "type": "THAI RESTAURANT",
+        "spend": "££",
+        "lat": 53.415407,
+        "lon": -2.217513,
+        "base": 76,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Twenty covers on School Lane and a chef with thirty years behind the wok — order the specials a day ahead, or take your chances in the queue with everyone else."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Zero corroboration found; unrelated differently-located business of similar name found instead.",
+      "researchNotes": "Original suggestion researchNotes: Verified via visitaltrincham.com's own launch coverage, a local news piece (altrincham.todaynews.co.uk, 'New independent women's boutique opens in Altrincham') and the boutique's own Facebook/blog (current activity): Flair Boutique, 15 Ashley Road, Altrincham WA14 2DW — owner Anna Barker, relocated here after seven years trading as Flair Boutique at Emporium M33 in Sale; opened at this address in late 2025, roughly 10 months of trading by this run. No second concurrent site found — the Sale unit was vacated on relocation rather than kept as a sibling; single-site, passes Hard rule 1 cleanly. Coordinates approximated (53.3837/-2.3526) from the WA14 2DW postcode via web search (doogal.co.uk/api.postcodes.io both blocked this session) — this figure happens to match the same Ashley Road stretch this file's own dedup check found already used for a different address (14-16 Ashley Road, the rejected Prana candidate), so it reads as a genuine street-level approximation rather than a fallback default; flagged for the reviewer to tighten regardless. Reuses the existing FASHION BOUTIQUE type. Closes a real gap: Altrincham currently has zero Clothes-shopping-tile venue despite Ashley Road being a real, documented independent shopping stretch. Moderate-high confidence — well-documented opening, current social activity, no closure signals; under a year of trading is the one thing worth a second look. | Independent re-verification 2026-10-10: Zero corroboration found; unrelated differently-located business of similar name found instead.",
+      "payload": {
+        "name": "Flair Boutique",
+        "district": "altrincham",
+        "type": "FASHION BOUTIQUE",
+        "spend": "££",
+        "lat": 53.3837,
+        "lon": -2.3526,
+        "base": 66,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "Anna Barker's seven years at Sale's Emporium M33 earned her Ashley Road's own address — womenswear built for attitude over age bracket, styled by the person who actually stocks it."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "No independent corroboration beyond researchNotes' own cited sources.",
+      "researchNotes": "Original suggestion researchNotes: Verified via the operator's own site (claritycontemporaryjewellery.co.uk), Companies House (CLARITY CONTEMPORARY JEWELLERY LIMITED, company 06131447, active, incorporated Feb 2007) and Yelp/jewellerylocations.co.uk (current listings): Clarity Contemporary Jewellery, 15 King Street, Knutsford WA16 6DW. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates approximated (53.304/-2.3735) from the WA16 6DW postcode via web search (doogal.co.uk/api.postcodes.io both blocked this session) — King Street is Knutsford's own real high street per this file's own districts.json editorial copy, so the closeness to the district centroid is expected rather than a generic fallback; flagged for the reviewer to tighten regardless. Reuses the existing JEWELLERY BOUTIQUE type (category-only, no dedicated onboarding tile, same treatment as this file's other jewellery entries). Nearly 20 years of continuous trading, well-documented, no closure signals. High confidence. | Independent re-verification 2026-10-10: No independent corroboration beyond researchNotes' own cited sources.",
+      "payload": {
+        "name": "Clarity Contemporary Jewellery",
+        "district": "knutsford",
+        "type": "JEWELLERY BOUTIQUE",
+        "spend": "£££",
+        "lat": 53.304,
+        "lon": -2.3735,
+        "base": 64,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "A contemporary jeweller on King Street since 2007 — everyday gold shares a case with the one-off pieces nobody else in town stocks."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "No trace found across 3 searches; different unrelated business found at claimed address - stronger than usual red flag.",
+      "researchNotes": "Original suggestion researchNotes: Verified via wilmslow.co.uk/alderleyedge.com ('Looking to shop local this summer? Visit Wilmslow') and Great British Life's own Cheshire boutiques piece (both describing Crissan as a 28-year Wilmslow institution as of a 2022 article, so roughly 32 years trading by this run): Crissan, 57 Alderley Road, Wilmslow SK9 1NZ — an independent womenswear boutique. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates approximated (53.3247/-2.2336) from the SK9 1NZ postcode via web search (doogal.co.uk/api.postcodes.io both blocked this session), on Alderley Road near this file's own existing art-gallery entry on the same street — flagged for the reviewer to tighten. Reuses the existing FASHION BOUTIQUE type. Closes a real gap: Wilmslow currently has zero Clothes-shopping-tile venue despite 24 real venues in the district. High confidence — 28+ years of continuous trading as of a 2022 source, well-documented, no closure signals found. | Independent re-verification 2026-10-10: No trace found across 3 searches; different unrelated business found at claimed address - stronger than usual red flag.",
+      "payload": {
+        "name": "Crissan",
+        "district": "wilmslow",
+        "type": "FASHION BOUTIQUE",
+        "spend": "£££",
+        "lat": 53.3247,
+        "lon": -2.2336,
+        "base": 70,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "Twenty-eight years on Alderley Road and staff who still remember what you bought last time — classic labels with a twist, not a rail of the same four names as everywhere else."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Could not independently find this venue via web search despite several attempts; no disconfirming evidence either.",
+      "researchNotes": "Original suggestion researchNotes: Macclesfield's real Eat category was among the thinnest found this run (Amazing India the only currently-mapped venue; Chestergate Bistro/BeefnBerry Bistro's BISTRO type isn't wired into CATEGORY_BY_VENUE_TYPE). Verified via Macclesfield Nub News ('New Italian restaurant and cocktail bar opening in Macclesfield town centre'), visitmacclesfield.co.uk, the operator's own site (mammamiamacc.co.uk) and Facebook: Mamma Mia Italian Restaurant and Cocktail Bar, 68-70 Sunderland Street, Macclesfield — opened February 2025 in the former Lazeez unit, self-described and locally reported as family-run. Specifically checked for a chain risk given how common the name 'Mamma Mia' is for Italian restaurants nationally — Companies House shows several entirely unrelated 'Mamma Mia' companies elsewhere in the UK (Hollingworth, Pontefract, a dissolved general one), none connected to this Macclesfield entity; no second site under this specific ownership found anywhere in searches. Passes Hard rule 1 cleanly on that basis. Coordinates (53.2577/-2.1226) approximated from nearby Sunderland Street building geocodes (43/45 Sunderland Street) since the exact 68-70 unit wasn't individually listed — doogal.co.uk/api.postcodes.io both blocked this session, flagged for the reviewer to tighten. Reuses the existing ITALIAN RESTAURANT type. Moderate-high confidence — well-documented opening, actively trading, no closure signals; the approximated coordinate is the one flag. | Independent re-verification 2026-10-10: Could not independently find this venue via web search despite several attempts; no disconfirming evidence either.",
+      "payload": {
+        "name": "Mamma Mia",
+        "district": "macclesfield",
+        "type": "ITALIAN RESTAURANT",
+        "spend": "££",
+        "lat": 53.2577,
+        "lon": -2.1226,
+        "base": 72,
+        "bands": [
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "A family kitchen on Sunderland Street doing proper Italian and a cocktail list that doesn't feel bolted on — Park Green's answer to the trattoria everyone wishes was round the corner."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "No independent corroboration found anywhere; no disconfirming evidence.",
+      "researchNotes": "Original suggestion researchNotes: Third Macclesfield candidate this run, alongside Church Street Gallery (Do) and Mamma Mia (Eat) — deliberately a different register again (a small daytime coffee counter) rather than a third restaurant, closing out Macclesfield's Drink category, which is currently ale-house/cocktail-bar/wine-bar-led with nothing in the specialty-coffee/coffee-room register (see Ancoats Coffee Co for the existing precedent of this type elsewhere). Verified via Macclesfield Nub News ('Macclesfield's newest independent coffee spot looks to connect with community'), the operator's own site (prontocaffemacclesfield.co.uk) and Instagram/TikTok (current, active posting): Pronto Caffé, Unit 1, Lusso Food Court, Churchill Way, Macclesfield SK11 6AY (also given as 25 Castle Street) — opened 2026, run by Marilena Oakes, a former barista, alongside her mother. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.26025/-2.128353) are the SK11 6AY postcode centroid (doogal.co.uk/api.postcodes.io both blocked this session). Reuses the existing COFFEE ROOM type. Moderate confidence — a small, very recently opened business inside a shared food-court unit rather than its own standalone address, worth the reviewer's own look at promotion time, but genuinely independent and well-documented for its age with no closure signal (nothing yet to close). | Independent re-verification 2026-10-10: No independent corroboration found anywhere; no disconfirming evidence.",
+      "payload": {
+        "name": "Pronto Caffé",
+        "district": "macclesfield",
+        "type": "COFFEE ROOM",
+        "spend": "£",
+        "lat": 53.26025,
+        "lon": -2.128353,
+        "base": 58,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A former barista's own counter inside the new food court on Castle Street, run with her mother — the kind of coffee that has never needed a loyalty app to explain itself."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Could not find 'One Thirty'; found different business 'Lou's Brews@130 Cafe' at same address - may have changed trading name.",
+      "researchNotes": "Original suggestion researchNotes: Cheadle Hulme's real mapped Drink category (Archive Bar & Bottle, Inventery, The Chiverton Tap's dual ALE HOUSE mapping — 3 venues) was this run's single thinnest Drink cell alongside Prestbury's. Researched several Cheadle Hulme options first and rejected them on Hard rule 1: Ye Olde Admiral Rodney (a genuine Robinsons Brewery tied house, part of a ~200-pub regional estate) and The Station House (reopened 2025 under Almond Family Pubs/Joseph Holt, a managed multi-site pub group) both fail the chain-footprint check cleanly. Verified via Tripadvisor (multiple current reviews describing it as 'a small independent coffee shop', one noting a change of ownership 'in December' with the business continuing to trade under new management) and independent listing sites: One Thirty Cafe & Bar, 130 Hulme Hall Road, Cheadle Hulme, Stockport SK8 6LQ — family-run, licensed to serve wine, prosecco and bottled beer alongside coffee, tea and milkshakes; open Mon-Fri 8am-2:30pm, Sat 9am-2pm, Sun 10am-1:30pm — a genuinely daytime venue, no evening trading found in any source. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.3667/-2.19) from a direct postcode search for SK8 6LQ (checkmypostcode.uk; api.postcodes.io/doogal.co.uk both blocked this session) — this sits toward the southern edge of Cheadle Hulme's known venue spread (close to Thorn Grove Park's own coordinates), flagged for the reviewer to confirm it's genuinely within the district rather than bordering Cheadle proper. Typed COFFEE ROOM (Drink, 'Cafés (late)' tile) rather than a bar type, since its own hours don't extend past early afternoon. Moderate confidence — real, licensed, currently trading per recent reviews, but a smaller, lower-profile business than a dedicated bar, and the ownership-change detail is the one thing worth a second look at promotion time. | Independent re-verification 2026-10-10: Could not find 'One Thirty'; found different business 'Lou's Brews@130 Cafe' at same address - may have changed trading name.",
+      "payload": {
+        "name": "One Thirty Cafe & Bar",
+        "district": "cheadle-hulme",
+        "type": "COFFEE ROOM",
+        "spend": "££",
+        "lat": 53.3667,
+        "lon": -2.19,
+        "base": 60,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A family-run counter on Hulme Hall Road that pours prosecco and bottled beer alongside the flat whites — Cheadle Hulme's daytime answer to a proper bar, gone by mid-afternoon rather than staying open just to prove a point."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Could not independently corroborate an Elk location on Burton Road, Didsbury anywhere; prior cross-check leaned on another unverified pending entry.",
+      "researchNotes": "Original suggestion researchNotes: Didsbury's real Drink category (Saison, The Drawing Room, Sip Wine Bar) was among the thinner cells found this run relative to its Eat/Do counts. Verified via the Food Standards Agency ratings register, CAMRA (camra.org.uk pub listing) and current Google reviews (4.7/5, 26 reviews, including an August 2026-dated review): The Elk of Didsbury, 220 Burton Road, West Didsbury, Manchester M20 2LW — became 'The Elk' in May 2024, described as 'West Didsbury's smartly converted corner pub where craft beer meets proper cocktails'. This file's own pending suggestion for The Westgate (Hale, this same queue) already independently documented the ownership footprint: a 3-venue group ('The Elk Bars') — The Elk of Hale (already live in venues.json), The Elk of Didsbury, and The Westgate — across two Manchester-metro towns, no site found outside Hale/Didsbury. That prior research is the same small-local-group shape already accepted elsewhere in this file; not re-litigated here, only cross-checked and confirmed consistent. Coordinates (53.4264/-2.2433) from a web-search geocode for 220 Burton Road M20 2LW (doogal.co.uk/api.postcodes.io both blocked this session), close to this file's existing Volta/Folk entries on the same road. High confidence — current 2026 reviews, no closure signals; the 3-site group ownership is the one flag already on record for the reviewer via The Westgate's own entry. | Independent re-verification 2026-10-10: Could not independently corroborate an Elk location on Burton Road, Didsbury anywhere; prior cross-check leaned on another unverified pending entry.",
+      "payload": {
+        "name": "The Elk of Didsbury",
+        "district": "didsbury",
+        "type": "COCKTAIL BAR",
+        "spend": "££",
+        "lat": 53.4264,
+        "lon": -2.2433,
+        "base": 76,
+        "bands": [
+          "evening",
+          "late"
+        ],
+        "reason": "A smartly converted corner pub on Burton Road where craft beer and proper cocktails share the same short list — the quieter sibling to the original on Ashley Road, run the same unfussy way."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Pub existence/address confirmed via CAMRA but 'board-game retailer upstairs' detail not corroborated, may be confused with separate 'Goblin Gaming' business.",
+      "researchNotes": "Original suggestion researchNotes: Re-tallied Manchester/Cheshire district/category coverage (CATEGORY_BY_VENUE_TYPE applied to venues.json + non-rejected venue-suggestions.json, filtered to manchester/cheshire districts) before researching: Northwich sat at only 6 real + 3 pending venues this run, the single thinnest combined count found of any district in scope. Verified via CAMRA (camra.org.uk/pubs/goblin-coffee-beer-northwich-197379), Tripadvisor (5.0/5, current 2026 reviews mentioning board games and gluten-free cake), Untappd (active tap-list check-ins) and visitnorthwich.co.uk: Goblin Coffee & Beer, 3 Witton Walk, Northwich CW9 5AT — a coffee and craft-beer bar with Goblin Gaming, an online board-game retailer and games library, operating out of the floor above. No second physical cafe/bar site found anywhere in searches (a Wanderlog listing mislabels the same address as 'Warrington', a geocoding artefact, not a second location — cross-checked against the consistent CW9 5AT address in every other source). Single-site, passes Hard rule 1 cleanly. Coordinates from the CW9 5AT postcode centroid (web search; doogal.co.uk/api.postcodes.io both blocked this session). New use of the existing ALE HOUSE type for a craft-beer-plus-coffee hybrid register, matching the precedent already set by Libero (Altrincham) and Bottle (Heaton Moor). High confidence — currently trading, well-reviewed, no closure signals. | Independent re-verification 2026-10-10: Pub existence/address confirmed via CAMRA but 'board-game retailer upstairs' detail not corroborated, may be confused with separate 'Goblin Gaming' business.",
+      "payload": {
+        "name": "Goblin Coffee & Beer",
+        "district": "northwich",
+        "type": "ALE HOUSE",
+        "spend": "£",
+        "lat": 53.261587,
+        "lon": -2.512868,
+        "base": 64,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Craft beer and specialty coffee share one counter on Witton Walk, an online board-game retailer running the floor above it — order a flat white or a can, the regulars playing Catan in the corner won't judge either way."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Venue confirmed real but claimed sibling link to Jasmine (Chorlton) could not be corroborated and contradicts Jasmine's documented founders - drop claim from copy before promoting.",
+      "researchNotes": "Original suggestion researchNotes: Didsbury's real Eat category (Lime Tree, Volta, FOLK) was its thinnest before this run once Sett174 Art Cafe's ART STUDIO type is set aside. Verified via Tripadvisor (current 2026 listing), squaremeal.co.uk, manchestersfinest.com and Companies House (Lobna Radwan Ahmad Aledwan, director, appointed 24 Aug 2020): Zena Restaurant, 136 Burton Road, West Didsbury, Manchester M20 1JQ — a family-owned, BYOB Levantine/Lebanese restaurant doing charcoal grills and mezze. Ownership check: linked to Jasmine, Barlow Moor Road, Chorlton — a real 2-site pair across two Manchester suburbs, within this file's own established single-sibling precedent (Craig's, Ivy Spinningfields, Fire Station Social Cucina); no third site found. Coordinates from the M20 1JQ postcode geocode. New use of the existing LEBANESE RESTAURANT type (first used for the London pass's Ishbilia). Moderate-high confidence — well-documented, independently owned, no closure signals; the 2-site sibling link is the one flag worth a second look at promotion time. | Independent re-verification 2026-10-10: Venue confirmed real but claimed sibling link to Jasmine (Chorlton) could not be corroborated and contradicts Jasmine's documented founders - drop claim from copy before promoting. Suggested copy fix if promoted: A charcoal grill that runs BYOB on Burton Road — Levantine mezze and mixed grills that don't dress anything up for the tram stop outside.",
+      "payload": {
+        "name": "Zena Restaurant",
+        "district": "didsbury",
+        "type": "LEBANESE RESTAURANT",
+        "spend": "££",
+        "lat": 53.4286,
+        "lon": -2.2408,
+        "base": 74,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "A charcoal grill that runs BYOB on Burton Road — Levantine mezze and mixed grills that don't dress anything up for the tram stop outside."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Zero independent corroboration found across multiple targeted searches; plausible as tiny under-indexed space but unverified.",
+      "researchNotes": "Original suggestion researchNotes: Tarporley's real Do category is its thinnest cell before this run. Verified via Tripadvisor (current 2026 listings), the gallery's own about-us page (thebunkerartgallery.co.uk) and greatbritishlife.co.uk: The Bunker Art Gallery, Beeston Reclamation Yard, Whitworth Road, Beeston CW6 9NJ — a single-artist gallery and workshop run by Paul Falcon, sited in a disused bunker at the yard by arrangement with its owner John Newton. No second site or group ownership found; single-site, passes Hard rule 1 cleanly. Placed in the 'tarporley' district on the same real-geography precedent this file's own Beeston Castle entry already established (Beeston sits several miles from Tarporley village centre but has no district of its own, and English Heritage's own postal address puts Beeston Castle in Tarporley) — this gallery sits within sight of that castle. Coordinates (53.133/-2.6687) from the CW6 9NJ postcode geocode (web search; doogal.co.uk/api.postcodes.io both blocked this session), consistent with Beeston Castle's own already-live coordinates (53.12511/-2.688148). Reuses the existing ART GALLERY type. Open only Wed/Thu/Sat 11am-3pm per the gallery's own listed hours — a genuine small-operation limitation, not a confidence flag. High confidence on trading status; moderate on hours given the narrow opening window. | Independent re-verification 2026-10-10: Zero independent corroboration found across multiple targeted searches; plausible as tiny under-indexed space but unverified.",
+      "payload": {
+        "name": "The Bunker Art Gallery",
+        "district": "tarporley",
+        "type": "ART GALLERY",
+        "spend": "££",
+        "lat": 53.133,
+        "lon": -2.6687,
+        "base": 58,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "A reclamation yard's old bunker, turned into a one-man gallery for Paul Falcon's wood, metal and antler pieces — open three afternoons a week, which is exactly as long as it needs to be."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "No independent corroboration found; search budget exhausted before targeted retry.",
+      "researchNotes": "Original suggestion researchNotes: Second Tarporley Do candidate this run, a genuinely different register from The Bunker Art Gallery (a multi-dealer antiques co-operative vs. a single artist's workshop). Verified via antiquecentral.co.uk and Cylex: Tarporley Antiques Centre, 76 High Street, Tarporley CW6 0AT — trading since 1994, run as a shared-cost co-operative of 10 independent dealers rather than one owner; no group ownership or second site found anywhere in searches, passes Hard rule 1 cleanly (a multi-dealer co-op within one shop is not a chain). Coordinates from the CW6 0AT postcode geocode (web search; doogal.co.uk/api.postcodes.io both blocked this session), landing on Tarporley's own High Street, close to the district centroid. New type (ANTIQUES CENTRE) introduced — no existing type fits a multi-dealer antiques shop precisely (RARE BOOKSHOP and DESIGN GALLERY are the closest but both imply a single curated stock/maker, not a shared-cost dealer co-op); category-only (Do), same treatment as this catalogue's many other precise-fit-doesn't-exist types. High confidence — long-established, well-documented, no closure signals. | Independent re-verification 2026-10-10: No independent corroboration found; search budget exhausted before targeted retry.",
+      "payload": {
+        "name": "Tarporley Antiques Centre",
+        "district": "tarporley",
+        "type": "ANTIQUES CENTRE",
+        "spend": "££",
+        "lat": 53.156683,
+        "lon": -2.667386,
+        "base": 64,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "Ten dealers across two floors of a High Street building that's traded since 1994 — the sort of browse that turns up something nobody came in looking for."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Could not independently search; thinner sourcing already flagged by prior agent (mainly one directory listing).",
+      "researchNotes": "Original suggestion researchNotes: Second Knutsford Do candidate this run, a genuinely different register from Knutsford Little Theatre (a bookshop/gallery vs. a stage). Verified via antiquecentral.co.uk's own listing and local directory entries: Lion Gallery & Bookshop, 13 Minshull Street, Knutsford WA16 6HG — a combined secondhand/antiquarian bookshop and small gallery space. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates from the WA16 6HG postcode geocode (web search; doogal.co.uk/api.postcodes.io both blocked this session), on Minshull Street just off King Street. Typed RARE BOOKSHOP (matching Manchester Rare Books, Alderley Edge) over ART GALLERY given the bookshop is the primary, longer-running offer per sources checked. Moderate-high confidence — multiple current directory listings, no closure signals found, though less press coverage than this run's other candidates. | Independent re-verification 2026-10-10: Could not independently search; thinner sourcing already flagged by prior agent (mainly one directory listing).",
+      "payload": {
+        "name": "Lion Gallery & Bookshop",
+        "district": "knutsford",
+        "type": "RARE BOOKSHOP",
+        "spend": "££",
+        "lat": 53.3056,
+        "lon": -2.3747,
+        "base": 62,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "Secondhand spines and local art sharing one room on Minshull Street — the sort of shop that rewards a slow browse over a quick in-and-out."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Could not independently search; rename story and Companies House citation plausible but unverified this session.",
+      "researchNotes": "Original suggestion researchNotes: Verified via Companies House (HATTERS HM LIMITED, licensed restaurant/bar), manchesterfoodtourist.com (covering its 2025 refurbishment relaunch) and Yandex/Wanderlog listings: Hatters, 153 Heaton Moor Road, Stockport SK4 4HY — a neighbourhood cocktail bar owned by Vinnie Stevenson, informally renamed from 'Hatters Lounge' by regular custom. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates from the SK4 4HY postcode geocode. Reuses the existing COCKTAIL BAR type (Heaton Social, same district). High confidence — recently refurbished and actively trading per 2025/2026 coverage, no closure signals. | Independent re-verification 2026-10-10: Could not independently search; rename story and Companies House citation plausible but unverified this session.",
+      "payload": {
+        "name": "Hatters",
+        "district": "heaton-moor",
+        "type": "COCKTAIL BAR",
+        "spend": "£££",
+        "lat": 53.41764,
+        "lon": -2.189042,
+        "base": 73,
+        "bands": [
+          "evening",
+          "late"
+        ],
+        "reason": "Vinnie Stevenson's room on Heaton Moor Road, renamed by the regulars before the sign caught up — cocktails with a nod to the town's old hat-making trade."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Could not independently search; Lapwing Lane cluster is real but this specific venue unconfirmed beyond prior notes.",
+      "researchNotes": "Original suggestion researchNotes: Verified via the venue's own site (oneloungebar.co.uk), Tripadvisor and inapub.co.uk: One Lounge Bar, 1 Lapwing Lane, West Didsbury, Manchester M20 2NT — a cocktail bar specialising in bespoke cocktails, local-supplier craft beer and wine. No chain or group ownership found in any source checked; single-site, passes Hard rule 1 cleanly. Coordinates from the M20 2NT postcode geocode (web search; doogal.co.uk/api.postcodes.io both blocked this session). Reuses the existing COCKTAIL BAR type (Saison, The Drawing Room, both already live in this district). High confidence — well-documented, long-running, no closure signals. | Independent re-verification 2026-10-10: Could not independently search; Lapwing Lane cluster is real but this specific venue unconfirmed beyond prior notes.",
+      "payload": {
+        "name": "One Lounge Bar",
+        "district": "didsbury",
+        "type": "COCKTAIL BAR",
+        "spend": "£££",
+        "lat": 53.4278,
+        "lon": -2.2402,
+        "base": 76,
+        "bands": [
+          "evening",
+          "late"
+        ],
+        "reason": "Bespoke cocktails and local-supplier craft beer on the Lapwing Lane corner where West Didsbury's actual run of bars begins."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Sources conflict on hole count (9 vs 18); reason copy asserts 'nine holes since 1903' as fact.",
+      "researchNotes": "Original suggestion researchNotes: Verified via Companies House (HALE GOLF CLUB LIMITED, #13625648, active), 1golf.eu's club listing and greenfee365: Hale Golf Club, Rappax Road, Hale, Altrincham WA15 0NU — a private 9-hole golf club founded in 1903 with roughly 500 members, distinct from Hale Country Club & Spa (Clay Lane, already live in this district's catalogue as a SPA) — confirmed two separate clubs via Companies House and both clubs' own sites, not a naming collision. No chain/group ownership found; a single private members' club, passes Hard rule 1 cleanly. Coordinates (53.366430/-2.327118) are the ONS centre-point for postcode WA15 0NU (web search; api.postcodes.io/doogal.co.uk both returned EGRESS_BLOCKED this session). Reuses the existing GOLF CLUB type (already extensive in this catalogue via the 2026-09-18 Cheshire golf pass) — fits the real 'Play sport' onboarding tile. Hale's real Do category (Contemporary Six Hale, InHale Yoga, Hale Lawn Tennis Club) had no golf-club venue despite Hale Country Club's own grounds including golf elsewhere in Cheshire's catalogue — closes a real, specific gap. High confidence — long-established, independently confirmed via company registry, no closure signals. | Independent re-verification 2026-10-10: Sources conflict on hole count (9 vs 18); reason copy asserts 'nine holes since 1903' as fact.",
+      "payload": {
+        "name": "Hale Golf Club",
+        "district": "hale",
+        "type": "GOLF CLUB",
+        "spend": "£££",
+        "lat": 53.36643,
+        "lon": -2.327118,
+        "base": 66,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "Nine holes since 1903 on Rappax Road — a members' course that's never needed to be eighteen to matter, and the quieter alternative to the country club's gym-and-spa crowd up the road."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Building confirmed but ownership attributed to Kath Gibb of Aneto Properties in official sources, not Steve Mitchell as researchNotes claims - conflicting ownership claim.",
+      "researchNotes": "Original suggestion researchNotes: Verified via Knutsford Town Council's own site (two separate articles: Six Knutsford joining the Taste Knutsford food tours, and owner Steve Mitchell quoted on the venue's summer alfresco dining) and CAMRA/whatpub.com's listing for the building's history (Freemasons' hall, Grade II listed, converted to Six by the Mitchell family): Six Knutsford, Silk Mill Street, Knutsford WA16 6DT — a bar with a curated craft beer selection, cocktails and wine, regular live music nights, an outdoor bar and a private room for hire, opened September by the Mitchell family. Both Town Council articles are dated within the last 12 months (one explicitly 17 October 2025) and describe current participation in town-wide events, not a stale opening announcement. No second site or group ownership found anywhere searched; single-site, independently owned by Steve Mitchell, passes Hard rule 1 cleanly. Coordinates (53.303995/-2.372844) are the web-geocoded centroid for WA16 6DT (api.postcodes.io/doogal.co.uk both returned EGRESS_BLOCKED this session, so this is a web-search-derived figure rather than a direct API geocode — flagged for the reviewer to tighten if a precise geocode becomes available). Reuses the existing COCKTAIL BAR type — Knutsford currently has no venue mapped to the 'Cocktail bars' onboarding tile at all despite two wine bars (Wallop, Dexter & Jones) and a speakeasy (The Blind Pig), a real tile-coverage gap this closes; Knutsford's real Drink category also remains its thinnest even after every other currently-pending Knutsford candidate in this file is accounted for. High confidence — independently corroborated by the town council across two separate dated articles, current trading activity, no closure signals found despite a direct search for one. | Independent re-verification 2026-10-10: Building confirmed but ownership attributed to Kath Gibb of Aneto Properties in official sources, not Steve Mitchell as researchNotes claims - conflicting ownership claim.",
+      "payload": {
+        "name": "Six Knutsford",
+        "district": "knutsford",
+        "type": "COCKTAIL BAR",
+        "spend": "£££",
+        "lat": 53.303995,
+        "lon": -2.372844,
+        "base": 72,
+        "bands": [
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Steve Mitchell poured a new bar into the old Freemasons' hall on Silk Mill Street rather than let it sit empty — craft beer and a cocktail list deep enough to survive the live band that takes over most nights."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Not independently re-searched; researchNotes' own cited sources are thin syndicated directory listings with no recent date.",
+      "researchNotes": "Original suggestion researchNotes: Verified via a Grimsby Telegraph-network business directory listing and a Pendle Today-network directory listing (both independently carrying identical copy, suggesting a shared/syndicated original source, but both consistent): Prestbury Plant and Garden, London Road, Prestbury, Macclesfield SK10 4DY — 'an independent family owned business established in 1984', focused on plants suited to the local area, sourced from Cheshire nurseries where possible, plus a flower shop, garden design and plant hire. No second site or group ownership found anywhere searched; single-site, passes Hard rule 1 cleanly. No existing venue type fits a garden centre precisely — introducing 'GARDEN CENTRE' as a new type, category-only (Do), same treatment as this file's many other precise-fit-doesn't-exist types (RARE BOOKSHOP, FARM EXPERIENCE, etc.), needs wiring into CATEGORY_BY_VENUE_TYPE if promoted. Coordinates (53.284/-2.149) are a triangulated estimate along London Road south of the Prestbury village centre, built from neighbouring SK10 4D-sector postcode geocodes (53.280–53.292/-2.149 to -2.151) found via web search — api.postcodes.io/doogal.co.uk both returned EGRESS_BLOCKED this session, so this is not a direct geocode-API call; flagged for the reviewer to tighten. Prestbury's Do category, while not this run's single thinnest, is still below several neighbouring districts' totals, and this adds a genuinely different register (a working nursery/plant shop) absent from its current golf-club/cricket-club/gallery mix. Moderate confidence — business details (1984 founding, family ownership, single site) are consistent across two independent directory sources, but neither carries a 2025/2026 date, so no explicit recent-trading confirmation was found; no closure signal either. | Independent re-verification 2026-10-10: Not independently re-searched; researchNotes' own cited sources are thin syndicated directory listings with no recent date.",
+      "payload": {
+        "name": "Prestbury Plant and Garden",
+        "district": "prestbury",
+        "type": "GARDEN CENTRE",
+        "spend": "£",
+        "lat": 53.284,
+        "lon": -2.149,
+        "base": 52,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "An independent family's own nursery on London Road since 1984 — plants grown or sourced as close to home as the Cheshire soil allows, a flower shop alongside it, and no loyalty scheme standing in for actually knowing the regulars."
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "One source found during this run's unrelated venue research suggests Nam (Ancoats) may have recently closed, surfaced while re-verifying its sibling candidate Odioba. Single-source and not independently corroborated by this pass - flagging for a human glance per the closure-audit rule rather than acting on a single weak signal.",
+      "researchNotes": "Surfaced as a side-finding during this run's independent re-verification of pending venue suggestions in the same district, not from the scheduled rotating closure-audit slice. One source found during this run's unrelated venue research suggests Nam (Ancoats) may have recently closed, surfaced while re-verifying its sibling candidate Odioba. Single-source and not independently corroborated by this pass - flagging for a human glance per the closure-audit rule rather than acting on a single weak signal.",
+      "payload": {
+        "name": "Nam",
+        "district": "ancoats"
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Independently confirmed during this run's unrelated research into the Mielle candidate: the source article describing Mielle's July 2026 opening at 51 Blossom Street states explicitly that it took over after Blossom Street Social closed. The existing venues.json entry for Blossom Street Social shares that exact address, corroborating the closure.",
+      "researchNotes": "Surfaced as a side-finding during this run's independent re-verification of pending venue suggestions in the same district, not from the scheduled rotating closure-audit slice. Independently confirmed during this run's unrelated research into the Mielle candidate: the source article describing Mielle's July 2026 opening at 51 Blossom Street states explicitly that it took over after Blossom Street Social closed. The existing venues.json entry for Blossom Street Social shares that exact address, corroborating the closure.",
+      "payload": {
+        "name": "Blossom Street Social",
+        "district": "ancoats"
+      }
+    },
+    {
+      "itemType": "add_district",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Latitude 53.64789 sits roughly 5km outside the stated 53.0-53.6 sanity box - a genuine miss the original researchNotes never checked against; the Chester/Tarporley precedent for an out-of-box coordinate was explicitly scoped to longitude only, so this isn't automatically covered by it. The underlying case (a real, well-covered former mill town with a distinct food scene and the East Lancashire Railway terminus) is otherwise strong.",
+      "researchNotes": "Original suggestion researchNotes: Found via this run's required per-day new-district check, not user-named. Ramsbottom is a well-known former cotton-mill town in the Irwell valley (Metropolitan Borough of Bury, Greater Manchester), consistently name-checked in 'best food towns near Manchester' coverage (Manchester Confidential's own dedicated 'insider's guide to eating and drinking in Ramsbottom', Manchester's Finest's Bury/Ramsbottom guide) with a genuinely distinct, independent-heavy food and drink scene (Eagle & Child — voted best roast dinner in Greater Manchester; Colleen's; Owen's, overlooking the East Lancashire Railway station; a well-regarded Japanese specialist; independent cafes, bakeries and coffee shops) and a real, working heritage railway terminus (the East Lancashire Railway, reopened 1987) that no existing Manchester-metro district shares. Passes the 'would a local raise an eyebrow this isn't already covered' test the same way Prestbury/Knutsford/Cheadle Hulme did originally, and the same way this file's own precedent (Heaton Moor, Bramhall, Stockport Underbanks, Cheadle Hulme) already treats real Greater Manchester boroughs outside the City of Manchester itself as fair game under the same shorthand. Coordinates (53.64789, -2.31683) are Ramsbottom's real town-centre centroid, independently verified via web geocoding rather than invented; Bridge Street itself (the town's real commercial spine, home to several Grade II-listed 19th-century terraces per British Listed Buildings) sits within a few hundred metres of this point. Distance check: roughly 9.3 miles (15km) north of Manchester city centre and well clear of every existing Manchester-metro district (Heaton Moor, the nearest, sits well over 9 miles south) — clearly distinct, no overlap. accentColor (#7A6A5C, a warm weathered taupe-brown evoking millstone and moorland stone) chosen for perceptual distinctness against every existing Manchester-metro accent — closest neighbours Bramhall's heather-plum (#7D6B87, notably more purple) and Prestbury's walnut-brown (#6B4A3D, notably darker/redder) — distinct from both. base (64) is a reasoned estimate, similar register to Heaton Moor (68) and Chinatown (68) — a real, bustling small-town high street rather than a dense inner-city district. kind 'city', matching the pattern every other Manchester-metro district in this file already uses (the county/city split is specifically a Cheshire-only distinction per this file's own established convention). No district group added — Ramsbottom doesn't fit any existing group's real geography. No venues suggested for it in this same run — same 'district entry only, venues as separate follow-up work' precedent every prior district promotion has followed. | Independent re-verification 2026-10-10: Latitude 53.64789 sits roughly 5km outside the stated 53.0-53.6 sanity box - a genuine miss the original researchNotes never checked against; the Chester/Tarporley precedent for an out-of-box coordinate was explicitly scoped to longitude only, so this isn't automatically covered by it. The underlying case (a real, well-covered former mill town with a distinct food scene and the East Lancashire Railway terminus) is otherwise strong.",
+      "payload": {
+        "name": "Ramsbottom",
+        "metro": "manchester",
+        "lat": 53.64789,
+        "lon": -2.31683,
+        "base": 64,
+        "kind": "city",
+        "accentColor": "#7A6A5C",
+        "editorialDescription": "A former cotton town in the Irwell valley, with the East Lancashire Railway's steam engines still terminating where the mills once ran — Bridge Street's chip shops and craft-gift windows give way at night to a food scene locals drive in for, not just visit on the way to the moors above it."
+      }
+    },
+    {
+      "itemType": "add_district",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Three open items: no source found explicitly branding it a 'dining village' as claimed; its editorialDescription's 'per yard than anywhere else in the conurbation' line directly competes with Chorlton's own already-published superlative; and its proposed teal-grey accent (#5E7A7D) sits uncomfortably close to Heaton Moor's dusty blue-grey (#6B7F94), a same-metro district. Coordinates are only a triangulated estimate (flagged by the original submitter). The underlying place (a real Salford village with a genuine, if more modest than claimed, independent cluster) is otherwise sound.",
+      "researchNotes": "Original suggestion researchNotes: Found via this run's required per-day new-district check, not user-named. Monton is a genuinely distinct, well-known Salford village consistently described in Greater Manchester food/drink coverage as a 'dining village' — confirmed via confidentials.com ('An insider's guide to eating and drinking in Monton'), manchestersfinest.com and ilovemanchester.com ('Monton is a colourful day and night destination filled with buzzing independents'), all explicitly describing a roughly 0.4-mile stretch of Monton Road/Eccles Old Road as unusually independent-dense (cafés-turned-wine-bars, bistros, delis, natural-wine shops, a canalside pub) rather than chain-anchored. Passes this run's own 'would a local raise an eyebrow this isn't already covered' test the same way Prestbury/Knutsford/Cheadle Hulme originally did. Distinct from every existing Manchester-metro district: nearest are Chorlton (~8.5km SE) and Northern Quarter (~8km E), both well past this file's own established close-adjacent-district precedent (Heaton Moor/Stockport Underbanks, a few hundred metres apart; Bramhall/Cheadle Hulme, ~2 miles) — a clean gap, not a marginal case. Coordinates (53.485/-2.356) derived from Monton's OS grid reference (SJ767994, per Wikipedia) cross-checked against nearby M30-postcode geocodes found during this search (53.484-53.486/-2.339 to -2.356) — lands on Monton Road itself; doogal.co.uk/api.postcodes.io were both blocked by the network egress proxy this session, so this is a triangulated estimate rather than a direct geocode, flagged for the reviewer to tighten. Metro assigned 'manchester' as Greater Manchester shorthand, the same judgment already applied to Stockport (Underbanks)/Heaton Moor/Cheadle Hulme/Bramhall (Salford is one of Greater Manchester's ten metropolitan boroughs). kind 'city' — a dense, walkable high street, not a rural county town. accentColor (#5E7A7D, a muted canal-teal nodding to the Bridgewater Canal running along the village) checked for perceptual distinctness against every existing accent, closest neighbours Northwich's river-slate teal (#4A6B6E) and Heaton Moor's dusty blue-grey (#6B7F94) — distinct from both, and neither ever renders alongside Monton given the real distance involved. base (70) is a reasoned estimate, similar register to Chorlton's own starting point (78) given a comparable 'independent-density' identity at a slightly smaller scale. No district group added — Monton doesn't fit any existing group's real geography. No venues suggested for it in this same run — same 'district entry only, venues as separate follow-up work' precedent every prior district promotion has followed; one operator found during this research (The Makers Market, which runs a monthly market at nearby West Didsbury and elsewhere across the North West/Midlands) was deliberately not suggested as a venue anywhere — a genuine multi-town recurring-event footprint that reads closer to a chain than a single-site venue, and Hard rule 1's own guidance is to drop a candidate when genuinely unsure rather than include it. | Independent re-verification 2026-10-10: Three open items: no source found explicitly branding it a 'dining village' as claimed; its editorialDescription's 'per yard than anywhere else in the conurbation' line directly competes with Chorlton's own already-published superlative; and its proposed teal-grey accent (#5E7A7D) sits uncomfortably close to Heaton Moor's dusty blue-grey (#6B7F94), a same-metro district. Coordinates are only a triangulated estimate (flagged by the original submitter). The underlying place (a real Salford village with a genuine, if more modest than claimed, independent cluster) is otherwise sound.",
+      "payload": {
+        "name": "Monton",
+        "metro": "manchester",
+        "lat": 53.485,
+        "lon": -2.356,
+        "base": 70,
+        "kind": "city",
+        "accentColor": "#5E7A7D",
+        "editorialDescription": "A Salford village that decided against the chain-pub wave entirely — Monton Road's quarter-mile is dense with independent cafés, wine shops and small kitchens, the Bridgewater Canal a two-minute walk from whichever one you pick."
+      }
+    },
+    {
+      "itemType": "add_district",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "Two concrete problems found on re-verification: the editorialDescription claims the market has run 'since the 13th century' but every source checked says 1661, and the proposed accentColor (#9C8558) is virtually indistinguishable from Cheadle Hulme's khaki-olive (#9E8B4F) by RGB distance - a collision the original researchNotes' own distinctness check missed by never comparing against Cheadle Hulme. The underlying place (a real market town with a Michelin Guide-listed restaurant and a genuine Sandstone Trail connection) is otherwise strong.",
+      "researchNotes": "Original suggestion researchNotes: Found via this run's required per-day new-district check, not user-named — a genuine gap surfaced while researching venue candidates elsewhere in Cheshire, not manufactured to fill the check. Frodsham is a genuinely distinct, well-documented Cheshire market town, consistently covered (Great British Life, Cheshire West and Chester's own tourism copy, chesterstandard.co.uk) as a 13th-century market town with a wide Georgian Main Street, a weekly Thursday market and a monthly Artisan Market, real independent-shop density ('bursting with unique independent shops, exceptional cafés, restaurants and local services' per visitcheshire.com), and Next Door — a Michelin-guide-featured restaurant in a 17th-century building run by the same family for three generations — plus Ristorante Lorenzo's and Main Street Kitchen as further real, named independent dining. Also the signed gateway to the 34-mile Sandstone Trail along Cheshire's Sandstone Ridge, a genuine Do-category draw none of this file's other districts offer. Passes the 'would a local raise an eyebrow this isn't already covered' test the same way Prestbury/Knutsford/Cheadle Hulme/Lymm did. Distance check: roughly 9.1 miles (14.7km) from Northwich and 9.7 miles (15.6km) from Chester, the two nearest existing Cheshire districts — comfortably clear of both, sitting in the real gap between them rather than overlapping either (a different, further-out pairing than the Tarporley/Northwich corridor this file already added 2026-09-18, not a duplicate of that reasoning). Coordinates (53.294629/-2.72891) are Frodsham's real town-centre/Main Street centroid, cross-checked across multiple independent mapping sources rather than invented; doogal.co.uk/api.postcodes.io were both blocked by the network egress proxy this session, so this is a web-search-derived figure rather than a direct geocode-API call, flagged for the reviewer to tighten if precise geocoding becomes available. accentColor (#9C8558, a muted sandstone-ochre nodding to the Sandstone Ridge/Trail identity specifically) checked for perceptual distinctness against every existing Cheshire accent, closest neighbours Knutsford's sandy amber (#B8935C, notably lighter) and Nantwich's faded brick-clay (#A56A52, notably pinker/redder) and Chester's sandstone-red (#A6512F, notably more orange-red) — distinct from all three. base (54) is a reasoned estimate, similar register to Knutsford (54) and just below Nantwich (56) — a genuine working market town with real everyday commercial life, not a sleepy village. kind 'county', matching every other Cheshire district. No district group added — Frodsham doesn't fit the Golden Triangle's real geography and a two-district group with Northwich/Tarporley would be grouping for its own sake rather than a real, named local identity, the same judgment already made when the Tarporley/Northwich corridor was added. No venues suggested for it in this same run — same 'district entry only, venues as separate follow-up work' precedent every prior district promotion has followed; one note worth flagging for a future pass: Frodsham Golf Club (referenced in this file's own venues.json _cheshireGolfClubsSource note) was independently confirmed permanently closed in 2022, so is not a candidate once this district exists. | Independent re-verification 2026-10-10: Two concrete problems found on re-verification: the editorialDescription claims the market has run 'since the 13th century' but every source checked says 1661, and the proposed accentColor (#9C8558) is virtually indistinguishable from Cheadle Hulme's khaki-olive (#9E8B4F) by RGB distance - a collision the original researchNotes' own distinctness check missed by never comparing against Cheadle Hulme. The underlying place (a real market town with a Michelin Guide-listed restaurant and a genuine Sandstone Trail connection) is otherwise strong.",
+      "payload": {
+        "name": "Frodsham",
+        "metro": "cheshire",
+        "lat": 53.294629,
+        "lon": -2.72891,
+        "base": 54,
+        "kind": "county",
+        "accentColor": "#9C8558",
+        "editorialDescription": "A sandstone market town where the Cheshire Plain meets the Mersey marshes — a wide Georgian high street, a weekly Thursday market that's run since 1661, and the Sandstone Trail starting almost the moment the pavement does."
+      }
+    },
+    {
+      "itemType": "add_district",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-10",
+      "reason": "The editorialDescription's two load-bearing specifics don't hold up on re-verification: no source found anywhere for the claimed 43%-since-pandemic restaurant growth stat, and The Fat Loaf (the restaurant the 'Restaurant of the Year plaque' line points at) is actually in Ashton-upon-Mersey, not on or near Stanley Square in Sale centre. The underlying case (Stanley Square's real redevelopment into a food-and-drink hub) is genuine and well covered - the copy needs rewriting around verifiable facts before promotion.",
+      "researchNotes": "Original suggestion researchNotes: Found via this run's required per-day new-district check, not user-named. Sale is a genuine, distinct Trafford town roughly 5 miles south-west of Manchester city centre, recently and repeatedly covered as its own named food destination rather than a residential commuter suburb: themanc.com's own feature is titled 'A Manc's guide to: Sale, a foodie neighbourhood reborn'; confidentials.com runs a dedicated 'insider's guide to eating and drinking in Sale'; and coverage of the town cites a Guardian analysis finding restaurant numbers in Sale grew 43% since the pandemic — the highest increase of any area surveyed — plus a nomination for MFDF's Foodie Neighbourhood of the Year. Named, verifiable independents anchor this: The Fat Loaf (2022 Restaurant of the Year, North West, at the Food Awards England), Hops and Boogie (an independent bottle shop/taproom/record store), and Stanley Square itself (the real, named former shopping precinct now doing double duty as the town's food-and-drink hub) — passes the 'would a local raise an eyebrow this isn't already covered' test the same way Prestbury/Knutsford/Lymm/Ramsbottom did. Distance check: roughly 2.7 miles (4.3km) from Altrincham and 2 miles (3.3km) from Chorlton, the two nearest existing Manchester-metro districts — closer than most existing pairs in this file but not unprecedented (Heaton Moor/Stockport Underbanks sit a few hundred metres apart, Didsbury/Chorlton ~2.5km) and, more importantly, genuinely distinct in character from both: Altrincham's is a market-town identity built around its own Market/Market House, Chorlton's around Beech Road's beer-mile/tapas-strip scene, Sale's specifically around a reborn shopping-precinct-turned-food-hub with its own named press identity. Coordinates (53.4215/-2.3198) are Sale town centre/Stanley Square's own area, independently verified via web search rather than invented; doogal.co.uk/api.postcodes.io were both blocked by the network egress proxy this session, so this is a web-search-derived figure rather than a direct geocode-API call, flagged for the reviewer to tighten if precise geocoding becomes available. accentColor (#8C6E4A, a muted toffee-brown) checked for perceptual distinctness against every existing Manchester-metro accent that would actually render alongside it at city zoom — closest neighbours Ancoats' rust-brick (#9C5030, notably more orange-red) and Didsbury's dusty rose (#B98098, a wholly different hue family) — distinct from both. base (74) is a reasoned estimate, just below Chorlton (78) and Didsbury (80) given Sale's food scene is real but more recently arrived/still-rising per its own press coverage, and above Heaton Moor (68) given the scale of Stanley Square's offer. kind 'city', matching every other Manchester-metro district. No district group added — Sale doesn't fit any existing group's real geography (the Deansgate Spine and Ancoats & the NQ groups are both inner-city-core). No venues suggested for it in this same run — same 'district entry only, venues as separate follow-up work' precedent every prior district promotion has followed; worth flagging for a future pass that two named venues found during this research (The Fat Loaf, Hops and Boogie) were not independently verified to Curia's full Hard rule 1 bar here, since a venue can't be suggested against a district id that doesn't exist yet, and that the already-live/pending Libero (Altrincham) candidate's own researchNotes separately reference its team opening a second, Sale-based venue ('Pray Tell') — also not decided here. | Independent re-verification 2026-10-10: The editorialDescription's two load-bearing specifics don't hold up on re-verification: no source found anywhere for the claimed 43%-since-pandemic restaurant growth stat, and The Fat Loaf (the restaurant the 'Restaurant of the Year plaque' line points at) is actually in Ashton-upon-Mersey, not on or near Stanley Square in Sale centre. The underlying case (Stanley Square's real redevelopment into a food-and-drink hub) is genuine and well covered - the copy needs rewriting around verifiable facts before promotion.",
+      "payload": {
+        "name": "Sale",
+        "metro": "manchester",
+        "lat": 53.4215,
+        "lon": -2.3198,
+        "base": 74,
+        "kind": "city",
+        "accentColor": "#8C6E4A",
+        "editorialDescription": "A shopping precinct that quietly turned into a food destination — Stanley Square doing the work a high street used to, now anchored by Canteena, Oystercatcher and Pray Tell rather than the chains a precinct like this used to mean."
+      }
     }
   ]
 }
