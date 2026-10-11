@@ -277,6 +277,40 @@
         { "label": "Closure audit (indices 28-32: Wiltons, Franco's, Chris Beetles Gallery, Spencer House, The Globe)", "detail": "not completed — could not find real evidence either way, so nothing written rather than guessing" }
       ],
       "createdAt": "2026-09-17T09:20:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-11",
+      "synced": false,
+      "title": "Backlog cleared: 152 venues and 7 districts promoted after a 24-day gap",
+      "summary": "This job hadn't run since 2026-09-17, so curia-research-daily's output had piled up unseen for 24 days: 153 pending venue candidates and all 7 district candidates. Independently re-verified every one via fresh web search (chain footprint, duplicates, schema, coordinates, brand voice) and promoted 152 venues plus all 7 districts (Lymm, Ramsbottom, Rusholme/Curry Mile, Monton, Frodsham, Sale, Marple) straight into the real data. Rejected one venue (Bull Ring NW, Northwich — turned out to be the same real bar as a separately-pending candidate under its current name, 'Bullring Cocktail Bar', which was promoted instead). Nothing was genuinely ambiguous enough to need a human decision via Pending Review this run, and the closure-audit slice (5 Wilmslow venues) found nothing current to flag. Curia Command's pending_review collection was checked via read_db and was empty — nothing to apply from a prior human decision.",
+      "items": [
+        {
+          "label": "152 venues promoted",
+          "detail": "docs/data/venues.json, 458 -> 610 — full list and per-entry reasoning in that file's own _dailyReviewPromotionSource20261011 note"
+        },
+        {
+          "label": "Bull Ring NW (Northwich)",
+          "detail": "rejected — confirmed via CAMRA to be the same real venue as the separately-pending 'Bullring Cocktail Bar', described under a stale name and stale hours; the correctly-named candidate was promoted instead"
+        },
+        {
+          "label": "7 districts promoted",
+          "detail": "Lymm, Ramsbottom, Rusholme (Curry Mile), Monton, Frodsham, Sale, Marple — docs/data/districts.json, 41 -> 48; Sale's editorial copy was rewritten to drop an award claim that couldn't be independently confirmed"
+        },
+        {
+          "label": "Closure audit (Wilmslow Tavern, Phanthong Thai, Vietbowl, Rex Cinema, The Carrs)",
+          "detail": "no current closure signal found for any of the five; one old, undated Wilmslow Tavern news item about a derelict-pub episode judged stale (matches other confirmed-circa-2013/14 stories from the same search), not written to pending-review-queue.json"
+        },
+        {
+          "label": "Curia Command pending_review",
+          "detail": "checked via read_db (available and working) — empty, nothing to apply"
+        },
+        {
+          "label": "pending-review-queue.json",
+          "detail": "no changes this run — every pending-review-queue item from before was already resolved/synced, and nothing new from today's run was genuinely ambiguous enough to add"
+        }
+      ],
+      "createdAt": "2026-10-11T11:00:00Z"
     }
   ]
 }
