@@ -26,15 +26,32 @@
  * here as already correct for the browser's local time, which is a fair
  * assumption for this app's real UK-based catalog and audience — flagged
  * as an approximation, not independently re-verified against UTC.
+ *
+ * 2026-10-08, found live (a real screenshot: Big Fight Night showing an F1
+ * practice session, Watch the Football showing a non-league FA Cup
+ * qualifier): the free tier's eventsnextleague endpoint returns exactly
+ * one result per league, with no way to skip a weak one for a better one
+ * further out — confirmed by direct API calls, not assumed. Fixed at the
+ * source rather than worked around in the UI: FA Cup dropped entirely
+ * (FOOTBALL_LEAGUE_IDS's own comment has the full reasoning), F1 practice
+ * sessions filtered out (F1_EXCLUDE_PATTERN).
  */
 
 const THESPORTSDB_BASE = 'https://www.thesportsdb.com/api/v1/json/123';
 
-/** Confirmed via direct API calls during research — not guessed. */
+/** Premier League and Champions League only — FA Cup (id 4482) was dropped
+ * 2026-10-08, found live: its "next event" during the August-October
+ * qualifying rounds is a match between two non-league clubs (round 0 in
+ * TheSportsDB's own numbering), months before Premier League clubs enter
+ * at Round 3 Proper in January. The free tier's eventsnextleague endpoint
+ * returns exactly one result, so there's no "skip to the next one" within
+ * FA Cup itself to fall back to — PL + CL alone already give dense,
+ * reliably top-flight weekly fixtures, so dropping FA Cup entirely (rather
+ * than building a fragile round-number heuristic around one observed data
+ * point) was the honest fix. Confirmed via direct API calls — not guessed. */
 const FOOTBALL_LEAGUE_IDS = {
   premierLeague: 4328,
   championsLeague: 4480,
-  faCup: 4482,
 } as const;
 
 /** Boxing (real, current fight-by-fight data, not a stale archive) and F1
@@ -44,6 +61,15 @@ const BIG_EVENT_LEAGUE_IDS = {
   boxing: 4445,
   f1: 4370,
 } as const;
+
+/** F1's "next event" is whatever's chronologically soonest, which for most
+ * of a race weekend is a practice session, not the race — found live
+ * 2026-10-08 ("Singapore Grand Prix Practice 1"). Practice is testing, not
+ * must-watch TV, so it's excluded at the source (treated the same as "no
+ * event found" for F1 that cycle) rather than shown under "Big Fight
+ * Night". Qualifying and Sprint sessions are real competitive TV and stay
+ * eligible — only Practice is filtered. */
+const F1_EXCLUDE_PATTERN = /practice/i;
 
 /** Kickoff-to-full-time-plus-a-bit — long enough that a match still in
  * progress (or just finished) keeps Watch the Football live/bumped, short
@@ -88,14 +114,20 @@ interface SportsDbEvent {
 
 /** The soonest upcoming event for one league, or null on any failure (no
  * key, network error, malformed response, nothing scheduled) — same
- * null-means-fallback pattern as fetchWeather/resolveDeviceLocation. */
-async function fetchNextEvent(leagueId: number): Promise<Fixture | null> {
+ * null-means-fallback pattern as fetchWeather/resolveDeviceLocation. An
+ * event whose name matches `exclude` (e.g. an F1 practice session) is
+ * treated exactly like "nothing scheduled" — the free tier's one-result
+ * limit means there's no next-best alternative to fall back to within the
+ * same league, so a filtered-out event just means this league contributes
+ * nothing this cycle, same as a real gap would. */
+async function fetchNextEvent(leagueId: number, exclude?: RegExp): Promise<Fixture | null> {
   try {
     const res = await fetch(`${THESPORTSDB_BASE}/eventsnextleague.php?id=${leagueId}`);
     if (!res.ok) return null;
     const data = (await res.json()) as { events?: SportsDbEvent[] };
     const event = data.events?.[0];
     if (!event?.strTimestamp || !event.strEvent) return null;
+    if (exclude?.test(event.strEvent)) return null;
     const date = new Date(event.strTimestamp);
     return Number.isNaN(date.getTime()) ? null : { name: event.strEvent, date };
   } catch {
@@ -104,26 +136,28 @@ async function fetchNextEvent(leagueId: number): Promise<Fixture | null> {
 }
 
 /** The soonest of several leagues' next events — used to combine Premier
- * League/Champions League/FA Cup into one "when's the next real match"
- * signal, and Boxing/F1 into one "when's the next big event" signal. */
-async function soonestOf(leagueIds: number[]): Promise<Fixture | null> {
-  const fixtures = (await Promise.all(leagueIds.map(fetchNextEvent))).filter(
-    (f): f is Fixture => f !== null
-  );
+ * League/Champions League into one "when's the next real match" signal,
+ * and Boxing/F1 into one "when's the next big event" signal. */
+async function soonestOf(fetches: Promise<Fixture | null>[]): Promise<Fixture | null> {
+  const fixtures = (await Promise.all(fetches)).filter((f): f is Fixture => f !== null);
   if (fixtures.length === 0) return null;
   return fixtures.reduce((earliest, f) => (f.date < earliest.date ? f : earliest));
 }
 
-/** Next real Premier League, Champions League or FA Cup fixture, whichever
- * comes first — or null if none could be fetched. */
+/** Next real Premier League or Champions League fixture, whichever comes
+ * first — or null if neither could be fetched. */
 export function fetchNextFootballFixture(): Promise<Fixture | null> {
-  return soonestOf(Object.values(FOOTBALL_LEAGUE_IDS));
+  return soonestOf(Object.values(FOOTBALL_LEAGUE_IDS).map((id) => fetchNextEvent(id)));
 }
 
-/** Next real Boxing or F1 event, whichever comes first — or null if none
- * could be fetched. */
+/** Next real Boxing or F1 event, whichever comes first — or null if
+ * neither could be fetched (an F1 practice session counts as not found,
+ * see F1_EXCLUDE_PATTERN above). */
 export function fetchNextBigEventFixture(): Promise<Fixture | null> {
-  return soonestOf(Object.values(BIG_EVENT_LEAGUE_IDS));
+  return soonestOf([
+    fetchNextEvent(BIG_EVENT_LEAGUE_IDS.boxing),
+    fetchNextEvent(BIG_EVENT_LEAGUE_IDS.f1, F1_EXCLUDE_PATTERN),
+  ]);
 }
 
 /**
