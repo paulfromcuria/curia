@@ -159,6 +159,667 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "A real, well-documented 18-year Nottingham independent genuinely expanding to Spinningfields, but fresh searches still show only an announced opening with no confirmed trading date, plus a possible third Coco Tang-branded site that complicates the 'clean sibling pair' claim.",
+      "researchNotes": "restaurantonline.co.uk (25 Aug 2026) confirms the Manchester plan (former Artisan/SakkuSamba unit, Bridge Street) but says only 'later this year' with no firm date; operator Panama Estate Ltd only applied for its premises licence in January 2026, job ad still recruiting launch team. A 45 Bridlesmith Gate 'Coco Tang' nightclub/cocktail-bar in Nottingham turned up — ownership link to the Byard Lane café original unconfirmed, so the '2-site sibling' framing may understate the real footprint. Recommend holding for confirmation the Manchester venue is actually trading.",
+      "payload": {
+        "name": "Coco Tang",
+        "district": "spinningfields",
+        "type": "VIETNAMESE",
+        "spend": "£££",
+        "lat": 53.4796,
+        "lon": -2.2493,
+        "base": 82,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Eighteen years of running Nottingham's Byard Lane before Manchester got a look — Vietnamese café by day, a cocktail room and late kitchen once the Bridge Street lights come on."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "The business and founder are real and currently operating, but independent search found a different primary address (Lever Street, not Stevenson Square) and different class offerings (GridFit/yoga, not reformer pilates/breathwork) than claimed.",
+      "researchNotes": "ClassPass lists Structure Wellness at 2F, 24 Lever Street, M1 1DZ (not 8 Stevenson Square), founder Sean Boyd confirmed, 4.8 rating from 100+ reviews, classes GridFit and yoga — no reformer pilates/breathwork/retreat room mentioned. Original notes flagged a 'two-address' ambiguity; this search suggests Lever Street may be primary, and the class-type mismatch is a new finding. No chain signal, but facts need correcting/re-verifying first.",
+      "payload": {
+        "name": "Structure Wellness",
+        "district": "northern-quarter",
+        "type": "WELLNESS STUDIO",
+        "spend": "££",
+        "lat": 53.482871,
+        "lon": -2.233936,
+        "base": 66,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A movement studio off Stevenson Square from a trainer who got tired of gyms that didn't care — reformer, breathwork and a retreat room upstairs, nothing about it franchised."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "This session's web-search budget was exhausted before any independent search could be run on this entry, so there is no fresh verification beyond the original researchNotes.",
+      "researchNotes": "No independent search completed (budget ran out). Original notes cite the operator's own site, Facebook, Yell and Birdeye (115 reviews, 5-star average) at Owen House Farm Offices, Wood Lane, Mobberley WA16 7NY — none independently re-checked. Recommend re-running this entry's research in a follow-up pass.",
+      "payload": {
+        "name": "The Beauty Barn Mobberley",
+        "district": "mobberley",
+        "type": "BEAUTY SALON",
+        "spend": "££",
+        "lat": 53.33118,
+        "lon": -2.325872,
+        "base": 64,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A converted farm building at Owen House, run as both a working salon and its own training academy — the kind of unhurried facial that only makes sense this far outside the city."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Gate 1 clearly passes, but fresh search found no 2026-dated confirmation the Church Lane tap/shop itself is still trading, and the brewery's own branded taproom chain (Project 53, Stockport + Knutsford) has visibly collapsed at both sister sites, undercutting confidence in the 'active as of August 2026' claim.",
+      "researchNotes": "Confirmed real brewery/building at Church Ln, Mobberley WA16 7RA with tap room historically open Thu-Sat per an undated blog. Found via morningadvertiser.co.uk, creweguardian.co.uk, tasteofmanchester.com, CAMRA that the brewery's 'Project 53' chain (Stockport, opened Aug 2018, CAMRA-confirmed closed 21 Oct 2023; Knutsford Minshull Street site now Linden Stores per Knutsford Town Council's Nov 2023 report) has collapsed at both other sites. No 2026 hours/press for Church Lane itself found.",
+      "payload": {
+        "name": "Mobberley Brewhouse Tap & Shop",
+        "district": "mobberley",
+        "type": "BREWERY TAP",
+        "spend": "£",
+        "lat": 53.3186,
+        "lon": -2.3177,
+        "base": 62,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "The brewery's original building on Church Lane, kept on as a tap and shop once production moved up the road to bigger premises — sample the cans standing among the old fermenters, then take a few home for whoever couldn't make the drive."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "A real boutique of this name and owner existed on Hale's Ashley Road, but independent search found only a 2010-dated reference and no evidence of current trading or the Instagram presence the batch cites.",
+      "researchNotes": "Found a 2010 Jewish Chronicle piece on 'Adi Va,' Ashley Road, Hale, owner Adi Joseph, designer denim/jewellery — consistent with 'Adi Joseph's own edit' framing. Repeated searches for '@by_adiva'/'By AdiVa' plus Hale/Altrincham turned up nothing current — no Instagram, Facebook, or 2025/2026 listing. 16-year gap with no current corroboration — genuinely unresolved.",
+      "payload": {
+        "name": "By AdiVa",
+        "district": "hale",
+        "type": "FASHION BOUTIQUE",
+        "spend": "£££",
+        "lat": 53.377037,
+        "lon": -2.346064,
+        "base": 66,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "Adi Joseph's own edit of European labels and considered gifts on Ashley Road, enough of a fixture on the village high street that regulars have long since dropped the 'By'."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "The chef-owners, relocation history (Highbury, then Audlem, now Knutsford) and single-site-at-a-time status check out, but the AA Rosette claim in the live reason text could not be corroborated — a targeted search surfaced a different Knutsford restaurant's award instead.",
+      "researchNotes": "Confirmed via hardens.com and Knutsford Town Council's own site: 15 Minshull Street, Knutsford, chef Chris (surname not independently confirmed as 'Boustead') and partner Laura Christie, relocated North London -> Audlem -> Knutsford (~2022). Hardens itself says 'too limited feedback for a full rating.' Search for 'Linden Stores Knutsford AA Rosette 2026' returned only LI~LY by Aiden Byrne's Rosette win, not Linden Stores'. Claim should be dropped or re-confirmed before promotion.",
+      "payload": {
+        "name": "Linden Stores",
+        "district": "knutsford",
+        "type": "SMALL PLATES",
+        "spend": "£££",
+        "lat": 53.305589,
+        "lon": -2.374733,
+        "base": 76,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Laura Christie and Chris Boustead's third address for the same restaurant — Highbury, then Audlem, now Minshull Street — a wine list that still changes with whatever they've just found, and a kitchen that never lost the easy confidence of the first two."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "The venue itself is plausible and consistently sourced, but it's the third site for the same small Northwich operator (Salt House Ltd), a bigger local footprint than a single sibling, and no fresh search could be run this turn to settle how that should weigh on Gate 2.",
+      "researchNotes": "Search budget exhausted. Working from critical review of the batch's own notes: 5-7 High Street, Northwich, sister to Salthouse NW (already live) and Casa de Sal (opened Sept 2026), all three under Salt House Ltd, all in Northwich. The batch itself flagged this as 'a genuine step up from the one-sibling baseline case' — agree that's the real open question (single-town local group vs. diluting the curation bar).",
+      "payload": {
+        "name": "Bull Ring NW",
+        "district": "northwich",
+        "type": "WINE BAR",
+        "spend": "££",
+        "lat": 53.260544,
+        "lon": -2.514879,
+        "base": 74,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "A former building society in the Bull Ring turned family-run bottle shop and bar — Blue Bridge gin from Davenham, Weetwood from Kelsall, coffee and cake by day, a quiz that fills the vault by night."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Gate 1 plausibly passes as a late-night bar, but the owning operator's footprint (5 bars plus a deli, a tanning salon and an aesthetics clinic, all in one small town) reads more like a local commercial operator building out a town's nightlife than a curated indie find.",
+      "researchNotes": "Search budget exhausted. Working from critical review of the batch's notes: 8 Dukes Court, Macclesfield, open 10pm-3am seven nights, owned by Kyle Frost-Morgan's Dukes Hospitality Group, which also runs Dukebox, The White Lion, Duchess, The Ivy Leaf, Dukes Deli, Total Aesthetics, Total Tanning — a broader single-town commercial footprint than other small-sibling precedents. The batch itself flagged 'moderate confidence given the ownership footprint' — share that hesitation.",
+      "payload": {
+        "name": "No.8 Dukes",
+        "district": "macclesfield",
+        "type": "COCKTAIL BAR",
+        "spend": "£££",
+        "lat": 53.257233,
+        "lon": -2.125601,
+        "base": 76,
+        "bands": [
+          "evening",
+          "late"
+        ],
+        "reason": "Duke's Court stays lit long after the rest of Macclesfield has gone home — doors open to 3am, seven nights, in a room that doesn't bother pretending it's anything but the town's last stop."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "The batch's own research already flags a real district-boundary problem — postcode geocodes nearer Ladybarn/Burnage than Didsbury — and there was no budget left to independently resolve either the district fit or current existence.",
+      "researchNotes": "Search budget exhausted. The batch's own notes surface the issue clearly: M19 1GN (School Lane) sits ~1km from the Didsbury centroid, technically nearer Ladybarn/Burnage, even though the venue self-identifies as 'Didsbury.' Given Curia's district model is precise about district assignment, and existence/district fit couldn't be independently confirmed, this is a genuine case for a second look.",
+      "payload": {
+        "name": "Ek's Kitchen",
+        "district": "didsbury",
+        "type": "THAI RESTAURANT",
+        "spend": "££",
+        "lat": 53.415407,
+        "lon": -2.217513,
+        "base": 76,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Twenty covers on School Lane and a chef with thirty years behind the wok — order the specials a day ahead, or take your chances in the queue with everyone else."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "The NOLA brand is a real independent Manchester boutique, but every independently found source places it on Port Street in the Northern Quarter, not in Barton Arcade on Deansgate as claimed.",
+      "researchNotes": "northernquartermanchester.com and confidentials.com both describe Nola at 54 Port Street, M1 2EQ (nolaboutique.co.uk), Northern Quarter — not Deansgate. No corroboration for a Barton Arcade/61 Deansgate location, and the cited Companies House number (05041840) returned no matching company. Could be a genuine second site or a district/address error — needs a direct site check.",
+      "payload": {
+        "name": "NOLA Boutique",
+        "district": "deansgate",
+        "type": "FASHION BOUTIQUE",
+        "spend": "£££",
+        "lat": 53.4822,
+        "lon": -2.2468,
+        "base": 70,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A Grade II-listed Victorian arcade off Deansgate, and the one shop in it not selling trainers — hard-to-find labels and an in-house edit of one-offs nobody else in the city carries."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Could not find any independent corroboration across several targeted searches, including ones naming the exact sources the batch cites, but a very new small studio can genuinely have thin indexing.",
+      "researchNotes": "Searched multiple phrasings — found only comparable but unrelated Manchester wellness studios. Could not reach rawstudios.uk directly (WebFetch network failure). Not confirmed non-existence, just unconfirmed existence. Recommend a direct site/Instagram check.",
+      "payload": {
+        "name": "RAW Studios",
+        "district": "ancoats",
+        "type": "WELLNESS STUDIO",
+        "spend": "£££",
+        "lat": 53.4838,
+        "lon": -2.2255,
+        "base": 70,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "Manchester's first pilates-sauna-ice-bath room, on Radium Street — Katie and Tom built the contrast-therapy circuit the city didn't have yet, not a gym bolting a cold plunge on as an afterthought."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "The sibling relationship to Little Tap is real, but sourcing suggests the project was still crowdfunding/pre-opening as of mid-2024, and currently-trading status could not be confirmed.",
+      "researchNotes": "CAMRA and Crewe Guardian confirm Myles Carr (owner of Little Tap) planned Terrarium, funded partly via Kickstarter (~£45k of £100k target), targeting spring 2024; a July 2024 CAMRA update says it 'will be opening shortly.' No review/menu/opening confirmation found dated after that — a real gap. Recommend confirming it has actually opened before promotion.",
+      "payload": {
+        "name": "Terrarium by Little Tap",
+        "district": "tarporley",
+        "type": "SMALL PLATES",
+        "spend": "££",
+        "lat": 53.16005,
+        "lon": -2.66875,
+        "base": 72,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Myles Carr split the kitchen off across the High Street once Little Tap got too busy to also cook — focaccia, burrata and slow-herbed lamb in a room built purely to feed the bar opposite."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "No independent trace found despite several targeted searches naming the exact cited sources, but a tiny single-owner gallery opened only recently can plausibly be under-indexed.",
+      "researchNotes": "Searched multiple phrasings — found nothing matching, only unrelated Church Street galleries elsewhere and generic Macclesfield art listings. Recommend a direct search of the gallery's own site/Instagram before promoting.",
+      "payload": {
+        "name": "Church Street Gallery",
+        "district": "macclesfield",
+        "type": "ART GALLERY",
+        "spend": "£",
+        "lat": 53.259805,
+        "lon": -2.124364,
+        "base": 64,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "Oliver Collins hung his own paintings on Church Street on Christmas Eve and never took them down — a former decorator's gallery with nobody else's name over the door."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "The venue is real and currently open, but independent sources describe it as a cask-ale/craft-beer taproom with a DJ/music focus rather than the wine-and-tinned-fish wine bar the batch describes.",
+      "researchNotes": "Confirmed via manchestersfinest.com and camra.org.uk that Plere exists at 48 Beech Road, Chorlton. CAMRA describes it as 'a new cask outlet' with a DJ/music focus; manchestersfinest.com calls it a 'craft beer taproom'/'late-night lounge' with cheese boards — not specifically a wine bar, no mention of tinned fish, natural wine, or owners 'Lee and Fiona' found anywhere. WINE BAR type and reason-text details could not be corroborated.",
+      "payload": {
+        "name": "Plere",
+        "district": "chorlton",
+        "type": "WINE BAR",
+        "spend": "££",
+        "lat": 53.438395,
+        "lon": -2.280556,
+        "base": 72,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Lee and Fiona took the Beech Road unit that had sat empty for years and filled it with British craft beer, natural wine and tinned fish done properly — the sunniest room on the strip by mid-afternoon."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Could not independently corroborate this venue's existence via fresh web search despite several targeted attempts; no contradicting evidence either, just a genuine information gap.",
+      "researchNotes": "Searched directly for 'Mamma Mia Macclesfield Sunderland Street' and variants — no news coverage, no social media, no independent directory listing. eatible.co.uk still lists 'Lazeez' at 68-70 Sunderland Street SK11 6HN, consistent with the original claim that Mamma Mia opened 'in the former Lazeez unit' (directories often lag), not a true contradiction. Could not reach mammamiamacc.co.uk (DNS failure). Ran out of search budget before the specific Nub News headline query that might have resolved this.",
+      "payload": {
+        "name": "Mamma Mia",
+        "district": "macclesfield",
+        "type": "ITALIAN RESTAURANT",
+        "spend": "££",
+        "lat": 53.2577,
+        "lon": -2.1226,
+        "base": 72,
+        "bands": [
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "A family kitchen on Sunderland Street doing proper Italian and a cocktail list that doesn't feel bolted on — Park Green's answer to the trattoria everyone wishes was round the corner."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Could not independently confirm this specific Macclesfield food-court coffee counter exists; the only 'Pronto Caffè' hit found was an unrelated London-roaster catering business.",
+      "researchNotes": "Searched multiple phrasings. Found only 'Pronto Caffè and Cocktails' (addtoevent.co.uk), a catering supplier with no address given — reads as a different business, not a contradiction. No Nub News/Instagram/operator-site confirmation found before search budget ran out.",
+      "payload": {
+        "name": "Pronto Caffé",
+        "district": "macclesfield",
+        "type": "COFFEE ROOM",
+        "spend": "£",
+        "lat": 53.26025,
+        "lon": -2.128353,
+        "base": 58,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A former barista's own counter inside the new food court on Castle Street, run with her mother — the kind of coffee that has never needed a loyalty app to explain itself."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Three separate targeted searches found zero trace of this venue anywhere, a stronger negative signal than a simple thin-footprint explanation accounts for.",
+      "researchNotes": "Searched 'One Thirty Cafe Bar Hulme Hall Road Cheadle Hulme', '130 Hulme Hall Road', and a Tripadvisor-specific query — all returned nothing under this name, only an unrelated pub (Hesketh, 63 Hulme Hall Road) came up repeatedly. The original claim of 'multiple current reviews' on Tripadvisor should plausibly have surfaced if accurate. Doesn't prove non-existence but is a real flag.",
+      "payload": {
+        "name": "One Thirty Cafe & Bar",
+        "district": "cheadle-hulme",
+        "type": "COFFEE ROOM",
+        "spend": "££",
+        "lat": 53.3667,
+        "lon": -2.19,
+        "base": 60,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A family-run counter on Hulme Hall Road that pours prosecco and bottled beer alongside the flat whites — Cheadle Hulme's daytime answer to a proper bar, gone by mid-afternoon rather than staying open just to prove a point."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "The venue is confirmed real and trading, but the current CAMRA listing describes it as a plain 'contemporary café bar' with no mention of Irish theming, Guinness, or live music — directly conflicting with the suggestion's central claim that it's 'Heaton Moor's actual Irish pub.'",
+      "researchNotes": "Confirmed existence/address (19 Shaw Road, Heaton Moor, SK4 4AG) via CAMRA and Stockport & South Manchester CAMRA branch pages, but the listing calls it an independent 'contemporary café bar serving keg-only drinks to a mixed crowd' with a small stage — no Irish framing anywhere. Could not corroborate '2004 establishment' or 'Irish bar' framing. Could be outdated CAMRA copy or the Irish-pub framing could be inaccurate — genuinely unclear.",
+      "payload": {
+        "name": "Cassidys",
+        "district": "heaton-moor",
+        "type": "LIVE MUSIC BAR",
+        "spend": "££",
+        "lat": 53.4232,
+        "lon": -2.1855,
+        "base": 66,
+        "bands": [
+          "evening",
+          "late"
+        ],
+        "reason": "Two decades of Guinness poured properly and a stage close enough to touch on a Saturday — Heaton Moor's actual Irish pub, not a theme."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "The brand/second-site concept (Urmston original expanding to Hale) is confirmed real, but the specific Ashley Road address and owner name couldn't be corroborated, and a different, apparently long-closed pub was found at a similar nearby address.",
+      "researchNotes": "Confirmed via The Cheshire Magazine and Manchester's Finest that Owen's Kitchen and Bar has a second site in Hale Village — but no source matched '106-108 Ashley Road' precisely, and 149 Ashley Road, Hale surfaced as a different pub listed 'closed long term.' No source confirmed the name 'Ritchie Bagnall.' Underlying venue very likely real, but facts need tightening.",
+      "payload": {
+        "name": "Owen's Kitchen & Bar",
+        "district": "hale",
+        "type": "GASTROPUB",
+        "spend": "££",
+        "lat": 53.378548,
+        "lon": -2.349038,
+        "base": 72,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Ritchie Bagnall named his second room after the same grandfather as the Urmston original — a proper Sunday roast and no pretence on Ashley Road, the kind of hospitality that doesn't need a tasting menu to prove itself."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Sourcing is genuinely muddled between an artist-run gallery that opened in Betws-y-Coed, North Wales in 2008 and a purported Chester relocation; couldn't resolve with confidence which is currently operating from the Watergate Street address.",
+      "researchNotes": "Found directory listings (intravel.net) placing it at 42 Watergate Street, Chester CH1 2LA with a strong rating, but also multiple sources describing an 'Alison Bradley Gallery' that opened March 2008 in Betws-y-Coed — no source clearly confirms relocation vs. shared name. The existing researchNotes' claim of a 2016-2019 relocation wasn't independently corroborated.",
+      "payload": {
+        "name": "Alison Bradley Gallery",
+        "district": "chester",
+        "type": "ART GALLERY",
+        "spend": "£",
+        "lat": 53.1901,
+        "lon": -2.8935,
+        "base": 66,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "Alison's own charcoal drawings and oil landscapes line a Watergate Street townhouse, framed on site by the same two hands — her partner Jon — who hung them."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Could not perform an independent fresh search this session (web search budget exhausted) — flagging rather than rubber-stamping the existing researchNotes.",
+      "researchNotes": "No independent web search completed before the search budget ran out. Existing researchNotes (CAMRA listing reference, Tripadvisor 4.9/5, Lower Bridge Street/Gamul House location) look internally consistent and specific, but untested by this pass. Recommend a follow-up search.",
+      "payload": {
+        "name": "Black Bush",
+        "district": "chester",
+        "type": "IRISH BAR",
+        "spend": "££",
+        "lat": 53.187863,
+        "lon": -2.890338,
+        "base": 76,
+        "bands": [
+          "evening",
+          "late"
+        ],
+        "reason": "A Northern Irish landlord's own undercroft bar beneath Gamul House, no theme beyond a properly poured pint — the regulars' own verdict is the best Guinness on Lower Bridge Street, and nobody's arguing."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Could not perform an independent fresh search this session (web search budget exhausted) — flagging rather than rubber-stamping the existing researchNotes.",
+      "researchNotes": "No independent web search completed. Existing researchNotes cite confidentials.com, Tripadvisor, Restaurant Guru (1,618 reviews, 4.8/5) and the operator's own site — a strong pattern of real sourcing, but not personally verified this pass. Recommend a follow-up search.",
+      "payload": {
+        "name": "Bombay to Mumbai",
+        "district": "bramhall",
+        "type": "INDIAN RESTAURANT",
+        "spend": "££",
+        "lat": 53.3714,
+        "lon": -2.1588,
+        "base": 78,
+        "bands": [
+          "evening"
+        ],
+        "reason": "Sandeep's regional Indian cooking on Fir Road turns ordering into the night's real decision — a genuinely different dish from a different corner of the subcontinent on every page, not one house curry wearing several names."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Could not perform an independent fresh search this session (web search budget exhausted) — flagging rather than rubber-stamping the existing researchNotes.",
+      "researchNotes": "No independent web search completed. Existing researchNotes cite Manchester's Finest, Skiddle, and a dated canal-st.co.uk piece, which looks plausible, but not personally verified this pass. Recommend a follow-up search.",
+      "payload": {
+        "name": "Layla's",
+        "district": "deansgate",
+        "type": "BRUNCH SPOT",
+        "spend": "££",
+        "lat": 53.474845,
+        "lon": -2.256192,
+        "base": 74,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "Sarah's canalside room on Catalan Square, next door to her own Barça — Middle Eastern plates alongside the full English, with the towpath close enough to eat on."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "The restaurant itself is confirmed real and independent, but the owner name and its sibling-ownership link to Chorlton's Jasmine could not be independently re-confirmed, and the original research flagged that link as worth a second look anyway.",
+      "researchNotes": "Confirmed via SquareMeal: 136 Burton Road, West Didsbury M20 1JQ, Middle Eastern/Lebanese/Palestinian, independently owned. Search did not surface the name 'Lobna' or any Jasmine link — rests only on the original researcher's Companies House lookup, not re-run (budget exhausted). The two-site ownership question bears on Gate 2 scoring and is unresolved.",
+      "payload": {
+        "name": "Zena Restaurant",
+        "district": "didsbury",
+        "type": "LEBANESE RESTAURANT",
+        "spend": "££",
+        "lat": 53.4286,
+        "lon": -2.2408,
+        "base": 74,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Lobna's charcoal grill runs BYOB on Burton Road — Levantine mezze and mixed grills that don't dress anything up for the tram stop outside, the quieter sibling of Chorlton's Jasmine rather than its understudy."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "A plausible, specific claim, but no independent search could be run for this entry before search budget ran out, and its very narrow footprint (one-person operation, open 3 afternoons a week) is exactly the kind of listing most likely to have quietly changed.",
+      "researchNotes": "Not independently re-searched (budget exhausted). Original notes cite the gallery's own site (thebunkerartgallery.co.uk), Tripadvisor and greatbritishlife.co.uk, naming artist Paul Falcon and yard owner John Newton — a reasonably specific trail, unverified by this pass. Recommend a follow-up check before promoting.",
+      "payload": {
+        "name": "The Bunker Art Gallery",
+        "district": "tarporley",
+        "type": "ART GALLERY",
+        "spend": "££",
+        "lat": 53.133,
+        "lon": -2.6687,
+        "base": 58,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "A reclamation yard's old bunker, turned into a one-man gallery for Paul Falcon's wood, metal and antler pieces — open three afternoons a week, which is exactly as long as it needs to be."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "The Knutsford restaurant itself is confirmed real and trading, but the reason text's central claim — that it's the same family/sibling of the Wilmslow original — is unconfirmed circumstantial surname-matching that could not be corroborated independently.",
+      "researchNotes": "Knutsford Town Council Oct 2025 piece and wilmslow.co.uk confirm a real, family-run Greek restaurant opened Aug 2025 in the former Botanist unit on King Street, now on the Taste Knutsford tour. A dedicated search for 'Saphina Hadjiyianni' turned up nothing corroborating the ownership link to the Wilmslow original's Hadjiyiannis family — the sibling claim remains unverified beyond a surname resemblance. Venue's existence is solid; the editorial hook in the copy is not.",
+      "payload": {
+        "name": "The Stolen Lamb (Knutsford)",
+        "district": "knutsford",
+        "type": "GREEK TAVERNA",
+        "spend": "£££",
+        "lat": 53.3039,
+        "lon": -2.3722,
+        "base": 78,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Saphina Hadjiyianni's own room in the old Botanist shell on King Street — the same family's Kleftiko instincts as the Water Lane original, just run to Knutsford's own clock rather than Wilmslow's."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Existence and non-chain status reasonably well sourced, but this would be a third same-operator (Cheshire Cat Pubs & Inns) venue in one ten-venue district — a real catalogue-balance question the original researcher explicitly left open, and fresh search budget ran out before weighing in further.",
+      "researchNotes": "Could not independently re-search (budget exhausted). Sawday's, Top 50 Gastropubs, Good Pub Guide and dated local press are reasonably strong secondary sourcing for 'real and trading'. Cheshire Cat Pubs & Inns' own framing ('one could never call them a chain') supports Gate 1 passing individually. The open question is purely editorial/curatorial — three venues from one seven-pub group in a single small district.",
+      "payload": {
+        "name": "The Roebuck Inn",
+        "district": "mobberley",
+        "type": "COUNTRY PUB",
+        "spend": "£££",
+        "lat": 53.3126,
+        "lon": -2.3177,
+        "base": 82,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "French-farmhouse plates and a Sunday roast that gives every meat its own dedicated gravy, on Mill Lane in the same village the owners call home — the Cheshire Cat group's own base, not just another one of its pubs."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Sourcing is explicitly thin — two apparently-syndicated directory listings with no primary source and no 2025/2026-dated confirmation — warrants a second opinion before promoting.",
+      "researchNotes": "Could not independently re-search (budget exhausted). Original notes flag both citations (a Grimsby Telegraph-network directory, a Pendle Today-network directory) carry identical copy, suggesting one shared/syndicated original with no independent corroboration, neither dated. No closure signal, but also no confirmed-current-trading signal. A new venue TYPE (GARDEN CENTRE) on this thin a basis compounds the risk.",
+      "payload": {
+        "name": "Prestbury Plant and Garden",
+        "district": "prestbury",
+        "type": "GARDEN CENTRE",
+        "spend": "£",
+        "lat": 53.284,
+        "lon": -2.149,
+        "base": 52,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "An independent family's own nursery on London Road since 1984 — plants grown or sourced as close to home as the Cheshire soil allows, a flower shop alongside it, and no loyalty scheme standing in for actually knowing the regulars."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Real address and phone number confirmed, but the only two sources found (both Manchester's Finest) disagree on basic facts (one calls it a specialist roaster with a 'Melbourne flavour' menu, the other a generic coffee shop) and no independent customer review exists anywhere to confirm current trading.",
+      "researchNotes": "Fresh search found the same two Manchester's Finest listing pages as the original research, plus an alderley-edge.com piece whose headline ('New independent cafe coming to London Road') may or may not even be about this venue (not confirmed either way). No Tripadvisor/Google review, no social media presence, no closure signal either. Gate 1 passes cleanly. If promoted, Gate 2 distinctiveness would be a 2. Brand voice reason text reads fine, needs no rewrite if later promoted.",
+      "payload": {
+        "name": "Brook Lane Coffee Co",
+        "district": "alderley-edge",
+        "type": "COFFEE ROOM",
+        "spend": "££",
+        "lat": 53.299,
+        "lon": -2.228,
+        "base": 56,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A locally roasted bean and an unhurried pace just off the village centre — Alderley Edge's actual neighbourhood coffee house, a few minutes from every cocktail bar that's opened and closed on London Road since."
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Blossom Street Social's own Instagram announced closure, and CAMRA dates it ended June 2026 — Mielle (a newly-promoted venue, same address) has taken over the unit.",
+      "researchNotes": "Found while independently re-verifying suggestion candidate 'Mielle' (51 Blossom Street, Ancoats): Blossom Street Social (run by Hanging Ditch wine merchants since 2019) closed after nearly seven years, confirmed via its own Instagram statement and britbrief.co.uk, CAMRA dating the change to June 2026. Mielle opened in the same unit the following month. Flagging for removal per the hard closure rule rather than auto-removing.",
+      "payload": {
+        "name": "Blossom Street Social",
+        "district": "ancoats"
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-12",
+      "reason": "Nam's original Ancoats venue (the sibling cited while re-verifying the new candidate Ōdiobā) is independently confirmed 'permanently closed' on creativetourist.com.",
+      "researchNotes": "Found while independently re-verifying suggestion candidate 'Ōdiobā' (Stockport), which is built around Nam's old sound system per multiple sources. A direct check on the already-live catalogue entry 'Nam' (Ancoats) found creativetourist.com listing its original Ancoats venue as permanently closed. Flagging for removal per the hard closure rule rather than auto-removing.",
+      "payload": {
+        "name": "Nam",
+        "district": "ancoats"
+      }
     }
   ]
 }
