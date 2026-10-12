@@ -292,7 +292,7 @@ export const CATEGORY_BY_VENUE_TYPE: Record<string, ('Do' | 'Drink' | 'Eat' | 'H
   'COUNTRY PUB': ['Eat', 'Drink'],
   'MARKET HALL': ['Do'],
   'WINE BAR': ['Drink'],
-  'INDEPENDENT CINEMA': ['Do'],
+  CINEMA: ['Do'],
   PIZZERIA: ['Eat'],
   'SHERRY BAR': ['Drink'],
   'PERFORMING ARTS': ['Do'],

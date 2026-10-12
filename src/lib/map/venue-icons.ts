@@ -407,7 +407,7 @@ const ICON_BY_TYPE: Record<string, VenueIconKey> = {
   'COOKBOOK SHOP': 'books',
 
   // cinema — its own icon, not lumped into `culture` (see that icon above)
-  'INDEPENDENT CINEMA': 'cinema',
+  CINEMA: 'cinema',
 
   // art
   'ART GALLERY': 'art',
