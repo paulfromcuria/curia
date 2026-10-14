@@ -277,6 +277,24 @@
         { "label": "Closure audit (indices 28-32: Wiltons, Franco's, Chris Beetles Gallery, Spencer House, The Globe)", "detail": "not completed — could not find real evidence either way, so nothing written rather than guessing" }
       ],
       "createdAt": "2026-09-17T09:20:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-14",
+      "synced": false,
+      "title": "First run in 4 weeks (backlog from a blocked direct-master-push workflow): 103 venues + 3 districts promoted, 5 rejected, 2 sent for review",
+      "summary": "This job hadn't completed successfully since 2026-09-17 — every run in between tried to push straight to master and was silently blocked by this environment's own safety layer, so three-plus weeks of curia-research-daily's candidates piled up unreviewed (109 pending venues, 3 pending districts). Delivered via a branch + PR this run instead, per an explicit override to this run's own trigger instructions. Independently re-verified all 109 pending venue candidates and the 3 pending district candidates (Frodsham, Sale, Marple) to full rigor: 103 venues and all 3 districts promoted straight into docs/data/venues.json and docs/data/districts.json, 5 venues rejected (1 exact duplicate of an already-live venue the research pipeline's dedup gap missed again, 1 confirmed Robinsons Brewery tied house, 1 closed-and-superseded address resolved against a later candidate in the same backlog, 2 internal duplicates within this same batch), and 2 sent to docs/data/pending-review-queue.json for a human call. Applied nothing from Curia Command's pending_review collection (read_db confirmed empty — no prior human decisions were waiting). The rotating closure-audit slice (Mana, 20 Stories, The Jane Eyre, Blinker, Matt & Phreds) found no closures, though researching one of today's new candidates separately surfaced a likely real closure (Blossom Street Social, Ancoats) — sent to pending-review-queue.json rather than auto-removed, per the closure rule.",
+      "items": [
+        { "label": "103 venues promoted across all Manchester/Cheshire districts", "detail": "see the PR description for the full per-venue list; highlights include 3 new Michelin-recognised rooms (Stow, Spinningfields; The Jolly Gardeners and Upstairs at the Grill, both Chester), a genuinely singular find (Queer Lit, Europe's largest LGBTQ+ bookshop, Ancoats), and several small same-town sibling pairs accepted within this catalogue's established precedent" },
+        { "label": "Frodsham, Sale, Marple (new Cheshire/Manchester districts)", "detail": "promoted — all three independently re-confirmed as genuine, distinct, non-overlapping places with real independent commercial identity (Frodsham's Michelin-listed Next Door and Sandstone Trail gateway; Sale's Stanley Square food-hub identity; Marple's canal-locks/aqueduct heritage and independent café scene)" },
+        { "label": "Board Beans Cafe (Northwich)", "detail": "rejected — exact duplicate of 'Board Beans', already live in venues.json at identical coordinates; the research pipeline's venues.json-dedup gap caught again" },
+        { "label": "Admiral Rodney (Prestbury)", "detail": "rejected — confirmed via Historic England/CAMRA as a Robinsons Brewery tied house since 1939, the same chain this file already excludes for the identically-named pub in Cheadle Hulme" },
+        { "label": "Temple Bar (Northwich)", "detail": "rejected — the same address (34-36 Witton Street) turned over again in June 2026; promoted Cornerhaus instead as the current occupant, found later in the same backlog" },
+        { "label": "Mielle / Alfredo's Social (Ancoats / Stockport)", "detail": "1 of each pair rejected as an internal duplicate within this same batch (same real venue independently suggested twice); promoted the better-sourced entry of each pair once" },
+        { "label": "One Thirty Cafe & Bar (Cheadle Hulme)", "detail": "sent for review — real and trading, but a recent unexplained ownership change plus a boundary-adjacent coordinate stack two open questions on one candidate" },
+        { "label": "Blossom Street Social (Ancoats)", "detail": "sent for review as a likely closure — two independent sources describe the address as having turned over to a new venue (Mielle) in July 2026, one explicitly saying it 'has officially closed'; not auto-removed per the closure rule" }
+      ],
+      "createdAt": "2026-10-14T00:00:00Z"
     }
   ]
 }

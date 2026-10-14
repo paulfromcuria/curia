@@ -159,6 +159,37 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-14",
+      "reason": "Real, licensed and currently trading, but a recent change of ownership (noted only in passing in a Tripadvisor review as 'continuing to trade under new management') plus a coordinate that sits closer to Cheadle proper than to Cheadle Hulme's other catalogued venues leaves two separate open questions stacked on one candidate rather than one clean call.",
+      "researchNotes": "One Thirty Cafe & Bar, 130 Hulme Hall Road, Cheadle Hulme, Stockport SK8 6LQ. Verified via Tripadvisor (multiple current reviews, one explicitly noting a change of ownership 'in December' with the business continuing to trade under the new owners) and independent listing sites: family-run, licensed for wine/prosecco/bottled beer alongside coffee, daytime-only (last orders early-mid afternoon, no evening trading found anywhere). No second site or group ownership found — passes Hard rule 1 cleanly on its own. What's unresolved: (1) which family actually runs it today and whether anything else changed with the ownership handover beyond the name on the licence; (2) its coordinates (53.3667/-2.19) sit toward Cheadle Hulme's southern edge, nearer Thorn Grove Park than this district's other venues, close enough to the Cheadle boundary that the reviewer flagged it for a second look rather than confirming it's genuinely inside the district. Neither issue is disqualifying on its own, but together they're a real 'ask a person' case rather than a confident yes or no. Left pending in docs/data/venue-suggestions.json (not rejected — it may well be fine) rather than decided here.",
+      "payload": {
+        "name": "One Thirty Cafe & Bar",
+        "district": "cheadle-hulme",
+        "type": "COFFEE ROOM",
+        "spend": "££",
+        "lat": 53.3667,
+        "lon": -2.19,
+        "base": 60,
+        "bands": ["morning", "afternoon"],
+        "reason": "A family-run counter on Hulme Hall Road that pours prosecco and bottled beer alongside the flat whites — Cheadle Hulme's daytime answer to a proper bar, gone by mid-afternoon rather than staying open just to prove a point."
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-14",
+      "reason": "Two independent sources found while researching an unrelated candidate both describe this address as having changed hands: manchesterwire.co.uk's own coverage states plainly that 'Blossom Street Social, one of Ancoats' most recognisable neighbourhood bars, has officially closed', and a separate CAMRA re-survey and a Britbrief business feature both describe a new venue, Mielle, opening in July 2026 'in the former Blossom Street Social site' at the same address.",
+      "researchNotes": "Found while independently verifying a new-venue candidate (Mielle, 51 Blossom Street, Ancoats) during this run's suggestion review: Blossom Street Social is still live in docs/data/venues.json (WINE BAR, 53.48494/-2.228206) and is still named in the live 'Leaving Do' Moment's curated picks list, but two independent sources describe the same address as having turned over to a new, unrelated business (Mielle, a Japanese-inspired patisserie/bar) in July 2026, and a third (manchesterwire.co.uk) separately and explicitly states the venue 'has officially closed' after roughly six and a half years trading. Not auto-removed per this job's own closure-audit rule (removals always go to a human, regardless of confidence) even though the signal here is about as strong as this process sees. If removed, the 'Leaving Do' Moment's curated picks list (docs/data/venues.json) will also need Blossom Street Social dropped from it — noted here, not actioned, since Moments edits are outside this job's remit.",
+      "payload": {
+        "name": "Blossom Street Social",
+        "district": "ancoats"
+      }
     }
   ]
 }
