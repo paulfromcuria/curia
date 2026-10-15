@@ -159,6 +159,63 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-15",
+      "reason": "The only evidence linking this second 'The Stolen Lamb' (Knutsford) to the already-live Wilmslow original is a shared family surname (Hadjiyianni/Hadjiyiannis) across two independent local-press pieces — not a confirmed Companies House or company-register match. If it really is the same family's second site, that's a normal small-sibling-pair case this file would otherwise just promote; if it's an unrelated namesake, promoting it under the identical name as an already-live, editorially 'genuinely singular' venue (CLAUDE.md's own Hard rule 1 worked example) is a different and more visible kind of mistake than a normal duplicate.",
+      "researchNotes": "Independently re-verified 2026-10-15: Knutsford Town Council (24 Oct 2025) and CAMRA/whatpub.com both independently confirm a Greek restaurant called 'Stolen Lamb' opened August 2025 at 41a King Street, Knutsford (former Botanist unit), owner named as Saphina Hadjiyianni. wilmslow.co.uk's own coverage of the original Water Lane, Wilmslow site (already live in venues.json) names its owners as Panicos and George Hadjiyiannis. Same family surname, different first names, no direct 'owns both' statement found in either source. Coordinates (53.3039/-2.3722) are interpolated from two nearby listed-building geocodes on King Street rather than a direct postcode geocode, which is a separate, smaller flag than the ownership question.",
+      "payload": {
+        "name": "The Stolen Lamb (Knutsford)",
+        "district": "knutsford",
+        "type": "GREEK TAVERNA",
+        "spend": "£££",
+        "lat": 53.3039,
+        "lon": -2.3722,
+        "base": 78,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Saphina Hadjiyianni's own room in the old Botanist shell on King Street — the same family's Kleftiko instincts as the Water Lane original, just run to Knutsford's own clock rather than Wilmslow's."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-15",
+      "reason": "This candidate (a real, well-documented new opening) sits at the exact same address as Blossom Street Social, a venue that is currently still live in venues.json and still referenced in the live 'Leaving Do' Moment's curated picks — CAMRA's own listing says Mielle opened in Blossom Street Social's former unit in July 2026, which reads as a closure of a real, already-promoted venue, not just a new candidate to add. Closures always go to Pending Review rather than being decided here (see the paired remove_venue entry below on Blossom Street Social) — this add_venue entry should be decided alongside that one, not on its own.",
+      "researchNotes": "Independently re-verified 2026-10-15 (duplicate candidate entries for this same venue, dated 2026-10-10 and 2026-10-12, both sat in venue-suggestions.json; the 2026-10-10 duplicate has been marked rejected there as a duplicate of this one). CAMRA's own listing dates Mielle's opening to July 2026 'in the former Blossom Street Social unit, previously trading 2019-June 2026'; Britbrief's business feature independently names owners Paul Chan and his wife and pastry chef Eva. Single-site, independently/family-owned, no chain signal found — passes Hard rule 1 cleanly on its own merits. The only reason this isn't a straight promotion is the live Blossom Street Social entry sitting at the identical address and coordinates.",
+      "payload": {
+        "name": "Mielle",
+        "district": "ancoats",
+        "type": "COFFEE ROOM",
+        "spend": "££",
+        "lat": 53.48494,
+        "lon": -2.228206,
+        "base": 78,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Paul and his wife's own pastry kitchen took over the wine merchant's old retail wall in July, matcha tarts by day and a sake-and-cocktail bar once the patisserie case empties out."
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-15",
+      "reason": "Not from the routine closure-audit rotation — found incidentally while independently re-verifying a new venue candidate (Mielle, see the paired add_venue entry above) proposed at this exact address. CAMRA's own listing says the unit changed hands in July 2026 and names the new occupant's opening explicitly as taking over 'the former Blossom Street Social unit, previously trading 2019-June 2026' — a real, dated closure signal, not a guess.",
+      "researchNotes": "Blossom Street Social (51 Blossom Street, Ancoats, already live in docs/data/venues.json as a WINE BAR) is also still referenced in the live 'Leaving Do' Moment's curated picks list in the same file — if this removal is approved, that Moment's picks array needs the reference dropped too, the same dangling-reference check this job already runs for any approved remove_venue. Per CLAUDE.md's closure-audit rule, a closure signal this specific (a named successor tenant, a dated CAMRA listing) still goes to Pending Review rather than being auto-removed, regardless of how confident the signal looks.",
+      "payload": {
+        "name": "Blossom Street Social",
+        "district": "ancoats"
+      }
     }
   ]
 }
