@@ -3197,6 +3197,92 @@
       "suggestedDate": "2026-10-14",
       "status": "pending",
       "researchNotes": "Verified via a gyms/fitness directory listing: Body Barre Boutique, 6a Station Road, Cheadle Hulme SK8 5AE — described as an independent boutique fitness studio offering barre, yoga, Pilates and dance fitness classes; 5/5 from 14 reviews, reviews dated roughly a year old (so moderately current, not stale). No sibling sites or group ownership found in searches — appears to be a genuine single-site independent studio. Coordinates (53.37799/-2.19037) from the SK8 5AE postcode geocode (web search; api.postcodes.io blocked by proxy this session). Reuses the existing WELLNESS STUDIO type — maps to 'Spa & wellness'. Cheadle Hulme's real Do category (Thorn Grove Park, Chads Theatre, Bruntwood Park) is thinner than its Drink/Eat once promoted suggestions are counted — this adds a genuinely different kind of Do (an indoor class studio) rather than another park/theatre. Moderate confidence — single directory source, no second review platform cross-checked, but no closure or chain signal found."
+    },
+    {
+      "name": "St Martha Greek Taverna",
+      "district": "nantwich",
+      "type": "GREEK TAVERNA",
+      "spend": "££",
+      "lat": 53.065994,
+      "lon": -2.519466,
+      "base": 80,
+      "bands": [
+        "evening",
+        "late"
+      ],
+      "reason": "Hospital Street's smallest room with the longest Friday queue — moussaka and chicken souvlaki cooked like a family still runs it, because one does.",
+      "suggestedDate": "2026-10-15",
+      "status": "pending",
+      "researchNotes": "Verified via WebSearch: Sluurpy (5.0/5 average across 5,000+ recommendations), Google reviews (4.9/5 from ~446-453 reviews, figures vary slightly by aggregator), Wanderlog, Dishcult and Hygienescore.co.uk (5/5 FSA hygiene rating), plus a Mumsnet thread with several Nantwich locals naming it the best restaurant in town. Address 88 Hospital Street, Nantwich CW5 5RP (single consistent directory source for the house number). Coordinates (53.065994, -2.519466) are the real CW5 5RP postcode centroid, cross-checked via two independent sources (ONS data via ukpostcodecheck.com and postcodeexplorer.co.uk) agreeing to 5 decimal places — not a district centroid or estimate. No evidence anywhere of a second site or group ownership; reads as a genuine single-site, small (10-table), booking-essential, chef-run taverna. Fills a real gap: Nantwich's Eat category currently has only a smokehouse, an Indian restaurant and two pending (brunch, Italian) suggestions — no Greek/Mediterranean cuisine represented at all, and Nantwich Eat tied for one of the thinner categories in Manchester/Cheshire once pending suggestions elsewhere are counted. High confidence. Reuses the existing GREEK TAVERNA type (The Stolen Lamb, Wilmslow; Dimitri's, Deansgate; others)."
+    },
+    {
+      "name": "The Morris",
+      "district": "northern-quarter",
+      "type": "COCKTAIL BAR",
+      "spend": "£££",
+      "lat": 53.484088,
+      "lon": -2.236535,
+      "base": 90,
+      "bands": [
+        "evening",
+        "late"
+      ],
+      "reason": "Dan Berger's follow-up to Blinker a few doors down — a ground-floor pub for local cask beer, a first-floor cocktail room doing proper 1980s-leaning drinks, and a UK Top 50 nod inside its first year.",
+      "suggestedDate": "2026-10-15",
+      "status": "pending",
+      "researchNotes": "Verified via WebSearch: Manchester's Finest ('How The Morris became one of the UK's best cocktail bars in just six months'), Class Bar Magazine review, Top50CocktailBars.com (ranked #42 nationally) and coverage of its first birthday event (May 2026) confirming it's still trading well over a year after opening, not a flash-in-the-pan. Address 57 Thomas Street, Northern Quarter, M4 1NA; coordinates (53.484088, -2.236535) are the real M4 1NA postcode centroid. Run by Dan Berger, who also owns Blinker (Spring Gardens, also Northern Quarter, already a real venue in this catalogue) — a two-site operator with both sites in the same district, the same single-sibling-location precedent already accepted for Craig's/Ivy Spinningfields elsewhere in this file, not a multi-city group. Northern Quarter's Drink category is already well-served and wasn't today's thinnest target, but this is an unusually well-verified, high-quality, genuinely new (2025) find — included on real-quality grounds given today's thin-district searches (Mobberley, Prestbury, Tarporley, Chinatown Do) came back largely empty. High confidence."
+    },
+    {
+      "name": "The Wild Alderman",
+      "district": "didsbury",
+      "type": "BREWERY TAP",
+      "spend": "££",
+      "lat": 53.413178,
+      "lon": -2.231433,
+      "base": 76,
+      "bands": [
+        "afternoon",
+        "evening",
+        "late"
+      ],
+      "reason": "A neighbourhood taphouse on the Wilmslow Road curve by Fletcher Moss, pouring rotating craft kegs with hearty plates that don't try to out-fancy the beer.",
+      "suggestedDate": "2026-10-15",
+      "status": "pending",
+      "researchNotes": "Verified via WebSearch: Manchester's Finest coverage, CAMRA's own listing (operator named as Manning Brothers Ltd, reopened 25 July 2025) and North West CAMRA branch notes. Address 846 Wilmslow Road, Didsbury, M20 2RN — a site with a documented run of previous names (most recently Jajoo Indian street food), i.e. a change of occupant in an existing unit, not a new build, and CAMRA's listing confirms current trading. Coordinates (53.413178, -2.231433) are the real M20 2RN postcode centroid. No chain footprint found for Manning Brothers Ltd in any source checked. Didsbury's Drink category already has several cocktail/wine bars in the real+pending pipeline but nothing craft-beer/taphouse-led — a genuine format gap even though Didsbury wasn't today's single thinnest district overall. Moderate-high confidence (CAMRA is the only source naming the operator, but the format/address/reopening date are cross-corroborated by Manchester's Finest)."
+    },
+    {
+      "name": "Reserve Wines",
+      "district": "altrincham",
+      "type": "WINE MERCHANT",
+      "spend": "£££",
+      "lat": 53.387483,
+      "lon": -2.351878,
+      "base": 74,
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
+      "reason": "A shop-and-tasting-bar corner of Market House, conversations happening around the wine barrels out front rather than in a back room — the cheese-and-wine nights sell out before most people hear about them.",
+      "suggestedDate": "2026-10-15",
+      "status": "pending",
+      "researchNotes": "Verified via WebSearch: tasteofmanchester.com, Manchester Wire, Creative Tourist and the venue's own reservewines.co.uk event listings, which confirm an active shop-and-tasting-bar unit trading inside Altrincham Market House (events described as running 'around the wine barrels in front of the bar'). Two sites total — the flagship in West Didsbury and this one inside Market House — both inside Manchester/Cheshire, the same two-site precedent already accepted for Kambuja (a stall in Stockport's Produce Hall plus a second in Marple). Coordinates reused from Altrincham Market's own existing real venue entry (53.387483, -2.351878) since Reserve trades from inside the same building, rather than inventing a slightly different point. Fills a real gap: Altrincham's Drink category (a sherry bar, a speakeasy, a cocktail bar, one pending bottle shop) has no dedicated wine merchant despite the market itself being a genuine draw. Moderate-high confidence — couldn't pin an exact current tasting-event date, but the trading relationship with Market House is corroborated across three independent sources."
+    },
+    {
+      "name": "The Cheshire Cookery School",
+      "district": "altrincham",
+      "type": "COOKERY SCHOOL",
+      "spend": "£££",
+      "lat": 53.395369,
+      "lon": -2.359958,
+      "base": 65,
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
+      "reason": "A purpose-built studio behind Broadheath's car showrooms, eight stations around one chef — a dim sum class one week, a dinner-party crash course the next, or the whole room hired out to cook for yourselves.",
+      "suggestedDate": "2026-10-15",
+      "status": "pending",
+      "researchNotes": "Verified via WebSearch: the school's own site (thecheshirecookeryschool.com), Venuescanner listings and foodandtravel.com's cookery-school directory, all describing a single purpose-built studio in Broadheath, Altrincham (Norman Road, WA14 4EP) with live class listings running into 2026 (confirming current operation, not a stale/defunct listing). Coordinates (53.395369, -2.359958) are the real WA14 4EP postcode centroid. No second site, owner name or group affiliation found in any source checked despite several searches. Altrincham's own Do category is already strong in volume, but this is a genuinely distinct format (hands-on cookery classes, reusing the existing COOKERY SCHOOL type already used for Wilmslow Kitchen) not otherwise represented there. Moderate confidence — couldn't independently confirm an owner's name or definitively rule out a second site, though no evidence of one surfaced."
     }
   ]
 }
