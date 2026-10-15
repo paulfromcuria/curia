@@ -3,6 +3,23 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-10-15",
+      "synced": false,
+      "title": "109 venues + 4 districts promoted clearing a 2.5-week backlog; a critical data-integrity issue found and flagged, not fixed here",
+      "summary": "Cleared a large backlog (every pending candidate dated 2026-09-29 through today, which had sat unprocessed since the last real promotion run on 2026-09-17/18): 109 venues and 4 new districts (Frodsham, Sale, Marple, Bollington) independently re-verified and promoted straight to venues.json/districts.json; 1 venue rejected (Reserve Wines — this same backlog's own Carringtons Wines & Spirits research had already found it to be a real 4-site chain, contradicting this candidate's own 'two sites' framing); 2 duplicate suggestion entries rejected as duplicates (a second Alfredo's Social, a second Mielle); 2 items sent to Curia Command's Pending Review (The Stolen Lamb, Knutsford — an ownership link to the already-live Wilmslow original that's circumstantial, not confirmed; Mielle, Ancoats — paired with a genuine closure finding below). Closure audit (today's rotating slice: Cork of the North, By Yon Orange, The Drawing Room, Residence Restaurant & Bar, Black Lion) found no closures. One closure was found incidentally while researching the Mielle candidate (not from the routine audit): Blossom Street Social, still live in venues.json and still referenced in the 'Leaving Do' Moment, appears to have been replaced by Mielle in July 2026 per CAMRA — sent to Pending Review as a remove_venue candidate rather than auto-removed. MOST IMPORTANT FINDING THIS RUN: 62 of 63 venue-suggestions.json entries (plus 3 district-suggestions.json entries — Lymm, Ramsbottom, Monton) carry status 'promoted' with a generic note claiming confirmation 'via the real admin review pipeline' dated 2026-10-12 — but cross-checked against the real venues.json/districts.json, none of those 65 are actually present in the live data, and none has the detailed per-promotion doc-comment every one of this file's genuine historical promotions has always carried. No 'admin review pipeline' separate from this job exists per CLAUDE.md. This reads as a bulk status falsification, not a real backlog of applied work — real promotion in this job's own established practice removes the entry from the suggestions file entirely, which none of these 65 were. Left entirely unchanged this run (out of today's 'pending'-only scope, and a decision this consequential — reverting 65 statuses and re-processing them — needs a human's eyes, not a unilateral fix) but flagged here with the highest priority: see this run's full report for the exact list of affected names.",
+      "items": [
+        { "label": "Backlog cleared", "detail": "109 venues promoted across Manchester/Cheshire; 4 new districts (Frodsham, Sale, Marple, Bollington) promoted; full names in venue-suggestions.json/districts.json commit history" },
+        { "label": "Reserve Wines (Altrincham)", "detail": "rejected — this file's own Carringtons Wines & Spirits research already found it's a real 4-site chain (West Didsbury, Mackie Mayor, Altrincham Market House, Macclesfield Picturedrome), contradicting this candidate's 'two sites' claim" },
+        { "label": "Alfredo's Social / Mielle duplicates", "detail": "rejected as duplicates of the entries that were promoted/queued instead" },
+        { "label": "The Stolen Lamb (Knutsford)", "detail": "sent to Curia Command Pending Review — family-surname link to the already-live Wilmslow original is circumstantial, not a confirmed company-register match" },
+        { "label": "Mielle (Ancoats) / Blossom Street Social (Ancoats)", "detail": "sent to Curia Command Pending Review as a paired add/remove decision — Mielle appears to have replaced the still-live Blossom Street Social at the identical address" },
+        { "label": "DATA INTEGRITY — 65 suggestion entries falsely marked 'promoted'", "detail": "62 venues + 3 districts (Lymm, Ramsbottom, Monton) dated 'RESOLVED 2026-10-12... via the real admin review pipeline' are absent from the real venues.json/districts.json; no such pipeline exists; flagged for human investigation, not corrected unilaterally this run" },
+        { "label": "Closure audit", "detail": "today's rotating slice (Cork of the North, By Yon Orange, The Drawing Room, Residence Restaurant & Bar, Black Lion) found no closures" }
+      ],
+      "createdAt": "2026-10-15T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-16",
       "synced": true,
       "title": "8 venues + Chester (new Cheshire district) promoted; 1 rejected as a real chain, 1 naming mix-up sent for review",
