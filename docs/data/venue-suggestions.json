@@ -3283,6 +3283,76 @@
       "suggestedDate": "2026-10-15",
       "status": "pending",
       "researchNotes": "Verified via WebSearch: the school's own site (thecheshirecookeryschool.com), Venuescanner listings and foodandtravel.com's cookery-school directory, all describing a single purpose-built studio in Broadheath, Altrincham (Norman Road, WA14 4EP) with live class listings running into 2026 (confirming current operation, not a stale/defunct listing). Coordinates (53.395369, -2.359958) are the real WA14 4EP postcode centroid. No second site, owner name or group affiliation found in any source checked despite several searches. Altrincham's own Do category is already strong in volume, but this is a genuinely distinct format (hands-on cookery classes, reusing the existing COOKERY SCHOOL type already used for Wilmslow Kitchen) not otherwise represented there. Moderate confidence — couldn't independently confirm an owner's name or definitively rule out a second site, though no evidence of one surfaced."
+    },
+    {
+      "name": "Stockport Plaza",
+      "district": "stockport-underbanks",
+      "type": "CINEMA",
+      "spend": "££",
+      "lat": 53.4091,
+      "lon": -2.1616,
+      "base": 78,
+      "bands": ["afternoon", "evening"],
+      "reason": "A 1932 art-deco super-cinema saved by its own charitable trust, not a chain — the Wurlitzer organ still rises between the big-screen programme and the odd touring stand-up set.",
+      "suggestedDate": "2026-10-16",
+      "status": "pending",
+      "researchNotes": "Verified via Wikipedia, stockportplaza.co.uk, Stockport Council's own directory and current 2026 listings on Stereoboard/Songkick/Bandsintown showing concerts and events booked into late 2026 and into 2027 (confirms current operation, not a stale listing). Grade II* listed 1932 art-deco cinema/theatre at Mersey Square, Stockport SK1 1SP, run by the independent charitable Stockport Plaza Trust — no second site, no group ownership, passes Hard rule 1 cleanly. Coordinates (53.4091, -2.1616) are the Historic England listed-building point for the steps immediately adjacent to the Plaza building itself (an exact building-level postcode centroid wasn't independently resolvable this session), ~0.26mi from the stockport-underbanks district centroid — flagged for the reviewer to tighten if a tighter point is available. Typed CINEMA, not the retired INDEPENDENT CINEMA type (renamed away 2026-10-12 per that commit's own note, 'the independent framing read as more exclusive than the category actually is') — matches the current convention HOME/Rex/Everyman/Savoy/Cinemac all already use; this doesn't close the onboarding 'Independent cinema' tile (tiles.json), which still points at the now-orphaned 'independent-cinema' slug (src/lib/scoring/tile-catalog-map.ts never got the matching update when the type was renamed) — a separate, pre-existing codebase gap, not something a new venue suggestion can fix. Adds a second real Do-category cinema/theatre venue to Stockport Underbanks alongside Where the Light Gets In's tasting menu. High confidence."
+    },
+    {
+      "name": "The Bridge",
+      "district": "prestbury",
+      "type": "HOTEL BAR",
+      "spend": "£££",
+      "lat": 53.289716,
+      "lon": -2.150749,
+      "base": 72,
+      "bands": ["afternoon", "evening", "late"],
+      "reason": "A 1626 coaching house on the banks of the Bollin — order from the riverside Shed and the dog gets a bowl of water before the cocktail arrives.",
+      "suggestedDate": "2026-10-16",
+      "status": "pending",
+      "researchNotes": "Verified via thehotelguru.com, bestloved.com, coolstays.com and venuescanner.com (consistent across sources): a 24-26 room Grade II-listed independent boutique hotel on the River Bollin, The Village, Prestbury SK10 4DQ, built 1626, with a riverside bar/terrace ('The Shed') and dogs welcome. No group ownership or second site found in any source checked — a single, independently run boutique property, distinct from the chain-brand risk a bigger hotel group would carry. Coordinates (53.289716, -2.150749) are the real SK10 4DQ postcode centroid (doogal.co.uk-derived data), not an estimate. Fills two real gaps at once: Prestbury's own Drink category is one of the thinnest in Manchester/Cheshire (4 real/pending matches before this), and 'Hotel bars' is one of the thinnest tiles Manchester/Cheshire-wide (previously matching only Refuge, Deansgate). High confidence."
+    },
+    {
+      "name": "La Bandera",
+      "district": "spinningfields",
+      "type": "TASTING MENU",
+      "spend": "££££",
+      "lat": 53.4812,
+      "lon": -2.247,
+      "base": 80,
+      "bands": ["evening"],
+      "reason": "Canarian plates off Deansgate from a family that never opened a second site — the ten-course Degustación still opens with twice-cooked octopus on paprika mash.",
+      "suggestedDate": "2026-10-16",
+      "status": "pending",
+      "researchNotes": "Verified via manchestersfinest.com, manchesterrestaurants.com and dishcult.com: a family-run Canarian-Spanish restaurant at 2 Ridgefield, Manchester M2 6EQ (just off Deansgate in Spinningfields), owner Yashin Dadashnejad, running a 10-course 'Degustación Canaria' tasting event alongside its regular tapas menu. Every source checked points to this single Ridgefield address only — no second branch or group affiliation found anywhere. Coordinates (53.4812, -2.2470) are the nearest resolvable postcode point on the same street (M2 6EG, Ridgefield) — an exact M2 6EQ centroid wasn't independently resolvable this session, flagged for the reviewer to tighten. Fills a genuine Manchester/Cheshire-wide gap: 'Tasting menu' is one of the thinnest onboarding tiles (previously only Mana, LI~LY and Where the Light Gets In). High confidence on independence/non-chain status; moderate on the exact coordinate precision."
+    },
+    {
+      "name": "House of Fu",
+      "district": "chinatown",
+      "type": "KARAOKE BAR",
+      "spend": "£££",
+      "lat": 53.4768,
+      "lon": -2.2408,
+      "base": 74,
+      "bands": ["evening", "late"],
+      "reason": "Leeds' own ramen-and-karaoke room finally crossed the Pennines onto Portland Street — gyoza first, the Hello cocktail list after, private rooms booked solid most Fridays.",
+      "suggestedDate": "2026-10-16",
+      "status": "pending",
+      "researchNotes": "Verified via creativetourist.com, manchesterwire.co.uk, confidentials.com and 2025-dated customer reviews (May/June 2025, describing current food and service — no closure signal found anywhere, though the most recent confirmation is mid-2025 rather than 2026, noted as a modest confidence gap). Ramen restaurant with karaoke rooms and an attached late-bar ('Hello'), 113-115 Portland Street, Manchester M1 6DW, opened October 2023. Owner/brand has exactly two sites — the original in Leeds (The Headrow, opened 2021) and this Manchester branch — matching this brief's single-sibling-location precedent (Craig's/Ivy Spinningfields), not a multi-city chain footprint. Coordinates (53.4768, -2.2408) are the real M1 6DW postcode centroid. Placed in Chinatown rather than Deansgate: 0.17mi from the Chinatown centroid vs 0.33mi from Deansgate's. Reused the existing KARAOKE BAR type (K2 Karaoke, also Chinatown) since no closer fit exists and this venue's karaoke-and-late-night identity is as central to its reputation as the ramen — same category-only treatment K2 Karaoke already has (unmapped in tile-catalog-map.ts's CATEGORY_BY_VENUE_TYPE), not a new gap introduced here. Fills Chinatown's own Drink category, one of the thinnest in Manchester/Cheshire. Moderate-high confidence."
+    },
+    {
+      "name": "Alexander's Live",
+      "district": "chester",
+      "type": "LIVE MUSIC",
+      "spend": "££",
+      "lat": 53.1925,
+      "lon": -2.891,
+      "base": 74,
+      "bands": ["evening", "late"],
+      "reason": "Down a stairway off the city walls into a room that's run jazz, blues and alternative comedy since 1991 — Sunday afternoons still mean jazz, folk or blues from two.",
+      "suggestedDate": "2026-10-16",
+      "status": "pending",
+      "researchNotes": "Verified via creativetourist.com, chesterwalls.info, Songkick/Tixel listings and the venue's own seetickets page, with a live 2026-2027 events calendar (gigs booked into January 2027) confirming current operation. Independent live-music, comedy and jazz venue at 2 Rufus Court, Northgate Street, Chester CH1 2JW, trading since 1991 — reached via a stairway from the city walls. No evidence of a second site or group ownership found in any source checked. Coordinates (53.1925, -2.8910) are a best-effort estimate for Rufus Court off Northgate Street — an exact postcode centroid for CH1 2JW wasn't independently resolvable this session (several searches returned only neighbouring CH1 postcodes), flagged for the reviewer to tighten. Fills a real gap: Chester currently has no venue typed as live music (Storyhouse is theatre/cinema), and 'Live music' is one of the thinner tiles Manchester/Cheshire-wide. High confidence on independence/non-chain status; moderate on exact coordinate precision."
     }
   ]
 }
