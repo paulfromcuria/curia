@@ -159,6 +159,40 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-17",
+      "reason": "Confirmed closed: two of today's venue-suggestion candidates (both for the same unit) explicitly state Blossom Street Social traded at 51 Blossom Street, Ancoats from 2019 until it closed in June 2026, and that the unit has since reopened as a new venue (Mielle) — cross-checked independently via fresh web search rather than taken on the suggestion's word alone.",
+      "researchNotes": "Web search 2026-10-17: britbrief.co.uk ('Blossom Street Social in Ancoats Closes After Nearly Seven Years') confirms the wine bar (opened 2019 by Hanging Ditch's Ben Stephenson) closed via its own Instagram announcement, no reason given; CAMRA lists the site as occupied by Blossom Street Social '2019 until June 2026'. A second britbrief piece and CAMRA's own listing for the successor (camra.org.uk/pubs/mielle-ancoats-199157) confirm the same unit reopened in July 2026 as Mielle, run by Paul Chan and his wife — Mielle was independently promoted into venues.json this same run (2026-10-17) as its own new entry, same coordinates. Flagged to Pending Review rather than auto-removed, per the closure-audit rule (removing a real venue is a different risk shape from adding a candidate).",
+      "payload": {
+        "name": "Blossom Street Social",
+        "district": "ancoats"
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-17",
+      "reason": "Sourcing is genuinely thin — a single editorial listing (Manchester's Finest) with no customer reviews on any platform and no second source found to corroborate current trading, despite a dedicated fresh search — not a chain, duplicate or coordinate concern, just real uncertainty about whether it's still open and as described.",
+      "researchNotes": "Independently re-searched 2026-10-17 beyond the original suggestion's own single source: found the same one Manchester's Finest listing (105 Brook Lane, Alderley Edge SK9 7RU, opened 2022, 'a refined local coffee house... championing proper beans and a relaxed neighbourhood pace') and nothing else — no Google/Tripadvisor reviews, no Companies House match attempted to find an owner name, no 2025/2026-dated confirmation of any kind, but also no closure signal. Passes Hard rule 1 (single site, no chain indicated), schema and coordinate sanity cleanly; the only open question is whether it's still trading as described, which a single undated editorial listing can't settle either way.",
+      "payload": {
+        "name": "Brook Lane Coffee Co",
+        "district": "alderley-edge",
+        "type": "COFFEE ROOM",
+        "spend": "££",
+        "lat": 53.299,
+        "lon": -2.228,
+        "base": 56,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A locally roasted bean and an unhurried pace just off the village centre — Alderley Edge's actual neighbourhood coffee house, a few minutes from every cocktail bar that's opened and closed on London Road since."
+      }
     }
   ]
 }

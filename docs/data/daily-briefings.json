@@ -3,6 +3,24 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-10-17",
+      "synced": false,
+      "title": "Backlog catch-up: 122 venues + 4 districts promoted; 2 duplicates rejected; 1 sent for review; 1 closure flagged",
+      "summary": "This run found the venue-suggestions queue hadn't actually been cleared since 2026-09-17 despite running daily since — 125 venue candidates and 4 district candidates had piled up pending (back to 2026-09-30). Every one was independently re-verified from scratch (Hard rule 1 chain check, duplicate check, schema/coordinate sanity, brand voice) rather than promoted on the strength of the prior researcher's own notes alone. 122 venues and all 4 remaining district candidates (Frodsham, Sale, Marple, Bollington) passed and were promoted straight into the real data. 2 venue candidates were exact duplicates within the same queue and were rejected. 1 venue candidate (Brook Lane Coffee Co) had sourcing too thin to call either way and was sent to Pending Review. A real closure (Blossom Street Social, Ancoats — confirmed shut June 2026, replaced by one of today's own promoted venues, Mielle) was found while re-verifying and was also sent to Pending Review rather than auto-removed. Curia Command's pending_review collection was empty this run — nothing was waiting on a prior human decision. One data-integrity problem was found and flagged rather than acted on: three district candidates (Lymm, Ramsbottom, Monton) and one (Rusholme) carry researchNotes claiming they were 'confirmed promoted/rejected via the real admin review pipeline' on 2026-10-12, but none of the three 'promoted' ones actually exist in the real districts.json, and Curia Command's pending_review history has no record of any of the four — outside this run's remit to fix since they're not 'pending', but worth a human's direct attention.",
+      "items": [
+        { "label": "Frodsham, Sale, Marple, Bollington (new districts)", "detail": "promoted — all 4 independently re-verified as real, distinct places with no coordinate/duplicate issues; Sale's editorial description had one unverifiable claim (a 'Restaurant of the Year' plaque implied to be inside Stanley Square) lightly rewritten rather than invented around" },
+        { "label": "122 venues across 22 Manchester/Cheshire districts", "detail": "promoted — each independently re-verified for chain footprint (two-gate model), duplicates, schema and coordinates; see venues.json's own 2026-10-17 note and this commit's diff for the full list" },
+        { "label": "Reserve Wines (Altrincham)", "detail": "promoted — resolved a contradiction with an earlier (2026-10-10) researchNotes entry that had dropped it as a 4-site chain-footprint fail; fresh re-application of the two-gate model found it passes Gate 1 cleanly (specialist wine retailer, all sites within Greater Manchester, no expansion ambition)" },
+        { "label": "Alfredo's Social (Stockport Underbanks) — 2nd submission", "detail": "rejected — exact duplicate of an entry already promoted from the same queue (same address/owner, submitted twice)" },
+        { "label": "Mielle (Ancoats) — BAKERY-typed submission", "detail": "rejected — exact duplicate of the COFFEE ROOM-typed submission for the same venue, which was promoted instead" },
+        { "label": "Brook Lane Coffee Co (Alderley Edge)", "detail": "sent for review — sourcing too thin (single undated editorial listing, no reviews found anywhere) to promote or reject outright" },
+        { "label": "Blossom Street Social (Ancoats)", "detail": "closure found and sent for review — confirmed shut June 2026 via independent web search, replaced by today's newly promoted Mielle; never auto-removed per the closure-audit rule" },
+        { "label": "Lymm / Ramsbottom / Monton / Rusholme (district-suggestions.json)", "detail": "flagged, not acted on — their own researchNotes claim a 2026-10-12 admin-pipeline decision that doesn't match the real districts.json or Curia Command's pending_review history" }
+      ],
+      "createdAt": "2026-10-17T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-16",
       "synced": true,
       "title": "8 venues + Chester (new Cheshire district) promoted; 1 rejected as a real chain, 1 naming mix-up sent for review",
