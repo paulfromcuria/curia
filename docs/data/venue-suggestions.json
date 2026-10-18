@@ -3437,6 +3437,76 @@
       "suggestedDate": "2026-10-17",
       "status": "pending",
       "researchNotes": "Verified via the racecourse's own site (chester-races.com) showing a confirmed 15-fixture 2026 calendar running from the Boodles May Festival (6-8 May) through to a Season Finale (19 September) — current, not stale coverage. Single-site operation (The Roodee, New Crane Street, Chester CH1 2LY), run by its own racecourse company, not a chain — no comparable precedent needed since this is a one-of-a-kind national-heritage sporting venue, not a replicable brand. Coordinates (53.191628, -2.892413) from a Google Maps link embedded in a SeatPick ticketing listing — not independently cross-confirmed against a second source this session, flagged for the reviewer to tighten if a geocoding service becomes reachable; lands almost exactly on the existing Chester district centroid (53.1909, -2.8888), so very unlikely to be materially wrong. Introduces a new type, RACECOURSE — no existing venue type fits a horse-racing spectator venue precisely (RUGBY CLUB/CRICKET CLUB, the only types currently mapped to the 'Spectator sport' tile, are specific to those sports); categorised Do, closing part of a real citywide gap (only 3 Manchester/Cheshire venues anywhere match 'Spectator sport'-style spectating before this). High confidence on operation and chain status."
+    },
+    {
+      "name": "Happy Valley",
+      "district": "bramhall",
+      "type": "NATURE RESERVE",
+      "spend": "£",
+      "lat": 53.373144,
+      "lon": -2.154005,
+      "base": 62,
+      "bands": ["morning", "afternoon"],
+      "reason": "Thirty years of volunteer effort kept a real wildlife corridor alive two minutes off Bridge Lane — woodland, ponds and marshy grassland with a Site of Biological Importance designation the suburb earned rather than inherited.",
+      "suggestedDate": "2026-10-18",
+      "status": "pending",
+      "researchNotes": "Verified via Cheshire Wildlife Trust's own blog ('30 Years of Community Action: Bramhall's Hidden Nature Reserve') and Stockport Council's Happy Valley page, plus Natural England's Local Nature Reserve boundary dataset (planning.data.gov.uk) confirming the designation is live, not historic. Run by a community/volunteer group, not a commercial operator of any kind — no chain footprint to screen for, clearest possible pass on Hard rule 1. Distinct from Bramhall Park (a separate landscaped park) and from Bramall Hall (already a real HISTORIC HOUSE venue in this district) — a genuinely different, free green space. Coordinates (53.373144, -2.154005) are the SK7 3AL postcode centroid (the Bridge Lane entrance address Stockport Council itself gives) rather than a resolved building point — Natural England's own boundary polygon vertices cluster at roughly 53.367-53.370N/2.139-2.155W, consistent with this centroid, so confidence is high despite not being a single exact geocode. Closes a real gap: Bramhall's real Do-category count was among the thinnest in Manchester/Cheshire (4 real Do venues before this, against 4 Drink and 4 Eat) with no green-space entry at all. High confidence on operation (community-run, ongoing) and complete absence of chain risk."
+    },
+    {
+      "name": "Leoni's",
+      "district": "heaton-moor",
+      "type": "ITALIAN RESTAURANT",
+      "spend": "£££",
+      "lat": 53.422244,
+      "lon": -2.177553,
+      "base": 76,
+      "bands": ["afternoon", "evening"],
+      "reason": "A contemporary Italian room on the site Tusk left behind, running a changing seasonal menu and a natural-wine list that skews Italian, with a covered terrace that takes Heaton Moor Road seriously rather than treating it as an afterthought.",
+      "suggestedDate": "2026-10-18",
+      "status": "pending",
+      "researchNotes": "Verified via tasteofmanchester.com (110 Heaton Moor Rd, SK4 4NZ, opened 2019 on the former Tusk site, changing seasonal menu, Italy-focused natural-wine list, covered terrace) — no closure signal found anywhere, including no recent negative CAMRA/listing flags. Checked specifically for name confusion: a separate, unrelated 'Leoni's' once traded on Cross Street in Manchester city centre (a Latin/Italian cellar restaurant, different owners, also ran El Rancho in Heywood) — sources describe the Heaton Moor and Cross Street businesses as separate, so this isn't the same operator expanding, just a shared name; no second site of the Heaton Moor restaurant itself found anywhere. Single independent site, passes Hard rule 1 cleanly. Coordinates (53.422244, -2.177553) are the nearest resolvable postcode centroid (SK4 4NL, immediately adjacent on Heaton Moor Road) since SK4 4NZ itself didn't resolve via available geocoding — flagged for the reviewer to tighten if a direct geocode becomes reachable; same street, within a few dozen metres, so unlikely to be materially wrong. Closes a real gap: Heaton Moor's real Eat-category count (4) was tied for the thinnest Eat coverage of any Manchester/Cheshire district already carrying pending-queue pressure elsewhere. High confidence on operation and independence."
+    },
+    {
+      "name": "Sigiriya Knutsford",
+      "district": "knutsford",
+      "type": "SRI LANKAN RESTAURANT",
+      "spend": "£££",
+      "lat": 53.30626,
+      "lon": -2.37579,
+      "base": 74,
+      "bands": ["afternoon", "evening"],
+      "reason": "Don Buddhika's Hale original gets a room of its own on Tatton Street, still eighty percent Sri Lankan on the menu and no concessions made for a market-town crowd more used to the Taste Knutsford food-tour regulars next door.",
+      "suggestedDate": "2026-10-18",
+      "status": "pending",
+      "researchNotes": "Verified via Knutsford Town Council's own site (15 Tatton Street, WA16 6AB — confirms it joined Taste Knutsford, the town's monthly independent-venue food tour) and Hardens/Confidentials coverage of the original Hale restaurant (173 Ashley Road, already real in venues.json as 'Sigiriya') describing this as a second site opened late 2023. Exactly the 'one sibling location, same owner, same county' precedent this file's own notes already use for Craig's/Ivy Spinningfields — not a multi-city or multi-country footprint, so passes Hard rule 1. Named 'Sigiriya Knutsford' (not reusing the bare 'Sigiriya' name) to keep it unambiguous from the existing Hale entry in both this queue and the real catalogue. Coordinates (53.30626, -2.37579) are the nearest resolvable postcode centroid (WA16 6BE) since WA16 6AB itself didn't resolve via available geocoding — this sits almost exactly on Knutsford's existing district centroid (53.3031, -2.3748), consistent with Tatton Street's genuinely central position in the town, so confidence is high despite not being an exact building geocode. Reuses the existing SRI LANKAN RESTAURANT type (no new type needed). High confidence on operation and ownership structure."
+    },
+    {
+      "name": "The Mews Bar and Charcuterie",
+      "district": "deansgate",
+      "type": "WINE BAR",
+      "spend": "£££",
+      "lat": 53.4764,
+      "lon": -2.2505,
+      "base": 78,
+      "bands": ["afternoon", "evening", "late"],
+      "reason": "Free-of-tie behind the Great Northern, a wine list built around small independent producers with proper charcuterie boards doing the talking instead of a kitchen menu.",
+      "suggestedDate": "2026-10-18",
+      "status": "pending",
+      "researchNotes": "Verified via creativetourist.com and tasteofmanchester.com's launch coverage (Units K, L and M, Deansgate Mews, 253 Deansgate, M3 4EN — opened by the Alvarium team, described as free of tie, i.e. not brewery/pub-company owned) and confirmed still operating as of May 2026 via Mews Fest's own listing naming The Mews Bar as one of its venues for its 22-25 May 2026 run — a positive, fairly recent operating signal, not just an old launch article. Flagging real uncertainty rather than hiding it: a business-sale listing (undated, found via Hiltonsmythe) shows the owners put the business on the open market citing a desire to exit the industry, and its original lease (signed April 2021, 3-year term) would have lapsed around 2024 absent a renewal — neither of these is a closure announcement, but together they're enough uncertainty that the reviewer should re-confirm current trading/ownership directly before promoting, per this agent's own closure-signal standard. No evidence found of a second site anywhere — single independent venue, passes Hard rule 1 cleanly on chain-footprint grounds regardless of the ownership-transition question above. Coordinates (53.4764, -2.2505) are the nearest resolvable postcode centroid (M3 4EW, immediately adjacent) since M3 4EN itself didn't resolve via available geocoding — same mews, within a short walk, so unlikely to be materially wrong. Closes a real gap: Deansgate's real Drink-category count (4) sat among the thinnest Drink coverage of any Manchester/Cheshire district. Medium-high confidence — operation likely current, but ownership stability specifically flagged for re-check."
+    },
+    {
+      "name": "Bureau Gallery",
+      "district": "spinningfields",
+      "type": "ART GALLERY",
+      "spend": "£",
+      "lat": 53.479607,
+      "lon": -2.252211,
+      "base": 68,
+      "bands": ["afternoon"],
+      "reason": "A ground-floor gallery slotted into an office-block lobby on Hardman Square, rotating multimedia artists for anyone who wants five minutes of actual art between meetings rather than another coffee.",
+      "suggestedDate": "2026-10-18",
+      "status": "pending",
+      "researchNotes": "Verified via TheSkinny's venue listing (3 Hardman Square, M3 3EB, ground floor) and Culture Trip's description of it as a gallery on the ground floor of a Spinningfields office building in Hardman Square representing multimedia artists with rotating exhibitions. Single independent gallery, no evidence of any second site or group ownership found — clean pass on Hard rule 1. Checked for duplication against Spinningfields' existing ART GALLERY-type venue (Artzu Gallery, already real/seeded) — confirmed distinct: Artzu has its own separate listings and, per one source, has moved to Quay Street, just outside Spinningfields proper, while Bureau Gallery is a different business at a different Hardman Square address. Coordinates (53.479607, -2.252211) are the ONS-published centroid for M3 3EB, cross-confirmed by two independent sources (a postcode lookup site and Doogal), landing squarely on Hardman Square itself — high confidence. Closes a real gap: Spinningfields' real Do-category count (5) and Eat-category count (3) were both thinner than its Drink coverage (5); this adds Do specifically. High confidence on operation and independence."
     }
   ]
 }
