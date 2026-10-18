@@ -159,6 +159,18 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-18",
+      "reason": "CAMRA and a dedicated closure report (britbrief.co.uk) both confirm Blossom Street Social closed in June 2026 after nearly seven years, with Mielle (a new, unrelated patisserie/bar, independently reviewed and promoted in this same run) now trading in the same unit.",
+      "researchNotes": "Found incidentally while independently re-verifying the pending 'Mielle' venue-suggestions.json candidates (both of which named this as the site they took over). Web search 2026-10-18: CAMRA's own listing for 51 Blossom Street, Ancoats dates Blossom Street Social's occupancy as 2019-June 2026 and lists Mielle as the current occupant from July 2026; britbrief.co.uk's dedicated piece ('Blossom Street Social in Ancoats Closes After Nearly Seven Years') confirms the closure was announced on the venue's own Instagram, with no reason given. Two independent sources agree, but per this job's own closure-audit rule, closures always go to Pending Review rather than being auto-removed, regardless of confidence.",
+      "payload": {
+        "name": "Blossom Street Social",
+        "district": "ancoats"
+      }
     }
   ]
 }
