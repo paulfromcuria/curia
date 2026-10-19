@@ -3507,6 +3507,76 @@
       "suggestedDate": "2026-10-18",
       "status": "pending",
       "researchNotes": "Verified via TheSkinny's venue listing (3 Hardman Square, M3 3EB, ground floor) and Culture Trip's description of it as a gallery on the ground floor of a Spinningfields office building in Hardman Square representing multimedia artists with rotating exhibitions. Single independent gallery, no evidence of any second site or group ownership found — clean pass on Hard rule 1. Checked for duplication against Spinningfields' existing ART GALLERY-type venue (Artzu Gallery, already real/seeded) — confirmed distinct: Artzu has its own separate listings and, per one source, has moved to Quay Street, just outside Spinningfields proper, while Bureau Gallery is a different business at a different Hardman Square address. Coordinates (53.479607, -2.252211) are the ONS-published centroid for M3 3EB, cross-confirmed by two independent sources (a postcode lookup site and Doogal), landing squarely on Hardman Square itself — high confidence. Closes a real gap: Spinningfields' real Do-category count (5) and Eat-category count (3) were both thinner than its Drink coverage (5); this adds Do specifically. High confidence on operation and independence."
+    },
+    {
+      "name": "Edinburgh Castle",
+      "district": "ancoats",
+      "type": "GASTROPUB",
+      "spend": "££",
+      "lat": 53.4841,
+      "lon": -2.2300,
+      "base": 72,
+      "bands": ["afternoon", "evening", "late"],
+      "reason": "An 1811 corner boozer at the mouth of Cutting Room Square, left derelict for years and brought back pint-first by the couple who also ran the Northern Quarter's old Cottonopolis — traditional ales, a proper Sunday roast, nothing about it built for a crowd that wandered in from a hen do.",
+      "suggestedDate": "2026-10-19",
+      "status": "pending",
+      "researchNotes": "Verified via manchestersfinest.com, confidentials.com and manchesterwire.co.uk coverage of its November 2019 reopening (corner of Blossom Street and Henry Street, M4 5AN, a long-derelict 1811 building restored by its current operators) plus Creative Tourist/Harden's listings suggesting it is still trading (current website ec-ancoats.com and an active Instagram handle referenced in search results; no closure signal found). Owners are Nick and Hayley Muir, who also ran Cottonopolis in the Northern Quarter — confirmed via restaurantonline.co.uk that Cottonopolis itself closed in late 2023 to make way for a new concept, meaning the Muirs' only currently-operating venue found is this one; a real sibling existed but isn't a live multi-site footprint today, comfortably inside Hard rule 1. Not a duplicate of Ancoats' existing venues (checked by name against docs/data/venues.json and venue-suggestions.json). Coordinates are estimated from three adjacent M4 5-prefix postcodes on Blossom Street clustering at roughly 53.484/-2.230 (exact postcode lookup for M4 5AN unavailable this session) — within Ancoats' existing seeded-venue coordinate range (53.482-53.485/-2.216 to -2.231). Closes a real gap: Ancoats' real Do-category count was thinner than its Drink/Eat coverage, and this specific, well-documented historic pub hadn't been captured yet. Medium-high confidence — the main uncertainty is current trading hours, not whether the venue itself still exists."
+    },
+    {
+      "name": "Hallé at St Michael's",
+      "district": "ancoats",
+      "type": "LIVE MUSIC",
+      "spend": "££",
+      "lat": 53.4847,
+      "lon": -2.2308,
+      "base": 68,
+      "bands": ["evening"],
+      "reason": "A Roman Catholic church that was the heart of Ancoats' old Little Italy, closed in 2004 and handed to the Hallé rather than left to rot — a second stage for the orchestra a few streets from Hallé St Peter's, and the programming here wanders well past classical.",
+      "suggestedDate": "2026-10-19",
+      "status": "pending",
+      "researchNotes": "Verified via halle.co.uk's own venue page, creativetourist.com and wanderlog.com reviews describing a former 1859 Roman Catholic church at 36-38 George Leigh Street, Ancoats, M4 5DG, reopened as a Hallé concert/event space after closing as a church in 2004. Run by the Hallé charity — the same operator already behind the real, seeded Hallé St Peter's venue in this district — a second physical building under one well-established, non-chain classical-music charity, not a commercial multi-site risk; included as a genuinely distinct venue (different building, different programming slate) rather than a duplicate of Hallé St Peter's. Checked by name against docs/data/venues.json and venue-suggestions.json — no match. Coordinates are an estimate from neighbouring George Leigh Street postcodes (M4 5DR/5DL/5AJ, which cluster at 53.484-53.485/-2.230 to -2.231), since M4 5DG itself had no direct postcode-lookup record found this session; falls within Ancoats' existing venue coordinate range. Medium-high confidence on operation (charity-run, actively described as hosting events in sources without a closure signal); coordinate is a close estimate rather than an exact geocode."
+    },
+    {
+      "name": "Didsbury Village Bookshop",
+      "district": "didsbury",
+      "type": "BOOKSHOP",
+      "spend": "£",
+      "lat": 53.4169,
+      "lon": -2.2318,
+      "base": 58,
+      "bands": ["morning", "afternoon"],
+      "reason": "Through the back of a tea room on Barlow Moor Road, shelves of Penguin Orange classics and Folio editions that nobody's trying to sell you alongside a scone — the kind of secondhand browse that assumes you've got nowhere else to be.",
+      "suggestedDate": "2026-10-19",
+      "status": "pending",
+      "researchNotes": "Verified via manchestersfinest.com's own venue page for Didsbury Village Bookshop, Time Out and mancunion.com, all describing a secondhand bookshop at the back of The Art of Tea cafe, 47 Barlow Moor Road, Didsbury, M20 6TW — a single, long-standing independent shop, no chain footprint found anywhere. Distinct from Didsbury's existing E J Morten Booksellers (already promoted/real), which is a separate shop confirmed at 6 Warburton Street via a different search — not a duplicate. Checked by name against docs/data/venues.json and venue-suggestions.json — no match. Coordinates are an estimate: no direct geocode found for M20 6TW itself, so used a verified nearby point at the Barlow Moor Road/School Lane junction in Didsbury Village (53.4168/-2.2321, found via a travel-site location reference) adjusted slightly north along Barlow Moor Road toward number 47 — within Didsbury's real coordinate range (confirmed against Fletcher Moss Botanical Garden's own seeded coordinates a short walk south). Closes a real gap: Didsbury's real Do-category count was thin (around 4) relative to its strong Drink/Eat coverage. High confidence on the venue's existence and independence; coordinate is a reasoned estimate rather than an exact geocode."
+    },
+    {
+      "name": "The Old Parsonage",
+      "district": "didsbury",
+      "type": "ART GALLERY",
+      "spend": "£",
+      "lat": 53.4106,
+      "lon": -2.2317,
+      "base": 56,
+      "bands": ["afternoon"],
+      "reason": "Fletcher Moss's own Grade II house, beside Didsbury's original village green, with three small permanent gallery rooms and a run of real Turner originals that most people walk straight past on their way into the gardens.",
+      "suggestedDate": "2026-10-19",
+      "status": "pending",
+      "researchNotes": "Verified via Historic England's listing (republished via parksandgardens.org and britishlistedbuildings.co.uk, which also labels it 'Fletcher Moss Art Gallery'), the Didsbury Civic Society's own site (Stenner Lane, Didsbury, M20 2RQ, contact details given, run as a community hub by the Didsbury Parsonage Trust) and artrabbit.com listings describing three permanent gallery spaces and Turner originals on display. A charitable community trust, not a commercial operator — no chain risk. Distinct from the already-real Fletcher Moss Botanical Garden (the park) and the already-promoted Next Door Gallery — this is the house/gallery itself, a separate building and a separate kind of visit. Checked by name against docs/data/venues.json and venue-suggestions.json — no match. Coordinates (53.4106, -2.2317) are Historic England's own published point for the building, closely matching the already-seeded Fletcher Moss Botanical Garden's coordinates (53.409996, -2.231807) a few dozen metres away — high confidence. Closes the same real Didsbury Do-category gap as the bookshop above. Medium confidence on current opening days/hours (sources are undated or old), but no closure signal found and the Trust's contact details are current."
+    },
+    {
+      "name": "The Yoga Rooms",
+      "district": "chorlton",
+      "type": "WELLNESS STUDIO",
+      "spend": "££",
+      "lat": 53.438569,
+      "lon": -2.275137,
+      "base": 60,
+      "bands": ["morning", "afternoon"],
+      "reason": "A studio on Barlow Moor Road running everything from gentle hatha to actual ashtanga, seven days a week, with no interest in being anyone's influencer backdrop.",
+      "suggestedDate": "2026-10-19",
+      "status": "pending",
+      "researchNotes": "Verified via creativetourist.com (483a Barlow Moor Road, Chorlton, M21 8AG), manchesterwire.co.uk's yoga-studio guide and happity.co.uk's own listing, describing an independently-run studio offering a broad range of yoga and pilates classes across experience levels, running most days of the week. No evidence of a second site or group ownership found — single independent studio, clean pass on Hard rule 1. Checked by name against docs/data/venues.json and venue-suggestions.json — no match (distinct from Wilmslow Pilates & Wellness and InHale Yoga, both separate real venues in other districts). Coordinates (53.438569, -2.275137) are the ONS postcode-directory centroid for M21 8AG (May 2026 data, found via a UK postcode lookup site), landing within Chorlton's existing seeded-venue coordinate range. Closes a real gap: Chorlton's real Do-category count was thin (around 4-5) relative to its strong Eat/Drink independent scene. Medium-high confidence — the main uncertainty is current class pricing/schedule, not whether the studio still operates."
     }
   ]
 }
