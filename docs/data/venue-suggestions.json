@@ -1641,6 +1641,34 @@
       "suggestedDate": "2026-10-18",
       "status": "pending",
       "researchNotes": "Verified via creativetourist.com and tasteofmanchester.com's launch coverage (Units K, L and M, Deansgate Mews, 253 Deansgate, M3 4EN — opened by the Alvarium team, described as free of tie, i.e. not brewery/pub-company owned) and confirmed still operating as of May 2026 via Mews Fest's own listing naming The Mews Bar as one of its venues for its 22-25 May 2026 run — a positive, fairly recent operating signal, not just an old launch article. Flagging real uncertainty rather than hiding it: a business-sale listing (undated, found via Hiltonsmythe) shows the owners put the business on the open market citing a desire to exit the industry, and its original lease (signed April 2021, 3-year term) would have lapsed around 2024 absent a renewal — neither of these is a closure announcement, but together they're enough uncertainty that the reviewer should re-confirm current trading/ownership directly before promoting, per this agent's own closure-signal standard. No evidence found of a second site anywhere — single independent venue, passes Hard rule 1 cleanly on chain-footprint grounds regardless of the ownership-transition question above. Coordinates (53.4764, -2.2505) are the nearest resolvable postcode centroid (M3 4EW, immediately adjacent) since M3 4EN itself didn't resolve via available geocoding — same mews, within a short walk, so unlikely to be materially wrong. Closes a real gap: Deansgate's real Drink-category count (4) sat among the thinnest Drink coverage of any Manchester/Cheshire district. Medium-high confidence — operation likely current, but ownership stability specifically flagged for re-check."
+    },
+    {
+      "name": "Bottle",
+      "district": "heaton-moor",
+      "type": "BOTTLE SHOP",
+      "spend": "££",
+      "lat": 53.4231,
+      "lon": -2.1854,
+      "base": 64,
+      "bands": ["afternoon", "evening"],
+      "reason": "Ten rotating keg taps and no hand pumps at all, plus a fridge wall of Mikkeller and Thornbridge in a small converted shopfront on Shaw Road — a different, smaller room from the Kingsleigh Road bottle shop a few streets over.",
+      "suggestedDate": "2026-10-20",
+      "status": "rejected",
+      "researchNotes": "Verified via CAMRA's own listing (9a Shaw Road, Heaton Moor, SK4 4AG — ten keg taps, no cask ale, rotating craft lineup) and a Time Out Heatons feature. REJECTED on 2026-10-20 independent re-verification: this is the same real venue already live in docs/data/venues.json as 'Bottle' (heaton-moor, BOTTLE SHOP, promoted 2026-10-19 — same name, same district, same type, 9a Shaw Road, coordinates within 15m of each other: 53.4231/-2.1854 here vs 53.4232/-2.1855 live). Today's research pass's own 'checked by name against venues.json' step missed it only because that check ran against master's stale copy of venues.json, which had never received the 2026-10-19 backlog-clearing promotion (sitting unmerged on a separate branch at the time) — a real duplicate, not a second site. Do not re-suggest."
+    },
+    {
+      "name": "The Carrs Park",
+      "district": "wilmslow",
+      "type": "TOWN PARK",
+      "spend": "£",
+      "lat": 53.3276,
+      "lon": -2.2285,
+      "base": 60,
+      "bands": ["morning", "afternoon"],
+      "reason": "The River Bollin curls through the middle of it, and the Saturday parkrun has been filling the paths since long before anyone thought to bring the dog back on a Tuesday too.",
+      "suggestedDate": "2026-10-20",
+      "status": "rejected",
+      "researchNotes": "Verified via Cheshire East Council's own park listing (entrance off Chancel Lane/Cliff Road, SK9 4AA — riverside and woodland walks, tennis courts, outdoor gym, weekly parkrun) and a GPS walking-route guide describing it as Wilmslow's central green space on the River Bollin. REJECTED on 2026-10-20 independent re-verification: Cheshire East Council's own listing titles this park 'The Carrs Park, Wilmslow' — a web search confirms 'The Carrs' and 'The Carrs Park' are the same real place. It is the venue already live in docs/data/venues.json as 'The Carrs' (wilmslow, RIVERSIDE PARK, River Bollin, 71 acres gifted by a Boddington in 1925). A name-variant duplicate, not a second, distinct park. Do not re-suggest."
     }
   ],
   "_reviewPass20261019": "2026-10-19: curia-suggestion-review processed all 135 pending entries after resuming from a roughly one-month gap (last real promotion/rejection run was 2026-09-17). 117 promoted into docs/data/venues.json (removed from this file). 12 rejected in place below with researchNotes explaining why. 6 left pending (genuinely uncertain) and separately queued to docs/data/pending-review-queue.json for a human decision."
