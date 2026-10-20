@@ -299,6 +299,25 @@
         { "label": "Colin Jellicoe Gallery, Wine and Wallop, Prestbury Plant and Garden, Brook Lane Coffee Co, The Bridge, The Mews Bar and Charcuterie", "detail": "sent to Pending Review — genuinely unresolved sourcing conflicts or thin corroboration (e.g. The Bridge's real administration/ownership history found on fresh research; Wine and Wallop's name genuinely split between two current brandings) rather than a confident call either way" }
       ],
       "createdAt": "2026-10-19T07:45:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-20",
+      "synced": false,
+      "title": "7 venues promoted, 2 rejected as exact duplicates of yesterday's own batch, closure audit clean",
+      "summary": "Discovered that master was still 1 commit behind 2026-10-19's own backlog-clearing review work (sitting unmerged on promote/2026-10-19 due to the same direct-push permission wall this run also hit), so today's review ran on top of that branch rather than stale master — see this run's note in venues.json and the report to the user for the full explanation. Independently re-verified all 9 venue candidates curia-research-daily added today: 7 promoted (The Hidden Gem/St Mary's Church, Aurelia Serenity Room, Hat Works Museum, Tegg's Nose Country Park, Anderton Boat Lift, Nine Mill Street, Tabley House), 2 rejected as exact duplicates — 'Bottle' (Heaton Moor) and 'The Carrs Park' (Wilmslow) both turned out to be the same real venues as entries already promoted into venues.json (one from yesterday's batch, one long-standing), missed only because today's research pass checked its own name against master's stale copy of venues.json rather than the real current state. Curia Command's pending_review collection was checked first (read_db) and had nothing waiting — the 6 items yesterday's run sent there (Colin Jellicoe Gallery, Wine and Wallop, Prestbury Plant and Garden, Brook Lane Coffee Co, The Bridge, The Mews Bar and Charcuterie) plus the Blossom Street Social closure candidate remain unchanged, still awaiting a human decision. The closure-audit rotating slice (MASH, Macclesfield; Amici and Long Bar & Kitchen, Bramhall; Avanti Restaurant & Grill and Heaton Moor Producers Market, Heaton Moor) found no closure signals for any of the five.",
+      "items": [
+        { "label": "The Hidden Gem (St Mary's Church), Chinatown", "detail": "promoted — Grade II*-listed working parish church, free, zero chain risk" },
+        { "label": "Aurelia Serenity Room, Hale", "detail": "promoted — single-site Japanese head-spa studio; bands corrected from afternoon/evening to morning/afternoon to match its real Wed-Sat, closes-by-6pm hours" },
+        { "label": "Hat Works Museum, Stockport (Underbanks)", "detail": "promoted — council-run heritage museum, confirmed reopened and currently trading" },
+        { "label": "Tegg's Nose Country Park, Macclesfield", "detail": "promoted — council-run country park; introduces new category-only Do type COUNTRY PARK, same precedent as NATURE RESERVE/FARM EXPERIENCE" },
+        { "label": "Anderton Boat Lift, Northwich", "detail": "promoted — Canal & River Trust charity site, coordinates matched almost exactly to the real landmark" },
+        { "label": "Nine Mill Street, Nantwich", "detail": "promoted — single-site tapas/small-plates restaurant in a Grade II*-listed Georgian townhouse" },
+        { "label": "Tabley House, Knutsford", "detail": "promoted — University of Manchester-owned Grade I Palladian house, seasonal Thu-Sun opening confirmed" },
+        { "label": "Bottle, Heaton Moor", "detail": "rejected — exact duplicate of the 'Bottle' already promoted into venues.json on 2026-10-19 (same name, district, type, address); today's research ran against master's stale venues.json which didn't have it yet" },
+        { "label": "The Carrs Park, Wilmslow", "detail": "rejected — exact duplicate of the long-standing 'The Carrs' entry; Cheshire East Council's own listing confirms both names refer to the same park" }
+      ],
+      "createdAt": "2026-10-20T09:15:00Z"
     }
   ]
 }
