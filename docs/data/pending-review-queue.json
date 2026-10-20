@@ -159,6 +159,151 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-19",
+      "reason": "Founder died in 2018, and the only post-2018 source found says the space was slated to become a pay-to-hire artist space rather than a curated gallery; no 2024-2026 source confirms current status either way.",
+      "researchNotes": "Checked artbiogs.co.uk, northernsoul.me.uk, sulisfineart.com, theskinny.co.uk (lists it, undated). All coverage is from 2018 or earlier. No confirmation of current trading status, hours, or curated-vs-rental-space model today. Future pass should check directly before re-suggesting.",
+      "payload": {
+        "name": "Colin Jellicoe Gallery",
+        "district": "chinatown",
+        "type": "ART GALLERY",
+        "spend": "£",
+        "lat": 53.4782,
+        "lon": -2.2393,
+        "base": 66,
+        "bands": [
+          "afternoon"
+        ],
+        "reason": "Sixty years of the same independent eye on Portland Street, still hanging shows the gallery's late founder would have approved of — one of the longest-running galleries in the city, and one of the quietest."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-19",
+      "reason": "Venue and ownership (Justin Parkinson/FOLK) are real and still trading at 97 Lapwing Lane, West Didsbury, but current public branding is genuinely split between 'Wine and Wallop' and plain 'Wallop' with no dated source confirming a rename.",
+      "researchNotes": "2014 opening piece uses 'Wine & Wallop'; current manchestersfinest.com listing titled 'Wallop Didsbury' ('formerly Wine & Wallop'); booking infra mixed. Knutsford already has a sibling 'Wallop' catalogue entry - name should be locked down consistently before promotion. Recommend a live Google Business Profile/Instagram check.",
+      "payload": {
+        "name": "Wine and Wallop",
+        "district": "didsbury",
+        "type": "WINE BAR",
+        "spend": "£££",
+        "lat": 53.424909,
+        "lon": -2.235515,
+        "base": 76,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Justin Parkinson's second room, a few doors down from FOLK's first — a name that undersells how carefully the natural wine list is actually put together."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-19",
+      "reason": "Both independent researchers found only identical, apparently syndicated directory copy and zero customer reviews anywhere — genuine independence and no closure signal, but nothing confirms it's still trading today rather than just listed.",
+      "researchNotes": "Repeated the search: same syndicated directory listing found, near-identical wording across both research passes (one source in substance), zero customer reviews on Google/Tripadvisor/Facebook. No closure signal either. Worth a live phone/site check before promoting.",
+      "payload": {
+        "name": "Prestbury Plant and Garden",
+        "district": "prestbury",
+        "type": "GARDEN CENTRE",
+        "spend": "£",
+        "lat": 53.284,
+        "lon": -2.149,
+        "base": 52,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "An independent family's own nursery on London Road since 1984 — plants grown or sourced as close to home as the Cheshire soil allows, a flower shop alongside it, and no loyalty scheme standing in for actually knowing the regulars."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-19",
+      "reason": "A genuine, named local coffee house with no closure signal, but zero dated customer reviews anywhere — current trading status is unconfirmed rather than disproven.",
+      "researchNotes": "Only substantive source remains Manchester's Finest's own listings (opened 2022, 105 Brook Lane SK9 7RU). No Google/Tripadvisor/Facebook reviews turned up. Thin rather than contradictory — worth a live check before promoting.",
+      "payload": {
+        "name": "Brook Lane Coffee Co",
+        "district": "alderley-edge",
+        "type": "COFFEE ROOM",
+        "spend": "££",
+        "lat": 53.299,
+        "lon": -2.228,
+        "base": 56,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A locally roasted bean and an unhurried pace just off the village centre — Alderley Edge's actual neighbourhood coffee house, a few minutes from every cocktail bar that's opened and closed on London Road since."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-19",
+      "reason": "A real independent boutique hotel, but ownership history differs materially from original researchNotes, and current 2026 trading status is unconfirmed.",
+      "researchNotes": "Flagship of Flat Cap Hotels (3-hotel Cheshire group), collapsed into administration 18 Jan 2024; The Courthouse closed, The Bridge/Vicarage kept trading under interim management (Condor Hotels, a small consultancy, not a chain). Christie & Co still marketing for sale (offers over £4.5m) per most recent dated coverage found. No 2025/2026 confirmation of completed sale or current live trading. Needs a direct call/booking-site check before promotion.",
+      "payload": {
+        "name": "The Bridge",
+        "district": "prestbury",
+        "type": "HOTEL BAR",
+        "spend": "£££",
+        "lat": 53.289716,
+        "lon": -2.150749,
+        "base": 72,
+        "bands": [
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "A 1626 coaching house on the banks of the Bollin — order from the riverside Shed and the dog gets a bowl of water before the cocktail arrives."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-19",
+      "reason": "Likely still genuine/independent, but an unresolved business-for-sale/ownership-exit signal couldn't be dated against a May 2026 confirmation it was still operating.",
+      "researchNotes": "Found same business-for-sale listing (owners wanting to exit industry) and same May 2026 Mews Fest listing showing operation. Can't resolve which came first. Needs a direct call/website check before promotion.",
+      "payload": {
+        "name": "The Mews Bar and Charcuterie",
+        "district": "deansgate",
+        "type": "WINE BAR",
+        "spend": "£££",
+        "lat": 53.4764,
+        "lon": -2.2505,
+        "base": 78,
+        "bands": [
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "Free-of-tie behind the Great Northern, a wine list built around small independent producers with proper charcuterie boards doing the talking instead of a kitchen menu."
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-19",
+      "reason": "Blossom Street Social (51 Blossom Street, Ancoats) closed in June 2026 after nearly 7 years; the site has been trading since July 2026 as a new venue, Mielle (Japanese-inspired café/patisserie/bar run by Paul Chan and his wife) — confirmed independently via CAMRA's venue history record and corroborating local coverage, not just the two research notes that originally flagged it.",
+      "researchNotes": "Sources checked: (1) CAMRA listing for Mielle, Ancoats (camra.org.uk/pubs/mielle-ancoats-199157) - states 51 Blossom Street was occupied by Blossom Street Social 2019-June 2026, now Mielle since July 2026. (2) Britbrief 'Blossom Street Social in Ancoats Closes After Nearly Seven Years' - closure announced via venue's own Instagram. (3) Britbrief 'Mielle Patisserie: Japanese-Inspired Cafe and Bar Opens in Ancoats' - names Paul Chan and wife as owners, opened ~11 July 2026. (4) Confidentials/Taste of Manchester/Manchester Wire - independently confirm Blossom Street Social's original identity and address, ruling out an address mix-up. All sources agree on the same address, timeline and succession; no source suggests Blossom Street Social is still trading. Mielle itself has already been promoted into venues.json by this same run.",
+      "payload": {
+        "name": "Blossom Street Social",
+        "district": "ancoats"
+      }
     }
   ]
 }

@@ -277,6 +277,47 @@
         { "label": "Closure audit (indices 28-32: Wiltons, Franco's, Chris Beetles Gallery, Spencer House, The Globe)", "detail": "not completed — could not find real evidence either way, so nothing written rather than guessing" }
       ],
       "createdAt": "2026-09-17T09:20:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-19",
+      "synced": false,
+      "title": "Resumed after a ~1-month gap: 117 venues + 4 districts promoted, 12 rejected, 6 sent for review",
+      "summary": "This job had not actually promoted or rejected anything since 2026-09-17, despite curia-research-daily adding candidates every day in the meantime — a backlog of 135 pending venue suggestions and 4 pending district suggestions had built up unprocessed. Today's run independently re-verified all of them from scratch (fresh Hard-rule-1/chain checks, duplicate checks against the live catalogue and each other, coordinate sanity, schema checks, brand voice) and cleared the backlog: 117 venues and all 4 districts promoted, 12 venues rejected (closures, chains, fabricated-looking research, or duplicates), and 6 genuinely uncertain items plus one likely real closure (Blossom Street Social, Ancoats) sent to Pending Review for a human call. Two real duplicate pairs inside the pending queue itself were caught and resolved. Curia Command's pending_review collection was checked first (read_db) and had nothing waiting.",
+      "items": [
+        { "label": "117 venues promoted (Manchester/Cheshire)", "detail": "Chester 13, Didsbury 9, Knutsford 9, Stockport (Underbanks) 7, Ancoats 7, Deansgate 7, Northern Quarter 6, Altrincham 6, Nantwich 6, Northwich 6, Heaton Moor 5, Cheadle Hulme 5, Spinningfields 5, Hale 4, Bramhall 4, Chorlton 4, Chinatown 4, Alderley Edge 3, Macclesfield 3, Prestbury 2, Mobberley 1, Tarporley 1 — each independently re-verified fresh (Hard rule 1, duplicate check, coordinate sanity, brand voice), not rubber-stamped from the original research notes." },
+        { "label": "Frodsham, Sale, Marple, Bollington (new districts)", "detail": "All 4 pending district candidates promoted. Sale and Marple got light copy corrections (an unverifiable stat/misattributed venue dropped from Sale; a wrong canal name fixed on Marple). Bollington's accentColor flagged for a future look (too close to Prestbury's once rendered)." },
+        { "label": "Alfredo's Social / Mielle (duplicate pairs)", "detail": "Each real venue had been independently suggested twice on different research dates. Promoted once per venue (the more thoroughly corroborated entry); the duplicate instance rejected with an explanatory note." },
+        { "label": "Blossom Street Social (Ancoats) — likely closure", "detail": "Independent research into the Mielle candidate (which took over this address in July 2026) surfaced strong evidence Blossom Street Social closed in June 2026. Not auto-removed — queued to pending-review-queue.json for a human decision, per the closure-audit rule." },
+        { "label": "Board Beans Cafe (Northwich)", "detail": "rejected — duplicate of the already-catalogued 'Board Beans' at the same address, just with 'Cafe' appended to the name" },
+        { "label": "Temple Bar (Northwich)", "detail": "rejected — same real unit (34-36 Witton Street) now trades as 'Cornerhaus' per CAMRA's own venue history; Cornerhaus promoted instead" },
+        { "label": "Tap and Bottle (Knutsford)", "detail": "rejected — confirmed closed; the address now trades as Linden Stores (different owners since 2022)" },
+        { "label": "Alison Bradley Gallery (Chester)", "detail": "rejected — evidence points to this Chester site having closed (business consolidated to Devon/Betws-y-Coed), opposite of what the original research assumed" },
+        { "label": "One Lounge Bar (Didsbury)", "detail": "rejected — stale identity; this address has traded as 'Zaranda' since 2018" },
+        { "label": "Heatons Social (Heaton Moor)", "detail": "rejected — duplicate of the already-catalogued 'Heaton Social' (same address, same reopening story, same district)" },
+        { "label": "The Bunker Art Gallery, Tarporley Antiques Centre, Lion Gallery & Bookshop, Hatters", "detail": "rejected — none could be independently corroborated by any source despite specific-sounding researchNotes; read as likely-fabricated research" },
+        { "label": "Colin Jellicoe Gallery, Wine and Wallop, Prestbury Plant and Garden, Brook Lane Coffee Co, The Bridge, The Mews Bar and Charcuterie", "detail": "sent to Pending Review — genuinely unresolved sourcing conflicts or thin corroboration (e.g. The Bridge's real administration/ownership history found on fresh research; Wine and Wallop's name genuinely split between two current brandings) rather than a confident call either way" }
+      ],
+      "createdAt": "2026-10-19T07:45:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-20",
+      "synced": false,
+      "title": "7 venues promoted, 2 rejected as exact duplicates of yesterday's own batch, closure audit clean",
+      "summary": "Discovered that master was still 1 commit behind 2026-10-19's own backlog-clearing review work (sitting unmerged on promote/2026-10-19 due to the same direct-push permission wall this run also hit), so today's review ran on top of that branch rather than stale master — see this run's note in venues.json and the report to the user for the full explanation. Independently re-verified all 9 venue candidates curia-research-daily added today: 7 promoted (The Hidden Gem/St Mary's Church, Aurelia Serenity Room, Hat Works Museum, Tegg's Nose Country Park, Anderton Boat Lift, Nine Mill Street, Tabley House), 2 rejected as exact duplicates — 'Bottle' (Heaton Moor) and 'The Carrs Park' (Wilmslow) both turned out to be the same real venues as entries already promoted into venues.json (one from yesterday's batch, one long-standing), missed only because today's research pass checked its own name against master's stale copy of venues.json rather than the real current state. Curia Command's pending_review collection was checked first (read_db) and had nothing waiting — the 6 items yesterday's run sent there (Colin Jellicoe Gallery, Wine and Wallop, Prestbury Plant and Garden, Brook Lane Coffee Co, The Bridge, The Mews Bar and Charcuterie) plus the Blossom Street Social closure candidate remain unchanged, still awaiting a human decision. The closure-audit rotating slice (MASH, Macclesfield; Amici and Long Bar & Kitchen, Bramhall; Avanti Restaurant & Grill and Heaton Moor Producers Market, Heaton Moor) found no closure signals for any of the five.",
+      "items": [
+        { "label": "The Hidden Gem (St Mary's Church), Chinatown", "detail": "promoted — Grade II*-listed working parish church, free, zero chain risk" },
+        { "label": "Aurelia Serenity Room, Hale", "detail": "promoted — single-site Japanese head-spa studio; bands corrected from afternoon/evening to morning/afternoon to match its real Wed-Sat, closes-by-6pm hours" },
+        { "label": "Hat Works Museum, Stockport (Underbanks)", "detail": "promoted — council-run heritage museum, confirmed reopened and currently trading" },
+        { "label": "Tegg's Nose Country Park, Macclesfield", "detail": "promoted — council-run country park; introduces new category-only Do type COUNTRY PARK, same precedent as NATURE RESERVE/FARM EXPERIENCE" },
+        { "label": "Anderton Boat Lift, Northwich", "detail": "promoted — Canal & River Trust charity site, coordinates matched almost exactly to the real landmark" },
+        { "label": "Nine Mill Street, Nantwich", "detail": "promoted — single-site tapas/small-plates restaurant in a Grade II*-listed Georgian townhouse" },
+        { "label": "Tabley House, Knutsford", "detail": "promoted — University of Manchester-owned Grade I Palladian house, seasonal Thu-Sun opening confirmed" },
+        { "label": "Bottle, Heaton Moor", "detail": "rejected — exact duplicate of the 'Bottle' already promoted into venues.json on 2026-10-19 (same name, district, type, address); today's research ran against master's stale venues.json which didn't have it yet" },
+        { "label": "The Carrs Park, Wilmslow", "detail": "rejected — exact duplicate of the long-standing 'The Carrs' entry; Cheshire East Council's own listing confirms both names refer to the same park" }
+      ],
+      "createdAt": "2026-10-20T09:15:00Z"
     }
   ]
 }
