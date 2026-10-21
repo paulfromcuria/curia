@@ -3703,6 +3703,62 @@
       "suggestedDate": "2026-10-20",
       "status": "pending",
       "researchNotes": "Verified via Cheshire East Council's own park listing (entrance off Chancel Lane/Cliff Road, SK9 4AA — riverside and woodland walks, tennis courts, outdoor gym, weekly parkrun) and a GPS walking-route guide describing it as Wilmslow's central green space on the River Bollin. A free council-run public park — not a commercial operator, zero chain risk. Checked by name against docs/data/venues.json and venue-suggestions.json — no match. Coordinate caveat: postcode-lookup APIs were blocked this session, so SK9 4AA wasn't directly geocoded; estimated close to the Wilmslow district centroid given the park's central-Wilmslow, River Bollin location — flagged for the reviewer to tighten with a direct geocode."
+    },
+    {
+      "name": "No.4 Dine & Wine",
+      "district": "didsbury",
+      "type": "BRITISH RESTAURANT",
+      "spend": "£££",
+      "lat": 53.4115,
+      "lon": -2.2297,
+      "base": 82,
+      "bands": ["afternoon", "evening"],
+      "reason": "Husband-and-wife run from the same cobbled corner since 2012, a shortish menu that changes by season rather than by trend — the regulars would miss it most if it ever went.",
+      "suggestedDate": "2026-10-21",
+      "status": "pending",
+      "researchNotes": "Verified via hungryonion.org (a 2023 visit review, citing a 2012 opening, praising a seasonally-changing menu and warm service), thatsup.co.uk (describes it as run by a husband-and-wife duo, 4.8 on Google from 289 reviews) and Lonely Planet/Harden's listings placing it at 4 Warburton Street, Didsbury Village, M20 6WA — described as hidden away in a historic two-storey building on the last original cobbled street in Didsbury. Single site, family-run, no second location or group ownership found anywhere searched — passes Hard rule 1 cleanly. Checked by name against docs/data/venues.json and venue-suggestions.json — no match (Didsbury's existing/pending Eat list is dense but nothing at this address or under this name). Coordinate caveat: postcodes.io/doogal.co.uk were both blocked this session; 53.4115/-2.2297 is inferred from nearby listed-building coordinates on the same cobbled stretch (britishlistedbuildings.co.uk entries on Wilmslow Road/The Grove cluster at 53.4105-53.4131/-2.2286 to -2.2308) rather than a district centroid — flagged for the reviewer to tighten with a direct geocode. Reuses the existing BRITISH RESTAURANT type as the closest fit for a modern-British, wine-focused neighbourhood restaurant; no tile targets this type specifically, consistent with this file's treatment of similar honest-fixture restaurants. High confidence — long, consistent trading history (since 2012) across multiple independent sources, strong current review volume, no closure signal found despite checking."
+    },
+    {
+      "name": "GiGi Gusto Griglia",
+      "district": "deansgate",
+      "type": "ITALIAN RESTAURANT",
+      "spend": "££££",
+      "lat": 53.478997,
+      "lon": -2.246145,
+      "base": 86,
+      "bands": ["evening"],
+      "reason": "An open grill and a central cocktail bar fitted into the city's former library and registrar's office, a kitchen led by an Onda and Lina Stores alumnus — Deansgate's newest booking-weeks-out table.",
+      "suggestedDate": "2026-10-21",
+      "status": "pending",
+      "researchNotes": "Verified via restaurantonline.co.uk ('Jamie Barber to open Italian grill room and bar in Manchester', 16 Sept 2026) and creativetourist.com/designmynight.com listings for GiGi Gusto Griglia: 4 Lloyd Street, off Deansgate, Manchester — a Grade II-listed former city library and registrar's office, with an open grill kitchen and a central cocktail bar (Bar Elegenza), chef Sam Astley-Dean (ex-Onda, ex-Lina Stores) leading the kitchen. Backed by Jamie Barber (founder of Villandry/Hush Mayfair) and Ed Standring via their Cherry Equity Partners fund, ~£1m invested; opened/soft-launched late Sept-early Oct 2026, and as far as searched this is the only site trading under the GiGi Gusto Griglia name — Barber's other ventures (Villandry, Hush Mayfair) are separate brands, not additional GiGi sites, so this reads as a single-site new opening from an experienced restaurateur rather than an active multi-site rollout; judged against Hard rule 1's two-gate model as closer to the Craig's/Ivy Spinningfields precedent (well-funded single opening) than the Gagosian/Wally's one, though flagged for the reviewer given the investment-fund backing. Checked by name against docs/data/venues.json and venue-suggestions.json — no match. Coordinates (53.478997/-2.246145) are the real, precisely-documented Lloyd Street coordinates (Manchester Town Hall Extension listing, same street as number 4) — postcodes.io/doogal.co.uk were blocked this session so this is the closest verified anchor point rather than a direct geocode of number 4 itself. Reuses the existing ITALIAN RESTAURANT type (maps to 'Lively & loud'). Moderate-high confidence — multiple trade-press sources agree on backers, chef, address and concept; opening is brand new (within the last three weeks of this run), so no review history yet, which is the main reason this isn't higher confidence."
+    },
+    {
+      "name": "The Fitworks",
+      "district": "mobberley",
+      "type": "WELLNESS STUDIO",
+      "spend": "££",
+      "lat": 53.3145,
+      "lon": -2.3310,
+      "base": 64,
+      "bands": ["morning", "afternoon"],
+      "reason": "Training, yoga and nutrition run out of a working farm building on Wood Lane — about as far from a chain gym as Mobberley gets.",
+      "suggestedDate": "2026-10-21",
+      "status": "pending",
+      "researchNotes": "Verified via ClassPass's studio listing (The Fitworks, Owen House Farm, Wood Lane, Mobberley, Cheshire — tagged woman-owned, offering personal training, yoga and nutrition coaching) and a business-listing credit naming founder Rebecca Farmer. Single site, no second location or group ownership found anywhere searched — passes Hard rule 1 cleanly. Checked by name against docs/data/venues.json and venue-suggestions.json — no match; closes a real gap, since Mobberley's only other Do venues are a golf club, a cricket club and an alpaca farm, nothing indoor/wellness-adjacent. Coordinate caveat: sources disagree between Wood Lane/WA16 7NY and Small Lane/WA16 7NU for the farm itself, and postcode-lookup APIs were blocked this session; 53.3145/-2.3310 is a reasoned estimate within Mobberley village rather than a direct geocode — flagged for the reviewer to tighten. Reuses the existing WELLNESS STUDIO type (maps to 'Spa & wellness', same precedent as Wilmslow Pilates & Wellness) since yoga/nutrition coaching reads closer to that register than one-to-one personal training alone. Moderate confidence — single-source-per-fact (ClassPass plus one business listing), no independent press review found, but internally consistent and no closure signal."
+    },
+    {
+      "name": "Paddy's Pizza and Flakey",
+      "district": "altrincham",
+      "type": "PIZZERIA",
+      "spend": "££",
+      "lat": 53.3868,
+      "lon": -2.3519,
+      "base": 74,
+      "bands": ["morning", "evening"],
+      "reason": "Stuffed croissants before noon, individual pizzas and cocktails after dark, from the team already running Kennedy's next door — the Irish Quarter's own two-shift answer to Goose Green.",
+      "suggestedDate": "2026-10-21",
+      "status": "pending",
+      "researchNotes": "Verified via britbrief.co.uk ('Altrincham Irish Deli Replaced by Croissant Bar and Pizza Concept') and manchestersfinest.com's August 2026 openings roundup: owners Dan Mullen and John Kennedy (who also runs Kennedy's, the adjacent pub) opened the hybrid concept on 30 July 2026 on Greenwood Street, replacing The Irish Deli, opposite Altrincham Market in Altrincham's 'Irish Quarter'. A local, two-site-at-most operation (Kennedy's pub plus this one new concept next door, both on the same short stretch of Greenwood Street) — no regional or national footprint found, passes Hard rule 1 cleanly. Checked by name against docs/data/venues.json and venue-suggestions.json — no match. Coordinates (53.3868/-2.3519) are estimated from the real coordinates of Rudy's, Porta and Altrincham Market, all on the same immediate Greenwood Street/market cluster already in docs/data/venues.json (53.3864-53.3875/-2.3517 to -2.3522), since postcodes.io/doogal.co.uk were blocked this session — not a district centroid. Reuses the existing PIZZERIA type (maps to 'Neighbourhood favourite') as the headline evening offer; the daytime croissant/bakery side is a genuine second register worth noting in the reason line but not a separate type. Moderate-high confidence — two independent sources agree on owners, date, address and concept; brand new (within the last three months), so limited review history yet."
     }
   ]
 }
