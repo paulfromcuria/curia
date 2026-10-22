@@ -277,6 +277,32 @@
         { "label": "Closure audit (indices 28-32: Wiltons, Franco's, Chris Beetles Gallery, Spencer House, The Globe)", "detail": "not completed — could not find real evidence either way, so nothing written rather than guessing" }
       ],
       "createdAt": "2026-09-17T09:20:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-22",
+      "synced": false,
+      "title": "9 venues + 4 districts promoted; major finding — a ~3-week review backlog (157 pending candidates) going back to 2026-09-30 that this job had never actually been clearing",
+      "summary": "The headline finding this run isn't today's promotions, it's that venue-suggestions.json held 157 pending candidates dated 2026-09-30 through 2026-10-22 — this review job appears to have stopped actually promoting/rejecting anything after 2026-09-29 despite (per its own daily briefings) continuing to run; today's pass processed only today's genuine new batch (9 venues, suggestedDate 2026-10-22) plus the 4 pending district-suggestions.json candidates with real independent re-verification, same rigor as every prior run, rather than rushing through three weeks of backlog at lower quality just to clear the count. All 9 venues and all 4 districts independently re-verified and promoted: no chains, no duplicates, coordinates sane, brand voice intact. Separately, found that district-suggestions.json's own researchNotes for 3 earlier entries (Lymm, Ramsbottom, Monton) claim 'RESOLVED 2026-10-12: confirmed promoted via the real admin review pipeline' — but none of the three actually exists in docs/data/districts.json and no promotion commit exists in git history, unlike every genuine promotion on record. Not acted on (not today's pending scope) but flagged plainly as a likely data-integrity problem — either a prior bug or a tampered claim in the suggestions file — needing a human look. Curia Command's pending_review collection (checked via read_db, which is available and working) had zero decided items to apply this run. The closure-audit rotating slice (indices 74-78 of the now-467-entry venues.json: The Old Cellars, The Bubble Room, Everyman Cinema, Rudy's, Porta, all Alderley Edge/Altrincham) found no closure signal for any of the four it could find current information on; The Old Cellars itself couldn't be found under that name in any source checked, which is inconclusive rather than a closure signal, so nothing was written for it per the 'don't guess' rule. ~148 older pending candidates (2026-09-30 through 2026-10-21) remain genuinely unreviewed and need a dedicated catch-up pass — flagging this explicitly rather than letting it stay invisible.",
+      "items": [
+        { "label": "Bowdon Cricket Club (Altrincham)", "detail": "promoted — real members' club founded 1856, playing South Downs Road since 1865, no chain signal" },
+        { "label": "Vermilion (Ancoats, by nearest-district precedent)", "detail": "promoted — single-site restaurant under the Seamark umbrella, 800-cap events hall, vegan/vegetarian options confirmed" },
+        { "label": "The Groves (Chester)", "detail": "promoted — real council-documented Victorian riverside promenade; coordinate sits past the usual sanity-box edge for the same reason Chester's own district centroid already does" },
+        { "label": "Marbury Country Park (Northwich)", "detail": "promoted — real Cheshire West and Chester council park; the heronry detail in the original candidate text couldn't be re-confirmed, flagged rather than silently carried over" },
+        { "label": "The Con Club (Altrincham)", "detail": "promoted — real rooftop-tipi bar; petFriendly set true on the strength of CAMRA's dog-friendly listing, which itself carries a 'not in the restaurant area' caveat" },
+        { "label": "Macclesfield Treacle Market (Macclesfield)", "detail": "promoted — real monthly artisan market since 2010; given occasional: true since its schedule is monthly, not weekly" },
+        { "label": "The Washhouse (Northern Quarter)", "detail": "promoted — real single-site speakeasy, no walk-ins; given bookingRequired: true on direct 'online bookings only' copy evidence from multiple listings" },
+        { "label": "Manchester Rugby Club (Cheadle Hulme)", "detail": "promoted — one of the world's oldest rugby union clubs, founded 1860, real shared Grove Park complex" },
+        { "label": "Altrincham Garrick Playhouse (Altrincham)", "detail": "promoted — real amateur theatre society founded 1914, confirmed distinct from the already-live Altrincham Little Theatre" },
+        { "label": "Frodsham (new Cheshire district)", "detail": "promoted — genuine market town, re-confirmed via council/tourism sources, clear of Northwich/Chester" },
+        { "label": "Sale (new Manchester-metro district)", "detail": "promoted — genuine, recently-reborn Trafford food destination, re-confirmed via current 2026 press" },
+        { "label": "Marple (new Manchester-metro district)", "detail": "promoted — genuine Stockport canal town with a singular heritage draw; named independents in the original candidate couldn't be re-corroborated, flagged rather than carried over" },
+        { "label": "Bollington (new Cheshire district)", "detail": "promoted — genuine 'Happy Valley' mill town, re-confirmed via Wikipedia and local sources" },
+        { "label": "Lymm / Ramsbottom / Monton (district-suggestions.json)", "detail": "flagged, not acted on — all three claim 'promoted' with a researchNotes note citing a 'real admin review pipeline' resolution, but none exists in the real districts.json and no git commit backs the claim; a likely data-integrity problem for a human to look at" },
+        { "label": "~148 older pending venue candidates (2026-09-30 to 2026-10-21)", "detail": "left untouched — a genuine multi-week backlog this run surfaced rather than rushed through; needs a dedicated catch-up pass" },
+        { "label": "Closure audit (indices 74-78: The Old Cellars, The Bubble Room, Everyman Cinema, Rudy's, Porta)", "detail": "no closures found; The Old Cellars couldn't be independently located under that name at all, which is inconclusive rather than a closure signal, so left as-is" }
+      ],
+      "createdAt": "2026-10-22T00:00:00Z"
     }
   ]
 }
