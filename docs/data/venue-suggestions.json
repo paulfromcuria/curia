@@ -3292,7 +3292,10 @@
       "lat": 53.4091,
       "lon": -2.1616,
       "base": 78,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "A 1932 art-deco super-cinema saved by its own charitable trust, not a chain — the Wurlitzer organ still rises between the big-screen programme and the odd touring stand-up set.",
       "suggestedDate": "2026-10-16",
       "status": "pending",
@@ -3306,7 +3309,11 @@
       "lat": 53.289716,
       "lon": -2.150749,
       "base": 72,
-      "bands": ["afternoon", "evening", "late"],
+      "bands": [
+        "afternoon",
+        "evening",
+        "late"
+      ],
       "reason": "A 1626 coaching house on the banks of the Bollin — order from the riverside Shed and the dog gets a bowl of water before the cocktail arrives.",
       "suggestedDate": "2026-10-16",
       "status": "pending",
@@ -3320,7 +3327,9 @@
       "lat": 53.4812,
       "lon": -2.247,
       "base": 80,
-      "bands": ["evening"],
+      "bands": [
+        "evening"
+      ],
       "reason": "Canarian plates off Deansgate from a family that never opened a second site — the ten-course Degustación still opens with twice-cooked octopus on paprika mash.",
       "suggestedDate": "2026-10-16",
       "status": "pending",
@@ -3334,7 +3343,10 @@
       "lat": 53.4768,
       "lon": -2.2408,
       "base": 74,
-      "bands": ["evening", "late"],
+      "bands": [
+        "evening",
+        "late"
+      ],
       "reason": "Leeds' own ramen-and-karaoke room finally crossed the Pennines onto Portland Street — gyoza first, the Hello cocktail list after, private rooms booked solid most Fridays.",
       "suggestedDate": "2026-10-16",
       "status": "pending",
@@ -3348,7 +3360,10 @@
       "lat": 53.1925,
       "lon": -2.891,
       "base": 74,
-      "bands": ["evening", "late"],
+      "bands": [
+        "evening",
+        "late"
+      ],
       "reason": "Down a stairway off the city walls into a room that's run jazz, blues and alternative comedy since 1991 — Sunday afternoons still mean jazz, folk or blues from two.",
       "suggestedDate": "2026-10-16",
       "status": "pending",
@@ -3362,7 +3377,9 @@
       "lat": 53.188912,
       "lon": -2.889673,
       "base": 86,
-      "bands": ["evening"],
+      "bands": [
+        "evening"
+      ],
       "reason": "A farm in Daresbury dictates the menu, not a head office — six-week changeovers built entirely around what the ground's actually given up that week.",
       "suggestedDate": "2026-10-17",
       "status": "pending",
@@ -3376,7 +3393,10 @@
       "lat": 53.1881,
       "lon": -2.8923,
       "base": 74,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Anglesey mussels by the kilo on Cuppin Street since 1999 — the kind of honest, one-dish specialism that never needed a second site to prove itself.",
       "suggestedDate": "2026-10-17",
       "status": "pending",
@@ -3388,9 +3408,12 @@
       "type": "TURKISH RESTAURANT",
       "spend": "££",
       "lat": 53.1898,
-      "lon": -2.8930,
+      "lon": -2.893,
       "base": 70,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "Adem and Holly's own place since 2021 — Turkish coffee ground to order, and a breakfast spread that outlasts most of Watergate Street's queue-and-go routine.",
       "suggestedDate": "2026-10-17",
       "status": "pending",
@@ -3404,7 +3427,10 @@
       "lat": 53.442371,
       "lon": -2.281091,
       "base": 70,
-      "bands": ["evening", "late"],
+      "bands": [
+        "evening",
+        "late"
+      ],
       "reason": "Upstairs from the pub on Wilbraham Road, running its own gig calendar entirely separate from whatever's selling out in town that night.",
       "suggestedDate": "2026-10-17",
       "status": "pending",
@@ -3418,7 +3444,10 @@
       "lat": 53.4757,
       "lon": -2.2385,
       "base": 68,
-      "bands": ["evening", "late"],
+      "bands": [
+        "evening",
+        "late"
+      ],
       "reason": "A basement under brick arches that's been running its own house and techno nights since long before anyone called it a 'scene' — no second branch, no plans for one.",
       "suggestedDate": "2026-10-17",
       "status": "pending",
@@ -3432,7 +3461,10 @@
       "lat": 53.191628,
       "lon": -2.892413,
       "base": 82,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Racing on the same bend of the Dee since 1539 — fifteen fixtures a year, from May Festival mornings to an Ibiza Classics evening, and the oldest racecourse still running anywhere in the world.",
       "suggestedDate": "2026-10-17",
       "status": "pending",
@@ -3446,7 +3478,10 @@
       "lat": 53.373144,
       "lon": -2.154005,
       "base": 62,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "Thirty years of volunteer effort kept a real wildlife corridor alive two minutes off Bridge Lane — woodland, ponds and marshy grassland with a Site of Biological Importance designation the suburb earned rather than inherited.",
       "suggestedDate": "2026-10-18",
       "status": "pending",
@@ -3460,7 +3495,10 @@
       "lat": 53.422244,
       "lon": -2.177553,
       "base": 76,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "A contemporary Italian room on the site Tusk left behind, running a changing seasonal menu and a natural-wine list that skews Italian, with a covered terrace that takes Heaton Moor Road seriously rather than treating it as an afterthought.",
       "suggestedDate": "2026-10-18",
       "status": "pending",
@@ -3474,7 +3512,10 @@
       "lat": 53.30626,
       "lon": -2.37579,
       "base": 74,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Don Buddhika's Hale original gets a room of its own on Tatton Street, still eighty percent Sri Lankan on the menu and no concessions made for a market-town crowd more used to the Taste Knutsford food-tour regulars next door.",
       "suggestedDate": "2026-10-18",
       "status": "pending",
@@ -3488,7 +3529,11 @@
       "lat": 53.4764,
       "lon": -2.2505,
       "base": 78,
-      "bands": ["afternoon", "evening", "late"],
+      "bands": [
+        "afternoon",
+        "evening",
+        "late"
+      ],
       "reason": "Free-of-tie behind the Great Northern, a wine list built around small independent producers with proper charcuterie boards doing the talking instead of a kitchen menu.",
       "suggestedDate": "2026-10-18",
       "status": "pending",
@@ -3502,7 +3547,9 @@
       "lat": 53.479607,
       "lon": -2.252211,
       "base": 68,
-      "bands": ["afternoon"],
+      "bands": [
+        "afternoon"
+      ],
       "reason": "A ground-floor gallery slotted into an office-block lobby on Hardman Square, rotating multimedia artists for anyone who wants five minutes of actual art between meetings rather than another coffee.",
       "suggestedDate": "2026-10-18",
       "status": "pending",
@@ -3514,9 +3561,13 @@
       "type": "GASTROPUB",
       "spend": "££",
       "lat": 53.4841,
-      "lon": -2.2300,
+      "lon": -2.23,
       "base": 72,
-      "bands": ["afternoon", "evening", "late"],
+      "bands": [
+        "afternoon",
+        "evening",
+        "late"
+      ],
       "reason": "An 1811 corner boozer at the mouth of Cutting Room Square, left derelict for years and brought back pint-first by the couple who also ran the Northern Quarter's old Cottonopolis — traditional ales, a proper Sunday roast, nothing about it built for a crowd that wandered in from a hen do.",
       "suggestedDate": "2026-10-19",
       "status": "pending",
@@ -3530,7 +3581,9 @@
       "lat": 53.4847,
       "lon": -2.2308,
       "base": 68,
-      "bands": ["evening"],
+      "bands": [
+        "evening"
+      ],
       "reason": "A Roman Catholic church that was the heart of Ancoats' old Little Italy, closed in 2004 and handed to the Hallé rather than left to rot — a second stage for the orchestra a few streets from Hallé St Peter's, and the programming here wanders well past classical.",
       "suggestedDate": "2026-10-19",
       "status": "pending",
@@ -3544,7 +3597,10 @@
       "lat": 53.4169,
       "lon": -2.2318,
       "base": 58,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "Through the back of a tea room on Barlow Moor Road, shelves of Penguin Orange classics and Folio editions that nobody's trying to sell you alongside a scone — the kind of secondhand browse that assumes you've got nowhere else to be.",
       "suggestedDate": "2026-10-19",
       "status": "pending",
@@ -3558,7 +3614,9 @@
       "lat": 53.4106,
       "lon": -2.2317,
       "base": 56,
-      "bands": ["afternoon"],
+      "bands": [
+        "afternoon"
+      ],
       "reason": "Fletcher Moss's own Grade II house, beside Didsbury's original village green, with three small permanent gallery rooms and a run of real Turner originals that most people walk straight past on their way into the gardens.",
       "suggestedDate": "2026-10-19",
       "status": "pending",
@@ -3572,7 +3630,10 @@
       "lat": 53.438569,
       "lon": -2.275137,
       "base": 60,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "A studio on Barlow Moor Road running everything from gentle hatha to actual ashtanga, seven days a week, with no interest in being anyone's influencer backdrop.",
       "suggestedDate": "2026-10-19",
       "status": "pending",
@@ -3586,7 +3647,10 @@
       "lat": 53.4802,
       "lon": -2.2464,
       "base": 56,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "Grade II*-listed and genuinely hidden behind an unmarked door on Mulberry Street — a marble and Caen-stone interior that most of the office lunch crowd two minutes away has never once stepped inside.",
       "suggestedDate": "2026-10-20",
       "status": "pending",
@@ -3600,7 +3664,10 @@
       "lat": 53.3784,
       "lon": -2.3471,
       "base": 62,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "A Japanese head-spa treatment by appointment only on Ashley Road — booked out most weeks and in no hurry to explain itself to anyone who just wanders in.",
       "suggestedDate": "2026-10-20",
       "status": "pending",
@@ -3614,7 +3681,10 @@
       "lat": 53.4231,
       "lon": -2.1854,
       "base": 64,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Ten rotating keg taps and no hand pumps at all, plus a fridge wall of Mikkeller and Thornbridge in a small converted shopfront on Shaw Road — a different, smaller room from the Kingsleigh Road bottle shop a few streets over.",
       "suggestedDate": "2026-10-20",
       "status": "pending",
@@ -3628,7 +3698,10 @@
       "lat": 53.4049,
       "lon": -2.1882,
       "base": 64,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "The only museum in the country built entirely around hats, inside a working Wellington Mill — a factory-floor tour that still smells faintly of felt.",
       "suggestedDate": "2026-10-20",
       "status": "pending",
@@ -3642,7 +3715,10 @@
       "lat": 53.25646,
       "lon": -2.07601,
       "base": 62,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "A disused gritstone quarry turned hilltop park on the Peak District's doorstep — a geology trail, a mountain-bike descent, and a tea room that's never once minded muddy boots.",
       "suggestedDate": "2026-10-20",
       "status": "pending",
@@ -3656,7 +3732,10 @@
       "lat": 53.2725,
       "lon": -2.5306,
       "base": 66,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "A working Victorian boat lift that still hoists narrowboats forty feet between two canals — dark for a decade after corrosion closed it, restored in 2002, and worth the visitor centre's café alone.",
       "suggestedDate": "2026-10-20",
       "status": "pending",
@@ -3670,7 +3749,10 @@
       "lat": 53.0655,
       "lon": -2.5197,
       "base": 70,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "A Grade II-listed Georgian townhouse on Mill Street that's run as a restaurant since the 1990s, now doing small plates with a genuinely global reach — a menu that reads like a chef's own holiday notes.",
       "suggestedDate": "2026-10-20",
       "status": "pending",
@@ -3684,7 +3766,9 @@
       "lat": 53.2926,
       "lon": -2.4216,
       "base": 58,
-      "bands": ["afternoon"],
+      "bands": [
+        "afternoon"
+      ],
       "reason": "A Grade I Palladian house three miles out of town, its ground floor kept exactly as Sir Peter Byrne Leicester left it while a care home quietly runs upstairs — open four days a week, April to October, and worth timing a visit around.",
       "suggestedDate": "2026-10-20",
       "status": "pending",
@@ -3698,7 +3782,10 @@
       "lat": 53.3276,
       "lon": -2.2285,
       "base": 60,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "The River Bollin curls through the middle of it, and the Saturday parkrun has been filling the paths since long before anyone thought to bring the dog back on a Tuesday too.",
       "suggestedDate": "2026-10-20",
       "status": "pending",
@@ -3712,7 +3799,10 @@
       "lat": 53.4115,
       "lon": -2.2297,
       "base": 82,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Husband-and-wife run from the same cobbled corner since 2012, a shortish menu that changes by season rather than by trend — the regulars would miss it most if it ever went.",
       "suggestedDate": "2026-10-21",
       "status": "pending",
@@ -3726,7 +3816,9 @@
       "lat": 53.478997,
       "lon": -2.246145,
       "base": 86,
-      "bands": ["evening"],
+      "bands": [
+        "evening"
+      ],
       "reason": "An open grill and a central cocktail bar fitted into the city's former library and registrar's office, a kitchen led by an Onda and Lina Stores alumnus — Deansgate's newest booking-weeks-out table.",
       "suggestedDate": "2026-10-21",
       "status": "pending",
@@ -3738,9 +3830,12 @@
       "type": "WELLNESS STUDIO",
       "spend": "££",
       "lat": 53.3145,
-      "lon": -2.3310,
+      "lon": -2.331,
       "base": 64,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "Training, yoga and nutrition run out of a working farm building on Wood Lane — about as far from a chain gym as Mobberley gets.",
       "suggestedDate": "2026-10-21",
       "status": "pending",
@@ -3754,7 +3849,10 @@
       "lat": 53.3868,
       "lon": -2.3519,
       "base": 74,
-      "bands": ["morning", "evening"],
+      "bands": [
+        "morning",
+        "evening"
+      ],
       "reason": "Stuffed croissants before noon, individual pizzas and cocktails after dark, from the team already running Kennedy's next door — the Irish Quarter's own two-shift answer to Goose Green.",
       "suggestedDate": "2026-10-21",
       "status": "pending",
@@ -3768,7 +3866,9 @@
       "lat": 53.3739,
       "lon": -2.355,
       "base": 66,
-      "bands": ["afternoon"],
+      "bands": [
+        "afternoon"
+      ],
       "reason": "South Downs Road since 1865, nine Cheshire County League titles and a pavilion facade barely touched since 1874 — a proper top-flight Saturday, not a village-green fixture.",
       "suggestedDate": "2026-10-22",
       "status": "pending",
@@ -3782,7 +3882,10 @@
       "lat": 53.497,
       "lon": -2.2025,
       "base": 80,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "Lotus chaat and a banqueting hall built for eight hundred — Asian fusion staged like it means it, on a Miles Platting street nobody finds by accident.",
       "suggestedDate": "2026-10-22",
       "status": "pending",
@@ -3796,7 +3899,10 @@
       "lat": 53.1887,
       "lon": -2.8833,
       "base": 70,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "A Victorian promenade along the Dee with a bandstand that still gets used and a rowing-boat hire stand that hasn't moved in decades — the walk Chester takes once the Rows get too busy.",
       "suggestedDate": "2026-10-22",
       "status": "pending",
@@ -3810,7 +3916,10 @@
       "lat": 53.2831,
       "lon": -2.528,
       "base": 55,
-      "bands": ["morning", "afternoon"],
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
       "reason": "Budworth Mere ringed by old estate woodland, a heronry that's bred here for decades, and a towpath link straight onto the Trent and Mersey Canal — the quiet half of a Northwich day.",
       "suggestedDate": "2026-10-22",
       "status": "pending",
@@ -3824,7 +3933,10 @@
       "lat": 53.3879,
       "lon": -2.3504,
       "base": 76,
-      "bands": ["afternoon", "evening"],
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
       "reason": "A tipi on the roof of the old Conservative Working Men's Club, looking straight down onto the market stalls and the Everyman's queue below — small enough that booking ahead actually matters.",
       "suggestedDate": "2026-10-22",
       "status": "pending",
@@ -3838,7 +3950,9 @@
       "lat": 53.2611,
       "lon": -2.1257,
       "base": 68,
-      "bands": ["afternoon"],
+      "bands": [
+        "afternoon"
+      ],
       "reason": "The last Sunday of every month, the Market Place and Chestergate close for a hundred-odd stalls and the smell of it reaches Churchside before the stalls do. Check the date before building a Sunday around it.",
       "suggestedDate": "2026-10-22",
       "status": "pending",
@@ -3852,7 +3966,10 @@
       "lat": 53.4847,
       "lon": -2.2367,
       "base": 82,
-      "bands": ["evening", "late"],
+      "bands": [
+        "evening",
+        "late"
+      ],
       "reason": "A working laundrette on Shudehill with a phone booth in the back that isn't a phone booth — world-class cocktails for whoever picks up the receiver.",
       "suggestedDate": "2026-10-22",
       "status": "pending",
@@ -3866,7 +3983,9 @@
       "lat": 53.3655,
       "lon": -2.1895,
       "base": 66,
-      "bands": ["afternoon"],
+      "bands": [
+        "afternoon"
+      ],
       "reason": "Founded 1860 as Manchester Football Club, one of the oldest rugby union clubs anywhere in the world — Grove Park's clubhouse bar fills long before either the men's or women's side kick off.",
       "suggestedDate": "2026-10-22",
       "status": "pending",
@@ -3880,11 +3999,131 @@
       "lat": 53.3943,
       "lon": -2.3504,
       "base": 72,
-      "bands": ["evening"],
+      "bands": [
+        "evening"
+      ],
       "reason": "Founded 1914 with its first night at Altrincham's old Public Hall, now running two stages of its own on Barrington Road — a 401-seat house and the smaller Lauriston Studio, five mainhouse productions deep into its own season.",
       "suggestedDate": "2026-10-22",
       "status": "pending",
       "researchNotes": "Found via this run's tile-coverage tally: 'Theatre' (performing-arts/black-box-theater types) sits at 10 real Manchester/Cheshire matches, moderately thin given how many districts share it. Verified via Wikipedia (Altrincham Garrick), the Theatres Trust database and the Garrick's own site (altrinchamgarrick.co.uk): the Altrincham Garrick Society, founded 1914 (first production 'The Silver Box', March 1914, at Altrincham's Public Hall), now runs its own purpose-built theatre at Barrington Road, Altrincham WA14 1HZ — a 401-seat main auditorium plus the 49-seat Lauriston Studio. Explicitly checked against and confirmed distinct from the already-live 'Altrincham Little Theatre' (docs/data/venues.json) — a separate society founded 1896, housed in a converted Methodist chapel, with its own different address; multiple independent sources (including the Garrick's own site) draw this distinction directly, so this is not a duplicate under another name. A registered-charity amateur theatre society running its own building, not a commercial chain — no Hard rule 1 concern. Coordinates (53.3943/-2.3504) from the WA14 1HZ postcode centroid (web search; postcodes.io/doogal.co.uk both blocked this session) — flagged for the reviewer to tighten if precise geocoding becomes available. Reuses the existing PERFORMING ARTS type (Hope Mill Theatre, Altrincham Little Theatre, Royal Exchange Theatre). High confidence — well-documented, long-established, currently producing (marking its 130th-anniversary season per current coverage), no closure signal."
+    },
+    {
+      "name": "Moo Bou",
+      "district": "heaton-moor",
+      "type": "FASHION BOUTIQUE",
+      "spend": "££",
+      "lat": 53.422,
+      "lon": -2.187,
+      "base": 62,
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
+      "reason": "Sixteen years of personal styling consultations on Heaton Moor Road, for women who stopped trusting algorithms to dress them a long time ago.",
+      "suggestedDate": "2026-10-23",
+      "status": "pending",
+      "researchNotes": "Verified via manchestersfinest.com (listing as 'Moo Bou', 127 Heaton Moor Road, SK4, phone 0161 546 7930, Tue-Sat trading) and confidentials.com's Heatons weekend guide, which independently names it among Heaton Moor Road's ladies-fashion shops as 'Moo Boutique'. Established 16 years ago per the Manchester's Finest listing; independent womenswear brand, single site, no chain footprint found anywhere in searches. Coordinates are a street-level estimate on Heaton Moor Road (no precise geocode available this session; postcodes.io blocked by the egress proxy), anchored against this file's own existing Heaton Moor Road venues (Heaton Social/Cure Bistro/Eden cluster, Beer Shop) — flag for the reviewer to tighten if precise geocoding becomes available. Reuses the existing FASHION BOUTIQUE type (Nichols & Co, By AdiVa, etc.). Closes a real Do/Clothes-shopping gap in Heaton Moor, which currently has no shopping-tile venue at all. High confidence — long-established, independently documented, no closure signal."
+    },
+    {
+      "name": "97",
+      "district": "chorlton",
+      "type": "COCKTAIL BAR",
+      "spend": "£££",
+      "lat": 53.4388,
+      "lon": -2.2805,
+      "base": 74,
+      "bands": [
+        "evening",
+        "late"
+      ],
+      "reason": "A playing-card cocktail menu next door to the Lead Station on Beech Road — the quieter, more considered sibling, not the overflow room.",
+      "suggestedDate": "2026-10-23",
+      "status": "pending",
+      "researchNotes": "Verified via creativetourist.com ('97 Chorlton'), tasteofmanchester.com, manchesterwire.co.uk and a CAMRA listing (97 Beech Rd, Chorlton-cum-Hardy, M21 9EQ — exact address, high-confidence coordinates). Opened spring 2023 from the team behind The Lead Station (Beech Road, since 1995) and Tariff & Dale (Dale Street, Manchester city centre) — three sites total, all Manchester-only (two in Chorlton, one in the city centre), a long-running local group rather than an expanding chain; no sites outside Manchester found anywhere in searches. Passes Gate 1 cleanly (independent, characterful cocktail den, not mass-market); Gate 2 distinctiveness moderate given the shared ownership, noted for the reviewer's own judgement. Checked against docs/data/venues.json and venue-suggestions.json by name — not a duplicate (distinct from the real Chorlton venues The Chorlton Tap/Bar San Juan/The Jane Eyre Chorlton and from every existing Chorlton suggestion). No closure signal found; most recent coverage (an undated but clearly current cocktail-menu relaunch piece) reads as still trading."
+    },
+    {
+      "name": "Bohemian Arts Club",
+      "district": "stockport-underbanks",
+      "type": "SPEAKEASY",
+      "spend": "£££",
+      "lat": 53.4085,
+      "lon": -2.1565,
+      "base": 80,
+      "bands": [
+        "evening",
+        "late"
+      ],
+      "reason": "Three floors behind a speakeasy entrance on Coopers Brow, the art deco room upstairs designed by the owner herself from bars she'd actually drunk in abroad.",
+      "suggestedDate": "2026-10-23",
+      "status": "pending",
+      "researchNotes": "Verified via marketingstockport.co.uk, creativetourist.com and classbarmag.com: Bohemian Arts Club, a three-storey cocktail den reached by a speakeasy-style entrance on Coopers Brow (building fronts Lower Hillgate), opened mid-2023, owned and designed by Tom Ogden (Blossoms' frontman) and his wife Katie. Katie's other business is a hairdressing salon in Hazel Grove (a different industry entirely, not a second hospitality site) — this venue itself is single-site. Passes Hard rule 1 cleanly: independent, owner-run, no hospitality chain footprint. Coordinates are a street-level estimate for Coopers Brow/Lower Hillgate within the Underbanks (no precise geocode available this session), anchored against this file's existing Underbanks venues (The Warren, Bar Caput). Reuses the existing SPEAKEASY type (Blinker, Riddles, The Blind Pig). Checked by name against both the real venues file and every existing suggestion (including the already-promoted Stockport Underbanks finds) — not a duplicate. No closure signal found."
+    },
+    {
+      "name": "Yallah",
+      "district": "hale",
+      "type": "LEBANESE RESTAURANT",
+      "spend": "£££",
+      "lat": 53.3775,
+      "lon": -2.3465,
+      "base": 68,
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
+      "reason": "Started as a home kitchen and a food truck before Crown Passages gave the family four walls — Mediterranean plates with a Lebanese spine, built on a decade of feeding Altrincham before Hale got a table.",
+      "suggestedDate": "2026-10-23",
+      "status": "pending",
+      "researchNotes": "Verified via halebarns.com's opening piece: Yallah, a Mediterranean-Lebanese-British fusion restaurant at 4 Crown Passages, Hale (behind Sainsbury's, off Ashley Road), opened 12 July 2024 by Altrincham couple Souhyb and Rose Masri, who grew the business from a home kitchen through event catering and a food truck before taking the unit. Single site, no chain footprint found. Reuses the existing LEBANESE RESTAURANT type (Ishbilia, London) as the closest fit for the Lebanese-led fusion menu — noted in this entry's reason copy that it's broader than pure Lebanese. Coordinates anchored against this file's existing Hale venues on the same Ashley Road/Crown Passages cluster (Charlie Brown's Hale, Butchers Bar). Checked by name against both files — not a duplicate (distinct from the real venue Charlie Brown's Hale, which a separate search for this run nearly duplicated before the address was checked). Over a year of continuous trading as of this research date — not a 'coming soon' risk. No closure signal found."
+    },
+    {
+      "name": "WooTea",
+      "district": "chinatown",
+      "type": "DESSERT CAFE",
+      "spend": "£",
+      "lat": 53.4789,
+      "lon": -2.2402,
+      "base": 58,
+      "bands": [
+        "afternoon",
+        "evening"
+      ],
+      "reason": "Real fruit, not powder, in the only Woo Tea outside London — Chinatown's answer when George Street already had the bakeries covered.",
+      "suggestedDate": "2026-10-23",
+      "status": "pending",
+      "researchNotes": "Verified via manchestersfinest.com and manchesterwire.co.uk: WooTea, 44 George Street, Chinatown, Manchester — a bubble tea and Asian snacks shop using real fruit rather than powder. Established in London in 2016, with this Manchester branch described in two independent sources as 'the only branch outside of London' — a single sibling location in another city, the precedent this project's own notes already set for Craig's/Ivy Spinningfields, not a multi-city chain footprint. Coordinates anchored against this file's existing Chinatown venues cluster (K2 Karaoke, Little Yang Sing, Yuzu). Reuses the existing DESSERT CAFE type, previously only used for Riyadh venues — first UK use, a reasonable fit for a dessert/bubble-tea concept. Checked by name against both files — not a duplicate. Sources are a few years old (circa 2021 opening coverage); no closure signal found, but flagged for the reviewer given the gap since the most recent confirming source."
+    },
+    {
+      "name": "Sifters Records",
+      "district": "didsbury",
+      "type": "RECORD SHOP",
+      "spend": "£",
+      "lat": 53.419,
+      "lon": -2.219,
+      "base": 60,
+      "bands": [
+        "afternoon"
+      ],
+      "reason": "Still the shop Noel Gallagher namechecked on 'Shakermaker' — Pete Howard's been behind the counter on Fog Lane since 1983, same as ever.",
+      "suggestedDate": "2026-10-23",
+      "status": "pending",
+      "researchNotes": "Verified via britishrecordshoparchive.org, a April-2025 manchesterwire.co.uk piece ('still going strong') and thevinyldistrict.com (2024, owner Pete Howard confirmed still behind the counter): Sifters Records, 177 Fog Lane, Didsbury/Burnage border, M20 6FJ — second-hand vinyl shop trading from the same premises since 1983, the real-world shop referenced in Oasis's 'Shakermaker' lyric. Single site, no chain footprint. Coordinates are a street-level estimate for Fog Lane, south-east of Didsbury Village (no precise geocode available this session). Reuses the existing RECORD SHOP type (Kingbee Records, SK1 Records). Checked by name against both files — not a duplicate. Most recent confirming source dated April 2025 — no closure signal found."
+    },
+    {
+      "name": "Steranko",
+      "district": "didsbury",
+      "type": "BOUTIQUE",
+      "spend": "£££",
+      "lat": 53.4262,
+      "lon": -2.2422,
+      "base": 62,
+      "bands": [
+        "morning",
+        "afternoon"
+      ],
+      "reason": "Three decades of curated menswear and womenswear on Burton Road, built on brands you haven't heard of yet and one or two you have.",
+      "suggestedDate": "2026-10-23",
+      "status": "pending",
+      "researchNotes": "Verified via confidentials.com ('Steranko shop review'), nudiejeans.com's 'Local Heroes' feature and a current Burton Road business directory blurb: Steranko, 172 Burton Road, West Didsbury, M20 1LH — independent menswear/womenswear boutique run by owner Pete Parry, trading roughly three decades, curated heritage and lesser-known labels. Single site, no chain footprint found. Coordinates anchored against this file's existing Burton Road cluster (Volta, FOLK, Saison). Reuses the existing BOUTIQUE type (Moth, a separate pending Didsbury suggestion at a different Burton Road address). Checked by name against both files — not a duplicate. No closure signal found."
     }
   ]
 }
