@@ -4124,6 +4124,58 @@
       "suggestedDate": "2026-10-23",
       "status": "pending",
       "researchNotes": "Verified via confidentials.com ('Steranko shop review'), nudiejeans.com's 'Local Heroes' feature and a current Burton Road business directory blurb: Steranko, 172 Burton Road, West Didsbury, M20 1LH — independent menswear/womenswear boutique run by owner Pete Parry, trading roughly three decades, curated heritage and lesser-known labels. Single site, no chain footprint found. Coordinates anchored against this file's existing Burton Road cluster (Volta, FOLK, Saison). Reuses the existing BOUTIQUE type (Moth, a separate pending Didsbury suggestion at a different Burton Road address). Checked by name against both files — not a duplicate. No closure signal found."
+    },
+    {
+      "name": "Blanc de Blancs",
+      "district": "bramhall",
+      "type": "WINE BAR",
+      "spend": "££££",
+      "lat": 53.358,
+      "lon": -2.1663,
+      "base": 75,
+      "bands": [
+        "afternoon",
+        "evening",
+        "late"
+      ],
+      "reason": "Champagne, fine wine, gin and whisky in a shop that doubles as the bar — Village Square's first proper place to actually sit down with the bottle instead of just buying it.",
+      "suggestedDate": "2026-10-24",
+      "status": "pending",
+      "researchNotes": "Verified via placenorthwest.co.uk (lease/opening coverage: 'a classy combination of wine shop and wine bar... focusing on champagne, fine wine, gin and whisky') and a live Yelp listing carrying a genuine review ('Very nice neighbourhood cocktail bar', drinks around £8-9) confirming it's actually trading now, not just announced. Run by Emma Bailie and Alex Buxton, who already operate a wine shop and bar in Garstang, Lancashire — one sibling site well outside Curia's coverage area, the same single-sibling-elsewhere precedent as Craig's/Ivy Spinningfields under Hard rule 1, not a chain footprint. Coordinates anchored to Bramhall Village Square (The Bramhall Centre, SK7 1AW), the same precinct as this file's existing Pix Pizza/Amici/78 Degrees real venues. Checked by name against venues.json and venue-suggestions.json (every status) — not a duplicate of The Bottle Stop or Bramhall Lounge, the two other Village Square Drink entries already promoted here. Reuses the existing WINE BAR type."
+    },
+    {
+      "name": "The Moose",
+      "district": "hale",
+      "type": "WINE BAR",
+      "spend": "££",
+      "lat": 53.3772,
+      "lon": -2.3465,
+      "base": 70,
+      "bands": [
+        "evening",
+        "late"
+      ],
+      "reason": "An Alpine-themed snug on Ashley Road pouring cask ale from independent breweries where the village had only ever had Robinson's and Sam Smith's tied houses — the charcuterie boards are an afterthought, the beer isn't.",
+      "suggestedDate": "2026-10-24",
+      "status": "pending",
+      "researchNotes": "Verified via placenorthwest.co.uk (opening coverage: former bookshop at 193 Ashley Road, Hale village, let to The Little Deli Company for its second venture) and CAMRA's Trafford & Hulme branch write-up (runner-up, Best Newcomer Award, praised specifically for bringing cask ale from independent breweries to a village previously served only by Robinson's and Sam Smith's). Run by The Little Deli Company (Chris Cunliffe); its first venture is a deli on Stamford Park Road, Hale (42 Stamford Park Road, WA15 9EP — not in Curia's catalog, a different type of business entirely). A further Chorlton branch of The Moose itself also exists — one additional sibling, within Curia's own metro but a different district, deliberately not added here — judged within Hard rule 1's single-sibling-elsewhere precedent since only this one Hale location is being suggested, the same call made for Craig's/Ivy Spinningfields. Coordinates anchored to the existing Ashley Road cluster (Victors/Butchers Bar/InHale Yoga, all within this same stretch). Checked by name against both files — not a duplicate. Reuses the existing WINE BAR type (craft beer leads the pour but the branding and CAMRA framing are wine-bar-plus-cask-ale; closest existing fit)."
+    },
+    {
+      "name": "Cona Steakhouse",
+      "district": "ancoats",
+      "type": "STEAKHOUSE",
+      "spend": "££££",
+      "lat": 53.4849,
+      "lon": -2.2281,
+      "base": 84,
+      "bands": [
+        "evening",
+        "late"
+      ],
+      "reason": "A halal steakhouse that's been quietly serious about its meat since 2014 in Bradford's Little Germany, now doing the same on Blossom Street — no pork on the premises, no compromise on the char.",
+      "suggestedDate": "2026-10-24",
+      "status": "pending",
+      "researchNotes": "Verified via manchestersfinest.com (May 2025, reporting it open on the former NAM site, Blossom Street/Cutting Room Square), a Yorkshire Food Guide review of the original Bradford restaurant (20 East Parade, Little Germany — founded 2014, co-owned by Imran) and creativetourist.com's Manchester listing. Two sites total (the Bradford original plus this Ancoats one) — a single sibling in another city, the same precedent already applied to Craig's/Ivy Spinningfields under Hard rule 1, not a multi-city chain or franchise rollout. No existing venue type fits a dedicated steakhouse precisely — FINE DINING implies a more formal tasting-driven register this isn't, and FIRE GRILL is reserved for the Riyadh grill concept — so STEAKHOUSE is introduced as a new type here. Coordinates match this file's existing Nam/Blossom Street Social entries (both 53.48494,-2.228206), the Blossom Street/Cutting Room Square site Cona took over from NAM. Checked by name against both files — not a duplicate."
     }
   ]
 }
