@@ -159,6 +159,37 @@
         ],
         "reason": "A former bank branch turned beer hall and soundsystem room at the crossroads of the two Underbanks — Pomona Island and Runaway on tap, and a rig loud enough that conversation moves to the beer garden after ten."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-24",
+      "reason": "Real, well-documented current trading (a May 2026 festival listing names it as a participating venue) sits alongside a genuine, separate ownership-instability signal (an undated business-for-sale listing citing the owners' desire to exit, plus a 2021-signed 3-year lease with no confirmed renewal found) — not a closure, but enough real conflicting signal that a confident promote/reject call isn't honest here.",
+      "researchNotes": "The candidate's own researchNotes already flagged this explicitly ('the reviewer should re-confirm current trading/ownership directly before promoting'). Independent re-check (WebSearch, 2026-10-24) found the same two things: creativetourist.com/tasteofmanchester.com confirm the 2021 opening (Units K, L, M, Deansgate Mews, 253 Deansgate, M3 4EN, the Alvarium team, free-of-tie) and a Hiltonsmythe business-for-sale listing describes the owners wanting to exit the industry; no 2026-dated customer review or closure announcement was found either way beyond the Mews Fest listing already cited. No chain-footprint concern (single site, passes Hard rule 1 cleanly) — the open question is purely whether it's still the same going concern right now, which this review couldn't settle with confidence from publicly available sources.",
+      "payload": {
+        "name": "The Mews Bar and Charcuterie",
+        "district": "deansgate",
+        "type": "WINE BAR",
+        "spend": "£££",
+        "lat": 53.4764,
+        "lon": -2.2505,
+        "base": 78,
+        "bands": ["afternoon", "evening", "late"],
+        "reason": "Free-of-tie behind the Great Northern, a wine list built around small independent producers with proper charcuterie boards doing the talking instead of a kitchen menu."
+      }
+    },
+    {
+      "itemType": "remove_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-24",
+      "reason": "Not from today's rotating closure-audit slice, but a genuine closure signal found incidentally while independently re-verifying a new venue candidate (Mielle, Ancoats, promoted today): two separate research passes, a few days apart, both independently found that Mielle has taken over the exact unit this file's already-live 'Blossom Street Social' (Ancoats, WINE BAR) entry occupies, with one citing a CAMRA-dated transition ('previously trading 2019-June 2026').",
+      "researchNotes": "51 Blossom Street, Ancoats — the address this catalogue already has seeded for Blossom Street Social. Both of today's two independent Mielle candidate write-ups (suggestedDate 2026-10-10 and 2026-10-12) name this as the former Blossom Street Social site, one citing CAMRA's own dating of the handover (Blossom Street Social trading 2019 through June 2026, Mielle opening July 2026). Not independently re-confirmed against Blossom Street Social's own current listings directly in this run (time did not allow a dedicated search beyond what the two candidate write-ups already found), so going to Pending Review rather than being auto-removed, per this job's own closures-always-go-to-review rule regardless of confidence.",
+      "payload": {
+        "name": "Blossom Street Social",
+        "district": "ancoats"
+      }
     }
   ]
 }

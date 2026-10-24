@@ -277,6 +277,24 @@
         { "label": "Closure audit (indices 28-32: Wiltons, Franco's, Chris Beetles Gallery, Spencer House, The Globe)", "detail": "not completed — could not find real evidence either way, so nothing written rather than guessing" }
       ],
       "createdAt": "2026-09-17T09:20:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-24",
+      "synced": false,
+      "title": "Backlog catch-up: 162 venues + 5 Cheshire/Manchester districts promoted; 4 rejected; 2 sent for review",
+      "summary": "This job did not actually run (or its runs did nothing) between 2026-09-17 and the 2026-10-12 manual backlog push the user made directly into Curia Command — 167 pending venue candidates and 5 pending district candidates (Frodsham, Sale, Marple, Bollington, Hale Barns) had piled up untouched since. This run independently re-verified all of them with fresh eyes rather than trusting the prior agent's own notes: promoted 162 venues and all 5 districts straight to master, rejected 4 (Reserve Wines, Altrincham, correctly identified as a real 4-site chain on fresh search after this candidate's own research undercounted it as a 2-site pair — a companion candidate in the same queue had already excluded it correctly, so this resolves a real internal contradiction; plus 3 duplicate re-discoveries of the same real venues — Bottle/Heaton Moor, Alfredo's Social/Stockport Underbanks, Mielle/Ancoats — each found independently twice by the research pipeline a few days apart), and sent 2 to Pending Review: The Mews Bar and Charcuterie (Deansgate, genuine conflicting ownership-stability signal) and a closure candidate (Blossom Street Social, Ancoats) found incidentally because both Mielle write-ups independently say Mielle took over its exact unit. Also flagged two pre-existing gaps out of this run's own scope: Curia Command's pending_review collection had zero decided items to apply (read_db confirmed reachable and empty); and docs/data/district-suggestions.json marks Lymm/Ramsbottom/Monton as 'promoted' via an admin pipeline that, on inspection, never actually added them to the real docs/data/districts.json — they don't exist in the live district list despite their suggestion-queue status, a discrepancy from before this run that needs a human decision, not a unilateral fix. Most of today's 162 promoted venues could not be given real petFriendly/dietaryOptions research (unlike earlier runs' practice) because the source candidate notes themselves mostly stopped including it somewhere in this backlog — defaulted conservatively (petFriendly: false, dietaryOptions: ['none']) rather than guessed, flagged here as a known gap rather than silently papered over. Today's rotating closure-audit slice (Church Inn/Mobberley, Aldeli/Alderley Edge, Hallé St Peter's/Ancoats, BAB NQ/Northern Quarter, Smolensky Gallery/Spinningfields) found no closures.",
+      "items": [
+        { "label": "162 venues across all districts in the backlog", "detail": "promoted — independently re-verified (Hard rule 1, duplicates, schema, coordinates, brand voice); see docs/data/venues.json for the full list" },
+        { "label": "Frodsham, Sale, Marple, Bollington, Hale Barns (new districts)", "detail": "promoted — all 5 independently re-verified as genuine, distinct places with real sourcing, not overlapping existing districts" },
+        { "label": "Reserve Wines (Altrincham)", "detail": "rejected — fresh search confirms a real 4-site chain (West Didsbury, Altrincham, Mackie Mayor, Macclesfield), contradicting this candidate's own 'two sites' claim and consistent with a companion candidate that had already excluded it correctly" },
+        { "label": "Bottle (Heaton Moor) / Alfredo's Social (Stockport Underbanks) / Mielle (Ancoats)", "detail": "each rejected once as a duplicate — the same real venue independently suggested twice; the better-documented copy of each was promoted instead" },
+        { "label": "The Mews Bar and Charcuterie (Deansgate)", "detail": "sent for review — current trading looks real (a May 2026 festival listing) but a separate for-sale/lease-expiry signal leaves genuine doubt" },
+        { "label": "Blossom Street Social (Ancoats)", "detail": "sent for review as a closure candidate — found incidentally, not from today's rotating slice; two independent Mielle research passes both say Mielle took over this exact address" },
+        { "label": "Lymm / Ramsbottom / Monton district-suggestion discrepancy", "detail": "flagged, not fixed — marked 'promoted' in docs/data/district-suggestions.json but absent from the real docs/data/districts.json; needs a human decision on how it got out of sync" },
+        { "label": "Closure audit (Church Inn/Mobberley, Aldeli/Alderley Edge, Hallé St Peter's/Ancoats, BAB NQ/Northern Quarter, Smolensky Gallery/Spinningfields)", "detail": "no closures found" }
+      ],
+      "createdAt": "2026-10-24T00:00:00Z"
     }
   ]
 }
