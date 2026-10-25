@@ -190,6 +190,25 @@
         "name": "Blossom Street Social",
         "district": "ancoats"
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-25",
+      "reason": "Real and multiply corroborated as a going concern inside Clarence Mill, but neither the original candidate's research nor this independent re-check could find any 2026-dated confirmation it's still operating — not a closure signal either, just genuinely thin, stale sourcing on current status.",
+      "researchNotes": "Independently re-verified via WebSearch 2026-10-25: Northern Makes Gallery is a real, independent artist-led gallery and crafts shop at Studio 9, Canalside, Clarence Mill, Bollington SK10 5JZ, alongside Café Waterside and the Bollington Discovery Centre in the same converted mill — single-site, artist-led, passes Hard rule 1 cleanly on chain-footprint grounds. However, no source found in either pass carries a 2026 date: the most recent independently-dated exhibition listing is from 2024, and no current hours, social media activity or trading confirmation specific to 2026 turned up. The candidate's own researchNotes already flagged this ('worth the reviewer's own current-status check before promotion') and this re-check didn't settle it either way, so it's going to Pending Review rather than being promoted or rejected on a guess.",
+      "payload": {
+        "name": "Northern Makes Gallery",
+        "district": "bollington",
+        "type": "ART GALLERY",
+        "spend": "£",
+        "lat": 53.3005,
+        "lon": -2.1006,
+        "base": 58,
+        "bands": ["afternoon"],
+        "reason": "Artist-led and canalside inside Clarence Mill, selling the work rather than just hanging it — Bollington's actual answer to a commercial gallery, one flight up from the Discovery Centre's looms."
+      }
     }
   ]
 }
