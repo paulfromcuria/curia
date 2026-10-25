@@ -295,6 +295,28 @@
         { "label": "Closure audit (Church Inn/Mobberley, Aldeli/Alderley Edge, Hallé St Peter's/Ancoats, BAB NQ/Northern Quarter, Smolensky Gallery/Spinningfields)", "detail": "no closures found" }
       ],
       "createdAt": "2026-10-24T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-25",
+      "synced": false,
+      "title": "9 venues promoted across Frodsham, Sale, Marple, Bollington and Hale Barns, closing all five to zero-venue gaps; 1 sent for review, 1 already-queued item untouched",
+      "summary": "Independently re-verified all 11 pending candidates in venue-suggestions.json (plus the 0 pending district candidates) and promoted 9: Helter Skelter and Castle Park Arts Centre (Frodsham), Waterside Arts Centre and Blanchflower Sale (Sale), All Things Nice Marple and Fold Bistro & Bottle Shop (Marple), The Lime Tree Bollington (Bollington), Ringway Golf Club and Hale Barns Cricket Club (Hale Barns) — all single-site or an already-precedented small sibling pair, no chain footprint found on fresh re-check. Northern Makes Gallery (Bollington) was genuinely unsure after independent re-checking — real and multiply corroborated as operating, but no 2026-dated confirmation found either in the original research or this re-check — sent to pending-review-queue.json rather than guessed. The Mews Bar and Charcuterie (Deansgate) already had a live pending-review-queue.json entry from 2026-10-24 (an ownership-stability flag), so left untouched rather than duplicated. Curia Command's pending_review collection (checked via read_db) had zero decided items to apply this run. The closure-audit rotating slice (Where the Light Gets In, Bruk, Stockport Market Hall — all Stockport Underbanks — plus FOLK and Marie Louise Gardens, Didsbury) found no closures.",
+      "items": [
+        { "label": "Helter Skelter (Frodsham)", "detail": "promoted — single-site CAMRA Pub of the Year-winning ale house (2025 branch winner, 2026 finalist)" },
+        { "label": "Castle Park Arts Centre (Frodsham)", "detail": "promoted — registered charity-run gallery, no chain risk by construction" },
+        { "label": "Waterside Arts Centre (Sale)", "detail": "promoted — Trafford Council-run civic theatre and gallery" },
+        { "label": "Blanchflower Sale (Sale)", "detail": "promoted — confirmed sister site of the Altrincham original, one small family operation" },
+        { "label": "All Things Nice Marple (Marple)", "detail": "promoted — confirmed original site of the already-documented Macclesfield sibling" },
+        { "label": "Fold Bistro & Bottle Shop (Marple)", "detail": "promoted — single-site; reason text rewritten to drop a named chef after re-check found conflicting 2024/2026 sources on who runs the kitchen" },
+        { "label": "The Lime Tree Bollington (Bollington)", "detail": "promoted — confirmed sibling of the already-live Didsbury Lime Tree, same chef-owner" },
+        { "label": "Ringway Golf Club (Hale Barns)", "detail": "promoted — active single-site members' golf club since 1908/1912" },
+        { "label": "Hale Barns Cricket Club (Hale Barns)", "detail": "promoted — active community cricket club, no chain structure" },
+        { "label": "Northern Makes Gallery (Bollington)", "detail": "sent for review — real and operating per multiple sources, but no 2026-dated confirmation found either pass" },
+        { "label": "The Mews Bar and Charcuterie (Deansgate)", "detail": "untouched — already has a live pending-review-queue.json entry from 2026-10-24, not re-queued" },
+        { "label": "Closure audit (Where the Light Gets In/Bruk/Stockport Market Hall, Stockport Underbanks; FOLK/Marie Louise Gardens, Didsbury)", "detail": "no closures found" }
+      ],
+      "createdAt": "2026-10-25T00:00:00Z"
     }
   ]
 }
