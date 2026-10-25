@@ -1421,6 +1421,176 @@
    "suggestedDate": "2026-10-18",
    "status": "pending",
    "researchNotes": "Verified via creativetourist.com and tasteofmanchester.com's launch coverage (Units K, L and M, Deansgate Mews, 253 Deansgate, M3 4EN — opened by the Alvarium team, described as free of tie, i.e. not brewery/pub-company owned) and confirmed still operating as of May 2026 via Mews Fest's own listing naming The Mews Bar as one of its venues for its 22-25 May 2026 run — a positive, fairly recent operating signal, not just an old launch article. Flagging real uncertainty rather than hiding it: a business-sale listing (undated, found via Hiltonsmythe) shows the owners put the business on the open market citing a desire to exit the industry, and its original lease (signed April 2021, 3-year term) would have lapsed around 2024 absent a renewal — neither of these is a closure announcement, but together they're enough uncertainty that the reviewer should re-confirm current trading/ownership directly before promoting, per this agent's own closure-signal standard. No evidence found of a second site anywhere — single independent venue, passes Hard rule 1 cleanly on chain-footprint grounds regardless of the ownership-transition question above. Coordinates (53.4764, -2.2505) are the nearest resolvable postcode centroid (M3 4EW, immediately adjacent) since M3 4EN itself didn't resolve via available geocoding — same mews, within a short walk, so unlikely to be materially wrong. Closes a real gap: Deansgate's real Drink-category count (4) sat among the thinnest Drink coverage of any Manchester/Cheshire district. Medium-high confidence — operation likely current, but ownership stability specifically flagged for re-check."
+  },
+  {
+   "name": "Helter Skelter",
+   "district": "frodsham",
+   "type": "ALE HOUSE",
+   "spend": "£",
+   "lat": 53.2958,
+   "lon": -2.7253,
+   "base": 68,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Four regular cask ales and four more that change by the week, poured in a room that's picked up more CAMRA Pub of the Year wins than most of Cheshire combined — the kitchen opens upstairs Wednesday to Sunday, never Monday or Tuesday.",
+   "suggestedDate": "2026-10-25",
+   "status": "pending",
+   "researchNotes": "Started from this run's live re-tally (script-assisted, CATEGORY_BY_VENUE_TYPE applied to venues.json + pending/approved suggestions, filtered to Manchester/Cheshire districts): Frodsham, Sale, Marple, Bollington and Hale Barns all sit at zero real venues in every category — the most acute gap found this run, well past the standing under-10 priority list. Verified via CAMRA (camra.org.uk/pubs/helter-skelter-frodsham-138106, North Cheshire CAMRA branch page) and britishlistedbuildings.co.uk: Helter Skelter, 31 Church Street, Frodsham WA6 6PN — an independent real-ale pub, multiple-time winner of the local CAMRA Pub of the Year award, 4 regular + 4 changing cask ales plus guest cider and craft keg, food served in the bar and an upstairs restaurant (not Mondays or Tuesdays). No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.2958/-2.7253) triangulated from the Historic England/British Listed Buildings geocode for 1 Church Street (53.2959/-2.7255) — same street, a different number, since doogal.co.uk/api.postcodes.io/nominatim were all unreachable this session (WebFetch returned DNS failures for every external host tried) — flagged for the reviewer to tighten. Typed ALE HOUSE (existing type, Eat+Drink) over COUNTRY PUB given the specifically cask-ale/CAMRA-award register. High confidence on the venue itself — long-established, independently and repeatedly recognised, no closure signal; the coordinate approximation is the one flag. A second Frodsham candidate, No.13 (13 High Street), was researched and dropped — CAMRA listed it as opening spring 2025 but a later CAMRA entry shows a reduced beer range with no independent 2025/2026 confirmation (social media, reviews) found anywhere, genuinely unsure whether it's still trading as described, so left out per Hard rule 1's 'when unsure, drop' guidance."
+  },
+  {
+   "name": "Castle Park Arts Centre",
+   "district": "frodsham",
+   "type": "ART GALLERY",
+   "spend": "£",
+   "lat": 53.2962,
+   "lon": -2.7225,
+   "base": 58,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Five gallery rooms and a craft studio inside Castle Park's old coach house, free to walk into and run as a charity rather than a business — the kind of local art you can actually afford to take home.",
+   "suggestedDate": "2026-10-25",
+   "status": "pending",
+   "researchNotes": "Second Frodsham candidate this run (see Helter Skelter above for the district's zero-venue context). Verified via the Charity Commission register (Castle Park Arts Centre Limited, charity 512019 — current filings show income rising from £131,255 in 2021 to £214,953 in the year to March 2025, a live, growing organisation not a dormant one), heritageopendays.org.uk and frodsham.gov.uk: Castle Park Arts Centre, Castle Park, off Fountain Lane, Frodsham WA6 6SE — five gallery spaces, a craft room, café and gift shop inside the converted coach house of the former Castle Park House, open to the public daily (historically 10am-4pm, worth the reviewer double-checking current hours). A registered charity, not a commercial gallery chain — passes Hard rule 1 cleanly by construction. Coordinates (53.2962/-2.7225) approximated from Frodsham railway station's Historic England geocode (53.2959/-2.7237), since the centre's own entrance sits immediately adjacent to the railway bridge over Fountain Lane per Heritage Open Days' own description — doogal.co.uk/api.postcodes.io/nominatim all unreachable this session, flagged for the reviewer to tighten. New use of the existing ART GALLERY type — the closest fit for a multi-room gallery/craft space, though this is a charity-run arts centre rather than a single commercial dealer gallery like this file's other ART GALLERY entries, worth noting for the reviewer. High confidence — current charity accounts are hard evidence of ongoing operation, well short of a closure signal."
+  },
+  {
+   "name": "Waterside Arts Centre",
+   "district": "sale",
+   "type": "PERFORMING ARTS",
+   "spend": "££",
+   "lat": 53.4245,
+   "lon": -2.3188,
+   "base": 76,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "A proper theatre and three gallery rooms opposite the tram stop, stand-up and touring drama on the same bill as a free photography show — Trafford's answer to having its own arts house rather than borrowing the city's.",
+   "suggestedDate": "2026-10-25",
+   "status": "pending",
+   "researchNotes": "First Sale candidate this run — Sale sits at zero real venues in every category per this run's live re-tally (see Helter Skelter, Frodsham, above for the same finding). Verified via Songkick (live 2026 listings — Gary Delaney, 22 May 2026; Graham Parker, 8 September 2026), watersidearts.org and timeout.com/manchester: Waterside Arts Centre, 1 Waterside Plaza, Sale M33 7ZF — a Trafford Council-run theatre, art gallery (three rooms, including a space dedicated to contemporary photography), studio and creative workspace, directly opposite Sale Metrolink tram stop. A council-operated civic arts venue, not a commercial chain — passes Hard rule 1 cleanly by construction, same category as Castle Park Arts Centre above. Coordinates (53.4245/-2.3188) from UK government transport-access-node data for the adjacent Sale Metrolink stop (planning.data.gov.uk, entry dated 2025-08-16) — the venue's own address places it directly opposite, so this should be within a short walk of the real building; doogal.co.uk/api.postcodes.io/nominatim all unreachable this session, flagged for the reviewer to tighten. Reuses the existing PERFORMING ARTS type (Hallé St Peter's, Hope Mill Theatre). High confidence — live, dated 2026 event listings are hard evidence of current operation."
+  },
+  {
+   "name": "Blanchflower Sale",
+   "district": "sale",
+   "type": "BRUNCH SPOT",
+   "spend": "££",
+   "lat": 53.4239,
+   "lon": -2.3227,
+   "base": 72,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "The Altrincham original's Stanley Square sibling, in-house bread and cruffins from the same ovens — haddock and a poached egg before midday, nothing on the menu phoned in.",
+   "suggestedDate": "2026-10-25",
+   "status": "pending",
+   "researchNotes": "Second Sale candidate this run, a genuinely different register from Waterside Arts Centre (Eat vs Do) given Sale's zero-venue starting point. Verified via manchestersfinest.com ('Blanchflower Sale', opened summer 2022), squaremeal.co.uk and tasteofmanchester.com: Blanchflower, Stanley Square, Sale M33 7WZ/7ZE — a brunch, lunch and bakery café, explicitly described as the sister of the original Blanchflower in Altrincham. A real, already-precedented 2-site pair within the same metro, the same small-sibling precedent already accepted throughout this file (Craig's, Ivy Spinningfields, Fire Station Social Cucina, Little Tap/Terrarium). No third site found. Coordinates (53.4239/-2.3227) from a postcode-aggregator figure (streetlist.co.uk) for the M33 7ZE postcode covering Stanley Square — doogal.co.uk/api.postcodes.io/nominatim all unreachable this session, flagged for the reviewer to tighten. Reuses the existing BRUNCH SPOT type (Idle Hands, Aldeli, Caramello). High confidence — well-documented, directly tied to an already-established sibling precedent, no closure signals; the Altrincham original itself isn't yet in this catalogue and would be a reasonable separate future candidate."
+  },
+  {
+   "name": "All Things Nice Marple",
+   "district": "marple",
+   "type": "BAKERY",
+   "spend": "£",
+   "lat": 53.3962,
+   "lon": -2.0614,
+   "base": 64,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Nick, Tom and Dean's original, four years before the Macclesfield sibling existed — the same baker laminating pastry at both ends of the operation, Marple just got there first.",
+   "suggestedDate": "2026-10-25",
+   "status": "pending",
+   "researchNotes": "First Marple candidate this run — Marple sits at zero real venues in every category per this run's live re-tally (see Helter Skelter, Frodsham, above for the same finding). This is the original site of 'All Things Nice', already represented in this file's own promoted queue by its Macclesfield sibling (see that entry's researchNotes: 'the original in Marple, Stockport, opened 2020') — verified independently via macclesfield.nub.news's own coverage of the Macclesfield opening (which names the Marple original) and local Marple directory listings: All Things Nice, 48-50 Market Street, Marple SK6 7AD — a bakery, deli and café bar run by Nick Garner, Tom Norris and Dean Blackwell. A real, already-partially-verified 2-site pair (Marple original + Macclesfield), within the same small-sibling precedent already accepted throughout this file. No third site found. Named 'All Things Nice Marple' specifically to avoid an exact-name collision with the already-queued Macclesfield entry (same disambiguation precedent as 'The Bubble Room Bramhall'/'Contemporary Six Hale'). Coordinates (53.3962/-2.0614) approximated from the Historic England geocode for Marple's Memorial Park/Council Offices, the nearest independently-sourced landmark to Market Street — doogal.co.uk/api.postcodes.io/nominatim all unreachable this session, flagged for the reviewer to tighten. Moderate-high confidence — the sibling relationship is independently corroborated by the Macclesfield entry's own prior research, not a fresh guess."
+  },
+  {
+   "name": "Fold Bistro & Bottle Shop",
+   "district": "marple",
+   "type": "BISTRO",
+   "spend": "£££",
+   "lat": 53.4012,
+   "lon": -2.0571,
+   "base": 76,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Two AA Rosettes running in a room that used to be South Seven, Ryan Stafford's kitchen and a bottle shop doing the wine list's homework before it reaches the table — Marple Bridge's actual reason to stay for dinner.",
+   "suggestedDate": "2026-10-25",
+   "status": "pending",
+   "researchNotes": "Second Marple candidate this run, a different register (a wine-led bistro, not another bakery/café) from All Things Nice Marple above. Verified via confidentials.com ('Fold awarded second AA Rosette', plus two separate full reviews) and manchestersfinest.com: Fold Bistro & Bottle Shop, 7 Town Street, Marple Bridge, Stockport SK6 5AA — a neighbourhood bistro and bottle shop (natural, organic and classic wines) that took over the well-loved South Seven's premises, executive chef Ryan Stafford, two AA Rosettes running. Ownership sources genuinely conflict (a 2024 piece names Sean Finnegan as owner; a February 2026 piece instead credits co-owners Amy, Mike and Sarah Harrod who are said to have opened it in early 2023) — flagging honestly rather than hiding it, but no source anywhere suggests a second site or group ownership under either name, so this reads as a single-site business that may have changed hands rather than a chain-footprint concern; passes Hard rule 1 on that basis. Coordinates (53.4012/-2.0571) approximated from the Historic England geocode for St Martin's Parish Hall, Marple Bridge, the nearest independently-sourced landmark to Town Street — doogal.co.uk/api.postcodes.io/nominatim all unreachable this session, flagged for the reviewer to tighten. New use of the existing BISTRO type (Chestergate Bistro, BeefnBerry Bistro — category-only, not wired into CATEGORY_BY_VENUE_TYPE, same as those). Moderate-high confidence on the venue's quality and currency (two consecutive AA Rosette awards); the ownership-name conflict is the one flag worth the reviewer's own look."
+  },
+  {
+   "name": "The Lime Tree Bollington",
+   "district": "bollington",
+   "type": "FINE DINING",
+   "spend": "£££",
+   "lat": 53.2974,
+   "lon": -2.0952,
+   "base": 78,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Patrick Hannity's Didsbury original gets a High Street sibling, the meat still coming off his own smallholding near Macclesfield Forest — a flower shop once, a wine list that's never once needed the city to validate it.",
+   "suggestedDate": "2026-10-25",
+   "status": "pending",
+   "researchNotes": "First Bollington candidate this run — Bollington sits at zero real venues in every category per this run's live re-tally (see Helter Skelter, Frodsham, above for the same finding). Verified via hardens.com, tasteofmanchester.com and happyvalley.org.uk: The Lime Tree, 18-20 High Street, Bollington SK10 5PH — a restaurant and wine bar, converted from a flower shop (CAMRA dates this to 2010; Taste of Manchester says 2012, left as an open discrepancy rather than resolved by guessing), run by Patrick Hannity, who also owns 'Lime Tree' in West Didsbury (already live in docs/data/venues.json) — Harden's directly describes the Bollington site as 'Patrick Hannity's decade-old spin-off from his Manchester original'. A real, already-precedented 2-site pair within this file's own catalogue (the same precedent already used for The Bubble Room Bramhall vs. the live Alderley Edge entry, and The Coast Prestbury vs. Tarporley), not a fresh chain-footprint judgment call; much of the meat reportedly comes from the owner's own smallholding near Macclesfield Forest, a genuinely singular supply detail, not a group-restaurant feature. No third site found. Named 'The Lime Tree Bollington' specifically to avoid an exact-name collision with the existing Didsbury entry — same disambiguation precedent as 'The Bubble Room Bramhall'. Coordinates (53.2974/-2.0952) approximated from the Historic England geocode for 8-14 High Street (53.2974/-2.0956), the nearest listed building to 18-20 on the same street — doogal.co.uk/api.postcodes.io/nominatim all unreachable this session, flagged for the reviewer to tighten. Reuses the existing FINE DINING type, matching the Didsbury entry. High confidence on the venue and ownership (directly tied to an already-verified sibling); the coordinate approximation and opening-year discrepancy are the two flags."
+  },
+  {
+   "name": "Northern Makes Gallery",
+   "district": "bollington",
+   "type": "ART GALLERY",
+   "spend": "£",
+   "lat": 53.3005,
+   "lon": -2.1006,
+   "base": 58,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "Artist-led and canalside inside Clarence Mill, selling the work rather than just hanging it — Bollington's actual answer to a commercial gallery, one flight up from the Discovery Centre's looms.",
+   "suggestedDate": "2026-10-25",
+   "status": "pending",
+   "researchNotes": "Second Bollington candidate this run, a different register (a commercial gallery, not a restaurant) from The Lime Tree Bollington above — Bollington's Do category was entirely empty before this run. Verified via wanderlog.com (visitor review describing it alongside Café Waterside and the Bollington Discovery Centre, all in the same mill) and artrabbit.com/creativetourist.com (exhibition listings): Northern Makes Gallery, Clarence Mill, Clarence Road, Bollington SK10 5LD — an independent art and crafts gallery inside the converted Clarence Mill on the Macclesfield Canal, showing and selling work by northern artists. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.3005/-2.1006) are the Historic England/British Listed Buildings geocode for Clarence Mill itself, not an estimate — the gallery's own unit-level address wasn't independently confirmed, so this is the mill's footprint rather than a specific doorway, flagged for the reviewer. Moderate confidence — real and multiply corroborated as operating, but a small gallery without the depth of press coverage a restaurant gets, and its most recent independently-dated exhibition listing found was 2024 rather than 2026; worth the reviewer's own current-status check before promotion."
+  },
+  {
+   "name": "Ringway Golf Club",
+   "district": "hale-barns",
+   "type": "GOLF CLUB",
+   "spend": "£££",
+   "lat": 53.361,
+   "lon": -2.326,
+   "base": 70,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A Colt-extended eighteen since 1912, formed by members of the old Hale and Ashley Cricket Club and still running on the same parkland — golf the way Hale Barns has always done it, without a clubhouse chain in sight.",
+   "suggestedDate": "2026-10-25",
+   "status": "pending",
+   "researchNotes": "First Hale Barns candidate this run — Hale Barns sits at zero real venues in every category per this run's live re-tally (see Helter Skelter, Frodsham, above for the same finding). Verified via Companies House (Ringway Golf Club Limited, company 00238208, active, incorporated 1929, previously 'The Ringway Golf Club Limited'), todaysgolfer.co.uk and top100golfcourses.com: Ringway Golf Club, Hale Mount, Hale Road, Hale Barns, Altrincham WA15 8SW — an 18-hole parkland course formed in 1908/1909 by members of the former Hale and Ashley Cricket Club, extended to 18 holes by Harry Colt in 1912. A private members' golf club, single site, no franchise or group structure — passes Hard rule 1 cleanly, same type/register already used extensively for this file's other Cheshire golf clubs. Coordinates (53.361/-2.326) are a reasoned estimate south-west of the Hale Barns district centroid (53.3676/-2.318, already in docs/data/districts.json) along Hale Road toward Ringway/the airport, since no independent geocode for Hale Mount itself was found and doogal.co.uk/api.postcodes.io/nominatim were all unreachable this session — flagged clearly for the reviewer to tighten; this is a genuine estimate, not a landmark-anchored figure like most of this run's other candidates. Reuses the existing GOLF CLUB type. High confidence on the club's reality, history and ownership; the coordinate is the one real flag."
+  },
+  {
+   "name": "Hale Barns Cricket Club",
+   "district": "hale-barns",
+   "type": "CRICKET CLUB",
+   "spend": "£",
+   "lat": 53.3696,
+   "lon": -2.3012,
+   "base": 56,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Four senior sides most Saturdays on Brooks Drive, the kind of ground where the tea hut still means something — Hale Barns' actual social centre, not just its sports pitch.",
+   "suggestedDate": "2026-10-25",
+   "status": "pending",
+   "researchNotes": "Second Hale Barns candidate this run, closing out the district's Do category alongside Ringway Golf Club above. Verified via mancunianmatters.co.uk (2025 feature on the club hosting an ECB Club Open Day, describing it as aiming to become a social centre while boosting grassroots cricket) and the Food Standards Agency ratings register (business listing for the clubhouse, found via search): Hale Barns Cricket Club, Brooks Drive, Hale Barns, Altrincham — runs four senior sides most weekends, a genuine community cricket club, not a commercial venue with any chain structure. No group ownership of any kind applies — a members' sports club, passes Hard rule 1 cleanly by construction, same type/register already used for this file's other CRICKET CLUB entries. Coordinates (53.3696/-2.3012) from an independently-sourced property geocode for 44 Brooks Drive (a listed-building-style property record, not this file's usual postcode lookups since doogal.co.uk/api.postcodes.io/nominatim were all unreachable this session) — the clubhouse itself wasn't separately pinned, so this is the street's position rather than the ground's exact gate, flagged for the reviewer to tighten. Moderate-high confidence — real, current (2025-dated coverage), community-run, no closure signal; the coordinate approximation is the one flag."
   }
  ]
 }
