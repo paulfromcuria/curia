@@ -190,6 +190,44 @@
         "name": "Blossom Street Social",
         "district": "ancoats"
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-26",
+      "reason": "Two independently-sourced 2026 press pieces give conflicting owners for the same restaurant (one names Sean Finnegan, a later one names co-owners Amy, Mike and Sarah Harrod) and my own re-check turned up the same conflict rather than resolving it — the venue and its two AA Rosettes are real and current, but I can't honestly confirm who actually runs it today.",
+      "researchNotes": "Independently re-verified 2026-10-26 via confidentials.com (Feb 2026 piece naming Amy/Mike/Sarah Harrod as co-owners, opened early 2023) and an earlier confidentials.com piece (2024, naming Sean Finnegan as owner). Both are the same outlet, which makes the discrepancy harder to wave away as one source being stale. No evidence of a second site or group ownership under either name — the chain-footprint question (Hard rule 1) is clean either way; only who owns the single site is unresolved. 7 Town Street, Marple Bridge, Stockport SK6 5AA, took over the former South Seven premises, two consecutive AA Rosettes (confirmed current), head chef Jake Rossington (2026) / executive chef Ryan Stafford (per Manchester's Finest) — even the chef credit isn't fully consistent across sources. Coordinates approximated from the Historic England geocode for St Martin's Parish Hall, Marple Bridge (nearest independently-sourced landmark to Town Street) — flagged for tightening if promoted.",
+      "payload": {
+        "name": "Fold Bistro & Bottle Shop",
+        "district": "marple",
+        "type": "BISTRO",
+        "spend": "£££",
+        "lat": 53.4012,
+        "lon": -2.0571,
+        "base": 76,
+        "bands": ["afternoon", "evening"],
+        "reason": "Two AA Rosettes running in a room that used to be South Seven, the kitchen and a bottle shop doing the wine list's homework before it reaches the table — Marple Bridge's actual reason to stay for dinner."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-26",
+      "reason": "Real and multiply corroborated as an operating independent gallery, but every independently-dated confirmation I could find (and the original candidate's own research) tops out at 2024 — no 2025/2026 exhibition listing or review turned up on re-check, so I can't honestly call this 'current' rather than just 'not confirmed closed.'",
+      "researchNotes": "Independently re-checked 2026-10-26 (WebSearch): Wanderlog and macclesfieldcanal.org.uk corroborate the gallery's existence inside Clarence Mill, Clarence Road, Bollington SK10 5LD, alongside Café Waterside and the Bollington Discovery Centre in the same building — consistent with the original candidate's sourcing. No closure signal found either (no 'permanently closed' marker, no for-sale listing, no dead site), so this isn't a reject-as-bad case — it's a currency gap, not a red flag. No second site or group ownership found anywhere, so Hard rule 1 is clean if it is still trading. Coordinates are the mill's own Historic England/British Listed Buildings geocode, not a unit-level pin.",
+      "payload": {
+        "name": "Northern Makes Gallery",
+        "district": "bollington",
+        "type": "ART GALLERY",
+        "spend": "£",
+        "lat": 53.3005,
+        "lon": -2.1006,
+        "base": 58,
+        "bands": ["afternoon"],
+        "reason": "Artist-led and canalside inside Clarence Mill, selling the work rather than just hanging it — Bollington's actual answer to a commercial gallery, one flight up from the Discovery Centre's looms."
+      }
     }
   ]
 }

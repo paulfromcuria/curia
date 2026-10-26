@@ -295,6 +295,31 @@
         { "label": "Closure audit (Church Inn/Mobberley, Aldeli/Alderley Edge, Hallé St Peter's/Ancoats, BAB NQ/Northern Quarter, Smolensky Gallery/Spinningfields)", "detail": "no closures found" }
       ],
       "createdAt": "2026-10-24T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-26",
+      "synced": false,
+      "title": "12 venues promoted, 2 sent for review; pending_review empty; no closures found",
+      "summary": "Curia Command's pending_review collection had nothing decided to apply (read_db confirmed reachable and empty). Independently re-verified all 14 new pending entries from the 2026-10-25/26 research runs (Frodsham/Sale/Marple/Bollington/Hale Barns, the five under-10 districts): promoted 12 straight to venues.json after fresh web-search verification (chain footprint, duplicates, schema, coordinates, sourcing), and sent 2 to Pending Review where re-verification turned up genuine, unresolved conflicts rather than a clean pass or fail. The Mews Bar and Charcuterie (already queued from 2026-10-24) and Blossom Street Social (closure candidate, already queued) are unchanged — still awaiting a human decision. Today's closure-audit slice (5 Santorini venues) found no closure signals. Also carrying forward, unresolved, the discrepancy flagged in 2026-10-24's briefing: Lymm/Ramsbottom/Monton are still marked 'promoted' in docs/data/district-suggestions.json but still absent from the real docs/data/districts.json — a pre-existing sync gap, not something this run tried to fix unilaterally.",
+      "items": [
+        { "label": "Helter Skelter (Frodsham)", "detail": "promoted — independent real-ale pub, CAMRA Pub of the Year, single site, re-confirmed via CAMRA" },
+        { "label": "Castle Park Arts Centre (Frodsham)", "detail": "promoted — registered-charity gallery, re-confirmed active with 2026-dated exhibitions/meeting notices" },
+        { "label": "Next Door (Frodsham)", "detail": "promoted — Michelin Guide-listed, husband-and-wife team, single site, re-confirmed" },
+        { "label": "Waterside Arts Centre (Sale)", "detail": "promoted — Trafford Council-run theatre/gallery, re-confirmed via live 2026-dated event listings (May and September)" },
+        { "label": "Blanchflower Sale (Sale)", "detail": "promoted — genuine 2-site sibling of the Altrincham original, re-confirmed; noted for the record that the same team also runs a third, differently-named/branded spin-off (Little Blanchflower, Chorlton) worth knowing about if that one is ever suggested separately" },
+        { "label": "Kampasi (Sale)", "detail": "promoted — family-run small-plates room, single site, re-confirmed via OpenTable/SquareMeal" },
+        { "label": "Pray Tell (Sale)", "detail": "promoted — independent craft beer/natural wine bar, single site, re-confirmed via a Feb 2026 CAMRA survey" },
+        { "label": "All Things Nice Marple (Marple)", "detail": "promoted — the real original of the already-live Macclesfield sibling, re-confirmed as a genuine 2-site pair" },
+        { "label": "Samuel Oldknow (Marple)", "detail": "promoted — independent ale house since 2016, Asset of Community Value, single site, re-confirmed via CAMRA" },
+        { "label": "The Lime Tree Bollington (Bollington)", "detail": "promoted — genuine decade-old sibling of the already-live Didsbury Lime Tree, ownership re-confirmed via Harden's/Taste of Manchester" },
+        { "label": "Ringway Golf Club (Hale Barns)", "detail": "promoted — private members' club since 1908/1912, single site, re-confirmed via Companies House/Today's Golfer" },
+        { "label": "Hale Barns Cricket Club (Hale Barns)", "detail": "promoted — community cricket club, no chain structure, re-confirmed via recent (2025) coverage" },
+        { "label": "Fold Bistro & Bottle Shop (Marple)", "detail": "sent for review — two separate 2026 press pieces give conflicting current owners for the same single-site restaurant; re-check didn't resolve it either way" },
+        { "label": "Northern Makes Gallery (Bollington)", "detail": "sent for review — real, multiply corroborated gallery, but no 2025/2026-dated confirmation of current operation found on re-check, only 2024 and earlier" },
+        { "label": "Closure audit (Morenica Boutique/Imerovigli, Museum of Prehistoric Thera/Fira, Sunset Oia Sailing Cruises/Oia, Greek Cooking Class and Lunch with Areti/Oia, Ambrosia/Oia)", "detail": "no closures found — Ambrosia carries a stale 'temporarily closed' tag on one aggregator, but recent June 2026 diner visits clearly outweigh it" }
+      ],
+      "createdAt": "2026-10-26T00:00:00Z"
     }
   ]
 }

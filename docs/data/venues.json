@@ -11354,6 +11354,175 @@
    "dietaryOptions": [
     "none"
    ]
+  },
+  {
+   "name": "Helter Skelter",
+   "district": "frodsham",
+   "type": "ALE HOUSE",
+   "spend": "£",
+   "lat": 53.2958,
+   "lon": -2.7253,
+   "base": 68,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Four regular cask ales and four more that change by the week, poured in a room that's picked up more CAMRA Pub of the Year wins than most of Cheshire combined — the kitchen opens upstairs Wednesday to Sunday, never Monday or Tuesday."
+  },
+  {
+   "name": "Castle Park Arts Centre",
+   "district": "frodsham",
+   "type": "ART GALLERY",
+   "spend": "£",
+   "lat": 53.2962,
+   "lon": -2.7225,
+   "base": 58,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Five gallery rooms and a craft studio inside Castle Park's old coach house, free to walk into and run as a charity rather than a business — the kind of local art you can actually afford to take home."
+  },
+  {
+   "name": "Next Door",
+   "district": "frodsham",
+   "type": "FINE DINING",
+   "spend": "£££",
+   "lat": 53.2953,
+   "lon": -2.7268,
+   "base": 82,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Four choices at each stage and nothing more, Cheshire-farm meat on a menu that changes before you've learned it — a Main Street room the Michelin Guide found before most of Manchester did."
+  },
+  {
+   "name": "Waterside Arts Centre",
+   "district": "sale",
+   "type": "PERFORMING ARTS",
+   "spend": "££",
+   "lat": 53.4245,
+   "lon": -2.3188,
+   "base": 76,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "A proper theatre and three gallery rooms opposite the tram stop, stand-up and touring drama on the same bill as a free photography show — Trafford's answer to having its own arts house rather than borrowing the city's."
+  },
+  {
+   "name": "Blanchflower Sale",
+   "district": "sale",
+   "type": "BRUNCH SPOT",
+   "spend": "££",
+   "lat": 53.4239,
+   "lon": -2.3227,
+   "base": 72,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "The Altrincham original's Stanley Square sibling, in-house bread and cruffins from the same ovens — haddock and a poached egg before midday, nothing on the menu phoned in."
+  },
+  {
+   "name": "Kampasi",
+   "district": "sale",
+   "type": "SMALL PLATES",
+   "spend": "££",
+   "lat": 53.4205,
+   "lon": -2.309,
+   "base": 70,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Gunpowder potatoes and a grilled steak built for the middle of the table — a family-run small-plates room on Northenden Road that never once pretends to be a city-centre import."
+  },
+  {
+   "name": "Pray Tell",
+   "district": "sale",
+   "type": "WINE BAR",
+   "spend": "££",
+   "lat": 53.4231,
+   "lon": -2.3233,
+   "base": 74,
+   "bands": [
+    "evening",
+    "late"
+   ],
+   "reason": "Two cask lines, eight keg lines and a natural-wine list from a couple who used to run Draft — Stanley Square's actual local, not the square's name for somewhere forgettable."
+  },
+  {
+   "name": "All Things Nice Marple",
+   "district": "marple",
+   "type": "BAKERY",
+   "spend": "£",
+   "lat": 53.3962,
+   "lon": -2.0614,
+   "base": 64,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Nick, Tom and Dean's original, four years before the Macclesfield sibling existed — the same baker laminating pastry at both ends of the operation, Marple just got there first."
+  },
+  {
+   "name": "Samuel Oldknow",
+   "district": "marple",
+   "type": "ALE HOUSE",
+   "spend": "£",
+   "lat": 53.3944,
+   "lon": -2.0683,
+   "base": 68,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Six changing beers and a CAMRA discount that still means something on Market Street, named for the mill owner who built half the town and free of any brewery tie on the bar."
+  },
+  {
+   "name": "The Lime Tree Bollington",
+   "district": "bollington",
+   "type": "FINE DINING",
+   "spend": "£££",
+   "lat": 53.2974,
+   "lon": -2.0952,
+   "base": 78,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Patrick Hannity's Didsbury original gets a High Street sibling, the meat still coming off his own smallholding near Macclesfield Forest — a flower shop once, a wine list that's never once needed the city to validate it."
+  },
+  {
+   "name": "Ringway Golf Club",
+   "district": "hale-barns",
+   "type": "GOLF CLUB",
+   "spend": "£££",
+   "lat": 53.361,
+   "lon": -2.326,
+   "base": 70,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A Colt-extended eighteen since 1912, formed by members of the old Hale and Ashley Cricket Club and still running on the same parkland — golf the way Hale Barns has always done it, without a clubhouse chain in sight."
+  },
+  {
+   "name": "Hale Barns Cricket Club",
+   "district": "hale-barns",
+   "type": "CRICKET CLUB",
+   "spend": "£",
+   "lat": 53.3696,
+   "lon": -2.3012,
+   "base": 56,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Four senior sides most Saturdays on Brooks Drive, the kind of ground where the tea hut still means something — Hale Barns' actual social centre, not just its sports pitch."
   }
  ],
  "_momentsExpansionSource": "2026-09, at explicit user request ('build out our moments database'): each of the 4 real moments (CLAUDE.md — exactly 4, never add a 5th without a product decision) expanded from its original 4-pick prototype sample to ~12-13 real picks apiece, drawn from the full 186-venue catalog across all three metros (Manchester, Cheshire, Santorini), not just the original Manchester core. Curated by genuine fit to each moment's own character (Date Night: low light, tables for two, worth staying for a third glass; Entertaining a Client: quiet enough to talk, expensive enough to register; Big Group of Friends: rooms that take eight at short notice; Solo Reset: counter seats, unhurried, nobody asking who you're waiting for) — not every venue that could plausibly fit, a curated editorial list same as the original. Every one of the original 4-per-moment picks is preserved except Matt & Phreds out of Big Group of Friends (a small, intimate jazz room is a weaker fit for a group of eight than for the Solo Reset picks it's also in, where it already sat) — a deliberate correction, not an oversight. A venue appearing in more than one moment (e.g. Refuge in both Date Night and Entertaining a Client) matches the original prototype's own pattern, not a new one introduced here.",
