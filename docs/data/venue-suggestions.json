@@ -1591,6 +1591,74 @@
    "suggestedDate": "2026-10-25",
    "status": "pending",
    "researchNotes": "Second Hale Barns candidate this run, closing out the district's Do category alongside Ringway Golf Club above. Verified via mancunianmatters.co.uk (2025 feature on the club hosting an ECB Club Open Day, describing it as aiming to become a social centre while boosting grassroots cricket) and the Food Standards Agency ratings register (business listing for the clubhouse, found via search): Hale Barns Cricket Club, Brooks Drive, Hale Barns, Altrincham — runs four senior sides most weekends, a genuine community cricket club, not a commercial venue with any chain structure. No group ownership of any kind applies — a members' sports club, passes Hard rule 1 cleanly by construction, same type/register already used for this file's other CRICKET CLUB entries. Coordinates (53.3696/-2.3012) from an independently-sourced property geocode for 44 Brooks Drive (a listed-building-style property record, not this file's usual postcode lookups since doogal.co.uk/api.postcodes.io/nominatim were all unreachable this session) — the clubhouse itself wasn't separately pinned, so this is the street's position rather than the ground's exact gate, flagged for the reviewer to tighten. Moderate-high confidence — real, current (2025-dated coverage), community-run, no closure signal; the coordinate approximation is the one flag."
+  },
+  {
+   "name": "Next Door",
+   "district": "frodsham",
+   "type": "FINE DINING",
+   "spend": "£££",
+   "lat": 53.2953,
+   "lon": -2.7268,
+   "base": 82,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Four choices at each stage and nothing more, Cheshire-farm meat on a menu that changes before you've learned it — a Main Street room the Michelin Guide found before most of Manchester did.",
+   "suggestedDate": "2026-10-26",
+   "status": "pending",
+   "researchNotes": "Re-tallying this run against the live file found the same five under-10 districts the 2026-10-25 run already worked (Bollington/Sale/Marple/Frodsham/Hale Barns), each still thin on real Eat/Drink coverage since that run's own candidates (Helter Skelter, Castle Park Arts Centre, etc.) leaned Do/pending rather than closing the gap. Next Door, 68 Main Street, Frodsham WA6 7AU, verified via the Michelin Guide's own listing (guide.michelin.com/gb — a Guide inclusion, not a starred listing, but genuine third-party editorial recognition) and the Good Food Guide (thegoodfoodguide.co.uk), both describing a small, single-site, chef-led restaurant with a short, changing tasting-style menu (four choices per course), a separate bar and a short wine list starting around £24 — no sibling sites or group ownership found anywhere, passes Hard rule 1 cleanly. Hours per Michelin: Wednesday–Saturday, 12:00–midnight. No closure signal in any source checked. Coordinates: doogal.co.uk/api.postcodes.io/nominatim were all unreachable again this session (same network restriction the 2026-10-25 run hit) — used the one independently-sourced geocode available instead, a red-telephone-box listing at WA6 7AB (53.295453/-2.727135), which sits on the same short Main Street the restaurant's own address names; offset very slightly east toward the street's commercial stretch rather than reused verbatim, so flagged as a close-by landmark anchor, not an exact pin, for the reviewer to tighten. High confidence on the venue's reality/independence; moderate on the exact coordinate."
+  },
+  {
+   "name": "Kampasi",
+   "district": "sale",
+   "type": "SMALL PLATES",
+   "spend": "££",
+   "lat": 53.4205,
+   "lon": -2.309,
+   "base": 70,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Gunpowder potatoes and a grilled steak built for the middle of the table — a family-run small-plates room on Northenden Road that never once pretends to be a city-centre import.",
+   "suggestedDate": "2026-10-26",
+   "status": "pending",
+   "researchNotes": "Sale's real tally still showed zero Eat-mapped venues after the 2026-10-25 run's Blanchflower Sale (BRUNCH SPOT, daytime-only register) — Kampasi fills the evening gap that one doesn't. 134 Northenden Road, Sale Moor Village, M33 3HE. Verified via OpenTable (family-run, small-plates concept, global comfort food built for sharing, Tue–Sat dinner plus Sat lunch, ratings 4.7–4.9 across a small review base) and SquareMeal — single site, no group or chain ownership found anywhere in search; not to be confused with the nearby, unrelated Taniya's/Sokrates Taverna on the same road. Passes Hard rule 1 cleanly. No closure signal. Coordinates: same unreachable-geocoder session as above — used the nearest independently-located Northenden Road point found (M33 3DR, ~53.4211/-2.3086, a postcode-database entry naming Northenden Road among its nearest streets), nudged slightly to sit mid-road rather than reused as an exact pin; flagged as a nearby-street anchor, not this address's own geocode, for the reviewer to tighten. High confidence on the venue; moderate on the exact coordinate."
+  },
+  {
+   "name": "Pray Tell",
+   "district": "sale",
+   "type": "WINE BAR",
+   "spend": "££",
+   "lat": 53.4231,
+   "lon": -2.3233,
+   "base": 74,
+   "bands": [
+    "evening",
+    "late"
+   ],
+   "reason": "Two cask lines, eight keg lines and a natural-wine list from a couple who used to run Draft — Stanley Square's actual local, not the square's name for somewhere forgettable.",
+   "suggestedDate": "2026-10-26",
+   "status": "pending",
+   "researchNotes": "Second Sale candidate this run, closing the district's real Drink gap — nothing in venues.json or either prior suggestion batch (2026-10-25's Waterside Arts Centre/Blanchflower Sale) maps to Drink at all. Unit 6, Stanley Square, Sale, M33 7XZ. Verified via its own Crowdfunder campaign (crowdfunder.co.uk/p/praytellmcr — craft beer, natural wine and cocktail bar, run by a couple previously behind Draft, successfully funded as 'Sale's new local') and CAMRA (independent leasehold operator, two cask lines, eight keg lines, quiz nights, no separate freehold brewery tie). Single site, no group ownership found — passes Hard rule 1 cleanly; Draft (the owners' earlier venture) wasn't found to be a current multi-site operation either. No closure signal. Coordinates: unreachable geocoder session again — Stanley Square's own postcode (M33 7ZZ) wasn't independently pinned either, so this is a reasoned estimate just northwest of this file's existing Sale district centroid (53.4215/-2.3198, docs/data/districts.json), toward the known real-world position of the square relative to Washway Road/the tram stop — a genuine estimate, not a landmark-anchored figure, flagged clearly for the reviewer to tighten. High confidence on the venue's reality/independence; the coordinate is the one real flag."
+  },
+  {
+   "name": "Samuel Oldknow",
+   "district": "marple",
+   "type": "ALE HOUSE",
+   "spend": "£",
+   "lat": 53.3944,
+   "lon": -2.0683,
+   "base": 68,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Six changing beers and a CAMRA discount that still means something on Market Street, named for the mill owner who built half the town and free of any brewery tie on the bar.",
+   "suggestedDate": "2026-10-26",
+   "status": "pending",
+   "researchNotes": "Marple's real tally still showed zero Drink-mapped venues after the 2026-10-25 run (All Things Nice/BAKERY and Fold Bistro & Bottle Shop/BISTRO are both Eat-register, and BISTRO isn't currently wired to either category in tile-catalog-map.ts) — Samuel Oldknow closes that gap. 22 Market Street, Marple, SK6 7AD. Verified via CAMRA (listed as an independent operator — no tied brewery — six changing beers, a CAMRA member discount, open seven days) and a Marple community-site history page describing it as named for Samuel Oldknow, the mill owner whose cotton-mill money built much of the town. Single site, no group ownership found anywhere in search — passes Hard rule 1 cleanly. No closure signal; CAMRA's listing reads current. Checked and rejected two other Marple drink leads from the same search before settling on this one: Aggie's Bar (also independent and plausible, but a more complicated recent ownership history — reverted to original owners only in Jan 2025 per CAMRA, with conflicting older hours still showing in some listings) and The Drunken Duck (reopened under new ownership December 2025, CAMRA itself flags hours as 'not yet known') — both newer/less settled than Samuel Oldknow's long, stable, independent record, so left for a future run to re-check once their own listings settle rather than suggested on weaker footing today. Coordinates: unreachable geocoder session again — used the nearest independently-located Market Street point found (postcode-database entries for SK6 7PX/SK6 7RH place Market Street's area around 53.390–53.392/-2.069 to -2.076), nudged toward this file's existing Marple district centroid (53.395/-2.0677) which sits on the same street; flagged as a street-level estimate, not this address's own geocode, for the reviewer to tighten. High confidence on the venue; moderate on the exact coordinate."
   }
  ]
 }
