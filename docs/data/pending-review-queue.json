@@ -228,6 +228,44 @@
         "bands": ["afternoon"],
         "reason": "Artist-led and canalside inside Clarence Mill, selling the work rather than just hanging it — Bollington's actual answer to a commercial gallery, one flight up from the Discovery Centre's looms."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-27",
+      "reason": "A real, artist-led gallery with corroborated founder/location details, but every independently-dated exhibition listing I could find tops out at 2024 and I could not confirm the original candidate's own claim of a 2026-dated online auction under the gallery's name — not a closure signal, just a currency gap I can't honestly resolve either way.",
+      "researchNotes": "Independently re-verified 2026-10-27 via creativetourist.com and artrabbit.com: Mura Ma (Mura Ma Contemporary), an artist-led gallery in Marple, Stockport, founded by Nan Collantine (also behind Dez Rez Projects and the Northern Atelier studio in a former textile mill in Marple). ArtRabbit's own listings run 2023-2024 ('Live with it', Sept-Oct 2023; 'Habitat, paintings by Helen Thomas', May 2024) — no listing dated 2025 or 2026 turned up on re-check, despite the original candidate's researchNotes citing a 2026-dated 'Secret Artist II' auction under the Mura Ma Contemporary name, which I could not independently locate. No second site or group ownership found anywhere — Hard rule 1 is clean if it's still trading. Exact street address (15 Stockport Rd per the original candidate) not independently re-confirmed this session; coordinates approximated along Stockport Road near the existing Marple venue cluster, same caveat the original candidate flagged.",
+      "payload": {
+        "name": "Mura Ma",
+        "district": "marple",
+        "type": "ART GALLERY",
+        "spend": "£",
+        "lat": 53.3958,
+        "lon": -2.0625,
+        "base": 58,
+        "bands": ["afternoon"],
+        "reason": "Nan Collantine's own gallery on Stockport Road, built from a DIY exhibition habit that outgrew her studio in a former textile mill — emerging artists hung and priced to actually sell, not just admire."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-27",
+      "reason": "No closure signal found anywhere, but also no independent confirmation of trading more recent than a 2017 council announcement and an undated listing's aggregator page — a nine-year dating gap that's genuinely too wide to call confident either way.",
+      "researchNotes": "Independently re-verified 2026-10-27 via WebSearch: Brew & Tucker, Church Street, Frodsham — a coffee shop run by an Australian-born owner and his Frodsham-born partner, per Frodsham Town Council's own January 2017 announcement, corroborated by a 2018 planning-committee record varying its opening hours (confirming the Church Street address). The only other evidence found (a Wanderlog listing and an Uber Eats Frodsham delivery listing) is undated and could reflect current or stale information equally. No 'permanently closed' marker, no dead site, no negative closure signal of any kind turned up — but equally nothing positively dated since 2018. Single-site, independently owned so far as found; Hard rule 1 is clean if it's still trading. Coordinates approximated for Church Street near the existing Frodsham venue cluster, same caveat the original candidate flagged.",
+      "payload": {
+        "name": "Brew & Tucker",
+        "district": "frodsham",
+        "type": "COFFEE ROOM",
+        "spend": "£",
+        "lat": 53.2956,
+        "lon": -2.726,
+        "base": 56,
+        "bands": ["morning", "afternoon"],
+        "reason": "Sydney-style coffee on Church Street from an Australian who married into the town — sourdough and a flat white that never needed a loyalty app to earn its regulars."
+      }
     }
   ]
 }

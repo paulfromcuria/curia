@@ -320,6 +320,26 @@
         { "label": "Closure audit (Morenica Boutique/Imerovigli, Museum of Prehistoric Thera/Fira, Sunset Oia Sailing Cruises/Oia, Greek Cooking Class and Lunch with Areti/Oia, Ambrosia/Oia)", "detail": "no closures found — Ambrosia carries a stale 'temporarily closed' tag on one aggregator, but recent June 2026 diner visits clearly outweigh it" }
       ],
       "createdAt": "2026-10-26T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-27",
+      "synced": false,
+      "title": "7 venues promoted (Bollington/Marple/Frodsham/Sale); 2 sent for review; closure audit clean",
+      "summary": "Independently re-verified all 12 pending candidates in venue-suggestions.json: promoted 7 (Church House Inn and Cafe Waterside in Bollington, Regent Cinema and Traders in Marple, No 13 and Frodsham Artisan Market in Frodsham, Walkden Gardens in Sale), sent 2 fresh ones to pending-review-queue.json for a human call (Mura Ma, Marple — thin/stale sourcing; Brew & Tucker, Frodsham — a nine-year dating gap with no closure signal either way), and left 3 already-queued candidates untouched (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery all already have live, undecided pending-review-queue.json entries from a prior run, so not re-decided or duplicated). Curia Command's pending_review collection (checked this run) had zero decided items to apply. This run's rotating closure-audit slice (Let's Eat To Live, Tafari's Kitchen, 61st Street Farmers Market, Joseph Regenstein Library, Baker Dining Commons — all Chicago/Hyde Park-Woodlawn) found no closure signals; all five re-confirmed as currently operating.",
+      "items": [
+        { "label": "Church House Inn (Bollington)", "detail": "promoted — single-site pub with rooms, cask ale, no chain signal" },
+        { "label": "Cafe Waterside (Bollington)", "detail": "promoted — single-site canalside cafe inside Clarence Mill, recent FSA inspection" },
+        { "label": "Regent Cinema (Marple)", "detail": "promoted — single-screen independent cinema, two dated 2026 screenings confirmed" },
+        { "label": "Traders, Marple (Marple)", "detail": "promoted — single-site ale house, live CAMRA listing, no closure signal" },
+        { "label": "No 13, Frodsham (Frodsham)", "detail": "promoted — single-site cocktail bar, opened spring 2025, CAMRA-surveyed late 2025" },
+        { "label": "Frodsham Artisan Market (Frodsham)", "detail": "promoted — monthly fixture, multiple 2026-dated editions confirmed; seeded with occasional: true" },
+        { "label": "Walkden Gardens (Sale)", "detail": "promoted — real Trafford Council public park, no chain-footprint question applicable" },
+        { "label": "Mura Ma (Marple)", "detail": "sent for review — real gallery, but no confirmation more recent than 2024, a currency gap not a red flag" },
+        { "label": "Brew & Tucker (Frodsham)", "detail": "sent for review — no closure signal, but no confirmation more recent than 2017/2018 either" },
+        { "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery", "detail": "left pending — each already has a live, undecided pending-review-queue.json entry from a prior run; not re-decided or duplicated" }
+      ],
+      "createdAt": "2026-10-27T00:00:00Z"
     }
   ]
 }

@@ -11523,6 +11523,104 @@
     "evening"
    ],
    "reason": "Four senior sides most Saturdays on Brooks Drive, the kind of ground where the tea hut still means something — Hale Barns' actual social centre, not just its sports pitch."
+  },
+  {
+   "name": "Church House Inn",
+   "district": "bollington",
+   "type": "COUNTRY PUB",
+   "spend": "££",
+   "lat": 53.297901,
+   "lon": -2.092548,
+   "base": 66,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "A corner pub stitched into two rows of mill-worker cottages on Church Street, three rooms upstairs for whoever can't face the drive home — cask ale and an open fire doing most of the talking on a weeknight."
+  },
+  {
+   "name": "Café Waterside",
+   "district": "bollington",
+   "type": "COFFEE ROOM",
+   "spend": "£",
+   "lat": 53.3008,
+   "lon": -2.1005,
+   "base": 60,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Breakfast and a flat white inside the mill itself, narrowboats passing the window where the looms used to run — the one genuine reason to linger before the Discovery Centre upstairs opens."
+  },
+  {
+   "name": "Regent Cinema",
+   "district": "marple",
+   "type": "CINEMA",
+   "spend": "££",
+   "lat": 53.396,
+   "lon": -2.063,
+   "base": 64,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "A former coffee tavern and mission hall from 1878, still running a single screen on Stockport Road under the family that's kept it going — one of the few small towns left with a cinema of its own."
+  },
+  {
+   "name": "Traders, Marple",
+   "district": "marple",
+   "type": "ALE HOUSE",
+   "spend": "££",
+   "lat": 53.395,
+   "lon": -2.063,
+   "base": 62,
+   "bands": [
+    "evening",
+    "late"
+   ],
+   "reason": "Two shop units knocked through into one long room on Stockport Road, three hand pumps turning over and a quiz that fills the place on a Wednesday — Marple's own answer to a proper beer hall."
+  },
+  {
+   "name": "No 13, Frodsham",
+   "district": "frodsham",
+   "type": "COCKTAIL BAR",
+   "spend": "££",
+   "lat": 53.296565,
+   "lon": -2.725185,
+   "base": 68,
+   "bands": [
+    "evening",
+    "late"
+   ],
+   "reason": "Weetwood cask ale and a proper cocktail list behind the same High Street door that used to be Naga — charcuterie boards and a garden for whoever isn't racing home."
+  },
+  {
+   "name": "Frodsham Artisan Market",
+   "district": "frodsham",
+   "type": "ARTISAN MARKET",
+   "spend": "£",
+   "lat": 53.2955,
+   "lon": -2.7265,
+   "base": 60,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "Main Street closes to traffic on the last Saturday of the month for stalls that aren't the usual market-hall fare — the kind of fixture Frodsham plans a Saturday around, not just passes through.",
+   "occasional": true
+  },
+  {
+   "name": "Walkden Gardens",
+   "district": "sale",
+   "type": "TOWN PARK",
+   "spend": "£",
+   "lat": 53.4184,
+   "lon": -2.3123,
+   "base": 58,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A walled garden off Marsland Road with a wisteria arch and a dovecote nobody's rushing past — Sale's own quiet green pocket, kept going by the volunteers who still call themselves its Friends."
   }
  ],
  "_momentsExpansionSource": "2026-09, at explicit user request ('build out our moments database'): each of the 4 real moments (CLAUDE.md — exactly 4, never add a 5th without a product decision) expanded from its original 4-pick prototype sample to ~12-13 real picks apiece, drawn from the full 186-venue catalog across all three metros (Manchester, Cheshire, Santorini), not just the original Manchester core. Curated by genuine fit to each moment's own character (Date Night: low light, tables for two, worth staying for a third glass; Entertaining a Client: quiet enough to talk, expensive enough to register; Big Group of Friends: rooms that take eight at short notice; Solo Reset: counter seats, unhurried, nobody asking who you're waiting for) — not every venue that could plausibly fit, a curated editorial list same as the original. Every one of the original 4-per-moment picks is preserved except Matt & Phreds out of Big Group of Friends (a small, intimate jazz room is a weaker fit for a group of eight than for the Solo Reset picks it's also in, where it already sat) — a deliberate correction, not an oversight. A venue appearing in more than one moment (e.g. Refuge in both Date Night and Entertaining a Client) matches the original prototype's own pattern, not a new one introduced here.",
@@ -12063,5 +12161,6 @@
     }
    ]
   }
- ]
+ ],
+ "_dailyReviewPromotionSource20261027": "7 venues promoted 2026-10-27 by curia-suggestion-review, independently re-verified: Church House Inn and Cafe Waterside (both Bollington, both inside/near Clarence Mill on the Macclesfield Canal), Regent Cinema and Traders (both Marple, Stockport Road), No 13 (Frodsham, High Street, a 2025-opened cocktail bar in the former Naga/Bombay Balti unit), Frodsham Artisan Market (Main Street, monthly last-Saturday fixture, seeded with occasional: true per CLAUDE.md's Matchmaking contract hard filter, same treatment as Wilmslow's own artisan market), and Walkden Gardens (Sale, a real Trafford Council public park, Hard rule 1's chain-footprint question set aside as inapplicable to a council-owned public asset). All re-confirmed via independent web search against the original candidates' own researchNotes in docs/data/venue-suggestions.json (now removed from that file on promotion) - CAMRA/FSA/council sources, no closure or chain signal found for any of the seven. Three same-batch candidates (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop, Marple; Northern Makes Gallery, Bollington) were left untouched - each already has a live, undecided entry in docs/data/pending-review-queue.json from a prior run, so not re-decided or duplicated here. Two further candidates (Mura Ma, Marple; Brew & Tucker, Frodsham) were sent to pending-review-queue.json fresh this run - see that file's own note for why."
 }
