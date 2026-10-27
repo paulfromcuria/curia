@@ -1454,6 +1454,157 @@
    "suggestedDate": "2026-10-25",
    "status": "pending",
    "researchNotes": "Second Bollington candidate this run, a different register (a commercial gallery, not a restaurant) from The Lime Tree Bollington above — Bollington's Do category was entirely empty before this run. Verified via wanderlog.com (visitor review describing it alongside Café Waterside and the Bollington Discovery Centre, all in the same mill) and artrabbit.com/creativetourist.com (exhibition listings): Northern Makes Gallery, Clarence Mill, Clarence Road, Bollington SK10 5LD — an independent art and crafts gallery inside the converted Clarence Mill on the Macclesfield Canal, showing and selling work by northern artists. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.3005/-2.1006) are the Historic England/British Listed Buildings geocode for Clarence Mill itself, not an estimate — the gallery's own unit-level address wasn't independently confirmed, so this is the mill's footprint rather than a specific doorway, flagged for the reviewer. Moderate confidence — real and multiply corroborated as operating, but a small gallery without the depth of press coverage a restaurant gets, and its most recent independently-dated exhibition listing found was 2024 rather than 2026; worth the reviewer's own current-status check before promotion."
+  },
+  {
+   "name": "Church House Inn",
+   "district": "bollington",
+   "type": "COUNTRY PUB",
+   "spend": "££",
+   "lat": 53.297901,
+   "lon": -2.092548,
+   "base": 66,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "A corner pub stitched into two rows of mill-worker cottages on Church Street, three rooms upstairs for whoever can't face the drive home — cask ale and an open fire doing most of the talking on a weeknight.",
+   "suggestedDate": "2026-10-27",
+   "status": "pending",
+   "researchNotes": "This run's tally (venues.json cross-referenced with CATEGORY_BY_VENUE_TYPE, filtered to Manchester/Cheshire districts) found Bollington at only 1 real venue (The Lime Tree Bollington, Eat) plus one same-day pending Do candidate (Northern Makes Gallery) — zero Drink coverage. Verified via CAMRA/happyvalley.org.uk (postcode SK10 5PY, OS grid SJ939778, three B&B rooms, cask ale, open fires, described as a corner site in a row of traditional cottages) and Companies House-style corroboration (the pub trades under a dedicated single-site company name, THE CHURCH HOUSE BOLLINGTON LIMITED, per CAMRA's operator field) plus a 2024-dated Trip.com review confirming current trading under newer management. No second site or group ownership found anywhere in searches; single pub with rooms, passes Hard rule 1 cleanly. Coordinates (53.297901/-2.092548) are the SK10 5PY postcode centroid (doogal.co.uk data surfaced via search) — within ~250m of The Lime Tree Bollington's own catalogued coordinates (53.2974/-2.0952), consistent with both sitting in Bollington's compact village centre. Reuses the existing COUNTRY PUB type (Church Inn, Bull's Head, Railway Inn, Mobberley). Closes Bollington's real Drink gap and adds a second Eat option in one venue. Moderate-high confidence — long-documented history and rooms, a dated recent review confirming current operation; exact current operator name is the one thing worth the reviewer's own look, since management has changed more than once."
+  },
+  {
+   "name": "Café Waterside",
+   "district": "bollington",
+   "type": "COFFEE ROOM",
+   "spend": "£",
+   "lat": 53.3008,
+   "lon": -2.1005,
+   "base": 60,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Breakfast and a flat white inside the mill itself, narrowboats passing the window where the looms used to run — the one genuine reason to linger before the Discovery Centre upstairs opens.",
+   "suggestedDate": "2026-10-27",
+   "status": "pending",
+   "researchNotes": "Second Bollington candidate this run, alongside Church House Inn — a different register again (a daytime canalside cafe, not a pub), closing out Bollington's Drink category with real variety rather than a second ale house; already cross-referenced by name in this file's own same-day-batch Northern Makes Gallery candidate ('alongside Café Waterside and the Bollington Discovery Centre, all in the same mill'), independently corroborating this venue's existence rather than inventing it fresh. Verified via happyvalley.org.uk (open 7 days 9am-5pm, breakfast takeaways, lunches, light snacks, teas and coffees) and the Food Standards Agency ratings register (rated 5 - Very Good, last inspected 6 August 2025 — a genuinely recent, positive currency signal) and selfcatering.co.uk (described as 'the most distinctive cafe in Bollington', doubling as the cafe for the adjoining Bollington Discovery Centre heritage centre). No second site or group ownership found anywhere in searches; single-site, run as the mill's own cafe rather than a branded chain, passes Hard rule 1 cleanly. Coordinates (53.3008/-2.1005) from Wikipedia's infobox geocode for Clarence Mill itself (Historic England's own listed-building record gives an almost identical 53.3005/-2.1006) — the same building this file's own pending Northern Makes Gallery candidate already uses, since both genuinely sit inside the same mill. Reuses the existing COFFEE ROOM type (Ancoats Coffee Co, Pronto Caffé). High confidence — recent FSA inspection date, multiply corroborated, no closure signals."
+  },
+  {
+   "name": "Mura Ma",
+   "district": "marple",
+   "type": "ART GALLERY",
+   "spend": "£",
+   "lat": 53.3958,
+   "lon": -2.0625,
+   "base": 58,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "Nan Collantine's own gallery on Stockport Road, built from a DIY exhibition habit that outgrew her studio in a former textile mill — emerging artists hung and priced to actually sell, not just admire.",
+   "suggestedDate": "2026-10-27",
+   "status": "pending",
+   "researchNotes": "This run's tally found Marple at only 2 real venues (All Things Nice Marple, Samuel Oldknow — both Eat/Drink register) plus one same-day pending Eat candidate (Fold Bistro & Bottle Shop) — zero Do coverage anywhere in the district. Verified via creativetourist.com ('mura ma', 15 Stockport Rd, Marple, Stockport, SK6 6BD — 'a brand new, artist-led independent gallery in Marple, Stockport') and ArtRabbit (founder Nan Collantine, who runs Dez Rez Projects and the Northern Atelier studio in a former textile mill in Marple before opening this permanent space; a 2026-dated 'Secret Artist II' online art auction run under the Mura Ma Contemporary name, a positive current-activity signal). No second site or group ownership found anywhere in searches; single-owner, artist-led gallery, passes Hard rule 1 cleanly. Coordinates (53.3958/-2.0625) approximated along Stockport Road near this file's own existing All Things Nice Marple (53.3962/-2.0614) and Samuel Oldknow (53.3944/-2.0683) entries, since a direct postcode geocode for SK6 6BD wasn't reachable this session (doogal.co.uk/api.postcodes.io/creativetourist.com itself all blocked by DNS this session) — flagged for the reviewer to tighten. Reuses the existing ART GALLERY type. Moderate-high confidence — founder and address independently corroborated across two sources, a 2026-dated activity signal found; exact street-level coordinate is the one flag."
+  },
+  {
+   "name": "Regent Cinema",
+   "district": "marple",
+   "type": "CINEMA",
+   "spend": "££",
+   "lat": 53.396,
+   "lon": -2.063,
+   "base": 64,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "A former coffee tavern and mission hall from 1878, still running a single screen on Stockport Road under the family that's kept it going — one of the few small towns left with a cinema of its own.",
+   "suggestedDate": "2026-10-27",
+   "status": "pending",
+   "researchNotes": "Second Marple Do candidate this run alongside Mura Ma, a genuinely different register (a working single-screen cinema in a converted Victorian hall, not a gallery) — both closing the same real gap, Marple's previously-empty Do category. Verified via marple.website's own venue page (the former Union Rooms, built 1878 as a coffee tavern and mission hall; 'one of very few small towns to still have its own cinema') and a third-party Ticket Tailor listing showing an actual booked screening on 19 July 2026 at Regent Cinema, Stockport Rd, Marple, Stockport, SK6 6BJ — a genuine, dated, current-year operating signal, not just historical description. Marple Local History Society's own archive describes continuous stewardship by a father-and-son pair (surname Lillis); no second cinema site or chain ownership found anywhere in searches — a single-screen independent community cinema, passes Hard rule 1 cleanly. Coordinates (53.396/-2.063) approximated along Stockport Road near this file's own existing Marple cluster (All Things Nice Marple, Samuel Oldknow, and this run's own Mura Ma candidate), since a direct postcode geocode for SK6 6BJ wasn't reachable this session — flagged for the reviewer to tighten. New use of the existing CINEMA type (previously only Altrincham's Everyman and Macclesfield's Cinemac). Moderate-high confidence — a dated 2026 booking confirms current operation; the exact geocode is the one flag."
+  },
+  {
+   "name": "Traders, Marple",
+   "district": "marple",
+   "type": "ALE HOUSE",
+   "spend": "££",
+   "lat": 53.395,
+   "lon": -2.063,
+   "base": 62,
+   "bands": [
+    "evening",
+    "late"
+   ],
+   "reason": "Two shop units knocked through into one long room on Stockport Road, three hand pumps turning over and a quiz that fills the place on a Wednesday — Marple's own answer to a proper beer hall.",
+   "suggestedDate": "2026-10-27",
+   "status": "pending",
+   "researchNotes": "Third Marple candidate this run — a Drink venue specifically, since Marple's only Drink-register venue found this run (Samuel Oldknow) is already catalogued, and the district's real Drink coverage was otherwise this thin. Verified via CAMRA (111-113 Stockport Road, Marple, SK6 6AF, formerly listed as 'Beer Traders' — 'an open plan bar converted from two shops and subsequently extended further'; three hand pumps serving regularly changing local/regional beers, 12 keg lines, live music most Tuesdays/some weekends, a Wednesday quiz). No second site or group ownership found anywhere in searches — reads as a genuine single independent bar, passes Hard rule 1 cleanly, though no explicit named owner was found to confirm this beyond the absence of any chain signal. Coordinates (53.395/-2.063) approximated along Stockport Road near this file's own existing Marple venue cluster, since a direct postcode geocode for SK6 6AF wasn't reachable this session — flagged for the reviewer to tighten. Reuses the existing ALE HOUSE type (Helter Skelter, Frodsham; Samuel Oldknow, Marple), matching the register. Moderate confidence — well-documented venue details via CAMRA, no closure signal found, but no named operator confirmed and the exact coordinate is approximated; both worth the reviewer's own look."
+  },
+  {
+   "name": "No 13, Frodsham",
+   "district": "frodsham",
+   "type": "COCKTAIL BAR",
+   "spend": "££",
+   "lat": 53.296565,
+   "lon": -2.725185,
+   "base": 68,
+   "bands": [
+    "evening",
+    "late"
+   ],
+   "reason": "Weetwood cask ale and a proper cocktail list behind the same High Street door that used to be Naga — charcuterie boards and a garden for whoever isn't racing home.",
+   "suggestedDate": "2026-10-27",
+   "status": "pending",
+   "researchNotes": "This run's tally found Frodsham at only 3 real venues (Helter Skelter, ALE HOUSE/Drink; Castle Park Arts Centre, Do; Next Door, Eat) — one venue per category, the thinnest even spread found this run. Verified via CAMRA (13 High Street, Frodsham, WA6 7AH — opened spring 2025, independent operator, leasehold owner an individual per CAMRA's own operator field, previously traded as Naga and Bombay Balti; 2 Weetwood cask ales plus craft beers, cocktails and charcuterie boards, a garden, live music). No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.296565/-2.725185) are the WA6 7AH postcode centroid (doogal.co.uk data surfaced via search), closely matching this file's own existing Helter Skelter entry (53.2958/-2.7253) a few doors along the same High Street. Typed COCKTAIL BAR (its cocktails-and-charcuterie register is the more distinctive point of difference from Helter Skelter's ale-house register, which already covers the cask-ale side of Frodsham's Drink offer) rather than a second ALE HOUSE. Moderate-high confidence — recently opened (spring 2025), independently confirmed by CAMRA's own branch listing, no closure signals."
+  },
+  {
+   "name": "Brew & Tucker",
+   "district": "frodsham",
+   "type": "COFFEE ROOM",
+   "spend": "£",
+   "lat": 53.2956,
+   "lon": -2.726,
+   "base": 56,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Sydney-style coffee on Church Street from an Australian who married into the town — sourdough and a flat white that never needed a loyalty app to earn its regulars.",
+   "suggestedDate": "2026-10-27",
+   "status": "pending",
+   "researchNotes": "Second Frodsham candidate this run alongside No 13 — a different register (a daytime coffee shop, not a bar), giving Frodsham's one-per-category spread real depth rather than another evening venue. Verified via Frodsham Town Council's own 2017 announcement (a new coffee shop, Brew and Tucker, opened on Church Street, run by an Australian-born owner and his Frodsham-born partner) and Frodsham planning committee records (30 Church Street, Frodsham — a 2018 decision varying the venue's opening hours, confirming the specific address) plus Wanderlog's current listing describing it as 'a cozy spot known for its exceptional coffee inspired by Sydney, Australia' with reviews praising sourdough, bagels and hot chocolate. No second site or group ownership found anywhere in searches; single-site, independently owned, passes Hard rule 1 cleanly. Flagging honestly: the clearest dated confirmation found is the 2017 opening and a 2018 council record: no explicit 2025/2026-dated review was found, though equally no closure signal (no 'permanently closed' marker, no dead listings) turned up either, unlike this file's own confirmed-closed rejections elsewhere. Coordinates (53.2956/-2.726) approximated for Church Street near this file's own existing Frodsham cluster (Helter Skelter, Castle Park Arts Centre, Next Door, and this run's own No 13 candidate), since a direct postcode geocode wasn't reachable this session — flagged for the reviewer to tighten and specifically re-confirm current trading before promotion given the dating gap. Reuses the existing COFFEE ROOM type. Moderate confidence given the dating gap noted above."
+  },
+  {
+   "name": "Frodsham Artisan Market",
+   "district": "frodsham",
+   "type": "ARTISAN MARKET",
+   "spend": "£",
+   "lat": 53.2955,
+   "lon": -2.7265,
+   "base": 60,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "Main Street closes to traffic on the last Saturday of the month for stalls that aren't the usual market-hall fare — the kind of fixture Frodsham plans a Saturday around, not just passes through.",
+   "suggestedDate": "2026-10-27",
+   "status": "pending",
+   "researchNotes": "Third Frodsham candidate this run, a Do venue to round out the district's one-per-category spread. Verified via Frodsham Town Council's own market page (the Artisan Market runs on Main Street, last Saturday of each month, 10am-4pm, operated by Independent Street Events Ltd under licence from the council) and a run of dated 2026 council announcements confirming it's genuinely ongoing, not a one-off launch (25 April 2026, 27 June 2026, 29 August 2026 editions all separately announced, plus a December 2026 edition moved to Saturday 19th) — a real, currently-active monthly fixture since its 2024 launch, not stale. The licensed operator, Independent Street Events Ltd, runs similar markets in other towns, but the venue itself (this specific Main Street market, under this specific council licence) is a single, place-bound fixture rather than a branded multi-location retail chain — the same distinction already drawn elsewhere in this catalogue between a market's own identity and any events company behind it. Coordinates (53.2955/-2.7265) approximated for Main Street near this file's own existing Frodsham cluster, closest to the already-catalogued Next Door (53.2953/-2.7268) — flagged for the reviewer to tighten, since the exact WA6 7AB postcode used in an earlier launch-era notice couldn't be independently re-confirmed this session. Flagging for promotion: this is a monthly, not a weekly or daily, fixture — recommend setting `occasional: true` on promotion (the same CLAUDE.md Matchmaking-contract hard filter already applied to Wilmslow's own artisan market) so it isn't surfaced as an any-day recommendation. Reuses the existing ARTISAN MARKET type (Frodsham's own Thursday general market is separate and not suggested here, since this candidate is specifically the artisan/craft market). Moderate-high confidence on currency (multiple 2026-dated editions confirmed); the occasional-scheduling flag is the one thing the reviewer must carry through to promotion, not just note."
+  },
+  {
+   "name": "Walkden Gardens",
+   "district": "sale",
+   "type": "TOWN PARK",
+   "spend": "£",
+   "lat": 53.4184,
+   "lon": -2.3123,
+   "base": 58,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A walled garden off Marsland Road with a wisteria arch and a dovecote nobody's rushing past — Sale's own quiet green pocket, kept going by the volunteers who still call themselves its Friends.",
+   "suggestedDate": "2026-10-27",
+   "status": "pending",
+   "researchNotes": "This run's tally found Sale at only 4 real venues (Waterside Arts Centre, Do; Blanchflower Sale and Kampasi, Eat; Pray Tell, Drink) — one Do venue against two Eat, a real imbalance worth closing with a second, different Do register rather than another Stanley Square bar or restaurant. Verified via Trafford Council's own parks page (Walkden Gardens, Derbyshire Road, Sale, M33 3EL — walled-garden-style public space with Japanese, fuchsia and dovecote gardens, a wisteria arch and a theatre lawn hosting seasonal cinema screenings and theatrical events) and Wikipedia (coordinates 53.4184°N, 2.3123°W) plus the Friends of Walkden Gardens' own site (confirms the Marsland Road/Derbyshire Road junction, a free car park, and that the group actively maintains and develops the gardens — a real, currently-active volunteer group, not a defunct one). A genuine council-owned public park rather than a commercial venue, so Hard rule 1's chain-footprint question doesn't really apply the way it does to a business — there is no ownership/franchise risk to screen for here. Coordinates (53.4184/-2.3123) are Wikipedia's own infobox geocode for the gardens, independently cross-checked against the Friends group's own junction description rather than invented. Reuses the existing TOWN PARK type (Thorn Grove Park, Cheadle Hulme). High confidence — council-maintained public asset, actively described by its own Friends group, no closure signal possible in the way a business can close."
   }
  ]
 }
