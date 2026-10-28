@@ -11621,6 +11621,103 @@
     "afternoon"
    ],
    "reason": "A walled garden off Marsland Road with a wisteria arch and a dovecote nobody's rushing past — Sale's own quiet green pocket, kept going by the volunteers who still call themselves its Friends."
+  },
+  {
+   "name": "No.3 Holistic Therapies",
+   "district": "hale-barns",
+   "type": "SPA",
+   "spend": "£££",
+   "lat": 53.3679,
+   "lon": -2.3184,
+   "base": 62,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A single therapy room at 3 Hawley Lane doing the quiet work Hale Barns' own parade never quite got round to — facials and a 'Face Ritual' booked solidly on repeat custom, not passing trade off The Square."
+  },
+  {
+   "name": "Bollington Discovery Centre",
+   "district": "bollington",
+   "type": "MUSEUM",
+   "spend": "£",
+   "lat": 53.3008,
+   "lon": -2.1005,
+   "base": 56,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "Bollington Civic Society's own small museum inside Clarence Mill, the cotton-and-canal story told by the people who actually dug the archive out — a picture collection, not a gift shop, past the tunnel from the car park."
+  },
+  {
+   "name": "Pigeon Coffee",
+   "district": "bollington",
+   "type": "COFFEE ROOM",
+   "spend": "£",
+   "lat": 53.291938,
+   "lon": -2.106907,
+   "base": 56,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A door in the wall off the Adelphi Mill towpath, open since June and already with its own regulars on the canal-side tables — teas, cakes and nothing about it trying to be Clarence Mill's café down the water."
+  },
+  {
+   "name": "Canteena Bar & Grill",
+   "district": "sale",
+   "type": "STEAKHOUSE",
+   "spend": "£££",
+   "lat": 53.4235,
+   "lon": -2.323,
+   "base": 72,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Two former publicans who ran Sale's own Bridge turned the old Foodhall unit into a proper ex-dairy and Aberdeen Angus room — Stanley Square's steak table, not another small-plates sharer."
+  },
+  {
+   "name": "Hops & Boogie",
+   "district": "sale",
+   "type": "CRAFT BEER BAR",
+   "spend": "££",
+   "lat": 53.4233,
+   "lon": -2.3228,
+   "base": 62,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "A small Stanley Square unit stacked with bottled and keg beer from round the world and not much else — no food menu to hide behind, just the fridge and whoever's working through it with you."
+  },
+  {
+   "name": "Brabyns Park",
+   "district": "marple",
+   "type": "RIVERSIDE PARK",
+   "spend": "£",
+   "lat": 53.4025,
+   "lon": -2.0563,
+   "base": 64,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "The old Brabyns Hall grounds run as public land since 1947, a Grade II iron bridge over the Goyt and the Peak Forest Canal both inside its own boundary — Marple Bridge's real green lung, kept going by a volunteer Friends group, not a council mowing rota."
+  },
+  {
+   "name": "Sale Water Park",
+   "district": "sale",
+   "type": "RIVERSIDE PARK",
+   "spend": "£",
+   "lat": 53.432,
+   "lon": -2.299,
+   "base": 70,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A 52-acre lake dug for the M60's embankment and kept on once the motorway was built — sailing and paddleboard lessons from the Trafford Water Sports Centre, and a Metrolink stop of its own for whoever's coming without a car."
   }
  ],
  "_momentsExpansionSource": "2026-09, at explicit user request ('build out our moments database'): each of the 4 real moments (CLAUDE.md — exactly 4, never add a 5th without a product decision) expanded from its original 4-pick prototype sample to ~12-13 real picks apiece, drawn from the full 186-venue catalog across all three metros (Manchester, Cheshire, Santorini), not just the original Manchester core. Curated by genuine fit to each moment's own character (Date Night: low light, tables for two, worth staying for a third glass; Entertaining a Client: quiet enough to talk, expensive enough to register; Big Group of Friends: rooms that take eight at short notice; Solo Reset: counter seats, unhurried, nobody asking who you're waiting for) — not every venue that could plausibly fit, a curated editorial list same as the original. Every one of the original 4-per-moment picks is preserved except Matt & Phreds out of Big Group of Friends (a small, intimate jazz room is a weaker fit for a group of eight than for the Solo Reset picks it's also in, where it already sat) — a deliberate correction, not an oversight. A venue appearing in more than one moment (e.g. Refuge in both Date Night and Entertaining a Client) matches the original prototype's own pattern, not a new one introduced here.",
@@ -12162,5 +12259,6 @@
    ]
   }
  ],
- "_dailyReviewPromotionSource20261027": "7 venues promoted 2026-10-27 by curia-suggestion-review, independently re-verified: Church House Inn and Cafe Waterside (both Bollington, both inside/near Clarence Mill on the Macclesfield Canal), Regent Cinema and Traders (both Marple, Stockport Road), No 13 (Frodsham, High Street, a 2025-opened cocktail bar in the former Naga/Bombay Balti unit), Frodsham Artisan Market (Main Street, monthly last-Saturday fixture, seeded with occasional: true per CLAUDE.md's Matchmaking contract hard filter, same treatment as Wilmslow's own artisan market), and Walkden Gardens (Sale, a real Trafford Council public park, Hard rule 1's chain-footprint question set aside as inapplicable to a council-owned public asset). All re-confirmed via independent web search against the original candidates' own researchNotes in docs/data/venue-suggestions.json (now removed from that file on promotion) - CAMRA/FSA/council sources, no closure or chain signal found for any of the seven. Three same-batch candidates (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop, Marple; Northern Makes Gallery, Bollington) were left untouched - each already has a live, undecided entry in docs/data/pending-review-queue.json from a prior run, so not re-decided or duplicated here. Two further candidates (Mura Ma, Marple; Brew & Tucker, Frodsham) were sent to pending-review-queue.json fresh this run - see that file's own note for why."
+ "_dailyReviewPromotionSource20261027": "7 venues promoted 2026-10-27 by curia-suggestion-review, independently re-verified: Church House Inn and Cafe Waterside (both Bollington, both inside/near Clarence Mill on the Macclesfield Canal), Regent Cinema and Traders (both Marple, Stockport Road), No 13 (Frodsham, High Street, a 2025-opened cocktail bar in the former Naga/Bombay Balti unit), Frodsham Artisan Market (Main Street, monthly last-Saturday fixture, seeded with occasional: true per CLAUDE.md's Matchmaking contract hard filter, same treatment as Wilmslow's own artisan market), and Walkden Gardens (Sale, a real Trafford Council public park, Hard rule 1's chain-footprint question set aside as inapplicable to a council-owned public asset). All re-confirmed via independent web search against the original candidates' own researchNotes in docs/data/venue-suggestions.json (now removed from that file on promotion) - CAMRA/FSA/council sources, no closure or chain signal found for any of the seven. Three same-batch candidates (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop, Marple; Northern Makes Gallery, Bollington) were left untouched - each already has a live, undecided entry in docs/data/pending-review-queue.json from a prior run, so not re-decided or duplicated here. Two further candidates (Mura Ma, Marple; Brew & Tucker, Frodsham) were sent to pending-review-queue.json fresh this run - see that file's own note for why.",
+ "_dailyReviewPromotionSource20261028": "7 venues promoted 2026-10-28 by curia-suggestion-review, independently re-verified against the 8 candidates with a 2026-10-28 suggestedDate: No.3 Holistic Therapies (Hale Barns, a single-practitioner spa/wellness room at 3 Hawley Lane, confirmed live and currently bookable via Fresha with strong review volume under both its own name and a 'Jill at No.3' listing variant — read as the same solo practitioner's studio under two listing names, not a chain or duplicate concern); Bollington Discovery Centre (a volunteer-run heritage museum inside Clarence Mill, no chain/ownership question applicable); Pigeon Coffee (a newly-opened, June 2026, independent canal-side café at Adelphi Mill, Bollington — specifically re-checked for a chain tie given a coincidental name overlap with an unrelated Toronto/Montreal coffee brand, confirmed unconnected); Canteena Bar & Grill (Sale, Stanley Square steakhouse run by two former local publicans, single site, no closure signal); Hops & Boogie (Sale, Stanley Square world-beer bar, address independently re-confirmed via CAMRA at 11 Stanley Square M33 7XZ, single site); Brabyns Park and Sale Water Park (both genuine council-owned public parkland — Stockport MBC and Trafford Council respectively — Hard rule 1's chain question set aside as inapplicable to a public asset, same precedent as Walkden Gardens' own 2026-10-27 promotion). All seven re-verified via fresh independent web search against the original candidates' own researchNotes in docs/data/venue-suggestions.json (now removed from that file on promotion); no closure or chain-footprint signal found for any of them. One same-batch candidate, Bevi (Marple, originally suggested as an ALE HOUSE micropub), was sent to docs/data/pending-review-queue.json fresh this run rather than promoted or rejected — see that file's own note for the specific business-identity discrepancy found. Five longer-pending candidates with live, undecided docs/data/pending-review-queue.json entries from the 2026-10-24/26/27 runs (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop and Mura Ma, both Marple; Northern Makes Gallery, Bollington; Brew & Tucker, Frodsham) were deliberately left untouched this run, per this job's own 'don't re-decide an item already waiting on a human' rule — Curia Command's pending_review collection was checked via a read-only query and had zero decided items to apply (see docs/data/pending-review-queue.json's own 2026-10-28 note on the read-only query mechanism actually available in this execution environment). The closure-audit rotating slice (indices 227-231: TEPHRA Santorini, The White Santorini, Kalipso, Sand Lily Boutique, Morenica Boutique — all Fira/Imerovigli boutiques/a pottery studio) found no closure signal for any of the five on independent web search; nothing written to pending-review-queue.json for it, per this rule's own 'silence is the normal outcome' standard."
 }

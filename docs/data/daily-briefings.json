@@ -340,6 +340,25 @@
         { "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery", "detail": "left pending — each already has a live, undecided pending-review-queue.json entry from a prior run; not re-decided or duplicated" }
       ],
       "createdAt": "2026-10-27T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-28",
+      "synced": false,
+      "title": "7 venues promoted (Hale Barns/Bollington/Sale/Marple); 1 sent for review; closure audit and Curia Command check both clean",
+      "summary": "Independently re-verified all 8 new pending candidates in venue-suggestions.json dated 2026-10-28: promoted 7 (No.3 Holistic Therapies in Hale Barns; Bollington Discovery Centre and Pigeon Coffee in Bollington; Canteena Bar & Grill and Hops & Boogie in Sale; Brabyns Park in Marple; Sale Water Park in Sale), and sent 1 to pending-review-queue.json for a human call (Bevi, Marple — CAMRA's own listing now describes the address as an Italian bar/pizzeria, not the real-ale micropub this candidate's reason text and type describe). Five older candidates already sitting in pending-review-queue.json from the 2026-10-24/26/27 runs (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker) were deliberately left untouched — not re-decided, per this job's own rule against duplicating or second-guessing an item already waiting on a human. Curia Command's pending_review collection was checked (via the real read-only query this execution environment actually exposes, not the brief's literal 'read_db' example — see pending-review-queue.json's own note) and had zero decided items to apply. This run's rotating closure-audit slice (TEPHRA Santorini, The White Santorini, Kalipso, Sand Lily Boutique, Morenica Boutique — all Fira/Imerovigli) found no closure signal for any of the five on independent web search.",
+      "items": [
+        { "label": "No.3 Holistic Therapies (Hale Barns)", "detail": "promoted — single-practitioner spa room, live Fresha bookings, strong review volume, no chain signal" },
+        { "label": "Bollington Discovery Centre (Bollington)", "detail": "promoted — volunteer/charity-run heritage museum inside Clarence Mill, no closure signal" },
+        { "label": "Pigeon Coffee (Bollington)", "detail": "promoted — newly opened (June 2026) independent canal-side café, checked and cleared of a coincidental chain-name overlap" },
+        { "label": "Canteena Bar & Grill (Sale)", "detail": "promoted — single-site steakhouse in the former Foodhall unit, no closure signal" },
+        { "label": "Hops & Boogie (Sale)", "detail": "promoted — single-site world-beer bar, address re-confirmed via CAMRA" },
+        { "label": "Brabyns Park (Marple)", "detail": "promoted — genuine Stockport Council public park, Hard rule 1 not applicable" },
+        { "label": "Sale Water Park (Sale)", "detail": "promoted — genuine Trafford Council public park/water-sports site, Hard rule 1 not applicable" },
+        { "label": "Bevi (Marple)", "detail": "sent for review — CAMRA's current listing describes an Italian bar/pizzeria, not the real-ale micropub this candidate's own copy and type describe" },
+        { "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker", "detail": "left pending — each already has a live, undecided pending-review-queue.json entry from a prior run; not re-decided or duplicated" }
+      ],
+      "createdAt": "2026-10-28T00:00:00Z"
     }
   ]
 }
