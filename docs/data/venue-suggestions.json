@@ -1487,6 +1487,141 @@
    "suggestedDate": "2026-10-27",
    "status": "pending",
    "researchNotes": "Second Frodsham candidate this run alongside No 13 — a different register (a daytime coffee shop, not a bar), giving Frodsham's one-per-category spread real depth rather than another evening venue. Verified via Frodsham Town Council's own 2017 announcement (a new coffee shop, Brew and Tucker, opened on Church Street, run by an Australian-born owner and his Frodsham-born partner) and Frodsham planning committee records (30 Church Street, Frodsham — a 2018 decision varying the venue's opening hours, confirming the specific address) plus Wanderlog's current listing describing it as 'a cozy spot known for its exceptional coffee inspired by Sydney, Australia' with reviews praising sourdough, bagels and hot chocolate. No second site or group ownership found anywhere in searches; single-site, independently owned, passes Hard rule 1 cleanly. Flagging honestly: the clearest dated confirmation found is the 2017 opening and a 2018 council record: no explicit 2025/2026-dated review was found, though equally no closure signal (no 'permanently closed' marker, no dead listings) turned up either, unlike this file's own confirmed-closed rejections elsewhere. Coordinates (53.2956/-2.726) approximated for Church Street near this file's own existing Frodsham cluster (Helter Skelter, Castle Park Arts Centre, Next Door, and this run's own No 13 candidate), since a direct postcode geocode wasn't reachable this session — flagged for the reviewer to tighten and specifically re-confirm current trading before promotion given the dating gap. Reuses the existing COFFEE ROOM type. Moderate confidence given the dating gap noted above."
+  },
+  {
+   "name": "No.3 Holistic Therapies",
+   "district": "hale-barns",
+   "type": "SPA",
+   "spend": "£££",
+   "lat": 53.3679,
+   "lon": -2.3184,
+   "base": 62,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A single therapy room at 3 Hawley Lane doing the quiet work Hale Barns' own parade never quite got round to — facials and a 'Face Ritual' booked solidly on repeat custom, not passing trade off The Square.",
+   "suggestedDate": "2026-10-28",
+   "status": "pending",
+   "researchNotes": "Re-tallied Manchester/Cheshire district/category coverage before researching (venues.json + pending suggestions, filtered to manchester/cheshire metros): Hale Barns sits at only 2 real venues (Ringway Golf Club, Hale Barns Cricket Club — both Do, zero Drink, zero Eat), the thinnest district found this run alongside Bollington/Sale/Frodsham/Marple, all under this file's standing under-10 floor. Hale Barns itself turned out genuinely hard to find more in — The Square's anchor tenants (Booths, a closing Costa) are chain, Brasserie Blanc is a chain hotel bar, and Danny Fox's 2016-opened restaurant FOX (the one promising independent lead, in The Square) couldn't be confirmed still trading despite several searches, so it's deliberately not suggested here. Verified via Fresha (two listings, 'No.3 Holistic Therapies' and 'Jill at No.3', both at 3 Hawley Lane, Hale Barns WA15 0EA, both currently bookable with live treatment menus — Holistic Facial £65, Face Ritual £80, Signature treatment £110, Fusion Massage £55, Swedish/Deep Tissue massage £55-65 — and a combined 5.0 rating across 149-181 reviews): a small, single-room holistic therapy practice, reads as an individual practitioner's own studio (the 'Jill at No.3' listing) rather than any franchise. No second site or group ownership found anywhere in searches; passes Hard rule 1 cleanly. Coordinates (53.3679/-2.3184) are the ONS-published centroid for postcode WA15 0EA itself, not an estimate — lands almost exactly on this file's own Hale Barns district centroid. New use of the existing SPA type (Chapel Holistics, Cheadle Hulme; The Scented Garden Retreat, Chester), which maps to the real 'Spa & wellness' tile — closes Hale Barns' real Do-category variety gap (previously golf and cricket only). Moderate-high confidence — live, current, actively-bookable listings with strong review volume; the only caveat is that a small single-practitioner business has less press depth than a bar or restaurant."
+  },
+  {
+   "name": "Bollington Discovery Centre",
+   "district": "bollington",
+   "type": "MUSEUM",
+   "spend": "£",
+   "lat": 53.3008,
+   "lon": -2.1005,
+   "base": 56,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "Bollington Civic Society's own small museum inside Clarence Mill, the cotton-and-canal story told by the people who actually dug the archive out — a picture collection, not a gift shop, past the tunnel from the car park.",
+   "suggestedDate": "2026-10-28",
+   "status": "pending",
+   "researchNotes": "Bollington's real Do category had zero venues before this run's own pending Northern Makes Gallery candidate (also added today, see below); this closes a second, distinct Do gap — a heritage museum rather than a commercial gallery. Verified via Wikipedia's own Clarence Mill entry, happyvalley.org.uk and a Cheshire self-catering guide: Bollington Discovery Centre (formerly the Bollington Civic Trust Heritage Centre), Clarence Mill, Clarence Road, Bollington SK10 5JZ — a volunteer-run heritage museum covering the town's cotton-mill and Macclesfield Canal history, housed in the same Grade II-listed mill building as Café Waterside (already live in this district's catalogue, 'it doubles as the cafe for the Discovery Centre'). Run by Bollington Civic Society, a charity — no chain or franchise structure of any kind, passes Hard rule 1 as cleanly as any venue in this file. Coordinates reuse Café Waterside's own already-verified geocode (53.3008/-2.1005) since both sit inside the same building. New use of the existing MUSEUM type (introduced for London's pass) — reused rather than inventing a new type, since a small heritage museum is exactly what that type already covers. Moderate confidence on current opening hours specifically (an older source gave Wed 1.30-4, Sat/Sun 11-4, not independently re-confirmed for 2026) but no closure signal anywhere, and the building and its other tenant (Café Waterside) are confirmed current."
+  },
+  {
+   "name": "Pigeon Coffee",
+   "district": "bollington",
+   "type": "COFFEE ROOM",
+   "spend": "£",
+   "lat": 53.291938,
+   "lon": -2.106907,
+   "base": 56,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A door in the wall off the Adelphi Mill towpath, open since June and already with its own regulars on the canal-side tables — teas, cakes and nothing about it trying to be Clarence Mill's café down the water.",
+   "suggestedDate": "2026-10-28",
+   "status": "pending",
+   "researchNotes": "Second Bollington candidate this run alongside Bollington Discovery Centre — a different register (Drink, not Do) closing out the district's other thin cell. Verified via happyvalley.org.uk's own Bollington 'Drinking | Eating | Cafés' directory (listing it as a new café, June 2026, serving teas/coffees/cakes/snacks 'on the canal side at Adelphi... off Grimshaw Lane, along the canal towpath in front of Adelphi mill, look for the door in the wall') and Historic England/CQC/business listings confirming Adelphi Mill's own postcode (SK10 5JB), a separate Grade II-listed mill building a short walk from Clarence Mill along the same towpath. Specifically checked for a chain tie given the name's coincidental overlap with a Toronto/Montreal 'Pigeon Coffee' brand — confirmed unrelated, no connection found; this is a small, newly opened, independent canal-side café, passes Hard rule 1 cleanly. Coordinates (53.291938/-2.106907) are the published geocode for postcode SK10 5JB itself (Adelphi Mill's own postcode), not an estimate. Reuses the existing COFFEE ROOM type (Café Waterside, same district). Moderate confidence — very recently opened (June 2026) so there's little review history yet and opening hours weren't independently re-confirmed beyond the one directory source, but no closure signal (nothing yet to close) and the building/postcode match is solid."
+  },
+  {
+   "name": "Canteena Bar & Grill",
+   "district": "sale",
+   "type": "STEAKHOUSE",
+   "spend": "£££",
+   "lat": 53.4235,
+   "lon": -2.323,
+   "base": 72,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Two former publicans who ran Sale's own Bridge turned the old Foodhall unit into a proper ex-dairy and Aberdeen Angus room — Stanley Square's steak table, not another small-plates sharer.",
+   "suggestedDate": "2026-10-28",
+   "status": "pending",
+   "researchNotes": "Sale sits at only 5 real venues (Waterside Arts Centre, Walkden Gardens — Do; Pray Tell — Drink; Blanchflower, Kampasi — Eat), one of this run's five under-10 priority districts; Eat already has 2, so this is breadth rather than this district's single biggest gap (Drink, addressed instead by the Hops & Boogie candidate below), but a real, well-verified addition is still worth more than forcing a weaker Drink-only batch. Verified via manchestersfinest.com (two separate pieces: the Foodhall-to-Canteena conversion announcement, and a dedicated venue profile), First Table's current bookable listing (19-20 Stanley Square, Sale M33 7WZ) and Wanderlog: Canteena Bar & Grill, run by Danielle Condron and Lisa Kettle, who previously ran The Bridge, a Sale pub that has since closed — specialises in ex-dairy, wagyu and Aberdeen Angus steaks. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.4235/-2.323) approximated from Stanley Square's existing cluster in this district's own catalogue (Blanchflower 53.4239/-2.3227, Pray Tell 53.4231/-2.3233) since a direct postcode geocode for M33 7WZ wasn't reachable this session — flagged for the reviewer to tighten. New type introduced — STEAKHOUSE — since no existing Eat type captures a dedicated steak-specialist register precisely (FINE DINING/GASTROPUB would flatten the real distinguishing feature); same precedent as ROTISSERIE/SMOKEHOUSE elsewhere in this catalogue. Moderate-high confidence — well-documented opening and ownership history, no closure signal found; the approximated coordinate is the one flag."
+  },
+  {
+   "name": "Hops & Boogie",
+   "district": "sale",
+   "type": "CRAFT BEER BAR",
+   "spend": "££",
+   "lat": 53.4233,
+   "lon": -2.3228,
+   "base": 62,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "A small Stanley Square unit stacked with bottled and keg beer from round the world and not much else — no food menu to hide behind, just the fridge and whoever's working through it with you.",
+   "suggestedDate": "2026-10-28",
+   "status": "pending",
+   "researchNotes": "Closes Sale's real, biggest gap found this run: Drink had only 1 mapped venue (Pray Tell, a wine bar) against 2 Do and 2 Eat before this addition. Verified via CAMRA (current listing, tagged as an independent operator, 11 Stanley Square, Sale M33 7XZ — 'a small bar with a range of bottled and keg beers from around the world', real cider usually available): Hops & Boogie. No second site or group ownership found anywhere in searches; CAMRA's own 'independent operator' tag plus no chain signal found, passes Hard rule 1 cleanly. Coordinates (53.4233/-2.3228) approximated from the same Stanley Square cluster as the Canteena candidate above (Blanchflower/Pray Tell's already-catalogued coordinates), since a direct postcode geocode for M33 7XZ wasn't reachable this session — flagged for the reviewer to tighten. New type introduced — CRAFT BEER BAR — since the existing ALE HOUSE type specifically implies cask/real ale (used elsewhere in this file for genuine real-ale pubs), which doesn't fit a bottled/keg-only world-beer bar with no cask line; category-only (Drink), same treatment as this file's many other precise-fit-doesn't-exist types. Moderate confidence — CAMRA's listing was last updated in 2024 and no 2025/2026-dated review was found, though equally no closure signal turned up; flagged honestly for the reviewer to re-confirm current trading before promotion."
+  },
+  {
+   "name": "Bevi",
+   "district": "marple",
+   "type": "ALE HOUSE",
+   "spend": "£",
+   "lat": 53.3945,
+   "lon": -2.0681,
+   "base": 64,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "A former paper shop on Market Street gone deceptively spacious micropub — four guest beers, a rotating cider, and a games room that means nobody's just here for one.",
+   "suggestedDate": "2026-10-28",
+   "status": "pending",
+   "researchNotes": "Marple's real Drink category (Samuel Oldknow, Traders — both ALE HOUSE) was tied for this run's thinnest cell alongside Do before today's own pending Mura Ma gallery candidate; this is a second, genuinely distinct real-ale venue a few doors from Samuel Oldknow on the same street. Verified via CAMRA (24 Market Street, Marple — 'a recently opened micro pub located in the centre of Marple... formerly a paper shop and, although a micropub, it is deceptively spacious', 1 regular + 2 changing beers plus guest ales and a rotating cider/perry, a loyalty card and a games room) and the Marple Website's own directory ('Bevi, Real Ale and Prosecco Bar, 24 Market Street'). Specifically checked this isn't the same premises as the separately-researched (and not suggested) Rockey Street Blues Bar/Aggie's Bar at 54 Market Street, a different building further along the same street with its own, more uncertain trading history — Bevi is a distinct, separately-addressed venue. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.3945/-2.0681) approximated from the already-catalogued Samuel Oldknow's own geocode (22 Market Street, 53.3944/-2.0683) a couple of doors away, since a direct postcode geocode for SK6 7AD wasn't reachable this session — flagged for the reviewer to tighten. Reuses the existing ALE HOUSE type (Samuel Oldknow, Traders, same district). Moderate confidence — CAMRA's listing was last updated in 2024 with no 2025/2026-dated review found, though no closure signal turned up either; flagged honestly for the reviewer to re-confirm current trading before promotion."
+  },
+  {
+   "name": "Brabyns Park",
+   "district": "marple",
+   "type": "RIVERSIDE PARK",
+   "spend": "£",
+   "lat": 53.4025,
+   "lon": -2.0563,
+   "base": 64,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "The old Brabyns Hall grounds run as public land since 1947, a Grade II iron bridge over the Goyt and the Peak Forest Canal both inside its own boundary — Marple Bridge's real green lung, kept going by a volunteer Friends group, not a council mowing rota.",
+   "suggestedDate": "2026-10-28",
+   "status": "pending",
+   "researchNotes": "Second Marple Do candidate this run alongside today's own pending Mura Ma gallery — a genuinely different register (a public park, not a gallery) for a district that had zero Do coverage beyond Regent Cinema before either. Verified via Stockport Council's own page (stockport.gov.uk/brabyns-park), Wikipedia and Marple Local History Society: Brabyns Park, Brabyns Brow, Marple Bridge, Stockport SK6 5DT — Marple's largest park, the former grounds of the demolished Georgian Brabyns Hall, opened to the public in 1947, bordered by the River Goyt and the Peak Forest Canal, with a Grade II-listed 1813 iron bridge, a children's play area, a free ~70-space car park, and an active volunteer group (Friends of Brabyns Park). Council-owned public parkland — no chain or ownership question applies, passes Hard rule 1 as cleanly as any venue in this file. Coordinates (53.4025/-2.0563) converted directly from the OS grid reference SJ 96355 89519 given for the park's own Brabyns Brow entrance (Ramblers Association group-walk listing), not an estimate. New use of the existing RIVERSIDE PARK type (Chorlton Water Park, Marbury Country Park, The Groves) — a real, structurally identical register (a river/canal-bordered public park), reused rather than TOWN PARK since the canal/river frontage is the genuinely distinguishing feature here, matching the precedent those other RIVERSIDE PARK entries already set. High confidence — long-established, council-run, well-documented, no currency concerns a public park would even raise."
+  },
+  {
+   "name": "Sale Water Park",
+   "district": "sale",
+   "type": "RIVERSIDE PARK",
+   "spend": "£",
+   "lat": 53.432,
+   "lon": -2.299,
+   "base": 70,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A 52-acre lake dug for the M60's embankment and kept on once the motorway was built — sailing and paddleboard lessons from the Trafford Water Sports Centre, and a Metrolink stop of its own for whoever's coming without a car.",
+   "suggestedDate": "2026-10-28",
+   "status": "pending",
+   "researchNotes": "Third Sale candidate this run alongside Canteena Bar & Grill and Hops & Boogie — Sale's real Do category (Waterside Arts Centre, Walkden Gardens) was as thin as Drink before today, and this is a genuinely different register from Walkden Gardens' TOWN PARK (formal municipal gardens) — a 152-acre lake and water-sports site. Verified via Wikipedia's own Sale Water Park entry and current (June 2026) local coverage (Hits Radio/Trafford Council advisory about summer crowding and parking, confirming it's actively busy and operating right now, not a quiet or declining site): Sale Water Park, Rifle Road, Sale M33 2LX area — 152 acres including a 52-acre artificial lake (a former gravel pit dug for the M60's embankment), opened 1979, owned by Trafford Council, home to the Trafford Water Sports Centre (canoeing, sailing, stand-up paddleboarding) and its own Sale Water Park Metrolink stop (opened 2014). Council-owned public parkland with an on-site council-run water-sports centre — no chain or franchise question applies, passes Hard rule 1 as cleanly as any venue in this file. Coordinates (53.432/-2.299) from a Wikipedia-sourced coordinate aggregator (latitude.to), cross-checked against the park's own known position between Sale and Stretford in the Mersey valley — sits about 1.3km north-east of this district's own centroid, still comfortably within Sale's real footprint. Reuses the existing RIVERSIDE PARK type (Chorlton Water Park, Marbury Country Park). High confidence — long-established, council-run, current 2026 news coverage confirming active, busy operation, no currency concerns."
   }
  ]
 }
