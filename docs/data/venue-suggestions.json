@@ -1504,57 +1504,6 @@
    "suggestedDate": "2026-10-28",
    "status": "pending",
    "researchNotes": "Marple's real Drink category (Samuel Oldknow, Traders — both ALE HOUSE) was tied for this run's thinnest cell alongside Do before today's own pending Mura Ma gallery candidate; this is a second, genuinely distinct real-ale venue a few doors from Samuel Oldknow on the same street. Verified via CAMRA (24 Market Street, Marple — 'a recently opened micro pub located in the centre of Marple... formerly a paper shop and, although a micropub, it is deceptively spacious', 1 regular + 2 changing beers plus guest ales and a rotating cider/perry, a loyalty card and a games room) and the Marple Website's own directory ('Bevi, Real Ale and Prosecco Bar, 24 Market Street'). Specifically checked this isn't the same premises as the separately-researched (and not suggested) Rockey Street Blues Bar/Aggie's Bar at 54 Market Street, a different building further along the same street with its own, more uncertain trading history — Bevi is a distinct, separately-addressed venue. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.3945/-2.0681) approximated from the already-catalogued Samuel Oldknow's own geocode (22 Market Street, 53.3944/-2.0683) a couple of doors away, since a direct postcode geocode for SK6 7AD wasn't reachable this session — flagged for the reviewer to tighten. Reuses the existing ALE HOUSE type (Samuel Oldknow, Traders, same district). Moderate confidence — CAMRA's listing was last updated in 2024 with no 2025/2026-dated review found, though no closure signal turned up either; flagged honestly for the reviewer to re-confirm current trading before promotion. SENT TO PENDING REVIEW 2026-10-28 (curia-suggestion-review): independent re-check found CAMRA's own listing now describes the venue as 'an Italian bar and Pizzeria' with an expanded kitchen, a materially different identity from the real-ale-only micropub this candidate's own reason text describes — not a closure signal and not a chain/duplicate concern (Hard rule 1 is clean either way), but enough of a mismatch between the proposed copy/type and what the venue may now actually be that a confident promote call isn't honest without an on-the-ground re-check. Left 'pending' here; see docs/data/pending-review-queue.json for the human-facing entry."
-  },
-  {
-   "name": "Cloudberry Cafe",
-   "district": "marple",
-   "type": "BRUNCH SPOT",
-   "spend": "££",
-   "lat": 53.3935,
-   "lon": -2.0645,
-   "base": 66,
-   "bands": [
-    "morning",
-    "afternoon"
-   ],
-   "reason": "Four days a week only, ten till three, and the ginger-and-chocolate tiffin is usually gone by early afternoon regardless — Stockport Road's real cake stop, local makers' crafts on the counter and not a chain in sight.",
-   "suggestedDate": "2026-10-29",
-   "status": "pending",
-   "researchNotes": "Verified via Sluurpy (4.6/5 aggregated from roughly 1,677 recommendations), Google (4.5/5, 99 reviews) and TripAdvisor (4.5/5, 142 reviews) via that aggregation, plus Stockport Mumbler's own cafe listing and Marple Local History Society's page naming it among the town's current cafes: Cloudberry Cafe, 68 Stockport Road, Marple SK6 6AB — an independent coffee-and-cake cafe also selling local crafts/gifts at the front counter, open Tuesday-Friday 10am-3pm only (closed Monday, Saturday, Sunday per the Sluurpy listing). No second site or sister business found anywhere in searches; one directory result names a different business ('Marple Arch') at the same street number, which reads as either a stale listing or a neighbouring-unit mismatch rather than evidence of shared/multi-site ownership — flagged for the reviewer to double-check on the ground before promotion. Fills this run's most acute single-category gap found in Manchester/Cheshire: Marple's real Eat category is just 1 venue (All Things Nice Marple, a bakery) even counting today's own pending candidates — Fold Bistro & Bottle Shop (already pending from a prior run) is a different, evening-facing bistro/bottle-shop concept, not a duplicate of this daytime cafe. Coordinates (53.3935/-2.0645) are a triangulated estimate, not a direct postcode geocode — doogal.co.uk and api.postcodes.io were both unreachable this session (the same network restriction this file's own Monton, Brew and Tucker and Bevi entries already recorded), so this was placed a short distance along Stockport Road from the existing Marple cluster (Samuel Oldknow, Regent Cinema, Traders, All Things Nice, all within roughly 300m); flagged for the reviewer to tighten against a real geocode before promotion. Reuses the existing BRUNCH SPOT type (Mobberley Ice Cream Coffee House, Blanchflower Sale, Idle Hands, same register). High confidence on the venue's reality, independence and quality; moderate confidence on the exact coordinate only."
-  },
-  {
-   "name": "Bean & Brush Family Art Café",
-   "district": "sale",
-   "type": "POTTERY STUDIO",
-   "spend": "££",
-   "lat": 53.4233,
-   "lon": -2.3228,
-   "base": 62,
-   "bands": [
-    "morning",
-    "afternoon"
-   ],
-   "reason": "Paint your own pot while the coffee's still warm — Stanley Square's one room where a children's birthday party and a quiet Tuesday coffee get exactly the same table.",
-   "suggestedDate": "2026-10-29",
-   "status": "pending",
-   "researchNotes": "Verified via thatsup.co.uk and dayoutwiththekids.co.uk's own listings plus aggregated reviews (Google 4.6/5 from roughly 590 reviews, Facebook 4.5/5 from roughly 771 reviews): Bean & Brush Family Art Café, 51 Stanley Square, Sale M33 7WZ — pottery painting and clay-imprint sessions alongside a café serving hot/cold drinks and food, open daily. No second site, sister venue or franchise structure found anywhere in searches — specifically checked against, and ruled out confusion with, the differently-named and unrelated US chains 'Beans & Brews'/'Beans & Brew' and a Pennsylvania 'Brushes & Beans'; single-site, passes Hard rule 1 cleanly. Coordinates approximated from the existing Stanley Square cluster already in this file (Hops & Boogie, Pray Tell, Canteena Bar & Grill, Blanchflower Sale, all the same small square) since a direct postcode geocode for M33 7WZ wasn't reachable this session — flagged for the reviewer to tighten. Reuses the existing POTTERY STUDIO type (Pottery Corner, Chorlton; Ceramics & Chill, Bramhall; Knutcraft, Knutsford). Sale sits at 8 real venues, one of this file's standing under-10 targets; this is a genuine Do-category addition even though Sale's numerically thinnest real category is Drink (2 venues) — a good-faith search today for a new Sale Drink candidate didn't clear this file's confidence bar (a 'Cork of the North' lead turned out to already be catalogued under Heaton Moor, not Sale; a 'Dim Sum House' opening at the former Roti unit had only one thin, operator-less source; Simon Rimmer's 'Greens' is confirmed permanently closed since September 2024) — flagged honestly rather than forced. Moderate-high confidence."
-  },
-  {
-   "name": "Frodsham Marsh",
-   "district": "frodsham",
-   "type": "NATURE RESERVE",
-   "spend": "£",
-   "lat": 53.29546,
-   "lon": -2.76744,
-   "base": 56,
-   "bands": [
-    "morning",
-    "afternoon"
-   ],
-   "reason": "Short-eared owls over the reed beds by late winter, black-tailed godwits passing through on the tide — park on the bridge over the M56 and walk from there, the Mersey Estuary doing more for an afternoon than any marked trail nearby.",
-   "suggestedDate": "2026-10-29",
-   "status": "pending",
-   "researchNotes": "Verified via BirdGuides' own site page (a real published geocode, 53.29546/-2.76744, not estimated), birdingplaces.eu's detailed access notes (park on the bridge over the M56, walk Brook Furlong Lane toward the River Weaver, access from the south end of Main Street via Marsh Lane) and a Visorando walking-route listing (a roughly 7.4km loop, rated easy, 'bird-rich lagoons and reed-beds'). A genuine, well-documented, free-access birding and walking site on the Mersey/Weaver marshes that this district's own editorialDescription already references directly ('where the Cheshire Plain meets the Mersey marshes') but that no actual venue entry currently represents — Frodsham's only two real Do venues today are Castle Park Arts Centre and the Frodsham Artisan Market, neither a green-space pick. This isn't a commercial operator to chain-check — same category as the existing NATURE RESERVE entries already live in venues.json (Happy Valley, Bramhall; The Edge, Alderley Edge), both free public-access sites rather than businesses, so Hard rule 1's ownership/footprint check doesn't apply the way it does to a restaurant or bar. Bands set to morning/afternoon only (daylight walking and birding, no evening draw) and spend '£' (free access, no admission charge). A good-faith search for a new Frodsham Eat venue specifically (the district's actual thinnest category, 1 real venue even counting today's own pending Brew and Tucker Drink candidate from a prior run) didn't turn up a confident candidate today — Whitmore & White's Frodsham branch and a 'new tapas bar' lead both lacked clean enough sourcing to clear this file's bar, and 'The Homebrew Tap' (Church Street, Frodsham) was dropped after its own CAMRA listing showed it belongs to a local group running several sister bars across Cheshire and the Wirral — too wide a footprint for Hard rule 1. A same-day check of nearby Bollington's own thin Eat category ('Oliver at Bollington Green') was dropped too, for staleness (its only review is roughly 14 years old with no current confirmation either way) — flagged honestly rather than forced. High confidence on this entry specifically — the site, its access point and its character are all independently and consistently documented."
   }
  ]
 }

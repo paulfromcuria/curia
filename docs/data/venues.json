@@ -11718,8 +11718,51 @@
     "afternoon"
    ],
    "reason": "A 52-acre lake dug for the M60's embankment and kept on once the motorway was built — sailing and paddleboard lessons from the Trafford Water Sports Centre, and a Metrolink stop of its own for whoever's coming without a car."
+  },
+  {
+   "name": "Cloudberry Cafe",
+   "district": "marple",
+   "type": "BRUNCH SPOT",
+   "spend": "££",
+   "lat": 53.3935,
+   "lon": -2.0645,
+   "base": 66,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Four days a week only, ten till three, and the ginger-and-chocolate tiffin is usually gone by early afternoon regardless — Stockport Road's real cake stop, local makers' crafts on the counter and not a chain in sight."
+  },
+  {
+   "name": "Bean & Brush Family Art Café",
+   "district": "sale",
+   "type": "POTTERY STUDIO",
+   "spend": "££",
+   "lat": 53.4233,
+   "lon": -2.3228,
+   "base": 62,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Paint your own pot while the coffee's still warm — Stanley Square's one room where a children's birthday party and a quiet Tuesday coffee get exactly the same table."
+  },
+  {
+   "name": "Frodsham Marsh",
+   "district": "frodsham",
+   "type": "NATURE RESERVE",
+   "spend": "£",
+   "lat": 53.29546,
+   "lon": -2.76744,
+   "base": 56,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Short-eared owls over the reed beds by late winter, black-tailed godwits passing through on the tide — park on the bridge over the M56 and walk from there, the Mersey Estuary doing more for an afternoon than any marked trail nearby."
   }
  ],
+ "_dailyReviewPromotionSource20261029": "3 venues promoted 2026-10-29 by curia-suggestion-review, independently re-verified against the 3 candidates with a 2026-10-29 suggestedDate: Cloudberry Cafe (Marple, 68 Stockport Road — independent coffee/cake cafe also selling local crafts, open Tue-Fri 10am-3pm only; re-confirmed via Sluurpy/Google/Tripadvisor aggregated reviews and Stockport Mumbler's own cafe listing, no second site found); Bean & Brush Family Art Café (Sale, 51 Stanley Square — pottery-painting studio and café; re-confirmed via thatsup.co.uk/dayoutwiththekids.co.uk and aggregated Google/Facebook reviews, specifically checked against and ruled out confusion with unrelated US 'Beans & Brews'/'Brushes & Beans' chains, single-site); Frodsham Marsh (Frodsham — a free-access birding/walking site on the Mersey/Weaver marshes, re-confirmed via BirdGuides' own published geocode, birdingplaces.eu's access notes and a Visorando route listing; same public-green-space category as the already-live Happy Valley/The Edge entries, so Hard rule 1's ownership-footprint check doesn't apply). All three re-verified via fresh independent web search against the original candidates' own researchNotes in docs/data/venue-suggestions.json (now removed from that file on promotion); no closure or chain-footprint signal found for any of them. Coordinates for Cloudberry Cafe and Bean & Brush remain the original candidates' own triangulated estimates (doogal.co.uk/api.postcodes.io both unreachable again this session via the egress proxy) rather than a direct geocode — flagged here, not silently carried over, consistent with this file's established practice of noting an approximation rather than presenting it as precise. petFriendly/dietaryOptions were not set for any of the three — a brief check turned up nothing specific enough to state as fact for either new cafe, so both fields are left unset rather than guessed, per this job's own 'don't guess dietary/pet facts' standard. Five longer-pending candidates with live, undecided docs/data/pending-review-queue.json entries from the 2026-10-24/26/27/28 runs (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop and Mura Ma, both Marple; Northern Makes Gallery, Bollington; Brew & Tucker, Frodsham; Bevi, Marple) were deliberately left untouched this run, per this job's own 'don't re-decide an item already waiting on a human' rule. Curia Command's pending_review collection was checked via a read-only query (ArtifactData, action 'query' — the real read-only equivalent this execution environment exposes, not the brief's literal 'read_db' example) and had zero decided items to apply. The closure-audit rotating slice (indices 218-222: Lioyerma Lounge Cafe Pool Bar/Oia, Astra Suites Pool Bar/Imerovigli, Buddha-Bar Beach Sunset Lounge/Imerovigli, Domaine Sigalas/Oia, Poniros Jewellery/Oia) found no closure signal for any of the five on independent web search — Astra Suites and Poniros both carry a normal seasonal winter-closure note, not a permanent closure, consistent with how this island's hospitality businesses operate every year.",
  "_momentsExpansionSource": "2026-09, at explicit user request ('build out our moments database'): each of the 4 real moments (CLAUDE.md — exactly 4, never add a 5th without a product decision) expanded from its original 4-pick prototype sample to ~12-13 real picks apiece, drawn from the full 186-venue catalog across all three metros (Manchester, Cheshire, Santorini), not just the original Manchester core. Curated by genuine fit to each moment's own character (Date Night: low light, tables for two, worth staying for a third glass; Entertaining a Client: quiet enough to talk, expensive enough to register; Big Group of Friends: rooms that take eight at short notice; Solo Reset: counter seats, unhurried, nobody asking who you're waiting for) — not every venue that could plausibly fit, a curated editorial list same as the original. Every one of the original 4-per-moment picks is preserved except Matt & Phreds out of Big Group of Friends (a small, intimate jazz room is a weaker fit for a group of eight than for the Solo Reset picks it's also in, where it already sat) — a deliberate correction, not an oversight. A venue appearing in more than one moment (e.g. Refuge in both Date Night and Entertaining a Client) matches the original prototype's own pattern, not a new one introduced here.",
  "moments": [
   {

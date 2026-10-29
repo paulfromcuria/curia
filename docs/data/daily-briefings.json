@@ -359,6 +359,22 @@
         { "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker", "detail": "left pending — each already has a live, undecided pending-review-queue.json entry from a prior run; not re-decided or duplicated" }
       ],
       "createdAt": "2026-10-28T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-29",
+      "synced": false,
+      "title": "3 venues + 1 new Cheshire district (Poynton) promoted; nothing rejected or newly sent for review; Curia Command and closure audit both clean",
+      "summary": "Independently re-verified all 3 new pending venue candidates (Cloudberry Cafe, Marple; Bean & Brush Family Art Café, Sale; Frodsham Marsh, Frodsham) and the sole pending district candidate (Poynton, Cheshire) dated 2026-10-29, promoting all 4 straight to master. Six older candidates already sitting in docs/data/pending-review-queue.json from the 2026-10-24/26/27/28 runs (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi) were deliberately left untouched — not re-decided, per this job's own rule against second-guessing an item already waiting on a human. Curia Command's pending_review collection was checked via a read-only query (ArtifactData, action 'query') and had zero decided items to apply this run. The closure-audit rotating slice (indices 218-222: Lioyerma Lounge Cafe Pool Bar, Astra Suites Pool Bar, Buddha-Bar Beach Sunset Lounge, Domaine Sigalas, Poniros Jewellery — all Oia/Imerovigli) found no closure signal for any of the five; two carry a normal seasonal winter-closure note, not a permanent one. Also re-confirmed, and left unresolved again, the pre-existing Lymm/Ramsbottom/Monton discrepancy first flagged 2026-10-24 (marked 'promoted' in docs/data/district-suggestions.json but still absent from the real docs/data/districts.json) — still a human decision, not something this run tried to fix unilaterally.",
+      "items": [
+        { "label": "Cloudberry Cafe (Marple)", "detail": "promoted — independent coffee/cake cafe on Stockport Road, no chain signal, closes Marple's acute daytime-Eat gap" },
+        { "label": "Bean & Brush Family Art Café (Sale)", "detail": "promoted — independent pottery-painting studio and café on Stanley Square, specifically checked against and cleared of unrelated US 'Beans & Brews'/'Brushes & Beans' chain names" },
+        { "label": "Frodsham Marsh (Frodsham)", "detail": "promoted — free-access birding/walking site on the Mersey/Weaver marshes, same public-green-space category as the existing Happy Valley/The Edge entries, Hard rule 1 not applicable" },
+        { "label": "Poynton (new Cheshire district)", "detail": "promoted — genuine, distinct Cheshire East town (the Poynton Regenerated Shared Space scheme, colliery heritage); the one real judgment call was its ~1.9-mile proximity to Bramhall, weighed against the already-accepted Bramhall/Cheadle Hulme pairing and judged not disqualifying given Poynton's genuinely distinct character" },
+        { "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker / Bevi", "detail": "left pending — each already has a live, undecided pending-review-queue.json entry from a prior run; not re-decided or duplicated" },
+        { "label": "Lymm / Ramsbottom / Monton district-suggestion discrepancy", "detail": "re-flagged, not fixed — still marked 'promoted' in docs/data/district-suggestions.json but absent from the real docs/data/districts.json; unresolved since 2026-10-24, needs a human decision" }
+      ],
+      "createdAt": "2026-10-29T00:00:00Z"
     }
   ]
 }
