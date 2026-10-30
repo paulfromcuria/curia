@@ -11760,8 +11760,80 @@
     "afternoon"
    ],
    "reason": "Short-eared owls over the reed beds by late winter, black-tailed godwits passing through on the tide — park on the bridge over the M56 and walk from there, the Mersey Estuary doing more for an afternoon than any marked trail nearby."
+  },
+  {
+   "name": "Colourfield Gallery",
+   "district": "poynton",
+   "type": "ART GALLERY",
+   "spend": "£",
+   "lat": 53.3462,
+   "lon": -2.1225,
+   "base": 56,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "Ed Perry's own gallery on London Road South, thirty years of relationships with Northern painters condensed into one changing hang — priced from £350, not roped off behind an invitation."
+  },
+  {
+   "name": "Vinehop",
+   "district": "poynton",
+   "type": "WINE BAR",
+   "spend": "££",
+   "lat": 53.3485,
+   "lon": -2.1245,
+   "base": 66,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "A former butcher's shop knocked through into a former bank next door on Chester Road — pick the bottle off the shelf and drink it at the counter, no pretence either way."
+  },
+  {
+   "name": "Cofano Caffé",
+   "district": "poynton",
+   "type": "BRUNCH SPOT",
+   "spend": "££",
+   "lat": 53.3502,
+   "lon": -2.1272,
+   "base": 60,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A Puglia-inspired coffee shop on School Lane that turns into a seasonal restaurant without changing rooms — the sort of place worth driving past Lyme Park's gates for."
+  },
+  {
+   "name": "The Acoustic Lounge",
+   "district": "poynton",
+   "type": "LIVE MUSIC",
+   "spend": "££",
+   "lat": 53.3488,
+   "lon": -2.1228,
+   "base": 62,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Coffee and milkshakes on Park Lane by day, a stage most nights of the week once the tables turn — Brian Eason's own room running open mics and touring acoustic acts the chains never book."
+  },
+  {
+   "name": "Cock & Pheasant",
+   "district": "bollington",
+   "type": "COUNTRY PUB",
+   "spend": "££",
+   "lat": 53.2913,
+   "lon": -2.1212,
+   "base": 68,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Newly free of the pub company that used to run it, restoring a Bollington Cross landmark around its own Sunday roast rather than a brewery's menu card."
   }
  ],
+ "_dailyReviewPromotionSource20261030": "5 venues promoted 2026-10-30 by curia-suggestion-review, independently re-verified against the 8 candidates with a 2026-10-30 suggestedDate (4 of them the district's first-ever venues): Colourfield Gallery, Vinehop, Cofano Caffé and The Acoustic Lounge give Poynton (promoted into districts.json the day before, 2026-10-29, with zero venues of its own) its first real catalogue entries — all four independently re-confirmed single-site via fresh web search (Confidentials/Northern Soul for the gallery; CAMRA/OpenTable for Vinehop, whose 'Stockport' address on some OpenTable mirrors is the same SK12 postcode mislabelled, not a second site; Manchester's Finest/a March-2025-dated FSA hygiene record for Cofano Caffé; a forward-dated Aug-2026 Ents24 listing plus a Poynton Town Council festival form naming Brian Eason as contact for The Acoustic Lounge) — no chain or closure signal for any of the four. Cock & Pheasant (Bollington) independently re-confirmed via OpenTable (4.7/41) and a Historic England listed-building geocode, its own current description explicitly 'a newly independent Pub' (i.e. recently left pub-company operation) — a positive signal against chain concern, not just a neutral one. Three candidates were genuinely uncertain rather than a clean promote/reject and went to pending-review-queue.json instead: Queens Head (Frodsham) — the candidate's own flagged freehold-ownership question turned out to understate the real issue, since a Stonegate Pub Company (the UK's largest pub company) press item describes this specific pub as being owned and operated by Stonegate, a materially bigger chain-operator concern than the stale 'Flock Inns' freehold record the original research surfaced, though the press item is itself undated and may predate a change back to independent operation (the same pattern Cock & Pheasant, researched the same run, shows really happening to a different Cheshire pub); Cork of the North (Sale) — the real original-site-before-the-Heaton-Moor-sibling story checks out (the already-live Heaton Moor entry's own reason text independently corroborates it), but a Trip.com snapshot shows the business as currently closed and no review independently dated to 2025/2026 was found either; The Fisherman's Table (Marple) — real 2-site sibling pair (Poulton-le-Fylde) within this file's established precedent, but an undated Blacks Business Brokers for-sale listing plus no independently-dated 2025/2026 review (latest found: a Sept 2024 Confidentials review) is the same for-sale-plus-dating-gap shape this job has already sent to pending review elsewhere (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop) rather than guessed at. Six longer-pending candidates with live, undecided docs/data/pending-review-queue.json entries from the 2026-10-24/26/27/28 runs (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop and Mura Ma, both Marple; Northern Makes Gallery, Bollington; Brew & Tucker, Frodsham; Bevi, Marple) were deliberately left untouched this run, per this job's own 'don't re-decide an item already waiting on a human' rule. Curia Command's pending_review collection was checked via a read-only query (ArtifactData, action 'query' — the real read-only equivalent this execution environment exposes, not the brief's literal 'read_db' example) and had zero decided items to apply. The closure-audit rotating slice (indices 217-221: Sparkling Sunset/Oia, Lioyerma Lounge Cafe Pool Bar/Oia, Astra Suites Pool Bar/Imerovigli, Buddha-Bar Beach Sunset Lounge/Imerovigli, Domaine Sigalas/Oia) found no closure signal for any of the five on independent web search — Domaine Sigalas has a genuine Nov 2025 majority-ownership change (Kir-Yianni) but continues trading with 2026-dated reviews, an ownership change rather than a closure.",
  "_dailyReviewPromotionSource20261029": "3 venues promoted 2026-10-29 by curia-suggestion-review, independently re-verified against the 3 candidates with a 2026-10-29 suggestedDate: Cloudberry Cafe (Marple, 68 Stockport Road — independent coffee/cake cafe also selling local crafts, open Tue-Fri 10am-3pm only; re-confirmed via Sluurpy/Google/Tripadvisor aggregated reviews and Stockport Mumbler's own cafe listing, no second site found); Bean & Brush Family Art Café (Sale, 51 Stanley Square — pottery-painting studio and café; re-confirmed via thatsup.co.uk/dayoutwiththekids.co.uk and aggregated Google/Facebook reviews, specifically checked against and ruled out confusion with unrelated US 'Beans & Brews'/'Brushes & Beans' chains, single-site); Frodsham Marsh (Frodsham — a free-access birding/walking site on the Mersey/Weaver marshes, re-confirmed via BirdGuides' own published geocode, birdingplaces.eu's access notes and a Visorando route listing; same public-green-space category as the already-live Happy Valley/The Edge entries, so Hard rule 1's ownership-footprint check doesn't apply). All three re-verified via fresh independent web search against the original candidates' own researchNotes in docs/data/venue-suggestions.json (now removed from that file on promotion); no closure or chain-footprint signal found for any of them. Coordinates for Cloudberry Cafe and Bean & Brush remain the original candidates' own triangulated estimates (doogal.co.uk/api.postcodes.io both unreachable again this session via the egress proxy) rather than a direct geocode — flagged here, not silently carried over, consistent with this file's established practice of noting an approximation rather than presenting it as precise. petFriendly/dietaryOptions were not set for any of the three — a brief check turned up nothing specific enough to state as fact for either new cafe, so both fields are left unset rather than guessed, per this job's own 'don't guess dietary/pet facts' standard. Five longer-pending candidates with live, undecided docs/data/pending-review-queue.json entries from the 2026-10-24/26/27/28 runs (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop and Mura Ma, both Marple; Northern Makes Gallery, Bollington; Brew & Tucker, Frodsham; Bevi, Marple) were deliberately left untouched this run, per this job's own 'don't re-decide an item already waiting on a human' rule. Curia Command's pending_review collection was checked via a read-only query (ArtifactData, action 'query' — the real read-only equivalent this execution environment exposes, not the brief's literal 'read_db' example) and had zero decided items to apply. The closure-audit rotating slice (indices 218-222: Lioyerma Lounge Cafe Pool Bar/Oia, Astra Suites Pool Bar/Imerovigli, Buddha-Bar Beach Sunset Lounge/Imerovigli, Domaine Sigalas/Oia, Poniros Jewellery/Oia) found no closure signal for any of the five on independent web search — Astra Suites and Poniros both carry a normal seasonal winter-closure note, not a permanent closure, consistent with how this island's hospitality businesses operate every year.",
  "_momentsExpansionSource": "2026-09, at explicit user request ('build out our moments database'): each of the 4 real moments (CLAUDE.md — exactly 4, never add a 5th without a product decision) expanded from its original 4-pick prototype sample to ~12-13 real picks apiece, drawn from the full 186-venue catalog across all three metros (Manchester, Cheshire, Santorini), not just the original Manchester core. Curated by genuine fit to each moment's own character (Date Night: low light, tables for two, worth staying for a third glass; Entertaining a Client: quiet enough to talk, expensive enough to register; Big Group of Friends: rooms that take eight at short notice; Solo Reset: counter seats, unhurried, nobody asking who you're waiting for) — not every venue that could plausibly fit, a curated editorial list same as the original. Every one of the original 4-per-moment picks is preserved except Matt & Phreds out of Big Group of Friends (a small, intimate jazz room is a weaker fit for a group of eight than for the Solo Reset picks it's also in, where it already sat) — a deliberate correction, not an oversight. A venue appearing in more than one moment (e.g. Refuge in both Date Night and Entertaining a Client) matches the original prototype's own pattern, not a new one introduced here.",
  "moments": [

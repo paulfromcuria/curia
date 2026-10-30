@@ -286,6 +286,63 @@
         "bands": ["afternoon", "evening"],
         "reason": "A former paper shop on Market Street gone deceptively spacious micropub — four guest beers, a rotating cider, and a games room that means nobody's just here for one."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-30",
+      "reason": "A Stonegate Pub Company (the UK's largest pub company) press item describes this specific pub as owned and operated by Stonegate — a materially bigger chain-operator concern than the candidate's own flagged issue (a stale freehold record), but the press item is itself undated and may predate a since-changed, now-independent operation, so I can't confidently reject it either.",
+      "researchNotes": "Independently re-verified 2026-10-30 (WebSearch): the original candidate's own sourcing (North Cheshire CAMRA, 92 Main Street, Frodsham WA6 7AR, Grade II-listed early-17th-century coaching inn, originally stabling for 23 horses) checked out, and its own flag was a dated (2019) CAMRA freehold-ownership record naming 'Flock Inns'. Fresh search found something the original research missed: a Stonegate Pub Company news item naming this exact pub (92 Main Street, Frodsham) as 'owned and operated by award-winning Stonegate Pub Company', with a refurbishment-reopening date given as 'Saturday 26th October' (year not shown). Stonegate Pub Company is the UK's largest pub company (Wikipedia; owned by TDR Capital), a genuinely different scale of concern than a small sibling-group precedent already accepted elsewhere in this file — but the item is undated and could be an old announcement; the same run independently found a different Cheshire pub (Cock & Pheasant, Bollington) that was run by a pub company and has since gone 'newly independent', so the same thing happening here can't be ruled out. No 'Queens Head'-branded multi-site chain under this specific name was found either way — the open question is whether Stonegate (not a 'Queens Head' brand) still operates this specific pub today, which search alone couldn't settle. Coordinates (53.2958/-2.7235) consistent with Frodsham's existing Main Street venue cluster already in docs/data/venues.json.",
+      "payload": {
+        "name": "Queens Head",
+        "district": "frodsham",
+        "type": "GASTROPUB",
+        "spend": "££",
+        "lat": 53.2958,
+        "lon": -2.7235,
+        "base": 68,
+        "bands": ["afternoon", "evening"],
+        "reason": "The oldest coaching inn in Frodsham, stabling for twenty-three horses once upon a time, still pouring on Main Street under its own Grade II-listed roof — a proper pub kitchen, not a brewery's menu card."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-30",
+      "reason": "The real sibling-pair story checks out independently (the already-live Heaton Moor branch's own catalogue copy corroborates it unprompted), but a Trip.com snapshot shows the business as currently closed and no review independently dated to 2025/2026 turned up either way — not strong enough to call a closure, not confident enough to promote.",
+      "researchNotes": "Independently re-verified 2026-10-30 (WebSearch): 13 Northenden Road, Sale M33 2DH, opened around 2016 (previously an online-only wine shop), owner Marc Hough, who later opened the Heaton Moor Road branch already live in docs/data/venues.json — that existing entry's own reason text ('opened as the only sibling to a Sale wine shop that came first') independently corroborates this candidate without having been written with it in mind, a strong positive signal for the sibling story. A Google-sourced rating of 4.6 from 144 reviews was found via one aggregator, but a Trip.com listing shows the business as currently closed (snapshot date not shown — could be a normal daily-closed status rather than a permanent one) and no review independently dated to 2025 or 2026 turned up either way. Real 2-site pair, within this file's established small-sibling precedent (Little Tap/Terrarium, RedWillow/Buxton) if still trading — Hard rule 1 is clean regardless; the open question is purely current trading status.",
+      "payload": {
+        "name": "Cork of the North",
+        "district": "sale",
+        "type": "WINE BAR",
+        "spend": "££",
+        "lat": 53.4185,
+        "lon": -2.3085,
+        "base": 66,
+        "bands": ["afternoon", "evening", "late"],
+        "reason": "Marc Hough's original wine shop and bar on Northenden Road, poured into a converted unit years before the Heaton Moor branch ever existed — buy the bottle, or sit and drink it at the counter."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-10-30",
+      "reason": "A real, well-reviewed restaurant with a genuine 2-site sibling pair within this file's own precedent, but an undated for-sale listing plus no independently-dated 2025/2026 review (the most recent found is from September 2024) is the same for-sale-plus-dating-gap shape already sent to pending review twice elsewhere in this file rather than guessed at.",
+      "researchNotes": "Independently re-verified 2026-10-30 (WebSearch): 103 Church Lane, Marple SK6 7AR, opened 2018, twice a Tripadvisor Traveller's Choice winner, fish supplied by Marple Fish. A genuine sibling exists — a second Fisherman's Table opened in Poulton-le-Fylde in 2019 under the same ownership — a real 2-site pair within the small-sibling-group precedent already accepted elsewhere in this file (Little Tap/Terrarium, RedWillow/Buxton, Fire Station Social Cucina); Hard rule 1 is clean on that basis. The candidate's own flagged concern checks out and isn't resolved by further search: TheBusinessDesk reports owner Jamie Barrett instructed Blacks Business Brokers to sell the business (asking price ~£200k, article undated), and the most recent independently-dated review found anywhere (a Confidentials piece explicitly checking whether it 'still had the locals hooked' and confirming it does) is from September 2024 — over a year old, with no 2025/2026-dated source turning up either way. Not a closure signal (no 'permanently closed' marker found anywhere), but not current enough to promote with confidence given the for-sale listing sitting alongside it.",
+      "payload": {
+        "name": "The Fisherman's Table",
+        "district": "marple",
+        "type": "SEAFOOD RESTAURANT",
+        "spend": "£££",
+        "lat": 53.3958,
+        "lon": -2.0615,
+        "base": 76,
+        "bands": ["afternoon", "evening"],
+        "reason": "Fleetwood fish driven straight to a dining room in inland Marple — twice a Tripadvisor Traveller's Choice winner, and still the kind of place a local drives over for rather than posts about."
+      }
     }
   ]
 }

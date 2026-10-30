@@ -375,6 +375,25 @@
         { "label": "Lymm / Ramsbottom / Monton district-suggestion discrepancy", "detail": "re-flagged, not fixed — still marked 'promoted' in docs/data/district-suggestions.json but absent from the real docs/data/districts.json; unresolved since 2026-10-24, needs a human decision" }
       ],
       "createdAt": "2026-10-29T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-30",
+      "synced": false,
+      "title": "5 venues promoted (Poynton's first 4 + Bollington); 3 sent for review; nothing to apply from Curia Command; no closures",
+      "summary": "Independently re-verified all 8 pending candidates with a 2026-10-30 suggestedDate in venue-suggestions.json. Promoted 5: Colourfield Gallery, Vinehop, Cofano Caffé and The Acoustic Lounge give Poynton (added as a district 2026-10-29) its first-ever venues, and Cock & Pheasant (Bollington) came with an explicit 'newly independent' signal against chain concern. Sent 3 to pending-review-queue.json rather than guessing: Queens Head (Frodsham) — a Stonegate Pub Company press item claims this specific pub, a materially bigger chain-operator concern than the candidate's own flagged stale freehold record, though the item is undated; Cork of the North (Sale) — the sibling story independently checks out against the already-live Heaton Moor entry's own copy, but a Trip.com snapshot shows it currently closed with no 2025/2026-dated review found; The Fisherman's Table (Marple) — a real 2-site sibling pair within established precedent, but an undated for-sale listing plus no review dated past Sept 2024. Six longer-pending items from 2026-10-24/26/27/28 (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi) were left untouched, still awaiting a human decision. Curia Command's pending_review collection was checked (via the ArtifactData tool's query action, the real read-only equivalent this session's Artifact tool exposes — read access works fine, confirming the brief's own note that only writes are blocked) and had zero decided items to apply. No district-suggestions.json entries were pending. The closure-audit rotating slice (Sparkling Sunset, Lioyerma Lounge Cafe Pool Bar, Astra Suites Pool Bar, Buddha-Bar Beach Sunset Lounge, Domaine Sigalas — all Oia/Imerovigli) found no closure signal for any of the five; Domaine Sigalas has a genuine Nov 2025 ownership change (Kir-Yianni) but continues trading with 2026-dated reviews.",
+      "items": [
+        { "label": "Colourfield Gallery (Poynton)", "detail": "promoted — single-site Northern Art gallery, independently corroborated, no chain signal" },
+        { "label": "Vinehop (Poynton)", "detail": "promoted — single-site wine bar/micropub; the 'Stockport' address on some OpenTable mirrors is the same SK12 postcode mislabelled, not a second site" },
+        { "label": "Cofano Caffé (Poynton)", "detail": "promoted — single-site café, March-2025-dated FSA hygiene record confirms current operation" },
+        { "label": "The Acoustic Lounge (Poynton)", "detail": "promoted — single-site live-music café/bar, a forward-dated Aug-2026 Ents24 listing confirms it's currently booking" },
+        { "label": "Cock & Pheasant (Bollington)", "detail": "promoted — single-site pub explicitly 'newly independent' of its former pub-company operator, a positive signal against chain concern" },
+        { "label": "Queens Head (Frodsham)", "detail": "sent for review — a Stonegate Pub Company (UK's largest pub company) press item claims this pub, a bigger chain concern than the candidate's own flagged stale freehold record, but the item is undated" },
+        { "label": "Cork of the North (Sale)", "detail": "sent for review — real sibling pair independently corroborated by the already-live Heaton Moor entry's own copy, but a Trip.com snapshot shows it currently closed with no 2025/2026-dated review found" },
+        { "label": "The Fisherman's Table (Marple)", "detail": "sent for review — real 2-site sibling pair within established precedent, but an undated for-sale listing plus no review dated past Sept 2024" },
+        { "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker / Bevi", "detail": "left pending — no decision yet in Curia Command's pending_review collection, unchanged this run" }
+      ],
+      "createdAt": "2026-10-30T00:00:00Z"
     }
   ]
 }
