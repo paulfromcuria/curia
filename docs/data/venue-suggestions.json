@@ -1504,6 +1504,144 @@
    "suggestedDate": "2026-10-28",
    "status": "pending",
    "researchNotes": "Marple's real Drink category (Samuel Oldknow, Traders — both ALE HOUSE) was tied for this run's thinnest cell alongside Do before today's own pending Mura Ma gallery candidate; this is a second, genuinely distinct real-ale venue a few doors from Samuel Oldknow on the same street. Verified via CAMRA (24 Market Street, Marple — 'a recently opened micro pub located in the centre of Marple... formerly a paper shop and, although a micropub, it is deceptively spacious', 1 regular + 2 changing beers plus guest ales and a rotating cider/perry, a loyalty card and a games room) and the Marple Website's own directory ('Bevi, Real Ale and Prosecco Bar, 24 Market Street'). Specifically checked this isn't the same premises as the separately-researched (and not suggested) Rockey Street Blues Bar/Aggie's Bar at 54 Market Street, a different building further along the same street with its own, more uncertain trading history — Bevi is a distinct, separately-addressed venue. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.3945/-2.0681) approximated from the already-catalogued Samuel Oldknow's own geocode (22 Market Street, 53.3944/-2.0683) a couple of doors away, since a direct postcode geocode for SK6 7AD wasn't reachable this session — flagged for the reviewer to tighten. Reuses the existing ALE HOUSE type (Samuel Oldknow, Traders, same district). Moderate confidence — CAMRA's listing was last updated in 2024 with no 2025/2026-dated review found, though no closure signal turned up either; flagged honestly for the reviewer to re-confirm current trading before promotion. SENT TO PENDING REVIEW 2026-10-28 (curia-suggestion-review): independent re-check found CAMRA's own listing now describes the venue as 'an Italian bar and Pizzeria' with an expanded kitchen, a materially different identity from the real-ale-only micropub this candidate's own reason text describes — not a closure signal and not a chain/duplicate concern (Hard rule 1 is clean either way), but enough of a mismatch between the proposed copy/type and what the venue may now actually be that a confident promote call isn't honest without an on-the-ground re-check. Left 'pending' here; see docs/data/pending-review-queue.json for the human-facing entry."
+  },
+  {
+   "name": "Colourfield Gallery",
+   "district": "poynton",
+   "type": "ART GALLERY",
+   "spend": "£",
+   "lat": 53.3462,
+   "lon": -2.1225,
+   "base": 56,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "Ed Perry's own gallery on London Road South, thirty years of relationships with Northern painters condensed into one changing hang — priced from £350, not roped off behind an invitation.",
+   "suggestedDate": "2026-10-30",
+   "status": "pending",
+   "researchNotes": "This run's tally found Poynton with zero real or suggested venues in any category anywhere in docs/data/venues.json or this file — the most acute gap found today, ahead of every district on the standing under-10 priority list. Verified via a Confidentials feature on the gallery and Northern Soul's own listing for its autumn 2026 exhibition (preview 25 October 2026 — a current, live programming signal, not a stale directory page): Colourfield Gallery, 7 London Road South, Poynton SK12 1JX, run by owner Ed Perry, specialising in Northern Art from 50+ artists, open Tue-Sat 10am-5pm (Mon/Sun by appointment). No second site or group ownership found anywhere in searches; single-site, independently owned, passes Hard rule 1 cleanly. Coordinates (53.3462/-2.1225) approximated near the London Road South corridor from neighbouring SK12 1LS/1PW postcode geocodes, since SK12 1JX itself wasn't individually resolvable this session (doogal.co.uk/api.postcodes.io both blocked by the proxy) — flagged for the reviewer to tighten. Reuses the existing ART GALLERY type. First of four candidates opening Poynton this run. Moderate-high confidence — independently corroborated, current programming confirmed, single-site, no closure signal."
+  },
+  {
+   "name": "Vinehop",
+   "district": "poynton",
+   "type": "WINE BAR",
+   "spend": "££",
+   "lat": 53.3485,
+   "lon": -2.1245,
+   "base": 66,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "A former butcher's shop knocked through into a former bank next door on Chester Road — pick the bottle off the shelf and drink it at the counter, no pretence either way.",
+   "suggestedDate": "2026-10-30",
+   "status": "pending",
+   "researchNotes": "Second of four candidates opening Poynton this run (see Colourfield Gallery's note on the district's zero-venue starting point) — Poynton's first real Drink coverage. Verified via CAMRA (5 Fountain Place, Chester Road, Poynton SK12 1QX — 'wine, bottled beer shop and micropub', expanded from a former butcher's into neighbouring former bank premises) and OpenTable (wine bar and kitchen serving small plates, 4.8/5, open to 22:30-23:00 Tue-Sat). No second Vinehop site found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.3485/-2.1245) approximated near Poynton's Fountain Place junction/village centre, close to the district centroid, since a direct postcode geocode for SK12 1QX wasn't reachable this session — flagged for the reviewer to tighten. Reuses the existing WINE BAR type. Moderate-high confidence — independently corroborated across CAMRA and OpenTable, no closure signal found."
+  },
+  {
+   "name": "Cofano Caffé",
+   "district": "poynton",
+   "type": "BRUNCH SPOT",
+   "spend": "££",
+   "lat": 53.3502,
+   "lon": -2.1272,
+   "base": 60,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A Puglia-inspired coffee shop on School Lane that turns into a seasonal restaurant without changing rooms — the sort of place worth driving past Lyme Park's gates for.",
+   "suggestedDate": "2026-10-30",
+   "status": "pending",
+   "researchNotes": "Third of four candidates opening Poynton this run (see Colourfield Gallery's note on the district's zero-venue starting point) — Poynton's first Eat coverage. Verified via Manchester's Finest ('Cofano Caffé', 21 School Lane, Poynton SK12 1AX — described as a Puglia-inspired semi-rural village coffee shop and seasonal restaurant close to Lyme Park) and Eatible's FSA-register listing confirming the same address, plus a 'Deli Cofano' entry at the same premises (read as the same business trading under two names rather than a second site, since no separate address was found for it anywhere). No sibling location found anywhere in searches; single-site on the evidence available, passes Hard rule 1 on that basis. Coordinates (53.3502/-2.1272) approximated from the neighbouring SK12 1EX postcode geocode, since SK12 1AX itself wasn't individually resolvable this session — flagged for the reviewer to tighten. New use of the existing BRUNCH SPOT type (closest fit for a daytime café running a seasonal food menu; no dedicated Italian-café type exists in the catalog). Moderate confidence — real and multiply corroborated, but thinner sourcing than this file's usual bar (no independent review site found, hours not fully confirmed); worth the reviewer's own current-status check before promotion."
+  },
+  {
+   "name": "The Acoustic Lounge",
+   "district": "poynton",
+   "type": "LIVE MUSIC",
+   "spend": "££",
+   "lat": 53.3488,
+   "lon": -2.1228,
+   "base": 62,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Coffee and milkshakes on Park Lane by day, a stage most nights of the week once the tables turn — Brian Eason's own room running open mics and touring acoustic acts the chains never book.",
+   "suggestedDate": "2026-10-30",
+   "status": "pending",
+   "researchNotes": "Fourth of four candidates opening Poynton this run (see Colourfield Gallery's note on the district's zero-venue starting point) — a second Do venue alongside Colourfield Gallery. Verified via Ents24 (a forward-dated live listing for Cold Flame playing The Acoustic Lounge, Poynton, 22 August 2026 — a current booking, not a stale directory page) and Poynton Town Council's own 2023 festival venue entry form, which names Brian Eason as the venue's contact on the theacousticlounge.co.uk domain — a dedicated domain suggesting a standalone independent business rather than a group. Address 94-98 Park Lane, Poynton. No second site or group ownership found anywhere in searches; single-site on the evidence available, passes Hard rule 1 on that basis. Coordinates (53.3488/-2.1228) approximated near Poynton's Park Lane high street, close to the district centroid, since a direct postcode geocode wasn't reachable this session. New use of the existing LIVE MUSIC type (fits better than a generic café type, given live music several nights a week is the venue's actual draw, not an occasional extra). Moderate confidence — corroborated by a dated 2026 booking and a named contact, but no independent press review found; worth the reviewer's own current-status check before promotion."
+  },
+  {
+   "name": "Queens Head",
+   "district": "frodsham",
+   "type": "GASTROPUB",
+   "spend": "££",
+   "lat": 53.2958,
+   "lon": -2.7235,
+   "base": 68,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "The oldest coaching inn in Frodsham, stabling for twenty-three horses once upon a time, still pouring on Main Street under its own Grade II-listed roof — a proper pub kitchen, not a brewery's menu card.",
+   "suggestedDate": "2026-10-30",
+   "status": "pending",
+   "researchNotes": "Verified via North Cheshire CAMRA (92 Main Street, Frodsham WA6 7AR) and britishlistedbuildings.co.uk (Grade II-listed Queens Head Hotel, early-17th-century coaching inn, originally stabling for 23 horses — described as the oldest coaching inn in Frodsham). CAMRA's own ownership record (last updated 2019, flagged as potentially stale) names Flock Inns as freehold owner with the leasehold/day-to-day operator unlisted — freehold real-estate ownership by a pub-letting company is a separate question from whether the pub itself trades as a recognisable multi-site branded chain, and no evidence of a 'Queens Head'-branded group or second site under this name was found anywhere in searches; passes Hard rule 1 on that basis, flagged for the reviewer to re-confirm the current day-to-day operator given the dated ownership record. Coordinates (53.2958/-2.7235) approximated near Frodsham's existing Main Street venue cluster, consistent with Helter Skelter/Castle Park Arts Centre/Next Door's own coordinates already in this file, since a direct postcode geocode for WA6 7AR wasn't reachable this session. New use of the existing GASTROPUB type. Closes a real gap: Frodsham's Eat category was thin relative to its Do/Drink coverage before this addition. Moderate confidence — long-established and well-documented as a listed building, but the operator/ownership record is dated; worth the reviewer's own re-check."
+  },
+  {
+   "name": "Cork of the North",
+   "district": "sale",
+   "type": "WINE BAR",
+   "spend": "££",
+   "lat": 53.4185,
+   "lon": -2.3085,
+   "base": 66,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Marc Hough's original wine shop and bar on Northenden Road, poured into a converted unit years before the Heaton Moor branch ever existed — buy the bottle, or sit and drink it at the counter.",
+   "suggestedDate": "2026-10-30",
+   "status": "pending",
+   "researchNotes": "NOT a duplicate of the existing Cork of the North entry already live in docs/data/venues.json — that entry is specifically the Heaton Moor sister branch; this candidate is the original Sale site, 13 Northenden Road, Sale M33 2DH. Verified via Taste of Manchester's own coverage of the business opening its second branch ('Cork of the North to open a second branch – in Heaton Moor'), which confirms this Sale address as the original, plus a current third-party directory listing (4.6 rating from 144 reviews; no closure or sale signal found anywhere in searches). A real 2-site pair under one owner (Marc Hough) — the same small-sibling-group precedent already accepted elsewhere in this file (Little Tap/Terrarium by Little Tap, RedWillow/Buxton). Coordinates (53.4185/-2.3085) approximated near Northenden Road, Sale, from a neighbouring postcode geocode, since M33 2DH itself wasn't individually resolvable this session — flagged for the reviewer to tighten. Reuses the existing WINE BAR type. Sale's real Drink category was thin relative to Do before this addition — only Pray Tell cleanly tile-maps to Drink today; Hops & Boogie's CRAFT BEER BAR type isn't wired into CATEGORY_BY_VENUE_TYPE. Moderate confidence — the sibling relationship and address are well corroborated, but no review found is independently dated to 2025/2026; worth the reviewer's own current-trading check before promotion."
+  },
+  {
+   "name": "Cock & Pheasant",
+   "district": "bollington",
+   "type": "COUNTRY PUB",
+   "spend": "££",
+   "lat": 53.2913,
+   "lon": -2.1212,
+   "base": 68,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Newly free of the pub company that used to run it, restoring a Bollington Cross landmark around its own Sunday roast rather than a brewery's menu card.",
+   "suggestedDate": "2026-10-30",
+   "status": "pending",
+   "researchNotes": "Verified via OpenTable (15 Bollington Road, Bollington Cross, Macclesfield/Bollington SK10 5EJ — 4.7/5 from roughly 40 reviews, with its own repeated description across listings: 'a newly independent Pub with deep roots and a fresh spirit', i.e. it has recently left tied/pub-company operation to trade independently) and britishlistedbuildings.co.uk (Historic England listing for the Cock and Pheasant Inn, confirming the building and its exact geocode). No evidence of a 'Cock & Pheasant'-branded multi-site group found anywhere in searches — the venue's own 'newly independent' framing is itself a positive signal against chain operation, not just neutral; passes Hard rule 1 cleanly. Coordinates (53.2913/-2.1212) are the Historic England listing's own geocode for the building itself, not an estimate. Reuses the existing COUNTRY PUB type (Church House Inn, same district). Closes a real gap: Bollington's Eat and Do categories were tied for this run's thinnest in the district before this addition; this adds to Eat. High confidence — precise listed-building coordinates, explicit and repeated 'newly independent' framing, strong recent rating, no closure signal."
+  },
+  {
+   "name": "The Fisherman's Table",
+   "district": "marple",
+   "type": "SEAFOOD RESTAURANT",
+   "spend": "£££",
+   "lat": 53.3958,
+   "lon": -2.0615,
+   "base": 76,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Fleetwood fish driven straight to a dining room in inland Marple — twice a Tripadvisor Traveller's Choice winner, and still the kind of place a local drives over for rather than posts about.",
+   "suggestedDate": "2026-10-30",
+   "status": "pending",
+   "researchNotes": "Verified via two separate Confidentials reviews (the more recent, 2024-dated, explicitly checking whether 'The Fisherman's Table still had the locals hooked' and confirming it does) and Harden's (103 Church Lane, Marple SK6 7AR; Mon 6-9pm, Tue-Sat 12-9pm, Sun closed). A genuine sibling site exists — a second Fisherman's Table opened in Poulton-le-Fylde in 2019 under the same ownership (per honorarymancblog.com) — a 2-site pair across two towns, within the same precedent already accepted in this file (Craig's, Ivy Spinningfields, Fire Station Social Cucina, Little Tap). Flagging honestly: TheBusinessDesk reports owner Jamie Barrett instructed Blacks Business Brokers to sell the business (asking price ~£200k, article undated) — a business-for-sale listing, not a closure announcement, and the Confidentials review confirming it's 'still' trading reads as more recent than the sale listing; no 'permanently closed' signal found anywhere. Coordinates (53.3958/-2.0615) approximated near Marple's existing Regent Cinema/town-centre cluster, since SK6 7AR itself returned a neighbouring SK6 6AR geocode (53.39603/-2.063121) rather than an exact match this session — flagged for the reviewer to tighten. Reuses the existing SEAFOOD RESTAURANT type. Closes Marple's real Eat gap found this run. Moderate confidence — well-reviewed and independently corroborated as currently trading, but the undated for-sale listing is worth the reviewer's own ownership re-check before promotion."
   }
  ]
 }
