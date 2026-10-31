@@ -394,6 +394,23 @@
         { "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker / Bevi", "detail": "left pending — no decision yet in Curia Command's pending_review collection, unchanged this run" }
       ],
       "createdAt": "2026-10-30T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-10-31",
+      "synced": false,
+      "title": "6 venues promoted (Poynton x3, Bollington, Frodsham x2); nothing new sent for review; nothing to apply from Curia Command; no closures",
+      "summary": "Of 15 pending entries in venue-suggestions.json, 9 already had a live, undecided pending-review-queue.json entry from a 2026-10-24/26/27/28/30 run and were left untouched. The remaining 6, all suggested 2026-10-31, were independently re-verified fresh and promoted: Flute & Firkin (Poynton) — CAMRA's own 'Independent Pub' tag and a March 2026-dated listing confirm current trading, no second site found; Poynton Park and Pool (Poynton) — a genuine council-run public park, Hard rule 1 not applicable; Poynton Tea Room (Poynton) and Main Street Kitchen (Frodsham) — thinner web footprints than this run's other candidates (no official site, a couple of consistent directory listings each) but no closure or chain signal found on fresh search, read as light-footprint real businesses rather than genuine conflicts; Bollington Arts Centre (Wellington Road) — a dated Oct 2026 ticketed show and the 2026 Bollington Festival's own listings confirm current operation; Lady Heyes Crafts and Antique Centre (Frodsham) — a single multi-seller site, not a chain, with a Sept 2026 mention and current council notices confirming it's still trading. No chain-footprint, duplicate, or closure concern found for any of the six. Curia Command's pending_review collection was checked (db_query, read-only) and had zero decided items to apply. district-suggestions.json had zero actionable pending entries. The closure-audit rotating slice (Tango Champagne & Cocktail Bar, CIELLE Restaurant & Bar, V Lounge Cafe & Cocktail Bar, 1500 BC Wine Bar — all Fira — and Sun Spirit Cocktail Bar, Oia) found no closure signal for any of the five; one aggregator flags Tango as 'Temporarily Closed', consistent with its own documented Nov-April seasonal off-season rather than a permanent closure.",
+      "items": [
+        { "label": "Flute & Firkin (Poynton)", "detail": "promoted — single-site ale house, CAMRA 'Independent Pub' tag, currently trading per a March 2026-dated listing" },
+        { "label": "Poynton Park and Pool (Poynton)", "detail": "promoted — genuine council-run public park, Hard rule 1 not applicable" },
+        { "label": "Poynton Tea Room (Poynton)", "detail": "promoted — real, consistently-described small café; thinner web footprint than usual but no closure or conflict found" },
+        { "label": "Bollington Arts Centre (Bollington)", "detail": "promoted — self-funded, volunteer-run community venue since 1964, current programming confirmed into Oct 2026" },
+        { "label": "Lady Heyes Crafts and Antique Centre (Frodsham)", "detail": "promoted — single multi-seller site, still trading per current council notices and a Sept 2026 mention" },
+        { "label": "Main Street Kitchen (Frodsham)", "detail": "promoted — real, consistently-described family-run bistro; thinner web footprint than usual but no closure or conflict found, confirmed distinct from Next Door and Lorenzo's on the same street" },
+        { "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker / Bevi / Queens Head / Cork of the North / The Fisherman's Table", "detail": "left pending — no decision yet in Curia Command's pending_review collection, unchanged this run" }
+      ],
+      "createdAt": "2026-10-31T00:00:00Z"
     }
   ]
 }
