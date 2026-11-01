@@ -1558,41 +1558,6 @@
    "researchNotes": "Verified via two separate Confidentials reviews (the more recent, 2024-dated, explicitly checking whether 'The Fisherman's Table still had the locals hooked' and confirming it does) and Harden's (103 Church Lane, Marple SK6 7AR; Mon 6-9pm, Tue-Sat 12-9pm, Sun closed). A genuine sibling site exists — a second Fisherman's Table opened in Poulton-le-Fylde in 2019 under the same ownership (per honorarymancblog.com) — a 2-site pair across two towns, within the same precedent already accepted in this file (Craig's, Ivy Spinningfields, Fire Station Social Cucina, Little Tap). Flagging honestly: TheBusinessDesk reports owner Jamie Barrett instructed Blacks Business Brokers to sell the business (asking price ~£200k, article undated) — a business-for-sale listing, not a closure announcement, and the Confidentials review confirming it's 'still' trading reads as more recent than the sale listing; no 'permanently closed' signal found anywhere. Coordinates (53.3958/-2.0615) approximated near Marple's existing Regent Cinema/town-centre cluster, since SK6 7AR itself returned a neighbouring SK6 6AR geocode (53.39603/-2.063121) rather than an exact match this session — flagged for the reviewer to tighten. Reuses the existing SEAFOOD RESTAURANT type. Closes Marple's real Eat gap found this run. Moderate confidence — well-reviewed and independently corroborated as currently trading, but the undated for-sale listing is worth the reviewer's own ownership re-check before promotion. SENT TO PENDING REVIEW 2026-10-30 (curia-suggestion-review): independent re-check found the same picture — the 2-site sibling pair (Poulton-le-Fylde) is real and within this file's established precedent, but the undated Blacks Business Brokers for-sale listing plus no independently-dated 2025/2026 review (latest found: the same Sept-2024 Confidentials piece) is the same for-sale-plus-dating-gap shape already sent to pending review elsewhere in this file (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop) rather than guessed at either way. Left 'pending' here; see docs/data/pending-review-queue.json for the human-facing entry."
   },
   {
-   "name": "Flute & Firkin",
-   "district": "poynton",
-   "type": "ALE HOUSE",
-   "spend": "£",
-   "lat": 53.3486,
-   "lon": -2.1242,
-   "base": 66,
-   "bands": [
-    "afternoon",
-    "evening",
-    "late"
-   ],
-   "reason": "Two floors above Park Lane with a cellar that turns over weekly and a branch nomination for Pub of the Winter behind it — Tuesdays stay dark on purpose, nothing else does.",
-   "suggestedDate": "2026-10-31",
-   "status": "pending",
-   "researchNotes": "Verified via CAMRA's own High Peak branch listing for Flute & Firkin, 51 Park Lane, Poynton SK12 1RD — explicitly tagged 'Independent Pub', two changing beers, a CAMRA page dated 20 March 2026 showing it currently open — plus a 2022 High Peak CAMRA branch-meeting record noting a Pub of the Winter nomination. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly — CAMRA's own 'Independent Pub' tag is about as strong a source as exists for this specific claim. Coordinates approximated from the same Park Lane commercial cluster as the district's existing Vinehop (53.3485/-2.1245) and The Acoustic Lounge (53.3488/-2.1228) entries — an exact geocode for 51 Park Lane wasn't independently found this session, flagged for the reviewer to tighten. Reuses the existing ALE HOUSE type (Helter Skelter, Samuel Oldknow). Poynton was today's most acute standing-priority gap after Hale Barns (4 real venues total, only 1 Drink-category venue) before this addition. High confidence."
-  },
-  {
-   "name": "Poynton Park and Pool",
-   "district": "poynton",
-   "type": "COUNTRY PARK",
-   "spend": "£",
-   "lat": 53.3544,
-   "lon": -2.1149,
-   "base": 60,
-   "bands": [
-    "morning",
-    "afternoon"
-   ],
-   "reason": "Fifty acres of reshaped Georgian parkland built around its own pool, with a surfaced circuit that never once makes you cross a road to finish it.",
-   "suggestedDate": "2026-10-31",
-   "status": "pending",
-   "researchNotes": "Verified via Poynton Town Council's own site (Poynton Pool and Park page — 50 acres of 'Capability Brown-styled' parkland, ancient trees, a surfaced circular path) and Cheshire East Council's Ranger Service listing (21 hectares including the pool, Ordnance Survey grid reference SJ924842). Coordinates (53.3544/-2.1149) taken from a Ramblers group-walk listing's own published grid reference for the South Park Drive car park (SJ92458417, SK12 1BR) — a real, independently-published figure, not an estimate. Free council-run country park; no ownership/chain question applies. Reuses the existing COUNTRY PARK type (Tegg's Nose, Macclesfield). Poynton's Do category (Colourfield Gallery, The Acoustic Lounge) was thin before this addition — Poynton sits at only 4 real venues total, one of today's standing-priority districts. High confidence."
-  },
-  {
    "name": "Poynton Tea Room",
    "district": "poynton",
    "type": "BRUNCH SPOT",
@@ -1607,41 +1572,7 @@
    "reason": "Home-made Welsh rarebit and a high-tea spread for whoever's celebrating — a small, family-feeling room on Park Lane that its own regulars go out of their way to call the opposite of a chain.",
    "suggestedDate": "2026-10-31",
    "status": "pending",
-   "researchNotes": "Verified via Trip.com (81C Park Lane, Poynton SK12 1RD, 10:00-16:00) and Wanderlog (reviewer praise for the homemade Welsh rarebit and friendly service, explicit note preferring it to 'large chains'; the venue also caters high-tea spreads and buffets for events). No official website or social-media account independently found this session, and no Tripadvisor listing turned up either — thinner verification than this run's other candidates, flagged honestly for the reviewer rather than omitted, since two independent directory sources agree on the same address and give a consistent, specific description. No second site or chain signal found anywhere. Coordinates approximated from the same Park Lane cluster as Vinehop/The Acoustic Lounge (exact geocode for 81C not found). Reuses the existing BRUNCH SPOT type (Cofano Caffé, same district) since no dedicated tea-room type exists in the catalog. Moderate confidence — real and consistently described across two sources, but without the stronger primary-source corroboration (official site, dated reviews) this run's other candidates have; worth the reviewer's own current-trading check before promotion."
-  },
-  {
-   "name": "Bollington Arts Centre",
-   "district": "bollington",
-   "type": "PERFORMING ARTS",
-   "spend": "£",
-   "lat": 53.2975,
-   "lon": -2.0985,
-   "base": 66,
-   "bands": [
-    "afternoon",
-    "evening"
-   ],
-   "reason": "Self-funded and volunteer-run since 1964, with a gallery bar that still pulls real ale and a stage that's hosted folk, jazz and comedy longer than most of the venues that replaced it elsewhere.",
-   "suggestedDate": "2026-10-31",
-   "status": "pending",
-   "researchNotes": "Verified via Cheshire Action's own listing (self-funding, volunteer-run venue established 1964; gallery/bar seating 30 seated/60 standing, real ale on the bar), a ticketing page showing a currently-booked live show (The TJ Johnson Band, 3 October 2026) and Bollington Festival's own 2026 'What's On' listings showing the gallery bar hosting exhibitions during the May festival. Address given consistently across multiple independent sources as Wellington Road, Bollington SK10 5JR (a separate Nab Lane address appears only on the Charity Commission's registered-office record, which is routinely a different address from the physical venue — not used here). No second site or group ownership found anywhere; a single, independently-run community venue, passes Hard rule 1 cleanly. Coordinates approximated from the town centre's own known landmarks (the Bollington War Memorial at 53.298/-2.0993, and this file's existing Bollington venues clustering 53.291-53.301) since no precise geocode for Wellington Road itself was independently found — flagged for the reviewer to tighten. Reuses the existing PERFORMING ARTS type (The Edge Theatre & Arts Centre, Chorlton — a close match in both format and community-run character). Bollington's Do category (Bollington Discovery Centre, plus the already-pending Northern Makes Gallery) was its thinnest before this addition — one of today's standing-priority districts. High confidence."
-  },
-  {
-   "name": "Lady Heyes Crafts and Antique Centre",
-   "district": "frodsham",
-   "type": "ANTIQUES CENTRE",
-   "spend": "£",
-   "lat": 53.2764,
-   "lon": -2.6979,
-   "base": 56,
-   "bands": [
-    "morning",
-    "afternoon"
-   ],
-   "reason": "A couple of miles out on the Kingsley road, where 130 acres of a working farm hold a whole village's worth of independent emporiums under one roof — the kind of browse that eats an afternoon before anyone notices.",
-   "suggestedDate": "2026-10-31",
-   "status": "pending",
-   "researchNotes": "Verified via Visit Chester's own listing (Lady Heyes Crafts & Antiques Centre — 130 acres of 'old and new', a Tripadvisor rating built on 271 reviews) and Frodsham Town Council's own 'what's on' notices describing it as a recommended browse 'around the various emporiums'. Address: Lady Heyes, Kingsley Road (B5152), Frodsham WA6 6SU, a couple of miles outside the town centre toward Delamere — consistent across council and visitor-site sources. A single physical site housing many independent sellers under one roof (the same structural model as this file's existing market-hall/antiques-centre entries), not a multi-location brand itself — passes Hard rule 1 cleanly. Coordinates (53.2764/-2.6979) from an OpenStreetMap-sourced geocode for the WA6 6SU postcode, roughly 2.2km from the Frodsham district centroid — consistent with the 'couple of miles out of town' description, not a district-centroid guess. Reuses the existing ANTIQUES CENTRE type (Tarporley Antiques Centre). Frodsham's Do category needed depth to clear this run's standing-priority threshold (6 real + 2 already-pending venues before this addition). High confidence."
+   "researchNotes": "Verified via Trip.com (81C Park Lane, Poynton SK12 1RD, 10:00-16:00) and Wanderlog (reviewer praise for the homemade Welsh rarebit and friendly service, explicit note preferring it to 'large chains'; the venue also caters high-tea spreads and buffets for events). No official website or social-media account independently found this session, and no Tripadvisor listing turned up either — thinner verification than this run's other candidates, flagged honestly for the reviewer rather than omitted, since two independent directory sources agree on the same address and give a consistent, specific description. No second site or chain signal found anywhere. Coordinates approximated from the same Park Lane cluster as Vinehop/The Acoustic Lounge (exact geocode for 81C not found). Reuses the existing BRUNCH SPOT type (Cofano Caffé, same district) since no dedicated tea-room type exists in the catalog. Moderate confidence — real and consistently described across two sources, but without the stronger primary-source corroboration (official site, dated reviews) this run's other candidates have; worth the reviewer's own current-trading check before promotion. SENT TO PENDING REVIEW 2026-11-01 (curia-suggestion-review): independent re-check found the same picture the original candidate already flagged — Trip.com and Wanderlog both still describe it consistently (81C Park Lane, home-made Welsh rarebit, high-tea spreads), no closure signal turned up anywhere, but no official site, no Tripadvisor listing and no review independently dated to 2025/2026 could be found either — a currency gap, not a red flag, the same shape already sent to review elsewhere in this file (Northern Makes Gallery, Mura Ma, Brew & Tucker). No second site or chain signal found. Left 'pending' here; see docs/data/pending-review-queue.json for the human-facing entry."
   },
   {
    "name": "Main Street Kitchen",
@@ -1658,91 +1589,7 @@
    "reason": "Family-run on Main Street with its own slow-proved dough and a beer garden round the back — the kind of neighbourhood pizza-and-pasta room that never bothered opening a second site.",
    "suggestedDate": "2026-10-31",
    "status": "pending",
-   "researchNotes": "Verified via three independent directory sources (Wanderlog, Trip.com's Frodsham restaurant guide, selfcatering.co.uk) all consistently describing Main Street Kitchen as a family-run, Italian-influenced restaurant on Main Street, Frodsham, serving freshly made pizza dough, pasta and seasonal mains, with a beer garden. No official website or Facebook page independently found this session despite several attempts, and no exact house number could be independently confirmed — this is NOT the same business as Next Door, the Michelin-listed restaurant at 68 Main Street (a different family business on the same street, confirmed distinct via Michelin's own listing). No second site or chain signal found anywhere. Coordinates approximated from the existing Frodsham Main Street cluster (Next Door, Frodsham Artisan Market, No 13) rather than a precise address geocode — flagged for the reviewer to tighten. Reuses the existing BISTRO type (Chestergate Bistro, Bench Bistro Bar). Moderate confidence — real and consistently corroborated across three sources, but without the stronger primary-source verification (official site, dated reviews, FSA registration) this run's higher-confidence candidates have; worth a direct on-the-ground check before promotion."
-  },
-  {
-   "name": "The Bulls Head & Lodge",
-   "district": "hale-barns",
-   "type": "COUNTRY PUB",
-   "spend": "£££",
-   "lat": 53.3686,
-   "lon": -2.3169,
-   "base": 70,
-   "bands": ["afternoon", "evening", "late"],
-   "reason": "A 21-room lodge behind it and a kitchen that runs all day in front — Wicker Lane's proper village pub, in a district where there's otherwise nowhere to actually sit down.",
-   "suggestedDate": "2026-11-01",
-   "status": "pending",
-   "researchNotes": "Verified via CAMRA (pubs/bulls-head-lodge-hale-barns-129945), SquareMeal and multiple hotel-booking platforms (Booking.com, Hotels.com, Expedia) all showing current, bookable listings: The Bulls Head & Lodge, Wicker Lane, Hale Barns, Altrincham WA15 0HG — a traditional pub with a 21-bedroom lodge, food served all day, Sunday menu, dog-friendly bar areas. Freehold owned by Robinsons Brewery (a ~250-pub North West regional brewery, per CAMRA/Robinsons' own site) but this is a single, individually-named, tenanted village pub, not a branded multi-site concept — the same tied-house model nearly every traditional English pub operates under, distinct from the chain-restaurant-brand footprint Hard rule 1 actually targets (flagging the ownership transparently for the reviewer rather than treating it as disqualifying). No sign of closure; refurbished/reopened post-COVID (2020, per Medlock/SIBA coverage) and still showing live current bookability across multiple platforms. Coordinates (53.3686, -2.3169) from the WA15 0HG postcode centroid (ONS/ukpostcodecheck.com, corroborated by doogal.co.uk's own table), the real street address, not a district centroid. Reuses the existing COUNTRY PUB type (The Bull's Head/Church Inn/Railway Inn, Mobberley) which maps to both Eat and Drink — closes Hale Barns' most acute real gap found this run: the district has 3 live venues (Ringway Golf Club, Hale Barns Cricket Club, No.3 Holistic Therapies), all Do, with zero Eat or Drink coverage at all. Moderate-high confidence — long-established, multi-source corroborated, current booking activity across several independent platforms; the brewery-tied ownership is the one flag worth a second look at promotion time, not a closure or chain-brand concern."
-  },
-  {
-   "name": "Anson Engine Museum",
-   "district": "poynton",
-   "type": "MUSEUM",
-   "spend": "£",
-   "lat": 53.3484,
-   "lon": -2.0899,
-   "base": 58,
-   "bands": ["afternoon"],
-   "reason": "A charity-run engine hall on Anson Road that nobody told to be this thorough — stationary engines, gramophones and a scale model of 1900s Poynton, kept running by people who clearly can't help themselves.",
-   "suggestedDate": "2026-11-01",
-   "status": "pending",
-   "researchNotes": "Verified via the museum's own site (enginemuseum.org), Charity Commission register (Anson Museum Trust Limited, charity no. 518587), Heritage Open Days (a live open day held 19 September 2026) and multiple independent listings (Age of Revolution, ERIH, GM Ringway): Anson Engine Museum, Anson Road, Poynton, Cheshire SK12 1TD — a charity-run museum of stationary engines and early technology, opened 1989. Single-site, charity-owned, no chain or group ownership of any kind — passes Hard rule 1 cleanly. Seasonal (open Fridays and Sundays, Easter to end of October, per the Eastcheshire Mumbler listing and the museum's own site), so currently closed for the winter season as of this research date — flagged for the reviewer, since this is a genuine seasonal closure rather than a sign of trouble (a real open day was held as recently as September 2026), closer to a garden-attraction's seasonal pattern than a permanent-closure signal; deliberately left `openingHours` unset rather than guessed, per CLAUDE.md's rule that undefined must never render as closed. Coordinates (53.3484, -2.0899) from the SK12 1TD postcode centroid. Reuses the existing MUSEUM type. Closes Poynton's real Do-category gap found this run — the district had exactly 2 Do venues (Colourfield Gallery, The Acoustic Lounge) against 1 Drink and 1 Eat live, sitting well under the 10-venue standing target with zero museum/heritage variety. High confidence on the venue's reality and ownership; moderate on year-round relevance given the seasonal hours."
-  },
-  {
-   "name": "The Oystercatcher",
-   "district": "sale",
-   "type": "SEAFOOD RESTAURANT",
-   "spend": "£££",
-   "lat": 53.4232,
-   "lon": -2.3229,
-   "base": 76,
-   "bands": ["afternoon", "evening"],
-   "reason": "Duncan Ranyard's charcoal grill followed its own Chorlton reputation down the tram line to Stanley Square — the same fish, cooked over the same coals, with none of the original's queue yet.",
-   "suggestedDate": "2026-11-01",
-   "status": "pending",
-   "researchNotes": "Verified via confidentials.com (a full review of the Sale branch, 'one of the best neighbourhood restaurants in the NW'), manchestersfinest.com, the Good Food Guide and Harden's: The Oystercatcher, Stanley Square, Sale M33 7ZZ — a fish and seafood restaurant cooked on a charcoal grill, opened by ex-Hispi chef Duncan Ranyard. A real 2-site pair: the original opened Chorlton (123 Manchester Road) in June 2018, with Sale as a second location confirmed trading by Confidentials' own review and the Good Food Guide's 'offshoot on Stanley Square' listing — within the same 2-site sibling precedent already accepted in this file (Craig's, Ivy Spinningfields, Coco Tang/Nottingham). No third site found anywhere in searches. Coordinates (53.4232, -2.3229) matched to the existing Stanley Square venue cluster already in venues.json (Blanchflower Sale, Pray Tell, Canteena Bar & Grill, Hops & Boogie all sit at 53.4231-53.4239/-2.3227-2.3230) since no precise unit-number geocode was found for this address. Reuses the existing SEAFOOD RESTAURANT type (Deadwood Smokehouse's sibling category). Closes Sale's real Eat gap found this run — only 2 Eat venues (Blanchflower Sale, Kampasi) against 4 Do before this addition. High confidence — well-reviewed by a credible independent critic, chef-led, no closure signal found."
-  },
-  {
-   "name": "Just-Ice Ethical Ice Cream Cafe",
-   "district": "poynton",
-   "type": "DESSERT CAFE",
-   "spend": "££",
-   "lat": 53.3486,
-   "lon": -2.1235,
-   "base": 60,
-   "bands": ["morning", "afternoon"],
-   "reason": "Premium ice cream and fair-trade coffee on Park Lane, run as a social enterprise that trains and employs survivors of modern slavery — the name is the whole pitch, and it's a good one.",
-   "suggestedDate": "2026-11-01",
-   "status": "pending",
-   "researchNotes": "Verified via the Charity Commission register (a registered charity, 'JUST-ICE POYNTON'), hygienescore.co.uk (5/5 FSA rating, inspected July 2024), Deliveroo and Eatible: Just-Ice Ethical Ice Cream Cafe, 32 Park Lane, Poynton SK12 1RE — a social enterprise cafe selling premium ice cream, coffee and cakes, whose stated mission is creating employment for survivors of modern slavery/human trafficking. Single-site, charity-linked, no chain or group ownership found — passes Hard rule 1 cleanly, and the mission gives it a genuinely distinctive story rather than a generic ice-cream-shop register. Coordinates (53.3486, -2.1235) matched to Poynton's existing Park Lane venue cluster (Colourfield Gallery, Vinehop, The Acoustic Lounge all sit at 53.3462-53.3488/-2.1225-2.1245) since SK12 1RE's own postcode lookup returned inconsistent results this session; 32 Park Lane is independently confirmed as sitting within that same Park Lane postcode run (SK12 1RE spans roughly numbers 4-62). Reuses the existing DESSERT CAFE type (WooTea, Chinatown). Second candidate closing Poynton's real gap this run alongside Anson Engine Museum — Poynton's Drink category had exactly 1 live venue (Vinehop) before this addition. High confidence — charity registration and FSA rating both independently confirm current, real operation."
-  },
-  {
-   "name": "Gastown Cafe Bar",
-   "district": "macclesfield",
-   "type": "BRUNCH SPOT",
-   "spend": "££",
-   "lat": 53.2606,
-   "lon": -2.1283,
-   "base": 64,
-   "bands": ["morning", "afternoon"],
-   "reason": "An independently owned brunch house on Chestergate with an actual obsession over the coffee, not just the pastry case — alcohol only comes with food, which tells you what the room is really for.",
-   "suggestedDate": "2026-11-01",
-   "status": "pending",
-   "researchNotes": "Verified via CAMRA (cafe-bar listing, 15 Chestergate, Macclesfield SK11 6BX, noting 'real ale not available' and alcohol only served with food — consistent with a brunch-house register rather than a pub) and a Macclesfield visitor guide describing it as 'an independently owned brunch house with an obsession for quality coffee and food'. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.2606, -2.1283) matched to the existing Chestergate venue cluster in venues.json (Chestergate Bistro, Picturedrome, BeefnBerry Bistro all sit at 53.2598-53.2612/-2.1254-2.1312) since no precise address-level geocode was found for 15 Chestergate specifically. Reuses the existing BRUNCH SPOT type (Barnshaw Smithy, Mobberley; Blanchflower Sale). Helps close Macclesfield's real Eat gap found this run — Macclesfield's category-mapped Eat venues (Amazing India; Chestergate Bistro and BeefnBerry Bistro's BISTRO type isn't currently wired into CATEGORY_BY_VENUE_TYPE) are thinner than Do (6) and Drink (4, once BOTTLE SHOP/WINE BAR/ALE HOUSE/LATE-NIGHT LOUNGE are all counted). Moderate confidence — real, CAMRA-listed and independently described, but without a dated review or primary-source site found this session to confirm very recent trading; no closure signal found either."
-  },
-  {
-   "name": "Aroma Bar & Ristorante",
-   "district": "bollington",
-   "type": "ITALIAN RESTAURANT",
-   "spend": "££",
-   "lat": 53.297987,
-   "lon": -2.096854,
-   "base": 66,
-   "bands": ["afternoon", "evening", "late"],
-   "reason": "An Italian kitchen and cocktail lounge on Palmerston Street, the latest of three restaurants to take the same room in a row — the sort of address Bollington clearly won't let sit empty for long.",
-   "suggestedDate": "2026-11-01",
-   "status": "pending",
-   "researchNotes": "Verified via happyvalley.org.uk (the local Bollington guide, confirming a confirmed opening date of Friday 25 July 2025) and SquareMeal's own record of the site's prior occupant (Briscola, an established Italian restaurant with 'a reputation for consistently sound cooking'): Aroma Bar & Ristorante, 88 Palmerston Street, Bollington SK10 5PW — an Italian restaurant with a cocktail lounge, taking over premises previously run as Briscola and, before that, Kira. No second site or group ownership found anywhere in searches; single-site, independently opened, passes Hard rule 1 cleanly. Coordinates (53.297987, -2.096854) from the SK10 5PW postcode centroid (doogal.co.uk), consistent with the existing Bollington venue cluster (The Lime Tree, Church House Inn both sit at 53.297-53.298/-2.092-2.095). Reuses the existing ITALIAN RESTAURANT type (Amici, Bramhall; Romulus, Bramhall). Helps close Bollington's real gap found this run — the district sits at 6 live venues, under the 10-venue standing target, with Do (1 live, Bollington Discovery Centre) the thinnest category; this Eat addition doesn't address that directly but does round out a continuously-occupied, clearly-current address the prior rejected/pending Bollington candidates (Coupe, Northern Exposure Gallery) couldn't confirm. Moderate confidence — a specific, sourced opening date and a credible local guide, but no dated customer reviews found this session to confirm trading has continued past the opening; worth a quick re-check at promotion time."
+   "researchNotes": "Verified via three independent directory sources (Wanderlog, Trip.com's Frodsham restaurant guide, selfcatering.co.uk) all consistently describing Main Street Kitchen as a family-run, Italian-influenced restaurant on Main Street, Frodsham, serving freshly made pizza dough, pasta and seasonal mains, with a beer garden. No official website or Facebook page independently found this session despite several attempts, and no exact house number could be independently confirmed — this is NOT the same business as Next Door, the Michelin-listed restaurant at 68 Main Street (a different family business on the same street, confirmed distinct via Michelin's own listing). No second site or chain signal found anywhere. Coordinates approximated from the existing Frodsham Main Street cluster (Next Door, Frodsham Artisan Market, No 13) rather than a precise address geocode — flagged for the reviewer to tighten. Reuses the existing BISTRO type (Chestergate Bistro, Bench Bistro Bar). Moderate confidence — real and consistently corroborated across three sources, but without the stronger primary-source verification (official site, dated reviews, FSA registration) this run's higher-confidence candidates have; worth a direct on-the-ground check before promotion. SENT TO PENDING REVIEW 2026-11-01 (curia-suggestion-review): independent re-check corroborates the original candidate's sourcing (three directory sources agree on a family-run, Italian-influenced Main Street restaurant with a beer garden) but could not resolve the one open question either way — no official site or dated review was found, and CAMRA separately lists at least one other Main Street, Frodsham venue as permanently closed, which this candidate's own address could not be independently distinguished from with confidence. Not a closure signal in itself, and distinct from Next Door (the Michelin-listed restaurant at 68 Main Street) which is clearly a different business — but thin enough sourcing that a confident promote call isn't honest without an on-the-ground check. Left 'pending' here; see docs/data/pending-review-queue.json for the human-facing entry."
   }
  ]
 }

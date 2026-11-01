@@ -3,6 +3,28 @@
   "entries": [
     {
       "agentType": "review",
+      "date": "2026-11-01",
+      "synced": false,
+      "title": "10 venues promoted across Poynton, Bollington, Hale Barns, Sale and Macclesfield; 2 sent for review; no closures",
+      "summary": "Independently re-verified all 12 pending candidates in venue-suggestions.json with a 2026-10-31/2026-11-01 suggestedDate (the 9 longer-pending candidates from 2026-10-24 through 2026-10-30 — The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table — already have live, undecided docs/data/pending-review-queue.json entries from prior runs and were deliberately left untouched, per this job's own 'don't re-decide an item already waiting on a human' rule). Promoted 10 with real petFriendly/dietaryOptions researched for each. Nothing rejected today. 2 candidates were genuinely thin on current-trading evidence rather than a clean pass, and sent to docs/data/pending-review-queue.json. Curia Command's pending_review collection was checked via ArtifactData's query action (the real read-only equivalent available in this environment) and had zero decided items to apply this run. The closure-audit rotating slice (indices 217-221: Sparkling Sunset Oia, Lioyerma Lounge Cafe Pool Bar, Astra Suites Pool Bar, Buddha-Bar Beach Sunset Lounge, Domaine Sigalas — all Oia/Imerovigli) found no closures; Astra Suites and Domaine Sigalas both re-confirmed via reviews independently dated as recently as August/July 2026.",
+      "items": [
+        { "label": "Flute & Firkin (Poynton)", "detail": "promoted — single-site micropub, CAMRA 'Independent Pub' tag, confirmed dog-friendly" },
+        { "label": "Poynton Park and Pool (Poynton)", "detail": "promoted — free council-run country park, confirmed dog-friendly (on lead near the pool)" },
+        { "label": "Bollington Arts Centre (Bollington)", "detail": "promoted — volunteer-run charity venue since 1964, live Nov 2026-dated bookings confirm current operation" },
+        { "label": "Lady Heyes Crafts and Antique Centre (Frodsham)", "detail": "promoted — single physical site housing many independent sellers, a Sept 2026-dated visitor comment confirms current trading" },
+        { "label": "The Bulls Head & Lodge (Hale Barns)", "detail": "promoted — Robinsons Brewery tied-house freehold, but an individually-named, individually-tenanted village pub, not a branded chain concept; live multi-platform bookability confirmed, closes the district's only real Eat/Drink gap" },
+        { "label": "Anson Engine Museum (Poynton)", "detail": "promoted — charity-run, confirmed dog-friendly; genuine seasonal (Apr-Oct) closure, openingHours correctly left unset per CLAUDE.md so it never renders as closed" },
+        { "label": "The Oystercatcher (Sale)", "detail": "promoted — confirmed real 2-site sibling pair with the original Chorlton site, within the small-sibling-group allowance" },
+        { "label": "Just-Ice Ethical Ice Cream Cafe (Poynton)", "detail": "promoted — single-site social enterprise charity cafe, confirmed dog-friendly and vegan/dairy-free/nut-allergy options" },
+        { "label": "Gastown Cafe Bar (Macclesfield)", "detail": "promoted — single-site, 4.6/5 from 412 reviews, confirmed dog-friendly" },
+        { "label": "Aroma Bar & Ristorante (Bollington)", "detail": "promoted — single-site, confirmed still trading since its July 2025 opening with no closure signal" },
+        { "label": "Poynton Tea Room (Poynton)", "detail": "sent for review — real and consistently described, but no official site, no Tripadvisor listing and nothing dated 2025/2026 found either way" },
+        { "label": "Main Street Kitchen (Frodsham)", "detail": "sent for review — real and well-corroborated, but a separate CAMRA closure record for another Main Street, Frodsham venue couldn't be cleanly ruled out by address" }
+      ],
+      "createdAt": "2026-11-01T00:00:00Z"
+    },
+    {
+      "agentType": "review",
       "date": "2026-09-16",
       "synced": true,
       "title": "8 venues + Chester (new Cheshire district) promoted; 1 rejected as a real chain, 1 naming mix-up sent for review",

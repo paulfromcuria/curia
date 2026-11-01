@@ -11831,6 +11831,190 @@
     "evening"
    ],
    "reason": "Newly free of the pub company that used to run it, restoring a Bollington Cross landmark around its own Sunday roast rather than a brewery's menu card."
+  },
+  {
+   "name": "Flute & Firkin",
+   "district": "poynton",
+   "type": "ALE HOUSE",
+   "spend": "£",
+   "lat": 53.3486,
+   "lon": -2.1242,
+   "base": 66,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Two floors above Park Lane with a cellar that turns over weekly and a branch nomination for Pub of the Winter behind it — Tuesdays stay dark on purpose, nothing else does.",
+   "petFriendly": true,
+   "dietaryOptions": [
+    "none"
+   ]
+  },
+  {
+   "name": "Poynton Park and Pool",
+   "district": "poynton",
+   "type": "COUNTRY PARK",
+   "spend": "£",
+   "lat": 53.3544,
+   "lon": -2.1149,
+   "base": 60,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Fifty acres of reshaped Georgian parkland built around its own pool, with a surfaced circuit that never once makes you cross a road to finish it.",
+   "petFriendly": true,
+   "dietaryOptions": [
+    "none"
+   ]
+  },
+  {
+   "name": "Bollington Arts Centre",
+   "district": "bollington",
+   "type": "PERFORMING ARTS",
+   "spend": "£",
+   "lat": 53.2975,
+   "lon": -2.0985,
+   "base": 66,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Self-funded and volunteer-run since 1964, with a gallery bar that still pulls real ale and a stage that's hosted folk, jazz and comedy longer than most of the venues that replaced it elsewhere.",
+   "petFriendly": false,
+   "dietaryOptions": [
+    "none"
+   ]
+  },
+  {
+   "name": "Lady Heyes Crafts and Antique Centre",
+   "district": "frodsham",
+   "type": "ANTIQUES CENTRE",
+   "spend": "£",
+   "lat": 53.2764,
+   "lon": -2.6979,
+   "base": 56,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A couple of miles out on the Kingsley road, where 130 acres of a working farm hold a whole village's worth of independent emporiums under one roof — the kind of browse that eats an afternoon before anyone notices.",
+   "petFriendly": false,
+   "dietaryOptions": [
+    "none"
+   ]
+  },
+  {
+   "name": "The Bulls Head & Lodge",
+   "district": "hale-barns",
+   "type": "COUNTRY PUB",
+   "spend": "£££",
+   "lat": 53.3686,
+   "lon": -2.3169,
+   "base": 70,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "A 21-room lodge behind it and a kitchen that runs all day in front — Wicker Lane's proper village pub, in a district where there's otherwise nowhere to actually sit down.",
+   "petFriendly": true,
+   "dietaryOptions": [
+    "vegetarian"
+   ]
+  },
+  {
+   "name": "Anson Engine Museum",
+   "district": "poynton",
+   "type": "MUSEUM",
+   "spend": "£",
+   "lat": 53.3484,
+   "lon": -2.0899,
+   "base": 58,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "A charity-run engine hall on Anson Road that nobody told to be this thorough — stationary engines, gramophones and a scale model of 1900s Poynton, kept running by people who clearly can't help themselves.",
+   "petFriendly": true,
+   "dietaryOptions": [
+    "none"
+   ]
+  },
+  {
+   "name": "The Oystercatcher",
+   "district": "sale",
+   "type": "SEAFOOD RESTAURANT",
+   "spend": "£££",
+   "lat": 53.4232,
+   "lon": -2.3229,
+   "base": 76,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Duncan Ranyard's charcoal grill followed its own Chorlton reputation down the tram line to Stanley Square — the same fish, cooked over the same coals, with none of the original's queue yet.",
+   "petFriendly": false,
+   "dietaryOptions": [
+    "none"
+   ]
+  },
+  {
+   "name": "Just-Ice Ethical Ice Cream Cafe",
+   "district": "poynton",
+   "type": "DESSERT CAFE",
+   "spend": "££",
+   "lat": 53.3486,
+   "lon": -2.1235,
+   "base": 60,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Premium ice cream and fair-trade coffee on Park Lane, run as a social enterprise that trains and employs survivors of modern slavery — the name is the whole pitch, and it's a good one.",
+   "petFriendly": true,
+   "dietaryOptions": [
+    "vegan",
+    "dairy-free",
+    "nut allergy"
+   ]
+  },
+  {
+   "name": "Gastown Cafe Bar",
+   "district": "macclesfield",
+   "type": "BRUNCH SPOT",
+   "spend": "££",
+   "lat": 53.2606,
+   "lon": -2.1283,
+   "base": 64,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "An independently owned brunch house on Chestergate with an actual obsession over the coffee, not just the pastry case — alcohol only comes with food, which tells you what the room is really for.",
+   "petFriendly": true,
+   "dietaryOptions": [
+    "none"
+   ]
+  },
+  {
+   "name": "Aroma Bar & Ristorante",
+   "district": "bollington",
+   "type": "ITALIAN RESTAURANT",
+   "spend": "££",
+   "lat": 53.297987,
+   "lon": -2.096854,
+   "base": 66,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "An Italian kitchen and cocktail lounge on Palmerston Street, the latest of three restaurants to take the same room in a row — the sort of address Bollington clearly won't let sit empty for long.",
+   "petFriendly": false,
+   "dietaryOptions": [
+    "none"
+   ]
   }
  ],
  "_dailyReviewPromotionSource20261030": "5 venues promoted 2026-10-30 by curia-suggestion-review, independently re-verified against the 8 candidates with a 2026-10-30 suggestedDate (4 of them the district's first-ever venues): Colourfield Gallery, Vinehop, Cofano Caffé and The Acoustic Lounge give Poynton (promoted into districts.json the day before, 2026-10-29, with zero venues of its own) its first real catalogue entries — all four independently re-confirmed single-site via fresh web search (Confidentials/Northern Soul for the gallery; CAMRA/OpenTable for Vinehop, whose 'Stockport' address on some OpenTable mirrors is the same SK12 postcode mislabelled, not a second site; Manchester's Finest/a March-2025-dated FSA hygiene record for Cofano Caffé; a forward-dated Aug-2026 Ents24 listing plus a Poynton Town Council festival form naming Brian Eason as contact for The Acoustic Lounge) — no chain or closure signal for any of the four. Cock & Pheasant (Bollington) independently re-confirmed via OpenTable (4.7/41) and a Historic England listed-building geocode, its own current description explicitly 'a newly independent Pub' (i.e. recently left pub-company operation) — a positive signal against chain concern, not just a neutral one. Three candidates were genuinely uncertain rather than a clean promote/reject and went to pending-review-queue.json instead: Queens Head (Frodsham) — the candidate's own flagged freehold-ownership question turned out to understate the real issue, since a Stonegate Pub Company (the UK's largest pub company) press item describes this specific pub as being owned and operated by Stonegate, a materially bigger chain-operator concern than the stale 'Flock Inns' freehold record the original research surfaced, though the press item is itself undated and may predate a change back to independent operation (the same pattern Cock & Pheasant, researched the same run, shows really happening to a different Cheshire pub); Cork of the North (Sale) — the real original-site-before-the-Heaton-Moor-sibling story checks out (the already-live Heaton Moor entry's own reason text independently corroborates it), but a Trip.com snapshot shows the business as currently closed and no review independently dated to 2025/2026 was found either; The Fisherman's Table (Marple) — real 2-site sibling pair (Poulton-le-Fylde) within this file's established precedent, but an undated Blacks Business Brokers for-sale listing plus no independently-dated 2025/2026 review (latest found: a Sept 2024 Confidentials review) is the same for-sale-plus-dating-gap shape this job has already sent to pending review elsewhere (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop) rather than guessed at. Six longer-pending candidates with live, undecided docs/data/pending-review-queue.json entries from the 2026-10-24/26/27/28 runs (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop and Mura Ma, both Marple; Northern Makes Gallery, Bollington; Brew & Tucker, Frodsham; Bevi, Marple) were deliberately left untouched this run, per this job's own 'don't re-decide an item already waiting on a human' rule. Curia Command's pending_review collection was checked via a read-only query (ArtifactData, action 'query' — the real read-only equivalent this execution environment exposes, not the brief's literal 'read_db' example) and had zero decided items to apply. The closure-audit rotating slice (indices 217-221: Sparkling Sunset/Oia, Lioyerma Lounge Cafe Pool Bar/Oia, Astra Suites Pool Bar/Imerovigli, Buddha-Bar Beach Sunset Lounge/Imerovigli, Domaine Sigalas/Oia) found no closure signal for any of the five on independent web search — Domaine Sigalas has a genuine Nov 2025 majority-ownership change (Kir-Yianni) but continues trading with 2026-dated reviews, an ownership change rather than a closure.",
