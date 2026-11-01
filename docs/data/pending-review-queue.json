@@ -343,6 +343,44 @@
         "bands": ["afternoon", "evening"],
         "reason": "Fleetwood fish driven straight to a dining room in inland Marple — twice a Tripadvisor Traveller's Choice winner, and still the kind of place a local drives over for rather than posts about."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-01",
+      "reason": "Real and consistently described across two independent directories (a home-made Welsh rarebit, high-tea spreads, a family feel), with no closure signal anywhere, but no official site, no Tripadvisor listing and nothing independently dated to 2025/2026 either — the same currency-gap shape already sent here for Northern Makes Gallery, Mura Ma and Brew & Tucker, not a chain or closure concern.",
+      "researchNotes": "Independently re-verified 2026-11-01 (WebSearch): 81C Park Lane, Poynton SK12 1RD, open hours given as 10:00-16:00. Trip.com and Wanderlog both corroborate the same address and description (homemade Welsh rarebit, high-tea spreads and buffets for events, explicit reviewer praise for not being 'a large chain'). No second site or group ownership found anywhere — Hard rule 1 is clean if it's still trading. No official website or social-media account found this session, same gap the original candidate already flagged; no closure signal found either. Coordinates approximated from the same Park Lane cluster as the district's existing Vinehop/The Acoustic Lounge entries.",
+      "payload": {
+        "name": "Poynton Tea Room",
+        "district": "poynton",
+        "type": "BRUNCH SPOT",
+        "spend": "£",
+        "lat": 53.3484,
+        "lon": -2.1239,
+        "base": 58,
+        "bands": ["morning", "afternoon"],
+        "reason": "Home-made Welsh rarebit and a high-tea spread for whoever's celebrating — a small, family-feeling room on Park Lane that its own regulars go out of their way to call the opposite of a chain."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-01",
+      "reason": "Three independent directories agree on a real, family-run, Italian-influenced Main Street restaurant with a beer garden and no chain or group signal anywhere, but no official site or dated review was found, and a separate CAMRA record lists at least one other Main Street, Frodsham venue as permanently closed — close enough to this one's own address that a confident promote call isn't honest without an on-the-ground check.",
+      "researchNotes": "Independently re-verified 2026-11-01 (WebSearch): Wanderlog, Trip.com's Frodsham restaurant guide and selfcatering.co.uk all consistently describe Main Street Kitchen as a family-run Italian-influenced restaurant on Main Street, Frodsham, with fresh pizza dough, pasta, seasonal mains and a beer garden. Confirmed distinct from Next Door, the Michelin-listed restaurant at 68 Main Street (a different business, independently verified via Michelin's own listing). CAMRA separately lists a permanently-closed 16th-century hotel and restaurant on Main Street, Frodsham, WA6 7AB — no source connects that closure to Main Street Kitchen specifically, but no exact house number for Main Street Kitchen could be independently confirmed either, so the two couldn't be cleanly distinguished by address. No second site or chain signal found anywhere for Main Street Kitchen itself. Coordinates approximated from the existing Frodsham Main Street cluster (Next Door, Frodsham Artisan Market, No 13).",
+      "payload": {
+        "name": "Main Street Kitchen",
+        "district": "frodsham",
+        "type": "BISTRO",
+        "spend": "££",
+        "lat": 53.2956,
+        "lon": -2.726,
+        "base": 64,
+        "bands": ["afternoon", "evening"],
+        "reason": "Family-run on Main Street with its own slow-proved dough and a beer garden round the back — the kind of neighbourhood pizza-and-pasta room that never bothered opening a second site."
+      }
     }
   ]
 }
