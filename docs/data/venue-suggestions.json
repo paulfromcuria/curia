@@ -1668,7 +1668,11 @@
    "lat": 53.3686,
    "lon": -2.3169,
    "base": 70,
-   "bands": ["afternoon", "evening", "late"],
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
    "reason": "A 21-room lodge behind it and a kitchen that runs all day in front — Wicker Lane's proper village pub, in a district where there's otherwise nowhere to actually sit down.",
    "suggestedDate": "2026-11-01",
    "status": "pending",
@@ -1682,7 +1686,9 @@
    "lat": 53.3484,
    "lon": -2.0899,
    "base": 58,
-   "bands": ["afternoon"],
+   "bands": [
+    "afternoon"
+   ],
    "reason": "A charity-run engine hall on Anson Road that nobody told to be this thorough — stationary engines, gramophones and a scale model of 1900s Poynton, kept running by people who clearly can't help themselves.",
    "suggestedDate": "2026-11-01",
    "status": "pending",
@@ -1696,7 +1702,10 @@
    "lat": 53.4232,
    "lon": -2.3229,
    "base": 76,
-   "bands": ["afternoon", "evening"],
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
    "reason": "Duncan Ranyard's charcoal grill followed its own Chorlton reputation down the tram line to Stanley Square — the same fish, cooked over the same coals, with none of the original's queue yet.",
    "suggestedDate": "2026-11-01",
    "status": "pending",
@@ -1710,7 +1719,10 @@
    "lat": 53.3486,
    "lon": -2.1235,
    "base": 60,
-   "bands": ["morning", "afternoon"],
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
    "reason": "Premium ice cream and fair-trade coffee on Park Lane, run as a social enterprise that trains and employs survivors of modern slavery — the name is the whole pitch, and it's a good one.",
    "suggestedDate": "2026-11-01",
    "status": "pending",
@@ -1724,7 +1736,10 @@
    "lat": 53.2606,
    "lon": -2.1283,
    "base": 64,
-   "bands": ["morning", "afternoon"],
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
    "reason": "An independently owned brunch house on Chestergate with an actual obsession over the coffee, not just the pastry case — alcohol only comes with food, which tells you what the room is really for.",
    "suggestedDate": "2026-11-01",
    "status": "pending",
@@ -1738,11 +1753,83 @@
    "lat": 53.297987,
    "lon": -2.096854,
    "base": 66,
-   "bands": ["afternoon", "evening", "late"],
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
    "reason": "An Italian kitchen and cocktail lounge on Palmerston Street, the latest of three restaurants to take the same room in a row — the sort of address Bollington clearly won't let sit empty for long.",
    "suggestedDate": "2026-11-01",
    "status": "pending",
    "researchNotes": "Verified via happyvalley.org.uk (the local Bollington guide, confirming a confirmed opening date of Friday 25 July 2025) and SquareMeal's own record of the site's prior occupant (Briscola, an established Italian restaurant with 'a reputation for consistently sound cooking'): Aroma Bar & Ristorante, 88 Palmerston Street, Bollington SK10 5PW — an Italian restaurant with a cocktail lounge, taking over premises previously run as Briscola and, before that, Kira. No second site or group ownership found anywhere in searches; single-site, independently opened, passes Hard rule 1 cleanly. Coordinates (53.297987, -2.096854) from the SK10 5PW postcode centroid (doogal.co.uk), consistent with the existing Bollington venue cluster (The Lime Tree, Church House Inn both sit at 53.297-53.298/-2.092-2.095). Reuses the existing ITALIAN RESTAURANT type (Amici, Bramhall; Romulus, Bramhall). Helps close Bollington's real gap found this run — the district sits at 6 live venues, under the 10-venue standing target, with Do (1 live, Bollington Discovery Centre) the thinnest category; this Eat addition doesn't address that directly but does round out a continuously-occupied, clearly-current address the prior rejected/pending Bollington candidates (Coupe, Northern Exposure Gallery) couldn't confirm. Moderate confidence — a specific, sourced opening date and a credible local guide, but no dated customer reviews found this session to confirm trading has continued past the opening; worth a quick re-check at promotion time."
+  },
+  {
+   "name": "Poachers Inn",
+   "district": "bollington",
+   "type": "COUNTRY PUB",
+   "spend": "££",
+   "lat": 53.2978,
+   "lon": -2.0876,
+   "base": 66,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Twenty-four years under one landlord, then a for-sale sign, then a reopening rather than a closure — Ingersley Road's free house still turns over its own rotating guest ales and home-cooked plates.",
+   "suggestedDate": "2026-11-02",
+   "status": "pending",
+   "researchNotes": "Verified via CAMRA/eastcheshire.camra.org.uk (listed as a genuine free-house and flagship real-ale community pub with fresh home-made food, rotating guest beers, CAMRA 'Open' snapshot dated 13-04-2026), happyvalley.org.uk (local Bollington guide, confirms address and notes it 're-opened' after a recent closure) and Christie & Co/Catering Today coverage of its 2024-2025 sale (owners Rob and Helen Ellwood, 24 years' tenure, retiring; asking price later reduced; listed under Trust Inns). Flagging honestly rather than hiding it: the pub went through a genuine ownership transition (long-term tenants retiring, a Trust Inns sale/re-letting process) and one directory snapshot showed it 'closed' at the moment of capture — but happyvalley.org.uk's own current guide describes it as reopened, and the CAMRA listing's most recent dated snapshot (13 April 2026) shows it open, so the weight of evidence is a pub mid-transition and currently trading, not a closed one. Chain check: Trust Inns is a pub-owning company that leases to individual tenants (the same tied-house model already accepted in this file for The Bulls Head & Lodge/Robinsons) — not a branded multi-site concept itself; no 'Poachers Inn' sibling found anywhere. Address: 95 Ingersley Road, Bollington, Macclesfield SK10 5RE. Coordinates (53.2978/-2.0876) from the OS grid reference SJ942778 published by happyvalley.org.uk for the pub itself (matching the listed boundary stone directly opposite it), not an estimate. Reuses the existing COUNTRY PUB type (Church House Inn, Cock & Pheasant, same district). Bollington sits at 9 real venues today (6 real + 3 pending from this and prior runs), one of the standing-priority districts under 10 — this closes a real gap without duplicating Church House Inn/Cock & Pheasant's register (a genuinely distinct free-house story, not another identical village pub). Moderate confidence given the ownership-transition caveat above — flagged explicitly for the reviewer to re-confirm current day-to-day trading, same standard this file already applies to Queens Head/Cork of the North/The Fisherman's Table."
+  },
+  {
+   "name": "Northumberland Arms",
+   "district": "marple",
+   "type": "COUNTRY PUB",
+   "spend": "£",
+   "lat": 53.4086,
+   "lon": -2.0527,
+   "base": 70,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Robinson's put it up for sale in 2017 and the village bought it back rather than let it go — Marple Bridge's only community-owned pub, five changing real ales, dog-friendly, and a 2026 CAMRA Pub of the Year finalist nod to show the rescue actually worked.",
+   "suggestedDate": "2026-11-02",
+   "status": "pending",
+   "researchNotes": "Verified via CAMRA (High Peak branch listing and joinpearl.co's own current page, both naming it a 'Community Owned' pub and a 'CAMRA Pub of the Year Finalist (2026)'), greatermanchester.camra.org.uk (Pub of the Season Winter 2024 feature) and manchesterwire.co.uk's own coverage of the community buyout ('historic Marple pub named Greater Manchester's pub of the year' — saved from permanent closure in 2017 after Robinson's put it up for sale, a successful local campaign brought it into community ownership, listed as an asset of community value). Address: 64 Compstall Road, Marple Bridge SK6 5HD. A separate, unrelated '1 Compstall Road' listing marked permanently closed in other search results is a different building/pub (The George) a few doors away — checked specifically to avoid conflating the two. No second site or group ownership possible or found — community ownership structurally rules out a chain footprint, passes Hard rule 1 cleanly. Coordinates (53.4086/-2.0527) approximated from the SK6 5HD postcode table entry (OS grid SJ965901) since a direct street-level geocode wasn't available this session — flagged for the reviewer to tighten, though it sits well within Marple Bridge's existing village footprint alongside this file's other Marple candidates. Reuses the existing COUNTRY PUB type (Church Inn/Bull's Head/Railway Inn, Mobberley), a better fit than the district's existing ALE HOUSE entries (Samuel Oldknow, Traders) given its real kitchen and community-hall character. Marple sits at 10 real+pending venues already (6 real, 4 pending) — this adds genuine distinctiveness (a real rescued-by-the-village story) rather than a fifth generic pub. High confidence — CAMRA's own 2026-dated award recognition is about as strong a 'currently trading and well regarded' signal as exists."
+  },
+  {
+   "name": "Deuce",
+   "district": "nantwich",
+   "type": "HEALTH BAR",
+   "spend": "£",
+   "lat": 53.0665,
+   "lon": -2.5215,
+   "base": 60,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A Hospital Street counter from the same young locals who opened Cheshire Padel — functional smoothies, nutrient-dense açaí bowls and coffee built for a fitness crowd Nantwich didn't have anywhere to send before.",
+   "suggestedDate": "2026-11-02",
+   "status": "pending",
+   "researchNotes": "Verified via legatowen.co.uk's own April 2026 letting announcement: Deuce, 5 Hospital Street, Nantwich — a new independent health bar ('a fresh, modern approach to nutrition and wellbeing') serving functional smoothies, coffee and açaí bowls, opened Friday 17 April 2026. Co-founder named (Harry Walker); the team previously launched Cheshire Padel (September 2024) — a different business (a padel facility, not a food/drink site), so this is their first F&B venture, not a second site of the same concept; no second Deuce site or group ownership found anywhere in searches. Passes Hard rule 1 cleanly on a single-source basis. Coordinates (53.0665/-2.5215) approximated from the CW5 postcode cluster already used for this file's own Aesthete Beautique candidate on the same Mill Street/Hospital Street stretch — doogal.co.uk/api.postcodes.io both blocked this session, flagged for the reviewer to tighten. New type introduced — HEALTH BAR — since no existing Eat/Drink type captures a dedicated functional-smoothie/açaí-bowl concept precisely (BRUNCH SPOT and COFFEE ROOM are the closest registers but would flatten the genuinely distinct fitness-nutrition framing that's the actual reason to go); same precedent as DUTCH FRY HOUSE/ROTISSERIE elsewhere in this catalogue. Moderate confidence — only one independent source (a commercial property-letting announcement) was found, no customer reviews or social-media presence turned up this session, and the venue is still under a year old; no closure signal either, flagged honestly for the reviewer's own current-trading check before promotion."
+  },
+  {
+   "name": "1851 Restaurant",
+   "district": "tarporley",
+   "type": "FINE DINING",
+   "spend": "££££",
+   "lat": 53.1175,
+   "lon": -2.699,
+   "base": 80,
+   "bands": [
+    "evening"
+   ],
+   "reason": "Thirty covers inside a Victorian landowner's medieval fantasy, adults-only and dark on Mondays and Tuesdays by design — a nine-course tasting menu that never once tries to out-do the castle around it.",
+   "suggestedDate": "2026-11-02",
+   "status": "pending",
+   "researchNotes": "Verified via the venue's own site (peckfortoncastle.co.uk/restaurant/fine-dining-1851-restaurant), greatbritishlife.co.uk ('Dining: 1851 Restaurant, Peckforton Castle, Cheshire') and multiple booking platforms (Secret Escapes, Wowcher, Celtic Castles, 9.8/10 from 1,620 reviews for the wider hotel): 1851 Restaurant, Peckforton Castle, Stone House Lane, Peckforton, near Tarporley CW6 9TN — a 30-cover, adults-only fine-dining room inside the Grade I-listed Victorian castle, open Wed-Sun evenings only (closed Mon/Tue), serving a 9-course tasting menu (6-course on Sundays, reframed as Sunday lunch). Chain check, done carefully since the hotel itself belongs to a group: Peckforton Castle is owned by the Boutique Hotel Group (BHG, run by the Naylor family), which also owns Inglewood Manor (Ellesmere Port) and Nunsmere Hall (Cheshire) — a real 3-property regional group, but each a distinct, individually-characterful country-house hotel rather than a branded, replicable chain concept, no two sharing a name or format; all three sit within the North West, not a multi-city/multi-country footprint. Flagging explicitly for the reviewer's own judgment under CLAUDE.md's two-gate model (Gate 1 clearly passes — nothing mass-market about a Grade I castle restaurant; Gate 2 distinctiveness reads high given the singular building, 30-cover room and adults-only 9-course format) — same shape as this file's own accepted Dukes Hospitality (5 bars, Macclesfield)/Salt House Ltd (3 Northwich sites)/Cheshire Cat (7 pubs) precedents, a regional small-hotel group rather than a chain. Coordinates (53.1175/-2.699) are Wikipedia's own published figure for the castle itself, corroborated by britainfromabove.org.uk's aerial-photo record (53.1171/-2.6971) for the same CW6 9TN address — note the longitude sits just outside this file's usual -2.6 sanity-box edge, the same 'genuinely further west, not a data error' judgment already made for Chester (-2.8888); Peckforton is a well-documented, unambiguous, real location roughly 5km from the Tarporley district centroid, well within its coverage radius. Reuses the existing FINE DINING type (The Lime Tree Bollington, matching register). Tarporley sits at 14 real venues (not itself under the standing 10-venue floor) but had no FINE DINING-register Eat venue distinct from The Swan/The Coast's gastropub-and-trattoria lineup before this addition. High confidence on the venue's reality, single/distinct-concept status and current trading (multiple 2025/2026-dated independent reviews); the ownership-group judgment call is the one flag for the reviewer."
   }
  ]
 }
