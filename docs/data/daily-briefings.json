@@ -8,18 +8,54 @@
       "title": "8 venues + Chester (new Cheshire district) promoted; 1 rejected as a real chain, 1 naming mix-up sent for review",
       "summary": "Independently re-verified all 10 pending candidates in venue-suggestions.json with a 2026-09-16 suggestedDate and the sole pending district candidate (Chester), promoting 8 venues (Pottery Corner, Chorlton; The Damson Tree Cafe, Cheadle Hulme; Ebenezer's Craft Beer Emporium, Nantwich; St Peter's Church & Norman Chapel, Prestbury; BeefnBerry Bistro, Macclesfield; The Blarney Barrel, Bramhall; The Old Bakery Didsbury; Runway Pilates, Alderley Edge) and Chester itself. Mouro Coffee Bar (Heaton Moor) was rejected, reversing the original researcher's own finding — fresh search found it's actually a real, actively expanding four-site coffee brand (Heaton Moor plus two Altrincham sites plus a fourth opened May 2026 in the Northern Quarter), past this file's small-sibling-group allowance. Underbank (Stockport (Underbanks)) needed a genuine human call rather than a promote/reject guess: it appears to describe the same real venue as this file's own already-promoted 'The Underbank' entry, while a separate, different venue with a near-identical name (Benji Taylor's live-music venue) seems to be the one that name actually belongs to — a naming mix-up, sent to pending-review-queue.json. Curia Command's pending_review collection (checked via read_db) had zero decided items to apply this run. Prana, Buon Cibo and Rustik remain unchanged in pending-review-queue.json, still awaiting a human decision. The closure-audit rotating slice (Manchester Craft and Design Centre, The Horsfall, Bar Etna, Knutcraft at the Ruskin Rooms, Mobberley Ice Cream Coffee House) found no closures — all five re-confirmed still trading.",
       "items": [
-        { "label": "Pottery Corner (Chorlton)", "detail": "promoted — single-site paint-a-pot studio, no chain signal" },
-        { "label": "The Damson Tree Cafe (Cheadle Hulme)", "detail": "promoted — single-site, locally run cafe/cake-maker" },
-        { "label": "Ebenezer's Craft Beer Emporium (Nantwich)", "detail": "promoted — confirmed real 2-site pair (Nantwich, Crewe), within the small-sibling-group allowance" },
-        { "label": "St Peter's Church & Norman Chapel (Prestbury)", "detail": "promoted — free, publicly accessible Grade I/II heritage site, new type HISTORIC CHURCH (category-only)" },
-        { "label": "BeefnBerry Bistro (Macclesfield)", "detail": "promoted — single-site, confirmed vegetarian/vegan menu options" },
-        { "label": "The Blarney Barrel (Bramhall)", "detail": "promoted — real 2-site sibling pair with 78 Degrees, opened Dec 2025" },
-        { "label": "The Old Bakery Didsbury", "detail": "promoted — Alpine Tearoom's confirmed 2-site sibling pair" },
-        { "label": "Runway Pilates (Alderley Edge)", "detail": "promoted — confirmed genuine 3-site footprint (Alderley Edge, Altrincham, Manchester), within precedent" },
-        { "label": "Chester (new Cheshire district)", "detail": "promoted — genuine, distinct, nationally known Cheshire city; coordinate sits just past this file's usual sanity-box edge but is a real, precisely documented landmark (Eastgate Clock), not a research error" },
-        { "label": "Mouro Coffee Bar (Heaton Moor)", "detail": "rejected — actually a real, expanding 4-site coffee brand (Heaton Moor, 2x Altrincham, Northern Quarter), past the small-group allowance" },
-        { "label": "Underbank (Stockport (Underbanks))", "detail": "sent for review — appears to be the same real venue as this file's existing 'The Underbank' entry under a different name, while a different, genuinely distinct venue seems to be the real 'The Underbank'; needs a human to untangle" },
-        { "label": "Prana (Altrincham) / Buon Cibo (Heaton Moor) / Rustik (Didsbury)", "detail": "left pending — no decision yet in Curia Command's pending_review collection, unchanged this run" }
+        {
+          "label": "Pottery Corner (Chorlton)",
+          "detail": "promoted — single-site paint-a-pot studio, no chain signal"
+        },
+        {
+          "label": "The Damson Tree Cafe (Cheadle Hulme)",
+          "detail": "promoted — single-site, locally run cafe/cake-maker"
+        },
+        {
+          "label": "Ebenezer's Craft Beer Emporium (Nantwich)",
+          "detail": "promoted — confirmed real 2-site pair (Nantwich, Crewe), within the small-sibling-group allowance"
+        },
+        {
+          "label": "St Peter's Church & Norman Chapel (Prestbury)",
+          "detail": "promoted — free, publicly accessible Grade I/II heritage site, new type HISTORIC CHURCH (category-only)"
+        },
+        {
+          "label": "BeefnBerry Bistro (Macclesfield)",
+          "detail": "promoted — single-site, confirmed vegetarian/vegan menu options"
+        },
+        {
+          "label": "The Blarney Barrel (Bramhall)",
+          "detail": "promoted — real 2-site sibling pair with 78 Degrees, opened Dec 2025"
+        },
+        {
+          "label": "The Old Bakery Didsbury",
+          "detail": "promoted — Alpine Tearoom's confirmed 2-site sibling pair"
+        },
+        {
+          "label": "Runway Pilates (Alderley Edge)",
+          "detail": "promoted — confirmed genuine 3-site footprint (Alderley Edge, Altrincham, Manchester), within precedent"
+        },
+        {
+          "label": "Chester (new Cheshire district)",
+          "detail": "promoted — genuine, distinct, nationally known Cheshire city; coordinate sits just past this file's usual sanity-box edge but is a real, precisely documented landmark (Eastgate Clock), not a research error"
+        },
+        {
+          "label": "Mouro Coffee Bar (Heaton Moor)",
+          "detail": "rejected — actually a real, expanding 4-site coffee brand (Heaton Moor, 2x Altrincham, Northern Quarter), past the small-group allowance"
+        },
+        {
+          "label": "Underbank (Stockport (Underbanks))",
+          "detail": "sent for review — appears to be the same real venue as this file's existing 'The Underbank' entry under a different name, while a different, genuinely distinct venue seems to be the real 'The Underbank'; needs a human to untangle"
+        },
+        {
+          "label": "Prana (Altrincham) / Buon Cibo (Heaton Moor) / Rustik (Didsbury)",
+          "detail": "left pending — no decision yet in Curia Command's pending_review collection, unchanged this run"
+        }
       ],
       "createdAt": "2026-09-16T00:00:00Z"
     },
@@ -30,17 +66,50 @@
       "title": "7 venues promoted across Nantwich, Bramhall, Stockport (Underbanks), Mobberley, Altrincham and Knutsford; 1 rejected, 2 sent for review",
       "summary": "Independently re-verified all 10 pending candidates in venue-suggestions.json and promoted 7 (Nantwich Museum, Bench Bistro Bar, Plumcake Cafe, The Warren, Railway Inn, Gin Can, Rose & Crown), with real petFriendly/dietaryOptions researched for each and one stale reason string (Bench Bistro Bar's now-closed Congleton sibling) rewritten. The Copper Room (Macclesfield) was rejected — the chef-owned concept it described no longer trades at the given address, which is now occupied by an unrelated pub venture. Two candidates were genuinely uncertain rather than a clean pass/reject and were sent to pending-review-queue.json: Buon Cibo (a suspicious Companies House entity cluster suggesting active expansion, and an unconfirmable sister site) and Rustik (real but a contradictory recent closure/reopening/dissolution history). Prana (Altrincham) was re-checked again with no new evidence either way, unchanged since 2026-09-11. Curia Command's pending_review collection was empty, so nothing to apply from a prior human decision. The closure-audit rotating slice (20 Stories, The Jane Eyre, Blinker, Matt & Phreds, The Ivy Spinningfields) found no real closures.",
       "items": [
-        { "label": "Nantwich Museum (Nantwich)", "detail": "promoted — volunteer-run charitable heritage museum, zero chain risk" },
-        { "label": "Plumcake Cafe (Bramhall)", "detail": "promoted — single-site family-run brunch cafe, confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "The Warren (Stockport (Underbanks))", "detail": "promoted — independent artist-collective gallery, a temporary Manchester pop-up stall doesn't count as a second site" },
-        { "label": "Railway Inn (Mobberley)", "detail": "promoted — genuine free house, no ownership link to Mobberley's existing Cheshire Cat pub group, confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "Gin Can (Altrincham)", "detail": "promoted — sibling group corrected from 2 to 3 venues (Cheshire Tap, Gin Can, Ivy League) under one small team, still within the small-group allowance; confirmed dog-friendly" },
-        { "label": "Bench Bistro Bar (Nantwich)", "detail": "promoted, reason text corrected — Congleton sibling closed Sept 2025 (now 'Black Bear'), so Bench is single-site again; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "Rose & Crown (Knutsford)", "detail": "promoted — 1647 coaching inn, explicitly independent, confirmed dog-friendly and vegan/gluten-free" },
-        { "label": "The Copper Room (Macclesfield)", "detail": "rejected — the described chef-owned concept no longer trades at 60-62 Chestergate; the room has sat empty since summer 2025 and is being converted into an unrelated pub" },
-        { "label": "Buon Cibo (Heaton Moor)", "detail": "sent for review — Companies House shows a cluster of similarly-named entities including a newly incorporated 'Buon Cibo Group Ltd', reading more like expansion than a simple 2-site family pair" },
-        { "label": "Rustik (Didsbury)", "detail": "sent for review — genuinely independent, but a real closure (Sept 2025), partial reopening (Oct 2025) and dissolved operating company (Nov 2025) leave its current trading status unclear" },
-        { "label": "Prana (Altrincham)", "detail": "left pending — no new evidence either way, unchanged since 2026-09-11" }
+        {
+          "label": "Nantwich Museum (Nantwich)",
+          "detail": "promoted — volunteer-run charitable heritage museum, zero chain risk"
+        },
+        {
+          "label": "Plumcake Cafe (Bramhall)",
+          "detail": "promoted — single-site family-run brunch cafe, confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "The Warren (Stockport (Underbanks))",
+          "detail": "promoted — independent artist-collective gallery, a temporary Manchester pop-up stall doesn't count as a second site"
+        },
+        {
+          "label": "Railway Inn (Mobberley)",
+          "detail": "promoted — genuine free house, no ownership link to Mobberley's existing Cheshire Cat pub group, confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "Gin Can (Altrincham)",
+          "detail": "promoted — sibling group corrected from 2 to 3 venues (Cheshire Tap, Gin Can, Ivy League) under one small team, still within the small-group allowance; confirmed dog-friendly"
+        },
+        {
+          "label": "Bench Bistro Bar (Nantwich)",
+          "detail": "promoted, reason text corrected — Congleton sibling closed Sept 2025 (now 'Black Bear'), so Bench is single-site again; confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "Rose & Crown (Knutsford)",
+          "detail": "promoted — 1647 coaching inn, explicitly independent, confirmed dog-friendly and vegan/gluten-free"
+        },
+        {
+          "label": "The Copper Room (Macclesfield)",
+          "detail": "rejected — the described chef-owned concept no longer trades at 60-62 Chestergate; the room has sat empty since summer 2025 and is being converted into an unrelated pub"
+        },
+        {
+          "label": "Buon Cibo (Heaton Moor)",
+          "detail": "sent for review — Companies House shows a cluster of similarly-named entities including a newly incorporated 'Buon Cibo Group Ltd', reading more like expansion than a simple 2-site family pair"
+        },
+        {
+          "label": "Rustik (Didsbury)",
+          "detail": "sent for review — genuinely independent, but a real closure (Sept 2025), partial reopening (Oct 2025) and dissolved operating company (Nov 2025) leave its current trading status unclear"
+        },
+        {
+          "label": "Prana (Altrincham)",
+          "detail": "left pending — no new evidence either way, unchanged since 2026-09-11"
+        }
       ],
       "createdAt": "2026-09-14T00:00:00Z"
     },
@@ -51,17 +120,50 @@
       "title": "10 venues promoted across Nantwich, Macclesfield and Bramhall; Prana still waiting on a human call",
       "summary": "Independently re-verified and promoted all 10 pending candidates in venue-suggestions.json — five closing out Nantwich's real zero-venue gap, three rounding out Macclesfield, two rounding out Bramhall — with real petFriendly/dietaryOptions researched for each. Nothing rejected today. Curia Command's pending_review collection was empty, so nothing to apply from a prior human decision. Prana (Altrincham) was re-checked again: still no direct 2025/2026 trading evidence either way, though one new detail (a reported plan to convert it into an events space after its 2024 closure) surfaced without resolving anything; it stays in docs/data/pending-review-queue.json unchanged. Also fixed an accidental literal duplicate of the Prana entry in venue-suggestions.json (same content appended twice) down to one. The closure-audit slice (Bar Shrimp, Manchester Rare Books, Charlie Brown's Hale, esea contemporary, Mobberley Cricket Club) found no real closures — Bar Shrimp's Uber Eats delisting is the same stale-delivery-aggregator pattern already dismissed elsewhere in this file, and esea contemporary's 'closed' note traced to a routine exhibition changeover.",
       "items": [
-        { "label": "Residence Restaurant & Bar (Nantwich)", "detail": "promoted — single-site Georgian mansion restaurant, confirmed gluten-free menu, currently trading" },
-        { "label": "Black Lion (Nantwich)", "detail": "promoted — genuine 1664 freehouse with no brewery tie, confirmed dog-friendly (downstairs) and vegan-adaptable" },
-        { "label": "Deadwood Smokehouse (Nantwich)", "detail": "promoted — new type SMOKEHOUSE (category-only, Eat); real 2-site sibling pair with Mold, confirmed dog-friendly (outdoor frontage only)" },
-        { "label": "The Nest Nantwich (Nantwich)", "detail": "promoted — single-site distillery/cocktail bar, Three Wrens Gin, confirmed dog-friendly" },
-        { "label": "Nantwich Bookshop & Coffee Lounge (Nantwich)", "detail": "promoted — single-site independent since 2003, confirmed vegan/gluten-free and dog-friendly (downstairs); a 2025 sale attempt fell through in Jan 2026 but the shop continues trading under its original owners" },
-        { "label": "Diversion Bar & Kitchen (Macclesfield)", "detail": "promoted — single-site, opened 2026, confirmed vegetarian-friendly menu" },
-        { "label": "Waters Green Tavern (Macclesfield)", "detail": "promoted — genuine multi-award CAMRA free house, confirmed vegetarian/vegan/gluten-free and dog-friendly" },
-        { "label": "Silk Museum & Paradise Mill (Macclesfield)", "detail": "promoted — independent/charitable heritage attraction, correctly defaulted to not pet-friendly (standard museum accessibility policy)" },
-        { "label": "Simply Books (Bramhall)", "detail": "promoted — award-winning single-site independent bookshop/café, new owners since March 2024" },
-        { "label": "Cheshire Art Gallery (Bramhall)", "detail": "promoted — single-site commercial gallery, Geoffrey Key/Mark Demsteader representation independently confirmed" },
-        { "label": "Prana (Altrincham)", "detail": "left pending — still no direct 2025/2026 trading evidence either way; no decision yet in Curia Command's pending_review collection" }
+        {
+          "label": "Residence Restaurant & Bar (Nantwich)",
+          "detail": "promoted — single-site Georgian mansion restaurant, confirmed gluten-free menu, currently trading"
+        },
+        {
+          "label": "Black Lion (Nantwich)",
+          "detail": "promoted — genuine 1664 freehouse with no brewery tie, confirmed dog-friendly (downstairs) and vegan-adaptable"
+        },
+        {
+          "label": "Deadwood Smokehouse (Nantwich)",
+          "detail": "promoted — new type SMOKEHOUSE (category-only, Eat); real 2-site sibling pair with Mold, confirmed dog-friendly (outdoor frontage only)"
+        },
+        {
+          "label": "The Nest Nantwich (Nantwich)",
+          "detail": "promoted — single-site distillery/cocktail bar, Three Wrens Gin, confirmed dog-friendly"
+        },
+        {
+          "label": "Nantwich Bookshop & Coffee Lounge (Nantwich)",
+          "detail": "promoted — single-site independent since 2003, confirmed vegan/gluten-free and dog-friendly (downstairs); a 2025 sale attempt fell through in Jan 2026 but the shop continues trading under its original owners"
+        },
+        {
+          "label": "Diversion Bar & Kitchen (Macclesfield)",
+          "detail": "promoted — single-site, opened 2026, confirmed vegetarian-friendly menu"
+        },
+        {
+          "label": "Waters Green Tavern (Macclesfield)",
+          "detail": "promoted — genuine multi-award CAMRA free house, confirmed vegetarian/vegan/gluten-free and dog-friendly"
+        },
+        {
+          "label": "Silk Museum & Paradise Mill (Macclesfield)",
+          "detail": "promoted — independent/charitable heritage attraction, correctly defaulted to not pet-friendly (standard museum accessibility policy)"
+        },
+        {
+          "label": "Simply Books (Bramhall)",
+          "detail": "promoted — award-winning single-site independent bookshop/café, new owners since March 2024"
+        },
+        {
+          "label": "Cheshire Art Gallery (Bramhall)",
+          "detail": "promoted — single-site commercial gallery, Geoffrey Key/Mark Demsteader representation independently confirmed"
+        },
+        {
+          "label": "Prana (Altrincham)",
+          "detail": "left pending — still no direct 2025/2026 trading evidence either way; no decision yet in Curia Command's pending_review collection"
+        }
       ],
       "createdAt": "2026-09-13T00:00:00Z"
     },
@@ -72,17 +174,50 @@
       "title": "9 venues + 1 district promoted, 1 sent for review, 0 rejected, 0 closures",
       "summary": "9 of the 10 pending venue candidates (Bramall Hall, The Mounting Stone and Pix Pizza in Bramhall; The Chiverton Tap and Dos Hermanos in Cheadle Hulme; Staircase House and The Underbank in Stockport (Underbanks); Sett174 Art Cafe, Didsbury; The Creameries, Chorlton) and the sole pending district candidate (Macclesfield, a genuine new Cheshire market town) independently re-verified and promoted straight into venues.json/districts.json, with real petFriendly/dietaryOptions researched for each venue. The tenth candidate, Prana (Altrincham), was held back: CAMRA and whatpub.com list it 'Closed Long Term' since May 2024, but a new company was incorporated at the same address that September and remains active today, plus a food hygiene record exists — genuinely conflicting signals, so it's sent to the pending-review queue for a human call rather than promoted or rejected. No Curia Command decisions were waiting to apply this run (pending_review collection was empty). The closure audit's rotating slice (Rex Cinema, The Carrs, Wilmslow Kitchen, Ricardo Van Parmar Gallery, Wilmslow Artisan Market) found no closure signals — all five re-confirmed still trading.",
       "items": [
-        { "label": "Bramall Hall (Bramhall)", "detail": "promoted — Grade I Tudor manor, council-owned civic attraction, exterior scaffolding not a closure signal" },
-        { "label": "The Mounting Stone (Bramhall)", "detail": "promoted — micropub with its own microbrewery, confirmed dog-friendly, sister pub to Cheadle Hulme's Chiverton Tap" },
-        { "label": "Pix Pizza (Bramhall)", "detail": "promoted — confirmed vegan/gluten-free options and current trading despite a stale HappyCow 'CLOSED' listing, same pattern already dismissed for The Underbank" },
-        { "label": "The Chiverton Tap (Cheadle Hulme)", "detail": "promoted — confirmed dog-friendly, sister pub to Bramhall's Mounting Stone" },
-        { "label": "Dos Hermanos (Cheadle Hulme)", "detail": "promoted — single-site tapas, confirmed vegetarian/vegan/gluten-free options" },
-        { "label": "Staircase House (Stockport (Underbanks))", "detail": "promoted — council-run 15th-century townhouse museum, confirmed not dog-friendly (assistance dogs only)" },
-        { "label": "The Underbank (Stockport (Underbanks))", "detail": "promoted — confirmed still trading (monthly open-mic series current) and dog-friendly, resolving the original candidate's flagged ambiguity" },
-        { "label": "Sett174 Art Cafe (Didsbury)", "detail": "promoted — new type ART STUDIO, confirmed vegan/gluten-free options" },
-        { "label": "The Creameries (Chorlton)", "detail": "promoted — Pomona Island's 3-site footprint judged within the existing small-independent-group allowance (same as Wallop's 3-site precedent)" },
-        { "label": "Prana (Altrincham)", "detail": "sent to pending review — CAMRA/whatpub show 'Closed Long Term' since May 2024, but a new company was incorporated at the same address that September and remains active; conflicting signals" },
-        { "label": "Macclesfield (new Cheshire district)", "detail": "promoted — genuine, distinct Cheshire market town confirmed via a reopened Market Hall (Feb 2026) and an active monthly Treacle Market, doesn't overlap Prestbury" }
+        {
+          "label": "Bramall Hall (Bramhall)",
+          "detail": "promoted — Grade I Tudor manor, council-owned civic attraction, exterior scaffolding not a closure signal"
+        },
+        {
+          "label": "The Mounting Stone (Bramhall)",
+          "detail": "promoted — micropub with its own microbrewery, confirmed dog-friendly, sister pub to Cheadle Hulme's Chiverton Tap"
+        },
+        {
+          "label": "Pix Pizza (Bramhall)",
+          "detail": "promoted — confirmed vegan/gluten-free options and current trading despite a stale HappyCow 'CLOSED' listing, same pattern already dismissed for The Underbank"
+        },
+        {
+          "label": "The Chiverton Tap (Cheadle Hulme)",
+          "detail": "promoted — confirmed dog-friendly, sister pub to Bramhall's Mounting Stone"
+        },
+        {
+          "label": "Dos Hermanos (Cheadle Hulme)",
+          "detail": "promoted — single-site tapas, confirmed vegetarian/vegan/gluten-free options"
+        },
+        {
+          "label": "Staircase House (Stockport (Underbanks))",
+          "detail": "promoted — council-run 15th-century townhouse museum, confirmed not dog-friendly (assistance dogs only)"
+        },
+        {
+          "label": "The Underbank (Stockport (Underbanks))",
+          "detail": "promoted — confirmed still trading (monthly open-mic series current) and dog-friendly, resolving the original candidate's flagged ambiguity"
+        },
+        {
+          "label": "Sett174 Art Cafe (Didsbury)",
+          "detail": "promoted — new type ART STUDIO, confirmed vegan/gluten-free options"
+        },
+        {
+          "label": "The Creameries (Chorlton)",
+          "detail": "promoted — Pomona Island's 3-site footprint judged within the existing small-independent-group allowance (same as Wallop's 3-site precedent)"
+        },
+        {
+          "label": "Prana (Altrincham)",
+          "detail": "sent to pending review — CAMRA/whatpub show 'Closed Long Term' since May 2024, but a new company was incorporated at the same address that September and remains active; conflicting signals"
+        },
+        {
+          "label": "Macclesfield (new Cheshire district)",
+          "detail": "promoted — genuine, distinct Cheshire market town confirmed via a reopened Market Hall (Feb 2026) and an active monthly Treacle Market, doesn't overlap Prestbury"
+        }
       ],
       "createdAt": "2026-09-11T00:00:00Z"
     },
@@ -93,17 +228,50 @@
       "title": "10 promoted, 1 district promoted, 0 rejected, 0 closures",
       "summary": "All 10 pending venue candidates (Savoy Cinema, Heaton Social, Cure Bistro in Heaton Moor; Bar Caput, Stockport Underbanks; Trattoria D'Agostino, Cheadle Hulme; Sip Wine Bar, Didsbury; Prestbury Golf Club; The Beer House, Chorlton; The Garden Eatery, Hale; The Edge, Alderley Edge) plus the one pending district candidate (Bramhall, Cheshire) independently re-verified via fresh parallel web research and promoted straight into venues.json/districts.json. No rejections this run — every candidate cleared Hard rule 1, duplicate, schema, coordinate and brand-voice checks. Two factual corrections folded into the copy (The Beer House's CAMRA streak is 5 years not 4; The Garden Eatery has two founders, Kate and Amy, not one). Real petFriendly/dietaryOptions researched for all 10. Curia Command's pending_review collection was empty (nothing to apply from a prior human decision). The day's closure-audit slice (5 venues) found no closure signals.",
       "items": [
-        { "label": "Savoy Cinema (Heaton Moor)", "detail": "promoted — Mundin family's 3rd cinema (Belper, Melton Mowbray), still trading" },
-        { "label": "Heaton Social (Heaton Moor)", "detail": "promoted — single-site, dog-friendly, still trading" },
-        { "label": "Cure Bistro (Heaton Moor)", "detail": "promoted — new type FRENCH BISTRO, confirmed vegan/gluten-free options" },
-        { "label": "Bar Caput (Stockport Underbanks)", "detail": "promoted — same-owner relaunch of the former Cantaloupe (Michelin Bib Gourmand), single-site" },
-        { "label": "Trattoria D'Agostino (Cheadle Hulme)", "detail": "promoted — single-site since 2010, still trading" },
-        { "label": "Sip Wine Bar (Didsbury)", "detail": "promoted — single-site, dog-friendly, confirmed vegan/gluten-free/dairy-free menu" },
-        { "label": "Prestbury Golf Club", "detail": "promoted — genuinely independent members' club, confirmed NOT dog-friendly" },
-        { "label": "The Beer House (Chorlton)", "detail": "promoted — independent since 2018, 5-year CAMRA Pub of the Year streak (corrected from candidate's '4 years')" },
-        { "label": "The Garden Eatery (Hale)", "detail": "promoted — corrected to two founders (Kate and Amy), dog-friendly, vegan/gluten-free" },
-        { "label": "The Edge (Alderley Edge)", "detail": "promoted — new type NATURE RESERVE, National Trust land, dog-friendly" },
-        { "label": "Bramhall (new Cheshire district)", "detail": "promoted — genuine distinct village identity confirmed; real-world distance to Cheadle Hulme corrected to ~2mi/3.2km (candidate said 2.6km), still within this file's existing close-district precedent" }
+        {
+          "label": "Savoy Cinema (Heaton Moor)",
+          "detail": "promoted — Mundin family's 3rd cinema (Belper, Melton Mowbray), still trading"
+        },
+        {
+          "label": "Heaton Social (Heaton Moor)",
+          "detail": "promoted — single-site, dog-friendly, still trading"
+        },
+        {
+          "label": "Cure Bistro (Heaton Moor)",
+          "detail": "promoted — new type FRENCH BISTRO, confirmed vegan/gluten-free options"
+        },
+        {
+          "label": "Bar Caput (Stockport Underbanks)",
+          "detail": "promoted — same-owner relaunch of the former Cantaloupe (Michelin Bib Gourmand), single-site"
+        },
+        {
+          "label": "Trattoria D'Agostino (Cheadle Hulme)",
+          "detail": "promoted — single-site since 2010, still trading"
+        },
+        {
+          "label": "Sip Wine Bar (Didsbury)",
+          "detail": "promoted — single-site, dog-friendly, confirmed vegan/gluten-free/dairy-free menu"
+        },
+        {
+          "label": "Prestbury Golf Club",
+          "detail": "promoted — genuinely independent members' club, confirmed NOT dog-friendly"
+        },
+        {
+          "label": "The Beer House (Chorlton)",
+          "detail": "promoted — independent since 2018, 5-year CAMRA Pub of the Year streak (corrected from candidate's '4 years')"
+        },
+        {
+          "label": "The Garden Eatery (Hale)",
+          "detail": "promoted — corrected to two founders (Kate and Amy), dog-friendly, vegan/gluten-free"
+        },
+        {
+          "label": "The Edge (Alderley Edge)",
+          "detail": "promoted — new type NATURE RESERVE, National Trust land, dog-friendly"
+        },
+        {
+          "label": "Bramhall (new Cheshire district)",
+          "detail": "promoted — genuine distinct village identity confirmed; real-world distance to Cheadle Hulme corrected to ~2mi/3.2km (candidate said 2.6km), still within this file's existing close-district precedent"
+        }
       ],
       "createdAt": "2026-09-10T00:00:00Z"
     },
@@ -114,19 +282,58 @@
       "title": "10 promoted, 0 rejected, 3 closures flagged for review",
       "summary": "All 10 pending candidates in venue-suggestions.json (Northern Quarter, Ancoats, Altrincham, Knutsford, Mobberley, Chinatown, and two in Deansgate, Spinningfields, Hale) independently re-verified and promoted straight into venues.json, with real petFriendly/dietaryOptions researched for each. No Curia Command decisions were waiting to apply this run. The closure audit's rotating slice caught King Street Kitchen (Knutsford) as genuinely closed, and a follow-up on two closure signals left open since 2026-09-04 (Riva Bar & Restaurant, Hale; The Yard, Alderley Edge) corroborated both — all three sent to pending-review-queue.json as remove_venue candidates rather than auto-removed.",
       "items": [
-        { "label": "Manchester Craft and Design Centre (Northern Quarter)", "detail": "promoted — verified non-chain charity/council-supported craft centre, still trading" },
-        { "label": "The Horsfall (Ancoats)", "detail": "promoted — verified single-site 42nd Street charity gallery, still trading" },
-        { "label": "Bar Etna (Altrincham)", "detail": "promoted — verified single-site, family-run since 2023; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "Knutcraft at the Ruskin Rooms (Knutsford)", "detail": "promoted — new type POTTERY STUDIO, mapped to 'Cookery & craft' tile" },
-        { "label": "Mobberley Ice Cream Coffee House (Mobberley)", "detail": "promoted — verified single working-farm site; confirmed dog-friendly and vegan/gluten-free" },
-        { "label": "Yuzu (Chinatown)", "detail": "promoted — new type JAPANESE RESTAURANT (category-only); confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "One Eight Six (Deansgate)", "detail": "promoted — verified single-site barbershop/bar under current ownership, still trading" },
-        { "label": "Arcane (Deansgate)", "detail": "promoted — verified single-site, independently owned; confirmed dog-friendly" },
-        { "label": "KLUB (Spinningfields)", "detail": "promoted — new type BEAUTY SALON, mapped to 'Spa & wellness' tile" },
-        { "label": "Portland Wine (Hale)", "detail": "promoted — confirmed single-site (shop and registered office both on Ashley Road), resolving the prior medium-confidence chain-footprint flag" },
-        { "label": "King Street Kitchen (Knutsford)", "detail": "sent to pending review — Tripadvisor and HappyCow both mark it CLOSED (closure-audit rotating slice)" },
-        { "label": "Riva Bar & Restaurant (Hale)", "detail": "sent to pending review — a Tripadvisor review confirms it closed, corroborating a signal flagged but not acted on 2026-09-04" },
-        { "label": "The Yard (Alderley Edge)", "detail": "sent to pending review — alderleyedge.com's own article confirms its cafe/shop closed, corroborating a signal flagged but not acted on 2026-09-04" }
+        {
+          "label": "Manchester Craft and Design Centre (Northern Quarter)",
+          "detail": "promoted — verified non-chain charity/council-supported craft centre, still trading"
+        },
+        {
+          "label": "The Horsfall (Ancoats)",
+          "detail": "promoted — verified single-site 42nd Street charity gallery, still trading"
+        },
+        {
+          "label": "Bar Etna (Altrincham)",
+          "detail": "promoted — verified single-site, family-run since 2023; confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "Knutcraft at the Ruskin Rooms (Knutsford)",
+          "detail": "promoted — new type POTTERY STUDIO, mapped to 'Cookery & craft' tile"
+        },
+        {
+          "label": "Mobberley Ice Cream Coffee House (Mobberley)",
+          "detail": "promoted — verified single working-farm site; confirmed dog-friendly and vegan/gluten-free"
+        },
+        {
+          "label": "Yuzu (Chinatown)",
+          "detail": "promoted — new type JAPANESE RESTAURANT (category-only); confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "One Eight Six (Deansgate)",
+          "detail": "promoted — verified single-site barbershop/bar under current ownership, still trading"
+        },
+        {
+          "label": "Arcane (Deansgate)",
+          "detail": "promoted — verified single-site, independently owned; confirmed dog-friendly"
+        },
+        {
+          "label": "KLUB (Spinningfields)",
+          "detail": "promoted — new type BEAUTY SALON, mapped to 'Spa & wellness' tile"
+        },
+        {
+          "label": "Portland Wine (Hale)",
+          "detail": "promoted — confirmed single-site (shop and registered office both on Ashley Road), resolving the prior medium-confidence chain-footprint flag"
+        },
+        {
+          "label": "King Street Kitchen (Knutsford)",
+          "detail": "sent to pending review — Tripadvisor and HappyCow both mark it CLOSED (closure-audit rotating slice)"
+        },
+        {
+          "label": "Riva Bar & Restaurant (Hale)",
+          "detail": "sent to pending review — a Tripadvisor review confirms it closed, corroborating a signal flagged but not acted on 2026-09-04"
+        },
+        {
+          "label": "The Yard (Alderley Edge)",
+          "detail": "sent to pending review — alderleyedge.com's own article confirms its cafe/shop closed, corroborating a signal flagged but not acted on 2026-09-04"
+        }
       ],
       "createdAt": "2026-09-05T00:00:00Z"
     },
@@ -137,17 +344,50 @@
       "title": "9 venues + 1 district promoted, 1 sent for review, 0 rejected, 0 closures",
       "summary": "9 of the 10 pending candidates in venue-suggestions.json (Chinatown x2, Deansgate, Spinningfields, Altrincham, Hale, Knutsford, Mobberley, Ancoats) and the sole pending district candidate (Chorlton, a genuine new Manchester district) independently re-verified and promoted, with real petFriendly/dietaryOptions researched for each venue. No Curia Command decisions were waiting to apply this run. The tenth venue candidate, Fire Station Social Cucina (Alderley Edge), was held back — still only 2 sites but its operator has stated expansion plans for the brand — and sent to pending-review-queue.json for a human call rather than promoted or rejected. The closure audit's rotating slice (Riddles, Speak In Code, Bar Shrimp, Manchester Rare Books, Charlie Brown's Hale) found no closure signals.",
       "items": [
-        { "label": "Contemporary Six (Chinatown)", "detail": "promoted — verified single gallery with one real sibling (Contemporary Six Hale), still trading" },
-        { "label": "K2 Karaoke (Chinatown)", "detail": "promoted — verified single site on George Street, core Chinatown location" },
-        { "label": "Pip (Deansgate)", "detail": "promoted — verified single dining concept inside a 2-hotel group, unrelated to the London hotel's own restaurant; confirmed dog-friendly and vegetarian/vegan/gluten-free/dairy-free" },
-        { "label": "Portfolio (Spinningfields)", "detail": "promoted — verified single site, UK's first dedicated Champagne bar" },
-        { "label": "HARCOURT (Altrincham)", "detail": "promoted — verified single free-of-tie site; confirmed dog-friendly; corrected co-owner's name (Priscilla So) and opening year (2023) from the original suggestion" },
-        { "label": "Butchers Bar (Hale)", "detail": "promoted — verified single site, opened May 2026" },
-        { "label": "Neki (Knutsford)", "detail": "promoted — verified single site (a planned second site hasn't opened yet); confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "Mobberley Village Bakers (Mobberley)", "detail": "promoted — verified single site, ~34 years trading" },
-        { "label": "Ancoats Coffee Co (Ancoats)", "detail": "promoted — verified 2 company-run retail sites (Royal Mills + a second at 111 Piccadilly, previously unknown to the queue), still within the small-sibling-group allowance; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "Chorlton (new Manchester district)", "detail": "promoted — verified as a genuine, distinct south Manchester district with a real independent food/drink scene and craft-beer trail, not overlapping any existing district" },
-        { "label": "Fire Station Social Cucina (Alderley Edge)", "detail": "sent to pending review — parent operator's stated multi-region expansion plans for this exact brand made this one a judgment call rather than a clean pass" }
+        {
+          "label": "Contemporary Six (Chinatown)",
+          "detail": "promoted — verified single gallery with one real sibling (Contemporary Six Hale), still trading"
+        },
+        {
+          "label": "K2 Karaoke (Chinatown)",
+          "detail": "promoted — verified single site on George Street, core Chinatown location"
+        },
+        {
+          "label": "Pip (Deansgate)",
+          "detail": "promoted — verified single dining concept inside a 2-hotel group, unrelated to the London hotel's own restaurant; confirmed dog-friendly and vegetarian/vegan/gluten-free/dairy-free"
+        },
+        {
+          "label": "Portfolio (Spinningfields)",
+          "detail": "promoted — verified single site, UK's first dedicated Champagne bar"
+        },
+        {
+          "label": "HARCOURT (Altrincham)",
+          "detail": "promoted — verified single free-of-tie site; confirmed dog-friendly; corrected co-owner's name (Priscilla So) and opening year (2023) from the original suggestion"
+        },
+        {
+          "label": "Butchers Bar (Hale)",
+          "detail": "promoted — verified single site, opened May 2026"
+        },
+        {
+          "label": "Neki (Knutsford)",
+          "detail": "promoted — verified single site (a planned second site hasn't opened yet); confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "Mobberley Village Bakers (Mobberley)",
+          "detail": "promoted — verified single site, ~34 years trading"
+        },
+        {
+          "label": "Ancoats Coffee Co (Ancoats)",
+          "detail": "promoted — verified 2 company-run retail sites (Royal Mills + a second at 111 Piccadilly, previously unknown to the queue), still within the small-sibling-group allowance; confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "Chorlton (new Manchester district)",
+          "detail": "promoted — verified as a genuine, distinct south Manchester district with a real independent food/drink scene and craft-beer trail, not overlapping any existing district"
+        },
+        {
+          "label": "Fire Station Social Cucina (Alderley Edge)",
+          "detail": "sent to pending review — parent operator's stated multi-region expansion plans for this exact brand made this one a judgment call rather than a clean pass"
+        }
       ],
       "createdAt": "2026-09-06T00:00:00Z"
     },
@@ -158,17 +398,50 @@
       "title": "10 venues + 1 district promoted, 0 rejected, 0 sent for review, 0 closures",
       "summary": "All 10 pending candidates in venue-suggestions.json (three in Chorlton, plus Mobberley, Altrincham, Knutsford, Alderley Edge, Hale, Deansgate, Spinningfields) and the sole pending district candidate (Didsbury, a genuine new south Manchester suburb) independently re-verified and promoted, with real petFriendly/dietaryOptions researched for each venue. No Curia Command decisions were waiting to apply this run (pending_review collection was empty). Fire Station Social Cucina (Alderley Edge), already sitting in pending-review-queue.json since 2026-09-06 awaiting a human call, had no decision yet and was left as-is. The closure audit's rotating slice landed on the five venues promoted this same run (The Edge Theatre & Arts Centre, The Chorlton Tap, Bar San Juan, White Peak Alpaca Farm, Inch Arts) — already freshly verified as currently trading minutes earlier, so nothing further to flag.",
       "items": [
-        { "label": "The Edge Theatre & Arts Centre (Chorlton)", "detail": "promoted — verified single-site charity theatre/arts centre, still trading" },
-        { "label": "The Chorlton Tap (Chorlton)", "detail": "promoted — verified single-site real-ale pub, Wander Beyond Brewing confirmed as a supplying brewery not an owner; confirmed vegetarian/vegan (fully vegan kitchen)" },
-        { "label": "Bar San Juan (Chorlton)", "detail": "promoted — verified single-site tapas bar trading since 2010, still trading; confirmed vegetarian/vegan/gluten-free" },
-        { "label": "White Peak Alpaca Farm (Mobberley)", "detail": "promoted — new type FARM EXPERIENCE, mapped category-only (Do) in tile-catalog-map.ts; verified single working farm, strong current reviews" },
-        { "label": "Inch Arts (Altrincham)", "detail": "promoted — verified single-site charity arts centre, current 2026 activity" },
-        { "label": "The Blind Pig (Knutsford)", "detail": "promoted — verified single speakeasy with one real sibling (Porto, same courtyard); confirmed dog-friendly" },
-        { "label": "Les Deux Pizza Bar (Alderley Edge)", "detail": "promoted — verified single-site pizza/cocktail bar; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "InHale Yoga (Hale)", "detail": "promoted — verified single-site studio with a live current class timetable" },
-        { "label": "Lions Den (Deansgate)", "detail": "promoted — verified single-site live music venue, current events" },
-        { "label": "Australasia (Spinningfields)", "detail": "promoted — verified single restaurant under Orka Koncepts, a confirmed small 4-venue Manchester-only operator, not a chain; corrected reason copy ('this year' to 'last year' relaunch)" },
-        { "label": "Didsbury (new Manchester district)", "detail": "promoted — verified as a genuine, distinct south Manchester suburb with its own independent food/drink scene, not overlapping Chorlton or any existing district" }
+        {
+          "label": "The Edge Theatre & Arts Centre (Chorlton)",
+          "detail": "promoted — verified single-site charity theatre/arts centre, still trading"
+        },
+        {
+          "label": "The Chorlton Tap (Chorlton)",
+          "detail": "promoted — verified single-site real-ale pub, Wander Beyond Brewing confirmed as a supplying brewery not an owner; confirmed vegetarian/vegan (fully vegan kitchen)"
+        },
+        {
+          "label": "Bar San Juan (Chorlton)",
+          "detail": "promoted — verified single-site tapas bar trading since 2010, still trading; confirmed vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "White Peak Alpaca Farm (Mobberley)",
+          "detail": "promoted — new type FARM EXPERIENCE, mapped category-only (Do) in tile-catalog-map.ts; verified single working farm, strong current reviews"
+        },
+        {
+          "label": "Inch Arts (Altrincham)",
+          "detail": "promoted — verified single-site charity arts centre, current 2026 activity"
+        },
+        {
+          "label": "The Blind Pig (Knutsford)",
+          "detail": "promoted — verified single speakeasy with one real sibling (Porto, same courtyard); confirmed dog-friendly"
+        },
+        {
+          "label": "Les Deux Pizza Bar (Alderley Edge)",
+          "detail": "promoted — verified single-site pizza/cocktail bar; confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "InHale Yoga (Hale)",
+          "detail": "promoted — verified single-site studio with a live current class timetable"
+        },
+        {
+          "label": "Lions Den (Deansgate)",
+          "detail": "promoted — verified single-site live music venue, current events"
+        },
+        {
+          "label": "Australasia (Spinningfields)",
+          "detail": "promoted — verified single restaurant under Orka Koncepts, a confirmed small 4-venue Manchester-only operator, not a chain; corrected reason copy ('this year' to 'last year' relaunch)"
+        },
+        {
+          "label": "Didsbury (new Manchester district)",
+          "detail": "promoted — verified as a genuine, distinct south Manchester suburb with its own independent food/drink scene, not overlapping Chorlton or any existing district"
+        }
       ],
       "createdAt": "2026-09-07T00:00:00Z"
     },
@@ -179,19 +452,58 @@
       "title": "10 venues + 1 district promoted, 1 sent for review, 0 rejected, 1 closure flagged",
       "summary": "10 of the 11 pending candidates in venue-suggestions.json (four in Didsbury including the district's first venues, two in Chorlton, plus Prestbury, Knutsford, Altrincham and Alderley Edge) and the sole pending district candidate (Stockport's Underbanks quarter, a genuine new Manchester-metro district) independently re-verified and promoted, with real petFriendly/dietaryOptions researched for each venue. No Curia Command decisions were waiting to apply this run (pending_review collection was empty). Fire Station Social Cucina (Alderley Edge) was re-checked specifically for a rumoured third site — none found — and stays pending, already sitting in pending-review-queue.json since 2026-09-06. Two factual corrections surfaced during re-verification and were folded into the promoted copy: Lime Tree in fact has a second site in Bollington (still promoted, small personally-run pair, not a chain), and Casa de Moor's Heaton Moor sibling has rebranded to 'Casa De Casa' since it was first researched (reason text updated). The closure audit's rotating slice caught Les Deux Pizza Bar (Alderley Edge) showing as closed on its own Deliveroo listing — sent to pending-review-queue.json rather than auto-removed; the other four in the slice (The Blind Pig, InHale Yoga, Lions Den, Australasia) re-confirmed still trading.",
       "items": [
-        { "label": "Lime Tree (Didsbury)", "detail": "promoted — verified real second site in Bollington under the same chef-patron; still within the small personally-run sibling-pair precedent; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "Volta (Didsbury)", "detail": "promoted — verified 3-site Unabombers group (Electrik, Volta, Refuge — Refuge already a real Deansgate venue), distinct concepts not a replicated brand; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "Saison (Didsbury)", "detail": "promoted — verified single site in the former Violet Hour unit, owner's other sites (Dulcimer, The Deaf Institute) confirmed distinct small-group precedent; confirmed dog-friendly and vegetarian/vegan" },
-        { "label": "Fletcher Moss Botanical Garden (Didsbury)", "detail": "promoted — verified council-owned public garden, zero chain risk; confirmed dog-friendly (on-lead in the formal gardens)" },
-        { "label": "The Jane Eyre Chorlton", "detail": "promoted — verified 3rd trading location exists (a small bar concession inside Escape to Freight Island, not a standalone restaurant), judged not to tip into chain territory; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "Casa de Moor (Chorlton)", "detail": "promoted — verified still trading; Heaton Moor sibling has rebranded to 'Casa De Casa' since original research, reason text updated to drop the stale two-site framing; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "Henry's Cafe (Prestbury)", "detail": "promoted — verified single-site, owner-run by Natalie, Companies House confirmed; confirmed dog-friendly and vegan/gluten-free/dairy-free" },
-        { "label": "Knutsford Heritage Centre", "detail": "promoted — verified volunteer-run charity, zero chain risk" },
-        { "label": "Altrincham Little Theatre", "detail": "promoted — verified registered charity/drama society since 1896, zero chain risk" },
-        { "label": "Festival Hall (Alderley Edge)", "detail": "promoted — verified parish council-run community hall, zero chain risk; correctly defaulted to not pet-friendly (own hire terms restrict to guide dogs only)" },
-        { "label": "Stockport (Underbanks) (new Manchester-metro district)", "detail": "promoted — verified genuine, distinct, council-documented independent regeneration quarter, coordinates land precisely on the Market Place, doesn't overlap Cheadle Hulme" },
-        { "label": "Fire Station Social Cucina (Alderley Edge)", "detail": "left pending — re-checked for a rumoured third site, none found, same status as 2026-09-06" },
-        { "label": "Les Deux Pizza Bar (Alderley Edge)", "detail": "sent to pending review — its own Deliveroo listing shows closed, uncorroborated by a second source" }
+        {
+          "label": "Lime Tree (Didsbury)",
+          "detail": "promoted — verified real second site in Bollington under the same chef-patron; still within the small personally-run sibling-pair precedent; confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "Volta (Didsbury)",
+          "detail": "promoted — verified 3-site Unabombers group (Electrik, Volta, Refuge — Refuge already a real Deansgate venue), distinct concepts not a replicated brand; confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "Saison (Didsbury)",
+          "detail": "promoted — verified single site in the former Violet Hour unit, owner's other sites (Dulcimer, The Deaf Institute) confirmed distinct small-group precedent; confirmed dog-friendly and vegetarian/vegan"
+        },
+        {
+          "label": "Fletcher Moss Botanical Garden (Didsbury)",
+          "detail": "promoted — verified council-owned public garden, zero chain risk; confirmed dog-friendly (on-lead in the formal gardens)"
+        },
+        {
+          "label": "The Jane Eyre Chorlton",
+          "detail": "promoted — verified 3rd trading location exists (a small bar concession inside Escape to Freight Island, not a standalone restaurant), judged not to tip into chain territory; confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "Casa de Moor (Chorlton)",
+          "detail": "promoted — verified still trading; Heaton Moor sibling has rebranded to 'Casa De Casa' since original research, reason text updated to drop the stale two-site framing; confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "Henry's Cafe (Prestbury)",
+          "detail": "promoted — verified single-site, owner-run by Natalie, Companies House confirmed; confirmed dog-friendly and vegan/gluten-free/dairy-free"
+        },
+        {
+          "label": "Knutsford Heritage Centre",
+          "detail": "promoted — verified volunteer-run charity, zero chain risk"
+        },
+        {
+          "label": "Altrincham Little Theatre",
+          "detail": "promoted — verified registered charity/drama society since 1896, zero chain risk"
+        },
+        {
+          "label": "Festival Hall (Alderley Edge)",
+          "detail": "promoted — verified parish council-run community hall, zero chain risk; correctly defaulted to not pet-friendly (own hire terms restrict to guide dogs only)"
+        },
+        {
+          "label": "Stockport (Underbanks) (new Manchester-metro district)",
+          "detail": "promoted — verified genuine, distinct, council-documented independent regeneration quarter, coordinates land precisely on the Market Place, doesn't overlap Cheadle Hulme"
+        },
+        {
+          "label": "Fire Station Social Cucina (Alderley Edge)",
+          "detail": "left pending — re-checked for a rumoured third site, none found, same status as 2026-09-06"
+        },
+        {
+          "label": "Les Deux Pizza Bar (Alderley Edge)",
+          "detail": "sent to pending review — its own Deliveroo listing shows closed, uncorroborated by a second source"
+        }
       ],
       "createdAt": "2026-09-08T00:00:00Z"
     },
@@ -202,17 +514,50 @@
       "title": "10 venues + 1 district promoted, 0 rejected, 0 sent for review, 0 closures",
       "summary": "All 10 pending candidates in venue-suggestions.json (Where the Light Gets In, Bruk and Stockport Market Hall in the new Stockport (Underbanks) district; FOLK and Marie Louise Gardens, Didsbury; Chorlton Bookshop and Chorlton Water Park, Chorlton; Giovanni's, Knutsford; Corks Out, Alderley Edge; The Seven Oaks, Chinatown) and the sole pending district candidate (Heaton Moor, a genuine new south Manchester/Stockport suburb) independently re-verified and promoted, with real petFriendly/dietaryOptions researched for each venue. No Curia Command decisions were waiting to apply this run (pending_review collection was empty). Introduces one new venue type, BOOKSHOP, mapped category-only (Do) in tile-catalog-map.ts. The closure audit's rotating slice (Smolensky Gallery, Podium Restaurant, Hale Country Club & Spa, Barnshaw Smithy, Nam) found no closure signals — all five re-confirmed still trading.",
       "items": [
-        { "label": "Where the Light Gets In (Stockport (Underbanks))", "detail": "promoted — verified single-site Michelin Green Star tasting-menu restaurant, chef-owner Sam Buckley" },
-        { "label": "Bruk (Stockport (Underbanks))", "detail": "promoted — verified single-site self-funded natural wine bar, opened Feb 2025; confirmed dog-friendly" },
-        { "label": "Stockport Market Hall (Stockport (Underbanks))", "detail": "promoted — verified council-run Victorian market hall, 30+ independent stalls, same precedent as Mackie Mayor/Altrincham Market" },
-        { "label": "FOLK (Didsbury)", "detail": "promoted — verified single-site, independently run by four owners; confirmed dog-friendly and vegetarian/vegan/gluten-free" },
-        { "label": "Marie Louise Gardens (Didsbury)", "detail": "promoted — verified council-owned public park, Green Flag 2014; confirmed dog-friendly" },
-        { "label": "Chorlton Bookshop (Chorlton)", "detail": "promoted — verified single-site independent bookshop trading since 1983; new type BOOKSHOP, mapped category-only (Do); confirmed dog-friendly" },
-        { "label": "Chorlton Water Park (Chorlton)", "detail": "promoted — verified council-owned 170-acre nature reserve; confirmed dog-friendly (on-lead near the lake)" },
-        { "label": "Giovanni's (Knutsford)", "detail": "promoted — verified single-site independent Italian in a Grade II-listed former Post Office; confirmed vegetarian/vegan/gluten-free" },
-        { "label": "Corks Out (Alderley Edge)", "detail": "promoted — verified real 2-site sibling pair (Alderley Edge + Stockton Heath), within the small-sibling-group precedent; confirmed dog-friendly" },
-        { "label": "The Seven Oaks (Chinatown)", "detail": "promoted — verified single-site freehouse with a locally-listed white faience exterior; confirmed dog-friendly" },
-        { "label": "Heaton Moor (new Manchester-metro district)", "detail": "promoted — verified genuine, distinct suburb ('The Heatons') with its own independent high street, anchored by the Savoy Cinema; doesn't overlap Stockport (Underbanks) or Cheadle Hulme" }
+        {
+          "label": "Where the Light Gets In (Stockport (Underbanks))",
+          "detail": "promoted — verified single-site Michelin Green Star tasting-menu restaurant, chef-owner Sam Buckley"
+        },
+        {
+          "label": "Bruk (Stockport (Underbanks))",
+          "detail": "promoted — verified single-site self-funded natural wine bar, opened Feb 2025; confirmed dog-friendly"
+        },
+        {
+          "label": "Stockport Market Hall (Stockport (Underbanks))",
+          "detail": "promoted — verified council-run Victorian market hall, 30+ independent stalls, same precedent as Mackie Mayor/Altrincham Market"
+        },
+        {
+          "label": "FOLK (Didsbury)",
+          "detail": "promoted — verified single-site, independently run by four owners; confirmed dog-friendly and vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "Marie Louise Gardens (Didsbury)",
+          "detail": "promoted — verified council-owned public park, Green Flag 2014; confirmed dog-friendly"
+        },
+        {
+          "label": "Chorlton Bookshop (Chorlton)",
+          "detail": "promoted — verified single-site independent bookshop trading since 1983; new type BOOKSHOP, mapped category-only (Do); confirmed dog-friendly"
+        },
+        {
+          "label": "Chorlton Water Park (Chorlton)",
+          "detail": "promoted — verified council-owned 170-acre nature reserve; confirmed dog-friendly (on-lead near the lake)"
+        },
+        {
+          "label": "Giovanni's (Knutsford)",
+          "detail": "promoted — verified single-site independent Italian in a Grade II-listed former Post Office; confirmed vegetarian/vegan/gluten-free"
+        },
+        {
+          "label": "Corks Out (Alderley Edge)",
+          "detail": "promoted — verified real 2-site sibling pair (Alderley Edge + Stockton Heath), within the small-sibling-group precedent; confirmed dog-friendly"
+        },
+        {
+          "label": "The Seven Oaks (Chinatown)",
+          "detail": "promoted — verified single-site freehouse with a locally-listed white faience exterior; confirmed dog-friendly"
+        },
+        {
+          "label": "Heaton Moor (new Manchester-metro district)",
+          "detail": "promoted — verified genuine, distinct suburb ('The Heatons') with its own independent high street, anchored by the Savoy Cinema; doesn't overlap Stockport (Underbanks) or Cheadle Hulme"
+        }
       ],
       "createdAt": "2026-09-09T00:00:00Z"
     },
@@ -223,18 +568,54 @@
       "title": "10 venues and a new Cheshire district promoted; Prana still waiting on a human call",
       "summary": "Re-verified all 11 pending candidates in the suggestion queues and promoted 10 venues (across Macclesfield, Bramhall, Heaton Moor, Stockport (Underbanks) and Didsbury) plus the new Nantwich district straight to master — nothing rejected today. Curia Command's pending_review collection was empty, so nothing to apply from prior human decisions; Prana (Altrincham) stays in docs/data/pending-review-queue.json awaiting a decision, unchanged this run. The closure-audit slice (Where the Light Gets In, Bruk, Stockport Market Hall, FOLK, Marie Louise Gardens) found no real closures — a stale Michelin 'closed' tag on Where the Light Gets In was traced to a 2025 renovation closure that ended with a confirmed April 2025 reopening.",
       "items": [
-        { "label": "Picturedrome (Macclesfield)", "detail": "promoted — verified 3rd site of the Mackie Mayor/Altrincham Market team in Macclesfield's 1911 cinema; confirmed dog-friendly and vegetarian/vegan" },
-        { "label": "Chestergate Bistro (Macclesfield)", "detail": "promoted — verified single-site, independent since 2009; new type BISTRO, category-only (Eat); confirmed dog-friendly and vegetarian/vegan/gluten-free (a stale Uber Eats 'closed' listing was checked and dismissed against active OpenTable/Tripadvisor trading)" },
-        { "label": "MASH (Macclesfield)", "detail": "promoted — verified single-site 60s/70s-themed live-music bar, Castle Quarter; confirmed dog-friendly" },
-        { "label": "Amici (Bramhall)", "detail": "promoted — verified single-site Italian-Greek restaurant, own limited company; a co-owner's past role at chain Piccolino checked and found not to make this venture a chain; confirmed vegetarian/vegan" },
-        { "label": "Long Bar & Kitchen (Bramhall)", "detail": "promoted — verified single-site independent bar and small-plates kitchen; confirmed gluten-free" },
-        { "label": "Avanti Restaurant & Grill (Heaton Moor)", "detail": "promoted — verified single-site, family-owned since 2006 ('Chico' confirmed as the real owner); confirmed vegetarian/gluten-free" },
-        { "label": "Heaton Moor Producers Market (Heaton Moor)", "detail": "promoted — verified real, currently-running monthly civic market with 2026 dates published; confirmed dog-friendly" },
-        { "label": "Cork of the North (Heaton Moor)", "detail": "promoted — verified real 2-site sibling pair with the original Sale wine bar; confirmed dog-friendly and vegan" },
-        { "label": "By Yon Orange (Stockport (Underbanks))", "detail": "promoted — verified single-site, newly incorporated specialty coffee café; confirmed vegan" },
-        { "label": "The Drawing Room (Didsbury)", "detail": "promoted, reason text lightly rewritten — the original candidate's 'Rob and Lorna'/'life-drawing classes'/'art lecturers' detail couldn't be independently re-corroborated this run, so the copy was trimmed to only what re-verification actually confirmed (open since 2008, day-time art classes, the jukebox, single-site); confirmed dog-friendly" },
-        { "label": "Nantwich (new Cheshire district)", "detail": "promoted — verified genuine, distinct Cheshire market town ~15 miles south of Knutsford with no overlap on any existing district; no venues seeded yet" },
-        { "label": "Prana (Altrincham)", "detail": "left pending — no decision yet in Curia Command's pending_review collection; conflicting closure/reopening signals unchanged since 2026-09-11" }
+        {
+          "label": "Picturedrome (Macclesfield)",
+          "detail": "promoted — verified 3rd site of the Mackie Mayor/Altrincham Market team in Macclesfield's 1911 cinema; confirmed dog-friendly and vegetarian/vegan"
+        },
+        {
+          "label": "Chestergate Bistro (Macclesfield)",
+          "detail": "promoted — verified single-site, independent since 2009; new type BISTRO, category-only (Eat); confirmed dog-friendly and vegetarian/vegan/gluten-free (a stale Uber Eats 'closed' listing was checked and dismissed against active OpenTable/Tripadvisor trading)"
+        },
+        {
+          "label": "MASH (Macclesfield)",
+          "detail": "promoted — verified single-site 60s/70s-themed live-music bar, Castle Quarter; confirmed dog-friendly"
+        },
+        {
+          "label": "Amici (Bramhall)",
+          "detail": "promoted — verified single-site Italian-Greek restaurant, own limited company; a co-owner's past role at chain Piccolino checked and found not to make this venture a chain; confirmed vegetarian/vegan"
+        },
+        {
+          "label": "Long Bar & Kitchen (Bramhall)",
+          "detail": "promoted — verified single-site independent bar and small-plates kitchen; confirmed gluten-free"
+        },
+        {
+          "label": "Avanti Restaurant & Grill (Heaton Moor)",
+          "detail": "promoted — verified single-site, family-owned since 2006 ('Chico' confirmed as the real owner); confirmed vegetarian/gluten-free"
+        },
+        {
+          "label": "Heaton Moor Producers Market (Heaton Moor)",
+          "detail": "promoted — verified real, currently-running monthly civic market with 2026 dates published; confirmed dog-friendly"
+        },
+        {
+          "label": "Cork of the North (Heaton Moor)",
+          "detail": "promoted — verified real 2-site sibling pair with the original Sale wine bar; confirmed dog-friendly and vegan"
+        },
+        {
+          "label": "By Yon Orange (Stockport (Underbanks))",
+          "detail": "promoted — verified single-site, newly incorporated specialty coffee café; confirmed vegan"
+        },
+        {
+          "label": "The Drawing Room (Didsbury)",
+          "detail": "promoted, reason text lightly rewritten — the original candidate's 'Rob and Lorna'/'life-drawing classes'/'art lecturers' detail couldn't be independently re-corroborated this run, so the copy was trimmed to only what re-verification actually confirmed (open since 2008, day-time art classes, the jukebox, single-site); confirmed dog-friendly"
+        },
+        {
+          "label": "Nantwich (new Cheshire district)",
+          "detail": "promoted — verified genuine, distinct Cheshire market town ~15 miles south of Knutsford with no overlap on any existing district; no venues seeded yet"
+        },
+        {
+          "label": "Prana (Altrincham)",
+          "detail": "left pending — no decision yet in Curia Command's pending_review collection; conflicting closure/reopening signals unchanged since 2026-09-11"
+        }
       ],
       "createdAt": "2026-09-12T00:00:00Z"
     },
@@ -245,19 +626,58 @@
       "title": "10 venues promoted across Macclesfield, Nantwich, Prestbury, Stockport (Underbanks), Bramhall, Chinatown and Heaton Moor; 0 rejected, 0 newly sent for review",
       "summary": "Independently re-verified all 10 pending candidates in venue-suggestions.json with a 2026-09-15 suggestedDate and promoted all 10 (Cinemac and Amazing India, Macclesfield; Bar Six and Drift Art Gallery, Nantwich; Prestbury Cricket Club; Sticky Fingers Bakery, Stockport (Underbanks); 78 Degrees, Bramhall; T.La Art & Craft Gallery, Chinatown; Heaton Moor Park and Beer Shop, Heaton Moor) via two parallel fresh web-research passes, coordinates tightened against real postcode centroids for most, reason copy checked against Brand voice and left unchanged. Two needed real judgment rather than a clean pass: Bar Six turned out to be a genuine 3-site family group (Sandbach/Nantwich/Knutsford), judged within the same small-sibling-group allowance already set by Wallop and The Creameries elsewhere in the database; T.La Art & Craft Gallery's possible second 'Wing Yip Centre' location couldn't be conclusively resolved, but even a real 2-site outcome would still clear the same allowance, so it was promoted rather than queued. An unconfirmed single-source rumour of a closure at Amazing India's address was weighed and judged not credible (no primary source, contradicted by an active company registration and 2025 reviews) — not acted on, but flagged here for a future closure-audit look. The three items already sitting in pending-review-queue.json (Prana/Altrincham, Buon Cibo/Heaton Moor, Rustik/Didsbury) were checked against Curia Command's pending_review collection (still empty, no decision recorded) and left unchanged — no new evidence this run. The closure-audit rotating slice (Prestbury Golf Club, The Beer House, The Garden Eatery, The Edge, Bramall Hall) found no closures.",
       "items": [
-        { "label": "Cinemac (Macclesfield)", "detail": "promoted — single-site heritage-charity cinema, no chain risk, coordinates tightened to postcode centroid" },
-        { "label": "Amazing India (Macclesfield)", "detail": "promoted — single-site, no chain risk; one unconfirmed/likely-false foreclosure rumour flagged for a future closure-audit look, not acted on" },
-        { "label": "Bar Six (Nantwich)", "detail": "promoted — actually a 3-site family group (Sandbach/Nantwich/Knutsford), not the single site originally claimed; judged within the same small-sibling-group allowance as Wallop/The Creameries" },
-        { "label": "Drift Art Gallery (Nantwich)", "detail": "promoted — verified single-site independent gallery; coordinates remain an acknowledged street-level approximation" },
-        { "label": "Prestbury Cricket Club (Prestbury)", "detail": "promoted — active amateur members' club, non-commercial, coordinates tightened to postcode centroid" },
-        { "label": "Sticky Fingers Bakery (Stockport (Underbanks))", "detail": "promoted — single-site (plus its original Market Hall stall) Polish family bakery, opening date resolved to 22 Nov 2025; coordinates tightened" },
-        { "label": "78 Degrees (Bramhall)", "detail": "promoted — verified single-site independent gin bar, coordinates matched almost exactly" },
-        { "label": "T.La Art & Craft Gallery (Chinatown)", "detail": "promoted — single confirmed Companies House registration since 2002; a possible second Wing Yip Centre location couldn't be conclusively resolved but wouldn't change the verdict either way" },
-        { "label": "Heaton Moor Park (Heaton Moor)", "detail": "promoted — real, council-maintained public park with an active Friends group; coordinates matched exactly" },
-        { "label": "Beer Shop (Heaton Moor)", "detail": "promoted — verified single-site bottle shop, ownership history confirmed exactly as claimed" },
-        { "label": "Prana (Altrincham)", "detail": "left pending — no decision yet in Curia Command's pending_review collection; unchanged since 2026-09-11" },
-        { "label": "Buon Cibo (Heaton Moor)", "detail": "left pending — no decision yet in Curia Command's pending_review collection; unchanged since 2026-09-14" },
-        { "label": "Rustik (Didsbury)", "detail": "left pending — no decision yet in Curia Command's pending_review collection; unchanged since 2026-09-14" }
+        {
+          "label": "Cinemac (Macclesfield)",
+          "detail": "promoted — single-site heritage-charity cinema, no chain risk, coordinates tightened to postcode centroid"
+        },
+        {
+          "label": "Amazing India (Macclesfield)",
+          "detail": "promoted — single-site, no chain risk; one unconfirmed/likely-false foreclosure rumour flagged for a future closure-audit look, not acted on"
+        },
+        {
+          "label": "Bar Six (Nantwich)",
+          "detail": "promoted — actually a 3-site family group (Sandbach/Nantwich/Knutsford), not the single site originally claimed; judged within the same small-sibling-group allowance as Wallop/The Creameries"
+        },
+        {
+          "label": "Drift Art Gallery (Nantwich)",
+          "detail": "promoted — verified single-site independent gallery; coordinates remain an acknowledged street-level approximation"
+        },
+        {
+          "label": "Prestbury Cricket Club (Prestbury)",
+          "detail": "promoted — active amateur members' club, non-commercial, coordinates tightened to postcode centroid"
+        },
+        {
+          "label": "Sticky Fingers Bakery (Stockport (Underbanks))",
+          "detail": "promoted — single-site (plus its original Market Hall stall) Polish family bakery, opening date resolved to 22 Nov 2025; coordinates tightened"
+        },
+        {
+          "label": "78 Degrees (Bramhall)",
+          "detail": "promoted — verified single-site independent gin bar, coordinates matched almost exactly"
+        },
+        {
+          "label": "T.La Art & Craft Gallery (Chinatown)",
+          "detail": "promoted — single confirmed Companies House registration since 2002; a possible second Wing Yip Centre location couldn't be conclusively resolved but wouldn't change the verdict either way"
+        },
+        {
+          "label": "Heaton Moor Park (Heaton Moor)",
+          "detail": "promoted — real, council-maintained public park with an active Friends group; coordinates matched exactly"
+        },
+        {
+          "label": "Beer Shop (Heaton Moor)",
+          "detail": "promoted — verified single-site bottle shop, ownership history confirmed exactly as claimed"
+        },
+        {
+          "label": "Prana (Altrincham)",
+          "detail": "left pending — no decision yet in Curia Command's pending_review collection; unchanged since 2026-09-11"
+        },
+        {
+          "label": "Buon Cibo (Heaton Moor)",
+          "detail": "left pending — no decision yet in Curia Command's pending_review collection; unchanged since 2026-09-14"
+        },
+        {
+          "label": "Rustik (Didsbury)",
+          "detail": "left pending — no decision yet in Curia Command's pending_review collection; unchanged since 2026-09-14"
+        }
       ],
       "createdAt": "2026-09-15T00:00:00Z"
     },
@@ -268,13 +688,34 @@
       "title": "Research-tool outage limited today's pass to 3 promotions; 11 items left pending, untouched",
       "summary": "A genuine research-tool outage hit for most of this run — WebSearch mostly returned 'unavailable' errors or surfaced only Wikipedia-indexed content, and WebFetch was blocked (EGRESS_BLOCKED) for essentially every other domain tried (Google, Bing, DuckDuckGo, Instagram, Facebook, Tripadvisor, Companies House, CAMRA/whatpub, even plain Wikipedia). Only 3 of the 10 new pending candidates (all in the Chester district) had enough Wikipedia coverage to be genuinely independently re-verified and were promoted: Storyhouse, Chester Cathedral, Grosvenor Museum. The other 7 new candidates (6 in Chester plus Eden in Heaton Moor), all 4 long-stuck pending-review-queue items (Prana, Buon Cibo, Rustik, the Underbank naming mix-up), and today's closure-audit slice could not be honestly verified one way or the other, so nothing was promoted, rejected, or newly queued for any of them — they remain exactly as they were, pending a re-run once tooling recovers. Curia Command's pending_review collection was checked via read_db (unaffected by the outage) and had zero decided items to apply.",
       "items": [
-        { "label": "Storyhouse (Chester)", "detail": "promoted — Wikipedia-confirmed single-site theatre/cinema/library in a restored 1930s Odeon, no closure signal (opening date corrected to May 2017 vs the candidate's claimed 2018, not reflected in the promoted copy)" },
-        { "label": "Chester Cathedral", "detail": "promoted — working Church of England cathedral, single-site by nature, no chain/closure concern" },
-        { "label": "Grosvenor Museum (Chester)", "detail": "promoted — long-established (1886) local-authority museum, Wikipedia-confirmed, no chain/closure signal" },
-        { "label": "Craft & Company / Beer Heroes / Huxley's / Paysan / Olive Tree Brasserie / Shrub (Chester)", "detail": "left pending, unchanged — no Wikipedia coverage and every other source blocked; Olive Tree Brasserie (a claimed 3-site regional group) is the highest-priority re-check once tooling recovers" },
-        { "label": "Eden (Heaton Moor)", "detail": "left pending, unchanged — could not independently verify ownership or current trading status" },
-        { "label": "Prana (Altrincham) / Buon Cibo (Heaton Moor) / Rustik (Didsbury) / Underbank naming mix-up (Stockport Underbanks)", "detail": "left pending in pending-review-queue.json, unchanged — no new evidence found, a tooling gap rather than a fresh 'still unresolved' finding" },
-        { "label": "Closure audit (indices 28-32: Wiltons, Franco's, Chris Beetles Gallery, Spencer House, The Globe)", "detail": "not completed — could not find real evidence either way, so nothing written rather than guessing" }
+        {
+          "label": "Storyhouse (Chester)",
+          "detail": "promoted — Wikipedia-confirmed single-site theatre/cinema/library in a restored 1930s Odeon, no closure signal (opening date corrected to May 2017 vs the candidate's claimed 2018, not reflected in the promoted copy)"
+        },
+        {
+          "label": "Chester Cathedral",
+          "detail": "promoted — working Church of England cathedral, single-site by nature, no chain/closure concern"
+        },
+        {
+          "label": "Grosvenor Museum (Chester)",
+          "detail": "promoted — long-established (1886) local-authority museum, Wikipedia-confirmed, no chain/closure signal"
+        },
+        {
+          "label": "Craft & Company / Beer Heroes / Huxley's / Paysan / Olive Tree Brasserie / Shrub (Chester)",
+          "detail": "left pending, unchanged — no Wikipedia coverage and every other source blocked; Olive Tree Brasserie (a claimed 3-site regional group) is the highest-priority re-check once tooling recovers"
+        },
+        {
+          "label": "Eden (Heaton Moor)",
+          "detail": "left pending, unchanged — could not independently verify ownership or current trading status"
+        },
+        {
+          "label": "Prana (Altrincham) / Buon Cibo (Heaton Moor) / Rustik (Didsbury) / Underbank naming mix-up (Stockport Underbanks)",
+          "detail": "left pending in pending-review-queue.json, unchanged — no new evidence found, a tooling gap rather than a fresh 'still unresolved' finding"
+        },
+        {
+          "label": "Closure audit (indices 28-32: Wiltons, Franco's, Chris Beetles Gallery, Spencer House, The Globe)",
+          "detail": "not completed — could not find real evidence either way, so nothing written rather than guessing"
+        }
       ],
       "createdAt": "2026-09-17T09:20:00Z"
     },
@@ -285,14 +726,38 @@
       "title": "Backlog catch-up: 162 venues + 5 Cheshire/Manchester districts promoted; 4 rejected; 2 sent for review",
       "summary": "This job did not actually run (or its runs did nothing) between 2026-09-17 and the 2026-10-12 manual backlog push the user made directly into Curia Command — 167 pending venue candidates and 5 pending district candidates (Frodsham, Sale, Marple, Bollington, Hale Barns) had piled up untouched since. This run independently re-verified all of them with fresh eyes rather than trusting the prior agent's own notes: promoted 162 venues and all 5 districts straight to master, rejected 4 (Reserve Wines, Altrincham, correctly identified as a real 4-site chain on fresh search after this candidate's own research undercounted it as a 2-site pair — a companion candidate in the same queue had already excluded it correctly, so this resolves a real internal contradiction; plus 3 duplicate re-discoveries of the same real venues — Bottle/Heaton Moor, Alfredo's Social/Stockport Underbanks, Mielle/Ancoats — each found independently twice by the research pipeline a few days apart), and sent 2 to Pending Review: The Mews Bar and Charcuterie (Deansgate, genuine conflicting ownership-stability signal) and a closure candidate (Blossom Street Social, Ancoats) found incidentally because both Mielle write-ups independently say Mielle took over its exact unit. Also flagged two pre-existing gaps out of this run's own scope: Curia Command's pending_review collection had zero decided items to apply (read_db confirmed reachable and empty); and docs/data/district-suggestions.json marks Lymm/Ramsbottom/Monton as 'promoted' via an admin pipeline that, on inspection, never actually added them to the real docs/data/districts.json — they don't exist in the live district list despite their suggestion-queue status, a discrepancy from before this run that needs a human decision, not a unilateral fix. Most of today's 162 promoted venues could not be given real petFriendly/dietaryOptions research (unlike earlier runs' practice) because the source candidate notes themselves mostly stopped including it somewhere in this backlog — defaulted conservatively (petFriendly: false, dietaryOptions: ['none']) rather than guessed, flagged here as a known gap rather than silently papered over. Today's rotating closure-audit slice (Church Inn/Mobberley, Aldeli/Alderley Edge, Hallé St Peter's/Ancoats, BAB NQ/Northern Quarter, Smolensky Gallery/Spinningfields) found no closures.",
       "items": [
-        { "label": "162 venues across all districts in the backlog", "detail": "promoted — independently re-verified (Hard rule 1, duplicates, schema, coordinates, brand voice); see docs/data/venues.json for the full list" },
-        { "label": "Frodsham, Sale, Marple, Bollington, Hale Barns (new districts)", "detail": "promoted — all 5 independently re-verified as genuine, distinct places with real sourcing, not overlapping existing districts" },
-        { "label": "Reserve Wines (Altrincham)", "detail": "rejected — fresh search confirms a real 4-site chain (West Didsbury, Altrincham, Mackie Mayor, Macclesfield), contradicting this candidate's own 'two sites' claim and consistent with a companion candidate that had already excluded it correctly" },
-        { "label": "Bottle (Heaton Moor) / Alfredo's Social (Stockport Underbanks) / Mielle (Ancoats)", "detail": "each rejected once as a duplicate — the same real venue independently suggested twice; the better-documented copy of each was promoted instead" },
-        { "label": "The Mews Bar and Charcuterie (Deansgate)", "detail": "sent for review — current trading looks real (a May 2026 festival listing) but a separate for-sale/lease-expiry signal leaves genuine doubt" },
-        { "label": "Blossom Street Social (Ancoats)", "detail": "sent for review as a closure candidate — found incidentally, not from today's rotating slice; two independent Mielle research passes both say Mielle took over this exact address" },
-        { "label": "Lymm / Ramsbottom / Monton district-suggestion discrepancy", "detail": "flagged, not fixed — marked 'promoted' in docs/data/district-suggestions.json but absent from the real docs/data/districts.json; needs a human decision on how it got out of sync" },
-        { "label": "Closure audit (Church Inn/Mobberley, Aldeli/Alderley Edge, Hallé St Peter's/Ancoats, BAB NQ/Northern Quarter, Smolensky Gallery/Spinningfields)", "detail": "no closures found" }
+        {
+          "label": "162 venues across all districts in the backlog",
+          "detail": "promoted — independently re-verified (Hard rule 1, duplicates, schema, coordinates, brand voice); see docs/data/venues.json for the full list"
+        },
+        {
+          "label": "Frodsham, Sale, Marple, Bollington, Hale Barns (new districts)",
+          "detail": "promoted — all 5 independently re-verified as genuine, distinct places with real sourcing, not overlapping existing districts"
+        },
+        {
+          "label": "Reserve Wines (Altrincham)",
+          "detail": "rejected — fresh search confirms a real 4-site chain (West Didsbury, Altrincham, Mackie Mayor, Macclesfield), contradicting this candidate's own 'two sites' claim and consistent with a companion candidate that had already excluded it correctly"
+        },
+        {
+          "label": "Bottle (Heaton Moor) / Alfredo's Social (Stockport Underbanks) / Mielle (Ancoats)",
+          "detail": "each rejected once as a duplicate — the same real venue independently suggested twice; the better-documented copy of each was promoted instead"
+        },
+        {
+          "label": "The Mews Bar and Charcuterie (Deansgate)",
+          "detail": "sent for review — current trading looks real (a May 2026 festival listing) but a separate for-sale/lease-expiry signal leaves genuine doubt"
+        },
+        {
+          "label": "Blossom Street Social (Ancoats)",
+          "detail": "sent for review as a closure candidate — found incidentally, not from today's rotating slice; two independent Mielle research passes both say Mielle took over this exact address"
+        },
+        {
+          "label": "Lymm / Ramsbottom / Monton district-suggestion discrepancy",
+          "detail": "flagged, not fixed — marked 'promoted' in docs/data/district-suggestions.json but absent from the real docs/data/districts.json; needs a human decision on how it got out of sync"
+        },
+        {
+          "label": "Closure audit (Church Inn/Mobberley, Aldeli/Alderley Edge, Hallé St Peter's/Ancoats, BAB NQ/Northern Quarter, Smolensky Gallery/Spinningfields)",
+          "detail": "no closures found"
+        }
       ],
       "createdAt": "2026-10-24T00:00:00Z"
     },
@@ -303,21 +768,66 @@
       "title": "12 venues promoted, 2 sent for review; pending_review empty; no closures found",
       "summary": "Curia Command's pending_review collection had nothing decided to apply (read_db confirmed reachable and empty). Independently re-verified all 14 new pending entries from the 2026-10-25/26 research runs (Frodsham/Sale/Marple/Bollington/Hale Barns, the five under-10 districts): promoted 12 straight to venues.json after fresh web-search verification (chain footprint, duplicates, schema, coordinates, sourcing), and sent 2 to Pending Review where re-verification turned up genuine, unresolved conflicts rather than a clean pass or fail. The Mews Bar and Charcuterie (already queued from 2026-10-24) and Blossom Street Social (closure candidate, already queued) are unchanged — still awaiting a human decision. Today's closure-audit slice (5 Santorini venues) found no closure signals. Also carrying forward, unresolved, the discrepancy flagged in 2026-10-24's briefing: Lymm/Ramsbottom/Monton are still marked 'promoted' in docs/data/district-suggestions.json but still absent from the real docs/data/districts.json — a pre-existing sync gap, not something this run tried to fix unilaterally.",
       "items": [
-        { "label": "Helter Skelter (Frodsham)", "detail": "promoted — independent real-ale pub, CAMRA Pub of the Year, single site, re-confirmed via CAMRA" },
-        { "label": "Castle Park Arts Centre (Frodsham)", "detail": "promoted — registered-charity gallery, re-confirmed active with 2026-dated exhibitions/meeting notices" },
-        { "label": "Next Door (Frodsham)", "detail": "promoted — Michelin Guide-listed, husband-and-wife team, single site, re-confirmed" },
-        { "label": "Waterside Arts Centre (Sale)", "detail": "promoted — Trafford Council-run theatre/gallery, re-confirmed via live 2026-dated event listings (May and September)" },
-        { "label": "Blanchflower Sale (Sale)", "detail": "promoted — genuine 2-site sibling of the Altrincham original, re-confirmed; noted for the record that the same team also runs a third, differently-named/branded spin-off (Little Blanchflower, Chorlton) worth knowing about if that one is ever suggested separately" },
-        { "label": "Kampasi (Sale)", "detail": "promoted — family-run small-plates room, single site, re-confirmed via OpenTable/SquareMeal" },
-        { "label": "Pray Tell (Sale)", "detail": "promoted — independent craft beer/natural wine bar, single site, re-confirmed via a Feb 2026 CAMRA survey" },
-        { "label": "All Things Nice Marple (Marple)", "detail": "promoted — the real original of the already-live Macclesfield sibling, re-confirmed as a genuine 2-site pair" },
-        { "label": "Samuel Oldknow (Marple)", "detail": "promoted — independent ale house since 2016, Asset of Community Value, single site, re-confirmed via CAMRA" },
-        { "label": "The Lime Tree Bollington (Bollington)", "detail": "promoted — genuine decade-old sibling of the already-live Didsbury Lime Tree, ownership re-confirmed via Harden's/Taste of Manchester" },
-        { "label": "Ringway Golf Club (Hale Barns)", "detail": "promoted — private members' club since 1908/1912, single site, re-confirmed via Companies House/Today's Golfer" },
-        { "label": "Hale Barns Cricket Club (Hale Barns)", "detail": "promoted — community cricket club, no chain structure, re-confirmed via recent (2025) coverage" },
-        { "label": "Fold Bistro & Bottle Shop (Marple)", "detail": "sent for review — two separate 2026 press pieces give conflicting current owners for the same single-site restaurant; re-check didn't resolve it either way" },
-        { "label": "Northern Makes Gallery (Bollington)", "detail": "sent for review — real, multiply corroborated gallery, but no 2025/2026-dated confirmation of current operation found on re-check, only 2024 and earlier" },
-        { "label": "Closure audit (Morenica Boutique/Imerovigli, Museum of Prehistoric Thera/Fira, Sunset Oia Sailing Cruises/Oia, Greek Cooking Class and Lunch with Areti/Oia, Ambrosia/Oia)", "detail": "no closures found — Ambrosia carries a stale 'temporarily closed' tag on one aggregator, but recent June 2026 diner visits clearly outweigh it" }
+        {
+          "label": "Helter Skelter (Frodsham)",
+          "detail": "promoted — independent real-ale pub, CAMRA Pub of the Year, single site, re-confirmed via CAMRA"
+        },
+        {
+          "label": "Castle Park Arts Centre (Frodsham)",
+          "detail": "promoted — registered-charity gallery, re-confirmed active with 2026-dated exhibitions/meeting notices"
+        },
+        {
+          "label": "Next Door (Frodsham)",
+          "detail": "promoted — Michelin Guide-listed, husband-and-wife team, single site, re-confirmed"
+        },
+        {
+          "label": "Waterside Arts Centre (Sale)",
+          "detail": "promoted — Trafford Council-run theatre/gallery, re-confirmed via live 2026-dated event listings (May and September)"
+        },
+        {
+          "label": "Blanchflower Sale (Sale)",
+          "detail": "promoted — genuine 2-site sibling of the Altrincham original, re-confirmed; noted for the record that the same team also runs a third, differently-named/branded spin-off (Little Blanchflower, Chorlton) worth knowing about if that one is ever suggested separately"
+        },
+        {
+          "label": "Kampasi (Sale)",
+          "detail": "promoted — family-run small-plates room, single site, re-confirmed via OpenTable/SquareMeal"
+        },
+        {
+          "label": "Pray Tell (Sale)",
+          "detail": "promoted — independent craft beer/natural wine bar, single site, re-confirmed via a Feb 2026 CAMRA survey"
+        },
+        {
+          "label": "All Things Nice Marple (Marple)",
+          "detail": "promoted — the real original of the already-live Macclesfield sibling, re-confirmed as a genuine 2-site pair"
+        },
+        {
+          "label": "Samuel Oldknow (Marple)",
+          "detail": "promoted — independent ale house since 2016, Asset of Community Value, single site, re-confirmed via CAMRA"
+        },
+        {
+          "label": "The Lime Tree Bollington (Bollington)",
+          "detail": "promoted — genuine decade-old sibling of the already-live Didsbury Lime Tree, ownership re-confirmed via Harden's/Taste of Manchester"
+        },
+        {
+          "label": "Ringway Golf Club (Hale Barns)",
+          "detail": "promoted — private members' club since 1908/1912, single site, re-confirmed via Companies House/Today's Golfer"
+        },
+        {
+          "label": "Hale Barns Cricket Club (Hale Barns)",
+          "detail": "promoted — community cricket club, no chain structure, re-confirmed via recent (2025) coverage"
+        },
+        {
+          "label": "Fold Bistro & Bottle Shop (Marple)",
+          "detail": "sent for review — two separate 2026 press pieces give conflicting current owners for the same single-site restaurant; re-check didn't resolve it either way"
+        },
+        {
+          "label": "Northern Makes Gallery (Bollington)",
+          "detail": "sent for review — real, multiply corroborated gallery, but no 2025/2026-dated confirmation of current operation found on re-check, only 2024 and earlier"
+        },
+        {
+          "label": "Closure audit (Morenica Boutique/Imerovigli, Museum of Prehistoric Thera/Fira, Sunset Oia Sailing Cruises/Oia, Greek Cooking Class and Lunch with Areti/Oia, Ambrosia/Oia)",
+          "detail": "no closures found — Ambrosia carries a stale 'temporarily closed' tag on one aggregator, but recent June 2026 diner visits clearly outweigh it"
+        }
       ],
       "createdAt": "2026-10-26T00:00:00Z"
     },
@@ -328,16 +838,46 @@
       "title": "7 venues promoted (Bollington/Marple/Frodsham/Sale); 2 sent for review; closure audit clean",
       "summary": "Independently re-verified all 12 pending candidates in venue-suggestions.json: promoted 7 (Church House Inn and Cafe Waterside in Bollington, Regent Cinema and Traders in Marple, No 13 and Frodsham Artisan Market in Frodsham, Walkden Gardens in Sale), sent 2 fresh ones to pending-review-queue.json for a human call (Mura Ma, Marple — thin/stale sourcing; Brew & Tucker, Frodsham — a nine-year dating gap with no closure signal either way), and left 3 already-queued candidates untouched (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery all already have live, undecided pending-review-queue.json entries from a prior run, so not re-decided or duplicated). Curia Command's pending_review collection (checked this run) had zero decided items to apply. This run's rotating closure-audit slice (Let's Eat To Live, Tafari's Kitchen, 61st Street Farmers Market, Joseph Regenstein Library, Baker Dining Commons — all Chicago/Hyde Park-Woodlawn) found no closure signals; all five re-confirmed as currently operating.",
       "items": [
-        { "label": "Church House Inn (Bollington)", "detail": "promoted — single-site pub with rooms, cask ale, no chain signal" },
-        { "label": "Cafe Waterside (Bollington)", "detail": "promoted — single-site canalside cafe inside Clarence Mill, recent FSA inspection" },
-        { "label": "Regent Cinema (Marple)", "detail": "promoted — single-screen independent cinema, two dated 2026 screenings confirmed" },
-        { "label": "Traders, Marple (Marple)", "detail": "promoted — single-site ale house, live CAMRA listing, no closure signal" },
-        { "label": "No 13, Frodsham (Frodsham)", "detail": "promoted — single-site cocktail bar, opened spring 2025, CAMRA-surveyed late 2025" },
-        { "label": "Frodsham Artisan Market (Frodsham)", "detail": "promoted — monthly fixture, multiple 2026-dated editions confirmed; seeded with occasional: true" },
-        { "label": "Walkden Gardens (Sale)", "detail": "promoted — real Trafford Council public park, no chain-footprint question applicable" },
-        { "label": "Mura Ma (Marple)", "detail": "sent for review — real gallery, but no confirmation more recent than 2024, a currency gap not a red flag" },
-        { "label": "Brew & Tucker (Frodsham)", "detail": "sent for review — no closure signal, but no confirmation more recent than 2017/2018 either" },
-        { "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery", "detail": "left pending — each already has a live, undecided pending-review-queue.json entry from a prior run; not re-decided or duplicated" }
+        {
+          "label": "Church House Inn (Bollington)",
+          "detail": "promoted — single-site pub with rooms, cask ale, no chain signal"
+        },
+        {
+          "label": "Cafe Waterside (Bollington)",
+          "detail": "promoted — single-site canalside cafe inside Clarence Mill, recent FSA inspection"
+        },
+        {
+          "label": "Regent Cinema (Marple)",
+          "detail": "promoted — single-screen independent cinema, two dated 2026 screenings confirmed"
+        },
+        {
+          "label": "Traders, Marple (Marple)",
+          "detail": "promoted — single-site ale house, live CAMRA listing, no closure signal"
+        },
+        {
+          "label": "No 13, Frodsham (Frodsham)",
+          "detail": "promoted — single-site cocktail bar, opened spring 2025, CAMRA-surveyed late 2025"
+        },
+        {
+          "label": "Frodsham Artisan Market (Frodsham)",
+          "detail": "promoted — monthly fixture, multiple 2026-dated editions confirmed; seeded with occasional: true"
+        },
+        {
+          "label": "Walkden Gardens (Sale)",
+          "detail": "promoted — real Trafford Council public park, no chain-footprint question applicable"
+        },
+        {
+          "label": "Mura Ma (Marple)",
+          "detail": "sent for review — real gallery, but no confirmation more recent than 2024, a currency gap not a red flag"
+        },
+        {
+          "label": "Brew & Tucker (Frodsham)",
+          "detail": "sent for review — no closure signal, but no confirmation more recent than 2017/2018 either"
+        },
+        {
+          "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery",
+          "detail": "left pending — each already has a live, undecided pending-review-queue.json entry from a prior run; not re-decided or duplicated"
+        }
       ],
       "createdAt": "2026-10-27T00:00:00Z"
     },
@@ -348,15 +888,42 @@
       "title": "7 venues promoted (Hale Barns/Bollington/Sale/Marple); 1 sent for review; closure audit and Curia Command check both clean",
       "summary": "Independently re-verified all 8 new pending candidates in venue-suggestions.json dated 2026-10-28: promoted 7 (No.3 Holistic Therapies in Hale Barns; Bollington Discovery Centre and Pigeon Coffee in Bollington; Canteena Bar & Grill and Hops & Boogie in Sale; Brabyns Park in Marple; Sale Water Park in Sale), and sent 1 to pending-review-queue.json for a human call (Bevi, Marple — CAMRA's own listing now describes the address as an Italian bar/pizzeria, not the real-ale micropub this candidate's reason text and type describe). Five older candidates already sitting in pending-review-queue.json from the 2026-10-24/26/27 runs (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker) were deliberately left untouched — not re-decided, per this job's own rule against duplicating or second-guessing an item already waiting on a human. Curia Command's pending_review collection was checked (via the real read-only query this execution environment actually exposes, not the brief's literal 'read_db' example — see pending-review-queue.json's own note) and had zero decided items to apply. This run's rotating closure-audit slice (TEPHRA Santorini, The White Santorini, Kalipso, Sand Lily Boutique, Morenica Boutique — all Fira/Imerovigli) found no closure signal for any of the five on independent web search.",
       "items": [
-        { "label": "No.3 Holistic Therapies (Hale Barns)", "detail": "promoted — single-practitioner spa room, live Fresha bookings, strong review volume, no chain signal" },
-        { "label": "Bollington Discovery Centre (Bollington)", "detail": "promoted — volunteer/charity-run heritage museum inside Clarence Mill, no closure signal" },
-        { "label": "Pigeon Coffee (Bollington)", "detail": "promoted — newly opened (June 2026) independent canal-side café, checked and cleared of a coincidental chain-name overlap" },
-        { "label": "Canteena Bar & Grill (Sale)", "detail": "promoted — single-site steakhouse in the former Foodhall unit, no closure signal" },
-        { "label": "Hops & Boogie (Sale)", "detail": "promoted — single-site world-beer bar, address re-confirmed via CAMRA" },
-        { "label": "Brabyns Park (Marple)", "detail": "promoted — genuine Stockport Council public park, Hard rule 1 not applicable" },
-        { "label": "Sale Water Park (Sale)", "detail": "promoted — genuine Trafford Council public park/water-sports site, Hard rule 1 not applicable" },
-        { "label": "Bevi (Marple)", "detail": "sent for review — CAMRA's current listing describes an Italian bar/pizzeria, not the real-ale micropub this candidate's own copy and type describe" },
-        { "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker", "detail": "left pending — each already has a live, undecided pending-review-queue.json entry from a prior run; not re-decided or duplicated" }
+        {
+          "label": "No.3 Holistic Therapies (Hale Barns)",
+          "detail": "promoted — single-practitioner spa room, live Fresha bookings, strong review volume, no chain signal"
+        },
+        {
+          "label": "Bollington Discovery Centre (Bollington)",
+          "detail": "promoted — volunteer/charity-run heritage museum inside Clarence Mill, no closure signal"
+        },
+        {
+          "label": "Pigeon Coffee (Bollington)",
+          "detail": "promoted — newly opened (June 2026) independent canal-side café, checked and cleared of a coincidental chain-name overlap"
+        },
+        {
+          "label": "Canteena Bar & Grill (Sale)",
+          "detail": "promoted — single-site steakhouse in the former Foodhall unit, no closure signal"
+        },
+        {
+          "label": "Hops & Boogie (Sale)",
+          "detail": "promoted — single-site world-beer bar, address re-confirmed via CAMRA"
+        },
+        {
+          "label": "Brabyns Park (Marple)",
+          "detail": "promoted — genuine Stockport Council public park, Hard rule 1 not applicable"
+        },
+        {
+          "label": "Sale Water Park (Sale)",
+          "detail": "promoted — genuine Trafford Council public park/water-sports site, Hard rule 1 not applicable"
+        },
+        {
+          "label": "Bevi (Marple)",
+          "detail": "sent for review — CAMRA's current listing describes an Italian bar/pizzeria, not the real-ale micropub this candidate's own copy and type describe"
+        },
+        {
+          "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker",
+          "detail": "left pending — each already has a live, undecided pending-review-queue.json entry from a prior run; not re-decided or duplicated"
+        }
       ],
       "createdAt": "2026-10-28T00:00:00Z"
     },
@@ -367,12 +934,30 @@
       "title": "3 venues + 1 new Cheshire district (Poynton) promoted; nothing rejected or newly sent for review; Curia Command and closure audit both clean",
       "summary": "Independently re-verified all 3 new pending venue candidates (Cloudberry Cafe, Marple; Bean & Brush Family Art Café, Sale; Frodsham Marsh, Frodsham) and the sole pending district candidate (Poynton, Cheshire) dated 2026-10-29, promoting all 4 straight to master. Six older candidates already sitting in docs/data/pending-review-queue.json from the 2026-10-24/26/27/28 runs (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi) were deliberately left untouched — not re-decided, per this job's own rule against second-guessing an item already waiting on a human. Curia Command's pending_review collection was checked via a read-only query (ArtifactData, action 'query') and had zero decided items to apply this run. The closure-audit rotating slice (indices 218-222: Lioyerma Lounge Cafe Pool Bar, Astra Suites Pool Bar, Buddha-Bar Beach Sunset Lounge, Domaine Sigalas, Poniros Jewellery — all Oia/Imerovigli) found no closure signal for any of the five; two carry a normal seasonal winter-closure note, not a permanent one. Also re-confirmed, and left unresolved again, the pre-existing Lymm/Ramsbottom/Monton discrepancy first flagged 2026-10-24 (marked 'promoted' in docs/data/district-suggestions.json but still absent from the real docs/data/districts.json) — still a human decision, not something this run tried to fix unilaterally.",
       "items": [
-        { "label": "Cloudberry Cafe (Marple)", "detail": "promoted — independent coffee/cake cafe on Stockport Road, no chain signal, closes Marple's acute daytime-Eat gap" },
-        { "label": "Bean & Brush Family Art Café (Sale)", "detail": "promoted — independent pottery-painting studio and café on Stanley Square, specifically checked against and cleared of unrelated US 'Beans & Brews'/'Brushes & Beans' chain names" },
-        { "label": "Frodsham Marsh (Frodsham)", "detail": "promoted — free-access birding/walking site on the Mersey/Weaver marshes, same public-green-space category as the existing Happy Valley/The Edge entries, Hard rule 1 not applicable" },
-        { "label": "Poynton (new Cheshire district)", "detail": "promoted — genuine, distinct Cheshire East town (the Poynton Regenerated Shared Space scheme, colliery heritage); the one real judgment call was its ~1.9-mile proximity to Bramhall, weighed against the already-accepted Bramhall/Cheadle Hulme pairing and judged not disqualifying given Poynton's genuinely distinct character" },
-        { "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker / Bevi", "detail": "left pending — each already has a live, undecided pending-review-queue.json entry from a prior run; not re-decided or duplicated" },
-        { "label": "Lymm / Ramsbottom / Monton district-suggestion discrepancy", "detail": "re-flagged, not fixed — still marked 'promoted' in docs/data/district-suggestions.json but absent from the real docs/data/districts.json; unresolved since 2026-10-24, needs a human decision" }
+        {
+          "label": "Cloudberry Cafe (Marple)",
+          "detail": "promoted — independent coffee/cake cafe on Stockport Road, no chain signal, closes Marple's acute daytime-Eat gap"
+        },
+        {
+          "label": "Bean & Brush Family Art Café (Sale)",
+          "detail": "promoted — independent pottery-painting studio and café on Stanley Square, specifically checked against and cleared of unrelated US 'Beans & Brews'/'Brushes & Beans' chain names"
+        },
+        {
+          "label": "Frodsham Marsh (Frodsham)",
+          "detail": "promoted — free-access birding/walking site on the Mersey/Weaver marshes, same public-green-space category as the existing Happy Valley/The Edge entries, Hard rule 1 not applicable"
+        },
+        {
+          "label": "Poynton (new Cheshire district)",
+          "detail": "promoted — genuine, distinct Cheshire East town (the Poynton Regenerated Shared Space scheme, colliery heritage); the one real judgment call was its ~1.9-mile proximity to Bramhall, weighed against the already-accepted Bramhall/Cheadle Hulme pairing and judged not disqualifying given Poynton's genuinely distinct character"
+        },
+        {
+          "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker / Bevi",
+          "detail": "left pending — each already has a live, undecided pending-review-queue.json entry from a prior run; not re-decided or duplicated"
+        },
+        {
+          "label": "Lymm / Ramsbottom / Monton district-suggestion discrepancy",
+          "detail": "re-flagged, not fixed — still marked 'promoted' in docs/data/district-suggestions.json but absent from the real docs/data/districts.json; unresolved since 2026-10-24, needs a human decision"
+        }
       ],
       "createdAt": "2026-10-29T00:00:00Z"
     },
@@ -383,17 +968,126 @@
       "title": "5 venues promoted (Poynton's first 4 + Bollington); 3 sent for review; nothing to apply from Curia Command; no closures",
       "summary": "Independently re-verified all 8 pending candidates with a 2026-10-30 suggestedDate in venue-suggestions.json. Promoted 5: Colourfield Gallery, Vinehop, Cofano Caffé and The Acoustic Lounge give Poynton (added as a district 2026-10-29) its first-ever venues, and Cock & Pheasant (Bollington) came with an explicit 'newly independent' signal against chain concern. Sent 3 to pending-review-queue.json rather than guessing: Queens Head (Frodsham) — a Stonegate Pub Company press item claims this specific pub, a materially bigger chain-operator concern than the candidate's own flagged stale freehold record, though the item is undated; Cork of the North (Sale) — the sibling story independently checks out against the already-live Heaton Moor entry's own copy, but a Trip.com snapshot shows it currently closed with no 2025/2026-dated review found; The Fisherman's Table (Marple) — a real 2-site sibling pair within established precedent, but an undated for-sale listing plus no review dated past Sept 2024. Six longer-pending items from 2026-10-24/26/27/28 (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi) were left untouched, still awaiting a human decision. Curia Command's pending_review collection was checked (via the ArtifactData tool's query action, the real read-only equivalent this session's Artifact tool exposes — read access works fine, confirming the brief's own note that only writes are blocked) and had zero decided items to apply. No district-suggestions.json entries were pending. The closure-audit rotating slice (Sparkling Sunset, Lioyerma Lounge Cafe Pool Bar, Astra Suites Pool Bar, Buddha-Bar Beach Sunset Lounge, Domaine Sigalas — all Oia/Imerovigli) found no closure signal for any of the five; Domaine Sigalas has a genuine Nov 2025 ownership change (Kir-Yianni) but continues trading with 2026-dated reviews.",
       "items": [
-        { "label": "Colourfield Gallery (Poynton)", "detail": "promoted — single-site Northern Art gallery, independently corroborated, no chain signal" },
-        { "label": "Vinehop (Poynton)", "detail": "promoted — single-site wine bar/micropub; the 'Stockport' address on some OpenTable mirrors is the same SK12 postcode mislabelled, not a second site" },
-        { "label": "Cofano Caffé (Poynton)", "detail": "promoted — single-site café, March-2025-dated FSA hygiene record confirms current operation" },
-        { "label": "The Acoustic Lounge (Poynton)", "detail": "promoted — single-site live-music café/bar, a forward-dated Aug-2026 Ents24 listing confirms it's currently booking" },
-        { "label": "Cock & Pheasant (Bollington)", "detail": "promoted — single-site pub explicitly 'newly independent' of its former pub-company operator, a positive signal against chain concern" },
-        { "label": "Queens Head (Frodsham)", "detail": "sent for review — a Stonegate Pub Company (UK's largest pub company) press item claims this pub, a bigger chain concern than the candidate's own flagged stale freehold record, but the item is undated" },
-        { "label": "Cork of the North (Sale)", "detail": "sent for review — real sibling pair independently corroborated by the already-live Heaton Moor entry's own copy, but a Trip.com snapshot shows it currently closed with no 2025/2026-dated review found" },
-        { "label": "The Fisherman's Table (Marple)", "detail": "sent for review — real 2-site sibling pair within established precedent, but an undated for-sale listing plus no review dated past Sept 2024" },
-        { "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker / Bevi", "detail": "left pending — no decision yet in Curia Command's pending_review collection, unchanged this run" }
+        {
+          "label": "Colourfield Gallery (Poynton)",
+          "detail": "promoted — single-site Northern Art gallery, independently corroborated, no chain signal"
+        },
+        {
+          "label": "Vinehop (Poynton)",
+          "detail": "promoted — single-site wine bar/micropub; the 'Stockport' address on some OpenTable mirrors is the same SK12 postcode mislabelled, not a second site"
+        },
+        {
+          "label": "Cofano Caffé (Poynton)",
+          "detail": "promoted — single-site café, March-2025-dated FSA hygiene record confirms current operation"
+        },
+        {
+          "label": "The Acoustic Lounge (Poynton)",
+          "detail": "promoted — single-site live-music café/bar, a forward-dated Aug-2026 Ents24 listing confirms it's currently booking"
+        },
+        {
+          "label": "Cock & Pheasant (Bollington)",
+          "detail": "promoted — single-site pub explicitly 'newly independent' of its former pub-company operator, a positive signal against chain concern"
+        },
+        {
+          "label": "Queens Head (Frodsham)",
+          "detail": "sent for review — a Stonegate Pub Company (UK's largest pub company) press item claims this pub, a bigger chain concern than the candidate's own flagged stale freehold record, but the item is undated"
+        },
+        {
+          "label": "Cork of the North (Sale)",
+          "detail": "sent for review — real sibling pair independently corroborated by the already-live Heaton Moor entry's own copy, but a Trip.com snapshot shows it currently closed with no 2025/2026-dated review found"
+        },
+        {
+          "label": "The Fisherman's Table (Marple)",
+          "detail": "sent for review — real 2-site sibling pair within established precedent, but an undated for-sale listing plus no review dated past Sept 2024"
+        },
+        {
+          "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker / Bevi",
+          "detail": "left pending — no decision yet in Curia Command's pending_review collection, unchanged this run"
+        }
       ],
       "createdAt": "2026-10-30T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-11-02",
+      "synced": false,
+      "title": "13 venues + Holmes Chapel (new Cheshire district) promoted; 3 sent for review; backlog from 3 unreviewed research runs cleared",
+      "summary": "No review pass had run since 2026-10-30, so today's queue held all 25 pending venue candidates from the 2026-10-31/11-01/11-02 research runs plus 1 pending district (Holmes Chapel). 9 of the 25 already had live pending-review-queue.json entries from 2026-10-24 through 2026-10-30 and were left untouched. Of the remaining 16, independently re-verified fresh: 13 promoted (Flute & Firkin, Poynton Park and Pool, Poynton Tea Room, Anson Engine Museum, Just-Ice Ethical Ice Cream Cafe and Bollington Arts Centre across Poynton/Bollington; Lady Heyes Crafts and Antique Centre and Main Street Kitchen, Frodsham; The Bulls Head & Lodge, Hale Barns; The Oystercatcher, Sale; Gastown Cafe Bar, Macclesfield; Northumberland Arms, Marple — CAMRA's actual 2026 North West regional Pub of the Year winner; 1851 Restaurant, Tarporley, inside Peckforton Castle), 3 sent to pending-review-queue.json as genuinely uncertain (Aroma Bar & Ristorante and Poachers Inn, both Bollington; Deuce, Nantwich), 0 rejected. Holmes Chapel promoted into districts.json as the sole pending district candidate, independently re-verified. Curia Command's pending_review collection was checked (ArtifactData query, read-only) and had zero decided items to apply. The closure-audit rotating slice (5 Oia, Santorini venues) found no closure signal for any of them.",
+      "items": [
+        {
+          "label": "Flute & Firkin (Poynton)",
+          "detail": "promoted — CAMRA-confirmed independent pub, current 2026 snapshot"
+        },
+        {
+          "label": "Poynton Park and Pool (Poynton)",
+          "detail": "promoted — free council-run country park, no ownership question"
+        },
+        {
+          "label": "Poynton Tea Room (Poynton)",
+          "detail": "promoted — thin but consistent sourcing, no closure signal, reviews explicitly prefer it to a chain"
+        },
+        {
+          "label": "Bollington Arts Centre (Bollington)",
+          "detail": "promoted — self-funded, volunteer-run community venue since 1964, current booking activity"
+        },
+        {
+          "label": "Lady Heyes Crafts and Antique Centre (Frodsham)",
+          "detail": "promoted — single multi-vendor site, no chain concern"
+        },
+        {
+          "label": "Main Street Kitchen (Frodsham)",
+          "detail": "promoted — real dedicated site (mainstreetkitchen.co.uk), consistent multi-source description"
+        },
+        {
+          "label": "The Bulls Head & Lodge (Hale Barns)",
+          "detail": "promoted — Robinsons-tied single village pub, closes Hale Barns' total Eat/Drink gap"
+        },
+        {
+          "label": "Anson Engine Museum (Poynton)",
+          "detail": "promoted — charity-run, seasonal hours left unset per the undefined-never-renders-closed rule"
+        },
+        {
+          "label": "The Oystercatcher (Sale)",
+          "detail": "promoted — confirmed real 2-site sibling pair with the original Chorlton site"
+        },
+        {
+          "label": "Just-Ice Ethical Ice Cream Cafe (Poynton)",
+          "detail": "promoted — charity-linked social enterprise, FSA-rated, single site"
+        },
+        {
+          "label": "Gastown Cafe Bar (Macclesfield)",
+          "detail": "promoted — 5/5 FSA hygiene rating, currently-dated delivery listing, single site"
+        },
+        {
+          "label": "Northumberland Arms (Marple)",
+          "detail": "promoted — re-verified to a higher bar than originally researched: confirmed CAMRA's actual 2026 North West regional Pub of the Year winner, community-owned since 2017"
+        },
+        {
+          "label": "1851 Restaurant (Tarporley / Peckforton Castle)",
+          "detail": "promoted — Boutique Hotel Group's 3 properties are each distinct, individually-characterful hotels, not a branded chain; passes the two-gate model cleanly"
+        },
+        {
+          "label": "Aroma Bar & Ristorante (Bollington)",
+          "detail": "sent for review — real opening confirmed, but zero dated reviews after 16 months, hygiene rating only 3, high restaurant turnover at the address"
+        },
+        {
+          "label": "Poachers Inn (Bollington)",
+          "detail": "sent for review — genuinely closed and reopened under new tenants in 2026, no confirmation more recent than mid-April"
+        },
+        {
+          "label": "Deuce (Nantwich)",
+          "detail": "sent for review — real but single-sourced, zero reviews or social-media presence found"
+        },
+        {
+          "label": "Holmes Chapel (new Cheshire district)",
+          "detail": "promoted — distinct village with a genuine independent-retail identity, clean distance check against every existing Cheshire district"
+        },
+        {
+          "label": "9 longer-pending candidates (Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table)",
+          "detail": "left untouched — already have live pending-review-queue.json entries from earlier runs, not re-decided"
+        }
+      ],
+      "createdAt": "2026-11-02T00:00:00Z"
     }
   ]
 }

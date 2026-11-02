@@ -570,6 +570,17 @@
    "kind": "county",
    "accentColor": "#4A5056",
    "editorialDescription": "A former colliery town that handed its high street back to pedestrians before most places dared — the Shared Space scheme's wide pavements and slow traffic doing the work a bypass usually does, the old pit's memory kept in pavement plaques rather than a museum."
+  },
+  {
+   "id": "holmes-chapel",
+   "name": "Holmes Chapel",
+   "metro": "cheshire",
+   "lat": 53.202,
+   "lon": -2.3575,
+   "base": 48,
+   "kind": "county",
+   "accentColor": "#6F7B8C",
+   "editorialDescription": "A big village with a market town's confidence — Jodrell Bank's dish visible across the fields, a family grocer's on London Road that's traded since 1900, and a reputation among locals for being the best place in the county to actually live rather than just visit."
   }
  ],
  "districtGroups": [
@@ -638,5 +649,6 @@
    "evening": 0.9,
    "late": 0.42
   }
- }
+ },
+ "_dailyReviewPromotionSource20261102": "Holmes Chapel promoted 2026-11-02 by curia-suggestion-review, the sole pending district candidate as of this run. Independently re-verified: voted best place to live in Cheshire in a 2023 resident poll (multiple local estate-agent/property sources), a genuine small independent cluster anchored by W. Mandeville (a family bakery/grocer trading since 1900), distinct from every existing Cheshire district (nearest Knutsford ~11.3km, Northwich ~12.6km — well past this file's close-adjacent-district precedent). Coordinates are the Grade I-listed Church of St Luke's own Historic England geocode, corroborated by a separate postcode-centre figure for the same address. accentColor checked for perceptual distinctness against every existing accent (closest: Northwich's river-slate teal, notably greener; Bramhall's heather-plum, notably more purple/warm). No district group fit (Golden Triangle is specifically Alderley Edge/Prestbury/Wilmslow/Knutsford/Mobberley). Passes the same 'would a local raise an eyebrow this isn't already covered' bar already applied to Lymm/Ramsbottom/Monton. No venues added this run — district entry only, per the standing precedent every prior district promotion has followed."
 }

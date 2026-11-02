@@ -176,7 +176,11 @@
         "lat": 53.4764,
         "lon": -2.2505,
         "base": 78,
-        "bands": ["afternoon", "evening", "late"],
+        "bands": [
+          "afternoon",
+          "evening",
+          "late"
+        ],
         "reason": "Free-of-tie behind the Great Northern, a wine list built around small independent producers with proper charcuterie boards doing the talking instead of a kitchen menu."
       }
     },
@@ -207,7 +211,10 @@
         "lat": 53.4012,
         "lon": -2.0571,
         "base": 76,
-        "bands": ["afternoon", "evening"],
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
         "reason": "Two AA Rosettes running in a room that used to be South Seven, the kitchen and a bottle shop doing the wine list's homework before it reaches the table — Marple Bridge's actual reason to stay for dinner."
       }
     },
@@ -226,7 +233,9 @@
         "lat": 53.3005,
         "lon": -2.1006,
         "base": 58,
-        "bands": ["afternoon"],
+        "bands": [
+          "afternoon"
+        ],
         "reason": "Artist-led and canalside inside Clarence Mill, selling the work rather than just hanging it — Bollington's actual answer to a commercial gallery, one flight up from the Discovery Centre's looms."
       }
     },
@@ -245,7 +254,9 @@
         "lat": 53.3958,
         "lon": -2.0625,
         "base": 58,
-        "bands": ["afternoon"],
+        "bands": [
+          "afternoon"
+        ],
         "reason": "Nan Collantine's own gallery on Stockport Road, built from a DIY exhibition habit that outgrew her studio in a former textile mill — emerging artists hung and priced to actually sell, not just admire."
       }
     },
@@ -264,7 +275,10 @@
         "lat": 53.2956,
         "lon": -2.726,
         "base": 56,
-        "bands": ["morning", "afternoon"],
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
         "reason": "Sydney-style coffee on Church Street from an Australian who married into the town — sourdough and a flat white that never needed a loyalty app to earn its regulars."
       }
     },
@@ -283,7 +297,10 @@
         "lat": 53.3945,
         "lon": -2.0681,
         "base": 64,
-        "bands": ["afternoon", "evening"],
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
         "reason": "A former paper shop on Market Street gone deceptively spacious micropub — four guest beers, a rotating cider, and a games room that means nobody's just here for one."
       }
     },
@@ -302,7 +319,10 @@
         "lat": 53.2958,
         "lon": -2.7235,
         "base": 68,
-        "bands": ["afternoon", "evening"],
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
         "reason": "The oldest coaching inn in Frodsham, stabling for twenty-three horses once upon a time, still pouring on Main Street under its own Grade II-listed roof — a proper pub kitchen, not a brewery's menu card."
       }
     },
@@ -321,7 +341,11 @@
         "lat": 53.4185,
         "lon": -2.3085,
         "base": 66,
-        "bands": ["afternoon", "evening", "late"],
+        "bands": [
+          "afternoon",
+          "evening",
+          "late"
+        ],
         "reason": "Marc Hough's original wine shop and bar on Northenden Road, poured into a converted unit years before the Heaton Moor branch ever existed — buy the bottle, or sit and drink it at the counter."
       }
     },
@@ -340,8 +364,78 @@
         "lat": 53.3958,
         "lon": -2.0615,
         "base": 76,
-        "bands": ["afternoon", "evening"],
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
         "reason": "Fleetwood fish driven straight to a dining room in inland Marple — twice a Tripadvisor Traveller's Choice winner, and still the kind of place a local drives over for rather than posts about."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-02",
+      "reason": "A real opening is confirmed, but 16 months on there are zero independently-dated customer reviews anywhere, a food-hygiene rating of only 3, and the address has cycled through three different restaurant concepts in recent years — not a closure signal, but not enough to confidently call it a going, distinctive concern either.",
+      "researchNotes": "Independently re-verified 2026-11-02 (WebSearch): happyvalley.org.uk confirms Aroma Bar & Ristorante opened 25 July 2025 at 88 Palmerston Street, Bollington, in a unit previously run as Briscola and, before that, Kira — a real, specific opening, not invented. No second site or group ownership found anywhere — Hard rule 1 is clean on chain-footprint grounds. But fresh search found no Tripadvisor listing, no Google-review signal, and no social-media activity for the Bollington venue at all; Eatible's own page shows nobody has submitted a customer score yet, and its Food Standards Agency hygiene rating is 3 (satisfactory, not strong). Combined with the site's recent history of high restaurant turnover in the same room, this reads as too thin to promote with confidence — not a chain or duplicate concern, a currency/distinctiveness one.",
+      "payload": {
+        "name": "Aroma Bar & Ristorante",
+        "district": "bollington",
+        "type": "ITALIAN RESTAURANT",
+        "spend": "££",
+        "lat": 53.297987,
+        "lon": -2.096854,
+        "base": 66,
+        "bands": [
+          "afternoon",
+          "evening",
+          "late"
+        ],
+        "reason": "An Italian kitchen and cocktail lounge on Palmerston Street, the latest of three restaurants to take the same room in a row — the sort of address Bollington clearly won't let sit empty for long."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-02",
+      "reason": "The pub genuinely closed without notice at New Year 2026 (staff made redundant) and only reopened as a 'soft launch' under new tenants in March 2026 — real and currently trading as of a mid-April 2026 CAMRA snapshot, but that's the most recent independent confirmation found, over six months old now.",
+      "researchNotes": "Independently re-verified 2026-11-02 (WebSearch): happyvalley.org.uk's own local-history page confirms the pub closed without notice at New Year 2026 and reopened as a soft launch around 20 March 2026 under new hosts Chris and Katie Walton, with opening hours still settling week to week at that point. A CAMRA listing dated mid-April 2026 shows it open, with Trust Inns (which bought the pub December 2024 after the Ellwood family's 24-year tenure) still the operator — a tied-house model, the same already accepted elsewhere in this file for other promoted pubs, not a branded chain concern. No evidence found more recent than that April 2026 CAMRA snapshot either way. Address: 95 Ingersley Road, Bollington SK10 5RE. Real genuine ownership-transition-plus-reopening story, not a closure to flag for removal, but recent and unsettled enough that a confident promote isn't honest without a fresher on-the-ground check.",
+      "payload": {
+        "name": "Poachers Inn",
+        "district": "bollington",
+        "type": "COUNTRY PUB",
+        "spend": "££",
+        "lat": 53.2978,
+        "lon": -2.0876,
+        "base": 66,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Twenty-four years under one landlord, then a for-sale sign, then a reopening rather than a closure — Ingersley Road's free house still turns over its own rotating guest ales and home-cooked plates."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-02",
+      "reason": "A real, recently opened health bar, but the only independent source found anywhere — before or after a fresh re-check — is a single commercial property-letting announcement; no customer review, social-media account or second mention of any kind turned up.",
+      "researchNotes": "Independently re-verified 2026-11-02 (WebSearch): legatowen.co.uk's April 2026 letting announcement remains the only source found confirming Deuce, 5 Hospital Street, Nantwich — a health bar serving functional smoothies, coffee and acai bowls, opened Friday 17 April 2026 by a team who previously launched Cheshire Padel (a different, unrelated business, not a second site of the same concept). No second Deuce site or group ownership found anywhere — Hard rule 1 is clean on chain grounds. But a single-source, review-free, seven-month-old venue is thinner sourcing than this job is comfortable promoting on; no closure signal either, so this isn't a reject-as-bad case.",
+      "payload": {
+        "name": "Deuce",
+        "district": "nantwich",
+        "type": "HEALTH BAR",
+        "spend": "£",
+        "lat": 53.0665,
+        "lon": -2.5215,
+        "base": 60,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A Hospital Street counter from the same young locals who opened Cheshire Padel — functional smoothies, nutrient-dense açaí bowls and coffee built for a fitness crowd Nantwich didn't have anywhere to send before."
       }
     }
   ]
