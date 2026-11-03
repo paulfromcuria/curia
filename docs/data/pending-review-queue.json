@@ -437,6 +437,28 @@
         ],
         "reason": "A Hospital Street counter from the same young locals who opened Cheshire Padel — functional smoothies, nutrient-dense açaí bowls and coffee built for a fitness crowd Nantwich didn't have anywhere to send before."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-03",
+      "reason": "The original candidate's own research found one clean Sandbach sibling (a real, in-precedent 2-site pair), but my independent re-check found aggregator listings suggesting a possible second, distinct Sandbach address alongside the Holmes Chapel site — I could not confirm whether that is a genuine third site or just stale/duplicate directory noise for the one Sandbach site already described.",
+      "researchNotes": "Independently re-verified 2026-11-03 (WebSearch): the original candidate's own sourcing (Sluurpy, 40 London Road, Holmes Chapel CW4 7AJ, 4.2/5 from 56 reviews; a Trip.com listing for 'Miola Coffee Lounge' in Sandbach sharing the exact same phone number) checked out. But a fresh search surfaced eatible.co.uk postcode listings naming a Miola-adjacent address at 'Abbeyfields, Lodge Road, Sandbach CW11 3HD' alongside a separate '216 Middlewich Road, Sandbach CW11 3EJ' reference, which would make three sites rather than the clean two-site sibling pair (Holmes Chapel + one Sandbach site) the original candidate described and this file's small-sibling-group precedent (Little Tap/Terrarium, RedWillow/Buxton, Fire Station Social Cucina) allows. A follow-up search for 'Miola' plus either Sandbach address could not independently confirm a second, distinct Sandbach premises — it may be the same single Sandbach site appearing under two directory-listed addresses, which is common for stale aggregator data, or it may be real. Hard rule 1 is clean if it's genuinely a 2-site pair, borderline-to-failing if it's really three; this review could not settle which from search alone. No closure signal found either way.",
+      "payload": {
+        "name": "Miola",
+        "district": "holmes-chapel",
+        "type": "COFFEE ROOM",
+        "spend": "£",
+        "lat": 53.20174,
+        "lon": -2.357853,
+        "base": 60,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "A village coffee stop good enough to have earned a second site in Sandbach without losing the single-till, know-your-order feel of the original on London Road."
+      }
     }
   ]
 }

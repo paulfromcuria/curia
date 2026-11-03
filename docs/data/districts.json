@@ -581,6 +581,17 @@
    "kind": "county",
    "accentColor": "#6F7B8C",
    "editorialDescription": "A big village with a market town's confidence — Jodrell Bank's dish visible across the fields, a family grocer's on London Road that's traded since 1900, and a reputation among locals for being the best place in the county to actually live rather than just visit."
+  },
+  {
+   "id": "prestwich",
+   "name": "Prestwich",
+   "metro": "manchester",
+   "lat": 53.532116,
+   "lon": -2.284824,
+   "base": 70,
+   "kind": "city",
+   "accentColor": "#8C8243",
+   "editorialDescription": "Bury New Road doing, a decade late and on its own terms, what Chorlton and Didsbury already proved works — an old computer shop turned into a Good Food Guide-noted dining room, a Latin kitchen a few doors along, and Heaton Park close enough to walk off either. The village the rest of Manchester keeps calling 'the next Didsbury', without ever quite admitting it already got there."
   }
  ],
  "districtGroups": [
@@ -650,5 +661,6 @@
    "late": 0.42
   }
  },
- "_dailyReviewPromotionSource20261102": "Holmes Chapel promoted 2026-11-02 by curia-suggestion-review, the sole pending district candidate as of this run. Independently re-verified: voted best place to live in Cheshire in a 2023 resident poll (multiple local estate-agent/property sources), a genuine small independent cluster anchored by W. Mandeville (a family bakery/grocer trading since 1900), distinct from every existing Cheshire district (nearest Knutsford ~11.3km, Northwich ~12.6km — well past this file's close-adjacent-district precedent). Coordinates are the Grade I-listed Church of St Luke's own Historic England geocode, corroborated by a separate postcode-centre figure for the same address. accentColor checked for perceptual distinctness against every existing accent (closest: Northwich's river-slate teal, notably greener; Bramhall's heather-plum, notably more purple/warm). No district group fit (Golden Triangle is specifically Alderley Edge/Prestbury/Wilmslow/Knutsford/Mobberley). Passes the same 'would a local raise an eyebrow this isn't already covered' bar already applied to Lymm/Ramsbottom/Monton. No venues added this run — district entry only, per the standing precedent every prior district promotion has followed."
+ "_dailyReviewPromotionSource20261102": "Holmes Chapel promoted 2026-11-02 by curia-suggestion-review, the sole pending district candidate as of this run. Independently re-verified: voted best place to live in Cheshire in a 2023 resident poll (multiple local estate-agent/property sources), a genuine small independent cluster anchored by W. Mandeville (a family bakery/grocer trading since 1900), distinct from every existing Cheshire district (nearest Knutsford ~11.3km, Northwich ~12.6km — well past this file's close-adjacent-district precedent). Coordinates are the Grade I-listed Church of St Luke's own Historic England geocode, corroborated by a separate postcode-centre figure for the same address. accentColor checked for perceptual distinctness against every existing accent (closest: Northwich's river-slate teal, notably greener; Bramhall's heather-plum, notably more purple/warm). No district group fit (Golden Triangle is specifically Alderley Edge/Prestbury/Wilmslow/Knutsford/Mobberley). Passes the same 'would a local raise an eyebrow this isn't already covered' bar already applied to Lymm/Ramsbottom/Monton. No venues added this run — district entry only, per the standing precedent every prior district promotion has followed.",
+ "_dailyReviewPromotionSource20261103": "Prestwich promoted 2026-11-03 by curia-suggestion-review, the sole pending district candidate as of this run. Independently re-verified via fresh web search: repeatedly described in current local coverage as 'the Didsbury of North Manchester' (confidentials.com's dedicated 'insider's guide to eating and drinking in Prestwich' and 'From bagels to brisket to beer, Prestwich is one to watch'; manchesterwire.co.uk and rightmove.co.uk area guides), anchored by The Pearl (425 Bury New Road, a converted former computer shop, a Good Food Guide 'Best Local Restaurants' entry per thegoodfoodguide.co.uk and manchestersfinest.com) and Cuckoo (395-397 Bury New Road, Time Out-reviewed). Genuinely distinct from every existing Manchester-metro district — roughly 3.9 miles from the nearest, Northern Quarter, with no overlap. Coordinates (53.532116/-2.284824) land within the lat 53.0-53.6/lon -2.6--2.0 sanity box, matching the M25 1AF postcode centroid for 425 Bury New Road. accentColor (#8C8243) re-checked for perceptual distinctness against every existing Manchester-metro accent — closest neighbours Chorlton's sage green and Sale's ochre-brown, both distinct. No district group fit. No venues added this run — district entry only, per the standing precedent every prior district promotion has followed."
 }

@@ -1088,6 +1088,40 @@
         }
       ],
       "createdAt": "2026-11-02T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-11-03",
+      "synced": false,
+      "title": "Holmes Chapel gets its first 3 venues; Prestwich promoted; Miola sent for review",
+      "summary": "Today's queue held 4 pending venue candidates (all first-pass Holmes Chapel entries from yesterday's research run) and 1 pending district (Prestwich); the other 12 longer-pending venue candidates already have live pending-review-queue.json entries from earlier runs and were left untouched. Of the 4 Holmes Chapel candidates: Jodrell Bank Discovery Centre, Beer Emporium Bottle Bank and W. Mandeville promoted directly (all independently re-confirmed real, current, single-site or cleanly-resolved chain questions); Miola sent to pending-review-queue.json after fresh search raised a possible third Sandbach site the original candidate hadn't found. Prestwich promoted into districts.json as the sole pending district candidate, independently re-verified as a genuine, distinct Bury New Road food-and-drink strip well clear of every existing Manchester-metro district. Curia Command's pending_review collection was checked (read-only query) and had zero decided items to apply. The closure-audit rotating slice (5 Santorini venues: En Lefko, Tranquilo, The Beach Bar, Theros Wave Bar, Enigma Club) found no closure signal for any of them.",
+      "items": [
+        {
+          "label": "Jodrell Bank Discovery Centre (Holmes Chapel)",
+          "detail": "promoted — University of Manchester-operated working observatory, not a chain, coordinates independently confirmed"
+        },
+        {
+          "label": "Beer Emporium Bottle Bank (Holmes Chapel)",
+          "detail": "promoted — independent bottle shop/micropub, CAMRA's own listing explicitly distinguishes it from the unrelated Sandbach/Bristol venues of the same name"
+        },
+        {
+          "label": "W. Mandeville (Holmes Chapel)",
+          "detail": "promoted — family bakery/grocer trading since 1900, single site, confirmed via food-hygiene register"
+        },
+        {
+          "label": "Miola (Holmes Chapel)",
+          "detail": "sent for review — fresh search found a possible second, distinct Sandbach address alongside the one already known, which would make 3 sites rather than a clean sibling pair; could not confirm or rule out"
+        },
+        {
+          "label": "Prestwich (new Manchester-metro district)",
+          "detail": "promoted — a genuine, distinct Bury New Road food/drink strip ('the Didsbury of North Manchester'), roughly 3.9 miles clear of the nearest existing district"
+        },
+        {
+          "label": "12 longer-pending candidates (Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table, Aroma Bar & Ristorante, Poachers Inn, Deuce)",
+          "detail": "left untouched — already have live pending-review-queue.json entries from earlier runs, not re-decided"
+        }
+      ],
+      "createdAt": "2026-11-03T00:00:00Z"
     }
   ]
 }
