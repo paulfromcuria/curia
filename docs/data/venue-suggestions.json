@@ -1608,6 +1608,75 @@
    "suggestedDate": "2026-11-02",
    "status": "pending",
    "researchNotes": "Verified via legatowen.co.uk's own April 2026 letting announcement: Deuce, 5 Hospital Street, Nantwich — a new independent health bar ('a fresh, modern approach to nutrition and wellbeing') serving functional smoothies, coffee and açaí bowls, opened Friday 17 April 2026. Co-founder named (Harry Walker); the team previously launched Cheshire Padel (September 2024) — a different business (a padel facility, not a food/drink site), so this is their first F&B venture, not a second site of the same concept; no second Deuce site or group ownership found anywhere in searches. Passes Hard rule 1 cleanly on a single-source basis. Coordinates (53.0665/-2.5215) approximated from the CW5 postcode cluster already used for this file's own Aesthete Beautique candidate on the same Mill Street/Hospital Street stretch — doogal.co.uk/api.postcodes.io both blocked this session, flagged for the reviewer to tighten. New type introduced — HEALTH BAR — since no existing Eat/Drink type captures a dedicated functional-smoothie/açaí-bowl concept precisely (BRUNCH SPOT and COFFEE ROOM are the closest registers but would flatten the genuinely distinct fitness-nutrition framing that's the actual reason to go); same precedent as DUTCH FRY HOUSE/ROTISSERIE elsewhere in this catalogue. Moderate confidence — only one independent source (a commercial property-letting announcement) was found, no customer reviews or social-media presence turned up this session, and the venue is still under a year old; no closure signal either, flagged honestly for the reviewer's own current-trading check before promotion."
+  },
+  {
+   "name": "Jodrell Bank Discovery Centre",
+   "district": "holmes-chapel",
+   "type": "SCIENCE CENTRE",
+   "spend": "££",
+   "lat": 53.236357,
+   "lon": -2.308433,
+   "base": 78,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "The Lovell Telescope still turns toward whatever the universe is doing that week, and the working observatory underneath it hasn't once dumbed the science down to fill a half-term afternoon — the one attraction in the whole set that's also a real research site.",
+   "suggestedDate": "2026-11-03",
+   "status": "pending",
+   "researchNotes": "Found while closing Holmes Chapel's real coverage gap (0 venues of any kind as of this run — the district was promoted into districts.json the day before, 2026-11-02, with none seeded yet). Verified via jodrellbank.net (the operator's own site, University of Manchester), Wikipedia/gazetteer.org.uk (coordinates) and current 2026 event listings (events.manchester.ac.uk, jodrellbank.net/booking referencing a 'new online ticketing website' live from 20 January 2026) confirming it's actively trading, not a stale listing. A unique, publicly-run science visitor centre and working radio-astronomy observatory (the Lovell Telescope, a UNESCO World Heritage Site) — not a chain by any definition, operated directly by the University of Manchester, Gate 1/Gate 2 both trivially pass (genuinely singular, nothing comparable anywhere in the region). Coordinates (53.236357, -2.308433) are the observatory's own well-documented, independently cross-checked location (gazetteer.org.uk, Historic England's Lovell Telescope listing, CEDA), not an estimate. Placement in Holmes Chapel rather than Macclesfield (the other existing district in range) is a real-geography judgment call: straight-line distance is ~5km/3.1mi from the Holmes Chapel centroid versus ~12.4km from Macclesfield's — Holmes Chapel's own districts.json editorialDescription already names 'Jodrell Bank's dish visible across the fields' as part of its identity, so this is confirming an existing editorial claim with a real venue, not inventing one. New type introduced — SCIENCE CENTRE — since MUSEUM (the closest existing type) undersells a working research observatory with a live visitor programme; no onboarding tile targets it specifically, category-only (Do), same treatment as NATURE RESERVE/FARM EXPERIENCE elsewhere in this catalog for a real attraction with no precise existing type. High confidence — nationally known, independently verifiable landmark, no closure signal of any kind (it is, if anything, mid-expansion)."
+  },
+  {
+   "name": "Beer Emporium Bottle Bank",
+   "district": "holmes-chapel",
+   "type": "BOTTLE SHOP",
+   "spend": "£",
+   "lat": 53.20174,
+   "lon": -2.357853,
+   "base": 68,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "A former NatWest counter on London Road now pulling cask ale and real cider instead of taking deposits — the village's one proper beer shop, and it drinks in as well as it sells out.",
+   "suggestedDate": "2026-11-03",
+   "status": "pending",
+   "researchNotes": "Second of this run's Holmes Chapel first-pass candidates (see Jodrell Bank Discovery Centre's own note on the district's zero-venue starting point). Verified via CAMRA's own pub listing (independent operator tag, cask ale and real cider, former NatWest bank building at 24-26 London Road, Holmes Chapel CW4 7AJ — hence the name) and Wanderlog (4.7 aggregate from 201 reviews, a live, currently-reviewed venue, not a stale listing). No group ownership or second site found anywhere in searches — CAMRA's own listing explicitly flags not to confuse it with the unrelated, differently-owned Beer Emporium venues in Sandbach and Bristol; single-site, passes Hard rule 1 cleanly. Coordinates (53.20174, -2.357853) are the CW4 7AJ postcode centroid (doogal.co.uk, cross-checked via search since direct API access was blocked this session) — the same postcode also covers Miola (this run's other Holmes Chapel Drink candidate) a few doors along the same short stretch of London Road, so both share one centroid-derived coordinate; flagged for the reviewer to tighten to each building's own geocode if a precise one becomes available. Reuses the existing BOTTLE SHOP type (Beer Heroes, Chester; Beer Shop, Heaton Moor). Moderate-high confidence — independently confirmed via two sources, mixed-but-current reviews, no closure signal."
+  },
+  {
+   "name": "Miola",
+   "district": "holmes-chapel",
+   "type": "COFFEE ROOM",
+   "spend": "£",
+   "lat": 53.20174,
+   "lon": -2.357853,
+   "base": 60,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A village coffee stop good enough to have earned a second site in Sandbach without losing the single-till, know-your-order feel of the original on London Road.",
+   "suggestedDate": "2026-11-03",
+   "status": "pending",
+   "researchNotes": "Third of this run's Holmes Chapel first-pass candidates (see Jodrell Bank Discovery Centre's own note). Verified via Sluurpy (aggregated 4.2/5 from 56 reviews — Google 4.4/27, Tripadvisor 4.0/29 — current, live listing) and a separate Trip.com listing for 'Miola Coffee Lounge' in Sandbach sharing the exact same phone number as the Holmes Chapel site: Miola, 40 London Road, Holmes Chapel CW4 7AJ. A real 2-site pair under common ownership (same phone number across two Cheshire towns a few miles apart) — within the same small-sibling-group precedent already accepted elsewhere in this file (e.g. Little Tap/Terrarium, Fire Station Social Cucina), not a wider chain; no third site found anywhere in searches. Coordinates (53.20174, -2.357853) are the shared CW4 7AJ postcode centroid, same caveat as Beer Emporium Bottle Bank's own note (both sit on this postcode, exact sub-building geocode unavailable this session). Reuses the existing COFFEE ROOM type (Café Waterside, Pigeon Coffee, both Bollington). Moderate confidence — consistently reviewed across three independent aggregators with no closure signal, though the 2-site ownership link rests on a shared phone number rather than a direct company-ownership record; flagged for the reviewer's own check at promotion time."
+  },
+  {
+   "name": "W. Mandeville",
+   "district": "holmes-chapel",
+   "type": "BAKERY",
+   "spend": "£",
+   "lat": 53.202308,
+   "lon": -2.357004,
+   "base": 64,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Baking and grocering on the same corner since 1900 — long enough that a teenage Harry Styles did his Saturday shifts behind the till before anyone outside Holmes Chapel knew his name.",
+   "suggestedDate": "2026-11-03",
+   "status": "pending",
+   "researchNotes": "Fourth and final of this run's Holmes Chapel first-pass candidates (see Jodrell Bank Discovery Centre's own note), closing Holmes Chapel's Eat gap specifically. Verified via a food-hygiene-register listing (W Mandeville, 2 Macclesfield Road, Holmes Chapel CW4 7NE, last inspected 2023-09-12 — confirms the business is a currently-registered trading premises, not closed) and an independent local-history source describing it as a family bakery and grocer trading since 1900, now selling craft baked goods, local grocery and deli items, with the Harry Styles Saturday-job detail corroborated by multiple general Holmes Chapel background pieces about his upbringing there (not independently re-verified here beyond the one source, flagged as colour rather than load-bearing fact). No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.202308, -2.357004) are the CW4 7NE postcode centroid (doogal.co.uk, cross-checked via search). Reuses the existing BAKERY type. Holmes Chapel had zero venues of any kind before this run's four additions (one Do, two Drink, one Eat) — a genuine first pass for a district promoted into districts.json the day before, not a bolster of an existing base. Moderate-high confidence — independently confirmed trading via an official register plus consistent background sourcing, no closure signal."
   }
  ]
 }
