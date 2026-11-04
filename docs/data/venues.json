@@ -12057,6 +12057,151 @@
     "afternoon"
    ],
    "reason": "Baking and grocering on the same corner since 1900 — long enough that a teenage Harry Styles did his Saturday shifts behind the till before anyone outside Holmes Chapel knew his name."
+  },
+  {
+   "name": "The Pearl",
+   "district": "prestwich",
+   "type": "BRITISH RESTAURANT",
+   "spend": "£££",
+   "lat": 53.532116,
+   "lon": -2.284824,
+   "base": 82,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "A converted computer shop on Bury New Road that reads like dinner at a friend's house, one who happens to cook properly — a short, confident set menu, a Thursday steak night, and a wine window the city hadn't seen anywhere else before this one opened."
+  },
+  {
+   "name": "Cuckoo",
+   "district": "prestwich",
+   "type": "LIVE MUSIC BAR",
+   "spend": "££",
+   "lat": 53.530206,
+   "lon": -2.283046,
+   "base": 72,
+   "bands": [
+    "morning",
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Pizza and cask ale by day, open mic and DJs once the kitchen's cleared — a corner bar that's run on one family's own steam since 2013 and a village that turned out in force the week it nearly lost them."
+  },
+  {
+   "name": "Gorge",
+   "district": "prestwich",
+   "type": "BRAZILIAN RESTAURANT",
+   "spend": "££",
+   "lat": 53.531292,
+   "lon": -2.283506,
+   "base": 68,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Picanha off the chapa and a Brazilian partner's own family recipes, run by four locals who waited out the pandemic to open the first Latin American table Prestwich's high street had ever had."
+  },
+  {
+   "name": "Wallop",
+   "district": "prestwich",
+   "type": "WINE BAR",
+   "spend": "£££",
+   "lat": 53.531139,
+   "lon": -2.283867,
+   "base": 74,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "One of three, alongside Didsbury and Knutsford — Justin Parkinson's converted video-rental shop on Bury New Road, open since 2014, with a rotating cask and a wine list that doesn't need a sommelier to explain it."
+  },
+  {
+   "name": "Syriana",
+   "district": "hale-barns",
+   "type": "MIDDLE EASTERN",
+   "spend": "££",
+   "lat": 53.369134,
+   "lon": -2.314574,
+   "base": 62,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Shawarma off the spit and hummus that never came out of a tub — Hale Barns' own Levantine table since 2018, in a converted village café the Square's chain creep never got close to."
+  },
+  {
+   "name": "Fortune City",
+   "district": "holmes-chapel",
+   "type": "CANTONESE RESTAURANT",
+   "spend": "££",
+   "lat": 53.197235,
+   "lon": -2.355286,
+   "base": 60,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Second-generation owners still running the banquet menu their parents built the room around — London Road's reservation-only Saturday booth fills first, and has for years."
+  },
+  {
+   "name": "George & Dragon",
+   "district": "holmes-chapel",
+   "type": "COUNTRY PUB",
+   "spend": "££",
+   "lat": 53.202526,
+   "lon": -2.359297,
+   "base": 64,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Robinsons' historic house on Middlewich Road, reopened after a proper seven-figure-adjacent investment rather than a lick of paint — a conservatory big enough for a Sunday table that doesn't need booking a month out."
+  },
+  {
+   "name": "Holmes Chapel Cricket Club",
+   "district": "holmes-chapel",
+   "type": "CRICKET CLUB",
+   "spend": "£",
+   "lat": 53.197241,
+   "lon": -2.356349,
+   "base": 50,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "A hundred years of Saturday afternoons on Victoria Avenue, four senior sides and a junior setup that outnumbers them — the kind of clubhouse tea anyone can still turn up and watch for free."
+  },
+  {
+   "name": "The Snap Tin",
+   "district": "poynton",
+   "type": "GASTROPUB",
+   "spend": "££",
+   "lat": 53.3484,
+   "lon": -2.1228,
+   "base": 62,
+   "bands": [
+    "morning",
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Named for the tin every Cheshire mill and mine worker once carried to the job — breakfast through dinner on Park Lane, and a regulars' crowd that rates it above anything else on the street."
+  },
+  {
+   "name": "Cask Tavern",
+   "district": "poynton",
+   "type": "ALE HOUSE",
+   "spend": "£",
+   "lat": 53.3486,
+   "lon": -2.1238,
+   "base": 60,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Five cask lines from Bollington's own brewery and a High Peak CAMRA Pub of the Year plaque still on the wall — proof the old colliery town never lost its taste for a proper pint."
   }
  ],
  "_dailyReviewPromotionSource20261103": "3 venues promoted 2026-11-03 by curia-suggestion-review, independently re-verified against the 4 Holmes Chapel candidates with a 2026-11-03 suggestedDate (the district's first-ever venues, promoted into districts.json the day before, 2026-11-02, with none seeded yet): Jodrell Bank Discovery Centre (Bomish Lane, Lower Withington SK11 9DL — operated directly by the University of Manchester, independently re-confirmed via fresh search against jodrellbank.net/events.manchester.ac.uk/third-party visitor guides, coordinates matching the Lovell Telescope's well-documented real location; not a chain by any definition) and W. Mandeville (2 Macclesfield Road, Holmes Chapel CW4 7NE — family bakery/grocer trading since 1900, independently re-confirmed via a food-hygiene-register listing, no second site found) both promoted cleanly, high confidence. Beer Emporium Bottle Bank (24-26 London Road, Holmes Chapel CW4 7AJ) also promoted: independently re-confirmed via CAMRA/FSA/Wanderlog, and CAMRA's own listing explicitly flags not to confuse it with the unrelated, separately-owned Beer Emporium venues in Sandbach and Bristol, which resolves the chain-footprint question cleanly rather than leaving it open. The fourth candidate, Miola (40 London Road, Holmes Chapel — same postcode as Beer Emporium Bottle Bank), was NOT promoted: the original candidate's own research found one Sandbach sibling (a clean, in-precedent 2-site pair), but this run's independent re-check found aggregator listings suggesting a second, distinct Sandbach address (Abbeyfields/Lodge Road CW11 3HD as well as a separately-listed 216 Middlewich Road CW11 3EJ) alongside the Holmes Chapel site — a possible 3-site footprint rather than the 2-site pair originally described, which a follow-up search could neither confirm nor rule out as duplicate/stale directory noise for the same single Sandbach site. Left pending in docs/data/venue-suggestions.json; sent to docs/data/pending-review-queue.json for a human call rather than guessed at either way. Curia Command's pending_review collection was checked via ArtifactData's read-only 'query' action (the real equivalent this execution environment exposes) and had zero decided items to apply. The closure-audit rotating slice for 2026-11-03 (dayOfYear 307, indices 201-205: En Lefko/Perissa-Perivolos, Tranquilo/Perissa-Perivolos, The Beach Bar/Perissa-Perivolos, Theros Wave Bar/Perissa-Perivolos, Enigma Club/Fira) found no closure signal for any of the five on independent web search — all five show live, current listings and reviews, with 'currently closed' labels on some aggregators reading as normal daily/seasonal opening-hours status rather than a permanent closure.",
@@ -12603,5 +12748,6 @@
  ],
  "_dailyReviewPromotionSource20261027": "7 venues promoted 2026-10-27 by curia-suggestion-review, independently re-verified: Church House Inn and Cafe Waterside (both Bollington, both inside/near Clarence Mill on the Macclesfield Canal), Regent Cinema and Traders (both Marple, Stockport Road), No 13 (Frodsham, High Street, a 2025-opened cocktail bar in the former Naga/Bombay Balti unit), Frodsham Artisan Market (Main Street, monthly last-Saturday fixture, seeded with occasional: true per CLAUDE.md's Matchmaking contract hard filter, same treatment as Wilmslow's own artisan market), and Walkden Gardens (Sale, a real Trafford Council public park, Hard rule 1's chain-footprint question set aside as inapplicable to a council-owned public asset). All re-confirmed via independent web search against the original candidates' own researchNotes in docs/data/venue-suggestions.json (now removed from that file on promotion) - CAMRA/FSA/council sources, no closure or chain signal found for any of the seven. Three same-batch candidates (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop, Marple; Northern Makes Gallery, Bollington) were left untouched - each already has a live, undecided entry in docs/data/pending-review-queue.json from a prior run, so not re-decided or duplicated here. Two further candidates (Mura Ma, Marple; Brew & Tucker, Frodsham) were sent to pending-review-queue.json fresh this run - see that file's own note for why.",
  "_dailyReviewPromotionSource20261028": "7 venues promoted 2026-10-28 by curia-suggestion-review, independently re-verified against the 8 candidates with a 2026-10-28 suggestedDate: No.3 Holistic Therapies (Hale Barns, a single-practitioner spa/wellness room at 3 Hawley Lane, confirmed live and currently bookable via Fresha with strong review volume under both its own name and a 'Jill at No.3' listing variant — read as the same solo practitioner's studio under two listing names, not a chain or duplicate concern); Bollington Discovery Centre (a volunteer-run heritage museum inside Clarence Mill, no chain/ownership question applicable); Pigeon Coffee (a newly-opened, June 2026, independent canal-side café at Adelphi Mill, Bollington — specifically re-checked for a chain tie given a coincidental name overlap with an unrelated Toronto/Montreal coffee brand, confirmed unconnected); Canteena Bar & Grill (Sale, Stanley Square steakhouse run by two former local publicans, single site, no closure signal); Hops & Boogie (Sale, Stanley Square world-beer bar, address independently re-confirmed via CAMRA at 11 Stanley Square M33 7XZ, single site); Brabyns Park and Sale Water Park (both genuine council-owned public parkland — Stockport MBC and Trafford Council respectively — Hard rule 1's chain question set aside as inapplicable to a public asset, same precedent as Walkden Gardens' own 2026-10-27 promotion). All seven re-verified via fresh independent web search against the original candidates' own researchNotes in docs/data/venue-suggestions.json (now removed from that file on promotion); no closure or chain-footprint signal found for any of them. One same-batch candidate, Bevi (Marple, originally suggested as an ALE HOUSE micropub), was sent to docs/data/pending-review-queue.json fresh this run rather than promoted or rejected — see that file's own note for the specific business-identity discrepancy found. Five longer-pending candidates with live, undecided docs/data/pending-review-queue.json entries from the 2026-10-24/26/27 runs (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop and Mura Ma, both Marple; Northern Makes Gallery, Bollington; Brew & Tucker, Frodsham) were deliberately left untouched this run, per this job's own 'don't re-decide an item already waiting on a human' rule — Curia Command's pending_review collection was checked via a read-only query and had zero decided items to apply (see docs/data/pending-review-queue.json's own 2026-10-28 note on the read-only query mechanism actually available in this execution environment). The closure-audit rotating slice (indices 227-231: TEPHRA Santorini, The White Santorini, Kalipso, Sand Lily Boutique, Morenica Boutique — all Fira/Imerovigli boutiques/a pottery studio) found no closure signal for any of the five on independent web search; nothing written to pending-review-queue.json for it, per this rule's own 'silence is the normal outcome' standard.",
- "_dailyReviewPromotionSource20261102": "13 venues promoted 2026-11-02 by curia-suggestion-review, catching up a backlog of pending candidates accumulated across the 2026-10-31/11-01/11-02 research runs that ran ahead of a review pass. All independently re-verified fresh via web search rather than taking prior researchNotes on trust: Flute & Firkin, Poynton Park and Pool, Poynton Tea Room, Anson Engine Museum and Just-Ice Ethical Ice Cream Cafe (Poynton) and Bollington Arts Centre (Bollington) all re-confirmed via primary sources (current-dated CAMRA/council/charity-commission/FSA records) with no chain or closure signal. Lady Heyes Crafts and Antique Centre and Main Street Kitchen (Frodsham) re-confirmed single-site with no closure signal; Main Street Kitchen's own domain (mainstreetkitchen.co.uk) and consistent multi-source description corroborated the original candidate. The Bulls Head & Lodge (Hale Barns) re-confirmed as a Robinsons-tied single, individually-named village pub, the same tied-house model already accepted for other promoted pubs — not a branded multi-site concept. The Oystercatcher (Sale) re-confirmed as a genuine 2-site sibling pair with the original Chorlton site, within this file's small-sibling-group precedent. Gastown Cafe Bar (Macclesfield) re-confirmed via a 5/5 FSA hygiene rating and a currently-dated (12/12/2025) Uber Eats listing — stronger currency signal than the original candidate found. Northumberland Arms (Marple) re-confirmed to an even higher bar than originally researched: a fresh search found it is CAMRA's actual 2026 North West regional Pub of the Year winner, community-owned since a 2017 rescue, described by its own manager as 'thriving' — reason text's 'finalist' framing corrected to 'regional-winner' accordingly. 1851 Restaurant (Tarporley, inside Peckforton Castle) re-verified the Boutique Hotel Group ownership question explicitly under Hard rule 1's two-gate model: a fresh search confirmed exactly 3 properties (Peckforton Castle, Nunsmere Hall, Inglewood Manor), each a distinct, individually-characterful country-house hotel with no shared branding or replicable format — a regional small-hotel group, not a chain, Gate 1 clean and Gate 2 high given the singular 30-cover castle room; its longitude (-2.699) sits outside this file's nominal -2.6 sanity-box edge but squarely within Tarporley's own already-established real venue-coordinate range (Carden Park alone sits at -2.807), the same 'real location, not a research error' judgment already applied to Chester. Three other 2026-11-01/02 candidates were independently re-verified as genuinely uncertain rather than guessed at and sent to pending-review-queue.json instead: Aroma Bar & Ristorante (Bollington) — a real opening confirmed, but zero independently-dated customer reviews turned up 16 months on, a food-hygiene rating of only 3, and a site history of rapid restaurant turnover (Kira, then Briscola, now this) that together don't clear a confident promote; Poachers Inn (Bollington) — confirmed to have genuinely closed without notice at New Year 2026 and reopened as a 'soft launch' in March 2026 under new tenants, with no independent confirmation found more recent than a mid-April 2026 CAMRA snapshot; Deuce (Nantwich) — a real, recently opened health bar with only a single independent source (a commercial property-letting announcement) and no customer reviews or social-media presence found at all. Nine longer-pending candidates with live, undecided pending-review-queue.json entries from the 2026-10-24/26/27/28/30 runs (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table) were deliberately left untouched, per this job's own 'don't re-decide an item already waiting on a human' rule. Curia Command's pending_review collection was checked (ArtifactData 'query', the real read-only equivalent this execution environment exposes) and had zero decided items to apply. The closure-audit rotating slice (indices 222-226: Poniros Jewellery, Mnemossyne Gallery, It's a Beautiful Day, Kyrkos Art Gallery, Oia Treasures Art Gallery — all Oia, Santorini) found no closure signal for any of the five on independent web search."
+ "_dailyReviewPromotionSource20261102": "13 venues promoted 2026-11-02 by curia-suggestion-review, catching up a backlog of pending candidates accumulated across the 2026-10-31/11-01/11-02 research runs that ran ahead of a review pass. All independently re-verified fresh via web search rather than taking prior researchNotes on trust: Flute & Firkin, Poynton Park and Pool, Poynton Tea Room, Anson Engine Museum and Just-Ice Ethical Ice Cream Cafe (Poynton) and Bollington Arts Centre (Bollington) all re-confirmed via primary sources (current-dated CAMRA/council/charity-commission/FSA records) with no chain or closure signal. Lady Heyes Crafts and Antique Centre and Main Street Kitchen (Frodsham) re-confirmed single-site with no closure signal; Main Street Kitchen's own domain (mainstreetkitchen.co.uk) and consistent multi-source description corroborated the original candidate. The Bulls Head & Lodge (Hale Barns) re-confirmed as a Robinsons-tied single, individually-named village pub, the same tied-house model already accepted for other promoted pubs — not a branded multi-site concept. The Oystercatcher (Sale) re-confirmed as a genuine 2-site sibling pair with the original Chorlton site, within this file's small-sibling-group precedent. Gastown Cafe Bar (Macclesfield) re-confirmed via a 5/5 FSA hygiene rating and a currently-dated (12/12/2025) Uber Eats listing — stronger currency signal than the original candidate found. Northumberland Arms (Marple) re-confirmed to an even higher bar than originally researched: a fresh search found it is CAMRA's actual 2026 North West regional Pub of the Year winner, community-owned since a 2017 rescue, described by its own manager as 'thriving' — reason text's 'finalist' framing corrected to 'regional-winner' accordingly. 1851 Restaurant (Tarporley, inside Peckforton Castle) re-verified the Boutique Hotel Group ownership question explicitly under Hard rule 1's two-gate model: a fresh search confirmed exactly 3 properties (Peckforton Castle, Nunsmere Hall, Inglewood Manor), each a distinct, individually-characterful country-house hotel with no shared branding or replicable format — a regional small-hotel group, not a chain, Gate 1 clean and Gate 2 high given the singular 30-cover castle room; its longitude (-2.699) sits outside this file's nominal -2.6 sanity-box edge but squarely within Tarporley's own already-established real venue-coordinate range (Carden Park alone sits at -2.807), the same 'real location, not a research error' judgment already applied to Chester. Three other 2026-11-01/02 candidates were independently re-verified as genuinely uncertain rather than guessed at and sent to pending-review-queue.json instead: Aroma Bar & Ristorante (Bollington) — a real opening confirmed, but zero independently-dated customer reviews turned up 16 months on, a food-hygiene rating of only 3, and a site history of rapid restaurant turnover (Kira, then Briscola, now this) that together don't clear a confident promote; Poachers Inn (Bollington) — confirmed to have genuinely closed without notice at New Year 2026 and reopened as a 'soft launch' in March 2026 under new tenants, with no independent confirmation found more recent than a mid-April 2026 CAMRA snapshot; Deuce (Nantwich) — a real, recently opened health bar with only a single independent source (a commercial property-letting announcement) and no customer reviews or social-media presence found at all. Nine longer-pending candidates with live, undecided pending-review-queue.json entries from the 2026-10-24/26/27/28/30 runs (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table) were deliberately left untouched, per this job's own 'don't re-decide an item already waiting on a human' rule. Curia Command's pending_review collection was checked (ArtifactData 'query', the real read-only equivalent this execution environment exposes) and had zero decided items to apply. The closure-audit rotating slice (indices 222-226: Poniros Jewellery, Mnemossyne Gallery, It's a Beautiful Day, Kyrkos Art Gallery, Oia Treasures Art Gallery — all Oia, Santorini) found no closure signal for any of the five on independent web search.",
+ "_dailyReviewPromotionSource20261104": "10 venues promoted 2026-11-04 by curia-suggestion-review, all from venue-suggestions.json's 2026-11-04 batch, independently re-verified (fresh WebSearch per entry, duplicate-checked against this file and the suggestions file, coordinate/schema checked): The Pearl, Cuckoo, Gorge and Wallop (Prestwich — the district's first real venues since its own 2026-11-03 promotion; Wallop's two siblings, Knutsford's own 'Wallop' and Didsbury's 'Wine and Wallop', are already live and independently corroborate this third site unprompted); Syriana (Hale Barns); Fortune City, George & Dragon and Holmes Chapel Cricket Club (Holmes Chapel); The Snap Tin and Cask Tavern (Poynton). No chain, closure or duplicate concerns found for any of the ten on independent re-check; see docs/data/daily-briefings.json's 2026-11-04 entry for the per-venue detail."
 }

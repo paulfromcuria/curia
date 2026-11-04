@@ -1122,6 +1122,68 @@
         }
       ],
       "createdAt": "2026-11-03T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-11-04",
+      "synced": false,
+      "title": "10 venues promoted (Prestwich/Holmes Chapel/Poynton/Hale Barns); Miola and Aroma Bar & Ristorante resolved to rejected on confirmed closures",
+      "summary": "Step 1: Curia Command's pending_review collection (checked via ArtifactData query, status != \"pending\") returned zero documents — nothing waiting on a human decision to apply. Step 2/3: today's venue-suggestions.json queue held 23 pending entries; 13 of them (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table, Aroma Bar & Ristorante, Poachers Inn, Deuce, Miola) already have live pending-review-queue.json entries from earlier runs and were left untouched in the suggestions file — except Miola and Aroma Bar & Ristorante, both resolved this run (see below). The remaining 10, all freshly suggested today from the newly-promoted Prestwich district plus Holmes Chapel/Poynton/Hale Barns gap-filling, were independently re-verified from scratch (fresh WebSearch per entry, duplicate-checked against venues.json and the suggestions file, coordinate/schema/brand-voice checked) and all 10 promoted directly: The Pearl, Cuckoo, Gorge and Wallop (Prestwich, its first real venues; Wallop's two already-live siblings in Knutsford and Didsbury independently corroborate this third site), Syriana (Hale Barns), Fortune City, George & Dragon and Holmes Chapel Cricket Club (Holmes Chapel), and The Snap Tin and Cask Tavern (Poynton). While re-checking the two already-pending entries most likely to have moved on, fresh search turned up decisive new evidence for both: Miola's Holmes Chapel branch closed in August 2024 (the owner pulled out; the unit now trades as \"Holmes Sweet Home\"), and Aroma Bar & Ristorante's Bollington unit has since been superseded by a new opening, \"Lilac Tapas & Bar\" — both resolved from \"pending\" to \"rejected\" in both venue-suggestions.json and pending-review-queue.json, following the same precedent set on 2026-09-22 for Prana/Buon Cibo/Underbank (resolving a previously-escalated item outright when fresh research actually settles it, rather than leaving stale uncertainty sitting in the queue indefinitely). Closure audit: today's rotating slice (indices 200-204 of venues.json — Forty One 41, En Lefko, Tranquilo, The Beach Bar, Theros Wave Bar, all Santorini beach bars) found no closure signal for any of the five; all re-confirmed as still-operating via fresh search, so nothing added to the closure queue. venues.json: 670 → 680 venues. venue-suggestions.json: 105 → 95 pending/decided entries (10 removed on promotion, 2 flipped to rejected).",
+      "items": [
+        {
+          "label": "The Pearl (Prestwich)",
+          "detail": "promoted — high confidence, 3 independent sources incl. a June 2026-dated piece confirming current trading, single-site"
+        },
+        {
+          "label": "Cuckoo (Prestwich)",
+          "detail": "promoted — well-documented, ownership transition after a co-owner's 2026 death explicitly confirmed as continuing, not a closure"
+        },
+        {
+          "label": "Gorge (Prestwich)",
+          "detail": "promoted — single site, active premises licence with no end date, stable reviews, no closure signal found on fresh re-check"
+        },
+        {
+          "label": "Wallop (Prestwich)",
+          "detail": "promoted — the third of a real 3-site sibling pair whose other two (Knutsford, Didsbury) are already live and independently corroborate this one"
+        },
+        {
+          "label": "Syriana (Hale Barns)",
+          "detail": "promoted — current FSA hygiene data (May 2026 export), stable multi-platform reviews, one in-metro sibling within precedent"
+        },
+        {
+          "label": "Fortune City (Holmes Chapel)",
+          "detail": "promoted — single-site, consistent multi-source description, no closure signal on fresh re-check"
+        },
+        {
+          "label": "George & Dragon (Holmes Chapel)",
+          "detail": "promoted — Robinsons tied house (regional brewer, not a branded chain), explicit recent-investment signal"
+        },
+        {
+          "label": "Holmes Chapel Cricket Club (Holmes Chapel)",
+          "detail": "promoted — amateur community club, same precedent as the already-live Mobberley/Hale Barns cricket clubs"
+        },
+        {
+          "label": "The Snap Tin (Poynton)",
+          "detail": "promoted — strong, high-volume review signal (4.8/88), no chain or sibling found despite a real attempt"
+        },
+        {
+          "label": "Cask Tavern (Poynton)",
+          "detail": "promoted — small regional tied-house estate (Bollington Brewing Co.), consistent with already-accepted tied-house precedent"
+        },
+        {
+          "label": "Miola (Holmes Chapel)",
+          "detail": "resolved pending → rejected — confirmed closed August 2024; unit now trades as Holmes Sweet Home"
+        },
+        {
+          "label": "Aroma Bar & Ristorante (Bollington)",
+          "detail": "resolved pending → rejected — unit superseded by a new opening, Lilac Tapas & Bar"
+        },
+        {
+          "label": "Closure audit (Santorini beach bars slice)",
+          "detail": "no closures found among Forty One 41, En Lefko, Tranquilo, The Beach Bar, Theros Wave Bar"
+        }
+      ],
+      "createdAt": "2026-11-04T00:00:00Z"
     }
   ]
 }
