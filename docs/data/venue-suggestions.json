@@ -1625,6 +1625,181 @@
    "suggestedDate": "2026-11-03",
    "status": "pending",
    "researchNotes": "Third of this run's Holmes Chapel first-pass candidates (see Jodrell Bank Discovery Centre's own note). Verified via Sluurpy (aggregated 4.2/5 from 56 reviews — Google 4.4/27, Tripadvisor 4.0/29 — current, live listing) and a separate Trip.com listing for 'Miola Coffee Lounge' in Sandbach sharing the exact same phone number as the Holmes Chapel site: Miola, 40 London Road, Holmes Chapel CW4 7AJ. A real 2-site pair under common ownership (same phone number across two Cheshire towns a few miles apart) — within the same small-sibling-group precedent already accepted elsewhere in this file (e.g. Little Tap/Terrarium, Fire Station Social Cucina), not a wider chain; no third site found anywhere in searches. Coordinates (53.20174, -2.357853) are the shared CW4 7AJ postcode centroid, same caveat as Beer Emporium Bottle Bank's own note (both sit on this postcode, exact sub-building geocode unavailable this session). Reuses the existing COFFEE ROOM type (Café Waterside, Pigeon Coffee, both Bollington). Moderate confidence — consistently reviewed across three independent aggregators with no closure signal, though the 2-site ownership link rests on a shared phone number rather than a direct company-ownership record; flagged for the reviewer's own check at promotion time."
+  },
+  {
+   "name": "The Pearl",
+   "district": "prestwich",
+   "type": "BRITISH RESTAURANT",
+   "spend": "£££",
+   "lat": 53.532116,
+   "lon": -2.284824,
+   "base": 82,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "A converted computer shop on Bury New Road that reads like dinner at a friend's house, one who happens to cook properly — a short, confident set menu, a Thursday steak night, and a wine window the city hadn't seen anywhere else before this one opened.",
+   "suggestedDate": "2026-11-04",
+   "status": "pending",
+   "researchNotes": "First of four Prestwich candidates in this run — the district (promoted into docs/data/districts.json on 2026-11-03) had zero real venues going into today, the single largest real gap found during this run's required coverage tally. Verified via manchestersfinest.com (opened in a former computer shop, reported November 2023, aiming to feel 'like going to a friend's house'), thegoodfoodguide.co.uk (a 'Best Local Restaurant' listing, named in the Good Food Guide's own 100 Best Local Restaurants 2024, praised for confident cooking and ethical sourcing) and tasteofmanchester.com, whose June 2026 piece on The Pearl launching 'Manchester's first-ever wine window' is direct, current-dated confirmation it's still trading, not stale 2023 coverage. Address 425 Bury New Road, Prestwich M25 1AF — the same real postcode districts.json's own _dailyReviewPromotionSource20261103 note already used for Prestwich's centroid, reused here rather than re-derived since it's the exact building. Chain check: a single small dining room (manchesterrestaurants.com describes a 'small room', booking advisable); no sibling site found anywhere in searches. Reuses the existing BRITISH RESTAURANT type (Kitty Fisher's/Mayfair, Kanya Bistro Bar/Northwich, No.4 Dine & Wine/Didsbury) rather than FINE DINING, which overstates this room's actual unpretentious, neighbourhood-dining-room register. High confidence: three independent sources, one 2026-dated and confirming current trading directly."
+  },
+  {
+   "name": "Cuckoo",
+   "district": "prestwich",
+   "type": "LIVE MUSIC BAR",
+   "spend": "££",
+   "lat": 53.530206,
+   "lon": -2.283046,
+   "base": 72,
+   "bands": [
+    "morning",
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Pizza and cask ale by day, open mic and DJs once the kitchen's cleared — a corner bar that's run on one family's own steam since 2013 and a village that turned out in force the week it nearly lost them.",
+   "suggestedDate": "2026-11-04",
+   "status": "pending",
+   "researchNotes": "Second of four Prestwich candidates. Verified via timeout.com and designmynight.com (a relaxed neighbourhood bar/cafe at 395-397 Bury New Road, M25 1AW — pizzas, full breakfasts, cask ales, DJs and open-mic nights for singers, poets, musicians and comedians) and confirmed open since 2013 per themanc.com's coverage of co-owner Mike Price, described as a 'Prestwich pioneer', who died unexpectedly in 2026 at 45 — the same piece reports the bar reopened the day after his death at the family's own request ('Mike would want Cuckoo to continue') and intends to keep trading, so flagged honestly rather than hidden: a real, recent loss, but not a closure signal in the Hard rule 1 sense, and themanc.com's own report is explicit that it's continuing. Chain check: single site, no sibling found. Reuses the existing LIVE MUSIC BAR type (already used three times elsewhere in venues.json) rather than introducing a new one — captures the DJ/open-mic identity distinctly from the Wallop/wine-bar candidate below. Coordinates from the M25 1AW postcode centroid (doogal.co.uk, via search — direct api.postcodes.io/doogal.co.uk access was blocked by the network egress proxy this session, same recurring limitation this file has flagged before). Moderate-high confidence: well-documented address and offering, but the ownership transition following Mike Price's death is real and recent enough that the reviewer should double-check current trading status before promotion."
+  },
+  {
+   "name": "Gorge",
+   "district": "prestwich",
+   "type": "BRAZILIAN RESTAURANT",
+   "spend": "££",
+   "lat": 53.531292,
+   "lon": -2.283506,
+   "base": 68,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Picanha off the chapa and a Brazilian partner's own family recipes, run by four locals who waited out the pandemic to open the first Latin American table Prestwich's high street had ever had.",
+   "suggestedDate": "2026-11-04",
+   "status": "pending",
+   "researchNotes": "Third of four Prestwich candidates. Verified via themanc.com (an independent, family-run restaurant founded in 2021 by four locals, drawing on a Brazilian partner's own culinary knowledge, 'the first restaurant of its kind on Prestwich high street'; dishes named include Picanha na Chapa, Salgadinhos, Vegetarian Moqueca and Pão de Queijo) and Bury Council's own licensing register, which lists Gorge Restaurant & Bar at 424 Bury New Road, Prestwich, M25 1BD — the address this candidate's coordinates are geocoded from. Chain check: single site, no sibling found anywhere in searches; the pandemic-delay origin story and the licensing register both point to one independent family business, not a group. New type introduced — BRAZILIAN RESTAURANT — since the only existing Brazilian-adjacent type in this file, CREOLE-BRAZILIAN (Chicago), names a specific Creole-Brazilian fusion register that doesn't fit a straight Latin American barbecue restaurant; no other existing Eat type is a reasonable substitute. Moderate confidence: reviews are mixed across aggregators (Google 4.5/360 on one directory, 3.8/75 on TripAligner) and no 2026-dated coverage was found confirming current trading, though the licensing register gives no indication of closure either — flagged for the reviewer's own current-trading check."
+  },
+  {
+   "name": "Wallop",
+   "district": "prestwich",
+   "type": "WINE BAR",
+   "spend": "£££",
+   "lat": 53.531139,
+   "lon": -2.283867,
+   "base": 74,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "One of three, alongside Didsbury and Knutsford — Justin Parkinson's converted video-rental shop on Bury New Road, open since 2014, with a rotating cask and a wine list that doesn't need a sommelier to explain it.",
+   "suggestedDate": "2026-11-04",
+   "status": "pending",
+   "researchNotes": "Fourth of four Prestwich candidates, and the easiest to verify: docs/data/venues.json's own existing 'Wallop' (Knutsford) and 'Wine and Wallop' (Didsbury) entries already name this exact Prestwich site as their third sibling — Knutsford's own reason string reads 'A neighbourhood wine bar with two small siblings, in Didsbury and Prestwich', and Didsbury's names the operator directly ('Justin Parkinson's second room'). Prestwich was simply the one site of the three never added here. Independently corroborated via CAMRA (opened 27/9/2014 as an independent operator, in a converted former video-rental shop at 401-403 Bury New Road, M25 1AA; listed under both 'Wine & Wallop' and 'Folk' as prior/alternate names for the same building) and squaremeal.co.uk/firsttable.co.uk (self-described as 'a high-grade beermonger and peddler of fine wine', DJs, music-led evenings, quiz nights; an OpenTable review dated January 2026 confirms current trading). Chain check: already resolved by the live data itself — a real three-site small independent group (Knutsford/Didsbury/Prestwich), not a multi-city chain, and both existing siblings are already live, curated venues, so this isn't a new judgment call, just closing a gap the sibling entries already flagged. Named 'Wallop' (not 'Wine & Wallop') to match the Knutsford sibling's own naming convention in this file. High confidence."
+  },
+  {
+   "name": "Syriana",
+   "district": "hale-barns",
+   "type": "MIDDLE EASTERN",
+   "spend": "££",
+   "lat": 53.369134,
+   "lon": -2.314574,
+   "base": 62,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Shawarma off the spit and hummus that never came out of a tub — Hale Barns' own Levantine table since 2018, in a converted village café the Square's chain creep never got close to.",
+   "suggestedDate": "2026-11-04",
+   "status": "pending",
+   "researchNotes": "Hale Barns sits at only 4 real venues (Ringway Golf Club, Hale Barns Cricket Club, No.3 Holistic Therapies, The Bulls Head & Lodge) with zero Eat coverage — a real gap, though this run found the Square itself genuinely thin right now (halebarns.com reports Costa Coffee there closing 15 May 2026 and Asda up for lease), so only one strong candidate came out of a good-faith search rather than forcing a number; a 'former wedding venue... set to become a fine dining restaurant' (creweguardian.co.uk) was found but is unnamed and unopened, so not suggested. Syriana verified via altrincham.todaynews.co.uk (a 2018 report that a Hale Barns café — previously The Laughing Elephant — was sold and would reopen in September/October 2018 as a Syrian/Middle Eastern restaurant under new owners Khaled Al Sabbah and Kim Rowbottom) and current Tripadvisor/Deliveroo/Uber Eats listings (290 Hale Road, Hale Barns, Altrincham WA15 8SP; Levantine menu — shawarma, kebabs, hummus; ratings in the low-to-mid 4s across platforms, no closure signal). Chain check: the operator's own site states a second restaurant opened in Urmston (also Greater Manchester) — a single sibling within the same metro, the same precedent already accepted in this file for Craig's/Ivy Spinningfields, not a multi-city footprint. Moderate-high confidence: the opening story is well-sourced (local press), current trading is only confirmed via aggregator/delivery-platform listings rather than recent local-press coverage, flagged for the reviewer to re-confirm directly."
+  },
+  {
+   "name": "Fortune City",
+   "district": "holmes-chapel",
+   "type": "CANTONESE RESTAURANT",
+   "spend": "££",
+   "lat": 53.197235,
+   "lon": -2.355286,
+   "base": 60,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Second-generation owners still running the banquet menu their parents built the room around — London Road's reservation-only Saturday booth fills first, and has for years.",
+   "suggestedDate": "2026-11-04",
+   "status": "pending",
+   "researchNotes": "Holmes Chapel sits at 4 real/pending venues (Jodrell Bank Discovery Centre, Beer Emporium Bottle Bank, W. Mandeville, plus Miola pending) with zero Eat coverage beyond a bakery — a real gap. Fortune City verified via onionring.co.uk (96 London Road, Holmes Chapel CW4 7BD; 'now in the hands of second-generation owners, we continue to serve traditional Chinese Cuisine') and tripaligner.com (categorised Asian/Cantonese/Chinese, family-style dining, full bar service, 4.1 from 184 reviews) — consistent, multi-source confirmation of a real, currently-trading, family-run restaurant. Chain check: no sibling site found anywhere in searches; the second-generation-ownership framing points to one family business, not a group. Reuses the existing CANTONESE RESTAURANT type. Moderate-high confidence: solid review volume and consistent cuisine description across sources, though no recent local-press piece was found to independently date-stamp current trading beyond the review platforms themselves."
+  },
+  {
+   "name": "George & Dragon",
+   "district": "holmes-chapel",
+   "type": "COUNTRY PUB",
+   "spend": "££",
+   "lat": 53.202526,
+   "lon": -2.359297,
+   "base": 64,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Robinsons' historic house on Middlewich Road, reopened after a proper seven-figure-adjacent investment rather than a lick of paint — a conservatory big enough for a Sunday table that doesn't need booking a month out.",
+   "suggestedDate": "2026-11-04",
+   "status": "pending",
+   "researchNotes": "Second Holmes Chapel candidate. Verified via marketingstockport.co.uk ('Robinsons historic George and Dragon reopens following investment') and CAMRA (113 Middlewich Road, Holmes Chapel, CW4 7EA; operator GSR Leisure Ltd, a Robinsons tied house; eatible.co.uk describes a 'large, open-plan, modern public house' with a 'large conservatory restaurant serving a varied food menu'). Chain check: a Robinsons Brewery managed/tied house — the same regional-brewery tied-house model already accepted elsewhere in this file (The Bulls Head & Lodge/Robinsons, Hale Barns; Poachers Inn/Trust Inns, Bollington) rather than a branded multi-site fast-casual concept; Robinsons itself is a single-family regional brewer, not a national chain, and each house (including this one) is individually run and refurbished rather than identikit. Reuses the existing COUNTRY PUB type (Eat+Drink). High confidence: consistent address/operator across two independent sources, explicit recent-investment signal."
+  },
+  {
+   "name": "Holmes Chapel Cricket Club",
+   "district": "holmes-chapel",
+   "type": "CRICKET CLUB",
+   "spend": "£",
+   "lat": 53.197241,
+   "lon": -2.356349,
+   "base": 50,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "A hundred years of Saturday afternoons on Victoria Avenue, four senior sides and a junior setup that outnumbers them — the kind of clubhouse tea anyone can still turn up and watch for free.",
+   "suggestedDate": "2026-11-04",
+   "status": "pending",
+   "researchNotes": "Third Holmes Chapel candidate, and the district's first Do-category venue. Verified via cricketarchive.com and sports-facilities.co.uk (Victoria Avenue, Holmes Chapel, CW4 7BE — the club's own Victoria Club Ground, 40-space car park) and cricketerexchange.com, which describes a genuine village club with two Saturday teams, two Sunday teams, six junior teams and two ladies teams, celebrating its centenary in 2025. Same real, amateur-club register already established in this file for Mobberley Cricket Club and Hale Barns Cricket Club (both existing CRICKET CLUB venues) — not subject to a chain/ownership check in the same sense as a commercial venue, being a members'/community sports club. Reuses the existing CRICKET CLUB type. High confidence: consistent across two independent directory sources plus the club's own social presence referenced in search results."
+  },
+  {
+   "name": "The Snap Tin",
+   "district": "poynton",
+   "type": "GASTROPUB",
+   "spend": "££",
+   "lat": 53.3484,
+   "lon": -2.1228,
+   "base": 62,
+   "bands": [
+    "morning",
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Named for the tin every Cheshire mill and mine worker once carried to the job — breakfast through dinner on Park Lane, and a regulars' crowd that rates it above anything else on the street.",
+   "suggestedDate": "2026-11-04",
+   "status": "pending",
+   "researchNotes": "Poynton sits at 9 real venues, one short of this run's standing under-10 priority list. The Snap Tin verified via tripaligner.com (83 Park Lane, Poynton, SK12 1RD; tagged bar/breakfast/British/brunch/dinner/drinks, free WiFi, gluten-free options, highchairs; 4.8 from 88 reviews — a strong, consistent rating on real review volume) and a Trip.com listing at the same address. Chain check: no sibling site, operator or ownership record found anywhere in searches despite trying; flagged honestly as a gap rather than papered over — the rating volume and specificity of the listing (highchairs, gluten-free options) read as a real, individually-run venue rather than a template listing, but the reviewer should do their own ownership check before promotion given this gap. Coordinates approximated from the existing Park Lane venue cluster already seeded in this file (Poynton Tea Room/The Acoustic Lounge/Just-Ice all sit within 53.3484-53.3488/-2.1225--2.1245) rather than a precise postcode geocode for SK12 1RD, which doogal.co.uk's search didn't return directly this session — flagged for the reviewer to tighten. Reuses the existing GASTROPUB type (Eat+Drink), matching the breakfast-through-dinner-plus-bar register. Moderate confidence given the ownership gap above."
+  },
+  {
+   "name": "Cask Tavern",
+   "district": "poynton",
+   "type": "ALE HOUSE",
+   "spend": "£",
+   "lat": 53.3486,
+   "lon": -2.1238,
+   "base": 60,
+   "bands": [
+    "afternoon",
+    "evening",
+    "late"
+   ],
+   "reason": "Five cask lines from Bollington's own brewery and a High Peak CAMRA Pub of the Year plaque still on the wall — proof the old colliery town never lost its taste for a proper pint.",
+   "suggestedDate": "2026-11-04",
+   "status": "pending",
+   "researchNotes": "Second Poynton candidate, giving the district a genuine ale-specialist alongside the existing Flute & Firkin (independent, per CAMRA) rather than just one. Verified via CAMRA (42 Park Lane, Poynton, SK12 1RE; one of three taps for Bollington Brewing Company, alongside The Park Tavern, Macclesfield and The Vale Inn, Bollington — the same town Curia's own 'bollington' district already covers; 5 regular cask beers from Bollington plus guest keg from independent breweries; named CAMRA High Peak, Tameside and North Cheshire branch Pub of the Year in 2016) and tripaligner.com. Chain check: a small, three-pub tied-house estate for one named regional brewery based a few miles away in an existing Curia district — the same tied-house precedent already accepted for Robinsons (Bulls Head & Lodge, George & Dragon above) and Trust Inns (Poachers Inn) — not a branded multi-site fast-casual chain. The 2016 award is dated and not restated as current anywhere found, so the reason copy above doesn't claim it still holds the title, only that the plaque is real. Coordinates approximated from the existing Park Lane venue cluster (see The Snap Tin's own note above) rather than a precise SK12 1RE geocode, for the same reason — flagged for the reviewer to tighten. Reuses the existing ALE HOUSE type. Moderate-high confidence."
   }
  ]
 }
