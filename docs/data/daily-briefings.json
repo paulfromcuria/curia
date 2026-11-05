@@ -1184,6 +1184,52 @@
         }
       ],
       "createdAt": "2026-11-04T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-11-05",
+      "synced": false,
+      "title": "6 venues + Sandbach (new Cheshire district) promoted; 1 venue sent for review on conflicting facts",
+      "summary": "Independently re-verified all 9 pending candidates with a 2026-11-05 suggestedDate in venue-suggestions.json plus the sole pending district candidate (Sandbach), promoting Heaton Hall and Cellar Door (Prestwich), Holmes Sweet Home and The Cobbles Tearoom (Holmes Chapel), The Little Coffee Shop and Coupe (Bollington), and Sandbach itself. The Tennis Club Hale Barns (Hale Barns) went to pending-review-queue.json instead: two independent sources genuinely disagree on the club's actual facilities (one outdoor court vs. five all-weather courts), a real factual conflict rather than a staleness gap. Curia Command's pending_review collection had zero decided items to apply this run. Eleven longer-pending candidates (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table, Poachers Inn, Deuce) remain untouched in pending-review-queue.json, still awaiting a human decision. The closure-audit rotating slice (Lions Den, Australasia, Lime Tree, Volta, Saison) found no closures — all five re-confirmed still trading.",
+      "items": [
+        {
+          "label": "Heaton Hall (Prestwich)",
+          "detail": "promoted — Heaton Park's Grade I James Wyatt house plus free animal centre/boating lake/observatory, council-operated public attraction"
+        },
+        {
+          "label": "Cellar Door (Prestwich)",
+          "detail": "promoted — 427 Bury New Road, siblings Ben and Sarah, independently confirmed as the only Greater Manchester venue holding Coravin's 3 Glass rating"
+        },
+        {
+          "label": "Holmes Sweet Home (Holmes Chapel)",
+          "detail": "promoted — strong corroboration: this file's own 2026-11-04 Miola rejection independently found this is what now trades at 40 London Road"
+        },
+        {
+          "label": "The Cobbles Tearoom (Holmes Chapel)",
+          "detail": "promoted — single-site, listed-building tearoom/B&B behind St Luke's, no chain or closure signal"
+        },
+        {
+          "label": "The Little Coffee Shop (Bollington)",
+          "detail": "promoted — opened April 2026, owners independently named via local news, single-site"
+        },
+        {
+          "label": "Coupe (Bollington)",
+          "detail": "promoted — confirmed 2-site sibling pair with Holmes Chapel's already-live Beer Emporium Bottle Bank, CAMRA listing corroborates ongoing operation"
+        },
+        {
+          "label": "Sandbach (new Cheshire district)",
+          "detail": "promoted — genuine, distinct Cheshire East market town, Grade I Anglo-Saxon crosses, no overlap with any existing district"
+        },
+        {
+          "label": "The Tennis Club Hale Barns (Hale Barns)",
+          "detail": "sent for review — two sources materially disagree on the club's real facilities (1 outdoor court vs. 5 all-weather courts), not just a dating gap"
+        },
+        {
+          "label": "Closure audit (Deansgate/Spinningfields/Didsbury slice)",
+          "detail": "no closures found among Lions Den, Australasia, Lime Tree, Volta, Saison"
+        }
+      ],
+      "createdAt": "2026-11-05T00:00:00Z"
     }
   ]
 }

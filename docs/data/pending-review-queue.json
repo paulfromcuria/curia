@@ -459,6 +459,29 @@
         ],
         "reason": "A village coffee stop good enough to have earned a second site in Sandbach without losing the single-till, know-your-order feel of the original on London Road."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-05",
+      "reason": "Two independent sources genuinely conflict on the core facility fact this candidate's own reason text is built on — a padel directory lists one outdoor court and no indoor courts, while the other source describes five all-weather courts — a real disagreement about what members would actually be shown, not just a currency gap.",
+      "researchNotes": "Independently re-verified 2026-11-05 (WebSearch): the address (The Pavilion, Chapel Lane, Hale Barns, Altrincham WA15 0AQ) is corroborated again via padeldir.com, and there's no chain-footprint concern (a genuine members' sports club, Hard rule 1 is clean). But padeldir.com's own listing describes one outdoor court and no indoor courts, while the original candidate's other source (cademy.io, which itself flags its profile as not club-managed) describes five all-weather courts — the two sources don't just differ in freshness, they describe materially different facilities. No closure signal either way; this is a factual-accuracy question about what's actually there, which search alone couldn't settle.",
+      "payload": {
+        "name": "The Tennis Club Hale Barns",
+        "district": "hale-barns",
+        "type": "TENNIS CLUB",
+        "spend": "££",
+        "lat": 53.365501,
+        "lon": -2.314968,
+        "base": 62,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Five all-weather courts behind the Pavilion on Chapel Lane — a members' club running leagues and coaching long before padel gave the postcode something trendier to book instead."
+      }
     }
   ]
 }

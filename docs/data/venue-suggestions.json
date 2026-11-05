@@ -1627,41 +1627,6 @@
    "researchNotes": "Third of this run's Holmes Chapel first-pass candidates (see Jodrell Bank Discovery Centre's own note). Verified via Sluurpy (aggregated 4.2/5 from 56 reviews — Google 4.4/27, Tripadvisor 4.0/29 — current, live listing) and a separate Trip.com listing for 'Miola Coffee Lounge' in Sandbach sharing the exact same phone number as the Holmes Chapel site: Miola, 40 London Road, Holmes Chapel CW4 7AJ. A real 2-site pair under common ownership (same phone number across two Cheshire towns a few miles apart) — within the same small-sibling-group precedent already accepted elsewhere in this file (e.g. Little Tap/Terrarium, Fire Station Social Cucina), not a wider chain; no third site found anywhere in searches. Coordinates (53.20174, -2.357853) are the shared CW4 7AJ postcode centroid, same caveat as Beer Emporium Bottle Bank's own note (both sit on this postcode, exact sub-building geocode unavailable this session). Reuses the existing COFFEE ROOM type (Café Waterside, Pigeon Coffee, both Bollington). Moderate confidence — consistently reviewed across three independent aggregators with no closure signal, though the 2-site ownership link rests on a shared phone number rather than a direct company-ownership record; flagged for the reviewer's own check at promotion time. REJECTED on independent re-verification 2026-11-04 (curia-suggestion-review): this candidate's own flagged ownership-link uncertainty turns out to be moot — fresh search found the Holmes Chapel branch itself closed in August 2024 (owner Louise Metcalfe, per sandbach.nub.news, chose to close the Holmes Chapel site while keeping the original Sandbach branch open, citing wanting more time with family and travel; staff were offered redeployment to Sandbach or to the new business taking over the Holmes Chapel unit). The London Road, Holmes Chapel building now trades as 'Holmes Sweet Home', a different cafe/dessert-bar operator. This was already in docs/data/pending-review-queue.json awaiting a human decision on an unrelated ownership question (a possible third Sandbach site) — that question is now superseded by this closure finding. Do not re-suggest at this address under the Miola name."
   },
   {
-   "name": "Heaton Hall",
-   "district": "prestwich",
-   "type": "HISTORIC ESTATE",
-   "spend": "£",
-   "lat": 53.5362,
-   "lon": -2.2531,
-   "base": 78,
-   "bands": [
-    "morning",
-    "afternoon"
-   ],
-   "reason": "Six hundred acres and a James Wyatt hall at the top of the hill, with a free animal centre, a boating lake and an observatory that opens on clear nights — Prestwich's own grounds, not a borrowed view of someone else's.",
-   "suggestedDate": "2026-11-05",
-   "status": "pending",
-   "researchNotes": "Verified via britishlistedbuildings.co.uk (Grade I listing, geocode 53.5362/-2.2531 for the Hall itself — note the Hall's own postcode, M25 2SW, is a Prestwich prefix), secretmanchester.com and manchestersfinest.com: Heaton Park, one of Europe's largest municipal parks, council-operated — Heaton Hall (James Wyatt-designed Georgian house, Grade I listed), a free animal centre, boating lake, 18-hole golf course, observatory and its own tram stop. A public park/council attraction, not a commercial chain — passes Hard rule 1 trivially. Coordinates are the Hall's own independently-published listed-building geocode, not a district centroid or invented estimate. Closes Prestwich's most acute real gap found this run: zero Do-category venues (the district's 4 real venues before this addition were British Restaurant/Live Music Bar/Brazilian Restaurant/Wine Bar — none Do-mapped), and this district's own editorialDescription already name-checks the park ('Heaton Park close enough to walk off either'). Type: HISTORIC ESTATE (Tatton Park, Dunham Massey) — a closer fit than TOWN PARK given the Hall's own listed-building stature and estate-grounds character. High confidence — major, extremely well-documented public attraction, no closure risk."
-  },
-  {
-   "name": "Cellar Door",
-   "district": "prestwich",
-   "type": "WINE BAR",
-   "spend": "£££",
-   "lat": 53.532116,
-   "lon": -2.284824,
-   "base": 76,
-   "bands": [
-    "afternoon",
-    "evening",
-    "late"
-   ],
-   "reason": "Ben and Sarah's own list — his Burgundy against her Northern Rhône — poured by the glass from a 180-strong cellar next door to The Pearl, the only room in Greater Manchester holding Coravin's top rating for doing it.",
-   "suggestedDate": "2026-11-05",
-   "status": "pending",
-   "researchNotes": "Verified via manchestersfinest.com, guide.coravin.com (confirms it as the only Greater Manchester venue holding Coravin's 3 Glass rating, reserved for wine programmes pouring 60+ wines by the glass; lists 180+ wines including 16 sparkling, all by the glass) and rochvalleyradio.com's planning-application coverage (a 44-seat bar over two floors with a wine-shop element): Cellar Door, 427 Bury New Road, Prestwich M25 1AF — a family-run wine bar opened 2026 by siblings Ben and Sarah, immediately next door to The Pearl (already live in docs/data/venues.json at 425 Bury New Road, same M25 1AF postcode — coordinates shared with that existing venue for this reason, flagged for the reviewer to tighten to an exact building geocode if one becomes available). No second site or group ownership found anywhere in searches; single-site, independently run, passes Hard rule 1 cleanly. Reuses the existing WINE BAR type. Closes Prestwich's real Drink gap found this run: only Wallop (itself a 2-site operation, already live) was Drink-mapped before this addition. High confidence — well-documented across multiple independent sources (local press, a specialist wine-trade rating site, and the council's own licensing/planning record), no closure signal, genuinely distinctive."
-  },
-  {
    "name": "The Tennis Club Hale Barns",
    "district": "hale-barns",
    "type": "TENNIS CLUB",
@@ -1677,77 +1642,7 @@
    "reason": "Five all-weather courts behind the Pavilion on Chapel Lane — a members' club running leagues and coaching long before padel gave the postcode something trendier to book instead.",
    "suggestedDate": "2026-11-05",
    "status": "pending",
-   "researchNotes": "Verified via padeldir.com and cademy.io (the latter flags its own profile as not club-managed, so treated as corroborating rather than sole evidence): The Tennis Club Hale Barns, The Pavilion, Chapel Lane, Hale Barns, Altrincham WA15 0AQ — a members' lawn tennis club with five all-weather courts. A genuine members' sports club, not a commercial chain — passes Hard rule 1 trivially. Coordinates (53.365501/-2.314968) are the WA15 0AQ postcode centroid, within ~0.3km of the Hale Barns district centroid. Fills an explicitly flagged real gap in docs/data/tiles.json's own note on the 'Play sport' tile: 'Padel and Tennis have zero real venues anywhere in the dataset right now... a placeholder until real padel/tennis venues get added.' Also directly addresses this district's own standing priority (5 real venues before this addition, the second-thinnest in Manchester/Cheshire after Prestwich) and its existing Do-category composition (previously Golf Club/Cricket Club/Spa only). Reuses the existing TENNIS CLUB type (introduced 2026-09-18 alongside Play sport, previously with zero real venues attached anywhere in the catalogue). Moderate-high confidence — address corroborated by two independent directory sources; no dedicated club website or social-media presence was found this session to confirm current membership status directly, flagged for the reviewer's own check, but no closure signal either."
-  },
-  {
-   "name": "Holmes Sweet Home",
-   "district": "holmes-chapel",
-   "type": "BRUNCH SPOT",
-   "spend": "££",
-   "lat": 53.20174,
-   "lon": -2.357853,
-   "base": 64,
-   "bands": [
-    "morning",
-    "afternoon",
-    "evening"
-   ],
-   "reason": "Luis and Steve's dessert bar took over the old Miola unit on London Road and grew into it — Easter-egg cheesecakes and rose lattes by day, a cocktail list once the evening trade starts.",
-   "suggestedDate": "2026-11-05",
-   "status": "pending",
-   "researchNotes": "Verified via sandbach.nub.news (two separate 2024 pieces covering the move to bigger premises and a crowdfunder for step-free access), foodhygieneratings.org.uk and themanc.com: Holmes Sweet Home, 40 London Road, Holmes Chapel CW4 7AJ — a cafe and dessert bar run by Luis Cabrera and Steve Allott, relocated into the building vacated when Miola's Holmes Chapel branch closed August 2024 (see this file's own rejected Miola entry, same address, different operator — not a duplicate of that rejection). Considered Sandbach and Congleton before settling on this larger Holmes Chapel site; no second site or group ownership found for Holmes Sweet Home itself. Passes Hard rule 1 cleanly. Coordinates reuse the CW4 7AJ postcode centroid already established for this address in this file's own rejected Miola entry. Reuses the existing BRUNCH SPOT type. Closes part of Holmes Chapel's real gap found this run (6 real venues before this addition; Eat was its thinnest category alongside Drink). Moderate-high confidence — independently covered by local news on two separate occasions, a genuine small-business success story, no closure signal; the evening cocktail-menu detail rests on a single 2024 source and is worth a quick reconfirm at promotion time."
-  },
-  {
-   "name": "The Cobbles Tearoom",
-   "district": "holmes-chapel",
-   "type": "BRUNCH SPOT",
-   "spend": "£",
-   "lat": 53.202065,
-   "lon": -2.357107,
-   "base": 58,
-   "bands": [
-    "morning",
-    "afternoon"
-   ],
-   "reason": "Janet's tearoom hides behind St Luke's in an eighteenth-century townhouse nobody driving down London Road would guess was there — Wednesday to Saturday only, and no worse for the wait.",
-   "suggestedDate": "2026-11-05",
-   "status": "pending",
-   "researchNotes": "Verified via foodhygieneratings.org.uk, hygienescore.co.uk and redkitedays.co.uk: The Cobbles Tearoom, 5 Church View, Holmes Chapel CW4 7AG — a tearoom and small B&B in an 18th-century Grade II listed Georgian townhouse behind St Luke's Church, run by Janet and a small team, open Wednesday-Saturday 9am-3pm (kitchen closes 2.30pm). No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.202065/-2.357107) are the CW4 7AG postcode centroid, independently verified, distinct from Holmes Sweet Home's CW4 7AJ address a few hundred metres away on the same road. Reuses the existing BRUNCH SPOT type (no dedicated UK tearoom type exists in the catalogue; BRUNCH SPOT is the closest real fit, same register as Mouro Coffee Bar/King Street Kitchen elsewhere in this file). Second of two Holmes Chapel candidates this run. Moderate-high confidence — consistently listed across food-hygiene and B&B-directory sources, distinctive (listed building, B&B pairing), no closure signal; limited opening hours (4 days/week) are a real, flagged characteristic, not a confidence concern."
-  },
-  {
-   "name": "The Little Coffee Shop",
-   "district": "bollington",
-   "type": "COFFEE ROOM",
-   "spend": "£",
-   "lat": 53.297161,
-   "lon": -2.096027,
-   "base": 56,
-   "bands": [
-    "morning",
-    "afternoon"
-   ],
-   "reason": "Beth and Tim's cafe on the corner of the Market Place, in what used to be the barber's — coffee and homemade cake on the counter, toasties if you missed lunch, closed by four every day of the week.",
-   "suggestedDate": "2026-11-05",
-   "status": "pending",
-   "researchNotes": "Verified via happyvalley.org.uk's local guide and macclesfield.nub.news's own opening-day report: The Little Coffee Shop, 51 High Street, Bollington SK10 5PH — opened Easter Sunday by local couple Beth Lomas and Tim, in the former Men's Den barbers unit on the corner of the Market Place, serving coffee, homemade cakes, toasties and savoury snacks, open 7 days, closing 4pm. No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.297161/-2.096027) are the SK10 5PH postcode centroid — note this is the same postcode as this run's other Bollington candidate, Coupe, a different building a short walk along the same High Street. Reuses the existing COFFEE ROOM type (Café Waterside, Pigeon Coffee — Bollington already has two of this type; a third is still a genuinely distinct, independently-run business, not padding). Moderate-high confidence — independently confirmed by local news coverage of the actual opening, owner-named, no closure signal."
-  },
-  {
-   "name": "Coupe",
-   "district": "bollington",
-   "type": "WINE BAR",
-   "spend": "££",
-   "lat": 53.297161,
-   "lon": -2.096027,
-   "base": 64,
-   "bands": [
-    "morning",
-    "afternoon",
-    "evening"
-   ],
-   "reason": "Hope and Jacob's second room, in the unit TAPA left behind on the High Street — wine, craft beer and coffee under one roof, running the same easy neighbourhood register their Holmes Chapel bottle shop already proved.",
-   "suggestedDate": "2026-11-05",
-   "status": "pending",
-   "researchNotes": "Verified via macclesfield.nub.news (two 2025 pieces: the planned opening, and a 'couple behind Holmes Chapel's the Bottle Bank are expanding' piece naming the link explicitly) and a CAMRA listing (Coupe, Bollington, showing normal weekly trading hours as of Oct 2025, not a closure flag): Coupe, 22 High Street, Bollington SK10 5PH, in the unit vacated when TAPA Small Plates & Wine Bar closed for good — run by Hope Collis and Jacob Thrasher, who also run Beer Emporium Bottle Bank, Holmes Chapel (already live in docs/data/venues.json). A real 2-site pair across two Cheshire towns under one ownership, within the same small-sibling-group precedent already accepted elsewhere in this file (Little Tap/Terrarium, Fire Station Social Cucina) — flagged honestly for the reviewer given it's a sibling of an existing catalogue venue. Coordinates (53.297161/-2.096027) are the SK10 5PH postcode centroid, shared with this run's other Bollington candidate (The Little Coffee Shop) — a different building nearby, not a duplicate. Reuses the existing WINE BAR type (closest fit for a 'fine wines, craft beers, cocktails and coffee' neighbourhood bar/cafe; no single existing type captures the day-to-night dual register precisely). Moderate confidence — real and well-documented at opening (Sept-Oct 2025), but no source found confirming current (Nov 2026) trading status beyond the Oct 2025 CAMRA snapshot; no closure signal either, flagged for the reviewer's own current-status check before promotion."
+   "researchNotes": "Verified via padeldir.com and cademy.io (the latter flags its own profile as not club-managed, so treated as corroborating rather than sole evidence): The Tennis Club Hale Barns, The Pavilion, Chapel Lane, Hale Barns, Altrincham WA15 0AQ — a members' lawn tennis club with five all-weather courts. A genuine members' sports club, not a commercial chain — passes Hard rule 1 trivially. Coordinates (53.365501/-2.314968) are the WA15 0AQ postcode centroid, within ~0.3km of the Hale Barns district centroid. Fills an explicitly flagged real gap in docs/data/tiles.json's own note on the 'Play sport' tile: 'Padel and Tennis have zero real venues anywhere in the dataset right now... a placeholder until real padel/tennis venues get added.' Also directly addresses this district's own standing priority (5 real venues before this addition, the second-thinnest in Manchester/Cheshire after Prestwich) and its existing Do-category composition (previously Golf Club/Cricket Club/Spa only). Reuses the existing TENNIS CLUB type (introduced 2026-09-18 alongside Play sport, previously with zero real venues attached anywhere in the catalogue). Moderate-high confidence — address corroborated by two independent directory sources; no dedicated club website or social-media presence was found this session to confirm current membership status directly, flagged for the reviewer's own check, but no closure signal either. SENT TO PENDING REVIEW 2026-11-05 (curia-suggestion-review): independent re-check found the address itself corroborated again (padeldir.com), but the two independent sources genuinely conflict on the core facility fact this candidate's own reason text is built on — a padel directory lists one outdoor court and no indoor courts, while this candidate's other source describes five all-weather courts. That's a real disagreement about what members would actually be shown if they turned up, not just a currency/staleness gap, so it isn't honest to promote on the headline claim as written. Left 'pending' here; see docs/data/pending-review-queue.json for the human-facing entry."
   }
  ]
 }
