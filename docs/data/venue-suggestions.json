@@ -1643,6 +1643,141 @@
    "suggestedDate": "2026-11-05",
    "status": "pending",
    "researchNotes": "Verified via padeldir.com and cademy.io (the latter flags its own profile as not club-managed, so treated as corroborating rather than sole evidence): The Tennis Club Hale Barns, The Pavilion, Chapel Lane, Hale Barns, Altrincham WA15 0AQ — a members' lawn tennis club with five all-weather courts. A genuine members' sports club, not a commercial chain — passes Hard rule 1 trivially. Coordinates (53.365501/-2.314968) are the WA15 0AQ postcode centroid, within ~0.3km of the Hale Barns district centroid. Fills an explicitly flagged real gap in docs/data/tiles.json's own note on the 'Play sport' tile: 'Padel and Tennis have zero real venues anywhere in the dataset right now... a placeholder until real padel/tennis venues get added.' Also directly addresses this district's own standing priority (5 real venues before this addition, the second-thinnest in Manchester/Cheshire after Prestwich) and its existing Do-category composition (previously Golf Club/Cricket Club/Spa only). Reuses the existing TENNIS CLUB type (introduced 2026-09-18 alongside Play sport, previously with zero real venues attached anywhere in the catalogue). Moderate-high confidence — address corroborated by two independent directory sources; no dedicated club website or social-media presence was found this session to confirm current membership status directly, flagged for the reviewer's own check, but no closure signal either. SENT TO PENDING REVIEW 2026-11-05 (curia-suggestion-review): independent re-check found the address itself corroborated again (padeldir.com), but the two independent sources genuinely conflict on the core facility fact this candidate's own reason text is built on — a padel directory lists one outdoor court and no indoor courts, while this candidate's other source describes five all-weather courts. That's a real disagreement about what members would actually be shown if they turned up, not just a currency/staleness gap, so it isn't honest to promote on the headline claim as written. Left 'pending' here; see docs/data/pending-review-queue.json for the human-facing entry."
+  },
+  {
+   "name": "Sandbach Market Hall",
+   "district": "sandbach",
+   "type": "MARKET HALL",
+   "spend": "£",
+   "lat": 53.1446,
+   "lon": -2.3632,
+   "base": 68,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A Grade II-listed Town Hall still earning its keep on market days — stalls under the same roof the Georgians built, not a retrofit pretending otherwise.",
+   "suggestedDate": "2026-11-06",
+   "status": "pending",
+   "researchNotes": "First of this run's Sandbach candidates — the district was promoted into docs/data/districts.json on 2026-11-05 with zero venues seeded, and a real tally of docs/data/venue-suggestions.json plus venues.json confirmed it still has none of either, the thinnest Manchester/Cheshire district by a wide margin. Verified via sandbach.gov.uk's own 'Sandbach Market Hall'/'hire the market hall' pages (Thursday/Friday/Saturday trading, council-run) and britishlistedbuildings.co.uk's Historic England geocode for 'Town Hall and Market Hall, Sandbach' (Grade II listed), cross-checked against a separate Wikipedia/Wikiwand figure for the same building (53.1445/-2.3634) — consistent to within a few metres. A civic market hall, same precedent as Altrincham Market, Stockport Market Hall, Northwich Market and Knutsford Market Hall already in venues.json. Reuses the existing MARKET HALL type. High confidence — a long-standing, council-documented, currently-trading civic building, not a commercial venue with closure risk."
+  },
+  {
+   "name": "YouSpa",
+   "district": "sandbach",
+   "type": "SPA",
+   "spend": "£££",
+   "lat": 53.1434,
+   "lon": -2.3765,
+   "base": 66,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A candle shop that grew into a four-room boutique spa with a Himalayan salt cave and a hot tub in the garden of a 180-year-old house — sixteen guests at a time, by design, not by capacity limit.",
+   "suggestedDate": "2026-11-06",
+   "status": "pending",
+   "researchNotes": "Second Sandbach candidate. Verified via sandbach.nub.news ('New day spa complete with Himalayan salt cave poised to open in Sandbach') and a Yahoo News feature on founder Michelle Jones, a former graphic designer and aromatherapist who started with a candle shop before building out YouSpa, 11 The Commons, Sandbach CW11 1EG — four treatment rooms, Himalayan salt cave, zen garden, indoor/outdoor hot tub, Rasul mud experience, capacity ~16 guests by design ('being boutique is who we are'). No second site or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Currently trading confirmed via a Trustindex review dated August 2026, resolving an otherwise conflicting timeline between a 2021 founding date and a 2024 'poised to open' article (likely a later expansion/relaunch of the same business, not two different ventures). Coordinates are approximated from the neighbouring CW11 1EJ postcode centroid (53.143452/-2.376550) — the exact CW11 1EG geocode wasn't retrievable this session (network egress blocked zestate.co.uk/doogal.co.uk directly), flagged for the reviewer to tighten against a direct postcode lookup. Reuses the existing SPA type (No.3 Holistic Therapies, Hale Country Club & Spa). Moderate-high confidence on the business itself; coordinate precision is the one flagged gap."
+  },
+  {
+   "name": "Sandbach Makers Market",
+   "district": "sandbach",
+   "type": "ARTISAN MARKET",
+   "spend": "£",
+   "lat": 53.144,
+   "lon": -2.3621,
+   "base": 62,
+   "bands": [
+    "afternoon"
+   ],
+   "occasional": true,
+   "reason": "Fifty-odd stalls on the Cobbles every second Saturday — local food, craft and design, with nothing here that arrived by delivery van from somewhere else.",
+   "suggestedDate": "2026-11-06",
+   "status": "pending",
+   "researchNotes": "Third Sandbach candidate. Verified via sandbach.gov.uk's events calendar and sandbach.nub.news's recurring 'what's on' coverage, plus a Crewe Chronicle report describing 50+ artisan traders: a monthly producers'/makers' market on the Cobbles (Market Square), described by Cheshire East's own listing as 'Every Second Saturday' and explicitly flagged there as a private event, not council-organised. Runs on a genuine monthly cadence, not a weekly or daily schedule, so `occasional: true` is set deliberately — same treatment already given to Macclesfield Treacle Market and Frodsham Artisan Market in venues.json, per CLAUDE.md's `passesRegularScheduleFilter` hard filter. Coordinates reuse the Market Square/Sandbach Crosses geocode (53.144/-2.3621, Historic England via britishlistedbuildings.co.uk) since the market sets up on the same square as Sandbach Market Hall. Reuses the existing ARTISAN MARKET type. High confidence on the market's real, ongoing existence; moderate on the exact current Saturday cadence, which several listings describe inconsistently (monthly vs. fortnightly) — flagged for the reviewer."
+  },
+  {
+   "name": "Bar Six Sandbach",
+   "district": "sandbach",
+   "type": "COCKTAIL BAR",
+   "spend": "£££",
+   "lat": 53.144,
+   "lon": -2.3621,
+   "base": 70,
+   "bands": [
+    "evening",
+    "late"
+   ],
+   "reason": "Father and son running six gins, six craft beers and six wines on rotation out of a former estate agency on the Market Square — a small conceit that only works when nobody's trying to be anything else.",
+   "suggestedDate": "2026-11-06",
+   "status": "pending",
+   "researchNotes": "Fourth Sandbach candidate — named 'Bar Six Sandbach' rather than plain 'Bar Six' to avoid colliding with the existing, unrelated 'Bar Six' already live in venues.json under the Nantwich district (a real, separate venue; coincidental same name). Verified via CAMRA (opened 8 September 2017, operators named as a local father-and-son team, Steven and Jack Mitchell), foodhygieneratings.org.uk (Bar Six Sandbach Ltd, 19 Market Square, Sandbach CW11 1AT) and OpenTable/Wanderlog describing the venue's real, distinctive format: six premium gins, six craft beers and six wines (incl. fizz) rotated monthly. A sister venue, Bar Six Nantwich Ltd, operates under a separate company on the Cobbles in Nantwich — a genuine 2-site small-sibling pair under one family, the same precedent already accepted elsewhere in this file (Craig's, Little Tap/Terrarium) rather than a chain; no third site found. Coordinates use the Market Square geocode (53.144/-2.3621, the same Historic England point already used for the Sandbach Crosses standing in the square) since CW11 1AT's own postcode-level data conflicted with a residential 'Brookhouse Green' classification in one source, while every directory and hygiene listing independently places the venue itself at 19 Market Square — flagged for the reviewer to confirm against a direct building-level geocode. Reuses the existing COCKTAIL BAR type. Moderate-high confidence — long-trading, well-documented, no closure signal; the coordinate source conflict is the one flagged caveat."
+  },
+  {
+   "name": "Creative Indian Kitchen",
+   "district": "sandbach",
+   "type": "INDIAN RESTAURANT",
+   "spend": "££",
+   "lat": 53.143,
+   "lon": -2.3628,
+   "base": 72,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "The room that used to trade as K2H, rebuilt dish by dish under the same roof on Georges Walk — casual elegant, South Asian spicing done with real restraint rather than volume.",
+   "suggestedDate": "2026-11-06",
+   "status": "pending",
+   "researchNotes": "Fifth Sandbach candidate. Verified via OpenTable (4.5★ from 222 diners, 'Casual Elegant' dining style, £26-£40pp) and local listings confirming Creative Indian Kitchen is the current trading name for the venue previously known as K2H, 3-4 Georges Walk, High Street, Sandbach — an extensive overhaul of food and ethos under the same ownership, not a closure/reopening under new management. No second site found under either name; single-site, passes Hard rule 1 cleanly. Coordinates (53.143/-2.3628) from the CW11 1AF postcode centroid (zestate.co.uk, corroborated by Royal Mail's own address listing for 5 Georges Walk on the same postcode). Reuses the existing INDIAN RESTAURANT type. High confidence — currently trading, well-reviewed, single-owner, no closure signal."
+  },
+  {
+   "name": "Cubar Restaurant & Bar",
+   "district": "sandbach",
+   "type": "SMALL PLATES",
+   "spend": "£££",
+   "lat": 53.1431,
+   "lon": -2.3626,
+   "base": 74,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Rescued from closure by the same owner who runs Creative Indian Kitchen up the street — Cuban rum, live Latin music and tapas that never drifted from what the founders built before they left for Havana.",
+   "suggestedDate": "2026-11-06",
+   "status": "pending",
+   "researchNotes": "Sixth Sandbach candidate. Verified via sandbach.nub.news (two pieces: an 18 September 2024 report of the sale, and a 20 December 2024 follow-up, 'It's a Cuban evolution as popular tapas spot stays true to its roots under new ownership'): Cubar Restaurant & Bar, 45 High Street, Sandbach — a Cuban/Latin American tapas bar set up in 2021 by Phillip Bebbington, sold September 2024 (Bebbington and his Cuban-born partner relocating to Cuba) to local restaurateur Nagendra Kumar-Prasad, who also owns Creative Indian Kitchen (the suggestion above) elsewhere on Sandbach High Street. A genuine 2-restaurant, single-owner, single-town pairing — same small-sibling precedent already accepted in this file (Little Tap/Terrarium, Craig's), not a chain; menu and concept kept deliberately unchanged under new ownership per the venue's own continuity. No existing Eat type captures Cuban/Latin American tapas precisely; mapped to the existing SMALL PLATES type (shared tapas-format register with Bar San Juan, Shrub) rather than introducing a new type for a single venue. Coordinates (53.1431/-2.3626) approximated from the same High Street/CW11 1AF postcode cluster as Creative Indian Kitchen, a few doors along — flagged for the reviewer to tighten against 45 High Street's own exact geocode. Moderate-high confidence — two independent, dated local-news sources confirm the 2024 ownership change and continued trading; no closure signal since."
+  },
+  {
+   "name": "Beatin Rhythm Records",
+   "district": "prestwich",
+   "type": "RECORD SHOP",
+   "spend": "£",
+   "lat": 53.532141,
+   "lon": -2.28582,
+   "base": 64,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "Northern soul, funk and rare groove pressed on vinyl above a Prestwich studio block — the kind of stock a collector drives in for, not a browse-and-leave.",
+   "suggestedDate": "2026-11-06",
+   "status": "pending",
+   "researchNotes": "First of two Prestwich candidates — a real tally found Prestwich still the thinnest Manchester/Cheshire district on Do-category coverage (only Heaton Hall maps to Do out of 6 real venues; The Pearl/Gorge/Wallop/Cellar Door/Cuckoo are Eat or category-only-Drink). Verified via Manchester's Finest, Creative Tourist, the British Record Shop Archive and Soul Source forum coverage: Beatin' Rhythm, 1st Floor, Bank House Studios, Warwick Street, Prestwich, Manchester M25 3HN — a long-running, well-known Northern soul/funk/rare-groove/modern-soul specialist record shop, relocated to this address in 2015. No second site found anywhere in searches; single-site, passes Hard rule 1 cleanly. Coordinates (53.532141/-2.28582) from the M25 3HN postcode centroid (doogal.co.uk, via WebSearch snippet — direct fetch blocked this session), a few hundred metres from Bury New Road. Introduces the existing RECORD SHOP type (Hyde Park Records, SK1 Records, Sifters Records) to Manchester/Cheshire for the first time — no new type needed. Moderate-high confidence — multiple independent, specialist-press sources agree on the shop's identity and address; opening-hours details conflict slightly across sources (flagged, not a closure signal) but the shop's ongoing existence is well corroborated."
+  },
+  {
+   "name": "Anatolian Grill",
+   "district": "prestwich",
+   "type": "TURKISH RESTAURANT",
+   "spend": "££",
+   "lat": 53.532116,
+   "lon": -2.284824,
+   "base": 76,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Coal-fired Turkish classics on Bury New Road since 1987, from a chef who got it right the first time and never felt the need for a second concept.",
+   "suggestedDate": "2026-11-06",
+   "status": "pending",
+   "researchNotes": "Second Prestwich candidate, closing the same Do-coverage gap's Eat-side neighbour. Verified via the venue's own site, Quandoo and Google/Tripaligner review aggregates (4.4-4.6★, 600-1,033 reviews depending on platform): Anatolian Grill, 459 Bury New Road, Prestwich M25 1AF — trading since 1987 per the operator's own site, chef-owner Duran Selvi, described by local coverage as Manchester's first modern Turkish restaurant and a modern Turkish restaurant and wine bar. One source describes Selvi's 'first restaurant in Chorlton' becoming an award-winning success before this one — if accurate, a 2-site pairing across two Manchester districts under one chef-owner, within the same small-sibling precedent already used elsewhere in this file; not independently confirmed this session (flagged for the reviewer), and no evidence found of a wider group beyond that. No second Prestwich site or group ownership found. Coordinates (53.532116/-2.284824) are the M25 1AF postcode centroid — the same figure already used for this district's own centroid in docs/data/districts.json (sourced there from 425 Bury New Road), a few doors from Anatolian Grill's actual 459 address on the same short stretch. Reuses the existing TURKISH RESTAURANT type (The Mantl, Pars Kahve). High confidence on the venue itself; the Chorlton-sibling claim is the one flagged, unconfirmed detail."
   }
  ]
 }
