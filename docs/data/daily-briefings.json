@@ -1230,6 +1230,56 @@
         }
       ],
       "createdAt": "2026-11-05T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-11-06",
+      "synced": false,
+      "title": "8 venues promoted (Sandbach's first 6 + 2 more for Prestwich); 12 longer-pending items left untouched; closure audit clean",
+      "summary": "Curia Command's pending_review collection had zero decided items to apply this run (checked ahead of this run and confirmed empty). Independently re-verified all 8 pending candidates with a 2026-11-06 suggestedDate in venue-suggestions.json and promoted all 8 straight to venues.json: Sandbach Market Hall, YouSpa, Sandbach Makers Market, Bar Six Sandbach and Creative Indian Kitchen give Sandbach (promoted as a district 2026-11-05) its first-ever venues, Cubar Restaurant & Bar rounds out the same town, and Beatin Rhythm Records plus Anatolian Grill give Prestwich two more. Nothing rejected today. Twelve longer-pending candidates already sitting in docs/data/pending-review-queue.json from the 2026-10-18 through 2026-11-05 runs (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table, Poachers Inn, Deuce, The Tennis Club Hale Barns) were deliberately left untouched, per this job's own 'don't re-decide an item already waiting on a human' rule — nothing in today's research surfaced new decisive evidence for any of them. The closure-audit rotating slice (dayOfYear 310, indices 178-182: The Edge Theatre & Arts Centre, The Chorlton Tap and Bar San Juan in Chorlton, White Peak Alpaca Farm in Mobberley, Inch Arts in Altrincham) found no closure signal for any of the five — all show current 2026 activity or no negative signal.",
+      "items": [
+        {
+          "label": "Sandbach Market Hall (Sandbach)",
+          "detail": "promoted — council-run Grade II-listed market hall, Thursday/Saturday trading, same civic-market-hall precedent as Stockport/Altrincham/Northwich/Knutsford"
+        },
+        {
+          "label": "YouSpa (Sandbach)",
+          "detail": "promoted — single-site boutique spa at 11 The Commons, no chain signal"
+        },
+        {
+          "label": "Sandbach Makers Market (Sandbach)",
+          "detail": "promoted — genuine second-Saturday monthly makers' market on the Cobbles, occasional: true correctly set"
+        },
+        {
+          "label": "Bar Six Sandbach (Sandbach)",
+          "detail": "promoted — the real Sandbach site of the same father-and-son small group whose Nantwich sibling is already live; named to avoid a collision with that existing entry"
+        },
+        {
+          "label": "Creative Indian Kitchen (Sandbach)",
+          "detail": "promoted — current trading name for the former K2H, same ownership, single site, strong review volume"
+        },
+        {
+          "label": "Cubar Restaurant & Bar (Sandbach)",
+          "detail": "promoted — the original candidate's sourcing topped out at Dec 2024, but a fresh re-check found OpenTable reviews dated Dec 2025/Feb 2026/Mar 2026 and a Feb 2026 'Very Good' hygiene inspection, resolving the currency gap that would otherwise have sent this to pending review"
+        },
+        {
+          "label": "Beatin Rhythm Records (Prestwich)",
+          "detail": "promoted — long-running Northern soul/funk record shop, single site, no chain signal"
+        },
+        {
+          "label": "Anatolian Grill (Prestwich)",
+          "detail": "promoted — trading continuously since 1987 under chef-owner Duran Selvi; an unconfirmed Chorlton-sibling detail in one secondary source noted but not load-bearing"
+        },
+        {
+          "label": "The Mews Bar and Charcuterie / Fold Bistro & Bottle Shop / Northern Makes Gallery / Mura Ma / Brew & Tucker / Bevi / Queens Head / Cork of the North / The Fisherman's Table / Poachers Inn / Deuce / The Tennis Club Hale Barns",
+          "detail": "left pending — each already has a live, undecided pending-review-queue.json entry from a prior run; not re-decided or duplicated"
+        },
+        {
+          "label": "Closure audit (Chorlton/Mobberley/Altrincham slice)",
+          "detail": "no closures found among The Edge Theatre & Arts Centre, The Chorlton Tap, Bar San Juan, White Peak Alpaca Farm, Inch Arts"
+        }
+      ],
+      "createdAt": "2026-11-06T00:00:00Z"
     }
   ]
 }

@@ -12289,8 +12289,120 @@
     "evening"
    ],
    "reason": "Hope and Jacob's second room, in the unit TAPA left behind on the High Street — wine, craft beer and coffee under one roof, running the same easy neighbourhood register their Holmes Chapel bottle shop already proved."
+  },
+  {
+   "name": "Sandbach Market Hall",
+   "district": "sandbach",
+   "type": "MARKET HALL",
+   "spend": "£",
+   "lat": 53.1446,
+   "lon": -2.3632,
+   "base": 68,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A Grade II-listed Town Hall still earning its keep on market days — stalls under the same roof the Georgians built, not a retrofit pretending otherwise."
+  },
+  {
+   "name": "YouSpa",
+   "district": "sandbach",
+   "type": "SPA",
+   "spend": "£££",
+   "lat": 53.1434,
+   "lon": -2.3765,
+   "base": 66,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A candle shop that grew into a four-room boutique spa with a Himalayan salt cave and a hot tub in the garden of a 180-year-old house — sixteen guests at a time, by design, not by capacity limit."
+  },
+  {
+   "name": "Sandbach Makers Market",
+   "district": "sandbach",
+   "type": "ARTISAN MARKET",
+   "spend": "£",
+   "lat": 53.144,
+   "lon": -2.3621,
+   "base": 62,
+   "bands": [
+    "afternoon"
+   ],
+   "occasional": true,
+   "reason": "Fifty-odd stalls on the Cobbles every second Saturday — local food, craft and design, with nothing here that arrived by delivery van from somewhere else."
+  },
+  {
+   "name": "Bar Six Sandbach",
+   "district": "sandbach",
+   "type": "COCKTAIL BAR",
+   "spend": "£££",
+   "lat": 53.144,
+   "lon": -2.3621,
+   "base": 70,
+   "bands": [
+    "evening",
+    "late"
+   ],
+   "reason": "Father and son running six gins, six craft beers and six wines on rotation out of a former estate agency on the Market Square — a small conceit that only works when nobody's trying to be anything else."
+  },
+  {
+   "name": "Creative Indian Kitchen",
+   "district": "sandbach",
+   "type": "INDIAN RESTAURANT",
+   "spend": "££",
+   "lat": 53.143,
+   "lon": -2.3628,
+   "base": 72,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "The room that used to trade as K2H, rebuilt dish by dish under the same roof on Georges Walk — casual elegant, South Asian spicing done with real restraint rather than volume."
+  },
+  {
+   "name": "Cubar Restaurant & Bar",
+   "district": "sandbach",
+   "type": "SMALL PLATES",
+   "spend": "£££",
+   "lat": 53.1431,
+   "lon": -2.3626,
+   "base": 74,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Rescued from closure by the same owner who runs Creative Indian Kitchen up the street — Cuban rum, live Latin music and tapas that never drifted from what the founders built before they left for Havana."
+  },
+  {
+   "name": "Beatin Rhythm Records",
+   "district": "prestwich",
+   "type": "RECORD SHOP",
+   "spend": "£",
+   "lat": 53.532141,
+   "lon": -2.28582,
+   "base": 64,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "Northern soul, funk and rare groove pressed on vinyl above a Prestwich studio block — the kind of stock a collector drives in for, not a browse-and-leave."
+  },
+  {
+   "name": "Anatolian Grill",
+   "district": "prestwich",
+   "type": "TURKISH RESTAURANT",
+   "spend": "££",
+   "lat": 53.532116,
+   "lon": -2.284824,
+   "base": 76,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Coal-fired Turkish classics on Bury New Road since 1987, from a chef who got it right the first time and never felt the need for a second concept."
   }
  ],
+ "_dailyReviewPromotionSource20261106": "8 venues promoted 2026-11-06 by curia-suggestion-review, independently re-verified against the 8 candidates with a 2026-11-06 suggestedDate — the first real venues for both Sandbach (promoted into districts.json 2026-11-05 with none seeded) and the second Prestwich batch: Sandbach Market Hall (council-run, Grade II-listed Town Hall, Thursday/Saturday trading, re-confirmed via sandbach.gov.uk's own pages and britishlistedbuildings.co.uk — same civic-market-hall precedent as Stockport/Altrincham/Northwich/Knutsford), YouSpa (11 The Commons, address independently re-confirmed via Fresha; single-site, no chain signal), Sandbach Makers Market (re-confirmed via sandbach.gov.uk's own markets page as a genuine second-Saturday monthly producers'/makers' market on the Cobbles, explicitly flagged there as privately run, not council-organised — occasional: true correctly set, same precedent as Macclesfield Treacle Market/Frodsham Artisan Market), Bar Six Sandbach (19 Market Square — independently re-confirmed via CAMRA/OpenTable as the real Sandbach site of the same father-and-son small group whose Nantwich sibling is already live in this file, matching the 2026-09-15 promotion note's own finding that Bar Six is a genuine 3-site Sandbach/Nantwich/Knutsford family group; named 'Bar Six Sandbach' to avoid an exact-name collision with the existing Nantwich entry, same disambiguation precedent as Contemporary Six Hale/The Bubble Room Bramhall), Creative Indian Kitchen (3-4 Georges Walk — independently re-confirmed via OpenTable's 222-review volume as the current trading name for the former K2H, same ownership, no second site), Beatin Rhythm Records (Bank House Studios, Warwick Street — independently re-confirmed via the British Record Shop Archive and Soul Source forum coverage, single site, no chain signal), and Anatolian Grill (459 Bury New Road — independently re-confirmed via its own site/Quandoo as trading continuously since 1987 under chef-owner Duran Selvi, high review volume; a possible Chorlton-sibling detail in one secondary source remains unconfirmed on fresh search too, flagged but not load-bearing since the reason copy itself never makes that claim and a 2-site pair would be within precedent regardless). Cubar Restaurant & Bar (45 High Street) needed one extra re-verification pass beyond the original candidate's own Dec-2024-dated sourcing: fresh search specifically for 2025/2026-dated evidence turned up OpenTable reviews dated 30 Dec 2025, 14 Feb 2026 and 7 Mar 2026 plus a 20 Feb 2026 'Very Good' food-hygiene inspection — resolving what would otherwise have been the same stale-sourcing shape sent to pending review elsewhere in this file, so promoted rather than queued. No chain, duplicate or coordinate-sanity concern found for any of the eight. Twelve longer-pending candidates with live, undecided docs/data/pending-review-queue.json entries from the 2026-10-18 through 2026-11-05 runs (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table, Poachers Inn, Deuce, The Tennis Club Hale Barns) were deliberately left untouched this run, per this job's own 'don't re-decide an item already waiting on a human' rule — none of today's research surfaced new decisive evidence for any of them. Curia Command's pending_review collection had zero decided items to apply this run (checked ahead of this run per the scheduler's own note; confirmed empty). The closure-audit rotating slice for 2026-11-06 (dayOfYear 310, indices 178-182 of the pre-promotion 686-venue array: The Edge Theatre & Arts Centre/Chorlton, The Chorlton Tap/Chorlton, Bar San Juan/Chorlton, White Peak Alpaca Farm/Mobberley, Inch Arts/Altrincham) found no closure signal for any of the five on independent web search — all five show current 2026-dated activity (an August 2026 15th-anniversary event, a January 2026 CAMRA snapshot, July 2026 OpenTable reviews) or no negative signal; nothing written to pending-review-queue.json for it, per this rule's own 'silence is the normal outcome' standard.",
  "_dailyReviewPromotionSource20261103": "3 venues promoted 2026-11-03 by curia-suggestion-review, independently re-verified against the 4 Holmes Chapel candidates with a 2026-11-03 suggestedDate (the district's first-ever venues, promoted into districts.json the day before, 2026-11-02, with none seeded yet): Jodrell Bank Discovery Centre (Bomish Lane, Lower Withington SK11 9DL — operated directly by the University of Manchester, independently re-confirmed via fresh search against jodrellbank.net/events.manchester.ac.uk/third-party visitor guides, coordinates matching the Lovell Telescope's well-documented real location; not a chain by any definition) and W. Mandeville (2 Macclesfield Road, Holmes Chapel CW4 7NE — family bakery/grocer trading since 1900, independently re-confirmed via a food-hygiene-register listing, no second site found) both promoted cleanly, high confidence. Beer Emporium Bottle Bank (24-26 London Road, Holmes Chapel CW4 7AJ) also promoted: independently re-confirmed via CAMRA/FSA/Wanderlog, and CAMRA's own listing explicitly flags not to confuse it with the unrelated, separately-owned Beer Emporium venues in Sandbach and Bristol, which resolves the chain-footprint question cleanly rather than leaving it open. The fourth candidate, Miola (40 London Road, Holmes Chapel — same postcode as Beer Emporium Bottle Bank), was NOT promoted: the original candidate's own research found one Sandbach sibling (a clean, in-precedent 2-site pair), but this run's independent re-check found aggregator listings suggesting a second, distinct Sandbach address (Abbeyfields/Lodge Road CW11 3HD as well as a separately-listed 216 Middlewich Road CW11 3EJ) alongside the Holmes Chapel site — a possible 3-site footprint rather than the 2-site pair originally described, which a follow-up search could neither confirm nor rule out as duplicate/stale directory noise for the same single Sandbach site. Left pending in docs/data/venue-suggestions.json; sent to docs/data/pending-review-queue.json for a human call rather than guessed at either way. Curia Command's pending_review collection was checked via ArtifactData's read-only 'query' action (the real equivalent this execution environment exposes) and had zero decided items to apply. The closure-audit rotating slice for 2026-11-03 (dayOfYear 307, indices 201-205: En Lefko/Perissa-Perivolos, Tranquilo/Perissa-Perivolos, The Beach Bar/Perissa-Perivolos, Theros Wave Bar/Perissa-Perivolos, Enigma Club/Fira) found no closure signal for any of the five on independent web search — all five show live, current listings and reviews, with 'currently closed' labels on some aggregators reading as normal daily/seasonal opening-hours status rather than a permanent closure.",
  "_dailyReviewPromotionSource20261030": "5 venues promoted 2026-10-30 by curia-suggestion-review, independently re-verified against the 8 candidates with a 2026-10-30 suggestedDate (4 of them the district's first-ever venues): Colourfield Gallery, Vinehop, Cofano Caffé and The Acoustic Lounge give Poynton (promoted into districts.json the day before, 2026-10-29, with zero venues of its own) its first real catalogue entries — all four independently re-confirmed single-site via fresh web search (Confidentials/Northern Soul for the gallery; CAMRA/OpenTable for Vinehop, whose 'Stockport' address on some OpenTable mirrors is the same SK12 postcode mislabelled, not a second site; Manchester's Finest/a March-2025-dated FSA hygiene record for Cofano Caffé; a forward-dated Aug-2026 Ents24 listing plus a Poynton Town Council festival form naming Brian Eason as contact for The Acoustic Lounge) — no chain or closure signal for any of the four. Cock & Pheasant (Bollington) independently re-confirmed via OpenTable (4.7/41) and a Historic England listed-building geocode, its own current description explicitly 'a newly independent Pub' (i.e. recently left pub-company operation) — a positive signal against chain concern, not just a neutral one. Three candidates were genuinely uncertain rather than a clean promote/reject and went to pending-review-queue.json instead: Queens Head (Frodsham) — the candidate's own flagged freehold-ownership question turned out to understate the real issue, since a Stonegate Pub Company (the UK's largest pub company) press item describes this specific pub as being owned and operated by Stonegate, a materially bigger chain-operator concern than the stale 'Flock Inns' freehold record the original research surfaced, though the press item is itself undated and may predate a change back to independent operation (the same pattern Cock & Pheasant, researched the same run, shows really happening to a different Cheshire pub); Cork of the North (Sale) — the real original-site-before-the-Heaton-Moor-sibling story checks out (the already-live Heaton Moor entry's own reason text independently corroborates it), but a Trip.com snapshot shows the business as currently closed and no review independently dated to 2025/2026 was found either; The Fisherman's Table (Marple) — real 2-site sibling pair (Poulton-le-Fylde) within this file's established precedent, but an undated Blacks Business Brokers for-sale listing plus no independently-dated 2025/2026 review (latest found: a Sept 2024 Confidentials review) is the same for-sale-plus-dating-gap shape this job has already sent to pending review elsewhere (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop) rather than guessed at. Six longer-pending candidates with live, undecided docs/data/pending-review-queue.json entries from the 2026-10-24/26/27/28 runs (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop and Mura Ma, both Marple; Northern Makes Gallery, Bollington; Brew & Tucker, Frodsham; Bevi, Marple) were deliberately left untouched this run, per this job's own 'don't re-decide an item already waiting on a human' rule. Curia Command's pending_review collection was checked via a read-only query (ArtifactData, action 'query' — the real read-only equivalent this execution environment exposes, not the brief's literal 'read_db' example) and had zero decided items to apply. The closure-audit rotating slice (indices 217-221: Sparkling Sunset/Oia, Lioyerma Lounge Cafe Pool Bar/Oia, Astra Suites Pool Bar/Imerovigli, Buddha-Bar Beach Sunset Lounge/Imerovigli, Domaine Sigalas/Oia) found no closure signal for any of the five on independent web search — Domaine Sigalas has a genuine Nov 2025 majority-ownership change (Kir-Yianni) but continues trading with 2026-dated reviews, an ownership change rather than a closure.",
  "_dailyReviewPromotionSource20261029": "3 venues promoted 2026-10-29 by curia-suggestion-review, independently re-verified against the 3 candidates with a 2026-10-29 suggestedDate: Cloudberry Cafe (Marple, 68 Stockport Road — independent coffee/cake cafe also selling local crafts, open Tue-Fri 10am-3pm only; re-confirmed via Sluurpy/Google/Tripadvisor aggregated reviews and Stockport Mumbler's own cafe listing, no second site found); Bean & Brush Family Art Café (Sale, 51 Stanley Square — pottery-painting studio and café; re-confirmed via thatsup.co.uk/dayoutwiththekids.co.uk and aggregated Google/Facebook reviews, specifically checked against and ruled out confusion with unrelated US 'Beans & Brews'/'Brushes & Beans' chains, single-site); Frodsham Marsh (Frodsham — a free-access birding/walking site on the Mersey/Weaver marshes, re-confirmed via BirdGuides' own published geocode, birdingplaces.eu's access notes and a Visorando route listing; same public-green-space category as the already-live Happy Valley/The Edge entries, so Hard rule 1's ownership-footprint check doesn't apply). All three re-verified via fresh independent web search against the original candidates' own researchNotes in docs/data/venue-suggestions.json (now removed from that file on promotion); no closure or chain-footprint signal found for any of them. Coordinates for Cloudberry Cafe and Bean & Brush remain the original candidates' own triangulated estimates (doogal.co.uk/api.postcodes.io both unreachable again this session via the egress proxy) rather than a direct geocode — flagged here, not silently carried over, consistent with this file's established practice of noting an approximation rather than presenting it as precise. petFriendly/dietaryOptions were not set for any of the three — a brief check turned up nothing specific enough to state as fact for either new cafe, so both fields are left unset rather than guessed, per this job's own 'don't guess dietary/pet facts' standard. Five longer-pending candidates with live, undecided docs/data/pending-review-queue.json entries from the 2026-10-24/26/27/28 runs (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop and Mura Ma, both Marple; Northern Makes Gallery, Bollington; Brew & Tucker, Frodsham; Bevi, Marple) were deliberately left untouched this run, per this job's own 'don't re-decide an item already waiting on a human' rule. Curia Command's pending_review collection was checked via a read-only query (ArtifactData, action 'query' — the real read-only equivalent this execution environment exposes, not the brief's literal 'read_db' example) and had zero decided items to apply. The closure-audit rotating slice (indices 218-222: Lioyerma Lounge Cafe Pool Bar/Oia, Astra Suites Pool Bar/Imerovigli, Buddha-Bar Beach Sunset Lounge/Imerovigli, Domaine Sigalas/Oia, Poniros Jewellery/Oia) found no closure signal for any of the five on independent web search — Astra Suites and Poniros both carry a normal seasonal winter-closure note, not a permanent closure, consistent with how this island's hospitality businesses operate every year.",
