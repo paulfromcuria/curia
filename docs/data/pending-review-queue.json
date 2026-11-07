@@ -482,6 +482,28 @@
         ],
         "reason": "Five all-weather courts behind the Pavilion on Chapel Lane — a members' club running leagues and coaching long before padel gave the postcode something trendier to book instead."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-07",
+      "reason": "Bury Council's own press releases consistently call this event 'Prestwich Artisan Market,' never 'Prestwich Makers Market' — the proposed name may be a mix-up with the separate, unrelated 'Preston Makers Market' in Lancashire, or a genuine later rebrand I couldn't independently confirm; no 2026 date was found either way, and the Longfield Centre is undergoing council-led redevelopment that could affect this outdoor pitch.",
+      "researchNotes": "Checked Bury Council's mynewsdesk.com press releases (multiple, dated across several years) — all five found use 'Prestwich Artisan Market.' Only one source (yourlocalbury.co.uk) uses 'Prestwich Makers Market,' with a March 2025 image and otherwise identical details (second Sunday of the month, outside the Longfield Centre, M25 1BR) — plausibly the same event under a newer name, not independently confirmed. Could not find any 2026-dated confirmation the market (under either name) is still running, and Bury Council has completed purchase of the Longfield Centre with redevelopment described as 'moving forward' (undated), which could affect this specific outdoor market. Also note: the suggestion's own researchNotes claimed Sandbach Makers Market/Frodsham Artisan Market were promoted without the `occasional` field — checked directly against venues.json and this is incorrect, both already carry `occasional: true`; any promotion of this market should match that precedent.",
+      "payload": {
+        "name": "Prestwich Makers Market",
+        "district": "prestwich",
+        "type": "ARTISAN MARKET",
+        "spend": "£",
+        "lat": 53.5329,
+        "lon": -2.285,
+        "base": 58,
+        "bands": [
+          "afternoon"
+        ],
+        "occasional": true,
+        "reason": "The second Sunday of every month, the Longfield Centre's forecourt fills with the North West's actual makers — food, craft, coffee and street music, not a car-boot dressed up as one."
+      }
     }
   ]
 }
