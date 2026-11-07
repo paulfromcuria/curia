@@ -1643,6 +1643,76 @@
    "suggestedDate": "2026-11-05",
    "status": "pending",
    "researchNotes": "Verified via padeldir.com and cademy.io (the latter flags its own profile as not club-managed, so treated as corroborating rather than sole evidence): The Tennis Club Hale Barns, The Pavilion, Chapel Lane, Hale Barns, Altrincham WA15 0AQ — a members' lawn tennis club with five all-weather courts. A genuine members' sports club, not a commercial chain — passes Hard rule 1 trivially. Coordinates (53.365501/-2.314968) are the WA15 0AQ postcode centroid, within ~0.3km of the Hale Barns district centroid. Fills an explicitly flagged real gap in docs/data/tiles.json's own note on the 'Play sport' tile: 'Padel and Tennis have zero real venues anywhere in the dataset right now... a placeholder until real padel/tennis venues get added.' Also directly addresses this district's own standing priority (5 real venues before this addition, the second-thinnest in Manchester/Cheshire after Prestwich) and its existing Do-category composition (previously Golf Club/Cricket Club/Spa only). Reuses the existing TENNIS CLUB type (introduced 2026-09-18 alongside Play sport, previously with zero real venues attached anywhere in the catalogue). Moderate-high confidence — address corroborated by two independent directory sources; no dedicated club website or social-media presence was found this session to confirm current membership status directly, flagged for the reviewer's own check, but no closure signal either. SENT TO PENDING REVIEW 2026-11-05 (curia-suggestion-review): independent re-check found the address itself corroborated again (padeldir.com), but the two independent sources genuinely conflict on the core facility fact this candidate's own reason text is built on — a padel directory lists one outdoor court and no indoor courts, while this candidate's other source describes five all-weather courts. That's a real disagreement about what members would actually be shown if they turned up, not just a currency/staleness gap, so it isn't honest to promote on the headline claim as written. Left 'pending' here; see docs/data/pending-review-queue.json for the human-facing entry."
+  },
+  {
+   "name": "Welles & Cross",
+   "district": "sandbach",
+   "type": "COUNTRY PUB",
+   "spend": "££",
+   "lat": 53.1432,
+   "lon": -2.3612,
+   "base": 66,
+   "bands": ["afternoon", "evening"],
+   "reason": "Nick Whitby's first pub, reopened on Welles Street in December 2023 under a new name and a proper kitchen — a contemporary British menu and a real ale pour that just won Cheshire's 'Most Loved Local Pub', not that Sandbach needed the award to tell it.",
+   "suggestedDate": "2026-11-07",
+   "status": "pending",
+   "researchNotes": "Verified via South Cheshire CAMRA's listing, Sandbach Nub News (two pieces: the Dec 2023 reopening under new owner Nick Whitby, described as his first pub, and the 2026 Muddy Stilettos Cheshire Awards report naming it the county's 'Most Loved Local Pub') and the Food Standards Agency ratings register (5/5 'Very Good', inspected 18 June 2024): Welles & Cross, 17 Welles St, Sandbach CW11 1GT — previously the Ring O' Bells, a Burtonwood tied house, reopened under its current name and owner in Dec 2023. No second site or group ownership found anywhere in searches; CAMRA's listing names the operator as Picadilly Licenced Properties LLP (a leasing/property entity, not a multi-site hospitality brand) with Whitby named directly as owner in press coverage — single-site, passes Hard rule 1 cleanly. Coordinates approximated from a nearby listed building's own geocode (49/51 High Street, 53.1431/-2.3615) since Welles Street itself wasn't individually geocoded this session (postcode/geocoding lookup tools were blocked by the network egress proxy) — a taxi-rank reference point put the two streets within ~94m of each other, so this is a close triangulation, not an invented figure; flagged for the reviewer to tighten if a precise geocode becomes available. Reuses the existing COUNTRY PUB type (Eat+Drink). Sandbach was the second-thinnest Manchester/Cheshire district found this run (6 real venues: Do=3, Drink=1, Eat=2) — this fills both its Drink and Eat gaps at once. High confidence — recent, multiply corroborated, a genuine current award, no closure signals. Checked against docs/data/venues.json and this file's own suggestions (including rejected/duplicate entries, e.g. the already-caught 'King Street Kitchen' Knutsford duplicate) before writing this — not a duplicate of anything existing."
+  },
+  {
+   "name": "Lupo Caffe Italiano",
+   "district": "prestwich",
+   "type": "ITALIAN RESTAURANT",
+   "spend": "££",
+   "lat": 53.5172,
+   "lon": -2.2761,
+   "base": 74,
+   "bands": ["afternoon", "evening"],
+   "reason": "Nico Pasquali's tiny Roman-style caffè-cum-trattoria, pushed out of Salford's Chapel Street by a landlord's notice and rebuilt on a Prestwich industrial estate with no passing trade to speak of — ranked 19th in Britain's 100 Best Local Restaurants 2026 anyway, on coffee and pasta alone.",
+   "suggestedDate": "2026-11-07",
+   "status": "pending",
+   "researchNotes": "Verified via the Good Food Guide (Best Local Restaurant, North West 2025, and 19th nationally in the 100 Best Local Restaurants 2026 list — both the guide's own listing pages, not secondary coverage), Manchester's Finest ('Hidden Gems' video feature and a dedicated piece on the award) and multiple local press (confidentials.com, The Manc, Salford Now) tracing its history: Lupo Caffe Italiano, Unit 65, Mountheath Trading Estate, Ardent Way, Prestwich M25 9WE — owner Nico Pasquali started the business on Chapel Street, Salford, relocated to Exchange Quay in 2017 after a landlord's notice, then relocated again to this Prestwich industrial unit in 2021 after a second notice. No second site or group ownership found anywhere in searches, including a direct check for a 'second Lupo' — single-site, passes Hard rule 1 cleanly. Coordinates are an approximation: direct geocoding tools (postcodes.io, doogal.co.uk, Nominatim) were all blocked by the network egress proxy this session, so this uses a nearby listed site's own published geocode (53.517244/-2.276130, for the adjacent Mountheath Industrial Estate off George Street, the same trading estate complex per cross-referenced postcode-area search) rather than Ardent Way's exact unit — flagged for the reviewer to tighten with a direct geocode. Reuses the existing ITALIAN RESTAURANT type. Prestwich was found this run to be the thinnest of the 2026-09+ Manchester-metro district promotions still under 10 venues (8 real venues: Do=2, Drink=2, Eat=2) — this and the two other Prestwich candidates below address that directly, Eat specifically. High confidence — a real, current, nationally-ranked award as of 2026, long independent history, no closure signals."
+  },
+  {
+   "name": "Codi's Kitchen",
+   "district": "prestwich",
+   "type": "PAN-ASIAN RESTAURANT",
+   "spend": "££",
+   "lat": 53.5318,
+   "lon": -2.284,
+   "base": 68,
+   "bands": ["afternoon", "evening"],
+   "reason": "Prestwich's first pan-Asian sushi room, grown out of a takeaway by chef-owner Codi Sheldon until the hand-rolled maki needed a bigger kitchen than Heywood Road could give it — sashimi and salt-and-pepper plates on Bury New Road now, with a 4.5-star queue to match.",
+   "suggestedDate": "2026-11-07",
+   "status": "pending",
+   "researchNotes": "Verified via Manchester Wire's current (April 2026) Prestwich eating-and-drinking guide, Bury Council's own licensing register (premises licence granted Jan 2025) and the Food Standards Agency ratings register (inspection Sept 2025, both for 391 Bury New Road) plus a current Deliveroo listing (4.5★, 500+ ratings, 2026 copyright footer): Codi's Kitchen, 391 Bury New Rd, Prestwich M25 1AW — chef-owner Codi Sheldon, started as a takeaway on Heywood Road before moving to this larger Bury New Road site. No second site found anywhere in searches — single-site, passes Hard rule 1 cleanly. One flagged discrepancy: a Manchester Wire listing gives the address as 395-397 Bury New Road rather than 391 — likely the same small parade (both numbers sit within the same short stretch the district's existing venues already cluster around) rather than two different venues, but not independently resolved this session; coordinates placed within that existing Prestwich venue cluster (The Pearl/Cellar Door/Anatolian Grill, all at or near 53.532/-2.285) rather than an exact doorway geocode, since direct geocoding tools were blocked this session. Reuses the existing PAN-ASIAN RESTAURANT type. Moderate-high confidence — multiple independently-dated 2025-2026 sources confirm current trading at the new address; the address discrepancy and a stale aggregator snapshot showing it 'closed' (almost certainly just an off-hours snapshot, not a closure signal, given the government licensing/hygiene records both post-date it and confirm active trading) are the two caveats worth a reviewer's direct check before promotion."
+  },
+  {
+   "name": "Prestwich Makers Market",
+   "district": "prestwich",
+   "type": "ARTISAN MARKET",
+   "spend": "£",
+   "lat": 53.5329,
+   "lon": -2.285,
+   "base": 58,
+   "bands": ["afternoon"],
+   "reason": "The second Sunday of every month, the Longfield Centre's forecourt fills with the North West's actual makers — food, craft, coffee and street music, not a car-boot dressed up as one.",
+   "suggestedDate": "2026-11-07",
+   "status": "pending",
+   "researchNotes": "Verified via Bury Council's own events listings (mynewsdesk.com/uk/bury-council, multiple dated press releases) and visitlancashire.com's current events listings: Prestwich Makers Market, held outside the Longfield Centre, Prestwich M25 1BR, on the second Sunday of every month — food, drink, craft, art and live music stalls. Real and recurring, same register as the already-live Sandbach Makers Market and Frodsham Artisan Market in this catalogue. Not a commercial chain — a council-adjacent community market, passes Hard rule 1 trivially. Coordinates are an approximation (53.5329/-2.285, close to the existing Prestwich venue cluster around Bury New Road) since the Longfield Centre's own exact forecourt wasn't independently geocoded this session (geocoding tools blocked) — flagged for the reviewer to tighten. Reuses the existing ARTISAN MARKET type (Do). Given it only runs monthly, flagging for the reviewer to consider the `occasional` field at promotion time the same way the catalogue's other monthly markets have been judged case-by-case — not set here, matching how Sandbach Makers Market and Frodsham Artisan Market were themselves promoted without it. Moderate confidence — real and multiply corroborated by the council's own listings, but the most recent independently-dated mention found was from a 2025 image caption rather than a fresh 2026 date; worth the reviewer's own current-status check before promotion."
+  },
+  {
+   "name": "Cherry Tree",
+   "district": "hale-barns",
+   "type": "CHINESE RESTAURANT",
+   "spend": "££",
+   "lat": 53.3695,
+   "lon": -2.3137,
+   "base": 64,
+   "bands": ["afternoon", "evening"],
+   "reason": "No fusion, no small plates, just a long-standing Hale Road kitchen doing proper salt-and-pepper and crispy duck for a village whose other options are a Marriott brasserie and a supermarket deli counter.",
+   "suggestedDate": "2026-11-07",
+   "status": "pending",
+   "researchNotes": "Verified via multiple independent aggregator/review sources (a family-dining directory citing 4.6★ from 108 Google reviews; a separate directory citing 4.6★ from 597 reviews categorised as seafood/Asiatic) consistently describing one well-established, well-reviewed Chinese restaurant at this address, with no evidence found anywhere of a second site or group ownership under this name — the other 'Cherry Tree' results turned up by search are unrelated namesake pubs/bistros in Leeds, Blackrod, Olney and Barnsley, not the same business. Cherry Tree, 309 Hale Rd, Hale Barns, Altrincham WA15 8SS. One flagged caveat: one directory source names a different business (Costa Coffee) at the same street number, which may reflect a shared parade with multiple numbered units rather than a conflict — not independently resolved this session, flagged for the reviewer. Separately, local community reporting (halebarns.com) describes Hale Barns Square's retail parade as struggling (Costa Coffee there closing May 2026, an Asda unit up for lease) — Cherry Tree's own address and reviews read as a distinct, longer-established unit on Hale Road rather than that specific struggling parade, but worth the reviewer's own current-status check given the area's wider retail signal. Coordinates are the WA15 8SS postcode-area centroid (53.3695/-2.3137, from a property-directory source) rather than a precise building geocode, since direct geocoding tools were blocked this session. New type introduced: CHINESE RESTAURANT — the existing CANTONESE RESTAURANT/CANTONESE ROAST types specifically imply Cantonese-style cooking, which this generic Chinese-restaurant menu (salt-and-pepper dishes, noodles, soups per review descriptions) doesn't precisely fit; category-only (Eat), same treatment as this catalogue's many other precise-fit-doesn't-exist types. Hale Barns was the thinnest Manchester/Cheshire district found this run (5 real venues: Do=3, Drink=1, Eat=2) — this fills its Eat gap. Moderate confidence — well-reviewed and consistently described as a going concern, but the address/parade caveats above are real and worth a second look before promotion."
   }
  ]
 }
