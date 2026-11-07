@@ -1280,6 +1280,36 @@
         }
       ],
       "createdAt": "2026-11-06T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-11-07",
+      "synced": false,
+      "title": "4 venues promoted (Sandbach, Prestwich x2, Hale Barns); 1 market sent for review; closure audit clean",
+      "summary": "Independently re-verified today's 5 new pending venue candidates (the only ones not already sitting in pending-review-queue.json from prior runs): promoted Welles & Cross (Sandbach), Lupo Caffe Italiano and Codi's Kitchen (both Prestwich) and Cherry Tree (Hale Barns, introducing a new category-only CHINESE RESTAURANT type) straight into venues.json. Prestwich Makers Market was sent to Pending Review instead — Bury Council's own press consistently calls this event 'Prestwich Artisan Market,' and the proposed name couldn't be independently confirmed. Curia Command's pending_review collection had nothing decided to apply this run, and the twelve longer-pending candidates already queued from 2026-10-18 through 2026-11-05 were left untouched (each already has a live pending-review entry awaiting a human decision). The closure-audit rotating slice (KLUB, Portland Wine, Contemporary Six, K2 Karaoke, Pip) found no closures.",
+      "items": [
+        {
+          "label": "Welles & Cross (Sandbach)",
+          "detail": "promoted — single-site pub, Nick Whitby, confirmed 2026 'Most Loved Local Pub' award"
+        },
+        {
+          "label": "Lupo Caffe Italiano (Prestwich)",
+          "detail": "promoted — single-site, 19th in Good Food Guide's 100 Best Local Restaurants 2026"
+        },
+        {
+          "label": "Codi's Kitchen (Prestwich)",
+          "detail": "promoted — single-site, FSA register confirms current trading"
+        },
+        {
+          "label": "Cherry Tree (Hale Barns)",
+          "detail": "promoted — single-site Chinese restaurant, both flagged caveats resolved as non-issues"
+        },
+        {
+          "label": "Prestwich Makers Market (Prestwich)",
+          "detail": "sent for review — Bury Council's own press names it 'Prestwich Artisan Market' instead"
+        }
+      ],
+      "createdAt": "2026-11-07T00:00:00Z"
     }
   ]
 }
