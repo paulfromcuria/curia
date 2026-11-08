@@ -482,6 +482,73 @@
         ],
         "reason": "Five all-weather courts behind the Pavilion on Chapel Lane — a members' club running leagues and coaching long before padel gave the postcode something trendier to book instead."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-08",
+      "reason": "A directory source places a different business (Costa Coffee) at this same street number, and separate local reporting describes this exact retail parade as struggling (a Costa Coffee closure, an Asda unit up for lease) — a real, unresolved conflict about this specific address, not just a dating gap.",
+      "researchNotes": "Independently re-verified 2026-11-08 (WebSearch): confirmed one current listing (309 Hale Rd, Hale Barns, Altrincham WA15 8SS, 4.6★ from 108 reviews) describing an established, well-reviewed Chinese restaurant, with no second site or group ownership found anywhere — Hard rule 1 is clean if the address checks out. But a separate directory source names Costa Coffee at the same street number, and halebarns.com's own local reporting describes Hale Barns Square's retail parade as struggling (that Costa closing May 2026, an Asda unit up for lease) — neither this review nor the original candidate's own research could independently resolve whether Cherry Tree is a distinct, longer-established unit on Hale Road (as its reviews suggest) or caught up in that same struggling parade. No closure signal found for Cherry Tree itself, so not a reject-as-bad case.",
+      "payload": {
+        "name": "Cherry Tree",
+        "district": "hale-barns",
+        "type": "CHINESE RESTAURANT",
+        "spend": "££",
+        "lat": 53.3695,
+        "lon": -2.3137,
+        "base": 64,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "No fusion, no small plates, just a long-standing Hale Road kitchen doing proper salt-and-pepper and crispy duck for a village whose other options are a Marriott brasserie and a supermarket deli counter."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-08",
+      "reason": "No chain or closure concern, but there is no customer review, star rating or 2025/2026-dated source of any kind — only an undated trade-directory profile — a thinner evidence base than this job is comfortable promoting on.",
+      "researchNotes": "Independently re-verified 2026-11-08 (WebSearch): confirmed 70 Stockport Road, Marple, Stockport SK6 6AB, via a Yale Representation trade profile describing it as a family-owned independent serving the area for over 50 years, and a bookstore directory giving the same address. No second site or group ownership found anywhere — Hard rule 1 is clean. But fresh search found zero customer reviews, star ratings or dated 2025/2026 confirmation of any kind, only the same undated trade profile the original candidate already cited. No closure signal either (no 'permanently closed' marker, no dead listings), so not a reject-as-bad case — the same thin-currency shape this file has sent to review before (Mura Ma, Northern Makes Gallery) rather than promoted.",
+      "payload": {
+        "name": "Marple Bookshop",
+        "district": "marple",
+        "type": "BOOKSHOP",
+        "spend": "£",
+        "lat": 53.39495,
+        "lon": -2.06495,
+        "base": 62,
+        "bands": [
+          "morning",
+          "afternoon"
+        ],
+        "reason": "Fifty-plus years on Stockport Road under the same family's eye — shelves stocked by people who've actually read what's on them, not an algorithm's idea of a bestseller table."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-08",
+      "reason": "The only source found anywhere, before or after a fresh re-check, is a single 2023 opening article — nothing confirms this is still trading three years on, a wider dating gap than this file's own bar for a confident promote.",
+      "researchNotes": "Independently re-verified 2026-11-08 (WebSearch): confirmed the single 2023 Macclesfield Nub News piece ('New, booming Bollington yoga studio is fully-booked for a fortnight') naming founder Madison Cooper and the address (104 Palmerston Street, Bollington SK10 5PW), plus no evidence of a second site or franchise tie anywhere — Hard rule 1 is clean if it's still trading. No closure signal found either (no 'permanently closed' marker, no dead social accounts), so not a reject-as-bad case. But nothing newer than that 2023 piece turned up on fresh search — a three-year gap, wider than this file's own precedent for a confident promote (e.g. Brew & Tucker's 2017/2018 gap was itself sent to review, not promoted, correcting the original candidate's own researchNotes which cited it as a promoted precedent).",
+      "payload": {
+        "name": "Bollington Yoga",
+        "district": "bollington",
+        "type": "WELLNESS STUDIO",
+        "spend": "££",
+        "lat": 53.2978,
+        "lon": -2.0966,
+        "base": 60,
+        "bands": [
+          "morning",
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Madison Cooper built a Palmerston Street studio with room for fifteen other teachers inside it, not just herself — booked solid a fortnight ahead within weeks of opening, and the timetable has never really slowed since."
+      }
     }
   ]
 }

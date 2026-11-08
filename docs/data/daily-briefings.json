@@ -1280,6 +1280,72 @@
         }
       ],
       "createdAt": "2026-11-06T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-11-08",
+      "synced": false,
+      "title": "8 venues + Middlewich (new Cheshire district) promoted; 3 sent for review; 12 longer-pending items left untouched; closure audit clean",
+      "summary": "Step 1: Curia Command's pending_review collection was checked (ArtifactData 'query', status != 'pending') and had zero decided items to apply. Step 2/3: independently re-verified all 11 pending candidates with a 2026-11-07/11-08 suggestedDate in venue-suggestions.json, plus the sole pending district candidate, Middlewich — with fresh WebSearch for each, not just the prior researchNotes. Promoted 8 straight to venues.json: Welles & Cross, Raffaele and Four Priests give Sandbach three more (Four Priests' own ownership link independently corroborates Middlewich's real, current commercial activity too); Lupo Caffe Italiano, Codi's Kitchen and Prestwich Makers Market round out Prestwich; Holmes Gifts & Interiors and Holmes Chapel Zoo give Holmes Chapel two more. Middlewich promoted into districts.json as the genuinely obvious third member of the Nantwich/Northwich 'wich' salt-town trio. Sent 3 to pending-review-queue.json rather than guessing: Cherry Tree (Hale Barns) — a directory source places Costa Coffee at the same street number, and local reporting describes that exact retail parade as struggling, a real address conflict fresh search couldn't resolve; Marple Bookshop — zero customer reviews or 2025/2026-dated confirmation found anywhere, only the same undated trade profile the original candidate cited; Bollington Yoga — only a single 2023 opening article found, nothing since, a three-year gap wider than this file's own bar for a confident promote (and the candidate's own claim that a similar gap, Brew & Tucker's, was previously promoted turned out to be wrong — that one was itself sent to review, not promoted). Twelve longer-pending candidates already sitting in docs/data/pending-review-queue.json from the 2026-10-18 through 2026-11-05 runs (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table, Poachers Inn, Deuce, The Tennis Club Hale Barns) were deliberately left untouched, per this job's own 'don't re-decide an item already waiting on a human' rule. The closure-audit rotating slice (dayOfYear 312, indices 156-160 of the post-promotion venues.json: Manchester Craft and Design Centre, The Frog and Bucket, The Whiskey Jar, Port Street Beer House, all Northern Quarter, and The Horsfall, Ancoats) found no closure signal for any of the five on independent web search — all show live bookings, current reviews or no negative signal; nothing written to pending-review-queue.json for it.",
+      "items": [
+        {
+          "label": "Welles & Cross (Sandbach)",
+          "detail": "promoted — single-site pub, 2026 Muddy Stilettos 'Most Loved Local Pub' winner, re-confirmed via CAMRA and Sandbach Nub News"
+        },
+        {
+          "label": "Raffaele (Sandbach)",
+          "detail": "promoted — relocation of one existing business into the former Crown Hotel/Saxon Grill unit, not a second site; Nov 2025 FSA inspection confirms current trading"
+        },
+        {
+          "label": "Four Priests (Sandbach)",
+          "detail": "promoted — confirmed genuine 2-site brewery-plus-tap pair (Middlewich brewery, Sandbach taproom since July 2025), within established small-sibling precedent"
+        },
+        {
+          "label": "Lupo Caffe Italiano (Prestwich)",
+          "detail": "promoted — single-site, re-confirmed via the Good Food Guide's own 2026 ranking (19th nationally)"
+        },
+        {
+          "label": "Codi's Kitchen (Prestwich)",
+          "detail": "promoted — the candidate's own flagged address discrepancy (391 vs 395-397 Bury New Road) resolved in favour of 391, matching a Sept 2025 FSA hygiene record"
+        },
+        {
+          "label": "Prestwich Makers Market (Prestwich)",
+          "detail": "promoted — real, ongoing monthly market re-confirmed via multiple of Bury Council's own press releases"
+        },
+        {
+          "label": "Holmes Gifts & Interiors (Holmes Chapel)",
+          "detail": "promoted — single-site, large and current Trustpilot review base (4.9/5, ~275 reviews)"
+        },
+        {
+          "label": "Holmes Chapel Zoo (Holmes Chapel)",
+          "detail": "promoted — single-site (Zoo2U's mobile outreach work isn't a second site), re-confirmed via its real planning history and local press"
+        },
+        {
+          "label": "Middlewich (new Cheshire district)",
+          "detail": "promoted — the genuinely obvious third 'wich' salt-town alongside already-live Nantwich/Northwich, clean distance check against every existing Cheshire district"
+        },
+        {
+          "label": "Cherry Tree (Hale Barns)",
+          "detail": "sent for review — a directory source places Costa Coffee at the same street number, and local reporting describes that exact parade as struggling; fresh search couldn't resolve the conflict"
+        },
+        {
+          "label": "Marple Bookshop (Marple)",
+          "detail": "sent for review — no customer reviews or 2025/2026-dated confirmation found anywhere, only an undated trade profile"
+        },
+        {
+          "label": "Bollington Yoga (Bollington)",
+          "detail": "sent for review — only a single 2023 article found, a three-year currency gap with no newer confirmation either way"
+        },
+        {
+          "label": "12 longer-pending candidates (Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table, Poachers Inn, Deuce, The Tennis Club Hale Barns)",
+          "detail": "left untouched — each already has a live, undecided pending-review-queue.json entry from an earlier run, not re-decided"
+        },
+        {
+          "label": "Closure audit (Northern Quarter/Ancoats slice)",
+          "detail": "no closures found among Manchester Craft and Design Centre, The Frog and Bucket, The Whiskey Jar, Port Street Beer House, The Horsfall"
+        }
+      ],
+      "createdAt": "2026-11-08T00:00:00Z"
     }
   ]
 }
