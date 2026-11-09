@@ -1687,34 +1687,6 @@
    "researchNotes": "Bollington's real Do category sits at only 2 category-mapped venues (Bollington Discovery Centre/MUSEUM, Bollington Arts Centre/PERFORMING ARTS) before this run — the district's thinnest category, even with its own pending Northern Makes Gallery candidate from a prior run counted in. Verified via Macclesfield Nub News ('New, booming Bollington yoga studio is fully-booked for a fortnight', 2023) and a local activities directory listing a Thursday evening class slot: Bollington Yoga, 104 Palmerston Street, Bollington SK10 5PW — founded by Madison Cooper, who was already teaching in the town before opening a dedicated studio that also hosts roughly 15 other visiting teachers, functioning as a real local yoga hub rather than a single-instructor operation. No second site, franchise tie or group ownership found anywhere in searches; single-site, passes Hard rule 1 cleanly. Flagging honestly: the most recent independently-dated source found is the 2023 opening piece — no 2025/2026-dated class timetable or review turned up this session, though equally no closure signal (no 'permanently closed' marker, no dead social accounts) was found either, the same evidence shape this file has promoted on before (e.g. Brew & Tucker, Frodsham) rather than a reason to withhold. Coordinates (53.2978, -2.0966) are an approximation along Palmerston Street near the already-catalogued 88 Palmerston Street cluster (Aroma/Kira/Briscola's shared unit, 53.297987/-2.096854), since a direct postcode geocode for SK10 5PW wasn't resolvable this session — flagged for the reviewer to tighten. Reuses the existing WELLNESS STUDIO type (Wilmslow Pilates & Wellness, RAW Studios, The Heatons Studio). Moderate confidence — real and well-corroborated at opening, genuinely distinctive (a real local teaching hub, not a chain studio), but the dating gap above is worth the reviewer's own current-status check before promotion. SENT TO PENDING REVIEW 2026-11-08 (curia-suggestion-review): independent re-check found exactly the same single 2023 article and nothing newer — a wider dating gap (three years) than this file's own precedent for a promotable currency gap. Correcting the record: the candidate's own claim that 'Brew & Tucker, Frodsham' was promoted on this same evidence shape is actually wrong — that candidate was itself sent to pending review on 2026-10-27 for an even narrower (2017/2018) dating gap, not promoted, which if anything argues for review here too. Left 'pending' here; see docs/data/pending-review-queue.json for the human-facing entry."
   },
   {
-   "name": "Il Padrino",
-   "district": "middlewich",
-   "type": "ITALIAN RESTAURANT",
-   "spend": "££",
-   "lat": 53.1929,
-   "lon": -2.4476,
-   "base": 74,
-   "bands": ["evening"],
-   "reason": "A former cinema on Wheelock Street turned Venetian dining room by the team behind Holmes Chapel's Don Alberto — the second act, not a chain's idea of a second site.",
-   "suggestedDate": "2026-11-09",
-   "status": "pending",
-   "researchNotes": "This run's starting tally: Middlewich (promoted into districts.json 2026-11-08) sits at zero real venues — the single largest Manchester/Cheshire gap found this run, ahead of every other under-10 district. Verified via Tripaligner, Sluurpy and hygienescore.co.uk/hygienescout.co.uk (consistent 4.8-4.9/5 ratings from 300+ reviews, 'Very Good' FSA rating, inspected July 2024): Il Padrino, 33 Wheelock Street, Middlewich CW10 9AG — a family-run Italian restaurant in a former cinema, open Wednesday-Sunday evenings. A TripAligner listing credits it with the English Hospitality Awards 2024 'Best Dining Experience' title; that claim comes from a single third-party listing rather than the award body itself, so flagged for the reviewer to verify directly rather than taken at face value. Ownership: opened end of 2019 by the same team as Don Alberto, the well-established Italian in neighbouring Holmes Chapel (not currently in this catalogue) — a real, already-trading 2-site pair across two adjoining Cheshire towns, within the same small-sibling precedent already accepted throughout this file (Craig's, Little Tap/Terrarium, Fire Station Social Cucina); no third site found anywhere in searches. Coordinates (53.1929/-2.4476) approximated from the listed building at 28 Wheelock Street (britishlistedbuildings.co.uk, 53.1929/-2.4474) a few doors from number 33, since doogal.co.uk/api.postcodes.io were both unreachable this session (network egress — see this session's own notes) — flagged for the reviewer to tighten. Reuses the existing ITALIAN RESTAURANT type. High-moderate confidence — well-documented, consistently high-rated across multiple independent aggregators, no closure signal; the award-title sourcing and approximated coordinate are the two flags."
-  },
-  {
-   "name": "Four Priests Brewery Tap",
-   "district": "middlewich",
-   "type": "BREWERY TAP",
-   "spend": "£",
-   "lat": 53.1969,
-   "lon": -2.449,
-   "base": 60,
-   "bands": ["afternoon", "evening"],
-   "reason": "The tanks themselves double as the seating most first weekends of the month — cask straight from source, the same brewery that supplies the bar already poured a few miles south in Sandbach.",
-   "suggestedDate": "2026-11-09",
-   "status": "pending",
-   "researchNotes": "Second Middlewich candidate this run, closing the district's Drink category specifically (zero real venues of any kind before today). Verified via CAMRA/camra.org.uk (Four Priests Brewery Tap listing) and southcheshire.camra.org.uk: Four Priests Brewery Tap, 2 Finneys Lane, Middlewich CW10 9DR — the working brewery's own on-site taproom, pouring its core cask range (Murgy Straight, Moston Dragon, Cross Stout) plus rotating cask/keg specials and guest beers from other local breweries. Already a real, established sibling relationship in this catalogue: 'Four Priests' (BREWERY TAP, Sandbach, already live in docs/data/venues.json) is this same brewery's bar on Welles Street, Sandbach — that entry's own reason line already names 'the Middlewich brewery'. This candidate is the brewery's own production-site tap, not a duplicate of the Sandbach bar; named distinctly to avoid any name collision. Flagging honestly for the reviewer: opening is genuinely limited — CAMRA sources describe it as open 'usually Friday-Sunday on the first weekend of the month, and every weekend in August' plus festival/event openings, a materially thinner schedule than this catalogue's typical venue, though still a real recurring weekly-within-a-month pattern rather than a one-off event, so `occasional` wasn't set here — worth the reviewer's own judgment call given CLAUDE.md's `occasional` flag exists for exactly this shape of question. No second taproom or chain structure found; the brewery itself is single-site. Coordinates (53.1969/-2.449) are the CW10 9DR postcode-area centroid via web search (doogal.co.uk/api.postcodes.io both unreachable this session). Reuses the existing BREWERY TAP type. Moderate confidence — well-documented via multiple CAMRA sources and a real sibling precedent already in the catalogue; the limited, non-daily opening pattern is the one flag."
-  },
-  {
    "name": "Big Lock",
    "district": "middlewich",
    "type": "COUNTRY PUB",
@@ -1726,63 +1698,7 @@
    "reason": "A two-level stack pub built for the boats before it was built for anyone else, standing right on the only lock in town wide enough to pass two narrowboats side by side — food runs noon to nine, and the balcony over the water fills first.",
    "suggestedDate": "2026-11-09",
    "status": "pending",
-   "researchNotes": "Third Middlewich candidate this run. Verified via CAMRA/camra.org.uk, Crewe Chronicle ('Popular Middlewich canal-side pub reopens'), catererlicensee.com/starpubs.co.uk (coverage of a six-month, c.£480,000 refurbishment and reopening) and hygienescore.co.uk (5/5 'Very Good' FSA rating): Big Lock, Webbs Lane, Middlewich CW10 9DN — a canal-side stack pub directly on the Trent & Mersey Canal's Big Lock, the only lock in Middlewich wide enough for two boats side by side; food served daily noon-9pm. Chain check, flagged honestly: trade press names the operator as Priory Inns North West, described in a 2024 trade piece as taking on this as its 10th site, all leased from Star Pubs & Bars (a pub-owning company that leases to tenant operators, the same tied-house structure already accepted in this file for Trust Inns/Robinsons). Ten sites is a larger local footprint than this file's usual 2-3-site small-sibling allowance — each pub keeps its own individual historic name and identity rather than a shared brand (no 'Priory Inns' signage or branding found anywhere), the same character already extended to the 7-pub Cheshire Cat group, but the scale here is real and worth the reviewer's own Gate 1 judgment rather than a unilateral call. Coordinates (53.195439/-2.447894) are the CW10 9DN postcode centroid, where multiple directory listings confirm 'Big Lock Inn, Webbs Lane' sits (doogal.co.uk/api.postcodes.io both unreachable this session). Reuses the existing COUNTRY PUB type. Moderate confidence — real, well-documented, recently refurbished, no closure signal; the ten-site tenancy footprint is the one flag genuinely worth the reviewer's own look."
-  },
-  {
-   "name": "Middlewich Cricket Club",
-   "district": "middlewich",
-   "type": "CRICKET CLUB",
-   "spend": "£",
-   "lat": 53.1985,
-   "lon": -2.452,
-   "base": 54,
-   "bands": ["afternoon"],
-   "reason": "Haddon Field has had a scorebox longer than most of the town's pubs have had a beer garden — promotion out of Division Two in 2023 came the slow way, one league season at a time.",
-   "suggestedDate": "2026-11-09",
-   "status": "pending",
-   "researchNotes": "Fourth Middlewich candidate this run, the district's first Do-category pick — closing the one gap the other three (two Drink, one Eat/Drink) didn't touch. Verified via CricketArchive (Haddon Field ground records spanning 1946-2017) and Crewe Guardian ('having led Division Two of the Cheshire Cricket League all season, the first team secured promotion in their final game' of the 2023 season): Middlewich Cricket Club, Haddon Field, Croxton Lane, Middlewich CW10 9EZ — a real, currently-active amateur cricket club playing in the Cheshire County Cricket League. Same type/precedent already used for Mobberley, Prestbury, Holmes Chapel, Bowdon and Hale Barns Cricket Club elsewhere in this catalogue — a genuine club ground, not a commercial venue, passes Hard rule 1 cleanly by construction (amateur sports club). Coordinates (53.1985/-2.452) triangulated from nearby postcode data (CW10 9EH at 53.1979/-2.4456, and neighbouring Croxton Trail Park, CW10 9FB, at 53.1993/-2.4585) since a direct CW10 9EZ geocode wasn't resolvable this session (doogal.co.uk/api.postcodes.io both unreachable) — flagged for the reviewer to tighten. Reuses the existing CRICKET CLUB type. Moderate-high confidence — real, well-documented recent on-pitch history (a 2023 promotion), no closure signal; the coordinate approximation is the one flag."
-  },
-  {
-   "name": "Sandbach Golf Club",
-   "district": "sandbach",
-   "type": "GOLF CLUB",
-   "spend": "£££",
-   "lat": 53.153,
-   "lon": -2.374,
-   "base": 66,
-   "bands": ["morning", "afternoon"],
-   "reason": "Nine holes on the Cheshire Plain off Middlewich Road since 1925 — a parkland course that has never once felt the need to build the back nine to make its case.",
-   "suggestedDate": "2026-11-09",
-   "status": "pending",
-   "researchNotes": "Sandbach sits at 9 real venues, one below this file's standing 10-venue floor, with Do (Sandbach Market Hall, YouSpa, Sandbach Makers Market) its thinnest category. Verified via the club's own site (sandbachgolfclub.co.uk), Golfshake and GolfToday: Sandbach Golf Club, 117 Middlewich Road, Sandbach CW11 1FH — a members' 9-hole parkland golf course, established on this site in 1925, offering full and junior memberships plus green fees for visitors. No second site or group ownership found anywhere in searches; a single members' club, passes Hard rule 1 cleanly by construction, same precedent as the other 22+ real Cheshire golf clubs already in this catalogue. Coordinates (53.153/-2.374) approximated along Middlewich Road roughly a mile out from Sandbach town centre (the club's own directions describe it as 'about half a mile along on the right' from the second roundabout heading towards Middlewich) since a direct CW11 1FH geocode wasn't resolvable this session (doogal.co.uk/api.postcodes.io both unreachable) — flagged for the reviewer to tighten. Reuses the existing GOLF CLUB type. Moderate-high confidence — long-established (100 years on this site), well-documented via the club's own site and golf directories, no closure signal; the coordinate approximation is the one flag."
-  },
-  {
-   "name": "Castle Park House and Gardens",
-   "district": "frodsham",
-   "type": "TOWN PARK",
-   "spend": "£",
-   "lat": 53.2958,
-   "lon": -2.7232,
-   "base": 60,
-   "bands": ["morning", "afternoon"],
-   "reason": "A Georgian walled garden, a rose walk and a bowling green sitting free and open behind the Arts Centre's gallery walls — the grounds a Frodsham brewing family built, kept up long after the family itself left.",
-   "suggestedDate": "2026-11-09",
-   "status": "pending",
-   "researchNotes": "Frodsham's real Do category (Castle Park Arts Centre, Frodsham Artisan Market, Frodsham Marsh) is its thinnest found this run, even counting its own pending Brew & Tucker/Queens Head Drink-and-Eat candidates from a prior run. Verified via Historic England's own listing (list entry 1001622, Grade II Register of Historic Parks and Gardens), Cheshire West and Chester Council's own parks page and parksandgardens.org: Castle Park, off Chester Road (A56), Frodsham WA6 6SB — a nine-hectare public park with formal gardens, a Georgian walled garden, bowling green and tennis courts, free and open year-round, distinct from (though adjoining) Castle Park Arts Centre, the gallery already live in this catalogue in the same grounds. A council-run public amenity, not a commercial venue — same precedent as this file's other TOWN PARK/RIVERSIDE PARK entries (Walkden Gardens, Heaton Moor Park, Sale Water Park), passes Hard rule 1 cleanly by construction. Coordinates (53.2958/-2.7232) placed a short distance from the already-catalogued Castle Park Arts Centre entry (53.2962/-2.7225), inside the same grounds, rather than my own fresh web-derived estimate (53.2926/-2.7309, Wikipedia's Castle Park House infobox) which disagreed with the existing catalogue entry by several hundred metres — flagged for the reviewer to reconcile which figure is more accurate. Reuses the existing TOWN PARK type. High confidence on the venue itself (a listed historic park, free and current) — the coordinate discrepancy between sources is the one flag."
-  },
-  {
-   "name": "Chin Chin",
-   "district": "prestwich",
-   "type": "WINE BAR",
-   "spend": "££",
-   "lat": 53.5325,
-   "lon": -2.2838,
-   "base": 72,
-   "bands": ["afternoon", "evening"],
-   "reason": "Elnecot's wine team took the old Dokes pizza unit further up Bury New Road and filled it with low-intervention bottles and a roast-dinner sandwich nobody asked for but everyone now orders — Prestwich's answer to its own cocktail strip, minus the cocktails.",
-   "suggestedDate": "2026-11-09",
-   "status": "pending",
-   "researchNotes": "Prestwich's real Drink category is its thinnest mapped cell found this run (Wallop and Cellar Door, both WINE BAR — Cuckoo's LIVE MUSIC BAR type and Gorge's BRAZILIAN RESTAURANT type aren't currently wired into CATEGORY_BY_VENUE_TYPE). Verified via themanc.com ('Prestwich wine bar guide'), manchestersfinest.com and Bury Council's own licensing register (premises licence dated 09/08/2022 for 449a Bury New Road): Chin Chin, 449a Bury New Road, Prestwich M25 1AF — a natural-wine bar with small plates, run by the same team behind Elnecot, the well-regarded modern-British restaurant in Ancoats (not currently in this catalogue), on a site that previously traded as their own Dokes Pizzeria. A real, already-trading 2-site pair across two Manchester-metro districts under one kitchen team — within the same precedent already accepted in this file for Nam/Ōdiobā (Ancoats/Stockport Underbanks); no third site found anywhere in searches. Confirmed distinct from Wallop/'Wine & Wallop', the already-catalogued Prestwich wine bar at 401-403 Bury New Road — a different address, a few doors south, not a duplicate. Coordinates (53.5325/-2.2838) approximated along Bury New Road near the district's own centroid (53.532116/-2.284824, itself the M25 1AF postcode for 425 Bury New Road, a few doors from 449a) since a direct geocode for 449a wasn't resolvable this session (doogal.co.uk/api.postcodes.io both unreachable). Reuses the existing WINE BAR type. Moderate-high confidence — well-documented via multiple independent local outlets and a licensing record, real sibling ownership, no closure signal; the approximated coordinate is the one flag."
+   "researchNotes": "Third Middlewich candidate this run. Verified via CAMRA/camra.org.uk, Crewe Chronicle ('Popular Middlewich canal-side pub reopens'), catererlicensee.com/starpubs.co.uk (coverage of a six-month, c.£480,000 refurbishment and reopening) and hygienescore.co.uk (5/5 'Very Good' FSA rating): Big Lock, Webbs Lane, Middlewich CW10 9DN — a canal-side stack pub directly on the Trent & Mersey Canal's Big Lock, the only lock in Middlewich wide enough for two boats side by side; food served daily noon-9pm. Chain check, flagged honestly: trade press names the operator as Priory Inns North West, described in a 2024 trade piece as taking on this as its 10th site, all leased from Star Pubs & Bars (a pub-owning company that leases to tenant operators, the same tied-house structure already accepted in this file for Trust Inns/Robinsons). Ten sites is a larger local footprint than this file's usual 2-3-site small-sibling allowance — each pub keeps its own individual historic name and identity rather than a shared brand (no 'Priory Inns' signage or branding found anywhere), the same character already extended to the 7-pub Cheshire Cat group, but the scale here is real and worth the reviewer's own Gate 1 judgment rather than a unilateral call. Coordinates (53.195439/-2.447894) are the CW10 9DN postcode centroid, where multiple directory listings confirm 'Big Lock Inn, Webbs Lane' sits (doogal.co.uk/api.postcodes.io both unreachable this session). Reuses the existing COUNTRY PUB type. Moderate confidence — real, well-documented, recently refurbished, no closure signal; the ten-site tenancy footprint is the one flag genuinely worth the reviewer's own look. SENT TO PENDING REVIEW 2026-11-09 (curia-suggestion-review): independent re-check confirms the same picture — Priory Inns North West reached 10 individually-named leased sites by 2019-2020 (no current count found, so likely more today), each pub keeping its own distinct historic identity with no shared public branding, the same character this file has already extended to the 7-pub Cheshire Cat group but at a real, larger scale. Not a clean pass (bigger than this file's usual small-sibling allowance) and not a clean fail either (no recognisable high-street brand a member would spot walking in) — a genuine Gate 1 judgment call, not a currency or duplicate question a fresh search can settle. Left 'pending' here; see docs/data/pending-review-queue.json for the human-facing entry."
   }
  ]
 }

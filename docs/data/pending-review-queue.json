@@ -549,6 +549,28 @@
         ],
         "reason": "Madison Cooper built a Palmerston Street studio with room for fifteen other teachers inside it, not just herself — booked solid a fortnight ahead within weeks of opening, and the timetable has never really slowed since."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-09",
+      "reason": "A real, well-documented, recently-refurbished canal-side pub, but it's run by Priory Inns North West, a regional operator that reached 10 individually-named leased sites by 2019-2020 (likely more today) — bigger than this file's usual 2-3-site small-sibling allowance, though each pub keeps its own distinct identity with no shared public branding, the same character already extended to the 7-pub Cheshire Cat group. A genuine Gate 1 judgment call, not a currency or duplicate question.",
+      "researchNotes": "Independently re-verified 2026-11-09 (WebSearch): Big Lock, Webbs Lane, Middlewich CW10 9DN, confirmed via CAMRA, Crewe Chronicle and starpubs.co.uk as a real canal-side pub on the Trent & Mersey Canal's Big Lock, recently refurbished (c.£480,000, six-month closure, reopened), 5/5 FSA hygiene rating, food served daily. Trade press (catererlicensee.com, mca-insight.com, morningadvertiser.co.uk) confirms the operator is Priory Inns North West, a Warrington-based multiple operator that reached its 10th leased site (sources disagree on whether Big Lock itself was the 7th, 9th or 10th Cheshire/overall site, but agree the estate was at 10 by 2019-2020) under Star Pubs & Bars leases — no current 2026 count found, so the estate is plausibly larger now. No shared 'Priory Inns' branding or signage found anywhere; each site (The Gardeners, The White Hart, Big Lock, etc.) keeps its own individual historic name and identity, the same character this file has already extended to the 7-pub Cheshire Cat group — but 10+ sites is a real step beyond that precedent's scale. Hard rule 1's Gate 1 ('would a member be comfortable walking in') doesn't turn on tenancy structure alone, and a canal-side pub with its own name and history reads nothing like a recognisable high-street brand to a customer — but the scale here is large enough, and different enough in kind from a family-run pair, that this isn't a call to make unilaterally. No closure signal found either way.",
+      "payload": {
+        "name": "Big Lock",
+        "district": "middlewich",
+        "type": "COUNTRY PUB",
+        "spend": "££",
+        "lat": 53.195439,
+        "lon": -2.447894,
+        "base": 72,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "A two-level stack pub built for the boats before it was built for anyone else, standing right on the only lock in town wide enough to pass two narrowboats side by side — food runs noon to nine, and the balcony over the water fills first."
+      }
     }
   ]
 }
