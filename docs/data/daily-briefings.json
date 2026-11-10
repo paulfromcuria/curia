@@ -1346,6 +1346,68 @@
         }
       ],
       "createdAt": "2026-11-08T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-11-10",
+      "synced": false,
+      "title": "7 venues + Congleton (new Cheshire district) promoted; 2 sent for review; major pre-existing venue-promotion sync gap discovered (62 venues); closure audit clean",
+      "summary": "Step 1: Curia Command's pending_review collection was checked (ArtifactData 'query', status != 'pending') and had zero decided items to apply. Step 2/3: of the 24 entries marked 'pending' in venue-suggestions.json, 15 already had live, undecided docs/data/pending-review-queue.json entries from earlier runs (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table, Poachers Inn, Deuce, The Tennis Club Hale Barns, Cherry Tree, Marple Bookshop, Bollington Yoga) and were left untouched, per this job's own rule against re-deciding an item already waiting on a human. The remaining 9 (all 2026-11-09/11-10, from the Middlewich/Prestwich research runs) were independently re-verified fresh via WebSearch: 7 promoted straight to venues.json (Il Padrino, Middlewich — sibling of the already-live Holmes Chapel Don Alberto, well-corroborated, 5/5 hygiene; Four Priests Brewery Tap, Middlewich — seeded with occasional: true, since its real schedule is 'first weekend of the month plus August', not a normal weekly pattern; Middlewich Cricket Club and Sandbach Golf Club — amateur/members' sports clubs, Hard rule 1 inapplicable; Castle Park House and Gardens, Frodsham — council-run public park; Chin Chin, Prestwich — sibling of the already-live Elnecot, Ancoats; St Michael and All Angels Church, Middlewich — active parish church with real, current guided tours). 2 sent to pending-review-queue.json instead of promoted or rejected: Big Lock (Middlewich) — the candidate's own flagged ten-site Priory Inns tenancy checked out, but a fresh FindMyPub listing describes it as a current 'Tenancy opportunity', a real operator-status question search alone couldn't settle; The Kinderton (Middlewich) — a second, conflicting sale listing (Savills £825k vs. the candidate's own Colliers £1.6m) found on re-check, compounding rather than resolving the already-flagged conflicting CAMRA real-ale status. The sole pending district candidate, Congleton (Cheshire), was independently re-verified (Lion & Swan/Pecks, the Venetian Gothic Town Hall, Great British Life's own feature on the town's foodie reputation) and promoted into districts.json. Closure audit: today's rotating slice (dayOfYear 314, indices 166-170: Arcane/Deansgate, KLUB/Spinningfields, Portland Wine/Hale, Contemporary Six/Chinatown, K2 Karaoke/Chinatown) found no closure signal for any of the five on independent web search. Separately, and the most significant finding of this run: while independently re-verifying today's candidates against the real venues.json, discovered that of the 63 entries ever marked status 'promoted' anywhere in venue-suggestions.json's history, only 1 (Fire Station Social Cucina) actually exists in the real docs/data/venues.json. The other 62 — all carrying a 'RESOLVED 2026-10-12: confirmed live in venues.json (promoted via the real admin review pipeline, not this file)' note, from the large manual Curia Command backlog push described in this file's own 2026-10-12 entry — are not present in venues.json at all, despite being marked promoted and despite that backlog's own briefing claiming 162 venues were promoted that day. This is the same shape of problem as the already-known, already-flagged Lymm/Ramsbottom/Monton district-level gap (first noted 2026-10-24), but far larger in scope and not previously discovered. Every daily review run since 2026-10-12 has correctly promoted its own candidates straight to venues.json via git (spot-checked: The Pearl, Cuckoo, Gorge, Wallop, Welles & Cross, Four Priests, Holmes Chapel Cricket Club, Sandbach Market Hall, Beatin Rhythm Records all confirmed genuinely present) — the git-based pipeline itself is not broken; the gap is specific to that one 2026-10-12 manual admin-dashboard operation. Per this job's own standing rule for the Lymm/Ramsbottom/Monton case, this was NOT unilaterally fixed by re-promoting the 62 venues — their research is a month old and would need fresh Hard rule 1/closure re-verification before promotion, same as any other backlog candidate, and re-adding 62 venues in bulk based on monthlong-old notes isn't a call this job should make without a human decision on how it wants this handled. Flagged here, in docs/data/district-suggestions.json's own 2026-11-10 note, and worth a human's attention sooner rather than later given the scale (62 venues the admin dashboard likely believes are live and aren't).",
+      "items": [
+        {
+          "label": "Il Padrino (Middlewich)",
+          "detail": "promoted — Venetian dining room, sibling of Holmes Chapel's Don Alberto, 5/5 hygiene rating (10 Jul 2024), no closure signal"
+        },
+        {
+          "label": "Four Priests Brewery Tap (Middlewich)",
+          "detail": "promoted with occasional: true — confirmed real schedule is first weekend of the month plus August, not a normal weekly pattern"
+        },
+        {
+          "label": "Middlewich Cricket Club (Middlewich)",
+          "detail": "promoted — amateur club ground, Hard rule 1 inapplicable, real 2023 promotion history"
+        },
+        {
+          "label": "Sandbach Golf Club (Sandbach)",
+          "detail": "promoted — members' 9-hole course since 1925, active club website/membership pages"
+        },
+        {
+          "label": "Castle Park House and Gardens (Frodsham)",
+          "detail": "promoted — council-run Grade II historic park, distinct from the already-live Castle Park Arts Centre in the same grounds"
+        },
+        {
+          "label": "Chin Chin (Prestwich)",
+          "detail": "promoted — sibling of the already-live Elnecot (Ancoats), well-corroborated via licensing register and recent 2025 event coverage"
+        },
+        {
+          "label": "St Michael and All Angels Church (Middlewich)",
+          "detail": "promoted — Grade II*-listed active parish church, real and current free guided-tour offer"
+        },
+        {
+          "label": "Big Lock (Middlewich)",
+          "detail": "sent for review — a fresh 'Tenancy opportunity' listing raises a real operator-status question beyond the candidate's own flagged ten-site chain-scale concern"
+        },
+        {
+          "label": "The Kinderton (Middlewich)",
+          "detail": "sent for review — a second, conflicting sale-price listing found, compounding the candidate's own flagged conflicting CAMRA real-ale status"
+        },
+        {
+          "label": "Congleton (new Cheshire district)",
+          "detail": "promoted — genuine market town, Lion & Swan/Pecks, Venetian Gothic Town Hall, real and current foodie-destination coverage"
+        },
+        {
+          "label": "15 longer-pending candidates already in pending-review-queue.json",
+          "detail": "left untouched — each already has a live, undecided entry from an earlier run, not re-decided"
+        },
+        {
+          "label": "Closure audit (Deansgate/Spinningfields/Hale/Chinatown slice)",
+          "detail": "no closures found among Arcane, KLUB, Portland Wine, Contemporary Six, K2 Karaoke"
+        },
+        {
+          "label": "62-venue promotion sync-gap discovery (2026-10-12 Curia Command backlog)",
+          "detail": "flagged, not fixed — 62 venues marked 'promoted' in venue-suggestions.json since the 2026-10-12 manual backlog push do not actually exist in docs/data/venues.json; needs a human decision on whether/how to re-verify and re-promote, same precedent as the Lymm/Ramsbottom/Monton district gap"
+        }
+      ],
+      "createdAt": "2026-11-10T00:00:00Z"
     }
   ]
 }

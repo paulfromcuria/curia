@@ -549,6 +549,50 @@
         ],
         "reason": "Madison Cooper built a Palmerston Street studio with room for fifteen other teachers inside it, not just herself — booked solid a fortnight ahead within weeks of opening, and the timetable has never really slowed since."
       }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-10",
+      "reason": "The candidate's own flagged ten-site Priory Inns/Star Pubs & Bars tenancy checks out and reads as a tied-house pattern already accepted elsewhere in this file, but a fresh FindMyPub listing describes the pub as a current 'Tenancy opportunity' — a real question about who's actually running it right now, not just a chain-scale judgment call.",
+      "researchNotes": "Independently re-verified 2026-11-10 (WebSearch): the original candidate's own sourcing (CAMRA, Webbs Lane, Middlewich CW10 9DN, a six-month ~£480,000 refurbishment and reopening, 5/5 FSA hygiene rating dated 16 December 2025) checked out. Priory Inns North West taking this on as its tenth site, all leased from Star Pubs & Bars, is confirmed via cateringtoday.co.uk and catererlicensee.com — a tied-house structure, each pub keeping its own individual name/identity with no shared branding found, the same pattern already accepted elsewhere in this file for Trust Inns/Robinsons and the 7-pub Cheshire Cat group. But a FindMyPub listing for this address describes it as a 'Tenancy opportunity' — language that typically means a pub company is actively seeking a new tenant, i.e. the lease may currently be vacant or between operators, a fresh operational-status question the original candidate's own ten-site-scale flag didn't raise and that search alone couldn't resolve either way. No closure signal (the pub isn't shut, per the hygiene record and refurbishment coverage) — this is a 'who's actually running it' question, not a 'is it open' one.",
+      "payload": {
+        "name": "Big Lock",
+        "district": "middlewich",
+        "type": "COUNTRY PUB",
+        "spend": "££",
+        "lat": 53.1954,
+        "lon": -2.4479,
+        "base": 72,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "A two-level stack pub built for the boats before it was built for anyone else, standing right on the only lock in town wide enough to pass two narrowboats side by side — food runs noon to nine, and the balcony over the water fills first."
+      }
+    },
+    {
+      "itemType": "add_venue",
+      "status": "pending",
+      "syncedToPortal": false,
+      "proposedDate": "2026-11-10",
+      "reason": "A second, conflicting sale listing (Savills, £825,000) was found beyond the one the candidate already flagged (Colliers, £1.6m) — two different agents, two different prices, compounding the candidate's own flagged conflicting CAMRA real-ale status rather than resolving it.",
+      "researchNotes": "Independently re-verified 2026-11-10 (WebSearch): the original candidate's own flagged conflict (one CAMRA entry marking the pub 'closed long term' with real ale unavailable, a second, more recently surveyed entry listing live cask ales and firm hours) was not resolved by fresh search. On top of it, a Savills-listed sale (via thebusinessdesk.com/hotelowner.co.uk) gives the freehold a £825,000 guide price, materially different from — and undated relative to — the Crewe Guardian/Colliers £1.6m listing the original candidate cited. Two listings from two different agents at two different prices, with no way to tell from search alone which is current or whether either has completed, reads as genuine ownership/operational churn rather than a stale duplicate that can be explained away. Kinderton Street, Middlewich CW10 0JE; a 10-room hotel with its own bar and restaurant on the Trent & Mersey Canal. No chain or sibling-site concern either way — the open question is purely who owns/runs it and under what trading status right now.",
+      "payload": {
+        "name": "The Kinderton",
+        "district": "middlewich",
+        "type": "GASTROPUB",
+        "spend": "£££",
+        "lat": 53.192873,
+        "lon": -2.441745,
+        "base": 66,
+        "bands": [
+          "afternoon",
+          "evening"
+        ],
+        "reason": "Ten rooms upstairs and a towpath-facing bar below that's outlasted the 'for sale' board propped against its own front wall — a working canalside inn kept by one owner for five years, not a staged one."
+      }
     }
   ]
 }
