@@ -1346,6 +1346,80 @@
         }
       ],
       "createdAt": "2026-11-08T00:00:00Z"
+    },
+    {
+      "agentType": "review",
+      "date": "2026-11-11",
+      "synced": false,
+      "title": "10 venues + 2 new Cheshire districts promoted; 2 sent for review; 15 longer-pending items left untouched; closure audit clean",
+      "summary": "Step 1: Curia Command's pending_review collection was checked (ArtifactData 'query', status != 'pending') and had zero decided items to apply. Step 2/3: independently re-verified the 12 pending venue candidates with no live pending-review-queue.json entry yet, plus the 2 pending district candidates (Congleton, Disley) — fresh WebSearch for each, not just the prior researchNotes. Promoted 10 straight to venues.json: Il Padrino and Four Priests Brewery Tap give Middlewich its first Eat/Drink picks beyond last run's batch (Il Padrino's Don Alberto sibling link independently re-confirmed; Four Priests Brewery Tap promoted with occasional:true set, since its real schedule is first-weekend-of-the-month plus August weekends, not a daily/weekly pattern); Middlewich Cricket Club and St Michael and All Angels Church round out Middlewich's Do category; Cheshire Clay Studio also promoted for Middlewich after fresh search found stronger current-trading evidence (2026-dated class listings) than the original candidate had found. Sandbach Golf Club and Poynton Players Theatre promoted as genuine members'/charity clubs. Castle Park House and Gardens (Frodsham, a free council-run park distinct from the already-live Castle Park Arts Centre in the same grounds), Chin Chin (Prestwich, a real Elnecot sibling — fresh search also surfaced a third sibling, Roast Master, under the same chef, flagged for awareness but not disqualifying) and Creative Calm Yoga & Therapies (Prestwich) complete the ten. Congleton and Disley both promoted into districts.json; Disley's editorial copy was corrected first — its 'four pubs on Buxton Old Road' claim didn't hold up (one of the four, Frankie's Wine Bar, closed permanently in July 2025, and two others sit on different streets), so it was promoted with an accurate, unspecific rewrite rather than rejected outright, since the district's real distinctiveness (Lyme Park, a genuine current pub scene) was never in question. Sent 2 to pending-review-queue.json rather than guessing: Big Lock (Middlewich) — a real canal-side pub, but independently confirmed as the 10th site of a real regional pub-operating group (Priory Inns North West), a bigger chain-operator footprint than this catalogue has knowingly accepted anywhere else, even though each site keeps its own individual name; The Kinderton (Middlewich) — two CAMRA survey entries for the same pub flatly disagree on whether it currently pours real ale at all, alongside a genuine, unresolved sale listing. Fifteen longer-pending candidates already sitting in docs/data/pending-review-queue.json from the 2026-10-18 through 2026-11-08 runs (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table, Poachers Inn, Deuce, The Tennis Club Hale Barns, Cherry Tree, Marple Bookshop, Bollington Yoga) were deliberately left untouched — none had decisive new evidence this run, per this job's own 'don't re-decide an item already waiting on a human' rule. Closure audit (indices 171-175 of the pre-promotion venue array: Pip/Deansgate, Portfolio/Spinningfields, HARCOURT/Altrincham, Butchers Bar/Hale, Neki/Knutsford) found no closure signal for any of the five.",
+      "items": [
+        {
+          "label": "Il Padrino (Middlewich)",
+          "detail": "promoted — genuine 2-site sibling of Don Alberto, Holmes Chapel, independently re-confirmed via fresh search"
+        },
+        {
+          "label": "Four Priests Brewery Tap (Middlewich)",
+          "detail": "promoted with occasional:true — a first-weekend-of-month-plus-August schedule, not a daily/weekly one; distinct from the already-live Four Priests bar in Sandbach"
+        },
+        {
+          "label": "Middlewich Cricket Club (Middlewich)",
+          "detail": "promoted — genuine amateur cricket club, same precedent as every other club venue in the catalogue"
+        },
+        {
+          "label": "St Michael and All Angels Church (Middlewich)",
+          "detail": "promoted — active Anglican parish church with a real, current free guided-tour offer"
+        },
+        {
+          "label": "Cheshire Clay Studio (Middlewich)",
+          "detail": "promoted — fresh search found current 2026-dated class bookings, stronger evidence than the original candidate's own research"
+        },
+        {
+          "label": "Sandbach Golf Club (Sandbach)",
+          "detail": "promoted — members' 9-hole club on the same site since 1925, single-site"
+        },
+        {
+          "label": "Poynton Players Theatre (Poynton)",
+          "detail": "promoted — registered-charity am-dram company with its own theatre and a dated 2026 event"
+        },
+        {
+          "label": "Castle Park House and Gardens (Frodsham)",
+          "detail": "promoted — free council-run historic park, distinct from the already-live Castle Park Arts Centre in the same grounds"
+        },
+        {
+          "label": "Chin Chin (Prestwich)",
+          "detail": "promoted — real Elnecot sibling; fresh search also found a third sibling (Roast Master) under the same chef, noted but not disqualifying"
+        },
+        {
+          "label": "Creative Calm Yoga & Therapies (Prestwich)",
+          "detail": "promoted — multiple current independent sources including an NHS directory listing, no closure signal"
+        },
+        {
+          "label": "Congleton (new Cheshire district)",
+          "detail": "promoted — genuine Cheshire East market town, independent food scene re-confirmed via fresh search"
+        },
+        {
+          "label": "Disley (new Cheshire district)",
+          "detail": "promoted with a corrected editorialDescription — the real Lyme Park/pub-scene identity held up, but its 'four pubs on Buxton Old Road' detail didn't (one, Frankie's Wine Bar, closed July 2025)"
+        },
+        {
+          "label": "Big Lock (Middlewich)",
+          "detail": "sent for review — confirmed as the 10th site of a real regional pub group (Priory Inns North West), a bigger chain-operator footprint than this catalogue has otherwise accepted"
+        },
+        {
+          "label": "The Kinderton (Middlewich)",
+          "detail": "sent for review — two CAMRA entries for the same pub disagree on whether it currently serves real ale at all, alongside an unresolved sale listing"
+        },
+        {
+          "label": "15 longer-pending candidates (Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table, Poachers Inn, Deuce, The Tennis Club Hale Barns, Cherry Tree, Marple Bookshop, Bollington Yoga)",
+          "detail": "left untouched — each already has a live, undecided pending-review-queue.json entry from an earlier run, not re-decided"
+        },
+        {
+          "label": "Closure audit (Deansgate/Spinningfields/Altrincham/Hale/Knutsford slice)",
+          "detail": "no closures found among Pip, Portfolio, HARCOURT, Butchers Bar, Neki"
+        }
+      ],
+      "createdAt": "2026-11-11T00:00:00Z"
     }
   ]
 }

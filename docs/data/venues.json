@@ -12512,8 +12512,148 @@
     "late"
    ],
    "reason": "Six hand pumps and ten keg lines behind a Victorian butcher's shopfront on Welles Street, poured by the Middlewich brewery named for the same stone crosses standing a few hundred yards away."
+  },
+  {
+   "name": "Il Padrino",
+   "district": "middlewich",
+   "type": "ITALIAN RESTAURANT",
+   "spend": "££",
+   "lat": 53.1929,
+   "lon": -2.4476,
+   "base": 74,
+   "bands": [
+    "evening"
+   ],
+   "reason": "A former cinema on Wheelock Street turned Venetian dining room by the team behind Holmes Chapel's Don Alberto — the second act, not a chain's idea of a second site."
+  },
+  {
+   "name": "Four Priests Brewery Tap",
+   "district": "middlewich",
+   "type": "BREWERY TAP",
+   "spend": "£",
+   "lat": 53.1969,
+   "lon": -2.449,
+   "base": 60,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "The tanks themselves double as the seating most first weekends of the month — cask straight from source, the same brewery that supplies the bar already poured a few miles south in Sandbach.",
+   "occasional": true
+  },
+  {
+   "name": "Middlewich Cricket Club",
+   "district": "middlewich",
+   "type": "CRICKET CLUB",
+   "spend": "£",
+   "lat": 53.1985,
+   "lon": -2.452,
+   "base": 54,
+   "bands": [
+    "afternoon"
+   ],
+   "reason": "Haddon Field has had a scorebox longer than most of the town's pubs have had a beer garden — promotion out of Division Two in 2023 came the slow way, one league season at a time."
+  },
+  {
+   "name": "St Michael and All Angels Church",
+   "district": "middlewich",
+   "type": "HISTORIC CHURCH",
+   "spend": "£",
+   "lat": 53.192438,
+   "lon": -2.445079,
+   "base": 52,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "The sandstone still carries real scars from a Civil War skirmish fought two streets away in 1645, and the free guided tour — run by a local historian who's done this for years, not a script — points out exactly where."
+  },
+  {
+   "name": "Cheshire Clay Studio",
+   "district": "middlewich",
+   "type": "POTTERY STUDIO",
+   "spend": "££",
+   "lat": 53.2203,
+   "lon": -2.4139,
+   "base": 58,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Behind Lowe's Farm Shop's goat pens, 1,400 square feet of wheels and kiln room that's been teaching Middlewich to throw a decent pot since 2018 — membership and one-off sessions both, nothing about it a shopping-centre workshop."
+  },
+  {
+   "name": "Sandbach Golf Club",
+   "district": "sandbach",
+   "type": "GOLF CLUB",
+   "spend": "£££",
+   "lat": 53.153,
+   "lon": -2.374,
+   "base": 66,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "Nine holes on the Cheshire Plain off Middlewich Road since 1925 — a parkland course that has never once felt the need to build the back nine to make its case."
+  },
+  {
+   "name": "Castle Park House and Gardens",
+   "district": "frodsham",
+   "type": "TOWN PARK",
+   "spend": "£",
+   "lat": 53.2958,
+   "lon": -2.7232,
+   "base": 60,
+   "bands": [
+    "morning",
+    "afternoon"
+   ],
+   "reason": "A Georgian walled garden, a rose walk and a bowling green sitting free and open behind the Arts Centre's gallery walls — the grounds a Frodsham brewing family built, kept up long after the family itself left."
+  },
+  {
+   "name": "Chin Chin",
+   "district": "prestwich",
+   "type": "WINE BAR",
+   "spend": "££",
+   "lat": 53.5325,
+   "lon": -2.2838,
+   "base": 72,
+   "bands": [
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Elnecot's wine team took the old Dokes pizza unit further up Bury New Road and filled it with low-intervention bottles and a roast-dinner sandwich nobody asked for but everyone now orders — Prestwich's answer to its own cocktail strip, minus the cocktails."
+  },
+  {
+   "name": "Creative Calm Yoga & Therapies",
+   "district": "prestwich",
+   "type": "WELLNESS STUDIO",
+   "spend": "££",
+   "lat": 53.53061,
+   "lon": -2.283381,
+   "base": 60,
+   "bands": [
+    "morning",
+    "afternoon",
+    "evening"
+   ],
+   "reason": "Phil Armstrong built Bury New Road's first yoga studio into a real local hub — half a dozen teachers, sound healers and holistic therapists on one timetable, booked under one roof that isn't anybody's franchise."
+  },
+  {
+   "name": "Poynton Players Theatre",
+   "district": "poynton",
+   "type": "PERFORMING ARTS",
+   "spend": "£",
+   "lat": 53.348,
+   "lon": -2.1192,
+   "base": 62,
+   "bands": [
+    "evening"
+   ],
+   "reason": "A registered-charity am-dram company running its own theatre off Georges Road on nothing but ticket sales — four productions a year, the set built by the cast, and no franchise anywhere near the box office."
   }
  ],
+ "_dailyReviewPromotionSource20261111": "10 venues promoted 2026-11-11 by curia-suggestion-review, independently re-verified against the 12 candidates still pending with no live pending-review-queue.json entry yet (the other 15 pending suggestions as of today already have a live, undecided pending-review-queue.json entry from an 2026-10-18-through-2026-11-08 run and were deliberately left untouched, per this job's own 'don't re-decide an item already waiting on a human' rule). Promoted: Il Padrino (Middlewich, 33 Wheelock Street — independently re-confirmed via WebSearch as the genuine 2-site sibling of Don Alberto, Holmes Chapel, same owners Alberto and Claire; no third site found); Four Priests Brewery Tap (Middlewich — the brewery's own production-site tap, distinct from the already-live Four Priests bar in Sandbach; promoted with `occasional: true` set, a judgment call this candidate's own research explicitly flagged for the reviewer — a first-weekend-of-the-month-plus-August-weekends schedule doesn't repeat daily or weekly, the same `occasional` treatment already given to Wilmslow Artisan Market/Macclesfield Treacle Market/Sandbach Makers Market); Middlewich Cricket Club, Sandbach Golf Club, Poynton Players Theatre (all genuine amateur/members'/charity clubs, passing Hard rule 1 cleanly by construction, same precedent as every other club/am-dram venue already in this catalogue); St Michael and All Angels Church (Middlewich, a place of worship with a real, current, named free guided-tour offer); Castle Park House and Gardens (Frodsham, a free council-run historic park, distinct from the already-live Castle Park Arts Centre in the same grounds); Cheshire Clay Studio (Middlewich — independently re-confirmed via WebSearch, which found current 2026-dated class listings running as recently as this past June, a stronger currency signal than the original candidate's own research had); Chin Chin (Prestwich — independently re-confirmed via WebSearch as a genuine sibling of Elnecot, Ancoats; the same search also surfaced a third sibling under the same chef, Michael Clay — Roast Master — not mentioned in the original candidate's research, flagged here for awareness rather than treated as disqualifying, since a 3-site single-chef-led group stays within the small-sibling-group register already extended elsewhere in this catalogue, e.g. Dukes Hospitality's 5 Macclesfield bars); Creative Calm Yoga & Therapies (Prestwich, independently re-confirmed via its own multiple current listings including an NHS directory entry). Two candidates went to docs/data/pending-review-queue.json instead of a promote/reject guess: Big Lock (Middlewich) — independent WebSearch found the operator, Priory Inns North West, is a real 10-site North West pub group (Star Pubs & Bars' third site with that operator, confirmed via catering-trade press), a materially bigger chain-operator footprint than any precedent this catalogue has knowingly accepted (the prior ceiling was Cheshire Cat's 7 pubs) — a genuine Gate 1 judgment call, not a clean pass; The Kinderton (Middlewich) — two CAMRA survey entries for the same pub flatly disagree on whether it currently pours real ale at all, sitting alongside a genuine sale listing, a real current-operating-status conflict this review couldn't resolve from search alone. No chain, duplicate or coordinate-sanity concern found for any of the ten promoted. Curia Command's pending_review collection was checked via ArtifactData's 'query' action (the real read-only equivalent this execution environment exposes) and had zero decided items to apply this run. District-suggestions.json: Congleton (suggestedDate 2026-11-10) and Disley (suggestedDate 2026-11-11) were independently re-verified and promoted into docs/data/districts.json today — see that file's own note for detail, including a factual correction made to Disley's editorial copy (its 'four pubs on Buxton Old Road' claim didn't hold up: Frankie's Wine Bar, one of the four, closed permanently 20 July 2025, and two of the others sit on different streets entirely per fresh search) — the district's own real identity (Lyme Park, a genuine current pub scene including Disley's first micro-pub) stood up fine regardless, so this was a light-touch copy correction, not a rejection. The closure-audit rotating slice for 2026-11-11 (dayOfYear 315, N=702 pre-promotion venues, indices (315*5)%702=171 through 175: Pip/Deansgate, Portfolio/Spinningfields, HARCOURT/Altrincham, Butchers Bar/Hale, Neki/Knutsford) found no closure signal for any of the five on independent web search — Portfolio has a positive current signal (a SquareMeal listing advertising winemaker-dinner events dated 7-8 Nov 2026), and the other four returned no 'permanently closed' marker and nothing contradicting continued trading, though none turned up a dated 2026 review either.",
  "_dailyReviewPromotionSource20261106": "8 venues promoted 2026-11-06 by curia-suggestion-review, independently re-verified against the 8 candidates with a 2026-11-06 suggestedDate — the first real venues for both Sandbach (promoted into districts.json 2026-11-05 with none seeded) and the second Prestwich batch: Sandbach Market Hall (council-run, Grade II-listed Town Hall, Thursday/Saturday trading, re-confirmed via sandbach.gov.uk's own pages and britishlistedbuildings.co.uk — same civic-market-hall precedent as Stockport/Altrincham/Northwich/Knutsford), YouSpa (11 The Commons, address independently re-confirmed via Fresha; single-site, no chain signal), Sandbach Makers Market (re-confirmed via sandbach.gov.uk's own markets page as a genuine second-Saturday monthly producers'/makers' market on the Cobbles, explicitly flagged there as privately run, not council-organised — occasional: true correctly set, same precedent as Macclesfield Treacle Market/Frodsham Artisan Market), Bar Six Sandbach (19 Market Square — independently re-confirmed via CAMRA/OpenTable as the real Sandbach site of the same father-and-son small group whose Nantwich sibling is already live in this file, matching the 2026-09-15 promotion note's own finding that Bar Six is a genuine 3-site Sandbach/Nantwich/Knutsford family group; named 'Bar Six Sandbach' to avoid an exact-name collision with the existing Nantwich entry, same disambiguation precedent as Contemporary Six Hale/The Bubble Room Bramhall), Creative Indian Kitchen (3-4 Georges Walk — independently re-confirmed via OpenTable's 222-review volume as the current trading name for the former K2H, same ownership, no second site), Beatin Rhythm Records (Bank House Studios, Warwick Street — independently re-confirmed via the British Record Shop Archive and Soul Source forum coverage, single site, no chain signal), and Anatolian Grill (459 Bury New Road — independently re-confirmed via its own site/Quandoo as trading continuously since 1987 under chef-owner Duran Selvi, high review volume; a possible Chorlton-sibling detail in one secondary source remains unconfirmed on fresh search too, flagged but not load-bearing since the reason copy itself never makes that claim and a 2-site pair would be within precedent regardless). Cubar Restaurant & Bar (45 High Street) needed one extra re-verification pass beyond the original candidate's own Dec-2024-dated sourcing: fresh search specifically for 2025/2026-dated evidence turned up OpenTable reviews dated 30 Dec 2025, 14 Feb 2026 and 7 Mar 2026 plus a 20 Feb 2026 'Very Good' food-hygiene inspection — resolving what would otherwise have been the same stale-sourcing shape sent to pending review elsewhere in this file, so promoted rather than queued. No chain, duplicate or coordinate-sanity concern found for any of the eight. Twelve longer-pending candidates with live, undecided docs/data/pending-review-queue.json entries from the 2026-10-18 through 2026-11-05 runs (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop, Northern Makes Gallery, Mura Ma, Brew & Tucker, Bevi, Queens Head, Cork of the North, The Fisherman's Table, Poachers Inn, Deuce, The Tennis Club Hale Barns) were deliberately left untouched this run, per this job's own 'don't re-decide an item already waiting on a human' rule — none of today's research surfaced new decisive evidence for any of them. Curia Command's pending_review collection had zero decided items to apply this run (checked ahead of this run per the scheduler's own note; confirmed empty). The closure-audit rotating slice for 2026-11-06 (dayOfYear 310, indices 178-182 of the pre-promotion 686-venue array: The Edge Theatre & Arts Centre/Chorlton, The Chorlton Tap/Chorlton, Bar San Juan/Chorlton, White Peak Alpaca Farm/Mobberley, Inch Arts/Altrincham) found no closure signal for any of the five on independent web search — all five show current 2026-dated activity (an August 2026 15th-anniversary event, a January 2026 CAMRA snapshot, July 2026 OpenTable reviews) or no negative signal; nothing written to pending-review-queue.json for it, per this rule's own 'silence is the normal outcome' standard.",
  "_dailyReviewPromotionSource20261103": "3 venues promoted 2026-11-03 by curia-suggestion-review, independently re-verified against the 4 Holmes Chapel candidates with a 2026-11-03 suggestedDate (the district's first-ever venues, promoted into districts.json the day before, 2026-11-02, with none seeded yet): Jodrell Bank Discovery Centre (Bomish Lane, Lower Withington SK11 9DL — operated directly by the University of Manchester, independently re-confirmed via fresh search against jodrellbank.net/events.manchester.ac.uk/third-party visitor guides, coordinates matching the Lovell Telescope's well-documented real location; not a chain by any definition) and W. Mandeville (2 Macclesfield Road, Holmes Chapel CW4 7NE — family bakery/grocer trading since 1900, independently re-confirmed via a food-hygiene-register listing, no second site found) both promoted cleanly, high confidence. Beer Emporium Bottle Bank (24-26 London Road, Holmes Chapel CW4 7AJ) also promoted: independently re-confirmed via CAMRA/FSA/Wanderlog, and CAMRA's own listing explicitly flags not to confuse it with the unrelated, separately-owned Beer Emporium venues in Sandbach and Bristol, which resolves the chain-footprint question cleanly rather than leaving it open. The fourth candidate, Miola (40 London Road, Holmes Chapel — same postcode as Beer Emporium Bottle Bank), was NOT promoted: the original candidate's own research found one Sandbach sibling (a clean, in-precedent 2-site pair), but this run's independent re-check found aggregator listings suggesting a second, distinct Sandbach address (Abbeyfields/Lodge Road CW11 3HD as well as a separately-listed 216 Middlewich Road CW11 3EJ) alongside the Holmes Chapel site — a possible 3-site footprint rather than the 2-site pair originally described, which a follow-up search could neither confirm nor rule out as duplicate/stale directory noise for the same single Sandbach site. Left pending in docs/data/venue-suggestions.json; sent to docs/data/pending-review-queue.json for a human call rather than guessed at either way. Curia Command's pending_review collection was checked via ArtifactData's read-only 'query' action (the real equivalent this execution environment exposes) and had zero decided items to apply. The closure-audit rotating slice for 2026-11-03 (dayOfYear 307, indices 201-205: En Lefko/Perissa-Perivolos, Tranquilo/Perissa-Perivolos, The Beach Bar/Perissa-Perivolos, Theros Wave Bar/Perissa-Perivolos, Enigma Club/Fira) found no closure signal for any of the five on independent web search — all five show live, current listings and reviews, with 'currently closed' labels on some aggregators reading as normal daily/seasonal opening-hours status rather than a permanent closure.",
  "_dailyReviewPromotionSource20261030": "5 venues promoted 2026-10-30 by curia-suggestion-review, independently re-verified against the 8 candidates with a 2026-10-30 suggestedDate (4 of them the district's first-ever venues): Colourfield Gallery, Vinehop, Cofano Caffé and The Acoustic Lounge give Poynton (promoted into districts.json the day before, 2026-10-29, with zero venues of its own) its first real catalogue entries — all four independently re-confirmed single-site via fresh web search (Confidentials/Northern Soul for the gallery; CAMRA/OpenTable for Vinehop, whose 'Stockport' address on some OpenTable mirrors is the same SK12 postcode mislabelled, not a second site; Manchester's Finest/a March-2025-dated FSA hygiene record for Cofano Caffé; a forward-dated Aug-2026 Ents24 listing plus a Poynton Town Council festival form naming Brian Eason as contact for The Acoustic Lounge) — no chain or closure signal for any of the four. Cock & Pheasant (Bollington) independently re-confirmed via OpenTable (4.7/41) and a Historic England listed-building geocode, its own current description explicitly 'a newly independent Pub' (i.e. recently left pub-company operation) — a positive signal against chain concern, not just a neutral one. Three candidates were genuinely uncertain rather than a clean promote/reject and went to pending-review-queue.json instead: Queens Head (Frodsham) — the candidate's own flagged freehold-ownership question turned out to understate the real issue, since a Stonegate Pub Company (the UK's largest pub company) press item describes this specific pub as being owned and operated by Stonegate, a materially bigger chain-operator concern than the stale 'Flock Inns' freehold record the original research surfaced, though the press item is itself undated and may predate a change back to independent operation (the same pattern Cock & Pheasant, researched the same run, shows really happening to a different Cheshire pub); Cork of the North (Sale) — the real original-site-before-the-Heaton-Moor-sibling story checks out (the already-live Heaton Moor entry's own reason text independently corroborates it), but a Trip.com snapshot shows the business as currently closed and no review independently dated to 2025/2026 was found either; The Fisherman's Table (Marple) — real 2-site sibling pair (Poulton-le-Fylde) within this file's established precedent, but an undated Blacks Business Brokers for-sale listing plus no independently-dated 2025/2026 review (latest found: a Sept 2024 Confidentials review) is the same for-sale-plus-dating-gap shape this job has already sent to pending review elsewhere (The Mews Bar and Charcuterie, Fold Bistro & Bottle Shop) rather than guessed at. Six longer-pending candidates with live, undecided docs/data/pending-review-queue.json entries from the 2026-10-24/26/27/28 runs (The Mews Bar and Charcuterie, Deansgate; Fold Bistro & Bottle Shop and Mura Ma, both Marple; Northern Makes Gallery, Bollington; Brew & Tucker, Frodsham; Bevi, Marple) were deliberately left untouched this run, per this job's own 'don't re-decide an item already waiting on a human' rule. Curia Command's pending_review collection was checked via a read-only query (ArtifactData, action 'query' — the real read-only equivalent this execution environment exposes, not the brief's literal 'read_db' example) and had zero decided items to apply. The closure-audit rotating slice (indices 217-221: Sparkling Sunset/Oia, Lioyerma Lounge Cafe Pool Bar/Oia, Astra Suites Pool Bar/Imerovigli, Buddha-Bar Beach Sunset Lounge/Imerovigli, Domaine Sigalas/Oia) found no closure signal for any of the five on independent web search — Domaine Sigalas has a genuine Nov 2025 majority-ownership change (Kir-Yianni) but continues trading with 2026-dated reviews, an ownership change rather than a closure.",
