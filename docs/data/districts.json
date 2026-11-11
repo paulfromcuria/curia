@@ -550,6 +550,28 @@
    "editorialDescription": "A former mill town on the edge of the Peak District that calls itself the Happy Valley — a two-mile high street of bakers, butchers and more pubs than a town this size has any business supporting, with White Nancy's odd Waterloo-memorial folly keeping watch from Kerridge Hill above it."
   },
   {
+   "id": "congleton",
+   "name": "Congleton",
+   "metro": "cheshire",
+   "lat": 53.1631,
+   "lon": -2.2149,
+   "base": 54,
+   "kind": "county",
+   "accentColor": "#7A4F5C",
+   "editorialDescription": "A silk town before it was anything else, and still one of the few Cheshire high streets that hasn't surrendered its centre to the retail park on the edge of town — a Venetian Gothic town hall presiding over a market that's run since the Georgians, and a food scene the local press has only just started calling a destination in its own right."
+  },
+  {
+   "id": "disley",
+   "name": "Disley",
+   "metro": "cheshire",
+   "lat": 53.3581,
+   "lon": -2.0377,
+   "base": 50,
+   "kind": "county",
+   "accentColor": "#5C6B45",
+   "editorialDescription": "The last village before the Peak District climbs properly away, built around the National Trust's Lyme Park — a Palladian front, a working deer park, and the lake the BBC used for Mr Darcy's dripping shirt in 1995. A handful of pubs, including the village's first micro-pub, keep the custom once the house tour lets out."
+  },
+  {
    "id": "hale-barns",
    "name": "Hale Barns",
    "metro": "cheshire",
